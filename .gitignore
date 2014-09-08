@@ -9,14 +9,13 @@
 !.gitignore
 
 !README.md
-
-!Assets/Editor/*.cs
-
-!Assets/Editor/*.cs.meta
-!Assets/Scripts/*.cs
-
-!Assets/Scripts/*.cs.meta
-!Assets/Resources/*.cs
-
-!Assets/Resources/*.cs.meta
 !ProjectSettings/*.asset
+
+## For the love of god only commit files you have made
+## Do not commit plugins or external code - external code should be managed by the svn
+!*cs
+!*cs.meta
+
+## Attempting to explicitly ignore Plugins folder
+Assets/Plugins
+Assets/Plugins/*
