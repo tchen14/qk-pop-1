@@ -1,43 +1,17 @@
-#############
-## OS files
-#############
+## Ignore all
 
-# Windows image file caches
-Thumbs.db
-ehthumbs.db
-
-# Folder config file
-Desktop.ini
-
-# Recycle Bin used on file shares
-$RECYCLE.BIN/
-
-# Mac
-.DS_Store
-
-####################
-## Generated files
-####################
+*
 
 
-## Assembly-CSharp-*
-*.csproj
-*.suo
-*.sln.docstates
-*.pidb
-*.sln
-*.unityproj
-*.user
-*.userprefs
 
-##########################
-## Unity generated files - partially redundant to above, if you need to be more discriminating
-##########################
+## Don't ignore the following
 
-# ONLY ignore library if using meta files (in EditorSettings.asset)
-/Library
-/Temp
+!.gitignore
 
-Assembly-CSharp*.csproj
-Assembly-UnityScript*.unityproj
-Unity3D*.sln
+!README.md
+
+!*.cs
+
+!*.cs.meta
+
+!ProjectSettings/*.asset
