@@ -10,12 +10,13 @@
 
 !README.md
 
-!*.cs
+!Assets/Editor/*.cs
 
-!*.cs.meta
+!Assets/Editor/*.cs.meta
+!Assets/Scripts/*.cs
 
+!Assets/Scripts/*.cs.meta
+!Assets/Resources/*.cs
+
+!Assets/Resources/*.cs.meta
 !ProjectSettings/*.asset
-
-## Explicitly ignore the following:
-!Assets/Plugins
-!Assets/Plugins/*
