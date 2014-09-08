@@ -19,3 +19,7 @@
 ## Attempting to explicitly ignore Plugins folder
 Assets/Plugins
 Assets/Plugins/*
+
+## SourceTree specific file ignores
+Assets/Editor/GoDummyPathEditor.cs
+Assets/Editor/GoDummyPathEditor.cs.meta
