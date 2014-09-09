@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class MenuManager : MonoBehaviour {
+public class PoPSceneManager : SceneManager {
 
 	// Use this for initialization
 	void Start () {

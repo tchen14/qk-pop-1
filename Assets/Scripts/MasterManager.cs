@@ -1,15 +1,24 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
-public class MasterManager : MonoBehaviour {
+public sealed class MasterManager{
+	//sealed attribute prevents other classes from inheriting this class
 
-	// Use this for initialization
-	void Start () {
+	#region singletonEnforcement 
+	private static readonly MasterManager instance = new MasterManager();
+	//readonly keyword modifier prevents variable from being writen except on declaration
 	
+	public static MasterManager Instance{
+		get {
+			return instance;
+		}
 	}
-	
-	// Update is called once per frame
-	void Update () {
-	
+	#endregion
+
+	public static Dictionary<string,bool> scenes = new Dictionary<string,bool>();
+	private MasterManager(){
+		MasterManager.scenes.Add ("menu", true);
+		MasterManager.scenes.Add ("game", false);
 	}
 }
