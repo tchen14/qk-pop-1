@@ -1,7 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
+using SimpleJSON;
 
-public class PoPSceneManager : SceneManager
+public class SaveManager : MonoBehaviour
 {
 
 	// Use this for initialization
@@ -13,6 +14,6 @@ public class PoPSceneManager : SceneManager
 	// Update is called once per frame
 	void Update()
 	{
-	
+		
 	}
 }
