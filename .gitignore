@@ -16,10 +16,16 @@
 !*cs
 !*cs.meta
 
-## Attempting to explicitly ignore Plugins folder
+## Explicitly ignore specific folders and files below
+
+## Plugins folder
 Assets/Plugins
 Assets/Plugins/*
 
-## SourceTree specific file ignores
+## Scaleform folder
+Assets/Scaleform
+Assets/Scaleform/*
+
+## Other
 Assets/Editor/GoDummyPathEditor.cs
 Assets/Editor/GoDummyPathEditor.cs.meta
