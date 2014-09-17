@@ -13,8 +13,8 @@
 
 ## For the love of god only commit files you have made
 ## Do not commit plugins or external code - external code should be managed by the svn
-!*cs
-!*cs.meta
+!*.cs
+!*.cs.meta
 
 ## Explicitly ignore specific folders and files below
 
