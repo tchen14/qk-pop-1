@@ -66,14 +66,22 @@ public class Log : EditorWindow
 	
 		void OnGUI ()
 		{
-				/*EditorGUILayout.BeginHorizontal();
-			GUILayout.Label ("Enable Debug Log Messages", EditorStyles.boldLabel);
-			enabled = EditorGUILayout.Toggle ("", enabled);
-			EditorGUILayout.EndHorizontal();
-		EditorGUILayout.Space();*/
+				EditorGUILayout.BeginHorizontal ();
+				GUILayout.Label ("Debug Log Messages", EditorStyles.boldLabel);
+				enabled = EditorGUILayout.Toggle ("", enabled);
+				if (enabled)
+						GUILayout.Label ("is Enabled", EditorStyles.boldLabel);
+				else
+						GUILayout.Label ("is Disabled", EditorStyles.boldLabel);
+				EditorGUILayout.EndHorizontal ();
+				EditorGUILayout.Space ();
 		
-				all = EditorGUILayout.BeginToggleGroup ("Enable Specific Categories", all);
 				if (enabled) {
+						if (all)
+								all = EditorGUILayout.BeginToggleGroup ("Showing Selected", all);
+						else
+								all = EditorGUILayout.BeginToggleGroup ("Showing All Logs", all);
+			
 						if (logStrings.Count == 0) {
 								string text = System.IO.File.ReadAllText (Application.dataPath + "/Editor/logKeys.json");
 								var N = JSON.Parse (text);
@@ -89,8 +97,8 @@ public class Log : EditorWindow
 						for (int i = 0; i < logBools.Count; i++) {
 								logBools [i] = EditorGUILayout.Toggle (logStrings [i], logBools [i]);
 						}
+						EditorGUILayout.EndToggleGroup ();
 				}
-				EditorGUILayout.EndToggleGroup ();
 		
 				//enabled = EditorGUILayout.BeginToggleGroup ("Enable Debug Logs", enabled);
 				//EditorGUILayout.EndToggleGroup ();
