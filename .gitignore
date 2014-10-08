@@ -15,8 +15,8 @@
 ## Do not commit plugins or external code - external code should be managed by the svn
 !*.cs
 !*.cs.meta
-!Editor/*.json
-!Editor/*.json.meta
+!Assets/Editor/*.json
+!Assets/Editor/*.json.meta
 
 ## Explicitly ignore specific folders and files below
 
@@ -28,6 +28,6 @@ Assets/Plugins/*
 Assets/Scaleform
 Assets/Scaleform/*
 
-## Other
+## Editor folder 3rd party scripts
 Assets/Editor/GoDummyPathEditor.cs
 Assets/Editor/GoDummyPathEditor.cs.meta
