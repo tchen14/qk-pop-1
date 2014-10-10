@@ -1,9 +1,9 @@
 [
-	"all",
 	"ai",
 	"camera",
 	"core",
 	"editor",
+	"input",
 	"json",
 	"player",
 	"ui"
