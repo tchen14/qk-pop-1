@@ -1,12 +1,13 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using SimpleJSON;
 
 public sealed class MasterManager
 {
 	//sealed attribute prevents other classes from inheriting this class
 
-	#region singletonEnforcement 
+	#region singletonEnforcement
 	private static readonly MasterManager instance = new MasterManager();
 	//readonly keyword modifier prevents variable from being writen except on declaration
 	
@@ -18,11 +19,29 @@ public sealed class MasterManager
 	#endregion
 
 	public Dictionary<string,bool> scenes = new Dictionary<string,bool>();
-	public bool init = false;
+	bool _init = false;
+	public bool init {
+		get { return _init;}
+		set { _init = true;}
+	}
 	private MasterManager()
 	{
-		scenes.Add("Menu", false);
-		scenes.Add("PoP", false);
+		string text = System.IO.File.ReadAllText(Application.dataPath + "/Resources/Json/sceneList.json");
+		var N = JSON.Parse(text);
+		
+		scenes.Clear();
+		for (int i = 0; i < N.Count; i++) {
+			scenes.Add(N [i].Value, false);
+		}
+		Log.M("core", "Scenes dictionary loaded");
+	}
+	
+	private void ClearAllLevels()
+	{
+		List<string> buffer = new List<string>(scenes.Keys);
+		foreach (string key in buffer) {
+			scenes [key] = false;
+		}
 	}
 	
 	public void ToggleLevel(string level, bool b = true)
@@ -30,7 +49,7 @@ public sealed class MasterManager
 		if (scenes.ContainsKey(level)) {
 			scenes [level] = b;
 		} else {
-			Debug.LogWarning("Level does not exist.");
+			Log.W("core", "Level does not exist.");
 		}
 	}
 	
@@ -38,8 +57,12 @@ public sealed class MasterManager
 	//uninteligent method - it will unload and reload all levels
 	public void LoadLevels()
 	{
+		if (!init) {
+			init = true;
+		}
+	
 		if (!scenes.ContainsValue(true)) {
-			Debug.LogError("No scenes to be loaded. Please ensure valid scenes are ready to be loaded (MasterManager.scenes)");
+			Log.M("core", "No scenes to be loaded. Please ensure valid scenes are ready to be loaded in Assets/Resources/Json/sceneList.json");
 		}
 			
 		List<string> levels = new List<string>();
@@ -51,12 +74,14 @@ public sealed class MasterManager
 		
 		for (int i = 0; i < levels.Count; i++) {
 			if (i == 0) {
-				Debug.Log("Loading level " + levels [i]);
+				Log.M("core", "Loading level " + levels [i]);
 				Application.LoadLevel(levels [i]);
 			} else {
-				Debug.Log("Loading level additive" + levels [i]);
+				Log.M("core", "Loading level additive" + levels [i]);
 				Application.LoadLevelAdditive(levels [i]);
 			}
 		}
+		
+		ClearAllLevels();
 	}
 }
