@@ -32,6 +32,9 @@ public class Log : EditorWindow
 	//this function is called any time the play button is pressed, after the OnDisable function
 	void OnEnable()
 	{
+		enabled = EditorPrefs.GetBool("enabled");
+		all = EditorPrefs.GetBool("all");
+
 		if (logStrings.Count == 0) {
 			string text = System.IO.File.ReadAllText(Application.dataPath + "/Editor/logKeys.json");
 			var N = JSON.Parse(text);
@@ -51,6 +54,9 @@ public class Log : EditorWindow
 	//this function is called any time the play button is pressed, before the OnEnable function
 	void OnDisable()
 	{
+		EditorPrefs.SetBool("enabled", enabled);
+		EditorPrefs.SetBool("all", all);
+
 		for (int i = 0; i < logStrings.Count; i++) {
 			EditorPrefs.SetBool(logStrings [i], logBools [i]);
 		}
