@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class CheckpointTrigger : MonoBehaviour
+public class PoPEventTrigger : MonoBehaviour
 {
 	public float checkUpdateSpeed = 1.0f;
 	
@@ -12,30 +12,19 @@ public class CheckpointTrigger : MonoBehaviour
 	
 	IEnumerator SlowUpdate()
 	{
-	
+		
 		yield return new WaitForSeconds(checkUpdateSpeed);
 		StartCoroutine("SlowUpdate");
 	}
-
+	
 	void OnCollisionEnter(Collision collision)
 	{
-		if (collision.gameObject.GetComponent<Checkpoint>()) {
-			//run short term checkpoint saving code here
+		if (collision.gameObject.GetComponent<PoPEvent>()) {
+			collision.gameObject.GetComponent<PoPEvent>().BeginEvent();
 		}
 	}
 
-	private void QuickAutoSave(){
-
-	}
-
 	private void QuestAutoSave(){
-		//moving to PoPEventTrigger.cs
-	}
-
-	//testing code only
-	#if UNITY_EDITOR
-	private void ManualSave(){
 		
 	}
-	#endif
 }

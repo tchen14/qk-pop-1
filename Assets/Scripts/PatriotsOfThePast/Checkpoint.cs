@@ -1,8 +1,13 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Checkpoint : MonoBehaviour
+[RequireComponent (typeof(Collider))]
+public class Checkpoint : Placeholder
 {
-	public string id = "";	//this variable is for use in the editor.
-	public float minDist = 0.0f; //this is the minimum distance the CheckpointTrigger needs to use the Checkpoint
+	public float minDist = 0.0f; //this is the minimum distance away from the Checkpoint that CheckpointTrigger needs to be
+		
+	void OnDrawGizmos()
+	{
+		Gizmos.DrawIcon(transform.position, "checkpointGizmo.png");
+	}
 }
