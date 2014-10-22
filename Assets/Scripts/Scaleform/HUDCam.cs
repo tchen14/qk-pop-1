@@ -9,7 +9,7 @@ using Scaleform;
 public class HUDCam : SFCamera {
 	
 	//Ref of the SWF to be loaded.
-	public gameHUD mySWF = null;
+	public gameHUD hudRef = null;
 	public string swfMovie;
 	////////////////
 	
@@ -68,11 +68,11 @@ public class HUDCam : SFCamera {
 	}
 	
 	private void CreateHud(){
-		if (mySWF == null){
+		if (hudRef == null){
 			SFMovieCreationParams creationParams = CreateMovieCreationParams("gameHUD.swf");
 			creationParams.TheScaleModeType = ScaleModeType.SM_ShowAll;
 			creationParams.IsInitFirstFrame = false;
-			//mySWF = new gameHUD(this, SFMgr, creationParams);
+			hudRef = new gameHUD(this, SFMgr, creationParams);
 		}
 		
 	}
