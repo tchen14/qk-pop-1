@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-[RequireComponent (typeof(Collider))]
+[RequireComponent (typeof(SphereCollider))]
 public class PoPEvent : Placeholder
 {
 	[SerializeField]
@@ -27,9 +27,11 @@ public class PoPEvent : Placeholder
 	void OnDrawGizmos()
 	{
 		//Gizmos.DrawIcon(transform.position, "eventGizmo.png");
+		
+		Gizmos.color = Color.yellow / 3;
 
 		// Draw a yellow sphere at the transform's position
-		Gizmos.color = Color.yellow / 3;
+		if(GetComponent<SphereCollider>())
 		Gizmos.DrawSphere (transform.position, this.GetComponent<SphereCollider>().radius);
 	}
 }
