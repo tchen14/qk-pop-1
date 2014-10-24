@@ -12,7 +12,9 @@ public class HUDCam : SFCamera {
 	public gameHUD hudRef = null;
 	public string swfMovie;
 	////////////////
-	
+
+
+
 	new public void Awake(){
 		
 	}
@@ -65,6 +67,7 @@ public class HUDCam : SFCamera {
 	new public void Update(){
 		CreateHud();
 		base.Update ();
+
 	}
 	
 	private void CreateHud(){
@@ -76,4 +79,35 @@ public class HUDCam : SFCamera {
 		}
 		
 	}
+
+	//CALL THESE UPDATES TO UPDATE HUD INFORMATION
+	public void updateBattery(float batt){
+		hudRef.updateBattery (batt);
+	}
+
+	public void updateBatterySmooth (float curBatt, float newBatt) {
+		StartCoroutine (lerpBattery (curBatt, newBatt));
+	}
+
+	public void updateObjective (string objective) {
+		hudRef.updateObjective (objective);
+	}
+
+	private IEnumerator lerpBattery (float curBatt, float newBatt) {
+		float time = 1f;
+		float elapsedTime = 0;
+		while (elapsedTime < time) {
+			hudRef.updateBattery(Mathf.Lerp(curBatt, newBatt, (elapsedTime / time)));
+			elapsedTime += Time.deltaTime * 5;
+			yield return new WaitForEndOfFrame();
+		}
+		yield return null;
+	}
+	
+
+
 }
+
+
+
+
