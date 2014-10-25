@@ -1,15 +1,16 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-[RequireComponent (typeof(SphereCollider))]
+[RequireComponent (typeof (SphereCollider))]
 public class SidlePoint : Placeholder {
 	[SerializeField]
-	private GameObject destination;
+	private GameObject leftDestination;
 	[SerializeField]
-	private bool startPoint = true;
+	private GameObject rightDestination;
+    [SerializeField]
+    private bool startPoint = true;
 
-	void OnDrawGizmos()
-	{
-		//Gizmos.DrawIcon(transform.position, "sidleGizmo.png");
-	}
+    void OnDrawGizmos() {
+        //Gizmos.DrawIcon(transform.position, "sidleGizmo.png");
+    }
 }
