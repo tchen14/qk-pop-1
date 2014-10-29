@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 
-public class KeyboardInputManager : InputManager {
+public class KeyboardInputManager : POPInputManager {
 	private string typedString;
 	private char[] array;
 	private float timeHeld = 0f;

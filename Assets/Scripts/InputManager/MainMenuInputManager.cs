@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class MainMenuInputManager : InputManager {
+public class MainMenuInputManager : POPInputManager {
 
 	// Use this for initialization
 	void Start () 
