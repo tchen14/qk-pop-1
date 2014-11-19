@@ -1,9 +1,10 @@
 ﻿using UnityEngine;
+using UnityEngine;
 using System.Collections.Generic;
 
 public class CheckPointTree : MonoBehaviour {
 	
-	private Node m_root;
+	private static Node m_root;
 	private List<GameObject> checkpoints = new List<GameObject>();
 	
 	// global variables used to calculate averages of entire list of checkpoints, then of each cartesian quadrant's checkpoints
@@ -75,7 +76,7 @@ public class CheckPointTree : MonoBehaviour {
 		// print closest node using search function
 		Log.M ("checkpoint", "Closest Node " + search (new Vector3(5,5,5)).location);
 		print("Closest Node " + search (new Vector3(5,5,5)).location);
-
+		
 	}
 	void initializeCheckpoints()
 	{
@@ -101,20 +102,20 @@ public class CheckPointTree : MonoBehaviour {
 		}
 		Log.M ("checkpoint", "Number of checkpoints in list " + checkpoints.Count);
 		// set m_root to empty node; a node with no location value indicated by boolean
-		m_root = new Node(Vector3.zero,null,null,null,null,null,true);
+		m_root = new Node(new Vector3(x/numCheckpoints, 0,z/numCheckpoints),null,null,null,null,null,true);
 		// send list to recursive insert function
 		recursiveInsertHelper(checkpoints);
 	}
 	
 	
 	// helper function
-	void recursiveInsertHelper(List<GameObject>checkpoints)
+	private void recursiveInsertHelper(List<GameObject>checkpoints)
 	{
 		// passing in checkpoint list, average x location, average z location, and root of tree
 		recursiveInsert(checkpoints,x/numCheckpoints,z/numCheckpoints,m_root);
 	}
 	
-	void recursiveInsert(List<GameObject>checkpoints, float xPos, float zPos, Node parent)
+	private void recursiveInsert(List<GameObject>checkpoints, float xPos, float zPos, Node parent)
 	{
 		// create four temp lists to match each cartesian quadrant
 		List<GameObject> greaterGreater = new List<GameObject>();
@@ -128,7 +129,7 @@ public class CheckPointTree : MonoBehaviour {
 			// push each checkpoint into a specific list depending on checkpoints location related to average location of all checkpoints
 			foreach(GameObject checkpoint in checkpoints)
 			{
-				if(checkpoint.transform.position.x > xPos && checkpoint.transform.position.z > zPos)
+				if(checkpoint.transform.position.x >= xPos && checkpoint.transform.position.z >= zPos)
 				{
 					greaterGreater.Add(checkpoint);
 				}
@@ -160,7 +161,7 @@ public class CheckPointTree : MonoBehaviour {
 					numCheckpoints++;
 				}
 				// add empty node to tree
-				parent.firstChild = new Node(Vector3.zero,parent,null,null,null,null,true);
+				parent.firstChild = new Node(new Vector3(x/numCheckpoints, 0,z/numCheckpoints),parent,null,null,null,null,true);
 				
 				Log.M ("checkpoint", "gG " + greaterGreater.Count);
 				// recurse by passing in this quadrant's checkpoint list, this quadrant's average x location, this quadrant's average z location, firstChild because this is first quadrant
@@ -191,7 +192,7 @@ public class CheckPointTree : MonoBehaviour {
 					numCheckpoints++;
 				}
 				// add empty node to tree
-				parent.secondChild = new Node(Vector3.zero,parent,null,null,null,null,true);
+				parent.secondChild = new Node(new Vector3(x/numCheckpoints, 0,z/numCheckpoints),parent,null,null,null,null,true);
 				
 				Log.M ("checkpoint", "gL" + greaterLess.Count);
 				// recurse by passing in this quadrant's checkpoint list, this quadrant's average x location, this quadrant's average z location, secondChild because this is second quadrant
@@ -222,7 +223,7 @@ public class CheckPointTree : MonoBehaviour {
 					numCheckpoints++;
 				}
 				// add empty node to tree
-				parent.thirdChild = new Node(Vector3.zero,parent,null,null,null,null,true);
+				parent.thirdChild = new Node(new Vector3(x/numCheckpoints, 0,z/numCheckpoints),parent,null,null,null,null,true);
 				
 				Log.M ("checkpoint", "lG" + lessGreater.Count);
 				// recurse by passing in this quadrant's checkpoint list, this quadrant's average x location, this quadrant's average z location, secondChild because this is third quadrant
@@ -253,7 +254,7 @@ public class CheckPointTree : MonoBehaviour {
 					numCheckpoints++;
 				}
 				// add empty node onto tree
-				parent.fourthChild = new Node(Vector3.zero,parent,null,null,null,null,true);
+				parent.fourthChild = new Node(new Vector3(x/numCheckpoints, 0,z/numCheckpoints),parent,null,null,null,null,true);
 				
 				Log.M ("checkpoint", "lL" + lessLess.Count);
 				// recurse by passing in this quadrant's checkpoint list, this quadrant's average x location, this quadrant's average z location, secondChild because this is fourth quadrant
@@ -270,60 +271,42 @@ public class CheckPointTree : MonoBehaviour {
 			#endregion
 		}
 	}
-	int timesSearched = 0;
+	static int timesSearched = 0;
 	
 	// search tree for closest node to Vector3 passed in
-	public Node search(Vector3 loc)
+	public static Node search(Vector3 loc)
 	{
+		timesSearched = 0;
+
 		if(m_root != null)
-			return searchHelper(m_root, loc, null, 10000000);
+			return searchHelper(m_root, loc, null);
 		else
 			return null;
 	}
 	// recursively searches through tree
-	private Node searchHelper(Node other, Vector3 loc, Node closestNode, float distance)
+	private static Node searchHelper(Node other, Vector3 loc, Node closestNode)
 	{
+		if(other!=null && other.NULL == false)
+		{
+			closestNode = other;
+		}
+		if(other.firstChild != null && loc.x >= other.location.x && loc.z >= other.location.z)
+		{
+			closestNode=searchHelper(other.firstChild,loc,closestNode);
+		}
+		else if(other.secondChild != null && loc.x > other.location.x && loc.z < other.location.z)
+		{
+			closestNode=searchHelper(other.secondChild,loc,closestNode);
+		}
+		else if(other.thirdChild != null && loc.x < other.location.x && loc.z > other.location.z)
+		{
+			closestNode=searchHelper(other.thirdChild,loc,closestNode);
+		}
+		else if (other.fourthChild != null && loc.x < other.location.x && loc.z < other.location.z)
+		{
+			closestNode=searchHelper(other.fourthChild,loc,closestNode);
+		}
 		Log.M ("checkpoint","timesSearched" + ++timesSearched);
-		// if node is not empty node designated by bool
-		if(other.NULL == false)
-		{
-			// if distance between this node and loc is less than previous closest distance
-			if(Vector3.Distance(other.location, loc) < distance)
-			{	
-				// set this as closest node
-				closestNode =  other;
-				// set distance between this node and loc as the new closest distance
-				distance = Vector3.Distance(other.location, loc);
-			}
-		}
-		// if node is not null and this is the closest path or next node isempty node designated by bool
-		if(other.firstChild != null && ((Vector3.Distance(other.firstChild.location, loc) < distance) || other.firstChild.NULL == true))
-		{
-			// recursively search and update distance
-			closestNode = searchHelper(other.firstChild,loc,closestNode,distance);
-			distance = Vector3.Distance(closestNode.location, loc);
-		}
-		// if node is not null and this is the closest path or next node is empty node designated by bool
-		if(other.secondChild != null && ((Vector3.Distance(other.secondChild.location, loc) < distance)|| other.secondChild.NULL == true))
-		{
-			// recursively search and update distance
-			closestNode = searchHelper(other.secondChild,loc,closestNode,distance);
-			distance = Vector3.Distance(closestNode.location, loc);
-		}
-		// if node is not null and this is the closest path or next node is empty node designated by bool
-		if(other.thirdChild != null && ((Vector3.Distance(other.thirdChild.location, loc) < distance) || other.thirdChild.NULL == true))
-		{
-			// recursively search and update distance
-			closestNode = searchHelper(other.thirdChild,loc,closestNode,distance);		
-			distance = Vector3.Distance(closestNode.location, loc);
-		}
-		// if node is not null and this is the closest path or next node is empty node designated by bool
-		if(other.fourthChild != null && ((Vector3.Distance(other.fourthChild.location, loc) < distance) || other.fourthChild.NULL == true))
-		{
-			// recursively search and update distance
-			closestNode = searchHelper(other.fourthChild,loc,closestNode,distance);
-			distance = Vector3.Distance(closestNode.location, loc);
-		}
 		return closestNode;
 	}
 }
