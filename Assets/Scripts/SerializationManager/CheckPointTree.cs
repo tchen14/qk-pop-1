@@ -75,7 +75,7 @@ public class CheckPointTree : MonoBehaviour {
 		initializeCheckpoints();
 		// print closest node using search function
 		Log.M ("checkpoint", "Closest Node " + search (new Vector3(5,5,5)).location);
-		print("Closest Node " + search (new Vector3(5,5,5)).location);
+		print("Closest Node " + search (new Vector3(0,0,0)).location);
 		
 	}
 	void initializeCheckpoints()
@@ -133,11 +133,11 @@ public class CheckPointTree : MonoBehaviour {
 				{
 					greaterGreater.Add(checkpoint);
 				}
-				else if(checkpoint.transform.position.x > xPos && checkpoint.transform.position.z < zPos)
+				else if(checkpoint.transform.position.x >= xPos && checkpoint.transform.position.z < zPos)
 				{
 					greaterLess.Add(checkpoint);
 				}
-				else if(checkpoint.transform.position.x < xPos && checkpoint.transform.position.z > zPos)
+				else if(checkpoint.transform.position.x < xPos && checkpoint.transform.position.z >= zPos)
 				{
 					lessGreater.Add(checkpoint);
 				}
@@ -277,11 +277,15 @@ public class CheckPointTree : MonoBehaviour {
 	public static Node search(Vector3 loc)
 	{
 		timesSearched = 0;
-
+		
 		if(m_root != null)
+		{
 			return searchHelper(m_root, loc, null);
+		}
 		else
+		{
 			return null;
+		}
 	}
 	// recursively searches through tree
 	private static Node searchHelper(Node other, Vector3 loc, Node closestNode)
@@ -294,11 +298,11 @@ public class CheckPointTree : MonoBehaviour {
 		{
 			closestNode=searchHelper(other.firstChild,loc,closestNode);
 		}
-		else if(other.secondChild != null && loc.x > other.location.x && loc.z < other.location.z)
+		else if(other.secondChild != null && loc.x >= other.location.x && loc.z < other.location.z)
 		{
 			closestNode=searchHelper(other.secondChild,loc,closestNode);
 		}
-		else if(other.thirdChild != null && loc.x < other.location.x && loc.z > other.location.z)
+		else if(other.thirdChild != null && loc.x < other.location.x && loc.z >= other.location.z)
 		{
 			closestNode=searchHelper(other.thirdChild,loc,closestNode);
 		}
