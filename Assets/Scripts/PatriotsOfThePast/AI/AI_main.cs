@@ -17,8 +17,10 @@ using System.Collections;
 public class AI_main : MonoBehaviour {
 
 	public bool AI_Aggressive 		= false;			//if the NPC will attack the player
+	public float AI_AggessiveLimit 	= 100;				//the aggression level of the attacker
 	public int AI_HP 				= 100;				//Health of the NPC
 	public float AI_SightDistance 	= 20;				//The distance the NPC is capable of seeing
+	public float AI_SightAngle		= 35;				//The max angle of the cone of vision
 	public float AI_attackDistance  = 3;				//The distance the NPC stands away from the target and attacks
 
 	public Transform AI_StartPoint 	= null;				//Sets the first navPoint, defaults to stationary
@@ -30,7 +32,9 @@ public class AI_main : MonoBehaviour {
 	public bool AI_seesTarget 		= false;			//if the Player has been spotted
 	public GameObject AI_target		= null;				//the transform of the player
 	public string AI_seekTag 		= "Player";			//The enemy Tag of this NPC
-	public bool AI_attacking = false;					//if the AI is attacking
+	public bool AI_attacking 		= false;			//if the AI is attacking
+	public bool AI_panic 			= false;			//if the AI is panicking
+	public Vector3 AI_panicTarget = new Vector3 (0, 0, 0);			//Target of AI panic
 
 
 

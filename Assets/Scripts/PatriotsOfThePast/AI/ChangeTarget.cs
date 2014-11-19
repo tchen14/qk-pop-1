@@ -35,19 +35,19 @@ public class ChangeTarget : MonoBehaviour {
 
 		if (col.gameObject.name == "_NPC") 
 		{
-			if(col.gameObject.GetComponent<AI_movement>().navPoint == transform)
+			if(col.gameObject.GetComponent<AI_movement>().navPoint == transform.position)
 			{
 				if(randomTarget)
 				{
 					//loop used to insure random point is not the same point
 					do
 					{
-						col.gameObject.GetComponent<AI_movement>().ChangeNavPoint(clusterChildren[Random.Range(1,clusterChildren.Length)].transform);
-					}while(col.gameObject.GetComponent<AI_movement>().navPoint == transform);
+						col.gameObject.GetComponent<AI_movement>().ChangeNavPoint(clusterChildren[Random.Range(1,clusterChildren.Length)].transform.position);
+					}while(col.gameObject.GetComponent<AI_movement>().navPoint == transform.position);
 				}
 				else
 				{
-					col.gameObject.GetComponent<AI_movement>().navPoint = nextTarget;
+					col.gameObject.GetComponent<AI_movement>().navPoint = nextTarget.position;
 				}
 			}
 		}
