@@ -1,9 +1,11 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 
-public class POPInputManager : MonoBehaviour 
+public class POPInputManager : MonoBehaviour
 {
+	#pragma warning disable
 	private string currentInputState;
+	#pragma warning restore
 	private const int inputStateCount = 3;
 	//private string[] inputStateArray;
 	
@@ -18,7 +20,7 @@ public class POPInputManager : MonoBehaviour
 	protected string jump = "space";
 	
 	// Use this for initialization
-	void Awake () 
+	void Awake()
 	{
 		//inputStateArray = new string[inputStateCount] {"MainMenuInputManager", "GameInputManager", "KeyboardInputManager"};
 	}
@@ -26,29 +28,28 @@ public class POPInputManager : MonoBehaviour
 	public bool switchState(string desiredState)
 	{
 		bool stateChanged = false;
-		switch (desiredState)
-		{
-		case "MainMenuInputManager":
-			currentInputState = "MainMenuInputManager";
-			stateChanged = true;
+		switch (desiredState) {
+			case "MainMenuInputManager":
+				currentInputState = "MainMenuInputManager";
+				stateChanged = true;
 //			Camera.main.GetComponent<MainMenuInputManager>().enabled = true;
 //			Camera.main.GetComponent<GameInputManager>().enabled = false;
-			Camera.main.GetComponent<KeyboardInputManager>().enabled = false;
-			break;
-		case "gameInputManager":
-			currentInputState = "GameInputManager";
-			stateChanged = true;
+				Camera.main.GetComponent<KeyboardInputManager>().enabled = false;
+				break;
+			case "gameInputManager":
+				currentInputState = "GameInputManager";
+				stateChanged = true;
 //			Camera.main.GetComponent<MainMenuInputManager>().enabled = false;			
 //			Camera.main.GetComponent<GameInputManager>().enabled = true;
-			Camera.main.GetComponent<KeyboardInputManager>().enabled = false;
-			break;
-		case "keyboardInputManager":
-			currentInputState = "KeyboardInputManager";
-			stateChanged = true;
+				Camera.main.GetComponent<KeyboardInputManager>().enabled = false;
+				break;
+			case "keyboardInputManager":
+				currentInputState = "KeyboardInputManager";
+				stateChanged = true;
 //			Camera.main.GetComponent<MainMenuInputManager>().enabled = false;			
 //			Camera.main.GetComponent<GameInputManager>().enabled = false;
-			Camera.main.GetComponent<KeyboardInputManager>().enabled = true;
-			break;
+				Camera.main.GetComponent<KeyboardInputManager>().enabled = true;
+				break;
 		}
 		return stateChanged;
 	}

@@ -3,7 +3,6 @@ using System.Collections.Generic;
 
 public class CheckPointTree : MonoBehaviour
 {
-	
 	private static Node m_root;
 	private List<GameObject> checkpoints = new List<GameObject>();
 	
@@ -15,51 +14,24 @@ public class CheckPointTree : MonoBehaviour
 	
 	public class Node
 	{
-		private Vector3 _location;
-		private Node _parent;
-		private Node _firstChild;
-		private Node _secondChild;
-		private Node _thirdChild;
-		private Node _fourthChild;
-		// indicates whether checkpoint is an empty Node because not able to set a vector to null
-		private bool _NULL;
-		// node constructor
-		public Node(Vector3 location, Node parent, Node first, Node second, Node third, Node fourth, bool NULL)
+		public Vector3 location;
+		public Node parent;
+		public Node firstChild;
+		public Node secondChild;
+		public Node thirdChild;
+		public Node fourthChild;
+		public bool NULL; //indicates whether checkpoint is an empty Node because not able to set a vector to null
+		
+		//node constructor
+		public Node(Vector3 _location, Node _parent, Node _first, Node _second, Node _third, Node _fourth, bool _NULL)
 		{
-			_parent = parent;
-			_firstChild = first;
-			_secondChild = second;
-			_thirdChild = third;
-			_fourthChild = fourth;
-			_location = location;
-			_NULL = NULL;
-		}
-		// getters and setters for private data
-		public Node parent {
-			get { return _parent; }
-			set { _parent = value; }
-		}
-		public Node firstChild {
-			get { return _firstChild; }
-			set { _firstChild = value; }
-		}
-		public Node secondChild {
-			get { return _secondChild; }
-			set { _secondChild = value; }
-		}
-		public Node thirdChild {
-			get { return _thirdChild; }
-			set { _thirdChild = value; }
-		}
-		public Node fourthChild {
-			get { return _fourthChild; }
-			set { _fourthChild = value; }
-		}
-		public Vector3 location {
-			get { return _location; }
-		}	
-		public bool NULL {
-			get { return _NULL; }
+			location = _location;
+			parent = _parent;
+			firstChild = _first;
+			secondChild = _second;
+			thirdChild = _third;
+			fourthChild = _fourth;
+			NULL = _NULL;
 		}
 	};
 	
