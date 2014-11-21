@@ -15,23 +15,23 @@ public class AI_movement : MonoBehaviour {
 
 
 	private NavMeshAgent mesh = null;			//contains the component to use the navmesh
-	public Transform navPoint = null;			//contains the point to move in the navmesh
+	public Vector3 navPoint;			//contains the point to move in the navmesh
 
 	//Discovers the NavMesh
 	void Start () 
 	{
 		//if no navMesh has been given to this AI then it will create one, AI needs navMesh
 		mesh = GetComponent<NavMeshAgent>();
-		ChangeNavPoint(GetComponent<AI_main>().AI_StartPoint);
+		ChangeNavPoint(GetComponent<AI_main>().AI_StartPoint.position);
 		SetSpeed (GetComponent<AI_main> ().AI_Speed);
 	}
 	//always update the Nav Mesh to insure most dynamic AI movement
 	void Update()
 	{
-		mesh.SetDestination(navPoint.position);
+		mesh.SetDestination(navPoint);
 	}
 	//sets a new destination for the AI and can be publicly accessed
-	public void ChangeNavPoint(Transform T)
+	public void ChangeNavPoint(Vector3 T)
 	{
 		navPoint = T;
 	}

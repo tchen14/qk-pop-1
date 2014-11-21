@@ -21,7 +21,7 @@ public class AI_sight : MonoBehaviour {
 	void Update () 
 	{
 		//if there is no target then look for a target
-		if(GetComponent<AI_main>().AI_target == null)
+		if(GetComponent<AI_main>().AI_Aggressive == true && GetComponent<AI_main>().AI_target == null)
 		{
 			StartCoroutine("CheckForTargets");
 
@@ -43,17 +43,31 @@ public class AI_sight : MonoBehaviour {
 
 		for(int i = 0; i < viableTargets.Length; i++)
 		{
-			Debug.DrawRay(transform.position,viableTargets[0].transform.position - transform.position);
-			if(Physics.Raycast(transform.position,viableTargets[i].transform.position-transform.position,out hit,GetComponent<AI_main>().AI_SightDistance))
+			if(Vector3.Angle(viableTargets[i].transform.position-transform.position,transform.forward)< GetComponent<AI_main>().AI_SightAngle)
 			{
-				if(hit.collider.tag == viableTargets[i].tag)
+				Debug.DrawRay(transform.position,viableTargets[0].transform.position - transform.position);
+				if(Vector3.Distance(transform.position,viableTargets[i].transform.position) < GetComponent<AI_main>().AI_SightDistance)
 				{
-					GetComponent<AI_main>().AI_target = hit.collider.gameObject;
-					GetComponent<AI_movement>().ChangeNavPoint(GetComponent<AI_main>().AI_target.transform);
-					GetComponent<AI_main>().AI_seesTarget = true;
+					if(Physics.Raycast(transform.position,viableTargets[i].transform.position-transform.position,out hit))
+					{
+						if(hit.collider.tag == viableTargets[i].tag)
+						{
+							Debug.Log("GOT THE BASTARD");
+							GetComponent<AI_main>().AI_target = hit.collider.gameObject;
+							//GetComponent<AI_movement>().ChangeNavPoint(GetComponent<AI_main>().AI_target.transform);
+							GetComponent<AI_main>().AI_seesTarget = true;
+						}
+					}
+				}
+				else
+				{
+					Debug.Log("OUT OF DISTANCE");
 				}
 			}
-
+			else
+			{
+				Debug.Log("out of angles");
+			}
 		}
 	}
 }

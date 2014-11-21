@@ -4,15 +4,15 @@ using SimpleJSON;
 
 public class EventManager : MonoBehaviour
 {
-	#region singletonEnforcement
-	
+    #region singletonEnforcement
+
 	protected static EventManager instance;
 
 	//is this even necessary?
 	/*private EventManager()
-	{
-	}*/
-	
+    {
+    }*/
+
 	public static EventManager Instance {
 		get {
 			if (instance == null) {
@@ -21,5 +21,5 @@ public class EventManager : MonoBehaviour
 			return instance;
 		}
 	}
-	#endregion
+    #endregion
 }
