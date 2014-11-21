@@ -3,9 +3,9 @@ using System.Collections.Generic;
 
 public class POPInputManager : MonoBehaviour
 {
-	#pragma warning disable
+	#pragma warning disable 0414
 	private string currentInputState;
-	#pragma warning restore
+	#pragma warning restore 0414
 	private const int inputStateCount = 3;
 	//private string[] inputStateArray;
 	

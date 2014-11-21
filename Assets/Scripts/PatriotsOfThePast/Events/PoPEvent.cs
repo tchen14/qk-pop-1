@@ -4,18 +4,15 @@ using System.Collections;
 [RequireComponent (typeof(SphereCollider))]
 public class PoPEvent : Placeholder
 {
+	#pragma warning disable 0414
 	[SerializeField]
-	#pragma warning disable
 	private string
 		prerequisite = ""; //this string is for to check for a completed pre-requisite quest
-	#pragma warning restore
 
 	//other prerequsite (eg: item count, time, %map explored, etc.) need a system to be made
 	[SerializeField]
 	private string
-	#pragma warning disable
 		quest = ""; //if this event will start a quest
-	#pragma warning restore
 	[SerializeField]
 	private Vector3
 		cameraPos, lookAtPos; //camera position for event
