@@ -3,49 +3,38 @@ using System.Collections;
 
 public class QuestSaveManager : SaveManager {
 
-	public float checkUpdateSpeed = 1.0f;
-	
-	void Start()
-	{
-		StartCoroutine("SlowUpdate");
-	}
-	
-	IEnumerator SlowUpdate()
-	{
-		
-		yield return new WaitForSeconds(checkUpdateSpeed);
-		StartCoroutine("SlowUpdate");
-	}
+    public float checkUpdateSpeed = 1.0f;
 
-	public void StartQuest(string questName){
+    void Start() {
+        StartCoroutine ("SlowUpdate");
+    }
 
-	}
+    IEnumerator SlowUpdate() {
+        yield return new WaitForSeconds (checkUpdateSpeed);
+        StartCoroutine ("SlowUpdate");
+    }
 
-	public void StartQuestWithTimer(string questName, float time){
-		
-	}
+    public void StartQuest (string questName) {
+    }
 
-	public void StartQuestWithCounter(string questName, int count, bool countdown = true){
-		
-	}
+    public void StartQuestWithTimer (string questName, float time) {
+    }
 
-	public void StartQuestWithParts(string questName, string[] parts){
-		
-	}
+    public void StartQuestWithCounter (string questName, int count, bool countdown = true) {
+    }
 
-	public void StartQuestWithTimer(string questName){
-		
-	}
+    public void StartQuestWithParts (string questName, string[] parts) {
+    }
 
-	public void CompleteQuest(string questName){
-		
-	}
+    public void StartQuestWithTimer (string questName) {
+    }
 
-	public void TerminateQuest(string questName){
-		
-	}
+    public void CompleteQuest (string questName) {
+    }
 
-	private void EndQuest(string questName){
-		
-	}
+    public void TerminateQuest (string questName) {
+    }
+
+    private void EndQuest (string questName) {
+    }
 }
