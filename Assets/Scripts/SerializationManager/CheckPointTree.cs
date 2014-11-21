@@ -1,23 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 
-<<<<<<< HEAD
-public class CheckPointTree : MonoBehaviour {
-
-    // Use this for initialization
-    void Start() {
-    }
-
-    // Update is called once per frame
-    void Update() {
-    }
-}
-
-public class Node {
-    Node() {
-    }
-}
-=======
 public class CheckPointTree : MonoBehaviour
 {
 	
@@ -287,4 +270,3 @@ public class CheckPointTree : MonoBehaviour
 		return closestNode;
 	}
 }
->>>>>>> feature/CharacterController
