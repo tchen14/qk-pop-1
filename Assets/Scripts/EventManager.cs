@@ -8,7 +8,7 @@ public class EventManager : MonoBehaviour
 	
 	private static EventManager instance;
 	
-	private EventManager()
+	public EventManager()
 	{
 	}
 	
@@ -21,16 +21,4 @@ public class EventManager : MonoBehaviour
 		}
 	}
 	#endregion
-	
-	// Use this for initialization
-	void Start()
-	{
-	
-	}
-	
-	// Update is called once per frame
-	void Update()
-	{
-	
-	}
 }
