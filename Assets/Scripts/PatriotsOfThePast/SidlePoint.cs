@@ -10,11 +10,11 @@ public class SidlePoint : Placeholder
 	[SerializeField]
 	private GameObject
 		rightDestination;
+	#pragma warning disable 0414
 	[SerializeField]
-	#pragma warning disable
 	private bool
 		startPoint = true;
-	#pragma warning restore
+	#pragma warning restore 0414
 
 	void OnDrawGizmos()
 	{
