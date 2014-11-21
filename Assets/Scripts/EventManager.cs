@@ -4,14 +4,15 @@ using SimpleJSON;
 
 public class EventManager : MonoBehaviour
 {
-	#region EventManagerEnforcement 
-	
-	private static EventManager instance;
-	
-	private EventManager()
-	{
-	}
-	
+    #region singletonEnforcement
+
+	protected static EventManager instance;
+
+	//is this even necessary?
+	/*private EventManager()
+    {
+    }*/
+
 	public static EventManager Instance {
 		get {
 			if (instance == null) {
@@ -20,17 +21,5 @@ public class EventManager : MonoBehaviour
 			return instance;
 		}
 	}
-	#endregion
-	
-	// Use this for initialization
-	void Start()
-	{
-	
-	}
-	
-	// Update is called once per frame
-	void Update()
-	{
-	
-	}
+    #endregion
 }
