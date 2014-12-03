@@ -1,7 +1,5 @@
 ## Ignore all
-
 *
-
 
 
 ## Don't ignore the following
@@ -15,8 +13,6 @@
 ## Do not commit plugins or external code - external code should be managed by the svn
 !*.cs
 !*.cs.meta
-!Editor/*.json
-!Editor/*.json.meta
 
 ## Explicitly ignore specific folders and files below
 
@@ -24,10 +20,10 @@
 Assets/Plugins
 Assets/Plugins/*
 
+## Editor folder
+!Assets/Editor
+!Assets/Editor/*
+
 ## Scaleform folder
 Assets/Scaleform
 Assets/Scaleform/*
-
-## Other
-Assets/Editor/GoDummyPathEditor.cs
-Assets/Editor/GoDummyPathEditor.cs.meta

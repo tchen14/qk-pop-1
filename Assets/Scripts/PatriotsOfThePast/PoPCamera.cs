@@ -5,6 +5,7 @@ using System.Collections;
  * Child Class of Parent Camera_2 for Patriots of the Past,
  * Inherits initial camera settings from Camera_2,
  * Uses mouse input to orbit camera in a 3D space and mouse wheel for zoom, input works with joysticks
+ * Camera follows character if no mouse input is detected
  * Includes methods to handle player occlusion and object/environment clipping
  */
 
@@ -12,13 +13,36 @@ public class PoPCamera : Camera_2
 {
 	public static PoPCamera Instance;
 
+	// Tracks mouse and player position between frames
+	private Vector3 mousePosition;
+	private Vector3 targetPosition;
+
+	// Hidden public event variables
+	[HideInInspector]
+	public PoPCameraEvent eventTrigger;
+	[HideInInspector]
+	public bool inEvent;
+
+	// Hidden public target mode variables
+	// Currently don't do anything
+	[HideInInspector]
+	public bool inTargetMode = false;
+	[HideInInspector]
+	public Vector3 cameraLockPos;
+	private Vector3 cameralookat;
+
+	public float maxTimeSinceMouseMoved = 2.0f;			// Time frame until camera becomes follow cam b/c of mouse inactivity
+	private float currentTimeSinceMouseMoved = 0.0f;	// Private variable that stores mouse inactivity
+
 	void Awake()
 	{
 		Instance = this;
+		player = target;
 	}
 
 	void Start()
 	{
+		targetPosition = target.position;
 		distance = Mathf.Clamp(distance, distanceMin, distanceMax);
 		cameraLatency = Mathf.Clamp (cameraLatency, 0.05f, 1f);
 		Reset();
@@ -26,20 +50,30 @@ public class PoPCamera : Camera_2
 
 	void FixedUpdate()
 	{
-		if(targetLookAt == null)
-			return;
-
-		HandleMouseInput ();
-
-		var count = 0;
-
-		do 
+		if(!inEvent)
 		{
-			CalculateDesiredPosition ();
-			count++;
-		} while(CheckifOccluded(count));
+			targetLookAt = target.position;
 
-		UpdatePosition ();
+			HandleMouseInput ();
+
+			var count = 0;
+
+			do {
+				CalculateDesiredPosition ();
+				count++;
+			} while(CheckifOccluded(count));
+
+			UpdatePosition ();
+		}
+		else
+		{
+			eventTrigger.Event ();
+			transform.position = Vector3.Lerp (eventTrigger.cameraStartPosition, eventTrigger.eventCameraPosition, cameraLatency);
+			transform.LookAt (eventTrigger.eventCameraFocus);
+		}
+
+		mousePosition = Input.mousePosition;
+		targetPosition = target.position;
 	}
 
 	// Handle all player input and preapre for camera position calculation
@@ -47,9 +81,23 @@ public class PoPCamera : Camera_2
 	{
 		var deadzone = 0.01f;
 
-		//Take Mouse Input
-		mouseX += Input.GetAxis("Mouse X") * xMouseSensitivity;
-		mouseY -= Input.GetAxis("Mouse Y") * yMouseSensitivity;
+		// Takes mouse input if mouse is moving and increments camera dependent variables
+		if(mousePosition != Input.mousePosition)
+		{
+			mouseX += Input.GetAxis("Mouse X") * xMouseSensitivity;
+			mouseY -= Input.GetAxis("Mouse Y") * yMouseSensitivity;
+			currentTimeSinceMouseMoved = 0.0f;
+		}
+		// If mouse hasn't moved see if it's been inactive for specified time period, incremenet time if not
+		else if(currentTimeSinceMouseMoved < maxTimeSinceMouseMoved)
+		{
+			currentTimeSinceMouseMoved += Time.deltaTime;
+		}
+		// If mouse has been inactive long enough camera will become a followcam once player moves
+		else if(targetPosition != target.position)
+		{
+			mouseX = target.eulerAngles.y;
+		}
 
 		//Limit Y-axis input
 		mouseY = ClampAngle(mouseY, yMinLimit, yMaxLimit);
@@ -64,14 +112,14 @@ public class PoPCamera : Camera_2
 			   preOccludedDistance = desiredDistance;
 		}
 	}
-
+	
 	// Checks if the target can see each point in the cameras near clippng plane
 	// If it can target is not occluded, if not target is occluded
 	bool CheckifOccluded(int count)
 	{
 		var isOccluded = false;
 
-		var NearestDistance = CheckCameraPoints (targetLookAt.position, desiredPosition);
+		var NearestDistance = CheckCameraPoints (target.position, desiredPosition);
 
 		if (NearestDistance != -1) 
 		{
@@ -86,7 +134,7 @@ public class PoPCamera : Camera_2
 	}
 
 	// Creates clip plane points, checks if something is between target and points
-	// Returns -1 if player is not occluded, nearest point to player if occluded
+	// Returns -1 if player is not occluded, returns nearest point to player if occluded
 	float CheckCameraPoints(Vector3 from, Vector3 to)
 	{
 		var NearDistance = -1f;
@@ -119,7 +167,7 @@ public class PoPCamera : Camera_2
 		 {
 			 var pos = CalculatePosition(mouseY, mouseX, preOccludedDistance);
 
-			 var NearestDistance = CheckCameraPoints(targetLookAt.position, pos);
+			 var NearestDistance = CheckCameraPoints(target.position, pos);
 
 			if(NearestDistance == -1 || NearestDistance > preOccludedDistance)
 			 {
@@ -128,20 +176,30 @@ public class PoPCamera : Camera_2
 		 }
 	 }
 
-	void UpdatePosition()
+	// --*Test Function for targetting, currently unused*--
+	public Vector3 TargetingOverride()
 	{
-		position = Vector3.Lerp (position, desiredPosition, cameraLatency);
-		transform.position = position;
+		cameraLockPos = GameObject.Find ("Enemy Target").transform.position;
+		Vector3 targetpos = cameraLockPos;
+		Debug.DrawLine (player.position, targetpos);
 
-		transform.LookAt(targetLookAt); 
+		Vector3 midpoint = (player.position + targetpos)/2f;
+
+		Debug.DrawLine (midpoint, new Vector3(midpoint.x, midpoint.y + 3f, midpoint.z));
+		return midpoint;
+		//targetLookAt.position = midpoint;
 	}
 
 	public void Reset()
 	{
+		target = player;
 		mouseX = 0;
 		mouseY = 10;
+		cameraLatency = 0.2f;
+		distance = 5f;
 		desiredDistance = distance;
 		preOccludedDistance = desiredDistance;
+		inEvent = false;
 	}
 
 	public struct ClipPlanePoints
@@ -197,5 +255,11 @@ public class PoPCamera : Camera_2
 		} while(angle < -360 || angle > 360);
 
 		return Mathf.Clamp(angle, min, max);
+	}
+	
+	public void EventRotationSet(float x, float y)
+	{
+		mouseX = x;
+		mouseY = y;
 	}
 }
