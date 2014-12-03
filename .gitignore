@@ -1,22 +1,19 @@
 ## Ignore all
-
 *
-
-
 
 ## Don't ignore the following
 !*/
 !.gitignore
-
 !README.md
+
 !ProjectSettings/*.asset
+!Assets/Editor
+!Assets/Editor/*
 
 ## For the love of god only commit files you have made
 ## Do not commit plugins or external code - external code should be managed by the svn
 !*.cs
 !*.cs.meta
-!Assets/Editor/*.json
-!Assets/Editor/*.json.meta
 
 ## Explicitly ignore specific folders and files below
 
@@ -28,6 +25,8 @@ Assets/Plugins/*
 Assets/Scaleform
 Assets/Scaleform/*
 
-## Editor folder 3rd party scripts
+## Other files
 Assets/Editor/GoDummyPathEditor.cs
 Assets/Editor/GoDummyPathEditor.cs.meta
+Assets/Editor/PostprocessBuildPlayer
+Assets/Editor/PostprocessBuildPlayer.meta
