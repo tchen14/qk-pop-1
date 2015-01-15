@@ -1,6 +1,11 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+/*
+ *  This will save player quest related data. This includes if a quest has been started and if a quest has been completed.
+ *  This includes both quests and missions.
+ *  Missions are distinguishable from quests where only 1 mission can be active at a time (think instance dungeons).
+ */
 public class QuestSaveManager : SaveManager {
 
     public float checkUpdateSpeed = 1.0f;

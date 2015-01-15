@@ -1,14 +1,14 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 
-public class MainMenuInputManager : POPInputManager {
+public class MainMenuInputManager : InputManager {
 
-	// Use this for initialization
+	//! Unity Start function
 	void Start () 
 	{
 	}
 	
-	// Update is called once per frame
+	//! Unity Update function
 	void Update ()
 	{
 		if(Input.GetKey(forward))

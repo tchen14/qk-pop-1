@@ -1,10 +1,12 @@
 [
 	"ai",
 	"camera",
+	"checkpoint",
 	"core",
 	"editor",
 	"input",
 	"json",
 	"player",
+	"safety",
 	"ui"
 ]

@@ -23,3 +23,6 @@ sysinfo.txt
 !*.dll
 !*.obj
 !*.pdb
+
+#Ignore mac files
+.DS_Store

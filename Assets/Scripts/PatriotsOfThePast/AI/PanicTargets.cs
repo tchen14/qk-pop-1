@@ -5,7 +5,7 @@ public class PanicTargets : MonoBehaviour {
 
 	public GameObject PanicController;
 	public List<Vector3> panicPoints = new List<Vector3>();
-	// Use this for initialization
+	//! Unity Start function
 	void Start () {
 		PanicController = this.gameObject;
 		//panicPoints = PanicController.GetComponentsInChildren<Transform>();
@@ -16,7 +16,7 @@ public class PanicTargets : MonoBehaviour {
 			}
 	}
 	
-	// Update is called once per frame
+	//! Unity Update function
 	public Vector3 GetPanickPoint () {
 		return panicPoints[(int)(Mathf.Floor(Random.Range(0,(panicPoints.Count)-1)))];
 	}

@@ -1,0 +1,25 @@
+{
+    "numNodes":0,
+    "node":{
+        "location":"(0.0, 0.0, 0.0)",
+        "child_1":{
+            "location":"(0.0, 0.0, 0.0)",
+            "isEmpty":false,
+            "checkpoints":[
+                "(0.0, 0.0, 0.0)",
+                "(0.0, 0.0, 0.0)",
+                "(0.0, 0.0, 0.0)"
+            ]
+        },
+        "child_2":{
+
+        },
+        "child_3":{
+
+        },
+        "child_4":{
+
+        },
+        "isEmpty":true
+    }
+}

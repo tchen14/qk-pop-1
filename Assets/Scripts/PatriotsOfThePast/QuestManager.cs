@@ -1,6 +1,9 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+/*!
+ *	Manager class for all quests
+ */
 public class QuestManager : EventManager {
 
     //assigned by phone, time based, quest based

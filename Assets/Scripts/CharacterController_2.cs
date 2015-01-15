@@ -81,7 +81,7 @@ public class CharacterController_2 : MonoBehaviour {
 		}
 	}
 	
-	// Use this for initialization
+	//! Unity Start function
 	void Start () 
 	{
 	}

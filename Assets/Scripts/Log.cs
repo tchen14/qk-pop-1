@@ -6,23 +6,24 @@ using SimpleJSON;
 using UnityEditor;
 #endif
 
+/*!
+    \brief Class is for displaying selective debug logging.
+    Using a .json file (located at /Assets/Editor/logKeys.json) for key values, the editor window can be has toggle values that will show the log messages from each category.
+*/
 [SerializeField]
 public class Log : EditorWindow {
+//! \cond doxygen_ignore
     [SerializeField]
-    public static List<string>
-    logStrings = new List<string>();
+    public static List<string> logStrings = new List<string>();
 
-    //[SerializeField]
-    public List<bool>
-    logBools = new List<bool>();
+    public List<bool> logBools = new List<bool>();
 
     [SerializeField]
-    public static bool
-    enabled = true, all = true;
-
+    public static bool enabled = true, all = true;
+//! \endcond
 #if UNITY_EDITOR
     // Add menu named "My Window" to the Window menu
-    [MenuItem ("Window/Debug Log Manager")]
+    [MenuItem ("Custom/Debug Log Manager")]
     static void Init() {
         EditorWindow.GetWindow (typeof (Log)).title = "Debug Log Messages";
     }
@@ -91,19 +92,23 @@ public class Log : EditorWindow {
     }
 #endif
 
+    //! this.Message shorthand overload
     public static void M (string key, string message) {
         Message (key, message);
     }
 
+    //! this.Warning shorthand overload
     public static void W (string key, string message) {
         Warning (key, message);
     }
 
+    //! this.Error shorthand overload
     public static void E (string key, string message) {
         Error (key, message);
     }
 
 #if UNITY_EDITOR
+    //! Function will call Debug.Log with the message
     public static void Message (string key, string message) {
         if (!enabled)
             return;
@@ -111,6 +116,7 @@ public class Log : EditorWindow {
             Debug.Log (message);
     }
 
+    //! Function will call Debug.LogWarning with the message
     public static void Warning (string key, string message) {
         if (!enabled)
             return;
@@ -118,6 +124,7 @@ public class Log : EditorWindow {
             Debug.LogWarning (message);
     }
 
+    //! Function will call Debug.LogError with the message
     public static void Error (string key, string message) {
         if (!enabled)
             return;
@@ -125,14 +132,17 @@ public class Log : EditorWindow {
             Debug.LogError (message);
     }
 #else
+    //! Function will call Debug.Log with the message
     public static void Message (string key, string message) {
         ;
     }
 
+    //! Function will call Debug.LogWarning with the message
     public static void Warning (string key, string message) {
         ;
     }
 
+    //! Function will call Debug.LogError with the message
     public static void Error (string key, string message) {
         ;
     }

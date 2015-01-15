@@ -6,8 +6,7 @@ public class PoPEvent : Placeholder
 {
 	#pragma warning disable 0414
 	[SerializeField]
-	private string
-		prerequisite = ""; //this string is for to check for a completed pre-requisite quest
+	private string prerequisite = "";	/*!<this string is for to check for a completed pre-requisite quest */
 
 	//other prerequsite (eg: item count, time, %map explored, etc.) need a system to be made
 	[SerializeField]

@@ -1,20 +1,20 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections.Generic;
 
-public class KeyboardInputManager : POPInputManager {
+public class KeyboardInputManager : InputManager {
 	private string typedString;
 	private char[] array;
 	private float timeHeld = 0f;
 	bool delete = true;
 	
 	
-	// Use this for initialization
+	//! Unity Start function
 	void Start () 
 	{
 		typedString = string.Empty;
 	}
 	
-	// Update is called once per frame
+	//! Unity Update function
 	void Update ()
 	{
 		print (typedString);

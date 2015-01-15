@@ -1,6 +1,9 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class SceneManager : MonoBehaviour {
+/*!
+ *	Base Scene manager class. Each scene should have it's own SceneManager class
+ */
+public abstract class SceneManager : MonoBehaviour {
 
 }

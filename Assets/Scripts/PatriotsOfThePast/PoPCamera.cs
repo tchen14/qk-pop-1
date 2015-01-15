@@ -1,14 +1,13 @@
 using UnityEngine;
 using System.Collections;
 
-/*
+/*!
  * Child Class of Parent Camera_2 for Patriots of the Past,
  * Inherits initial camera settings from Camera_2,
  * Uses mouse input to orbit camera in a 3D space and mouse wheel for zoom, input works with joysticks
  * Camera follows character if no mouse input is detected
  * Includes methods to handle player occlusion and object/environment clipping
  */
-
 public class PoPCamera : Camera_2
 {
 	public static PoPCamera Instance;
@@ -31,8 +30,8 @@ public class PoPCamera : Camera_2
 	public Vector3 cameraLockPos;
 	private Vector3 cameralookat;
 
-	public float maxTimeSinceMouseMoved = 2.0f;			// Time frame until camera becomes follow cam b/c of mouse inactivity
-	private float currentTimeSinceMouseMoved = 0.0f;	// Private variable that stores mouse inactivity
+	public float maxTimeSinceMouseMoved = 2.0f;			/*!<Time frame until camera becomes follow cam b/c of mouse inactivity */
+	private float currentTimeSinceMouseMoved = 0.0f;	/*!<Private variable that stores mouse inactivity */
 
 	void Awake()
 	{

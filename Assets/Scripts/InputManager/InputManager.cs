@@ -1,7 +1,10 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 
-public class POPInputManager : MonoBehaviour
+/*
+ *	Main input manager class. Called from MasterManager.
+ */
+public class InputManager : MonoBehaviour
 {
 	#pragma warning disable 0414
 	private string currentInputState;
@@ -19,7 +22,7 @@ public class POPInputManager : MonoBehaviour
 	protected string crouch = "left ctrl";
 	protected string jump = "space";
 	
-	// Use this for initialization
+	//! Unity Start function
 	void Awake()
 	{
 		//inputStateArray = new string[inputStateCount] {"MainMenuInputManager", "GameInputManager", "KeyboardInputManager"};

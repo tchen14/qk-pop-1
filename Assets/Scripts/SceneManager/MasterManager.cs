@@ -3,6 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using SimpleJSON;
 
+/*
+ *  Master manager of the game. This manager manages all other (significant) managers.
+ */
 public sealed class MasterManager {
     //sealed attribute prevents other classes from inheriting this class
 
@@ -17,6 +20,11 @@ public sealed class MasterManager {
     }
     #endregion
 
+	/*!
+	 *	Holds all pending scenes to be activated.
+	 *	Keys are based on json file (/Assets/Resources/Json/sceneList.json) and are set in the constructor.
+	 *	Values are false by default.
+	 */
     public Dictionary<string,bool> scenes = new Dictionary<string,bool>();
     bool _init = false;
     public bool init {
@@ -26,6 +34,8 @@ public sealed class MasterManager {
             _init = true;
         }
     }
+
+	//! Class constructor; populates Dictionary variable scenes with values (all false) with keys based on .json file (/Assets/Resources/Json/sceneList.json)
     private MasterManager() {
         string text = System.IO.File.ReadAllText (Application.dataPath + "/Resources/Json/sceneList.json");
         var N = JSON.Parse (text);
@@ -35,12 +45,14 @@ public sealed class MasterManager {
         Log.M ("core", "Scenes dictionary loaded");
     }
 
+	//! Clears Dictionary variable scenes of all values
     private void ClearAllLevels() {
         List<string> buffer = new List<string> (scenes.Keys);
         foreach (string key in buffer)
             scenes [key] = false;
     }
 
+	//! Toggles the level on/off in Dictionary variable scenes
     public void ToggleLevel (string level, bool b = true) {
         if (scenes.ContainsKey (level))
             scenes [level] = b;
@@ -48,8 +60,20 @@ public sealed class MasterManager {
             Log.W ("core", "Level does not exist.");
     }
 
-    //load all levels marked "true" in scenes Dictionary
-    //uninteligent method - it will unload and reload all levels
+    //! This will load a single level. There is no additive level loading option.
+    public void QuickLoadLevel(string level) {
+        if (!init)
+            init = true;
+        Log.M ("core", "Loading level " + level);
+        Application.LoadLevel (level);
+        ClearAllLevels();
+    }
+
+    /*
+     * Load all levels marked "true" in Dictionary variable scenes.
+     * Uninteligent method - it will unload and reload all levels.
+     * This function can load multiple levels additively.
+     */
     public void LoadLevels() {
         if (!init)
             init = true;

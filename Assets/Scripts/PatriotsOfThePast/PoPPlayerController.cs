@@ -3,15 +3,17 @@ using System.Collections;
 
 public class PoPPlayerController : CharacterController_2 {
 	
-	// moves in conjunction with camera's transform
+	//! moves in conjunction with camera's transform
 	public Transform cameraTransform;
-	// dead zone value to determine if input is applied
+	//! dead zone value to determine if input is applied
 	private float inputThreshold = 0.1f;
 	public bool eventInput = false;
 	private Vector3 highestPoint;
-	// Use this for initialization
+	//! Unity Start function
 	void Start()
 	{
+		if (!cameraTransform)
+			Log.E ("camera", "Variable cameraTransform is missing a value.");
 		// reduce drag for momentum to carry
 		rigidbody.drag = 1.0f;
 		// constrain player rotations
