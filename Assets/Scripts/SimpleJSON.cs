@@ -43,6 +43,7 @@
  *
  * * * * */
 using System;
+using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -161,7 +162,23 @@ public class JSONNode {
         } set {
             Value = (value) ? "true" : "false";
         }
-    }
+	}
+	public virtual Vector3 AsVector3 {
+		get {
+			Vector3 v = Vector3.zero;
+			if (Value != ""){
+				string s = Value;
+				if(s[0] == '(' || s[s.Length - 1] == ','){
+					s = s.Trim('(',')');
+				}
+				string[] floats = s.Split(',');
+					return new Vector3(Convert.ToSingle(floats[0]),Convert.ToSingle(floats[1]),Convert.ToSingle(floats[2]));
+			}
+			return Vector3.zero;
+		} set {
+			Value = value.ToString();
+		}
+	}
     public virtual JSONArray AsArray {
         get {
             return this as JSONArray;

@@ -12,10 +12,6 @@ public class CheckpointManager : MonoBehaviour {
 	[SerializeField]
 	public NodeTree checkpointTree;
 	
-	//get rid of this eventually. todo: move to CheckpointManagerEditor
-	[SerializeField]
-	public List<Vector3> checkpointList = new List<Vector3>();
-
 	//! This function should be called when the player dies
 	public Vector3 Respawn(Vector3 pos){
 		//find the closest node
@@ -44,15 +40,5 @@ public class CheckpointManager : MonoBehaviour {
 	//!Load the checkpoint data from a file
 	public bool LoadCheckpointData(){
 		return true;
-	}
-	
-	public bool findClosest = false;
-	public Vector3 pos, closestCheckpoint;
-	void OnDrawGizmosSelected() {
-		if (findClosest) {
-			Gizmos.color = Color.red;
-			Gizmos.DrawLine(pos,closestCheckpoint);
-			//Gizmos.DrawSphere (closestCheckpoint, 4.0f);
-		}
 	}
 }

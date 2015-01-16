@@ -2,35 +2,55 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
+using SimpleJSON;
 
 [CustomEditor (typeof(CheckpointManager))]
 public class CheckpointManagerEditor : Editor
 {
-	
+	CheckpointManager myTarget;
+	string checkpointDataPath = Application.dataPath;
+	string checkpointFilePath = "/Resources/Json/checkpointData.json";
 	//! Minimum space between nodes
-	const int minSpace = 100;
+	const int minSpace = 10;
 	bool foldout = false;
+	bool findClosest = false;
 	
-	/*!
-	 * 	Make a button to (Re)Build all checkpoints. This means calculating all walkable nodes,
-	 * 	then calculating the distance from each node to each checkpoint.
-	 */
+	//For marking closest node
+	public List<Vector3> checkpointList = new List<Vector3>();
+	
+	//! Unity OnEnable function
 	void OnEnable()
 	{
+		//Set reference to CheckpointManager class
+		myTarget = (CheckpointManager)target;
+		
 		foldout = EditorPrefs.GetBool("CheckpointManagerEditor.foldout");
-		//findClosest = EditorPrefs.GetBool("CheckpointManagerEditor.findClosest");
+		findClosest = false;
+		
+		//find all gameobjects with the <checkpoint> and place (positions) into List<Vector3>
+		Checkpoint[] cps = Object.FindObjectsOfType(typeof(Checkpoint)) as Checkpoint[];
+		checkpointList.Clear();
+		foreach (Checkpoint cp in cps) {
+			checkpointList.Add(new Vector3(cp.transform.position.x, 0, cp.transform.position.z));
+		}
 	}
 	
+	//! Unity OnDisable function
 	void OnDisable()
 	{
 		EditorPrefs.SetBool("CheckpointManagerEditor.foldout", foldout);
-		//EditorPrefs.SetBool("CheckpointManagerEditor.findClosest", findClosest);
+		EditorPrefs.SetString("CheckpointManagerEditor.checkpointFilePath", checkpointFilePath);
 	}
 	
+	
+	/*!
+	 * 	Make a button to (Re)Build all checkpoints. This means calculating all walkable nodes, then calculating the distance from each node to each checkpoint.
+	 *	Make a button to save NodeTree data to a json string and write it to a file
+	 */
 	public override void OnInspectorGUI()
-	{
-		//Set reference to CheckpointManager class
-		CheckpointManager myTarget = (CheckpointManager)target;
+	{		
+		//Set checkpointFilePath text field
+		checkpointFilePath = GUILayout.TextField(checkpointFilePath);
 		
 		//(Re)Build checkpoints button
 		string s = (myTarget.checkpointTree == null) ? "Build checkpoints" : "Rebuild checkpoints";
@@ -44,10 +64,13 @@ public class CheckpointManagerEditor : Editor
 			GUILayout.Button("Please build checkpoints first");
 			GUI.enabled = true;
 		} else if (GUILayout.Button("Save checkpoints to file")) {
-			if (myTarget.checkpointTree.SaveTreeAsJson(Application.dataPath + "/Resources/Json/checkpointData.json")) {
-				Log.M("checkpoint", "Checkpoints saved.");
-			} else {
-				Log.M("checkpoint", "Saving checkpoints failed.");
+			if (!System.IO.File.Exists(checkpointDataPath + checkpointFilePath)) {
+				SaveCheckpoints(myTarget);
+			} else if (EditorUtility.DisplayDialog("Continue save from file",
+			                                       "File data already exists, this will override older data.",
+			                                       "Save",
+			                                       "Cancel")) {
+				SaveCheckpoints(myTarget);
 			}
 		}
 		
@@ -56,8 +79,8 @@ public class CheckpointManagerEditor : Editor
 			if (myTarget.checkpointTree == null) {
 				LoadCheckpoints(myTarget);
 			} else if (EditorUtility.DisplayDialog("Continue load from file",
-			                                       "Checkpoint data already exists. Old data will be wiped.",
-			                                       "Continue",
+			                                       "Checkpoint data already exists, this will override older data.",
+			                                       "Load",
 			                                       "Cancel")) {
 				LoadCheckpoints(myTarget);
 			}
@@ -67,30 +90,31 @@ public class CheckpointManagerEditor : Editor
 		EditorGUILayout.Space();
 		
 		EditorGUILayout.HelpBox("Will Color Closest Checkpoint Red", MessageType.Info);
-		myTarget.pos = EditorGUILayout.Vector3Field("Pos", myTarget.pos);
-		if (GUILayout.Button("Find closest checkpoint") && !EditorApplication.isPlaying) {
-			List<Vector3> tpmp = GameObject.Find("CheckpointManager").GetComponent<CheckpointManager>().checkpointTree.Search(myTarget.pos);
-			
-			if (tpmp != null && tpmp.Count != 0) {
-				myTarget.closestCheckpoint = tpmp [0];
-				myTarget.findClosest = true;
-				Log.M("checkpoint", "Closest checkpoint: " + myTarget.closestCheckpoint);
-				foreach (Vector3 v in tpmp) {
-					//Log.M ("checkpoint", ""+v);
+		s = !findClosest ? "Find closest checkpoint" : "Turn off \"Find closest checkpoint\"";
+		if (GUILayout.Button(s) /*&& !EditorApplication.isPlaying*/) {
+			if(findClosest != true){
+				if(myTarget.checkpointTree == null)
+					LoadCheckpoints(myTarget);
+				if (checkpointList != null && checkpointList.Count != 0) {
+					findClosest = true;
+					Log.M("checkpoint", "Drawing closest checkpoints...");
 				}
-			} else {
-				Log.M("checkpoint", "Un-walkable position.");
+				SceneView.RepaintAll();
+			}else if(findClosest == true){
+				findClosest = false;
+				Log.M("checkpoint", "No longer drawing closest checkpoints");
+				SceneView.RepaintAll();
+			} else{
+				findClosest = false;
 			}
-			SceneView.RepaintAll();
-			
 		}
 		
 		//Display all checkpoint locations
-		EditorGUILayout.LabelField("Checkpoints", myTarget.checkpointList.Count.ToString());
+		EditorGUILayout.LabelField("Checkpoints", checkpointList.Count.ToString());
 		EditorGUILayout.Space();
 		foldout = EditorGUILayout.Foldout(foldout, "Display checkpoints");
 		if (foldout) {
-			foreach (Vector3 v in myTarget.checkpointList) {
+			foreach (Vector3 v in checkpointList) {
 				EditorGUILayout.BeginHorizontal();
 				EditorGUILayout.LabelField("X", GUILayout.MaxWidth(20));
 				EditorGUILayout.LabelField(v.x.ToString("0.0"), GUILayout.MaxWidth(80));
@@ -100,26 +124,61 @@ public class CheckpointManagerEditor : Editor
 			}
 		}
 	}
-
-	void LoadCheckpoints(CheckpointManager myTarget)
-	{
-		myTarget.checkpointTree = new NodeTree();
-		if (myTarget.checkpointTree.LoadTreeFromFile(Application.dataPath + "/Resources/Json/checkpointData.json")) {
-			Log.M("checkpoint", "Checkpoints loaded.");
-		} else {
-			Log.M("checkpoint", "Loading checkpoints failed.");
+	
+	//Variables for drawing the closest checkpoints
+	Ray ray;
+	RaycastHit hit;
+	
+	//!Unity Editor function
+	void OnSceneGUI(){
+		if (myTarget != null && myTarget.checkpointTree != null && findClosest) {
+			//ray = Camera.current.ScreenPointToRay(Input.mousePosition);
+			ray = HandleUtility.GUIPointToWorldRay(Event.current.mousePosition);
+			if (Physics.Raycast(ray, out hit, 1000.0F)){
+				List<Vector3> cpList = myTarget.checkpointTree.Search(hit.point);
+				if(cpList != null){
+					int min = Mathf.Min(7, cpList.Count);
+					for (int i = 0; i < min; i++) {
+						Handles.color = Color.Lerp(Color.black, Color.white, (float)i/min);
+						Handles.DrawDottedLine(hit.point + Vector3.up,cpList[i] + Vector3.up, i*i*i+i*i+1);
+					}
+				}
+				SceneView.RepaintAll();
+			}
 		}
 	}
-		
+	
+	void SaveCheckpoints(CheckpointManager myTarget)
+	{
+		if (myTarget.checkpointTree.SaveTreeAsJson(checkpointDataPath + checkpointFilePath)) {
+			Log.M("checkpoint", "Checkpoints saved.");
+		} else {
+			Log.W("checkpoint", "Saving checkpoints failed.");
+		}
+	}
+	
+	void LoadCheckpoints(CheckpointManager myTarget)
+	{
+		if(myTarget == null){
+			Debug.LogWarning("fuck");
+		}
+		myTarget.checkpointTree = new NodeTree();
+		if (myTarget.checkpointTree.LoadTreeFromFile(checkpointDataPath + checkpointFilePath)) {
+			Log.M("checkpoint", "Checkpoints loaded.");
+		} else {
+			Log.W("checkpoint", "Loading checkpoints failed.");
+		}
+	}
+	
 	void BuildNodeTree(CheckpointManager myTarget)
 	{
 		//find all gameobjects with the <checkpoint> and place (positions) into List<Vector3>
 		Checkpoint[] cps = Object.FindObjectsOfType(typeof(Checkpoint)) as Checkpoint[];
-		myTarget.checkpointList.Clear();
+		checkpointList.Clear();
 		foreach (Checkpoint cp in cps) {
-			myTarget.checkpointList.Add(new Vector3(cp.transform.position.x, 0, cp.transform.position.z));
+			checkpointList.Add(new Vector3(cp.transform.position.x, 0, cp.transform.position.z));
 		}
-		if (myTarget.checkpointList.Count == 0) {
+		if (checkpointList.Count == 0) {
 			Log.W("editor", "No Checkpoints in scene");
 			return;
 		}
@@ -164,11 +223,11 @@ public class CheckpointManagerEditor : Editor
 		Dictionary<Vector3, float> checkpointDict = new Dictionary<Vector3, float>();	//Temporary dictionary holding checkpoint location and distance to the node
 		float tempFloat;
 		Vector3 tempV3 = new Vector3();
-
+		
 		foreach (Vector3 n in nodes) {
 			//Calculate distance from node to each checkpoint
 			checkpointDict.Clear();
-			foreach (Vector3 c in myTarget.checkpointList) {
+			foreach (Vector3 c in checkpointList) {
 				tempFloat = 0.0f; //use to measure disatance here
 				NavMesh.CalculatePath(n, c, -1, path);
 				
@@ -183,50 +242,49 @@ public class CheckpointManagerEditor : Editor
 					checkpointDict.Add(c, tempFloat);
 				}
 			}
-
+			
 			//Sort checkpoint list by shortest distance
-			List<Vector3> checkpointList = new List<Vector3>();	//Temporary list of checkpoints sorted by shortest distance from the node
+			List<Vector3> cpList = new List<Vector3>();	//Temporary list of checkpoints sorted by shortest distance from the node
 			for (int i = 0; i <checkpointDict.Count; i++) {
 				tempFloat = float.MaxValue; //used to find smallest value in dictionary here
 				foreach (KeyValuePair<Vector3, float> p in checkpointDict) {
-					if (!checkpointList.Contains(p.Key) && p.Value < tempFloat) {
+					if (!cpList.Contains(p.Key) && p.Value < tempFloat) {
 						tempFloat = p.Value;
 						tempV3 = p.Key; //used to hold key
 					}
 				}
-				checkpointList.Add(tempV3);
+				cpList.Add(tempV3);
 			}
 			
 			//Add sorted list of checkpoints to the nodeList
-			nodeList.Add(checkpointList);
+			nodeList.Add(cpList);
 		}
 		
 		EditorApplication.isPlaying = false;
 		
-		Vector3 fucks = new Vector3();
 		//Put all node data and checkpoint paths into NodeTree
 		Dictionary<Vector3,List<Vector3>> dict = new Dictionary<Vector3,List<Vector3>>();
 		for (int i=0; i<nodes.Count; i++) {
 			dict.Add(nodes [i], nodeList [i]);
 		}
-
+		
 		myTarget.checkpointTree = new NodeTree(dict);
-
+		
 		//Return this object to Vector3.zero
 		myTarget.transform.position = Vector3.zero;
 		
 		//Pull up dialogue box with results
-		FinishDialogueBox(myTarget.checkpointList.Count, min, max, nodes.Count);
+		FinishDialogueBox(checkpointList.Count, min, max, nodes.Count);
 	}
 	
 	void FinishDialogueBox(int checkpoints, Vector2 min, Vector2 max, int nodes)
 	{
 		if (EditorUtility.DisplayDialog("(Re)Building Checkpoints complete!",
 		                                "[Checkpoints count is " + checkpoints + "]\n" +
-			"[Max bounds are " + max + "]\n" +
-			"[Min bounds are " + min + "]\n" +
-			"[Node count is " + nodes + "]\n" +
-			"[Total connections count is " + nodes * checkpoints + "]",
+		                                "[Max bounds are " + max + "]\n" +
+		                                "[Min bounds are " + min + "]\n" +
+		                                "[Node count is " + nodes + "]\n" +
+		                                "[Total connections count is " + nodes * checkpoints + "]",
 		                                "Continue")) {
 		}
 		Repaint();

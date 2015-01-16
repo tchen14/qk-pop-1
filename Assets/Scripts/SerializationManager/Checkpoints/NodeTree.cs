@@ -12,20 +12,25 @@ public class NodeTree
 {
 	private Node m_root;
 	
-	//Global variables used to calculate averages of entire list of nodes,then of each cartesian quadrant's nodes
-	float x, z;
-	int totalNodes;
+	//!Number of nodes held at the bottom level
+	public int totalNodes = 0;
 
 	//! COnstructor with blank data
 	public NodeTree()
 	{
-
+		m_root = new Node(new Vector3(0, 0, 0), null, null, null, null, null);
 	}
 
 	//! Constructor using dictionary
 	public NodeTree(Dictionary<Vector3,List<Vector3>> nodes)
 	{
 		totalNodes = nodes.Count;
+		
+		float x = 0, z = 0;
+		foreach(Vector3 v in nodes.Keys){
+			x += v.x;
+			z += v.z;
+		}
 		m_root = new Node(new Vector3(x / nodes.Count, 0, z / nodes.Count), null, null, null, null, null);
 		
 		// Send list to recursive insert function
@@ -45,6 +50,10 @@ public class NodeTree
 		public List<Vector3> checkpoints;
 		
 		//node constructor
+		public Node(){
+		
+		}
+		
 		public Node(Vector3 n_location, Node n_child_1, Node n_child_2, Node n_child_3, Node n_child_4, List<Vector3> n_checkpoints)
 		{
 			location = n_location;
@@ -66,15 +75,8 @@ public class NodeTree
 	//!Initial call should be made to this. Requires list of all nodes you want to put into the tree.
 	private void RecursiveInsert(Dictionary<Vector3,List<Vector3>> nodes)
 	{
-		x = z = 0;
-		// Calculate totals of x position, z position, and number of nodes
-		foreach (Vector3 temp in nodes.Keys) {
-			x += temp.x;
-			z += temp.z;
-		}
-
 		// passing in node list, average x location, average z location, and root of tree
-		RecursiveInsert(nodes, x / nodes.Count, z / nodes.Count, m_root);
+		RecursiveInsert(nodes, m_root.location.x, m_root.location.z, m_root);
 	}
 
 	/*!
@@ -82,7 +84,7 @@ public class NodeTree
 	 */
 	private void RecursiveInsert(Dictionary<Vector3,List<Vector3>>nodes, float xPos, float zPos, Node parent)
 	{
-		// create four temp lists to match each cartesian quadrant		
+		// create four temp lists to match each cartesian quadrant	
 		Dictionary<Vector3,List<Vector3>> quadrant_1 = new Dictionary<Vector3,List<Vector3>>();
 		Dictionary<Vector3,List<Vector3>> quadrant_2 = new Dictionary<Vector3,List<Vector3>>();
 		Dictionary<Vector3,List<Vector3>> quadrant_3 = new Dictionary<Vector3,List<Vector3>>();
@@ -90,8 +92,9 @@ public class NodeTree
 		
 		// make sure list passed isn't empty
 		if (nodes.Count > 0) {
-			// push each node into a specific list depending on nodes location related to average location of all nodes
+			float x, z;
 			
+			// push each node into a specific list depending on nodes location related to average location of all nodes
 			foreach (Vector3 node in nodes.Keys) {
 				if (node.x >= xPos && node.z >= zPos) {
 					quadrant_1.Add(node, nodes [node]);
@@ -246,114 +249,57 @@ public class NodeTree
 	public bool SaveTreeAsJson(string path)
 	{
 		System.IO.File.Delete(path);
-		System.IO.File.WriteAllText(path, GetTreeAsJson());
+		System.IO.File.WriteAllText(path, GetTreeAsJson().ToString());
 		return System.IO.File.Exists(path);
 	}
 	
 	public string GetTreeAsJson()
 	{
-		string s = "";
-		//Opening json bracket and enter totalNodes
-		s += "{\"totalNodes\":" + totalNodes + ",";
+		//Main json body
+		JSONClass json = new JSONClass();
 		
+		//Adding totalNodes variable
+		json.Add("totalNodes",new JSONData(totalNodes));
+				
 		if (m_root.child_1 != null && m_root.child_2 != null && m_root.child_3 != null && m_root.child_4 != null) {
-			s += "\"node\":{" + GetNodeData(m_root);
+			//Add each of the nodes below m_root
+			json.Add("node",GetNodeDataAsJson(m_root));
 		} else {
 			Log.E("checkpoint", "NodeTree empty. Please (Re)Build Checkpoints.");
 		}
 		
-		//Close out json bracket
-		s += "}";
-		
 		//Log.M("checkpoint", "Checkpoint string in .json format:\n"+s);
-		return s;
+		return json.ToString();
 	}
 	
-	int i = 0;
-	private string GetNodeData(Node n)
+	private JSONClass GetNodeDataAsJson(Node n)
 	{
-		string s = "";
-		bool comma = false;	//This is used to tell the next segment to make a comma (if there was a previous segment)
-		//While node has children
+		JSONClass json = new JSONClass();
 		
+		json.Add("loc",new JSONData(n.location.ToString()));
 		if (n.isEmpty()) {
-			//s += "\"location\":\"null\",";
-			s += "\"location\":\"" + n.location + "\",";
 			if (n.child_1 != null) {
-				s += "\"child_1\":{" + GetNodeData(n.child_1);
-				comma = true;
+				json.Add("c1",GetNodeDataAsJson(n.child_1));
 			}
 			if (n.child_2 != null) {
-				if (comma == true) {
-					s += ",";
-					comma = false;
-				}
-				s += "\"child_2\":{" + GetNodeData(n.child_2);
-				
-				comma = true;
+				json.Add("c2",GetNodeDataAsJson(n.child_2));
 			}
 			if (n.child_3 != null) {
-				if (comma == true) {
-					s += ",";
-					comma = false;
-				}
-				s += "\"child_3\":{" + GetNodeData(n.child_3);
-				
-				comma = true;
+				json.Add("c3",GetNodeDataAsJson(n.child_3));
 			}
 			if (n.child_4 != null) {
-				if (comma == true) {
-					s += ",";
-					comma = false;
-				}
-				s += "\"child_4\":{" + GetNodeData(n.child_4);
-				
-				comma = true;
+				json.Add("c4",GetNodeDataAsJson(n.child_4));
 			}
-			//s += ",\"isEmpty\":" + n.isEmpty.ToString().ToLower();
 		} else if (!n.isEmpty()) {
-			s += "\"location\":\"" + n.location.ToString() + "\",";
-			//s += "\"isEmpty\":" + n.isEmpty.ToString().ToLower() + ",";
-			s += "\"checkpoints\":[";
-			bool once = true;
+			JSONArray checkpoints = new JSONArray();
 			if (n.checkpoints != null) {
 				foreach (Vector3 v in n.checkpoints) {
-					if (once) {
-						s += "\"" + v.ToString() + "\"";
-						once = false;
-					} else {
-						s += ",\"" + v.ToString() + "\"";
-					}
+					checkpoints.Add(new JSONData(v.ToString()));
 				}
 			}
-			s += "]";
-			
+			json.Add("cp",checkpoints);
 		}
-		s += "}";
-		return s;
-	}
-	
-	private string CreateNodeBaseStr(int i, Node n)
-	{
-		string s = "\"child_" + i + "\":{";
-		s += "\"location\":\"" + n.location.ToString() + "\",";
-		//s += "\"isEmpty\":" + n.isEmpty.ToString().ToLower() + ",";
-		s += "\"checkpoints\":[";
-		bool once = true;
-		if (n.checkpoints != null) {
-			foreach (Vector3 v in n.checkpoints) {
-				if (once) {
-					s += "\"" + v.ToString() + "\"";
-					once = false;
-				} else {
-					s += ",\"" + v.ToString() + "\"";
-				}
-			}
-		}
-		s += "]";
-		
-		s += "}";
-		return s;
+		return json;
 	}
 	
 	public bool LoadTreeFromFile(string path)
@@ -363,12 +309,47 @@ public class NodeTree
 			return false;
 		}
 		
-		string checkpointData = System.IO.File.ReadAllText(path);
-		var N = JSON.Parse(checkpointData);
-		//		for (int i = 0; i < N.Count; i++)
-		//			logStrings.Add (N [i].Value);
+		string json = System.IO.File.ReadAllText(path);
+		return LoadTreeFromJson(json);
+	}
+	
+	public bool LoadTreeFromJson(string json)
+	{
+		JSONNode checkpointData = JSON.Parse(json);
 		
-		//m_root = new Node(new Vector3(x / totalNodes, 0, z / totalNodes), null, null, null, null, null);
-		return true;
+		totalNodes = checkpointData["totalNodes"].AsInt;
+		InsertNodeFromJson(m_root, checkpointData["node"]);
+		
+		return totalNodes == 0 ? false : true;
+	}
+	
+	//! Returns node built from JSONNode data
+	private Node InsertNodeFromJson(Node n, JSONNode nodeData){
+		n.location = nodeData["loc"].AsVector3;
+		
+		if(nodeData["cp"] == null){
+			if(nodeData["c1"] != null){
+				n.child_1 = InsertNodeFromJson(new Node(), (JSONNode)nodeData["c1"]);
+			}
+			if(nodeData["c2"] != null){
+				n.child_2 = InsertNodeFromJson(new Node(), (JSONNode)nodeData["c2"]);
+			}
+			if(nodeData["c3"] != null){
+				n.child_3 = InsertNodeFromJson(new Node(), (JSONNode)nodeData["c3"]);
+			}
+			if(nodeData["c4"] != null){
+				n.child_4 = InsertNodeFromJson(new Node(), (JSONNode)nodeData["c4"]);
+			}
+		}else{
+			List<Vector3> checkpoints = new List<Vector3>();
+			JSONArray jsonArray = nodeData["cp"].AsArray;
+			for(int i = 0; i < nodeData["cp"].AsArray.Count; i++){
+				checkpoints.Add(nodeData["cp"].AsArray[i].AsVector3);
+			}
+			
+			n.checkpoints = checkpoints;
+		}
+		
+		return n;
 	}
 }
