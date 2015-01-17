@@ -1,22 +1,26 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class PoPPlayerController : CharacterController_2 {
+/*!
+ *	Extended class from characterController.
+ *	This controller is desgined to fulfil all necessities of Patriots of the Past
+ */
+public class PoPCharacterController : CharacterController_2 {
+	//Set in Start() function
+	const float rigidbodyDrag = 1.0f;
 	
-	//! moves in conjunction with camera's transform
-	public Transform cameraTransform;
-	//! dead zone value to determine if input is applied
-	private float inputThreshold = 0.1f;
-	public bool eventInput = false;
-	private Vector3 highestPoint;
+	public Transform cameraTransform;	/*!< Moves in conjunction with camera's transform */
+	private float inputThreshold = 0.1f;	/*!< Dead zone value to determine if input is applied */
+	public bool eventInput = false;	/*!<  */
+	private Vector3 highestPoint;	/*!<  */
+	string last = "";	/*!<  */
+	
 	//! Unity Start function
 	void Start()
 	{
-		if (!cameraTransform)
-			Log.E ("camera", "Variable cameraTransform is missing a value.");
-		// reduce drag for momentum to carry
-		rigidbody.drag = 1.0f;
-		// constrain player rotations
+		// Reduce drag for momentum to carry
+		rigidbody.drag = rigidbodyDrag;
+		// Constrain player rotations. Player can only turn on the Y axis
 		rigidbody.constraints =  RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ;
 		
 		currentMovementSpeed = minMovementSpeed;
@@ -25,12 +29,8 @@ public class PoPPlayerController : CharacterController_2 {
 	
 	void FixedUpdate()
 	{
-		//testing purposes
-		// input used for movement, rotation, jumping, eventInput
-		float xPlaneInput = Input.GetAxisRaw("Horizontal");
-		float zPlaneInput = Input.GetAxisRaw("Vertical");
-		float yPlaneInput = Input.GetAxisRaw("Jump");
-		playerInput(xPlaneInput,zPlaneInput,yPlaneInput);
+		// Input used for movement, rotation, jumping, eventInput
+		PlayerInput(Input.GetAxisRaw("Horizontal"),Input.GetAxisRaw("Jump"),Input.GetAxisRaw("Vertical"));
 
 		// action:event button used to get out of events
 		if(Input.GetKeyDown(KeyCode.Q))
@@ -43,13 +43,13 @@ public class PoPPlayerController : CharacterController_2 {
 		}
 	}
 	
-	// check if there is player input
+	// Check if there is player input
 	// zPlane is JUMPING
-	public void playerInput(float xPlaneInput, float zPlaneInput, float yPlaneInput)
+	public void PlayerInput(float xPlaneInput, float yPlaneInput, float zPlaneInput)
 	{
 		if(!inMovementEvent)
 		{
-			// movement input
+			// Movement input
 			if((Mathf.Abs(xPlaneInput) > inputThreshold || Mathf.Abs(zPlaneInput) > inputThreshold))
 			{	
 				// increment player speed as long as movement is being applied
@@ -57,10 +57,10 @@ public class PoPPlayerController : CharacterController_2 {
 				{
 					currentMovementSpeed = currentMovementSpeed + Time.deltaTime * acceleration;
 				}
-				directionUpdate(xPlaneInput,zPlaneInput);
-				movementUpdate();
+				DirectionUpdate(xPlaneInput,zPlaneInput);
+				MovementUpdate();
 			}
-			// reset movement variables
+			// Reset movement variables
 			else
 			{
 				if(currentMovementSpeed > minMovementSpeed)
@@ -68,7 +68,7 @@ public class PoPPlayerController : CharacterController_2 {
 					// decrement player speed as long as movement is being applied
 					currentMovementSpeed = currentMovementSpeed - (Time.deltaTime*20f);
 				}
-				if(groundedCheck(collider))
+				if(CheckGrounded(collider))
 				{
 					currentCharacterState = characterState.idleState;
 				}
@@ -78,23 +78,20 @@ public class PoPPlayerController : CharacterController_2 {
 			{
 				currentCharacterState = characterState.jumpingState;
 				// x and y inputs arguments for rotation in air
-				jumpUpdate(yPlaneInput);
+				JumpUpdate(yPlaneInput);
 			}
 			// reset jumping variables
 			else
 			{
 				jumpDirection = Vector3.zero;
 			}
-		}
-		// inMovementEvent
-		else
-		{
+		} else {
 			if(currentCharacterState == characterState.climbingState)
-				climbUpdate(zPlaneInput*ladderClimbingSpeed);
+				ClimbUpdate(zPlaneInput*ladderClimbingSpeed);
 		}
 	}
 	
-	public void directionUpdate(float xPlaneMovement, float zPlaneMovement)
+	public void DirectionUpdate(float xPlaneMovement, float zPlaneMovement)
 	{
 		// Forward vector relative to the camera along the x-z plane	
 		Vector3 forward = cameraTransform.TransformDirection(Vector3.forward);
@@ -109,31 +106,31 @@ public class PoPPlayerController : CharacterController_2 {
 		transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.LookRotation(targetDirection.normalized), rotationSpeed);
 	}
 	
-	public void movementUpdate()
+	public void MovementUpdate()
 	{
-		// movement direction and rotation
-		// movement velocity threshold
-		if(moveCheck())
+		// Movement direction and rotation
+		// Movement velocity threshold
+		if(CheckMoving())
 		{
-			if(groundedCheck(collider))
+			if(CheckGrounded(collider))
 			{
 				rigidbody.AddForce(targetDirection.normalized * currentMovementSpeed);
 				currentCharacterState = characterState.runningState;
 			}
-			// reduce ability to move if not grounded
+			// Reduce ability to move if not grounded
 			else
 			{
 				rigidbody.AddForce((targetDirection.normalized * currentMovementSpeed) * airMovementSpeedPercentage);
 				currentCharacterState = characterState.movingJumpState;
 			}
 		}
-		// reset target direction
+		// Reset target direction
 		targetDirection = Vector3.zero;
 	}
 	// x and y arguments taken to rotate player		
-	public void jumpUpdate(float yPlaneMovement)
+	public void JumpUpdate(float yPlaneMovement)
 	{
-		if(groundedCheck(collider))
+		if(CheckGrounded(collider))
 		{
 			if(currentCharacterState == characterState.jumpingState)
 			{
@@ -143,23 +140,25 @@ public class PoPPlayerController : CharacterController_2 {
 		}
 	}
 	
-	public void climbUpdate(float climbingSpeed)
+	public void ClimbUpdate(float climbingSpeed)
 	{
-		// if you are lower than the top of the ladder or you're moving down
+		// If you are lower than the top of the ladder or you're moving down
 		if((highestPoint.y >= transform.position.y || climbingSpeed < 0) && currentCharacterState == characterState.climbingState)
 		{
-			rigidbody.AddForce(Vector3.up * climbingSpeed);
+			rigidbody.AddForce(cameraTransform.TransformDirection(Vector3.up) * climbingSpeed);
 		}
 	}
-	// this function is only called once currently; if you want a smooth transform, you need to create a function that is called in FixedUpdate
-	public void positionAfterEvent(Vector3 position)
+	
+	//! This function is only called once currently; if you want a smooth transform, you need to create a function that is called in FixedUpdate
+	public void PositionAfterEvent(Vector3 position)
 	{
 		while(Vector3.Distance(transform.position,position) > 0.1f)
 		{
 			transform.position = Vector3.Lerp(transform.position,position,0.01f);
 		}
 	}
-	string last = "";
+	
+	//! Unity built in function. Used to detect continous collision with another GameObject
 	void OnTriggerStay(Collider collider)
 	{ 
 		// if you're in a collider
@@ -238,6 +237,8 @@ public class PoPPlayerController : CharacterController_2 {
 			}
 		}
 	}
+	
+	//! Unity built in function. Used to detect collision
 	void OnTriggerEnter(Collider collider)
 	{
 		// if we're in a movement even and we collide with the bottom of the ladder
@@ -260,7 +261,7 @@ public class PoPPlayerController : CharacterController_2 {
 			rigidbody.drag = 1.0f;
 			inMovementEvent = false;
 			// put player on roof next to top of ladder
-			positionAfterEvent(collider.transform.parent.GetChild(2).position);
+			PositionAfterEvent(collider.transform.parent.GetChild(2).position);
 
 		}
 	}

@@ -2,88 +2,59 @@
 using System.Collections;
 
 [RequireComponent (typeof (Rigidbody))]
-public class CharacterController_2 : MonoBehaviour {
+/*!
+ *	Base class for a characterController. The _2 is appanded due to Unity's built in CharacterController class
+ */
+public abstract class CharacterController_2 : MonoBehaviour {
 	
-	// movement variables
+	//! Movement variables
 	protected Vector3 targetDirection = Vector3.zero;
-	[SerializeField] public float minMovementSpeed = 10f;
-	[SerializeField] public float maxMovementSpeed = 20f;
-	[SerializeField] public float acceleration = 7.5f;
-	[SerializeField] protected float currentMovementSpeed;
-	// jumping variables
-	protected Vector3 jumpDirection = Vector3.zero;
-	[SerializeField] public float maxJumpingHeight = 0.5f;
-	[SerializeField] public float airMovementSpeedPercentage = 0.1f;
-	// climbing variables
-	[SerializeField] public float maxClimbingSpeed = 10f;
-	[SerializeField] public float minClimbingSpeed = 5f;
-	[SerializeField] protected float currentClimbingSpeed;
-	[SerializeField] public float ladderClimbingSpeed = 200f;
+	[SerializeField] protected float minMovementSpeed = 10f;
+	[SerializeField] protected float maxMovementSpeed = 20f;
+	[SerializeField] protected float acceleration = 7.5f;
+	[SerializeField] public float currentMovementSpeed;
+	public float rotationSpeed = 3.5f;
+	
+	// Jumping variables
+	public Vector3 jumpDirection = Vector3.zero;
+	[SerializeField] protected float maxJumpingHeight = 0.5f;
+	[SerializeField] protected float airMovementSpeedPercentage = 0.1f;
+	
+	// Climbing variables
+	[SerializeField] protected float minClimbingSpeed = 5f;
+	[SerializeField] protected float maxClimbingSpeed = 10f;
+	[SerializeField] public float currentClimbingSpeed;
+	[SerializeField] protected float ladderClimbingSpeed = 200f;
 
+#if UNITY_EDITOR
+	// Used only to see status in inspector
+	[ReadOnly] public bool isMoving;
+	[ReadOnly] public bool isGrounded;
+#endif
 	
-	// used only to see status in inspector; DO NOT USE!
-	[SerializeField] public bool isMoving;
-	// used only to see status in inspector; DO NOT USE!
-	[SerializeField] public bool isGrounded;
 	public bool inMovementEvent = false;
-	
-	// character states
+
+	// Character states
 	public enum characterState { idleState, walkingState, runningState, jumpingState, movingJumpState, climbingState, endClimbingState}
 	public characterState currentCharacterState = characterState.idleState;
 	
-	// player rotation speed
-	public float rotationSpeed = 3.5f;
-	
-	// check to see if player is grounded
-	public bool groundedCheck(Collider collider)
+	//! Check to see if character is grounded
+	protected bool CheckGrounded(Collider collider)
 	{
-		if (Physics.Raycast(transform.position, -transform.up, collider.bounds.size.y/2))
-		{
-			Debug.DrawRay(transform.position,-transform.up,Color.red);
-			isGrounded = true;
-			return true;
-		}
-		else
-		{
-			isGrounded = false;
-			return false;
-		}
+#if UNITY_EDITOR
+		isGrounded = Physics.Raycast(transform.position, -transform.up, collider.bounds.size.y/2);
+		if(isGrounded)
+			Log.R("player",transform.position,-transform.up,Color.red); 
+#endif
+		return Physics.Raycast(transform.position, -transform.up, collider.bounds.size.y/2);
 	}
 	
-	public bool moveCheck()
+	//! Check to see if the character is moving
+	protected bool CheckMoving()
 	{
-		if(Mathf.Abs(currentMovementSpeed) > minMovementSpeed)
-		{
-			isMoving = true;
-		}
-		else
-		{
-			isMoving = false;
-		}
-		return isMoving;
+#if UNITY_EDITOR
+		isMoving = (currentMovementSpeed > minMovementSpeed);
+#endif
+		return (currentMovementSpeed > minMovementSpeed);
 	}
-	
-	// collision detection---NOT WORKING---NOT CURRENTLY NECESSARY
-	public bool isColliding(Collider collider)
-	{
-		// --WARNING!-- last variable, calculation of length of ray cast does not match actual size of collider
-		if (Physics.Raycast(transform.position, transform.forward, collider.bounds.size.y*1.67f))
-		{
-			Debug.DrawRay(transform.position,transform.forward,Color.red);
-			//Debug.DrawRay(transform.position,transform.up,Color.red);
-			isMoving = false;
-			return true;
-		}
-		else
-		{
-			isMoving = true;
-			return false; 
-		}
-	}
-	
-	//! Unity Start function
-	void Start () 
-	{
-	}
-	
 }

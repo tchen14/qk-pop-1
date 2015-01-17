@@ -106,6 +106,11 @@ public class Log : EditorWindow {
     public static void E (string key, string message) {
         Error (key, message);
     }
+	
+	public static void R (string key, Vector3 start, Vector3 end, Color color = default(Color),
+	                            float duration = 0.0f, bool depthTest = true) {
+		DrawRay (key, start, end, color, duration, depthTest);
+	}
 
 #if UNITY_EDITOR
     //! Function will call Debug.Log with the message
@@ -131,6 +136,16 @@ public class Log : EditorWindow {
         if ((!all) || (logStrings.Contains (key) && EditorPrefs.GetBool (key)))
             Debug.LogError (message);
     }
+    
+	//! Function will call Debug.DrawRay with the message
+	public static void DrawRay (string key, Vector3 start, Vector3 end, Color color = default(Color),
+	float duration = 0.0f, bool depthTest = true) {
+		if (!enabled)
+			return;
+		if ((!all) || (logStrings.Contains (key) && EditorPrefs.GetBool (key)))
+			Debug.DrawRay(start, end, color, duration, depthTest);
+	}
+	
 #else
     //! Function will call Debug.Log with the message
     public static void Message (string key, string message) {
@@ -142,9 +157,15 @@ public class Log : EditorWindow {
         ;
     }
 
-    //! Function will call Debug.LogError with the message
-    public static void Error (string key, string message) {
-        ;
-    }
+	//! Function will call Debug.LogError with the message
+	public static void Error (string key, string message) {
+		;
+	}
+	
+	//! Function will call Debug.DrawRay with the message
+	public static void DrawRay (string key, Vector3 start, Vector3 end, Color color = default(Color),
+	                            float duration = 0.0f, bool depthTest = true) {
+		;
+	}
 #endif
 }

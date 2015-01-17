@@ -342,7 +342,6 @@ public class NodeTree
 			}
 		}else{
 			List<Vector3> checkpoints = new List<Vector3>();
-			JSONArray jsonArray = nodeData["cp"].AsArray;
 			for(int i = 0; i < nodeData["cp"].AsArray.Count; i++){
 				checkpoints.Add(nodeData["cp"].AsArray[i].AsVector3);
 			}

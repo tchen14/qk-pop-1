@@ -15,14 +15,14 @@ public class CheckpointManager : MonoBehaviour {
 	//! This function should be called when the player dies
 	public Vector3 Respawn(Vector3 pos){
 		//find the closest node
-		List<Vector3> checkpoints = FindClosestNode(pos);
+		List<Vector3> checkpoint = checkpointTree.Search(pos);
 		
 		//detemine which checkpoints we are accessible
 		
 		
-		Vector3 temp = Vector3.zero;
 		
-		return temp;
+		
+		return checkpoint[0];
 	}
 	
 	//! This uses the node tree to find the closest node and returns a list of checkpoint Vector3 positions

@@ -924,24 +924,25 @@ MonoBehaviour:
   m_GameObject: {fileID: 87453823}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 530d518084aad5a46963406b211f3d5e, type: 3}
+  m_Script: {fileID: 11500000, guid: b375fe55380fc4ae98ce233f831bc9a3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   minMovementSpeed: 10
   maxMovementSpeed: 20
   acceleration: 7.5
   currentMovementSpeed: 0
+  rotationSpeed: 3.5
+  jumpDirection: {x: 0, y: 0, z: 0}
   maxJumpingHeight: .5
   airMovementSpeedPercentage: .100000001
-  maxClimbingSpeed: 10
   minClimbingSpeed: 5
+  maxClimbingSpeed: 10
   currentClimbingSpeed: 0
   ladderClimbingSpeed: 200
   isMoving: 0
   isGrounded: 0
   inMovementEvent: 0
   currentCharacterState: 0
-  rotationSpeed: 3.5
   cameraTransform: {fileID: 349475306}
   eventInput: 0
 --- !u!23 &87453826

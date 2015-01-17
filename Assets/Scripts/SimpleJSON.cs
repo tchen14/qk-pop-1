@@ -165,7 +165,6 @@ public class JSONNode {
 	}
 	public virtual Vector3 AsVector3 {
 		get {
-			Vector3 v = Vector3.zero;
 			if (Value != ""){
 				string s = Value;
 				if(s[0] == '(' || s[s.Length - 1] == ','){

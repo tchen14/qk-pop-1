@@ -92,7 +92,6 @@ public class CheckpointManagerEditor : Editor
 		EditorGUILayout.Space();
 		EditorGUILayout.Space();
 		
-		EditorGUILayout.HelpBox("Will Color Closest Checkpoint Red", MessageType.Info);
 		s = !findClosest ? "Find closest checkpoint" : "Turn off \"Find closest checkpoint\"";
 		if (GUILayout.Button(s) /*&& !EditorApplication.isPlaying*/) {
 			if(findClosest != true){
@@ -111,6 +110,9 @@ public class CheckpointManagerEditor : Editor
 				findClosest = false;
 			}
 		}
+		EditorGUILayout.HelpBox("Will draw lines to closest checkpoints", MessageType.Info);
+		
+		EditorGUILayout.Space();
 		
 		//Display all checkpoint locations
 		EditorGUILayout.LabelField("Checkpoints", checkpointList.Count.ToString());
