@@ -160,7 +160,7 @@ public class CheckpointManagerEditor : Editor
 	void LoadCheckpoints(CheckpointManager myTarget)
 	{
 		if(myTarget == null){
-			Debug.LogWarning("fuck");
+			Log.E("checkpoint","Logical error, code missing? \"myTarget\" should have been set in onEnable()");
 		}
 		myTarget.checkpointTree = new NodeTree();
 		if (myTarget.checkpointTree.LoadTreeFromFile(checkpointDataPath + checkpointFilePath)) {

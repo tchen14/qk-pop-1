@@ -41,6 +41,16 @@ public class PoPCamera : Camera_2
 
 	void Start()
 	{
+		if (!target) {
+			if(GameObject.FindObjectOfType<PoPCharacterController>()){
+				target = (Transform)GameObject.FindObjectOfType<PoPCharacterController>().transform;
+				player = target;
+			}else{
+				Log.E ("camera","Cannot find this.target. Please connect the GameObject to the component using the inspector.");
+				target = transform;
+			}
+		}
+
 		targetPosition = target.position;
 		distance = Mathf.Clamp(distance, distanceMin, distanceMax);
 		cameraLatency = Mathf.Clamp (cameraLatency, 0.05f, 1f);
