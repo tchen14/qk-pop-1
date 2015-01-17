@@ -15,8 +15,11 @@ public class CheckpointManagerEditor : Editor
 	bool foldout = false;
 	bool findClosest = false;
 	
-	//For marking closest node
+	//For marking closest checkpoints
 	public List<Vector3> checkpointList = new List<Vector3>();
+	Ray ray;
+	RaycastHit hit;
+	public int maxTrace = 7; /*!<Maximum checkpoints to draw handles to */
 	
 	//! Unity OnEnable function
 	void OnEnable()
@@ -125,21 +128,16 @@ public class CheckpointManagerEditor : Editor
 		}
 	}
 	
-	//Variables for drawing the closest checkpoints
-	Ray ray;
-	RaycastHit hit;
-	
 	//!Unity Editor function
 	void OnSceneGUI(){
 		if (myTarget != null && myTarget.checkpointTree != null && findClosest) {
-			//ray = Camera.current.ScreenPointToRay(Input.mousePosition);
 			ray = HandleUtility.GUIPointToWorldRay(Event.current.mousePosition);
 			if (Physics.Raycast(ray, out hit, 1000.0F)){
 				List<Vector3> cpList = myTarget.checkpointTree.Search(hit.point);
 				if(cpList != null){
 					int min = Mathf.Min(7, cpList.Count);
 					for (int i = 0; i < min; i++) {
-						Handles.color = Color.Lerp(Color.black, Color.white, (float)i/min);
+						Handles.color = Color.Lerp(Color.red, Color.gray, (float)i/min);
 						Handles.DrawDottedLine(hit.point + Vector3.up,cpList[i] + Vector3.up, i*i*i+i*i+1);
 					}
 				}
