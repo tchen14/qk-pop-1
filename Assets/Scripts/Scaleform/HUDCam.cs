@@ -76,32 +76,125 @@ public class HUDCam : SFCamera {
 			creationParams.TheScaleModeType = ScaleModeType.SM_ShowAll;
 			creationParams.IsInitFirstFrame = false;
 			hudRef = new gameHUD(this, SFMgr, creationParams);
+
+			// easy indicator for if the HUD is loaded
+			Camera.main.GetComponent<HUDMaster>().hudActive = true;
 		}
 		
 	}
 
-	//CALL THESE UPDATES TO UPDATE HUD INFORMATION
+	//CALL THESE FUNCTIONS TO UPDATE HUD INFORMATION
+	//IMPORTANT Never call any of these in Start or Awake from a script that instantiates at the same
+	//time as the main camera ex: anything in the scene at the start, the swf won't be loaded in time and
+	//you will get a null reference exception
+
+	//this is for testing, use updateBatterySmooth in final scripts
 	public void updateBattery(float batt){
 		hudRef.updateBattery (batt);
 	}
 
-	public void updateBatterySmooth (float curBatt, float newBatt) {
-		StartCoroutine (lerpBattery (curBatt, newBatt));
+	//use this when you want to change what percent the bettery bar is displaying
+	//pass curBattery from HUDmaster as curBatt
+	public void updateBatterySmooth (float duration, float curBatt, float newBatt) {
+		StartCoroutine (lerpBattery (duration, curBatt, newBatt));
 	}
 
+	//use this to update the objective text
 	public void updateObjective (string objective) {
 		hudRef.updateObjective (objective);
 	}
 
-	private IEnumerator lerpBattery (float curBatt, float newBatt) {
-		float time = 1f;
-		float elapsedTime = 0;
-		while (elapsedTime < time) {
-			hudRef.updateBattery(Mathf.Lerp(curBatt, newBatt, (elapsedTime / time)));
-			elapsedTime += Time.deltaTime * 5;
-			yield return new WaitForEndOfFrame();
+	// use this to set the compass objective indicator's position
+	public void setCompass (float duration, float curPos, float newPos) {
+		StartCoroutine (setCompassP1 (duration, curPos, newPos));
+	}
+
+	//use this to set map X and Y
+	public void updateMapPos (float x, float y) {
+		hudRef.updateMap (x, y);
+	}
+
+	//use this to slide ability bar left or right
+	public void slideAbilityBar (bool right, int ability) {
+		//checks if ability is changing
+		if(HUDMaster.Instance.abilitySwapping == false){
+			HUDMaster.Instance.abilitySwapping = true;
+			//finds new x position for the ability bar
+			float newX = 335 + ((float)ability * 45);
+			float curX = 335 + ((float)HUDMaster.Instance.curAbility * 45);
+
+			StartCoroutine(lerpAbility(.5f,curX, newX));
+			HUDMaster.Instance.curAbility = ability;
 		}
-		yield return null;
+	}
+
+
+
+	//These coroutines are called by their coresponding functions, this is for convenience, don't call these
+	private IEnumerator lerpBattery (float duration, float startP, float endP) {
+
+		if (endP > startP){
+			duration *= (endP - startP) / 72;
+		}
+		else {
+			duration *= (startP - endP) / 72;
+		}
+
+		float start = Time.time;
+		float elapsed = Time.time - start;
+		do
+		{  
+			elapsed = Time.time - start;
+			float normalisedTime = Mathf.Clamp(elapsed / duration, 0, 1);
+			float newBatt = Mathf.Lerp(startP, endP, normalisedTime);
+			hudRef.updateBattery(newBatt);
+			HUDMaster.Instance.curBattery = newBatt;
+			yield return null;
+		}
+		while(elapsed < duration);
+		hudRef.chargeGraphic();
+	}
+
+
+
+	private IEnumerator setCompassP1( float duration, float startP, float endP)
+	{  
+		if (endP > startP){
+			duration *= (endP - startP) / 250;
+		}
+		else {
+			duration *= (startP - endP) / 250;
+		}
+
+		float start = Time.time;
+		float elapsed = Time.time - start;
+		do
+		{  
+			elapsed = Time.time - start;
+			float normalisedTime = Mathf.Clamp(elapsed / duration, 0, 1);
+			float newPos = Mathf.Lerp(startP, endP, normalisedTime);
+			hudRef.setCompassP1(newPos);
+			HUDMaster.Instance.curCompassPos = newPos;
+			yield return null;
+		}
+		while(elapsed < duration);
+	}
+
+	private IEnumerator lerpAbility (float duration, float startP, float endP) {
+
+		float start = Time.time;
+		float elapsed = Time.time - start;
+		do
+		{  
+			elapsed = Time.time - start;
+			float normalisedTime = Mathf.Clamp(elapsed / duration, 0, 1);
+			float newX = Mathf.Lerp(startP, endP, normalisedTime);
+			hudRef.slideAbilitySmooth(newX);
+			yield return null;
+		}
+		while(elapsed < duration);
+		HUDMaster.Instance.abilitySwapping = false;
+
 	}
 	
 

@@ -13,11 +13,8 @@
 /*.pidb
 /*.booproj
 
-#Unity3D Generated File On Crash Reports
-sysinfo.txt
-
-#svn files
-.svn
+#Ignore scaleform executables meta files
+/Assets/Scaleform/Bin/*.meta
 
 #Override any master .gitignore
 !*.dll
@@ -25,4 +22,6 @@ sysinfo.txt
 !*.pdb
 
 #Ignore mac files
+sysinfo.txt
+.svn
 .DS_Store
