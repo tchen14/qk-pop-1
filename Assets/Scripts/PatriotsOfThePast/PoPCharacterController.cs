@@ -8,7 +8,7 @@ using UnityEditor;
  */
 public class PoPCharacterController : CharacterController_2 {
 	//Set in Start() function
-	const float rigidbodyDrag = 0.05f; //Typical values for Drag are between .001 (solid block of metal) and 10 (feather).
+	const float rigidbodyDrag = 1f; //Typical values for Drag are between .001 (solid block of metal) and 10 (feather).
 	const float rigidbodyAngularDrag = 0.05f;
 	
 	public Transform cameraTransform;	/*!< Moves in conjunction with camera's transform */
@@ -88,7 +88,6 @@ public class PoPCharacterController : CharacterController_2 {
 			// increment player speed as long as movement is being applied
 			if(currentMovementSpeed < maxMovementSpeed)
 				currentMovementSpeed = currentMovementSpeed + Time.deltaTime * acceleration;
-			
 			UpdateMovement(xPlaneInput,zPlaneInput);
 			break;
 		case (characterState.jumpingState):
@@ -122,12 +121,10 @@ public class PoPCharacterController : CharacterController_2 {
 		
 		// Movement direction and rotation
 		// Movement velocity threshold
-		if(moving){
-			if(grounded){
-				rigidbody.AddForce(targetDirection.normalized * currentMovementSpeed);
-			}else{
-				rigidbody.AddForce(targetDirection.normalized * currentMovementSpeed * airMovementSpeedPercentage);
-			}
+		if(grounded){
+			rigidbody.AddForce(targetDirection.normalized * currentMovementSpeed);
+		}else{
+			rigidbody.AddForce(targetDirection.normalized * currentMovementSpeed * airMovementSpeedPercentage);
 		}
 		// Reset target direction
 		targetDirection = Vector3.zero;
