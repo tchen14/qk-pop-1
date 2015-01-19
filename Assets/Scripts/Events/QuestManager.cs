@@ -3,6 +3,7 @@ using System.Collections;
 
 /*!
  *	Manager class for all quests
+ *	Missions are distinguishable from quests where only 1 mission can be active at a time (think instance dungeons). This is a quest manager.
  */
 public class QuestManager : EventManager {
 
