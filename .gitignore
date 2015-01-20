@@ -14,7 +14,7 @@
 /*.booproj
 
 #Ignore scaleform executables meta files
-/Assets/Scaleform/Bin/*.meta
+/Assets/Scaleform/Bin/
 
 #Override any master .gitignore
 !*.dll

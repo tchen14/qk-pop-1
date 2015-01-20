@@ -7,7 +7,7 @@ using System.Collections;
  */
 public class AIMain : MonoBehaviour {
 	public bool aggression 		= false;					/*!<If the NPC will attack the player */
-	public float aggressionLimit 	= 100;					/*!<The aggression level of the attacker */
+	public float aggressionLimit= 100;						/*!<The aggression level of the attacker */
 	public int hp 				= 100;						/*!<Health of the NPC */
 	public float sightDistance 	= 20;						/*!<The distance the NPC is capable of seeing */
 	public float sightAngle		= 35;						/*!<The max angle of the cone of vision */
@@ -22,14 +22,14 @@ public class AIMain : MonoBehaviour {
 	public bool panic 			= false;					/*!<If the AI is panicking */
 	public Vector3 panicTarget	= new Vector3 (0, 0, 0);	/*!<Target of AI panic */
 
-	//movement variables
+	//Movement variables
 	private NavMeshAgent mesh = null;						/*!<Contains the component to use the navmesh */
 	public Vector3 navPoint;								/*!<Contains the point to move in the navmesh */
 
-	//state variables
+	//State variables
 	private float aggressionLevel = 0;							
 
-	//sight variables
+	//Sight variables
 	private RaycastHit hit;									/*!<Takes information from RayCast */
 	private GameObject[] viableTargets;						/*!<All the available targets */
 
@@ -152,7 +152,7 @@ public class AIMain : MonoBehaviour {
 		{
 			if(Vector3.Angle(viableTargets[i].transform.position-transform.position,transform.forward)< GetComponent<AIMain>().sightAngle)
 			{
-				//Debug.DrawRay(transform.position,viableTargets[0].transform.position - transform.position);
+				Log.R("ai",transform.position,viableTargets[0].transform.position - transform.position);
 				if(Vector3.Distance(transform.position,viableTargets[i].transform.position) < GetComponent<AIMain>().sightDistance)
 				{
 					if(Physics.Raycast(transform.position,viableTargets[i].transform.position-transform.position,out hit))
