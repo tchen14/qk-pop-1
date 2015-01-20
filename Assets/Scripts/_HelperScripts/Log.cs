@@ -33,7 +33,7 @@ public class Log : EditorWindow {
         enabled = EditorPrefs.GetBool ("enabled");
         all = EditorPrefs.GetBool ("all");
         if (logStrings.Count == 0) {
-            string text = System.IO.File.ReadAllText (Application.dataPath + "/Editor/logKeys.json");
+			string text = System.IO.File.ReadAllText (Application.dataPath + "/Scripts/_HelperScripts/logKeys.json");
             var N = JSON.Parse (text);
             logStrings.Clear();
             for (int i = 0; i < N.Count; i++)

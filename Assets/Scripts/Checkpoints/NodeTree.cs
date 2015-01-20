@@ -109,7 +109,6 @@ public class NodeTree
 			// All four segements of the interal code (quadrant_1, quadrant_2, etc.) are needed as C# pointers cannot be used in a safe-only environment, Unity enforced.
 
 			// If list has more than one node, add empty node to tree, then continue splitting nodes
-			//Log.M("checkpoint", "Q1 " + quadrant_1.Count);
 			#region firstChild
 			if (quadrant_1.Count > 1) {
 				x = 0;
@@ -134,7 +133,6 @@ public class NodeTree
 			#endregion
 			
 			// If list has more than one node, add empty node to tree, then continue splitting nodes
-			//Log.M("checkpoint", "Q2 " + quadrant_2.Count);
 			#region secondChild
 			if (quadrant_2.Count > 1) {
 				x = 0;
@@ -159,7 +157,6 @@ public class NodeTree
 			#endregion
 			
 			// If list has more than one node, add empty node to tree, then continue splitting nodes
-			//Log.M("checkpoint", "Q3 " + quadrant_3.Count);
 			#region thirdChild
 			if (quadrant_3.Count > 1) {
 				x = 0;
@@ -184,7 +181,6 @@ public class NodeTree
 			#endregion
 			
 			// If list has more than one node, add empty node to tree, then continue splitting node
-			//Log.M("checkpoint", "Q4 " + quadrant_4.Count);
 			#region fourthChild
 			if (quadrant_4.Count > 1) {
 				x = 0;
