@@ -30,8 +30,8 @@ public class PoPCamera : Camera_2
 	public Vector3 cameraLockPos;
 	private Vector3 cameralookat;
 
-	public float maxTimeSinceMouseMoved = 2.0f;			/*!<Time frame until camera becomes follow cam b/c of mouse inactivity */
-	private float currentTimeSinceMouseMoved = 0.0f;	/*!<Private variable that stores mouse inactivity */
+	public float maxTimeSinceMouseMoved = 2.0f;			//!<Time frame until camera becomes follow cam b/c of mouse inactivity
+	private float currentTimeSinceMouseMoved = 0.0f;	//!<Private variable that stores mouse inactivity
 
 	void Awake()
 	{

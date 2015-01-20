@@ -42,7 +42,7 @@ public class NodeTree
 	 */
 	public class Node
 	{
-		public Vector3 location;	/*!<The location of the node */
+		public Vector3 location;	//!<The location of the node; if the node is not a root, this is the average location of the average locations of all root nodes
 		public Node child_1;
 		public Node child_2;
 		public Node child_3;

@@ -6,32 +6,32 @@ using System.Collections;
  *	This code is the main ai controller. The class is segmented into the following regions: attack, movement, state, sight, and health
  */
 public class AIMain : MonoBehaviour {
-	public bool aggression 		= false;					/*!<If the NPC will attack the player */
-	public float aggressionLimit= 100;						/*!<The aggression level of the attacker */
-	public int hp 				= 100;						/*!<Health of the NPC */
-	public float sightDistance 	= 20;						/*!<The distance the NPC is capable of seeing */
-	public float sightAngle		= 35;						/*!<The max angle of the cone of vision */
-	public float attackDistance	= 3;						/*!<The distance the NPC stands away from the target and attacks* */
-	public Transform startPoint = null;						/*!<Sets the first navPoint, defaults to stationary */
-	public float speed 			= 5;						/*!<Casual Speed of the NPC */
-	public float runSpeed 		= 8;						/*!<Scared, Charging, Aggressive Speed of the NPC* */
-	public bool seesTarget 		= false;					/*!<If the Player has been spotted */
-	public GameObject target	= null;						/*!<The transform of the player */
-	public string seekTag 		= "Player";					/*!<The enemy Tag of this NPC */
-	public bool attacking 		= false;					/*!<If the AI is attacking */
-	public bool panic 			= false;					/*!<If the AI is panicking */
-	public Vector3 panicTarget	= new Vector3 (0, 0, 0);	/*!<Target of AI panic */
+	public bool aggression 		= false;					//!<If the NPC will attack the player
+	public float aggressionLimit= 100;						//!<The aggression level of the attacker
+	public int hp 				= 100;						//!<Health of the NPC
+	public float sightDistance 	= 20;						//!<The distance the NPC is capable of seeing
+	public float sightAngle		= 35;						//!<The max angle of the cone of vision
+	public float attackDistance	= 3;						//!<The distance the NPC stands away from the target and attacks*
+	public Transform startPoint = null;						//!<Sets the first navPoint, defaults to stationary
+	public float speed 			= 5;						//!<Casual Speed of the NPC
+	public float runSpeed 		= 8;						//!<Scared, Charging, Aggressive Speed of the NPC*
+	public bool seesTarget 		= false;					//!<If the Player has been spotted
+	public GameObject target	= null;						//!<The transform of the player
+	public string seekTag 		= "Player";					//!<The enemy Tag of this NPC
+	public bool attacking 		= false;					//!<If the AI is attacking
+	public bool panic 			= false;					//!<If the AI is panicking
+	public Vector3 panicTarget	= new Vector3 (0, 0, 0);	//!<Target of AI panic
 
 	//Movement variables
-	private NavMeshAgent mesh = null;						/*!<Contains the component to use the navmesh */
-	public Vector3 navPoint;								/*!<Contains the point to move in the navmesh */
+	private NavMeshAgent mesh = null;						//!<Contains the component to use the navmesh
+	public Vector3 navPoint;								//!<Contains the point to move in the navmesh
 
 	//State variables
 	private float aggressionLevel = 0;							
 
 	//Sight variables
-	private RaycastHit hit;									/*!<Takes information from RayCast */
-	private GameObject[] viableTargets;						/*!<All the available targets */
+	private RaycastHit hit;									//!<Takes information from RayCast
+	private GameObject[] viableTargets;						//!<All the available targets
 
 	//! Unity Start function
 	void Start() {
@@ -117,7 +117,7 @@ public class AIMain : MonoBehaviour {
     #endregion
 
     #region movement
-    //sets a new destination for the AI and can be publicly accessed
+    //!Sets a new destination for the AI and can be publicly accessed
 	public void ChangeNavPoint(Vector3 T)
 	{
 		navPoint = T;
@@ -142,7 +142,8 @@ public class AIMain : MonoBehaviour {
 		GetTargets();
 
 	}
-	//Sends Raycast and sets up AI_Main
+	
+	//!Sends Raycast and sets up AI_Main
 	private void GetTargets()
 	{
 		//Gathers proabable enemy targets

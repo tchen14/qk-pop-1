@@ -15,11 +15,11 @@ using System.Collections;
  */
 public class ChangeTarget : MonoBehaviour {
 
-	public Transform nextTarget;		/*!<the next point in a scripted path */
-	public Transform cluster;			/*!<the parent of the path cluster to generate random points in mesh */
-	public Transform[] clusterChildren;	/*!<the children in the cluster */
+	public Transform nextTarget;		//!<the next point in a scripted path
+	public Transform cluster;			//!<the parent of the path cluster to generate random points in mesh
+	public Transform[] clusterChildren;	//!<the children in the cluster
  
-	public bool randomTarget;			/*!<determines if the AI will use scripted path or a random path */
+	public bool randomTarget;			//!<determines if the AI will use scripted path or a random path
 
 	void Start()
 	{

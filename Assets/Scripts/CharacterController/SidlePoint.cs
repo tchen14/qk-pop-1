@@ -8,12 +8,12 @@ using System.Collections;
 public class SidlePoint : Placeholder
 {
 	[SerializeField]
-	private GameObject leftDestination;		/*!<GameObject with a SidlePoint component. Leave null if no left destination. */
+	private GameObject leftDestination;		//!<GameObject with a SidlePoint component. Leave null if no left destination.
 	[SerializeField]
-	private GameObject rightDestination;	/*!<GameObject with a SidlePoint component. Leave null if no right destination. */
+	private GameObject rightDestination;	//!<GameObject with a SidlePoint component. Leave null if no right destination.
 	#pragma warning disable 0414
 	[SerializeField]
-	private bool startPoint = true;			/*!<Toggle true if this point is a point which the player can start/stop sidling. \todo can you stop sidling mid way? */
+	private bool startPoint = true;			//!<Toggle true if this point is a point which the player can start/stop sidling. \todo can you stop sidling mid way?
 	#pragma warning restore 0414
 
 #if UNITY_EDITOR

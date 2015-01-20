@@ -19,7 +19,7 @@ public class CheckpointManagerEditor : Editor
 	public List<Vector3> checkpointList = new List<Vector3>();
 	Ray ray;
 	RaycastHit hit;
-	public int maxTrace = 7; /*!<Maximum checkpoints to draw handles to */
+	public int maxTrace = 7; //!<Maximum checkpoints to draw handles to
 	
 	//! Unity OnEnable function
 	void OnEnable()

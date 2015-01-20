@@ -7,5 +7,5 @@ using System.Collections;
  */
 public abstract class Placeholder : MonoBehaviour {
 
-    public string id = "";	/*!<This variable is for use with quest checkpoints */
+    public string id = "";	//!<This variable is for use with quest checkpoints
 }

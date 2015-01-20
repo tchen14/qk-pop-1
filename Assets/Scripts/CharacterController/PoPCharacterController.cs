@@ -8,13 +8,13 @@ using UnityEditor;
  */
 public class PoPCharacterController : CharacterController_2 {
 	//Set in Start() function
-	const float rigidbodyDrag = 1f; //Typical values for Drag are between .001 (solid block of metal) and 10 (feather).
+	const float rigidbodyDrag = 1f; 		//Typical values for Drag are between .001 (solid block of metal) and 10 (feather).
 	const float rigidbodyAngularDrag = 0.05f;
 	
-	public Transform cameraTransform;	/*!< Moves in conjunction with camera's transform */
-	private float inputThreshold = 0.1f;	/*!< Dead zone value to determine if input is applied */
-	public bool eventInput = false;	/*!<  */
-	private Vector3 highestPoint;	/*!<  */
+	public Transform cameraTransform;		//!< Moves in conjunction with camera's transform
+	private float inputThreshold = 0.1f;	//!< Dead zone value to determine if input is applied
+	public bool eventInput = false;			//!< 
+	private Vector3 highestPoint;			//!< 
 
 	//! Unity Start function
 	void Start()
