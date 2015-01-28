@@ -7,6 +7,7 @@ using UnityEditor;
  *	This controller is desgined to fulfil all necessities of Patriots of the Past
  */
 public class PoPCharacterController : CharacterController_2 {
+	#pragma warning disable 0114
 	//Set in Start() function
 	const float rigidbodyDrag = 1f; 		//Typical values for Drag are between .001 (solid block of metal) and 10 (feather).
 	const float rigidbodyAngularDrag = 0.05f;

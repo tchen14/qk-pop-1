@@ -6,15 +6,14 @@ public class PoPEvent : Placeholder
 {
 	#pragma warning disable 0414
 	[SerializeField]
-	private string prerequisite = "";	//!<this string is for to check for a completed pre-requisite quest
-
+	private string prerequisite = "";	//!<This string is for to check for a completed pre-requisite quest
+	
 	//other prerequsite (eg: item count, time, %map explored, etc.) need a system to be made
 	[SerializeField]
-	private string
-		quest = ""; //if this event will start a quest
+	private string quest = ""; //if this event will start a quest
+	#pragma warning restore 0414
 	[SerializeField]
-	private Vector3
-		cameraPos, lookAtPos; //camera position for event
+	private Vector3 cameraPos, lookAtPos; //camera position for event
 
 	public void BeginEvent()
 	{
