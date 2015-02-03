@@ -91,40 +91,7 @@ namespace FFP {
                 EditorGUILayout.EndToggleGroup();
             }
         }
-#endif
-		//! this.DrawLine shorthand overload
-		public static void DL (string key, Vector3 start, Vector3 end, Color color = default(Color),
-		                       float duration = 0.0f, bool depthTest = true) {
-			DrawLine (key, start, end, color, duration, depthTest);
-		}
-		
-		//! this.DrawRay shorthand overload
-		public static void DR (string key, Vector3 start, Vector3 end, Color color = default(Color),
-		                       float duration = 0.0f, bool depthTest = true) {
-			DrawRay (key, start, end, color, duration, depthTest);
-		}
-		
-		//! this.Log shorthand overload
-		public static void L (string key, string message, UnityEngine.Object context = null) {
-			Log (key, message, context);
-		}
-
-        //! this.Error shorthand overload
-		public static void E (string key, string message, UnityEngine.Object context = null) {
-			Error (key, message, context);
-		}
-		
-		//! this.Error shorthand overload
-		public static void Ex (string key, Exception exception, UnityEngine.Object context = null) {
-			Exception (key, exception, context);
-		}
-		
-		//! this.Warning shorthand overload
-		public static void W (string key, string message, UnityEngine.Object context = null) {
-			Warning (key, message, context);
-		}
-		
-#if UNITY_EDITOR
+        
 		//! Function will call UnityEngine.Debug.ClearDeveloperConsole
 		public static void ClearDeveloperConsole(){
 			UnityEngine.Debug.ClearDeveloperConsole ();
