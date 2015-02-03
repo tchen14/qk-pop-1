@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using SimpleJSON;
+using Debug = FFP.Debug;
 
 /*! 
  *	This class is to manage the saving of any type of game data.
@@ -20,7 +21,7 @@ public class SerializationManager : MonoBehaviour {
     	if (PlayerPrefs.HasKey (key))
 			return PlayerPrefs.GetString (key);
 		else
-			Log.E ("core", "Loading from PlayerPrefs failed. Key \"" + key + "\" does not exist.");
+			Debug.Error ("core", "Loading from PlayerPrefs failed. Key \"" + key + "\" does not exist.");
 		return null;
     }
 

@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using Debug = FFP.Debug;
 
 /*!
  * Child Class of Parent Camera_2 for Patriots of the Past,
@@ -46,7 +47,7 @@ public class PoPCamera : Camera_2
 				target = (Transform)GameObject.FindObjectOfType<PoPCharacterController>().transform;
 				player = target;
 			}else{
-				Log.E ("camera","Cannot find this.target. Please connect the GameObject to the component using the inspector.");
+				Debug.Error ("camera","Cannot find this.target. Please connect the GameObject to the component using the inspector.");
 				target = transform;
 			}
 		}
@@ -190,11 +191,11 @@ public class PoPCamera : Camera_2
 	{
 		cameraLockPos = GameObject.Find ("Enemy Target").transform.position;
 		Vector3 targetpos = cameraLockPos;
-		Debug.DrawLine (player.position, targetpos);
+		Debug.DrawLine ("camera", player.position, targetpos);
 
 		Vector3 midpoint = (player.position + targetpos)/2f;
 
-		Debug.DrawLine (midpoint, new Vector3(midpoint.x, midpoint.y + 3f, midpoint.z));
+		Debug.DrawLine ("camera", midpoint, new Vector3(midpoint.x, midpoint.y + 3f, midpoint.z));
 		return midpoint;
 		//targetLookAt.position = midpoint;
 	}

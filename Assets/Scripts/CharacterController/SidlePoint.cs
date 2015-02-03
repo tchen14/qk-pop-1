@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using Debug = FFP.Debug;
 
 /*!
  *	Designates a single point in a sidle chain
@@ -20,9 +21,9 @@ public class SidlePoint : Placeholder
 	//! Unity Start function. Used to error check
 	void Start(){
 		if(leftDestination && leftDestination.GetComponent<SidlePoint>() == false)
-			Log.E("safety", "SidlePoint located at " + leftDestination.transform.position + "has invalid leftDestination;");
+			Debug.Error("safety", "SidlePoint located at " + leftDestination.transform.position + "has invalid leftDestination;");
 		if(rightDestination && rightDestination.GetComponent<SidlePoint>() == false)
-			Log.E("safety", "SidlePoint located at " + rightDestination.transform.position + "has invalid rightDestination;");
+			Debug.Error("safety", "SidlePoint located at " + rightDestination.transform.position + "has invalid rightDestination;");
 	}
 #endif
 

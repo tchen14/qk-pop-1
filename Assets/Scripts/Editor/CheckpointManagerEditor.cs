@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
 using SimpleJSON;
+using Debug = FFP.Debug;
 
 [CustomEditor (typeof(CheckpointManager))]
 public class CheckpointManagerEditor : Editor
@@ -99,12 +100,12 @@ public class CheckpointManagerEditor : Editor
 					LoadCheckpoints(myTarget);
 				if (checkpointList != null && checkpointList.Count != 0) {
 					findClosest = true;
-					Log.M("checkpoint", "Drawing closest checkpoints...");
+					Debug.Log("checkpoint", "Drawing closest checkpoints...");
 				}
 				SceneView.RepaintAll();
 			}else if(findClosest == true){
 				findClosest = false;
-				Log.M("checkpoint", "No longer drawing closest checkpoints");
+				Debug.Log("checkpoint", "No longer drawing closest checkpoints");
 				SceneView.RepaintAll();
 			} else{
 				findClosest = false;
@@ -151,22 +152,22 @@ public class CheckpointManagerEditor : Editor
 	void SaveCheckpoints(CheckpointManager myTarget)
 	{
 		if (myTarget.checkpointTree.SaveTreeAsJson(checkpointDataPath + checkpointFilePath)) {
-			Log.M("checkpoint", "Checkpoints saved.");
+			Debug.Log("checkpoint", "Checkpoints saved.");
 		} else {
-			Log.W("checkpoint", "Saving checkpoints failed.");
+			Debug.Warning("checkpoint", "Saving checkpoints failed.");
 		}
 	}
 	
 	void LoadCheckpoints(CheckpointManager myTarget)
 	{
 		if(myTarget == null){
-			Log.E("checkpoint","Logical error, code missing? \"myTarget\" should have been set in onEnable()");
+			Debug.Error("checkpoint","Logical error, code missing? \"myTarget\" should have been set in onEnable()");
 		}
 		myTarget.checkpointTree = new NodeTree();
 		if (myTarget.checkpointTree.LoadTreeFromFile(checkpointDataPath + checkpointFilePath)) {
-			Log.M("checkpoint", "Checkpoints loaded.");
+			Debug.Log("checkpoint", "Checkpoints loaded.");
 		} else {
-			Log.W("checkpoint", "Loading checkpoints failed.");
+			Debug.Warning("checkpoint", "Loading checkpoints failed.");
 		}
 	}
 	
@@ -179,7 +180,7 @@ public class CheckpointManagerEditor : Editor
 			checkpointList.Add(new Vector3(cp.transform.position.x, 0, cp.transform.position.z));
 		}
 		if (checkpointList.Count == 0) {
-			Log.W("editor", "No Checkpoints in scene");
+			Debug.Warning("editor", "No Checkpoints in scene");
 			return;
 		}
 		
@@ -237,7 +238,7 @@ public class CheckpointManagerEditor : Editor
 						tempFloat = tempFloat + Vector3.Distance(tempV3, v);
 						
 						tempV3 = v;
-						//Log.M ("editor","[Remaining distance "+v+"]");
+						//Debug.Log ("editor","[Remaining distance "+v+"]");
 					}
 					checkpointDict.Add(c, tempFloat);
 				}

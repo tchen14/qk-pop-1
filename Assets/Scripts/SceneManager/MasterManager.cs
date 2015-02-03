@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using SimpleJSON;
+using Debug = FFP.Debug;
 
 /*
  *  Master manager of the game. This manager manages all other (significant) managers.
@@ -42,7 +43,7 @@ public sealed class MasterManager {
         scenes.Clear();
         for (int i = 0; i < N.Count; i++)
             scenes.Add (N [i].Value, false);
-        Log.M ("core", "Scenes dictionary loaded");
+        Debug.Log ("core", "Scenes dictionary loaded");
     }
 
 	//! Clears Dictionary variable scenes of all values
@@ -57,14 +58,14 @@ public sealed class MasterManager {
         if (scenes.ContainsKey (level))
             scenes [level] = b;
         else
-            Log.W ("core", "Level does not exist.");
+            Debug.Warning ("core", "Level does not exist.");
     }
 
     //! This will load a single level. There is no additive level loading option.
     public void QuickLoadLevel(string level) {
         if (!init)
             init = true;
-        Log.M ("core", "Loading level " + level);
+        Debug.Log ("core", "Loading level " + level);
         Application.LoadLevel (level);
         ClearAllLevels();
     }
@@ -78,7 +79,7 @@ public sealed class MasterManager {
         if (!init)
             init = true;
         if (!scenes.ContainsValue (true))
-            Log.M ("core", "No scenes to be loaded. Please ensure valid scenes are ready to be loaded in Assets/Resources/Json/sceneList.json");
+            Debug.Log ("core", "No scenes to be loaded. Please ensure valid scenes are ready to be loaded in Assets/Resources/Json/sceneList.json");
         List<string> levels = new List<string>();
         foreach (KeyValuePair<string,bool> k in scenes) {
             if (k.Value)
@@ -86,10 +87,10 @@ public sealed class MasterManager {
         }
         for (int i = 0; i < levels.Count; i++) {
             if (i == 0) {
-                Log.M ("core", "Loading level " + levels [i]);
+                Debug.Log ("core", "Loading level " + levels [i]);
                 Application.LoadLevel (levels [i]);
             } else {
-                Log.M ("core", "Loading level additive" + levels [i]);
+                Debug.Log ("core", "Loading level additive" + levels [i]);
                 Application.LoadLevelAdditive (levels [i]);
             }
         }

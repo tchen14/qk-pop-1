@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using Debug = FFP.Debug;
 
 [RequireComponent(typeof(NavMeshAgent))]
 /*! 
@@ -50,12 +51,12 @@ public class AIMain : MonoBehaviour {
     //! Unity Update function
     void Update() {
     	#region attack
-        //Log.M ("ai", Vector3.Distance(transform.position, GetComponent<AI_main>().AI_target.transform.position));
+        //Debug.Log ("ai", Vector3.Distance(transform.position, GetComponent<AI_main>().AI_target.transform.position));
         if (GetComponent<AIMain>().target != null) {
             if (GetComponent<AIMain>().attackDistance >= Vector3.Distance (transform.position, GetComponent<AIMain>().target.transform.position)) {
                 GetComponent<AIMain>().attacking = true;
                 //GetComponent<AI_movement>().ChangeNavPoint(transform);
-                Log.M ("ai","ATTACK!");
+				Debug.Log ("ai","ATTACK!");
                 GetComponent<AIMain> ().target = null;
             }
         }
@@ -93,7 +94,7 @@ public class AIMain : MonoBehaviour {
 		//If the AI has a target already
 		if(GetComponent<AIMain>().aggression == true && GetComponent<AIMain>().seesTarget == true && GetComponent<AIMain>().attacking == false)
 		{
-			Log.M ("ai", aggressionLevel.ToString());
+			Debug.Log ("ai", aggressionLevel.ToString());
 			if(aggressionLevel >= GetComponent<AIMain>().aggressionLimit)
 				ChangeNavPoint(GetComponent<AIMain>().target.transform.position);
 			else
@@ -128,7 +129,7 @@ public class AIMain : MonoBehaviour {
 	}
 	public void Pause()
 	{
-		Log.M ("ai", "W");
+		Debug.Log ("ai", "W");
 		mesh.Stop();
 	}
 	#endregion
@@ -153,14 +154,14 @@ public class AIMain : MonoBehaviour {
 		{
 			if(Vector3.Angle(viableTargets[i].transform.position-transform.position,transform.forward)< GetComponent<AIMain>().sightAngle)
 			{
-				Log.R("ai",transform.position,viableTargets[0].transform.position - transform.position);
+				Debug.DrawRay("ai",transform.position,viableTargets[0].transform.position - transform.position);
 				if(Vector3.Distance(transform.position,viableTargets[i].transform.position) < GetComponent<AIMain>().sightDistance)
 				{
 					if(Physics.Raycast(transform.position,viableTargets[i].transform.position-transform.position,out hit))
 					{
 						if(hit.collider.tag == viableTargets[i].tag)
 						{
-							Log.M ("ai", "GOT THE BASTARD");
+							Debug.Log ("ai", "GOT THE BASTARD");
 							GetComponent<AIMain>().target = hit.collider.gameObject;
 							//GetComponent<AI_movement>().ChangeNavPoint(GetComponent<AI_main>().AI_target.transform);
 							GetComponent<AIMain>().seesTarget = true;
@@ -169,12 +170,12 @@ public class AIMain : MonoBehaviour {
 				}
 				else
 				{
-					Log.M ("ai", "OUT OF DISTANCE");
+					Debug.Log ("ai", "OUT OF DISTANCE");
 				}
 			}
 			else
 			{
-				Log.M ("ai", "out of angles");
+				Debug.Log ("ai", "out of angles");
 			}
 		}
 	}

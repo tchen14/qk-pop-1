@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
+using Debug = FFP.Debug;
 
 public class CheckPointTree : MonoBehaviour
 {
@@ -40,7 +41,7 @@ public class CheckPointTree : MonoBehaviour
 	{
 		initializeCheckpoints();
 		// print closest node using search function
-		Log.M("checkpoint", "Closest Node " + search(new Vector3(5, 5, 5)).location);
+		Debug.Log("checkpoint", "Closest Node " + search(new Vector3(5, 5, 5)).location);
 		print("Closest Node " + search(new Vector3(0, 0, 0)).location);
 		
 	}
@@ -64,7 +65,7 @@ public class CheckPointTree : MonoBehaviour
 		for (int i =0; i < numCheckpoints; i++) {
 			checkpoints.Add(temps [i]);
 		}
-		Log.M("checkpoint", "Number of checkpoints in list " + checkpoints.Count);
+		Debug.Log("checkpoint", "Number of checkpoints in list " + checkpoints.Count);
 		// set m_root to empty node; a node with no location value indicated by boolean
 		m_root = new Node(new Vector3(x / numCheckpoints, 0, z / numCheckpoints), null, null, null, null, null, true);
 		// send list to recursive insert function
@@ -116,7 +117,7 @@ public class CheckPointTree : MonoBehaviour
 				// add empty node to tree
 				parent.firstChild = new Node(new Vector3(x / numCheckpoints, 0, z / numCheckpoints), parent, null, null, null, null, true);
 				
-				Log.M("checkpoint", "gG " + greaterGreater.Count);
+				Debug.Log("checkpoint", "gG " + greaterGreater.Count);
 				// recurse by passing in this quadrant's checkpoint list, this quadrant's average x location, this quadrant's average z location, firstChild because this is first quadrant
 				recursiveInsert(greaterGreater, x / numCheckpoints, z / numCheckpoints, parent.firstChild);
 			}
@@ -143,7 +144,7 @@ public class CheckPointTree : MonoBehaviour
 				// add empty node to tree
 				parent.secondChild = new Node(new Vector3(x / numCheckpoints, 0, z / numCheckpoints), parent, null, null, null, null, true);
 				
-				Log.M("checkpoint", "gL" + greaterLess.Count);
+				Debug.Log("checkpoint", "gL" + greaterLess.Count);
 				// recurse by passing in this quadrant's checkpoint list, this quadrant's average x location, this quadrant's average z location, secondChild because this is second quadrant
 				recursiveInsert(greaterLess, x / numCheckpoints, z / numCheckpoints, parent.secondChild);
 			}
@@ -170,7 +171,7 @@ public class CheckPointTree : MonoBehaviour
 				// add empty node to tree
 				parent.thirdChild = new Node(new Vector3(x / numCheckpoints, 0, z / numCheckpoints), parent, null, null, null, null, true);
 				
-				Log.M("checkpoint", "lG" + lessGreater.Count);
+				Debug.Log("checkpoint", "lG" + lessGreater.Count);
 				// recurse by passing in this quadrant's checkpoint list, this quadrant's average x location, this quadrant's average z location, secondChild because this is third quadrant
 				recursiveInsert(lessGreater, x / numCheckpoints, z / numCheckpoints, parent.thirdChild);
 			}
@@ -197,7 +198,7 @@ public class CheckPointTree : MonoBehaviour
 				// add empty node onto tree
 				parent.fourthChild = new Node(new Vector3(x / numCheckpoints, 0, z / numCheckpoints), parent, null, null, null, null, true);
 				
-				Log.M("checkpoint", "lL" + lessLess.Count);
+				Debug.Log("checkpoint", "lL" + lessLess.Count);
 				// recurse by passing in this quadrant's checkpoint list, this quadrant's average x location, this quadrant's average z location, secondChild because this is fourth quadrant
 				recursiveInsert(lessLess, x / numCheckpoints, z / numCheckpoints, parent.fourthChild);
 			}
@@ -238,7 +239,7 @@ public class CheckPointTree : MonoBehaviour
 		} else if (other.fourthChild != null && loc.x < other.location.x && loc.z < other.location.z) {
 			closestNode = searchHelper(other.fourthChild, loc, closestNode);
 		}
-		Log.M("checkpoint", "timesSearched" + ++timesSearched);
+		Debug.Log("checkpoint", "timesSearched" + ++timesSearched);
 		return closestNode;
 	}
 }

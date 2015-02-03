@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEditor;
+using Debug = FFP.Debug;
 
 /*!
  *	Extended class from characterController.
@@ -25,7 +26,7 @@ public class PoPCharacterController : CharacterController_2 {
 			if(Camera.main)
 				cameraTransform = Camera.main.transform;
 			else
-				Log.E ("player","Cannot find this.cameraTransform. Please connect the camera to the component using the inspector.");
+				Debug.Error ("player","Cannot find this.cameraTransform. Please connect the camera to the component using the inspector.");
 		}
 		// Reduce drag for momentum to carry
 		rigidbody.drag = rigidbodyDrag;

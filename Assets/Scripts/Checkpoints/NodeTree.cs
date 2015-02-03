@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using SimpleJSON;
+using Debug = FFP.Debug;
 
 /*
  *	NodeTree is the data structure for CheckpointManager.
@@ -261,10 +262,10 @@ public class NodeTree
 			//Add each of the nodes below m_root
 			json.Add("node",GetNodeDataAsJson(m_root));
 		} else {
-			Log.E("checkpoint", "NodeTree empty. Please (Re)Build Checkpoints.");
+			Debug.Error("checkpoint", "NodeTree empty. Please (Re)Build Checkpoints.");
 		}
 		
-		//Log.M("checkpoint", "Checkpoint string in .json format:\n"+s);
+		//Debug.Log("checkpoint", "Checkpoint string in .json format:\n"+s);
 		return json.ToString();
 	}
 	
@@ -301,7 +302,7 @@ public class NodeTree
 	public bool LoadTreeFromFile(string path)
 	{
 		if (!System.IO.File.Exists(path)) {
-			Log.E("checkpoint", "File does not exist: " + path);
+			Debug.Error("checkpoint", "File does not exist: " + path);
 			return false;
 		}
 		
