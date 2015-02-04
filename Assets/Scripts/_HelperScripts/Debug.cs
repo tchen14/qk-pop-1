@@ -121,7 +121,7 @@ namespace FFP {
 		}
 		
 		//! Function will call UnityEngine.Debug.Log with the message
-		public static void Log (string key, string message, UnityEngine.Object context = null) {
+		public static void Log (string key, object message, UnityEngine.Object context = null) {
             if (!enabled)
                 return;
             if ((!all) || (logStrings.Contains (key) && EditorPrefs.GetBool (key))){
@@ -133,7 +133,7 @@ namespace FFP {
 		}
 		
 		//! Function will call UnityEngine.Debug.LogError with the message
-		public static void Error (string key, string message, UnityEngine.Object context = null) {
+		public static void Error (string key, object message, UnityEngine.Object context = null) {
 			if (!enabled)
 				return;
 			if ((!all) || (logStrings.Contains (key) && EditorPrefs.GetBool (key))){
@@ -157,7 +157,7 @@ namespace FFP {
 		}
 		
 		//! Function will call UnityEngine.Debug.LogWarning with the message
-		public static void Warning (string key, string message, UnityEngine.Object context = null) {
+		public static void Warning (string key, object message, UnityEngine.Object context = null) {
 			if (!enabled)
 				return;
 			if ((!all) || (logStrings.Contains (key) && EditorPrefs.GetBool (key))){
