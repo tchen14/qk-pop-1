@@ -14,6 +14,7 @@ public class MainMenuManager : MonoBehaviour {
 
 	//Editor
 	public bool useDefaultSettings = false;					//check this in the editor to load default settings
+	public bool seizureModeOn = false;						//check this if you don't want your eyeballs anymore
 
 	//Checkers
 	string currentMenu;						                //Current menu
@@ -37,6 +38,13 @@ public class MainMenuManager : MonoBehaviour {
 	public GameObject effectsVSlider; 						//Slider for effects volume
 	public GameObject musicVSlider; 						//Slider for music volume
 	public GameObject playInBGToggle;						//Toggle for play in background sound
+
+	//Advanced Video Sliders
+	public GameObject textureQSlider;						//The Sliders for Advanced Video settings
+	public GameObject aaSlider;								//They are all pretty self explanatory
+	public GameObject anistropicTSlider;
+	public GameObject aaText;
+	public GameObject aTextureText;
 
 
 	//Important Things
@@ -71,7 +79,10 @@ public class MainMenuManager : MonoBehaviour {
 	
 
 	void Update () {
-	
+		//we like to have fun here
+		if(seizureModeOn){
+			Camera.main.backgroundColor = new Color(Random.value,Random.value,Random.value);
+		}
 	}
 
 	//---------------------------
@@ -102,6 +113,8 @@ public class MainMenuManager : MonoBehaviour {
 			audioOpCanvas.SetActive (false);
 			controlsOpCanvas.SetActive(false);
 			videoOpCanvas.SetActive(true);
+
+			UpdateAVideoSliders();
 
 			//uncheck "use default settings" in the editor if you dont want to load changes
 			if(!useDefaultSettings){
@@ -241,6 +254,7 @@ public class MainMenuManager : MonoBehaviour {
 			break;
 		}
 
+		UpdateAVideoSliders ();
 		PlayerPrefs.SetFloat ("UI_quality", GameObject.Find ("qualitySlider").GetComponent<Slider> ().value);
 		GameObject.Find ("qualityText").GetComponent<Text> ().text = newQual;
 	}
@@ -299,6 +313,73 @@ public class MainMenuManager : MonoBehaviour {
 			PlayerPrefs.SetInt ("UI_bloom", 0);
 		}
 
+	}
+
+	//Apply AA Changes
+	public void SetAAChanges () {
+		int aa = (int)aaSlider.GetComponent<Slider>().value;
+
+		switch (aa) {
+		
+		case 0:
+			QualitySettings.antiAliasing = 0;
+			aaText.GetComponent<Text>().text = "Off";
+			break;
+		case 1:
+			QualitySettings.antiAliasing = 2;
+			aaText.GetComponent<Text>().text = "2x";
+			break;
+		case 2:
+			QualitySettings.antiAliasing = 4;
+			aaText.GetComponent<Text>().text = "4x";
+			break;
+		case 3:
+			QualitySettings.antiAliasing = 8;
+			aaText.GetComponent<Text>().text = "8x";
+			break;
+		}
+	}
+
+	//Apply Texture Quality Settings
+	public void SetTextureQSettings () {
+		int tQ = (int)textureQSlider.GetComponent<Slider> ().value;
+
+		switch (tQ) {
+		
+		case 0:
+			QualitySettings.masterTextureLimit = 3;
+			break;
+		case 1:
+			QualitySettings.masterTextureLimit = 2;
+			break;
+		case 2:
+			QualitySettings.masterTextureLimit = 1;
+			break;
+		case 3:
+			QualitySettings.masterTextureLimit = 0;
+			break;
+		}
+	}
+
+	//Apply Anistropicalbeach filtering
+	public void SetAnistropicSettings () {
+		int aF = (int)anistropicTSlider.GetComponent<Slider> ().value;
+
+		switch (aF) {
+		
+		case 0:
+			QualitySettings.anisotropicFiltering = AnisotropicFiltering.Disable;
+			aTextureText.GetComponent<Text>().text = "Disabled";
+			break;
+		case 1:
+			QualitySettings.anisotropicFiltering = AnisotropicFiltering.Enable;
+			aTextureText.GetComponent<Text>().text = "Enabled";
+			break;
+		case 2:
+			QualitySettings.anisotropicFiltering = AnisotropicFiltering.ForceEnable;
+			aTextureText.GetComponent<Text>().text = "ForceEnabled";
+			break;
+		}
 	}
 
 	//Applys audio changes
@@ -406,6 +487,71 @@ public class MainMenuManager : MonoBehaviour {
 		else{
 			playInBGToggle.GetComponent<Toggle>().isOn = false;
 		}
+	}
+
+	//Updates Advanced Video Sliders when Overall Quality is changed
+	void UpdateAVideoSliders () {
+
+		//Texture Quality Slider
+		int tQ = QualitySettings.masterTextureLimit;
+
+		switch (tQ) {
+		
+		case 0:
+			textureQSlider.GetComponent<Slider>().value = 3;
+			break;
+		case 1:
+			textureQSlider.GetComponent<Slider>().value = 2;
+			break;
+		case 2:
+			textureQSlider.GetComponent<Slider>().value = 1;
+			break;
+		case 3:
+			textureQSlider.GetComponent<Slider>().value = 0;
+			break;
+		}
+
+		//Antialiasing
+		int aa = QualitySettings.antiAliasing;
+
+		switch (aa) {
+			
+		case 0:
+			aaSlider.GetComponent<Slider>().value = 0;
+			aaText.GetComponent<Text>().text = "Off";
+			break;
+		case 2:
+			aaSlider.GetComponent<Slider>().value = 1;
+			aaText.GetComponent<Text>().text = "2x";
+			break;
+		case 4:
+			aaSlider.GetComponent<Slider>().value = 2;
+			aaText.GetComponent<Text>().text = "4x";
+			break;
+		case 8:
+			aaSlider.GetComponent<Slider>().value = 3;
+			aaText.GetComponent<Text>().text = "8x";
+			break;
+		}
+
+		//Aniascrtripsosodoppy filtering
+		if(QualitySettings.anisotropicFiltering == AnisotropicFiltering.Disable){
+			anistropicTSlider.GetComponent<Slider>().value = 0;
+			aTextureText.GetComponent<Text>().text = "Disabled";
+		}
+		else if(QualitySettings.anisotropicFiltering == AnisotropicFiltering.Enable){
+			anistropicTSlider.GetComponent<Slider>().value = 1;
+			aTextureText.GetComponent<Text>().text = "Enabled";
+		}
+		else if(QualitySettings.anisotropicFiltering == AnisotropicFiltering.ForceEnable){
+			anistropicTSlider.GetComponent<Slider>().value = 2;
+			aTextureText.GetComponent<Text>().text = "ForceEnabled";
+		}
+		else {
+			//Debug.Log ("ui", "Anistripic Filtering is fucked");
+		}
+
+
 	}
 
 	//Things
