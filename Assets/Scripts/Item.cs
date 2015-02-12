@@ -11,6 +11,14 @@ public abstract class Item : MonoBehaviour {
     public float jumpMod = 1.0f;
     #endregion
 
+	#region quinc compatiblities
+	public bool pushCompatible = false;
+	public bool pullCompatible = false;
+	public bool cutCompatible = false;
+	public bool soundThrowCompatible = false;
+	public bool stunCompatible = false; // Might not need this for items
+	#endregion
+
     //!Player gathers X number of this item, (kill all enemies in area, use other item script to auto drop item into play inventory)
     protected abstract void GatherObjective (int count);
 
