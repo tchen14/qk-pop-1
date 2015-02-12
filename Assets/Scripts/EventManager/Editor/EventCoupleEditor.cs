@@ -5,62 +5,51 @@ using UnityEditor;
 [CustomEditor(typeof(EventCouple), true)]
 public class EventCoupleEditor : Editor {
 
-    string[] triggerNames = new string[] { };
+    string[] conditionNames = new string[] { };
     string[] actionNames = new string[] { };
-
-    bool repaint;
 
     GUIStyle style;
 
     EventCouple e;
-    EventTable triggerEventTable;
-    EventTable actionEventTable;
 
     void OnEnable() {
         e = (EventCouple)target;
         style = new GUIStyle();
         style.richText = true;
-        Reload();
-    }
-
-    void Reload() {
-        triggerEventTable = null;
-        if (e.triggerScript is IEventScript){
-            IEventScript iscripts = e.triggerScript as IEventScript;
-            triggerEventTable = iscripts.eventTable();
-        }
-        actionEventTable = null;
-        if (e.actionScript is IEventScript) {
-            IEventScript iscripts = e.actionScript as IEventScript;
-            actionEventTable = iscripts.eventTable();
-        }
     }
 
     override public void OnInspectorGUI() {
 
-        //  Triggering Components
+        //  conditioning Components
         EditorGUILayout.BeginVertical();
 
+        EditorGUILayout.Space();
+        EditorGUILayout.BeginHorizontal();
+        e.delay = EditorGUILayout.FloatField("Check Every", e.delay);
+        EditorGUILayout.LabelField("Seconds");
+        EditorGUILayout.EndHorizontal();
+        EditorGUILayout.Space();
+
         EditorGUI.BeginChangeCheck();
-        EditorGUILayout.LabelField("<b><color=#106050ff>" + e.triggerScript + "</color></b>", style);
-        e.triggerScript = (MonoBehaviour)EditorGUILayout.ObjectField("Trigger Script", e.triggerScript, typeof(MonoBehaviour), true);
+        EditorGUILayout.LabelField("<b><color=#106050ff>" + e.conditionScript + "</color></b>", style);
+        e.conditionScript = (MonoBehaviour)EditorGUILayout.ObjectField("Condition Script", e.conditionScript, typeof(MonoBehaviour), true);
         EditorGUI.EndChangeCheck();
 
-        e.triggerIndex = EditorGUILayout.Popup("Keyword", e.triggerIndex, triggerNames, EditorStyles.popup);
-        if (triggerEventTable != null){
-            triggerNames = triggerEventTable.GetKeywords();
-            if (triggerNames.Length <= e.triggerIndex) {
-                e.triggerIndex = 0;
-            }
+        e.conditionIndex = EditorGUILayout.Popup("Condition", e.conditionIndex, conditionNames, EditorStyles.popup);
+        conditionNames = EventLibrary.library[e.conditionScript.GetType().Name + "Fields"];
+        if (conditionNames.Length <= e.conditionIndex) {
+            e.conditionIndex = 0;
+        }
+        if (conditionNames.Length > e.conditionIndex) {
+            e.conditionField = conditionNames[e.conditionIndex];
+            e.conditionType = e.conditionScript.GetType().GetField(e.conditionField).FieldType;
         }
 
-        if (triggerNames.Length > e.triggerIndex) {
-            e.triggerKeyword = triggerNames[e.triggerIndex];
+        if (e.conditionType == typeof(System.Int32)) {
+            e.conditionInt = EditorGUILayout.IntField("Target Value", e.conditionInt);
         }
-        if (triggerEventTable != null && triggerEventTable.triggerEntries.Length > e.triggerIndex) {
-            if (triggerEventTable.triggerEntries[e.triggerIndex].testType == TestType.Int) {
-                e.targetValue = EditorGUILayout.IntField("Target Value", e.targetValue);
-            }
+        else if (e.conditionType == typeof(System.Single)) {
+            e.conditionFloat = EditorGUILayout.FloatField("Target Value", e.conditionFloat);
         }
 
         EditorGUILayout.Space();
@@ -71,30 +60,32 @@ public class EventCoupleEditor : Editor {
         e.actionScript = (MonoBehaviour)EditorGUILayout.ObjectField("Action Script", e.actionScript, typeof(MonoBehaviour), true);
         EditorGUI.EndChangeCheck();
 
-        e.actionIndex = EditorGUILayout.Popup("Action Function:", e.actionIndex, actionNames, EditorStyles.popup);
-        if (actionEventTable != null) {
-            actionNames = actionEventTable.GetFunctions();
-            if (actionNames.Length <= e.actionIndex) {
-                e.actionIndex = 0;
-            }
+        e.actionIndex = EditorGUILayout.Popup("Action Function", e.actionIndex, actionNames, EditorStyles.popup);
+        actionNames = EventLibrary.library[e.actionScript.GetType().Name + "Methods"];
+        if (actionNames.Length <= e.actionIndex) {
+            e.actionIndex = 0;
         }
 
         if (actionNames.Length > e.actionIndex) {
             e.actionName = actionNames[e.actionIndex];
+            var par = e.actionScript.GetType().GetMethod(e.actionName).GetParameters();
+            if (par.Length > 0) {
+                e.actionType = par[0].ParameterType;
+            }
+            else {
+                e.actionType = typeof(void);
+            }
         }
-        if (actionEventTable != null && actionEventTable.actionEntries.Length > e.actionIndex) {
-            if (actionEventTable.actionEntries[e.actionIndex].testType == TestType.Int) {
-                e.intToPass = EditorGUILayout.IntField("Value to Pass", e.intToPass);
-            }
-            else if (actionEventTable.actionEntries[e.actionIndex].testType == TestType.Vector3) {
-                e.v3ToPass = EditorGUILayout.Vector3Field("Value to Pass", e.v3ToPass);
-            }
+
+        //  Determine type to pass
+        if (e.actionType == typeof(System.Int32)) {
+            e.actionInt = EditorGUILayout.IntField("Value to Pass", e.conditionInt);
+        }
+        else if (e.actionType == typeof(Vector3)) {
+            e.actionVector3 = EditorGUILayout.Vector3Field("Value to Pass", e.actionVector3);
         }
 
         EditorGUILayout.EndVertical();
 
-        if (GUI.changed) {
-            Reload();
-        }
     }
 }

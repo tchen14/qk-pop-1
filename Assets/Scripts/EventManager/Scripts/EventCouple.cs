@@ -4,54 +4,34 @@ using UnityEngine.Events;
 
 public class EventCouple : MonoBehaviour {
 
-    public MonoBehaviour triggerScript;
-    public string triggerKeyword;
-    public int triggerIndex;
-    public int targetValue;
+    public MonoBehaviour conditionScript;
+    public string conditionField;
+    public System.Type conditionType;
+    public int conditionIndex;
+    public int conditionInt;
+    public float conditionFloat;
 
     public MonoBehaviour actionScript;
     public string actionName;
+    public System.Type actionType;
     public int actionIndex;
-    public int intToPass;
-    public Vector3 v3ToPass;
+    public int actionInt;
+    public Vector3 actionVector3;
 
     void Start() {
         EventListener.AddCouple(this);
     }
 
-    public void Report(MonoBehaviour triggeringScript, string keyword) {
-        if (triggerScript == triggeringScript && keyword == triggerKeyword) {
-            Invoke();
-        }
-    }
+    private float timer = 0;
+    public float delay = 1;
 
-    public void Report(MonoBehaviour triggeringScript, string keyword, int value) {
-        if (triggerScript == triggeringScript && keyword == triggerKeyword && value == targetValue) {
-            Invoke();
+    void Update() {
+        if (timer < delay) {
+            timer += Time.deltaTime;
         }
-    }
-
-    private void Invoke() {
-        try {
-            if (actionScript is IEventScript) {
-                IEventScript iscripts = actionScript as IEventScript;
-                EventTable actionEventTable = iscripts.eventTable();
-                TestType testType = actionEventTable.actionEntries[actionIndex].testType;
-                if (testType == TestType.Int) {
-                    UnityEventBase.GetValidMethodInfo(actionScript, actionName, new System.Type[] { typeof(int) }).Invoke(actionScript, new object[] { intToPass });
-                }
-                else if (testType == TestType.Vector3) {
-                    UnityEventBase.GetValidMethodInfo(actionScript, actionName, new System.Type[] { typeof(Vector3) }).Invoke(actionScript, new object[] { v3ToPass });
-                }
-                else {
-                    UnityEventBase.GetValidMethodInfo(actionScript, actionName, new System.Type[] { }).Invoke(actionScript, null);
-                }
-            }
-
-        }
-        catch {
-            if (actionScript != null) { print("Method " + actionName + " not found in " + actionScript.ToString()); }
-            else { print("No target script"); }
+        if (timer >= delay) {
+            timer = 0;
+            EventListener.SlowUpdate(this);
         }
     }
 }
