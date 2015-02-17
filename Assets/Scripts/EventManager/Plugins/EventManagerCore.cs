@@ -1,5 +1,12 @@
-﻿public class EventFieldAttribute : System.Attribute { }
-public class EventMethodAttribute : System.Attribute { }
+﻿using UnityEngine;
+using System.Diagnostics;
+
+public class EventFieldAttribute : System.Attribute { }
+public class EventMethodAttribute : System.Attribute {
+    public EventMethodAttribute() {
+        Trace.WriteLine("message: ");
+    }
+}
 
 public class EventManagerCore {
 

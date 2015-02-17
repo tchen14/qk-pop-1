@@ -1,5 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Diagnostics;
+using System.IO;
 
 public class TestScriptLeft : MonoBehaviour {
 
@@ -12,6 +14,8 @@ public class TestScriptLeft : MonoBehaviour {
 
     void Update() {
         if (Input.GetKeyDown(KeyCode.Alpha1)) {
+            PressOne();
+
             counter++;
         }
         
@@ -21,6 +25,10 @@ public class TestScriptLeft : MonoBehaviour {
                 timer = 0;
             }
         }
+    }
+
+    public void PressOne() {
+        EventListener.Report(this);
     }
 
     [EventMethod]

@@ -1,37 +1,19 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine.Events;
 
-public class EventCouple : MonoBehaviour {
+[System.Serializable]
+public class EventCouple {
 
-    public MonoBehaviour conditionScript;
-    public string conditionField;
-    public System.Type conditionType;
-    public int conditionIndex;
-    public int conditionInt;
-    public float conditionFloat;
+    public List<EventCondition> conditions;
 
-    public MonoBehaviour actionScript;
-    public string actionName;
-    public System.Type actionType;
-    public int actionIndex;
-    public int actionInt;
-    public Vector3 actionVector3;
+    public List<EventAction> actions;
 
-    void Start() {
-        EventListener.AddCouple(this);
-    }
-
-    private float timer = 0;
-    public float delay = 1;
-
-    void Update() {
-        if (timer < delay) {
-            timer += Time.deltaTime;
-        }
-        if (timer >= delay) {
-            timer = 0;
-            EventListener.SlowUpdate(this);
-        }
+    public EventCouple() {
+        conditions = new List<EventCondition>();
+        conditions.Add(new EventCondition());
+        actions = new List<EventAction>();
+        actions.Add(new EventAction());
     }
 }

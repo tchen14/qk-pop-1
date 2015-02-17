@@ -262,20 +262,35 @@ MonoBehaviour:
   m_GameObject: {fileID: 1960427443}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 020433849241dee4da0b731c8ec50855, type: 3}
+  m_Script: {fileID: 11500000, guid: 3bce9737e13a17340acb5aabb86ba137, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  conditionScript: {fileID: 118041494}
-  conditionField: counter
-  conditionIndex: 1
-  conditionInt: 4
-  conditionFloat: .400000006
-  actionScript: {fileID: 1615769647}
-  actionName: NullFunction
-  actionIndex: 0
-  actionInt: 4
-  actionVector3: {x: .0900000036, y: .330000013, z: -1.5}
-  delay: 2.04999995
+  couples:
+  - conditions:
+    - conditionScript: {fileID: 118041494}
+      conditionField: counter
+      conditionIndex: 1
+      conditionInt: 10
+      conditionFloat: .300000012
+    actions:
+    - actionScript: {fileID: 1615769647}
+      actionName: NullFunction
+      actionIndex: 0
+      actionInt: 0
+      actionVector3: {x: 0, y: 0, z: 0}
+  - conditions:
+    - conditionScript: {fileID: 118041494}
+      conditionField: counter
+      conditionIndex: 1
+      conditionInt: 6
+      conditionFloat: 0
+    actions:
+    - actionScript: {fileID: 1615769647}
+      actionName: IntFunction
+      actionIndex: 1
+      actionInt: 32
+      actionVector3: {x: 0, y: 0, z: 0}
+  delay: 2.31999993
 --- !u!4 &1960427445
 Transform:
   m_ObjectHideFlags: 0
