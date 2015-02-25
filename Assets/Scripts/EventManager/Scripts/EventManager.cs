@@ -10,6 +10,7 @@ public class EventManager : MonoBehaviour {
     public float delay = 1;
 
     void Update() {
+
         if (timer < delay) {
             timer += Time.deltaTime;
         }

@@ -9,7 +9,8 @@ public class EventManagerEditor : Editor {
     string[] conditionNames = new string[] { };
     string[] actionNames = new string[] { };
 
-    GUIStyle style;
+    private GUIStyle style;
+    private int columnWidth = 200;
 
     EventManager m;
 
@@ -43,17 +44,22 @@ public class EventManagerEditor : Editor {
             EditorGUILayout.Space();
             EditorGUILayout.Space();
 
+            GUILayout.BeginHorizontal();
+            EditorGUILayout.BeginVertical();
+
             foreach (var c in couple.conditions) {
                 
                 EditorGUI.BeginChangeCheck();
-                EditorGUILayout.LabelField("<b><color=#106050ff>" + c.conditionScript + "</color></b>", style);
-                c.conditionScript = (MonoBehaviour)EditorGUILayout.ObjectField("Condition Script", c.conditionScript, typeof(MonoBehaviour), true);
+                EditorGUILayout.LabelField("<b><color=#106050ff>" + c.conditionScript + "</color></b>", style, GUILayout.MaxWidth(columnWidth));
+                EditorGUILayout.LabelField("Condition Script", GUILayout.MaxWidth(columnWidth));
+                c.conditionScript = (MonoBehaviour)EditorGUILayout.ObjectField(c.conditionScript, typeof(MonoBehaviour), true, GUILayout.MaxWidth(columnWidth));
                 EditorGUI.EndChangeCheck();
 
                 if (c.conditionScript != null) {
                     EventLibrary.library.TryGetValue((c.conditionScript.GetType().Name + "Fields"), out conditionNames);
                     if (conditionNames != null) {
-                        c.conditionIndex = EditorGUILayout.Popup("Condition", c.conditionIndex, conditionNames, EditorStyles.popup);
+                        EditorGUILayout.LabelField("Condition", GUILayout.MaxWidth(columnWidth));
+                        c.conditionIndex = EditorGUILayout.Popup(c.conditionIndex, conditionNames, EditorStyles.popup, GUILayout.MaxWidth(columnWidth));
 
                         if (conditionNames.Length <= c.conditionIndex) {
                             c.conditionIndex = 0;
@@ -64,12 +70,20 @@ public class EventManagerEditor : Editor {
                             c.conditionType = c.conditionScript.GetType().GetField(c.conditionField).FieldType;
                         }
 
+                        EditorGUILayout.LabelField("Target Value", GUILayout.MaxWidth(columnWidth));
+                        GUILayout.BeginHorizontal();
+                        c.comparisonIndex = EditorGUILayout.Popup(c.comparisonIndex, c.comparisonOperators, EditorStyles.popup, GUILayout.MaxWidth(columnWidth / 4));
+                        c.intCompareOption = (EventCondition.IntCompareOption)EditorGUILayout.EnumPopup(c.intCompareOption, GUILayout.MaxWidth(columnWidth / 4));
+                        
                         if (c.conditionType == typeof(System.Int32)) {
-                            c.conditionInt = EditorGUILayout.IntField("Target Value", c.conditionInt);
+                            c.conditionInt = EditorGUILayout.IntField(c.conditionInt, GUILayout.MaxWidth(columnWidth / 4 * 3));
                         }
                         else if (c.conditionType == typeof(System.Single)) {
-                            c.conditionFloat = EditorGUILayout.FloatField("Target Value", c.conditionFloat);
+                            c.conditionFloat = EditorGUILayout.FloatField(c.conditionFloat, GUILayout.MaxWidth(columnWidth / 4 * 3));
+
                         }
+                        GUILayout.EndHorizontal();
+
                     }
                     else {
                         EditorGUILayout.LabelField(" ", "<b><color=#ff2222ff>No Valid Fields</color></b>", style);
@@ -78,56 +92,88 @@ public class EventManagerEditor : Editor {
             }
 
             EditorGUILayout.Space();
+            EditorGUILayout.Separator();
+
+            EditorGUILayout.EndVertical();
+            EditorGUILayout.Space();
+
+            EditorGUILayout.BeginVertical();
+
 
             foreach (var a in couple.actions) {
 
                 //  Action Components
                 EditorGUI.BeginChangeCheck();
-                EditorGUILayout.LabelField("<b><color=#3030a0ff>" + a.actionScript + "</color></b>", style);
-                a.actionScript = (MonoBehaviour)EditorGUILayout.ObjectField("Action Script", a.actionScript, typeof(MonoBehaviour), true);
+                EditorGUILayout.LabelField("<b><color=#3030a0ff>" + a.actionScript + "</color></b>", style, GUILayout.MaxWidth(columnWidth));
+                EditorGUILayout.LabelField("Action Script", GUILayout.MaxWidth(columnWidth));
+                a.actionScript = (MonoBehaviour)EditorGUILayout.ObjectField(a.actionScript, typeof(MonoBehaviour), true, GUILayout.MaxWidth(columnWidth));
                 EditorGUI.EndChangeCheck();
 
                 if (a.actionScript != null) {
                     EventLibrary.library.TryGetValue((a.actionScript.GetType().Name + "Methods"), out actionNames);
                     if (actionNames != null) {
-                        a.actionIndex = EditorGUILayout.Popup("Action Function", a.actionIndex, actionNames, EditorStyles.popup);
+                        EditorGUILayout.LabelField("Action Function", GUILayout.MaxWidth(columnWidth));
+                        a.actionEditorIndex = EditorGUILayout.Popup(a.actionEditorIndex, actionNames, EditorStyles.popup, GUILayout.MaxWidth(columnWidth));
 
 
-                        if (actionNames.Length <= a.actionIndex) {
-                            a.actionIndex = 0;
+                        if (actionNames.Length <= a.actionEditorIndex) {
+                            a.actionEditorIndex = 0;
                         }
 
-                        if (actionNames.Length > a.actionIndex) {
-                            a.actionName = actionNames[a.actionIndex];
+                        //  Determine type to pass
+                        System.Type paramType = typeof(void);
+
+                        if (actionNames.Length > a.actionEditorIndex) {
+                            a.actionName = actionNames[a.actionEditorIndex];
                             var par = a.actionScript.GetType().GetMethod(a.actionName).GetParameters();
                             if (par.Length > 0) {
-                                a.actionType = par[0].ParameterType;
-                            }
-                            else {
-                                a.actionType = typeof(void);
+                                paramType = par[0].ParameterType;
                             }
                         }
-                        //  Determine type to pass
-                        if (a.actionType == typeof(System.Int32)) {
-                            a.actionInt = EditorGUILayout.IntField("Value to Pass", a.actionInt);
+                        //  Label for non-null
+                        if (paramType != typeof(void)) {
+                            EditorGUILayout.LabelField("Value to Pass", GUILayout.MaxWidth(columnWidth));
                         }
-                        else if (a.actionType == typeof(Vector3)) {
-                            a.actionVector3 = EditorGUILayout.Vector3Field("Value to Pass", a.actionVector3);
+                        //  Expose the proper variable
+                        if (paramType == typeof(System.Int32)) {
+                            a.p_int = EditorGUILayout.IntField(a.p_int, GUILayout.MaxWidth(columnWidth));
                         }
+                        else if (paramType == typeof(System.Single)) {
+                            a.p_float = EditorGUILayout.FloatField(a.p_float, GUILayout.MaxWidth(columnWidth));
+                        }
+                        else if (paramType == typeof(Vector3)) {
+                            a.p_Vector3 = EditorGUILayout.Vector3Field("", a.p_Vector3, GUILayout.MaxWidth(columnWidth));
+                        }
+                        else if (paramType == typeof(GameObject)) {
+                            a.p_GameObject = (GameObject)EditorGUILayout.ObjectField(a.p_GameObject, typeof(GameObject), true, GUILayout.MaxWidth(columnWidth));
+                        }
+                        else if (paramType == typeof(MonoBehaviour)) {
+                            a.p_MonoBehaviour = (MonoBehaviour)EditorGUILayout.ObjectField(a.p_MonoBehaviour, typeof(MonoBehaviour), true, GUILayout.MaxWidth(columnWidth));
+                        }
+
+                        //  Set the parameters
+                        a.args = a.SetParameters(paramType);
                     }
                     else {
-                        EditorGUILayout.LabelField(" ", "<b><color=#ff2222ff>No Valid Methods</color></b>", style);
+                        EditorGUILayout.LabelField(" ", "<b><color=#ff2222ff>No Valid Methods</color></b>", style, GUILayout.MaxWidth(columnWidth));
                     }
 
   
                 }
             }
+            EditorGUILayout.EndVertical();
+            EditorGUILayout.Space();
+
+            EditorGUILayout.EndHorizontal();
+
         }
         EditorGUILayout.Space();
 
-
-        if (GUILayout.Button("Add Couple")) {
-            AddCouple();
+        if (GUILayout.Button("Add Condition")) {
+            AddCondition();
+        } 
+        if (GUILayout.Button("Add Action")) {
+            AddAction();
         }
 
         EditorGUILayout.EndVertical();
@@ -141,6 +187,18 @@ public class EventManagerEditor : Editor {
         m.couples[count].conditions.Add(new EventCondition());
         m.couples[count].actions = new List<EventAction>();
         m.couples[count].actions.Add(new EventAction());
+    }
+
+    void AddCondition() {
+        EventCouple couple = m.couples[0];
+        int count = couple.actions.Count;
+        couple.conditions.Add(new EventCondition());
+    }
+    
+    void AddAction() {
+        EventCouple couple = m.couples[0];
+        int count = couple.actions.Count;
+        couple.actions.Add(new EventAction());
     }
 
 }

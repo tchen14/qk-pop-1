@@ -1,16 +1,29 @@
 ﻿using UnityEngine;
 using System.Collections;
-using System.Diagnostics;
-using System.IO;
 
 public class TestScriptLeft : MonoBehaviour {
 
-    [EventField]
-    public float timer = 0;
-    private float delay = 1;
 
     [EventField]
-    public int counter = 0;
+    public float timer = 0;
+    [EventField]
+    public float delay = 1;
+
+    [EventField]
+    public int counter = 5;
+    [EventField]
+    public int fieldA = 5;
+    [EventField]
+    public int fieldB = 5;
+
+    void Start(){
+        object[] obj = new object[] { counter };
+        this.GetType().GetMethod("Test").Invoke(this, obj);
+    }
+
+    public void Test(int value){
+        print(value);
+    }
 
     void Update() {
         if (Input.GetKeyDown(KeyCode.Alpha1)) {

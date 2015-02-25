@@ -1,6 +1,5 @@
 ﻿using UnityEngine;
 using System.Collections;
-using UnityEngine.Events;
 
 [System.Serializable]
 public class EventCondition {
@@ -12,4 +11,12 @@ public class EventCondition {
     public int conditionInt;
     public float conditionFloat;
 
+    public int comparisonIndex;
+    public string[] comparisonOperators = new string[] { "==", ">", "<" };
+
+    public enum IntCompareOption { 
+
+        EqualTo = 1, GreaterThan = 2, LessThan = 3
+    }
+    public IntCompareOption intCompareOption;
 }

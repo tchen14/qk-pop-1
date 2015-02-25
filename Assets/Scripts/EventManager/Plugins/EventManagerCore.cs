@@ -1,11 +1,11 @@
-﻿using UnityEngine;
-using System.Diagnostics;
+﻿//using UnityEngine;
+//using System.Diagnostics;
 
 public class EventFieldAttribute : System.Attribute { }
 public class EventMethodAttribute : System.Attribute {
-    public EventMethodAttribute() {
-        Trace.WriteLine("message: ");
-    }
+    //public EventMethodAttribute() {
+    //    Trace.WriteLine("message: ");
+    //}
 }
 
 public class EventManagerCore {
@@ -18,7 +18,7 @@ public class EventManagerCore {
 }
 
 
-public delegate object MethodDelegate(object o, object[] p);
-public delegate void SetFieldDelegate(object o, object p);
-public delegate object GetFieldDelegate(object o);
+//public delegate object MethodDelegate(object o, object[] p);
+//public delegate void SetFieldDelegate(object o, object p);
+//public delegate object GetFieldDelegate(object o);
 

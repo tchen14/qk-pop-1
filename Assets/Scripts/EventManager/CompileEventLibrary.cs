@@ -12,7 +12,7 @@ public class CompileEventLibrary : EditorWindow {
     [MenuItem("Tools/Compile Event Library")]
     static void Compile() {
 
-        string fileName = Application.dataPath + "\\EventManager\\Plugins\\EventLibrary.cs";
+        string fileName = Application.dataPath + "\\Scripts\\EventManager\\Plugins\\EventLibrary.cs";
 
         string compilationString = "/*\n\n\n\n\n\n\n\n\n\n\n\n\t\t\t\t\t\tThis script has been automatically generated.\n\t\t\t\t\t\tDo not alter it, or your changes will be undone.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n*/\n";
         compilationString += "using System.Collections.Generic;\npublic static class EventLibrary {\n\n\tpublic static Dictionary<string, string[]> library = new Dictionary<string, string[]> {\n";

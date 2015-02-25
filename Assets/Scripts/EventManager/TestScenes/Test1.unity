@@ -102,7 +102,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   timer: 0
+  delay: 1
   counter: 0
+  fieldA: 5
+  fieldB: 5
 --- !u!4 &118041495
 Transform:
   m_ObjectHideFlags: 0
@@ -226,6 +229,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d9fafca4c8b4314db9235f5689c35bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  CubePrefab: {fileID: 0}
 --- !u!4 &1615769648
 Transform:
   m_ObjectHideFlags: 0
@@ -268,29 +272,48 @@ MonoBehaviour:
   couples:
   - conditions:
     - conditionScript: {fileID: 118041494}
-      conditionField: counter
-      conditionIndex: 1
-      conditionInt: 10
-      conditionFloat: .300000012
+      conditionField: timer
+      conditionIndex: 0
+      conditionInt: 0
+      conditionFloat: 0
+      comparisonIndex: 0
+      comparisonOperators:
+      - ==
+      - '>'
+      - <
+      intCompareOption: 0
+    - conditionScript: {fileID: 118041494}
+      conditionField: timer
+      conditionIndex: 0
+      conditionInt: 0
+      conditionFloat: 0
+      comparisonIndex: 0
+      comparisonOperators:
+      - ==
+      - '>'
+      - <
+      intCompareOption: 0
+    - conditionScript: {fileID: 118041494}
+      conditionField: fieldA
+      conditionIndex: 3
+      conditionInt: 0
+      conditionFloat: 0
+      comparisonIndex: 0
+      comparisonOperators:
+      - ==
+      - '>'
+      - <
+      intCompareOption: 0
     actions:
     - actionScript: {fileID: 1615769647}
       actionName: NullFunction
-      actionIndex: 0
-      actionInt: 0
-      actionVector3: {x: 0, y: 0, z: 0}
-  - conditions:
-    - conditionScript: {fileID: 118041494}
-      conditionField: counter
-      conditionIndex: 1
-      conditionInt: 6
-      conditionFloat: 0
-    actions:
-    - actionScript: {fileID: 1615769647}
-      actionName: IntFunction
-      actionIndex: 1
-      actionInt: 32
-      actionVector3: {x: 0, y: 0, z: 0}
-  delay: 2.31999993
+      actionEditorIndex: 0
+      p_int: 0
+      p_float: 0
+      p_Vector3: {x: 0, y: 0, z: 0}
+      p_GameObject: {fileID: 0}
+      p_MonoBehaviour: {fileID: 0}
+  delay: 1
 --- !u!4 &1960427445
 Transform:
   m_ObjectHideFlags: 0
