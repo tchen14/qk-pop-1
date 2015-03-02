@@ -5,7 +5,7 @@ using UnityEditor;
 
 [CustomEditor(typeof(EventManager), true)]
 public class EventManagerEditor : Editor {
-
+	#pragma warning disable 0114
     string[] conditionNames = new string[] { };
     string[] actionNames = new string[] { };
 
