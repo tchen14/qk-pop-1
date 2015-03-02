@@ -18,7 +18,6 @@ public class MetaEventManager : MonoBehaviour {
 		Type[] types = Assembly.GetExecutingAssembly().GetTypes();
 		
 		for(int j = 0; j< types.Length; j++){
-			Type type = typeof(MonoBehaviour);
 			MethodInfo[] info = types[j].GetMethods(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.FlattenHierarchy |
 			                                        BindingFlags.Static | BindingFlags.Instance);
 			
