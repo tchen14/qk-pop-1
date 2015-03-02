@@ -905,9 +905,9 @@ GameObject:
   m_Component:
   - 4: {fileID: 87453829}
   - 33: {fileID: 87453828}
-  - 136: {fileID: 87453827}
   - 23: {fileID: 87453826}
-  - 54: {fileID: 87453830}
+  - 136: {fileID: 87453827}
+  - 54: {fileID: 87453825}
   - 114: {fileID: 87453824}
   m_Layer: 0
   m_Name: _Player
@@ -927,24 +927,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b375fe55380fc4ae98ce233f831bc9a3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  minMovementSpeed: 10
-  maxMovementSpeed: 20
-  acceleration: 7.5
-  deceleration: 20
-  currentMovementSpeed: 0
-  rotationSpeed: 3.5
-  jumpDirection: {x: 0, y: 0, z: 0}
-  maxJumpingHeight: .5
-  airMovementSpeedPercentage: .100000001
-  minClimbingSpeed: 5
-  maxClimbingSpeed: 10
-  currentClimbingSpeed: 0
-  ladderClimbingSpeed: 200
-  currentCharacterState: 0
-  moving: 0
   grounded: 0
+  currentClimbingSpeed: 0
+  isRunning: 0
+  isCrouched: 0
+  currentCharacterState: 0
   cameraTransform: {fileID: 349475306}
   eventInput: 0
+--- !u!54 &87453825
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 87453823}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 1
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 80
+  m_CollisionDetection: 2
 --- !u!23 &87453826
 Renderer:
   m_ObjectHideFlags: 0
@@ -974,10 +978,10 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: .5
+  m_Radius: .500000119
   m_Height: 2
   m_Direction: 1
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Center: {x: 5.96046448e-08, y: 0, z: -8.94069672e-08}
 --- !u!33 &87453828
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -1000,21 +1004,6 @@ Transform:
   - {fileID: 2136427110}
   m_Father: {fileID: 0}
   m_RootOrder: 3
---- !u!54 &87453830
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 87453823}
-  serializedVersion: 2
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: .0500000007
-  m_UseGravity: 1
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 2
 --- !u!1 &90919148
 GameObject:
   m_ObjectHideFlags: 0
@@ -1749,6 +1738,47 @@ Transform:
   - {fileID: 394267620}
   m_Father: {fileID: 886993511}
   m_RootOrder: 0
+--- !u!1 &191742432
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 100000, guid: 3e020da3fb441b342b570b5d16e0502f, type: 2}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 191742434}
+  - 135: {fileID: 191742433}
+  m_Layer: 0
+  m_Name: testing trigger
+  m_TagString: Checkpoint
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 4294967295
+  m_IsActive: 0
+--- !u!135 &191742433
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 13500000, guid: 3e020da3fb441b342b570b5d16e0502f,
+    type: 2}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 191742432}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 3
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!4 &191742434
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 400000, guid: 3e020da3fb441b342b570b5d16e0502f, type: 2}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 191742432}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 3.28999996, y: 0, z: 5.3499999}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 9
 --- !u!1 &193889606
 GameObject:
   m_ObjectHideFlags: 0
@@ -4035,7 +4065,7 @@ GameObject:
   - 23: {fileID: 384552237}
   m_Layer: 0
   m_Name: _Navigation
-  m_TagString: Untagged
+  m_TagString: Navigation
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 8
@@ -20628,6 +20658,47 @@ Prefab:
   m_RootGameObject: {fileID: 806163936}
   m_IsPrefabParent: 0
   m_IsExploded: 1
+--- !u!1 &1736180408
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 100000, guid: 3e020da3fb441b342b570b5d16e0502f, type: 2}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 1736180410}
+  - 135: {fileID: 1736180409}
+  m_Layer: 0
+  m_Name: testing collider
+  m_TagString: Checkpoint
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 4294967295
+  m_IsActive: 0
+--- !u!135 &1736180409
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 13500000, guid: 3e020da3fb441b342b570b5d16e0502f,
+    type: 2}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1736180408}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 3
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!4 &1736180410
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 400000, guid: 3e020da3fb441b342b570b5d16e0502f, type: 2}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1736180408}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -3.00999999, y: 0, z: 5.3499999}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 8
 --- !u!1 &1736426096
 GameObject:
   m_ObjectHideFlags: 0
@@ -22422,7 +22493,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 1877693596}
   m_Layer: 0
-  m_Name: _temp
+  m_Name: _Checkpoints
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
