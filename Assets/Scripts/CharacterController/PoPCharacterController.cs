@@ -15,7 +15,6 @@ public class PoPCharacterController : CharacterController_2 {
 	
 	public Transform cameraTransform;		//!< Moves in conjunction with camera's transform
 	private float inputThreshold = 0.1f;	//!< Dead zone value to determine if input is applied
-	public bool eventInput = false;			//!< 
 	private Vector3 highestPoint;			//!< TBD
 
 	//! Unity Start function
@@ -45,12 +44,11 @@ public class PoPCharacterController : CharacterController_2 {
 		PlayerInput(Input.GetAxisRaw("Horizontal"),
 		            Input.GetAxisRaw("Jump"),
 		            Input.GetAxisRaw("Vertical"),
-		            Input.GetKeyDown("e") ^ (currentCharacterState == characterState.climbingState));
+		            Input.GetKeyDown("f"));
 		
 		// action:event button used to get out of events
 		if(Input.GetKeyDown(KeyCode.Q))
 		{
-			eventInput = false;
 			rigidbody.constraints =  RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ;
 			rigidbody.useGravity = true;
 			rigidbody.drag = 1.0f;
@@ -80,48 +78,73 @@ public class PoPCharacterController : CharacterController_2 {
 	
 	// Check if there is player input
 	private void PlayerInput(float xPlaneInput, float yPlaneInput, float zPlaneInput, bool action){
-		if (Mathf.Abs (yPlaneInput) > inputThreshold) {
-			//Jumping
-			currentCharacterState = characterState.jumpingState;
-		}else if(Mathf.Abs(xPlaneInput) > inputThreshold || Mathf.Abs(zPlaneInput) > inputThreshold){
-			//Moving
-			currentCharacterState = characterState.movingState;
-		}else if(action){
-			//Interacting
-			// todo: ladder
-			// todo: sidle
-			currentCharacterState = characterState.climbingState;
-		}else{
-			//Idle
-			currentCharacterState = characterState.idleState;
-		}
-		
-		switch (currentCharacterState) {
-		case (characterState.idleState):
-			// Reset movement variables
-			if(currentWalkingSpeed > minWalkingSpeed)
-			{
-				// decrement player speed as long as movement is being applied
-				currentWalkingSpeed -= Time.deltaTime * moveDeceleration;
+		if(action){
+			if(actionAvaiable && myActionState == actionState.prepState){ //Start Action
+				switch(actionComponent.GetType().ToString()){
+				case "SidlePoint":
+					//sidle setup crap
+					break;
+				case "LadderPoint":
+					//ladder setup crap
+					break;
+				default:
+					Debug.Error("player","Action start called with no valid action.");
+					break;
+				}
+				myActionState = actionState.loopState;
+			}else if(myActionState == actionState.loopState){ //End Action
+				//todo: end action state code
+				switch(actionComponent.GetType().ToString()){
+				case "SidlePoint":
+					//sidle ending crap
+					break;
+				case "LadderPoint":
+					//ladder ending crap
+					break;
+				default:
+					Debug.Error("player","Action end called with no valid action.");
+					break;
+				}
+				myActionState = actionState.prepState;
+			}else{
+				Debug.Error("player","Code should not reach here.");
 			}
-			break;
-		case (characterState.movingState):
-			// increment player speed as long as movement is being applied
-			if(currentWalkingSpeed < maxWalkingSpeed)
-				currentWalkingSpeed = currentWalkingSpeed + Time.deltaTime * moveAcceleration;
-			UpdateMovement(xPlaneInput,zPlaneInput);
-			break;
-		case (characterState.jumpingState):
+		}else if(myActionState == actionState.loopState){ //Loop Action
+			// todo: determine what to loop to do
+			switch(actionComponent.GetType().ToString()){
+			case "SidlePoint":
+				SidleLoop(xPlaneInput);
+				break;
+			case "LadderPoint":
+				LadderLoop(yPlaneInput);
+				break;
+			default:
+				Debug.Error("player","Action loop called with no valid action.");
+				break;
+			}
+		}else{
+			NoActionLoop(xPlaneInput, yPlaneInput, zPlaneInput);
+		}
+	}
+	
+	private void NoActionLoop(float xPlaneInput, float yPlaneInput, float zPlaneInput){
+		if (Mathf.Abs (yPlaneInput) > inputThreshold) { //Jumping
 			// increment player speed as long as movement is being applied
 			if(currentWalkingSpeed < maxWalkingSpeed)
 				currentWalkingSpeed = currentWalkingSpeed + Time.deltaTime * moveAcceleration;
 			UpdateMovement(xPlaneInput,zPlaneInput);
 			UpdateJump(yPlaneInput);
-			break;
-		case (characterState.climbingState):
-			//ClimbUpdate(zPlaneInput*ladderClimbingSpeed);
-			;
-			break;
+		}else if(Mathf.Abs(xPlaneInput) > inputThreshold || Mathf.Abs(zPlaneInput) > inputThreshold){ //Moving
+			// increment player speed as long as movement is being applied
+			if(currentWalkingSpeed < maxWalkingSpeed)
+				currentWalkingSpeed = currentWalkingSpeed + Time.deltaTime * moveAcceleration;
+			UpdateMovement(xPlaneInput,zPlaneInput);
+		}else{ //Idle
+			if(currentWalkingSpeed > minWalkingSpeed)
+			{
+				// decrement player speed as long as movement is being applied
+				currentWalkingSpeed -= Time.deltaTime * moveDeceleration;
+			}
 		}
 	}
 	
@@ -129,7 +152,7 @@ public class PoPCharacterController : CharacterController_2 {
 	 *	This includes walking/running movement
 	 *	This includes grounded/jumping movement
 	 */
-	public void UpdateMovement(float xPlaneMovement, float zPlaneMovement)
+	private void UpdateMovement(float xPlaneMovement, float zPlaneMovement)
 	{
 		// Forward vector relative to the camera along the x-z plane	
 		Vector3 forward = cameraTransform.TransformDirection(Vector3.forward);
@@ -159,7 +182,7 @@ public class PoPCharacterController : CharacterController_2 {
 	}
 	
 	// y arguments taken to rotate player		
-	public void UpdateJump(float yPlaneMovement)
+	private void UpdateJump(float yPlaneMovement)
 	{
 		if(grounded)
 		{
@@ -169,9 +192,15 @@ public class PoPCharacterController : CharacterController_2 {
 		targetDirection = Vector3.zero;
 	}
 	
+	private void SidleLoop(float xPlaneInput){
+		SidlePoint s = (SidlePoint)actionComponent;
+		if(Vec3Approx(transform.position,s.rightDestination.transform.position))
+			;
+	}
 	
-	
-	
+	private void LadderLoop(float yPlaneInput){
+		
+	}
 	
 	/*public void ClimbUpdate(float climbingSpeed)
 	{
@@ -309,5 +338,15 @@ public class PoPCharacterController : CharacterController_2 {
 		Debug.Log("player","Player has died.");
 		Vector3 spawnpoint = CheckpointManager.instance.Respawn(transform.position);
 		transform.position = new Vector3(spawnpoint.x, spawnpoint.y + myCollider.bounds.size.y / 2, spawnpoint.z);
+	}
+	
+	private bool Vec3Approx(Vector3 a, Vector3 b){
+		if(!Mathf.Approximately(a.x, b.x))
+			return false;
+		if(!Mathf.Approximately(a.y, b.y))
+			return false;
+		if(!Mathf.Approximately(a.z, b.z))
+			return false;
+		return true;
 	}
 }

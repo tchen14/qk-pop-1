@@ -2,7 +2,7 @@
 using System.Collections;
 
 [RequireComponent (typeof (SphereCollider))]
-public class LadderPoint : Placeholder {
+public class LadderPoint : PlayerAction {
 	[SerializeField]
 	private GameObject upDestination;
 	[SerializeField]

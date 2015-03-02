@@ -26,6 +26,7 @@ public sealed class CheckpointManager : MonoBehaviour {
 		
 		checkpointTree = new NodeTree();
 		#if BUILD
+		Debug.Log("core","Loading checkpoint data");
 		LoadCheckpointData();
 		#endif
 		
@@ -51,10 +52,9 @@ public sealed class CheckpointManager : MonoBehaviour {
 		//Find the closest node
 		List<Vector3> checkpoint = checkpointTree.Search(pos);
 		
-		//detemine which checkpoints we are accessible
-		
-		
-		
+		//
+		//todo: detemine which checkpoints we are accessible
+		//
 		
 		return checkpoint[0];
 	}
