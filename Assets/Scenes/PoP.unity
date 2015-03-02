@@ -23774,25 +23774,13 @@ GameObject:
   m_Component:
   - 4: {fileID: 2025963767}
   - 135: {fileID: 2025963766}
-  - 114: {fileID: 2025963765}
   m_Layer: 0
   m_Name: Event
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &2025963765
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 2025963764}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ac1620fd423705b47a60d03adbe7ae78, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  m_IsActive: 0
 --- !u!135 &2025963766
 SphereCollider:
   m_ObjectHideFlags: 0

@@ -9,7 +9,7 @@ using System.Linq;
 
 public class CompileEventLibrary : EditorWindow {
 
-    [MenuItem("Tools/Compile Event Library")]
+    [MenuItem("Custom Tools/Compile Event Library")]
     static void Compile() {
 
         string fileName = Application.dataPath + "\\Scripts\\EventManager\\Plugins\\EventLibrary.cs";

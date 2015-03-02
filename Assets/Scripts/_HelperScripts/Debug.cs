@@ -27,7 +27,7 @@ namespace FFP {
     	//! \endcond
 #if UNITY_EDITOR
         // Add menu named "My Window" to the Window menu
-        [MenuItem ("Window/DLM")]
+        [MenuItem ("Custom Tools/DLM")]
         static void Init() {
             EditorWindow.GetWindow (typeof (Debug)).title = "Debug Log";
         }
@@ -106,7 +106,7 @@ namespace FFP {
 		                             float duration = 0.0f, bool depthTest = true) {
 			if (!enabled)
 				return;
-			if ((!all) || (logStrings.Contains (key) && EditorPrefs.GetBool (key)))
+			if ((!all) || (logStrings.Contains (key.ToLower()) && EditorPrefs.GetBool (key.ToLower())))
 				UnityEngine.Debug.DrawLine(start, end, color, duration, depthTest);
 		}
 		
@@ -115,7 +115,7 @@ namespace FFP {
 		                            float duration = 0.0f, bool depthTest = true) {
 			if (!enabled)
 				return;
-			if ((!all) || (logStrings.Contains (key) && EditorPrefs.GetBool (key)))
+			if ((!all) || (logStrings.Contains (key.ToLower()) && EditorPrefs.GetBool (key.ToLower())))
 				UnityEngine.Debug.DrawRay(start, end, color, duration, depthTest);
 		}
 		
@@ -123,7 +123,7 @@ namespace FFP {
 		public static void Log (string key, object message, UnityEngine.Object context = null) {
             if (!enabled)
                 return;
-            if ((!all) || (logStrings.Contains (key) && EditorPrefs.GetBool (key))){
+			if ((!all) || (logStrings.Contains (key.ToLower()) && EditorPrefs.GetBool (key.ToLower()))){
 				if(context)
 					UnityEngine.Debug.Log (message, context);
 				else
@@ -135,7 +135,7 @@ namespace FFP {
 		public static void Error (string key, object message, UnityEngine.Object context = null) {
 			if (!enabled)
 				return;
-			if ((!all) || (logStrings.Contains (key) && EditorPrefs.GetBool (key))){
+			if ((!all) || (logStrings.Contains (key.ToLower()) && EditorPrefs.GetBool (key.ToLower()))){
 				if(context)
 					UnityEngine.Debug.LogError (message, context);
 				else
@@ -147,7 +147,7 @@ namespace FFP {
 		public static void Exception (string key, Exception exception, UnityEngine.Object context = null) {
 			if (!enabled)
 				return;
-			if ((!all) || (logStrings.Contains (key) && EditorPrefs.GetBool (key))){
+			if ((!all) || (logStrings.Contains (key.ToLower()) && EditorPrefs.GetBool (key.ToLower()))){
 				if(context)
 					UnityEngine.Debug.LogException (exception, context);
 				else
@@ -159,7 +159,7 @@ namespace FFP {
 		public static void Warning (string key, object message, UnityEngine.Object context = null) {
 			if (!enabled)
 				return;
-			if ((!all) || (logStrings.Contains (key) && EditorPrefs.GetBool (key))){
+			if ((!all) || (logStrings.Contains (key.ToLower()) && EditorPrefs.GetBool (key.ToLower()))){
 				if(context)
 					UnityEngine.Debug.LogWarning (message, context);
 				else

@@ -55,6 +55,10 @@ public class PoPCharacterController : CharacterController_2 {
 			rigidbody.useGravity = true;
 			rigidbody.drag = 1.0f;
 		}
+		
+		// temporary hotkey to kill player
+		if(Input.GetKey("k"))
+			Death();
 	}
 	
 	private void SetModifiers(bool running, bool crouched){
@@ -302,6 +306,8 @@ public class PoPCharacterController : CharacterController_2 {
 	[EventField]
 	//! Kills the character
 	public void Death(){
-		//needs implementation
+		Debug.Log("player","Player has died.");
+		Vector3 spawnpoint = CheckpointManager.instance.Respawn(transform.position);
+		transform.position = new Vector3(spawnpoint.x, spawnpoint.y + myCollider.bounds.size.y / 2, spawnpoint.z);
 	}
 }
