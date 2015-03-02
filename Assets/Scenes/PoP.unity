@@ -3569,9 +3569,10 @@ MonoBehaviour:
   desiredPosition: {x: 0, y: 0, z: 0}
   eventTrigger: {fileID: 0}
   inEvent: 0
-  inTargetMode: 0
-  cameraLockPos: {x: 0, y: 0, z: 0}
   maxTimeSinceMouseMoved: 2
+  targetingRange: 40
+  screenTargetArea: 20
+  allTargetables: []
 --- !u!1 &359024392
 GameObject:
   m_ObjectHideFlags: 0
@@ -23792,11 +23793,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac1620fd423705b47a60d03adbe7ae78, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  id: 
-  prerequisite: 
-  quest: 
-  cameraPos: {x: 0, y: 0, z: 0}
-  lookAtPos: {x: 0, y: 0, z: 0}
 --- !u!135 &2025963766
 SphereCollider:
   m_ObjectHideFlags: 0

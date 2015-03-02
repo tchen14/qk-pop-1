@@ -299,6 +299,7 @@ public class PoPCharacterController : CharacterController_2 {
 	}
 	*/
 	
+	[EventField]
 	//! Kills the character
 	public void Death(){
 		//needs implementation
