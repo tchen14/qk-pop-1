@@ -11,16 +11,15 @@ public class PoPCharacterController : CharacterController_2 {
 	#pragma warning disable 0114
 	//Set in Start() function
 	const float rigidbodyDrag = 1f; 		//Typical values for Drag are between .001 (solid block of metal) and 10 (feather).
-	const float rigidbodyAngularDrag = 0.05f;
+	const float rigidbodyAngularDrag = Mathf.Infinity;
 	
 	public Transform cameraTransform;		//!< Moves in conjunction with camera's transform
 	private float inputThreshold = 0.1f;	//!< Dead zone value to determine if input is applied
 	public bool eventInput = false;			//!< 
-	private Vector3 highestPoint;			//!< 
+	private Vector3 highestPoint;			//!< TBD
 
 	//! Unity Start function
-	void Start()
-	{
+	void Start(){
 		base.Start();
 		if (!cameraTransform) {
 			if(Camera.main)
@@ -34,13 +33,14 @@ public class PoPCharacterController : CharacterController_2 {
 		// Constrain player rotations. Player can only turn on the Y axis
 		rigidbody.constraints =  RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ;
 		
-		currentMovementSpeed = minMovementSpeed;
+		currentWalkingSpeed = minWalkingSpeed;
 		currentClimbingSpeed = minClimbingSpeed;
 	}
 
-	void FixedUpdate()
-	{
-		base.FixedUpdate();
+	void FixedUpdate(){
+		// Input used for running and crouching
+		SetModifiers(Input.GetKey("left shift"), Input.GetKey("left ctrl"));
+		
 		// Input used for movement, rotation, jumping, eventInput
 		PlayerInput(Input.GetAxisRaw("Horizontal"),
 		            Input.GetAxisRaw("Jump"),
@@ -57,9 +57,25 @@ public class PoPCharacterController : CharacterController_2 {
 		}
 	}
 	
+	private void SetModifiers(bool running, bool crouched){
+		//Running
+		isRunning = running;
+		
+		//Crouching
+		if(isCrouched != crouched){
+			if(isCrouched){
+				myCollider.center = new Vector3(myCollider.center.x, myCollider.center.y + myCollider.height * crouchingMod, myCollider.center.z);
+				myCollider.height *= 1/crouchingMod;
+			}else{
+				myCollider.height *= crouchingMod;
+				myCollider.center = new Vector3(myCollider.center.x, myCollider.center.y - myCollider.height * crouchingMod, myCollider.center.z);
+			}
+			isCrouched = crouched;
+		}
+	}
+	
 	// Check if there is player input
-	public void PlayerInput(float xPlaneInput, float yPlaneInput, float zPlaneInput, bool action)
-	{
+	private void PlayerInput(float xPlaneInput, float yPlaneInput, float zPlaneInput, bool action){
 		if (Mathf.Abs (yPlaneInput) > inputThreshold) {
 			//Jumping
 			currentCharacterState = characterState.jumpingState;
@@ -79,23 +95,22 @@ public class PoPCharacterController : CharacterController_2 {
 		switch (currentCharacterState) {
 		case (characterState.idleState):
 			// Reset movement variables
-			if(currentMovementSpeed > minMovementSpeed)
+			if(currentWalkingSpeed > minWalkingSpeed)
 			{
 				// decrement player speed as long as movement is being applied
-				currentMovementSpeed -= Time.deltaTime * deceleration;
+				currentWalkingSpeed -= Time.deltaTime * moveDeceleration;
 			}
-			jumpDirection = Vector3.zero;
 			break;
 		case (characterState.movingState):
 			// increment player speed as long as movement is being applied
-			if(currentMovementSpeed < maxMovementSpeed)
-				currentMovementSpeed = currentMovementSpeed + Time.deltaTime * acceleration;
+			if(currentWalkingSpeed < maxWalkingSpeed)
+				currentWalkingSpeed = currentWalkingSpeed + Time.deltaTime * moveAcceleration;
 			UpdateMovement(xPlaneInput,zPlaneInput);
 			break;
 		case (characterState.jumpingState):
 			// increment player speed as long as movement is being applied
-			if(currentMovementSpeed < maxMovementSpeed)
-				currentMovementSpeed = currentMovementSpeed + Time.deltaTime * acceleration;
+			if(currentWalkingSpeed < maxWalkingSpeed)
+				currentWalkingSpeed = currentWalkingSpeed + Time.deltaTime * moveAcceleration;
 			UpdateMovement(xPlaneInput,zPlaneInput);
 			UpdateJump(yPlaneInput);
 			break;
@@ -106,6 +121,10 @@ public class PoPCharacterController : CharacterController_2 {
 		}
 	}
 	
+	/*! Updates movement for the character
+	 *	This includes walking/running movement
+	 *	This includes grounded/jumping movement
+	 */
 	public void UpdateMovement(float xPlaneMovement, float zPlaneMovement)
 	{
 		// Forward vector relative to the camera along the x-z plane	
@@ -124,24 +143,31 @@ public class PoPCharacterController : CharacterController_2 {
 		// Movement direction and rotation
 		// Movement velocity threshold
 		if(grounded){
-			rigidbody.AddForce(targetDirection.normalized * currentMovementSpeed);
+			if(isRunning)
+				rigidbody.AddForce(targetDirection.normalized * currentWalkingSpeed * runningSpeedMod);
+			else
+				rigidbody.AddForce(targetDirection.normalized * currentWalkingSpeed);
 		}else{
-			rigidbody.AddForce(targetDirection.normalized * currentMovementSpeed * airMovementSpeedPercentage);
+			rigidbody.AddForce(targetDirection.normalized * currentWalkingSpeed * airMovementSpeedPercentage);
 		}
 		// Reset target direction
 		targetDirection = Vector3.zero;
 	}
 	
-	// x and y arguments taken to rotate player		
+	// y arguments taken to rotate player		
 	public void UpdateJump(float yPlaneMovement)
 	{
 		if(grounded)
 		{
-			rigidbody.AddForce((yPlaneMovement * Vector3.up * currentMovementSpeed * maxJumpingHeight), ForceMode.Impulse);
+			rigidbody.AddForce((yPlaneMovement * Vector3.up * currentWalkingSpeed * maxJumpingHeight), ForceMode.Impulse);
 		}
 		// Reset target direction
 		targetDirection = Vector3.zero;
 	}
+	
+	
+	
+	
 	
 	/*public void ClimbUpdate(float climbingSpeed)
 	{
@@ -272,4 +298,9 @@ public class PoPCharacterController : CharacterController_2 {
 		}
 	}
 	*/
+	
+	//! Kills the character
+	public void Death(){
+		//needs implementation
+	}
 }
