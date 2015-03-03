@@ -11,7 +11,7 @@ public class PanicTargets : MonoBehaviour {
 		//panicPoints = PanicController.GetComponentsInChildren<Transform>();
 			for(int i = 0; i < PanicController.transform.childCount;i++)
 			{
-			panicPoints.Add(PanicController.transform.GetChild(i).position);
+				panicPoints.Add(PanicController.transform.GetChild(i).position);
 				Destroy(PanicController.transform.GetChild(i).gameObject);
 			}
 	}
