@@ -147,7 +147,7 @@ public class Quinc : MonoBehaviour
 		
 		Vector3 pullDirection = transform.position - Target.transform.position;
 		pullDirection.Normalize();
-		Target.transform.rigidbody.AddForce(pullDirection * pullDistance);
+		Target.transform.GetComponent<Rigidbody>().AddForce(pullDirection * pullDistance);
 		status = "Success";
 		return true;
 	}

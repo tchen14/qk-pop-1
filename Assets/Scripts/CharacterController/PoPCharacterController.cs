@@ -27,10 +27,10 @@ public class PoPCharacterController : CharacterController_2 {
 				Debug.Error ("player","Cannot find this.cameraTransform. Please connect the camera to the component using the inspector.");
 		}
 		// Reduce drag for momentum to carry
-		rigidbody.drag = rigidbodyDrag;
-		rigidbody.angularDrag = rigidbodyAngularDrag;
+		GetComponent<Rigidbody>().drag = rigidbodyDrag;
+		GetComponent<Rigidbody>().angularDrag = rigidbodyAngularDrag;
 		// Constrain player rotations. Player can only turn on the Y axis
-		rigidbody.constraints =  RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ;
+		GetComponent<Rigidbody>().constraints =  RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ;
 		
 		currentWalkingSpeed = minWalkingSpeed;
 		currentClimbingSpeed = minClimbingSpeed;
@@ -49,9 +49,9 @@ public class PoPCharacterController : CharacterController_2 {
 		// action:event button used to get out of events
 		if(Input.GetKeyDown(KeyCode.Q))
 		{
-			rigidbody.constraints =  RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ;
-			rigidbody.useGravity = true;
-			rigidbody.drag = 1.0f;
+			GetComponent<Rigidbody>().constraints =  RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ;
+			GetComponent<Rigidbody>().useGravity = true;
+			GetComponent<Rigidbody>().drag = 1.0f;
 		}
 		
 		// temporary hotkey to kill player
@@ -171,11 +171,11 @@ public class PoPCharacterController : CharacterController_2 {
 		// Movement velocity threshold
 		if(grounded){
 			if(isRunning)
-				rigidbody.AddForce(targetDirection.normalized * currentWalkingSpeed * runningSpeedMod);
+				GetComponent<Rigidbody>().AddForce(targetDirection.normalized * currentWalkingSpeed * runningSpeedMod);
 			else
-				rigidbody.AddForce(targetDirection.normalized * currentWalkingSpeed);
+				GetComponent<Rigidbody>().AddForce(targetDirection.normalized * currentWalkingSpeed);
 		}else{
-			rigidbody.AddForce(targetDirection.normalized * currentWalkingSpeed * airMovementSpeedPercentage);
+			GetComponent<Rigidbody>().AddForce(targetDirection.normalized * currentWalkingSpeed * airMovementSpeedPercentage);
 		}
 		// Reset target direction
 		targetDirection = Vector3.zero;
@@ -186,7 +186,7 @@ public class PoPCharacterController : CharacterController_2 {
 	{
 		if(grounded)
 		{
-			rigidbody.AddForce((yPlaneMovement * Vector3.up * currentWalkingSpeed * maxJumpingHeight), ForceMode.Impulse);
+			GetComponent<Rigidbody>().AddForce((yPlaneMovement * Vector3.up * currentWalkingSpeed * maxJumpingHeight), ForceMode.Impulse);
 		}
 		// Reset target direction
 		targetDirection = Vector3.zero;
@@ -195,7 +195,7 @@ public class PoPCharacterController : CharacterController_2 {
 	private void SidleLoop(float xPlaneInput){
 		SidlePoint s = (SidlePoint)actionComponent;
 		if(Vec3Approx(transform.position,s.rightDestination.transform.position))
-			;
+			return;
 	}
 	
 	private void LadderLoop(float yPlaneInput){
