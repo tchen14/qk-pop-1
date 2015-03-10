@@ -6,9 +6,6 @@ public abstract class Item : MonoBehaviour {
 
     public string itemName = "";
 
-    public float speedMod = 1.0f;
-    public float jumpMod = 1.0f;
-
 	public bool pushCompatible = false;
 	public bool pullCompatible = false;
 	public bool cutCompatible = false;
