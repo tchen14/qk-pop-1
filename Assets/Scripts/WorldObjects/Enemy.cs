@@ -31,6 +31,11 @@ public class Enemy : Item
 	public void Stun()
 	{
 		stunState = true;
+		// Play Animation and Sound for enemy being stunned
+		// Laying Enemy sideways for now
+		Vector3 tempAngles = transform.eulerAngles;
+		tempAngles.x = 90.0f;
+		transform.eulerAngles = tempAngles;
 		return;
 	}
 }
