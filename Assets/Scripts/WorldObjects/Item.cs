@@ -20,11 +20,20 @@ public abstract class Item : MonoBehaviour {
 	#endregion
 
     //!Player gathers X number of this item, (kill all enemies in area, use other item script to auto drop item into play inventory)
-    protected abstract void GatherObjective (int count);
+    protected virtual void GatherObjective (int count)
+	{
+		return;
+	}
 
     //!Player arrives at the item, option with timed, use negative number for stall quest
-    protected abstract void ArriveObjective (Vector3 buffer, float timer = 0.0f);
+    protected virtual void ArriveObjective (Vector3 buffer, float timer = 0.0f)
+	{
+		return;
+	}
 
     //!This item is brought to target location
-    protected abstract void EscortObjective (Vector3 location, Vector3 buffer);
+    protected virtual void EscortObjective (Vector3 location, Vector3 buffer)
+	{
+		return;
+	}
 }
