@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using Debug = FFP.Debug;
 
 /*
  *	This class oversees all checkpoint related function calls. It should not contain a Unity Update() function.
@@ -8,19 +9,52 @@ using System.Collections.Generic;
  *	Once the closest node is found, it looks up the node's (navemesh/pathfinding) closest checkpoints.
  *	The closest accessible (area has been discovered/unlocked) checkpoint is used.
  */
-public class CheckpointManager : MonoBehaviour {
+public sealed class CheckpointManager : MonoBehaviour {
+	//Singleton
+	public static CheckpointManager instance;
+	
+	public string checkpointFilePath = "/Resources/Json/checkpointData.json";
+	
 	[SerializeField]
 	public NodeTree checkpointTree;
 	
+	void Start(){
+		//Singleton enforcement
+		if(instance)
+			Destroy(instance.gameObject);
+		instance = this;
+		
+		checkpointTree = new NodeTree();
+		#if BUILD
+		Debug.Log("core","Loading checkpoint data");
+		LoadCheckpointData();
+		#endif
+		
+		// If in the editor (so testing, not a build), delete all the checkpoint crap that would normally not be in a build
+		#if UNITY_EDITOR
+		Checkpoint[] objs = GameObject.FindObjectsOfType<Checkpoint>();
+		foreach(Checkpoint go in objs)
+			Destroy(go.gameObject);
+		Destroy(GameObject.Find("_Checkpoints"));
+		#endif
+	}
+	
 	//! This function should be called when the player dies
 	public Vector3 Respawn(Vector3 pos){
-		//find the closest node
+		#if UNITY_EDITOR
+		// It's easy to forget to build the checkpoints when testing
+		if(checkpointTree == null){
+			Debug.Error("player","Please build checkpoint tree.");
+			return Vector3.zero;
+		}
+		#endif
+		
+		//Find the closest node
 		List<Vector3> checkpoint = checkpointTree.Search(pos);
 		
-		//detemine which checkpoints we are accessible
-		
-		
-		
+		//
+		//todo: detemine which checkpoints we are accessible
+		//
 		
 		return checkpoint[0];
 	}
@@ -32,13 +66,10 @@ public class CheckpointManager : MonoBehaviour {
 		return temp;
 	}
 
-	//!Save the checkpoint data to a file
-	public bool SaveCheckpointData(){
-		return true;
-	}
-
 	//!Load the checkpoint data from a file
 	public bool LoadCheckpointData(){
-		return true;
+		if (checkpointTree != null)
+			return checkpointTree.LoadTreeFromFile(Application.dataPath + checkpointFilePath);
+		return false;
 	}
 }

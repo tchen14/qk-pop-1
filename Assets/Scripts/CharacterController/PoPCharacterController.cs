@@ -11,16 +11,14 @@ public class PoPCharacterController : CharacterController_2 {
 	#pragma warning disable 0114
 	//Set in Start() function
 	const float rigidbodyDrag = 1f; 		//Typical values for Drag are between .001 (solid block of metal) and 10 (feather).
-	const float rigidbodyAngularDrag = 0.05f;
+	const float rigidbodyAngularDrag = Mathf.Infinity;
 	
 	public Transform cameraTransform;		//!< Moves in conjunction with camera's transform
 	private float inputThreshold = 0.1f;	//!< Dead zone value to determine if input is applied
-	public bool eventInput = false;			//!< 
-	private Vector3 highestPoint;			//!< 
+	private Vector3 highestPoint;			//!< TBD
 
 	//! Unity Start function
-	void Start()
-	{
+	void Start(){
 		base.Start();
 		if (!cameraTransform) {
 			if(Camera.main)
@@ -34,79 +32,127 @@ public class PoPCharacterController : CharacterController_2 {
 		// Constrain player rotations. Player can only turn on the Y axis
 		rigidbody.constraints =  RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ;
 		
-		currentMovementSpeed = minMovementSpeed;
+		currentWalkingSpeed = minWalkingSpeed;
 		currentClimbingSpeed = minClimbingSpeed;
 	}
 
-	void FixedUpdate()
-	{
-		base.FixedUpdate();
+	void FixedUpdate(){
+		// Input used for running and crouching
+		SetModifiers(Input.GetKey("left shift"), Input.GetKey("left ctrl"));
+		
 		// Input used for movement, rotation, jumping, eventInput
 		PlayerInput(Input.GetAxisRaw("Horizontal"),
 		            Input.GetAxisRaw("Jump"),
 		            Input.GetAxisRaw("Vertical"),
-		            Input.GetKeyDown("e") ^ (currentCharacterState == characterState.climbingState));
+		            Input.GetKeyDown("f"));
 		
 		// action:event button used to get out of events
 		if(Input.GetKeyDown(KeyCode.Q))
 		{
-			eventInput = false;
 			rigidbody.constraints =  RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ;
 			rigidbody.useGravity = true;
 			rigidbody.drag = 1.0f;
 		}
+		
+		// temporary hotkey to kill player
+		if(Input.GetKey("k"))
+			Death();
+	}
+	
+	private void SetModifiers(bool running, bool crouched){
+		//Running
+		isRunning = running;
+		
+		//Crouching
+		if(isCrouched != crouched){
+			if(isCrouched){
+				myCollider.center = new Vector3(myCollider.center.x, myCollider.center.y + myCollider.height * crouchingMod, myCollider.center.z);
+				myCollider.height *= 1/crouchingMod;
+			}else{
+				myCollider.height *= crouchingMod;
+				myCollider.center = new Vector3(myCollider.center.x, myCollider.center.y - myCollider.height * crouchingMod, myCollider.center.z);
+			}
+			isCrouched = crouched;
+		}
 	}
 	
 	// Check if there is player input
-	public void PlayerInput(float xPlaneInput, float yPlaneInput, float zPlaneInput, bool action)
-	{
-		if (Mathf.Abs (yPlaneInput) > inputThreshold) {
-			//Jumping
-			currentCharacterState = characterState.jumpingState;
-		}else if(Mathf.Abs(xPlaneInput) > inputThreshold || Mathf.Abs(zPlaneInput) > inputThreshold){
-			//Moving
-			currentCharacterState = characterState.movingState;
-		}else if(action){
-			//Interacting
-			// todo: ladder
-			// todo: sidle
-			currentCharacterState = characterState.climbingState;
-		}else{
-			//Idle
-			currentCharacterState = characterState.idleState;
-		}
-		
-		switch (currentCharacterState) {
-		case (characterState.idleState):
-			// Reset movement variables
-			if(currentMovementSpeed > minMovementSpeed)
-			{
-				// decrement player speed as long as movement is being applied
-				currentMovementSpeed -= Time.deltaTime * deceleration;
+	private void PlayerInput(float xPlaneInput, float yPlaneInput, float zPlaneInput, bool action){
+		if(action){
+			if(actionAvaiable && myActionState == actionState.prepState){ //Start Action
+				switch(actionComponent.GetType().ToString()){
+				case "SidlePoint":
+					//sidle setup crap
+					break;
+				case "LadderPoint":
+					//ladder setup crap
+					break;
+				default:
+					Debug.Error("player","Action start called with no valid action.");
+					break;
+				}
+				myActionState = actionState.loopState;
+			}else if(myActionState == actionState.loopState){ //End Action
+				//todo: end action state code
+				switch(actionComponent.GetType().ToString()){
+				case "SidlePoint":
+					//sidle ending crap
+					break;
+				case "LadderPoint":
+					//ladder ending crap
+					break;
+				default:
+					Debug.Error("player","Action end called with no valid action.");
+					break;
+				}
+				myActionState = actionState.prepState;
+			}else{
+				Debug.Error("player","Code should not reach here.");
 			}
-			jumpDirection = Vector3.zero;
-			break;
-		case (characterState.movingState):
-			// increment player speed as long as movement is being applied
-			if(currentMovementSpeed < maxMovementSpeed)
-				currentMovementSpeed = currentMovementSpeed + Time.deltaTime * acceleration;
-			UpdateMovement(xPlaneInput,zPlaneInput);
-			break;
-		case (characterState.jumpingState):
-			// increment player speed as long as movement is being applied
-			if(currentMovementSpeed < maxMovementSpeed)
-				currentMovementSpeed = currentMovementSpeed + Time.deltaTime * acceleration;
-			UpdateMovement(xPlaneInput,zPlaneInput);
-			UpdateJump(yPlaneInput);
-			break;
-		case (characterState.climbingState):
-			//ClimbUpdate(zPlaneInput*ladderClimbingSpeed);
-			;
-			break;
+		}else if(myActionState == actionState.loopState){ //Loop Action
+			// todo: determine what to loop to do
+			switch(actionComponent.GetType().ToString()){
+			case "SidlePoint":
+				SidleLoop(xPlaneInput);
+				break;
+			case "LadderPoint":
+				LadderLoop(yPlaneInput);
+				break;
+			default:
+				Debug.Error("player","Action loop called with no valid action.");
+				break;
+			}
+		}else{
+			NoActionLoop(xPlaneInput, yPlaneInput, zPlaneInput);
 		}
 	}
 	
-	public void UpdateMovement(float xPlaneMovement, float zPlaneMovement)
+	private void NoActionLoop(float xPlaneInput, float yPlaneInput, float zPlaneInput){
+		if (Mathf.Abs (yPlaneInput) > inputThreshold) { //Jumping
+			// increment player speed as long as movement is being applied
+			if(currentWalkingSpeed < maxWalkingSpeed)
+				currentWalkingSpeed = currentWalkingSpeed + Time.deltaTime * moveAcceleration;
+			UpdateMovement(xPlaneInput,zPlaneInput);
+			UpdateJump(yPlaneInput);
+		}else if(Mathf.Abs(xPlaneInput) > inputThreshold || Mathf.Abs(zPlaneInput) > inputThreshold){ //Moving
+			// increment player speed as long as movement is being applied
+			if(currentWalkingSpeed < maxWalkingSpeed)
+				currentWalkingSpeed = currentWalkingSpeed + Time.deltaTime * moveAcceleration;
+			UpdateMovement(xPlaneInput,zPlaneInput);
+		}else{ //Idle
+			if(currentWalkingSpeed > minWalkingSpeed)
+			{
+				// decrement player speed as long as movement is being applied
+				currentWalkingSpeed -= Time.deltaTime * moveDeceleration;
+			}
+		}
+	}
+	
+	/*! Updates movement for the character
+	 *	This includes walking/running movement
+	 *	This includes grounded/jumping movement
+	 */
+	private void UpdateMovement(float xPlaneMovement, float zPlaneMovement)
 	{
 		// Forward vector relative to the camera along the x-z plane	
 		Vector3 forward = cameraTransform.TransformDirection(Vector3.forward);
@@ -124,23 +170,36 @@ public class PoPCharacterController : CharacterController_2 {
 		// Movement direction and rotation
 		// Movement velocity threshold
 		if(grounded){
-			rigidbody.AddForce(targetDirection.normalized * currentMovementSpeed);
+			if(isRunning)
+				rigidbody.AddForce(targetDirection.normalized * currentWalkingSpeed * runningSpeedMod);
+			else
+				rigidbody.AddForce(targetDirection.normalized * currentWalkingSpeed);
 		}else{
-			rigidbody.AddForce(targetDirection.normalized * currentMovementSpeed * airMovementSpeedPercentage);
+			rigidbody.AddForce(targetDirection.normalized * currentWalkingSpeed * airMovementSpeedPercentage);
 		}
 		// Reset target direction
 		targetDirection = Vector3.zero;
 	}
 	
-	// x and y arguments taken to rotate player		
-	public void UpdateJump(float yPlaneMovement)
+	// y arguments taken to rotate player		
+	private void UpdateJump(float yPlaneMovement)
 	{
 		if(grounded)
 		{
-			rigidbody.AddForce((yPlaneMovement * Vector3.up * currentMovementSpeed * maxJumpingHeight), ForceMode.Impulse);
+			rigidbody.AddForce((yPlaneMovement * Vector3.up * currentWalkingSpeed * maxJumpingHeight), ForceMode.Impulse);
 		}
 		// Reset target direction
 		targetDirection = Vector3.zero;
+	}
+	
+	private void SidleLoop(float xPlaneInput){
+		SidlePoint s = (SidlePoint)actionComponent;
+		if(Vec3Approx(transform.position,s.rightDestination.transform.position))
+			;
+	}
+	
+	private void LadderLoop(float yPlaneInput){
+		
 	}
 	
 	/*public void ClimbUpdate(float climbingSpeed)
@@ -272,4 +331,22 @@ public class PoPCharacterController : CharacterController_2 {
 		}
 	}
 	*/
+	
+	[EventField]
+	//! Kills the character
+	public void Death(){
+		Debug.Log("player","Player has died.");
+		Vector3 spawnpoint = CheckpointManager.instance.Respawn(transform.position);
+		transform.position = new Vector3(spawnpoint.x, spawnpoint.y + myCollider.bounds.size.y / 2, spawnpoint.z);
+	}
+	
+	private bool Vec3Approx(Vector3 a, Vector3 b){
+		if(!Mathf.Approximately(a.x, b.x))
+			return false;
+		if(!Mathf.Approximately(a.y, b.y))
+			return false;
+		if(!Mathf.Approximately(a.z, b.z))
+			return false;
+		return true;
+	}
 }

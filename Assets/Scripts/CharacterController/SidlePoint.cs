@@ -6,15 +6,15 @@ using Debug = FFP.Debug;
  *	Designates a single point in a sidle chain
  */
 [RequireComponent (typeof(SphereCollider))]
-public class SidlePoint : Placeholder
+public class SidlePoint : PlayerAction
 {
 	[SerializeField]
-	private GameObject leftDestination;		//!<GameObject with a SidlePoint component. Leave null if no left destination.
+	public GameObject leftDestination;		//!<GameObject with a SidlePoint component. Leave null if no left destination.
 	[SerializeField]
-	private GameObject rightDestination;	//!<GameObject with a SidlePoint component. Leave null if no right destination.
+	public GameObject rightDestination;		//!<GameObject with a SidlePoint component. Leave null if no right destination.
 	#pragma warning disable 0414
 	[SerializeField]
-	private bool startPoint = true;			//!<Toggle true if this point is a point which the player can start/stop sidling. \todo can you stop sidling mid way?
+	public bool startPoint = true;			//!<Toggle true if this point is a point which the player can start/stop sidling. \todo can you stop sidling mid way?
 	#pragma warning restore 0414
 
 #if UNITY_EDITOR
@@ -27,8 +27,7 @@ public class SidlePoint : Placeholder
 	}
 #endif
 
-	void OnDrawGizmos()
-	{
+	void OnDrawGizmos(){
 		//Gizmos.DrawIcon(transform.position, "sidleGizmo.png");
 	}
 }

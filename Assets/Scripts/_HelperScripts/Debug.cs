@@ -18,17 +18,16 @@ namespace FFP {
     	//! Path to the json file required to display debug logs
 		const string JSONPATH = "/Scripts/_HelperScripts/debugKeys.json";
     	//! \cond doxygen_ignore
-        [SerializeField]
-        public static List<string> logStrings = new List<string>();
+        static List<string> logStrings = new List<string>();
 
         public List<bool> logBools = new List<bool>();
 
-        [SerializeField]
+		[SerializeField]
         public static bool enabled = true, all = true;
     	//! \endcond
 #if UNITY_EDITOR
         // Add menu named "My Window" to the Window menu
-        [MenuItem ("Window/DLM")]
+        [MenuItem ("Custom Tools/DLM")]
         static void Init() {
             EditorWindow.GetWindow (typeof (Debug)).title = "Debug Log";
         }
@@ -107,7 +106,7 @@ namespace FFP {
 		                             float duration = 0.0f, bool depthTest = true) {
 			if (!enabled)
 				return;
-			if ((!all) || (logStrings.Contains (key) && EditorPrefs.GetBool (key)))
+			if ((!all) || (logStrings.Contains (key.ToLower()) && EditorPrefs.GetBool (key.ToLower())))
 				UnityEngine.Debug.DrawLine(start, end, color, duration, depthTest);
 		}
 		
@@ -116,15 +115,15 @@ namespace FFP {
 		                            float duration = 0.0f, bool depthTest = true) {
 			if (!enabled)
 				return;
-			if ((!all) || (logStrings.Contains (key) && EditorPrefs.GetBool (key)))
+			if ((!all) || (logStrings.Contains (key.ToLower()) && EditorPrefs.GetBool (key.ToLower())))
 				UnityEngine.Debug.DrawRay(start, end, color, duration, depthTest);
 		}
 		
 		//! Function will call UnityEngine.Debug.Log with the message
-		public static void Log (string key, string message, UnityEngine.Object context = null) {
+		public static void Log (string key, object message, UnityEngine.Object context = null) {
             if (!enabled)
                 return;
-            if ((!all) || (logStrings.Contains (key) && EditorPrefs.GetBool (key))){
+			if ((!all) || (logStrings.Contains (key.ToLower()) && EditorPrefs.GetBool (key.ToLower()))){
 				if(context)
 					UnityEngine.Debug.Log (message, context);
 				else
@@ -133,10 +132,10 @@ namespace FFP {
 		}
 		
 		//! Function will call UnityEngine.Debug.LogError with the message
-		public static void Error (string key, string message, UnityEngine.Object context = null) {
+		public static void Error (string key, object message, UnityEngine.Object context = null) {
 			if (!enabled)
 				return;
-			if ((!all) || (logStrings.Contains (key) && EditorPrefs.GetBool (key))){
+			if ((!all) || (logStrings.Contains (key.ToLower()) && EditorPrefs.GetBool (key.ToLower()))){
 				if(context)
 					UnityEngine.Debug.LogError (message, context);
 				else
@@ -148,7 +147,7 @@ namespace FFP {
 		public static void Exception (string key, Exception exception, UnityEngine.Object context = null) {
 			if (!enabled)
 				return;
-			if ((!all) || (logStrings.Contains (key) && EditorPrefs.GetBool (key))){
+			if ((!all) || (logStrings.Contains (key.ToLower()) && EditorPrefs.GetBool (key.ToLower()))){
 				if(context)
 					UnityEngine.Debug.LogException (exception, context);
 				else
@@ -157,10 +156,10 @@ namespace FFP {
 		}
 		
 		//! Function will call UnityEngine.Debug.LogWarning with the message
-		public static void Warning (string key, string message, UnityEngine.Object context = null) {
+		public static void Warning (string key, object message, UnityEngine.Object context = null) {
 			if (!enabled)
 				return;
-			if ((!all) || (logStrings.Contains (key) && EditorPrefs.GetBool (key))){
+			if ((!all) || (logStrings.Contains (key.ToLower()) && EditorPrefs.GetBool (key.ToLower()))){
 				if(context)
 					UnityEngine.Debug.LogWarning (message, context);
 				else

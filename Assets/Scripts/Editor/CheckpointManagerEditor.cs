@@ -10,7 +10,7 @@ public class CheckpointManagerEditor : Editor
 {
 	CheckpointManager myTarget;
 	string checkpointDataPath = Application.dataPath;
-	string checkpointFilePath = "/Resources/Json/checkpointData.json";
+	
 	//! Minimum space between nodes
 	const int minSpace = 10;
 	bool foldout = false;
@@ -43,7 +43,7 @@ public class CheckpointManagerEditor : Editor
 	void OnDisable()
 	{
 		EditorPrefs.SetBool("CheckpointManagerEditor.foldout", foldout);
-		EditorPrefs.SetString("CheckpointManagerEditor.checkpointFilePath", checkpointFilePath);
+		EditorPrefs.SetString("CheckpointManagerEditor.checkpointFilePath", myTarget.checkpointFilePath);
 	}
 	
 	
@@ -54,7 +54,7 @@ public class CheckpointManagerEditor : Editor
 	public override void OnInspectorGUI()
 	{		
 		//Set checkpointFilePath text field
-		checkpointFilePath = GUILayout.TextField(checkpointFilePath);
+		myTarget.checkpointFilePath = GUILayout.TextField(myTarget.checkpointFilePath);
 		
 		//(Re)Build checkpoints button
 		string s = (myTarget.checkpointTree == null) ? "Build checkpoints" : "Rebuild checkpoints";
@@ -68,7 +68,7 @@ public class CheckpointManagerEditor : Editor
 			GUILayout.Button("Please build checkpoints first");
 			GUI.enabled = true;
 		} else if (GUILayout.Button("Save checkpoints to file")) {
-			if (!System.IO.File.Exists(checkpointDataPath + checkpointFilePath)) {
+			if (!System.IO.File.Exists(checkpointDataPath + myTarget.checkpointFilePath)) {
 				SaveCheckpoints(myTarget);
 			} else if (EditorUtility.DisplayDialog("Continue save from file",
 			                                       "File data already exists, this will override older data.",
@@ -151,7 +151,7 @@ public class CheckpointManagerEditor : Editor
 	
 	void SaveCheckpoints(CheckpointManager myTarget)
 	{
-		if (myTarget.checkpointTree.SaveTreeAsJson(checkpointDataPath + checkpointFilePath)) {
+		if (myTarget.checkpointTree.SaveTreeAsJson(checkpointDataPath + myTarget.checkpointFilePath)) {
 			Debug.Log("checkpoint", "Checkpoints saved.");
 		} else {
 			Debug.Warning("checkpoint", "Saving checkpoints failed.");
@@ -164,7 +164,7 @@ public class CheckpointManagerEditor : Editor
 			Debug.Error("checkpoint","Logical error, code missing? \"myTarget\" should have been set in onEnable()");
 		}
 		myTarget.checkpointTree = new NodeTree();
-		if (myTarget.checkpointTree.LoadTreeFromFile(checkpointDataPath + checkpointFilePath)) {
+		if (myTarget.LoadCheckpointData()) {
 			Debug.Log("checkpoint", "Checkpoints loaded.");
 		} else {
 			Debug.Warning("checkpoint", "Loading checkpoints failed.");
@@ -291,64 +291,3 @@ public class CheckpointManagerEditor : Editor
 		Repaint();
 	}
 }
-
-//Left here as example code
-/*public class CheckpointManagerEditorWindow : EditorWindow {
-	int numCheckpoints = 0;
-	
-	bool findClosest;
-	NodeTree myTree;
-	Vector3 pos;
-	string closestCheckpoint = "";
-
-	[MenuItem("Custom/CheckpointEditor")]
-	public static void ShowWindow()
-	{
-		//Show existing window instance. If one doesn't exist, make one.
-		EditorWindow.GetWindow(typeof(CheckpointManagerEditorWindow)).title = "Checkpoints";
-	}
-
-	void OnGUI()
-	{
-
-		if (GUILayout.Button ("Count checkpoints: " + numCheckpoints)) {
-			numCheckpoints = 0;
-			GameObject[] temps = GameObject.FindGameObjectsWithTag("Checkpoint");
-			for (int i = 0; i < temps.Length; i++) {
-				numCheckpoints++;
-			}
-			Repaint();
-		}
-		EditorGUILayout.Space ();
-		EditorGUILayout.Space ();
-
-		findClosest = EditorGUILayout.BeginToggleGroup("Find Closest Checkpoint", findClosest);
-		EditorGUILayout.HelpBox("Will Color Closest Checkpoint Red", MessageType.Info);
-		pos = EditorGUILayout.Vector3Field("Pos", pos);
-
-		closestCheckpoint = EditorGUILayout.TextField("Closest Checkpoint", closestCheckpoint);
-		EditorGUILayout.EndToggleGroup();
-
-		EditorGUILayout.Space ();
-		EditorGUILayout.Space ();
-		EditorGUILayout.Space ();
-
-		if (GUILayout.Button ("Delete all checkpoints") && !EditorApplication.isPlaying) {
-			DeleteAllCheckpoints();
-		}
-	}
-
-	void DeleteAllCheckpoints(){
-		if(EditorUtility.DisplayDialog("Delete all checkpoints?",
-		                            "Are you sure you want to delete all GameObjects with the Checkpoint component?",
-		                            "Ba-boom!!",
-		                            "Oh wait, nevermind.")){
-			GameObject[] temps = GameObject.FindGameObjectsWithTag("Checkpoint");
-			foreach (GameObject temp in temps) {
-				DestroyImmediate(temp);
-			}
-		}
-		numCheckpoints = 0;
-		Repaint();
-	}
-}*/
