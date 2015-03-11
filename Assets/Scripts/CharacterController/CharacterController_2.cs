@@ -49,12 +49,18 @@ public abstract class CharacterController_2 : MonoBehaviour {
 	
 	public virtual void Start(){
 		myCollider = GetComponent<CapsuleCollider>();
+		
+		currentWalkingSpeed = minWalkingSpeed;
+		currentClimbingSpeed = minClimbingSpeed;
 	}
+	
+	public List<string> tempDebugContactList = new List<string>();
 	
 	//! Detect if Character is grounded (true)
 	void OnCollisionEnter(Collision collisionInfo){
 		foreach (ContactPoint d in collisionInfo.contacts){
 			if(d.thisCollider.GetType().ToString() == "UnityEngine.BoxCollider"){
+				tempDebugContactList.Add(d.otherCollider.name);
 				grounded = true;
 				return;
 			}
@@ -65,6 +71,7 @@ public abstract class CharacterController_2 : MonoBehaviour {
 	void OnCollisionExit(Collision collisionInfo){
 		foreach (ContactPoint d in collisionInfo.contacts){
 			if(d.thisCollider.GetType().ToString() == "UnityEngine.BoxCollider"){
+				tempDebugContactList.Remove(d.otherCollider.name);
 				grounded = false;
 				return;
 			}
