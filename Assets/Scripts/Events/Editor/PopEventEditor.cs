@@ -44,13 +44,19 @@ public class PopEventEditor : Editor {
         /*!     Enabled Boolean & Update Timer     */
         EditorGUILayout.Space();
 
-        EditorGUILayout.BeginHorizontal();
         m.checkConditions = EditorGUILayout.Toggle("Check for Conditions", m.checkConditions);
-        EditorGUILayout.EndHorizontal();
         
         EditorGUILayout.BeginHorizontal();
         m.delay = EditorGUILayout.FloatField("Check Every", m.delay);
         EditorGUILayout.LabelField("Seconds");
+        EditorGUILayout.EndHorizontal();
+
+        m.regional = EditorGUILayout.Toggle("Regional", m.regional);
+        m.runOnce = EditorGUILayout.Toggle("Only Run Once", m.runOnce);
+
+        EditorGUILayout.BeginHorizontal();
+        EditorGUILayout.LabelField("Conditions to Meet", GUILayout.MaxWidth(columnWidth - 30));
+        m.andOrCompare = (PopEvent.AndOrCompare)EditorGUILayout.EnumPopup(m.andOrCompare, GUILayout.MaxWidth(columnWidth));
         EditorGUILayout.EndHorizontal();
 
         /*!     Conditions and Actions    */
@@ -78,7 +84,7 @@ public class PopEventEditor : Editor {
 
             GUILayout.EndHorizontal();
 
-            //condition.watchType = (EventCondition.WatchType)EditorGUILayout.EnumPopup(condition.watchType, GUILayout.MaxWidth(columnWidth));
+            condition.watchType = (EventCondition.WatchType)EditorGUILayout.EnumPopup(condition.watchType, GUILayout.MaxWidth(columnWidth));
             EditorGUILayout.LabelField("Condition Script", GUILayout.MaxWidth(columnWidth));
             condition.conditionScript = (MonoBehaviour)EditorGUILayout.ObjectField(condition.conditionScript, typeof(MonoBehaviour), true, GUILayout.MaxWidth(columnWidth));
             EditorGUI.EndChangeCheck();

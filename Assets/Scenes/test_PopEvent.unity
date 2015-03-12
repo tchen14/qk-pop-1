@@ -167,6 +167,9 @@ MonoBehaviour:
       p_GameObject: {fileID: 0}
       p_MonoBehaviour: {fileID: 0}
   checkConditions: 1
+  regional: 0
+  runOnce: 1
+  andOrCompare: 0
   delay: 1
 --- !u!4 &252612031
 Transform:

@@ -7,6 +7,11 @@ public class PopEvent : MonoBehaviour {
     public EventCouple couple;
 
     public bool checkConditions = true;
+    public bool regional = false;
+    public bool runOnce = true;
+
+    public enum AndOrCompare { All, OneOrMore, OnlyOne }
+    public AndOrCompare andOrCompare = AndOrCompare.All;
 
     private float timer = 0;
     public float delay = 1;
