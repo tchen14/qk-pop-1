@@ -2,23 +2,24 @@
 using System.Collections;
 using System.Collections.Generic;
 
-public class EventManager : MonoBehaviour {
+public class PopEvent : MonoBehaviour {
 
-    public List<EventCouple> couples;
+    public EventCouple couple;
+
+    public bool checkConditions = true;
 
     private float timer = 0;
     public float delay = 1;
 
     void Update() {
+        if (checkConditions == false) { return; }
 
         if (timer < delay) {
             timer += Time.deltaTime;
         }
         if (timer >= delay) {
             timer = 0;
-            foreach (var c in couples) {
-                EventListener.SlowUpdate(c);
-            }
+            EventListener.SlowUpdate(couple);
         }
     }
 }

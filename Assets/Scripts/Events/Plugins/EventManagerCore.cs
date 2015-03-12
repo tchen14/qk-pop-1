@@ -1,12 +1,7 @@
 ﻿//using UnityEngine;
 //using System.Diagnostics;
 
-public class EventFieldAttribute : System.Attribute { }
-public class EventMethodAttribute : System.Attribute {
-    //public EventMethodAttribute() {
-    //    Trace.WriteLine("message: ");
-    //}
-}
+public class EventVisibleAttribute : System.Attribute { }
 
 public class EventManagerCore {
 
