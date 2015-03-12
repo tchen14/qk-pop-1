@@ -18,4 +18,8 @@ public class PoPSceneManager : SceneManager {
 	void OnDisable(){
 		Screen.showCursor = true;
 	}
+	
+	void Start(){
+		Physics.gravity =  new Vector3(0,-20.0f,0);
+	}
 }

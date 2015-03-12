@@ -928,12 +928,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b375fe55380fc4ae98ce233f831bc9a3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentCharacterState: 0
+  myActionState: 0
   grounded: 0
   currentClimbingSpeed: 0
   actionAvaiable: 0
   isRunning: 0
   isCrouched: 0
+  tempDebugContactList: []
   cameraTransform: {fileID: 349475306}
 --- !u!54 &87453825
 Rigidbody:

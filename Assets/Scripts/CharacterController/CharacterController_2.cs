@@ -20,15 +20,16 @@ public abstract class CharacterController_2 : MonoBehaviour {
 	protected Vector3 targetDirection = Vector3.zero;
 	protected float currentWalkingSpeed;
 	public const float rotationSpeed = 3.5f;
-	protected const float minWalkingSpeed = 10f;
-	protected const float maxWalkingSpeed = 20f;
+	protected const float minWalkingSpeed = 20f;
+	protected const float maxWalkingSpeed = 40f;
 	protected const float runningSpeedMod = 1.2f;
 	protected const float moveAcceleration = 7.5f;
+	protected const int movePow = 3;
 	protected const float moveDeceleration = 20.0f;
 	
 	// Jumping variables
 	[ReadOnly] public bool grounded = false; //Only public for inspector. Should be protected
-	protected const float maxJumpingHeight = 0.3f;
+	protected const float maxJumpingHeight = 5.0f;
 	protected const float airMovementSpeedPercentage = 0.1f;
 	
 	// Crouching variables
