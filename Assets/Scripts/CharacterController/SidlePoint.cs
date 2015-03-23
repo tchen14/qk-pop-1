@@ -19,7 +19,13 @@ public class SidlePoint : PlayerAction
 
 #if UNITY_EDITOR
 	//! Unity Start function. Used to error check
-	void Start(){
+	void Start() {
+		Debug.Log("core", "start");
+		if (leftDestination == null)
+			Debug.Log("safety", "IS NULLL");
+		else
+			Debug.Log("safety", "IS NOT NULLL");
+
 		if(leftDestination && leftDestination.GetComponent<SidlePoint>() == false)
 			Debug.Error("safety", "SidlePoint located at " + leftDestination.transform.position + "has invalid leftDestination;");
 		if(rightDestination && rightDestination.GetComponent<SidlePoint>() == false)

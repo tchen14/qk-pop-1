@@ -15,7 +15,7 @@ public sealed class CheckpointManager : MonoBehaviour {
 	
 	public string checkpointFilePath = "/Resources/Json/checkpointData.json";
 	
-	[SerializeField]
+	//[SerializeField]
 	public NodeTree checkpointTree;
 	
 	void Start(){
@@ -55,7 +55,7 @@ public sealed class CheckpointManager : MonoBehaviour {
 		//
 		//todo: detemine which checkpoints we are accessible
 		//
-		
+
 		return checkpoint[0];
 	}
 	
