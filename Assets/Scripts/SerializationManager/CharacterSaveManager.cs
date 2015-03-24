@@ -8,10 +8,14 @@ using System.Collections;
 public class CharacterSaveManager : SaveManager {
 
     //! Unity Start function
-    void Start() {
+    void Start()
+	{
+
     }
 
     //! Unity Update function
-    void Update() {
+    void Update()
+	{
+
     }
 }

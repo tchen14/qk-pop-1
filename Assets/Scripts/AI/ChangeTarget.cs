@@ -1,6 +1,6 @@
 using UnityEngine;
 using System.Collections;
-
+[RequireComponent(typeof(SphereCollider))]
 /*!
  *This code is the location and pathing for the AI. It is applied to a Node Object that should be ordered into a specific tree
  *This tree should be:
@@ -15,9 +15,9 @@ using System.Collections;
  */
 public class ChangeTarget : MonoBehaviour {
 
-	public Transform nextTarget;		//!<the next point in a scripted path
-	public Transform cluster;			//!<the parent of the path cluster to generate random points in mesh
-	public Transform[] clusterChildren;	//!<the children in the cluster
+	public GameObject nextTarget;		//!<the next point in a scripted path
+	private Transform cluster;			//!<the parent of the path cluster to generate random points in mesh
+	private Transform[] clusterChildren;	//!<the children in the cluster
  
 	public bool randomTarget;			//!<determines if the AI will use scripted path or a random path
 
@@ -27,25 +27,27 @@ public class ChangeTarget : MonoBehaviour {
 		cluster = transform.parent.gameObject.transform;
 		//gathers all the children of the parent
 		clusterChildren = cluster.GetComponentsInChildren<Transform> ();
+		GetComponent<SphereCollider> ().isTrigger = true;
+		GetComponent<MeshRenderer> ().enabled = false;
 	}
-	void OnCollisionEnter(Collision col)
+	void OnTriggerEnter(Collider col)
 	{
-
 		if (col.gameObject.name == "_NPC") 
 		{
-			if(col.gameObject.GetComponent<AIMain>().navPoint == transform.position)
+			if(col.gameObject.GetComponent<AIMain>().navCheck == gameObject.name)
 			{
 				if(randomTarget)
 				{
 					//loop used to insure random point is not the same point
 					do
 					{
-						col.gameObject.GetComponent<AIMain>().ChangeNavPoint(clusterChildren[Random.Range(1,clusterChildren.Length)].transform.position);
-					}while(col.gameObject.GetComponent<AIMain>().navPoint == transform.position);
+						int i = Random.Range(1,clusterChildren.Length);
+						col.gameObject.GetComponent<AIMain>().ChangeNavPoint(clusterChildren[i].gameObject.name,clusterChildren[i].transform.position);
+					}while(col.gameObject.GetComponent<AIMain>().navCheck == gameObject.name);
 				}
 				else
 				{
-					col.gameObject.GetComponent<AIMain>().navPoint = nextTarget.position;
+					col.gameObject.GetComponent<AIMain>().ChangeNavPoint(nextTarget.name,nextTarget.transform.position);
 				}
 			}
 		}

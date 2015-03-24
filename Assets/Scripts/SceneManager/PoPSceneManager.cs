@@ -3,10 +3,6 @@ using System.Collections;
 
 public class PoPSceneManager : SceneManager {
 
-    void Start() {
-        //PoPEventManager instance = new PoPEventManager();
-    }
-
     //! testing code until we get Scaleform UI fully working \todo: implement scaleform UI and delete this function
     void OnGUI () {
         // Make the first button. If it is pressed, Application.Loadlevel (1) will be executed
@@ -14,4 +10,16 @@ public class PoPSceneManager : SceneManager {
         	MasterManager.Instance.QuickLoadLevel ("Menu");
         }
     }
+    
+    void OnEnable(){
+    	Cursor.visible = false;
+    }
+    
+	void OnDisable(){
+		Cursor.visible = true;
+	}
+	
+	void Start(){
+		Physics.gravity =  new Vector3(0,-20.0f,0);
+	}
 }
