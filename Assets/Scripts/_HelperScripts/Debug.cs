@@ -13,8 +13,12 @@ using UnityEditor;
     Place the code "using Debug = CSGS.Debug;" at the top of a script to use this version of Debug
 */
 namespace FFP {
+#if UNITY_EDITOR
     [SerializeField]
     public class Debug : EditorWindow {
+#else
+	public class Debug {
+#endif
     	//! Path to the json file required to display debug logs
 		const string JSONPATH = "/Scripts/_HelperScripts/debugKeys.json";
     	//! \cond doxygen_ignore

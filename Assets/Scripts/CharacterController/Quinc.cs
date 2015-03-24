@@ -5,76 +5,120 @@ using Debug=FFP.Debug;
 public class Quinc : MonoBehaviour
 {
 	private float pushRate = 0.5f;
-	private int pushDistance = 100;
+	public float pushDistance = 5.0f;
+	public float pushModifier = 50.0f;
 	private float nextPush = 0.0f;
 	private int pushRange = 20;
 
 	private float pullRate = 0.5f;
-	private int pullDistance = 100;
+	public float pullDistance = 5.0f;
+	public float pullModifier = 50.0f;
 	private float nextPull = 0.0f;
 	private int pullRange = 20;
 
+	private int cutRange = 20;
 
-	public GameObject Target;
-	public GameObject Heaven;
+	private int soundThrowRange = 20;
+	
+	private int stunRange = 20;
+
+	public float smoothing = 1f;
+
+	//! These variables are temporary for testing, can be removed when implementing Targeting into code
+	private GameObject pushPullTarget;
+	private GameObject cutTarget;
+	private GameObject soundThrowTarget;
+	private GameObject stunTarget;
 
 	void Start ()
 	{
-		Heaven = GameObject.FindGameObjectWithTag("Heaven");
+		print ("Press 1: Push");
+		print ("Press 2: Pull");
+		print ("Press 3: Cut");
+		print ("Press 4: SoundThrow");
+		print ("Press 5: Stun");
 	}
 	
 	void FixedUpdate ()
 	{
-		if (Input.GetKey(KeyCode.E) && Time.time > nextPush)
+		if (Input.GetKeyDown(KeyCode.Alpha1) && Time.time > nextPush)
 		{
 			string pushStatus = "";
 			nextPush = Time.time + pushRate;
-			if(Push(pushStatus))
+			pushPullTarget = GameObject.Find("Crate"); //!> Reference Targeting Script to get current Target
+
+			if(Push(ref pushStatus, pushPullTarget))
 			{
-				print ("Push");
+				print ("Push status: " + pushStatus);
 			}
 			else
 			{
-				print (pushStatus);
+				print ("Push Error: " + pushStatus);
 			}
 		}
-		else if (Input.GetKey(KeyCode.R) && Time.time > nextPull)
+		else if (Input.GetKeyDown(KeyCode.Alpha2) && Time.time > nextPull)
 		{
 			string pullStatus = "";
 			nextPull = Time.time + pullRate;
-			if(Pull(pullStatus))
+			pushPullTarget = GameObject.Find("Crate"); //!> Reference Targeting Script to get current Target
+
+			if(Pull(ref pullStatus, pushPullTarget))
 			{
-				print ("Pull");
+				print ("Pull Status: " + pullStatus);
 			}
 			else
 			{
-				print (pullStatus);
+				print ("Pull Error: " + pullStatus);
+			}
+		}
+		else if (Input.GetKeyDown(KeyCode.Alpha3))
+		{
+			string cutStatus = "";
+			cutTarget = GameObject.Find("Rope"); //!> Reference Targeting Script to get current Target
+
+			if(Cut(ref cutStatus, cutTarget))
+			{
+				print ("Cut Status: " + cutStatus);
+			}
+			else
+			{
+				print ("Cut Error: " + cutStatus);
+			}
+		}
+		else if(Input.GetKeyDown(KeyCode.Alpha4))
+		{
+			string soundStatus = "";
+			soundThrowTarget = GameObject.Find("Well"); //!> Reference Targeting Script to get current Target
+
+			if(SoundThrow(ref soundStatus, soundThrowTarget))
+			{
+				print ("Sound Status: " + soundStatus);
+			}
+			else
+			{
+				print ("Sound Error: " + soundStatus);
+			}
+		}
+		else if(Input.GetKeyDown(KeyCode.Alpha5))
+		{
+			string stunStatus = "";
+			stunTarget = GameObject.Find("Enemy"); //!> Reference Targeting Script to get current Target
+
+			if(Stun(ref stunStatus, stunTarget))
+			{
+				print ("Stun Status: " + stunStatus);
+			}
+			else
+			{
+				print ("Stun Error: " + stunStatus);
 			}
 		}
 	}
 
-	//! Function to be called when cutting rope
-	void Cut ()
-	{
-		/*
-		Check if Target is Selected
-		Get Target GameObject
-		Check if Object is Cut Compatible
-		Else return "Object not Compatible"
-		Check if Object is within Cut Range
-		Else return "Object not in Range"
-		Call Object.cut() function
-		Play animation for player using Cut
-		Untarget GameObject?
-		*/
-	}
-
 	//! Function to be called when pushing a box or other heavy object, pushing at intervals (think Ocarina of time)
-	bool Push (string status)
+	bool Push (ref string status, GameObject pushTarget)
 	{
 		/*
-		Check if Target is Selected
-		Get Target GameObject
 		Check if Object is Push Compatible
 		Else return "Object not Compatible"
 		Check if Object is with in Push Range
@@ -82,14 +126,19 @@ public class Quinc : MonoBehaviour
 		Push the object either with force, translation, or grid-based movement
 		Play animation for player using Push
 		*/
-		print(Vector3.Distance(Target.transform.position, transform.position));
+		print("Distance between Player and Target: " + Vector3.Distance(pushTarget.transform.position, transform.position));
 
-		if(!Target.GetComponent<Item>().pushCompatible)
+		if(pushTarget == null)
+		{
+			status = "No Target Selected";
+			return false;
+		}
+		if(!pushPullTarget.GetComponent<Item>().pushCompatible)
 		{
 			status = "Not Compatible";
 			return false;
 		}
-		if(Vector3.Distance(Target.transform.position, transform.position) > pushRange)
+		if(Vector3.Distance(pushTarget.transform.position, transform.position) > pushRange)
 		{
 			status = "Not In Range";
 			return false;
@@ -102,30 +151,18 @@ public class Quinc : MonoBehaviour
 			4. Call Coroutine to Lerp to target position
 		*/
 
-		Vector3 pushDirection = Target.transform.position - transform.position;
-		Vector3 targetPosition = pushDirection * pushDistance;
-		Vector3 heavenDirection = targetPosition.normalized;
-		RaycastHit hitInfo;
-
-		if(Physics.Raycast(Heaven.transform.position, heavenDirection, out hitInfo))
-		{
-			targetPosition = hitInfo.point;
-		}
-
-		MoveSlowly(Target.gameObject, targetPosition);
-
-		//Target.transform.Translate(pushDirection.normalized * pushDistance * Time.deltaTime);
-		
-		status = "Success";
+		Vector3 pushDirection = pushTarget.transform.position - transform.position;
+		pushDirection.Normalize();
+		Vector3 targetPosition = (pushDirection * pushDistance) + pushTarget.transform.position;
+		StartCoroutine(MoveSlowly(pushTarget.gameObject, targetPosition, pushDirection));
+		status = "Push Successful";
 		return true;
 	}
 
 	//! Function to be called when pulling an object, pulling at intervals (think Ocarina of time)
-	bool Pull (string status)
+	bool Pull (ref string status, GameObject pullTarget)
 	{
 		/*
-		Check if Target is Selected
-		Get Target GameObject
 		Check if Object is PullCompatible
 		Else return "Object not Compatible"
 		Check if Object is with in Pull Range
@@ -134,29 +171,71 @@ public class Quinc : MonoBehaviour
 		Play animation for player using Pull
 		*/
 
-		if(!Target.GetComponent<Item>().pullCompatible)
+		if(pullTarget == null)
+		{
+			status = "No Target Selected";
+			return false;
+		}
+		if(!pullTarget.GetComponent<Item>().pullCompatible)
 		{
 			status = "Not Compatible";
 			return false;
 		}
-		if(Vector3.Distance(Target.transform.position, transform.position) > pullRange)
+		if(Vector3.Distance(pullTarget.transform.position, transform.position) > pullRange)
+		{
+			status = "Not In Range";
+			return false;
+		}
+
+		Vector3 pullDirection = transform.position - pullTarget.transform.position;
+		pullDirection.Normalize();
+		Vector3 targetPosition = (pullDirection * pullDistance) + pullTarget.transform.position;
+		StartCoroutine(MoveSlowly(pullTarget.gameObject, targetPosition, pullDirection));
+		status = "Pull Successful";
+		return true;
+		
+	}
+
+	//! Function to be called when cutting rope
+	bool Cut (ref string status, GameObject cutTarget)
+	{
+		/*
+		Check if Object is Cut Compatible
+		Else return "Object not Compatible"
+		Check if Object is within Cut Range
+		Else return "Object not in Range"
+		Call Object.cut() function
+		Play animation for player using Cut
+		Untarget GameObject?
+		*/
+		if(cutTarget == null)
+		{
+			status = "No Target Selected";
+			return false;
+		}
+		if(!cutTarget.GetComponent<Item>().cutCompatible)
+		{
+			status = "Not Compatible";
+			return false;
+		}
+		if(Vector3.Distance(cutTarget.transform.position, transform.position) > cutRange)
 		{
 			status = "Not In Range";
 			return false;
 		}
 		
-		Vector3 pullDirection = transform.position - Target.transform.position;
-		pullDirection.Normalize();
-		Target.transform.GetComponent<Rigidbody>().AddForce(pullDirection * pullDistance);
-		status = "Success";
+		cutTarget.GetComponent<Rope>().Cut();
+		
+		// Untarget Cuttable Object?
+		status = "Cut Successful";
 		return true;
+		
 	}
 
-	void SoundThrow ()
+	//! Function that activates SoundThrow app on Quinc phone that distracts enemies
+	bool SoundThrow (ref string status, GameObject soundThrowTarget)
 	{
 		/*
-		Check if Target is Selected
-		Get Target GameObject
 		Check if Object is SoundThrow compatible
 		Else return "Object not Compatible"
 		Check if Object is within SoundThrow Range
@@ -165,13 +244,35 @@ public class Quinc : MonoBehaviour
 		Play sound and animation
 		Untarget GameObject?
 		*/
+		if(soundThrowTarget == null)
+		{
+			status = "No Target Selected";
+			return false;
+		}
+		if(!soundThrowTarget.GetComponent<Item>().soundThrowCompatible)
+		{
+			status = "Not Compatible";
+			return false;
+		}
+		if(Vector3.Distance(soundThrowTarget.transform.position, transform.position) > soundThrowRange)
+		{
+			status = "Not In Range";
+			return false;
+		}
+
+		// Possibly allow player to select sound, or each object will have it's own sound attached to it
+		// Call SoundThrow function in Well script, which will play sound and animation
+		soundThrowTarget.GetComponent<Well>().SoundThrow();
+
+		// Untarget GameObject?
+		status = "SoundThrow Successful";
+		return true;
 	}
 
-	void TazeStun ()
+	//! Function called when activating Stun App on Quinc phone. Only works against enemies.
+	bool Stun (ref string status, GameObject stunTarget)
 	{
 		/*
-		Check if Target is Selected
-		Get Target GameObject
 		Check if Object is Stunnable object
 		Else return "Object not Compatible"
 		Check if Object is within Stun Range
@@ -181,23 +282,41 @@ public class Quinc : MonoBehaviour
 		Untarget GameObject?
 		*/
 
+		if(stunTarget == null)
+		{
+			status = "No Target Selected";
+			return false;
+		}
+		if(!stunTarget.GetComponent<Item>().stunCompatible)
+		{
+			status = "Not Compatible";
+			return false;
+		}
+		if(Vector3.Distance(stunTarget.transform.position, transform.position) > stunRange)
+		{
+			status = "Not In Range";
+			return false;
+		}
+
+		stunTarget.GetComponent<Enemy>().Stun();
+
+		//Untarget Enemy?
+		status = "Stun Successful";
+		return true;
 	}
 
-	IEnumerator MoveSlowly(GameObject targetObject, Vector3 targetPosition)
+	IEnumerator MoveSlowly(GameObject targetObject, Vector3 targetPosition, Vector3 direction)
 	{
-		float timeSinceStarted = 0.0f;
-		while (true)
+		print ("Target Position In CoRoutine: " + targetPosition);
+
+		while(Vector3.Distance(targetObject.transform.position, targetPosition) > 2.0f)
 		{
-			timeSinceStarted += Time.deltaTime;
-			targetObject.transform.position = Vector3.Lerp (targetObject.transform.position, targetPosition, timeSinceStarted);
-
-			if (targetObject.transform.position == targetPosition)
-			{
-				yield break;
-			}
-
+			targetObject.transform.position = Vector3.Lerp(targetObject.transform.position, targetPosition, smoothing * Time.deltaTime);
 			yield return null;
 		}
+		yield return null;
+
+		print ("Target Reached");
 	}
 
 }

@@ -2,7 +2,7 @@ using UnityEngine;
 using System.Collections;
 
 [RequireComponent (typeof (SphereCollider))]
-public class MissionCheckpoint : PlayerAction {
+public class MissionCheckpoint : MonoBehaviour {
     public string mission = "";		//!<This string is for to check for a completed pre-requisite quest
     public float minDist = 0.0f;	//!<This is the minimum distance away from the Checkpoint that CheckpointTrigger needs to be
 
