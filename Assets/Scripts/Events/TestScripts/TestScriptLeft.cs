@@ -3,18 +3,20 @@ using System.Collections;
 
 public class TestScriptLeft : MonoBehaviour {
 
-
-    [EventField]
+    [EventVisible]
     public float timer = 0;
-    [EventField]
+    [EventVisible]
     public float delay = 1;
 
-    [EventField]
+    [EventVisible]
     public int counter = 5;
-    [EventField]
+    [EventVisible]
     public int fieldA = 5;
-    [EventField]
+    [EventVisible]
     public int fieldB = 5;
+
+    [EventVisible]
+    public Vector3 vectorA= Vector3.zero;
 
     void Start(){
         object[] obj = new object[] { counter };
@@ -22,7 +24,11 @@ public class TestScriptLeft : MonoBehaviour {
     }
 
     public void Test(int value){
-        print(value);
+        //print(value);
+    }
+
+    void OnTriggerEnter() {
+        EventListener.Report(this, "Enter");
     }
 
     void Update() {
@@ -41,15 +47,15 @@ public class TestScriptLeft : MonoBehaviour {
     }
 
     public void PressOne() {
-        EventListener.Report(this);
+        EventListener.Report(this, "Press One");
     }
 
-    [EventMethod]
+    [EventVisible]
     public void FunctionOne() {
         print("FunctionOne was called");
     }
 
-    [EventMethod]
+    [EventVisible]
     public void FunctionTwo() {
         print("FunctionTwo was called");
     }

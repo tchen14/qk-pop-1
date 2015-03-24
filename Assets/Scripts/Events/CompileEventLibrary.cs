@@ -11,8 +11,9 @@ public class CompileEventLibrary : EditorWindow {
 
     [MenuItem("Custom Tools/Compile Event Library")]
     static void Compile() {
+        int count = 0;
 
-        string fileName = Application.dataPath + "\\Scripts\\EventManager\\Plugins\\EventLibrary.cs";
+        string fileName = Application.dataPath + "\\Scripts\\Events\\Plugins\\EventLibrary.cs";
 
         string compilationString = "/*\n\n\n\n\n\n\n\n\n\n\n\n\t\t\t\t\t\tThis script has been automatically generated.\n\t\t\t\t\t\tDo not alter it, or your changes will be undone.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n*/\n";
         compilationString += "using System.Collections.Generic;\npublic static class EventLibrary {\n\n\tpublic static Dictionary<string, string[]> library = new Dictionary<string, string[]> {\n";
@@ -22,17 +23,18 @@ public class CompileEventLibrary : EditorWindow {
         List<System.Type> classList = new List<System.Type>();
         q.ToList().ForEach(t => classList.Add(t));
 
-        // Get every method with the MethodEventAttribute
+        // Get every method with the EventVisibleAttribute
         foreach (var t in classList) {
             bool validMethods = false;
             string compilationBuffer = "\t\t{ \"" + t.Name + "Methods\", new string[] {";
 
             foreach (var m in t.GetMethods()) {
+                count++;
                 List<string> attList = new List<string>();
                 foreach (var att in m.GetCustomAttributes(false)) {
                     attList.Add(att.ToString());
                 }
-                if (ListContains(attList, "EventMethodAttribute")) {
+                if (ListContains(attList, "EventVisibleAttribute")) {
                     validMethods = true;
                     compilationBuffer += ("\"" + m.Name + "\", ");
                 }
@@ -43,17 +45,18 @@ public class CompileEventLibrary : EditorWindow {
             }
         }
 
-        // Not get every field with the MethodEventAttribute
+        // Not get every field with the EventVisibleAttribute
         foreach (var t in classList) {
             bool validMethods = false;
             string compilationBuffer = "\t\t{ \"" + t.Name + "Fields\", new string[] {";
 
             foreach (var m in t.GetFields()) {
+                count++;
                 List<string> attList = new List<string>();
                 foreach (var att in m.GetCustomAttributes(false)) {
                     attList.Add(att.ToString());
                 }
-                if (ListContains(attList, "EventFieldAttribute")) {
+                if (ListContains(attList, "EventVisibleAttribute")) {
                     validMethods = true;
                     compilationBuffer += ("\"" + m.Name + "\", ");
                 }
@@ -66,6 +69,11 @@ public class CompileEventLibrary : EditorWindow {
 
         // Close up the string and write it to file
         compilationString += "\t};\n}";
+
+        if (count == 0) {
+            compilationString = "/*\n\n\n\n\n\n\n\n\n\n\n\n\t\t\t\t\t\tThere are no valid fields or methods in the project.\n\n\t\t\t\t\t\t\t\tUse [EventField] and [EventMethod]\n\n\n\n\n\n\n\n\n\n\n\n\n*/\n";
+            compilationString += "using System.Collections.Generic;\npublic static class EventLibrary {\n\tpublic static Dictionary<string, string[]> library = new Dictionary<string, string[]>();\n}";
+        }
 
         StreamWriter streamWriter;
         FileInfo fileInfo = new FileInfo(fileName);
