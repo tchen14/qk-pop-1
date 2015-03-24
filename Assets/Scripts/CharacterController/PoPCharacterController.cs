@@ -131,13 +131,13 @@ public sealed class PoPCharacterController : CharacterController_2 {
 		if(Mathf.Abs(yPlaneInput) > inputThreshold) { //Jumping
 			// increment player speed as long as movement is being applied
 			if(currentWalkingSpeed < maxWalkingSpeed)
-				currentWalkingSpeed = currentWalkingSpeed + Time.deltaTime * Mathf.Pow(moveAcceleration, (float)movePow);
+				currentWalkingSpeed = Mathf.Clamp(currentWalkingSpeed + Time.deltaTime * Mathf.Pow(moveAcceleration, (float)movePow),minWalkingSpeed,maxWalkingSpeed);
 			UpdateMovement(xPlaneInput, zPlaneInput);
 			UpdateJump(yPlaneInput);
 		} else if(Mathf.Abs(xPlaneInput) > inputThreshold || Mathf.Abs(zPlaneInput) > inputThreshold) { //Moving
 			// increment player speed as long as movement is being applied
 			if(currentWalkingSpeed < maxWalkingSpeed)
-				currentWalkingSpeed = currentWalkingSpeed + Time.deltaTime * Mathf.Pow(moveAcceleration, (float)movePow);
+				currentWalkingSpeed = Mathf.Clamp(currentWalkingSpeed + Time.deltaTime * Mathf.Pow(moveAcceleration, (float)movePow), minWalkingSpeed, maxWalkingSpeed);
 			UpdateMovement(xPlaneInput, zPlaneInput);
 		} else { //Idle
 			if(currentWalkingSpeed > minWalkingSpeed) {
@@ -182,6 +182,7 @@ public sealed class PoPCharacterController : CharacterController_2 {
 	// y arguments taken to rotate player		
 	private void UpdateJump(float yPlaneMovement) {
 		if(grounded) {
+			grounded = false;
 			GetComponent<Rigidbody>().AddForce((yPlaneMovement * Vector3.up * maxJumpingHeight), ForceMode.Impulse);
 		}
 		// Reset target direction

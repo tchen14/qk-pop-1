@@ -21,8 +21,8 @@ public abstract class CharacterController_2 : MonoBehaviour {
 	protected Vector3 targetDirection = Vector3.zero;
 	protected float currentWalkingSpeed;
 	public const float rotationSpeed = 3.5f;
-	protected const float minWalkingSpeed = 10f;
-	protected const float maxWalkingSpeed = 20f;
+	protected const float minWalkingSpeed = 20f;
+	protected const float maxWalkingSpeed = 30f;
 	protected const float runningSpeedMod = 1.2f;
 	protected const float moveAcceleration = 7.5f;
 	protected const int movePow = 3;
@@ -31,7 +31,7 @@ public abstract class CharacterController_2 : MonoBehaviour {
 	// Jumping variables
 	[ReadOnly]
 	public bool grounded = false; //Only public for inspector. Should be protected
-	protected const float maxJumpingHeight = 5.0f;
+	protected const float maxJumpingHeight = 10.0f;
 	protected const float airMovementSpeedPercentage = 0.1f;
 
 	// Crouching variables
@@ -47,7 +47,7 @@ public abstract class CharacterController_2 : MonoBehaviour {
 	[ReadOnly]
 	public bool actionAvaiable; //Only public for inspector. Should be protected
 	protected PlayerActionPath actionComponent;
-	protected Rigidbody rigidbody;
+	new protected Rigidbody rigidbody;
 
 	// Modifiers variables
 	[ReadOnly]
@@ -62,14 +62,11 @@ public abstract class CharacterController_2 : MonoBehaviour {
 		currentWalkingSpeed = minWalkingSpeed;
 		currentClimbingSpeed = minClimbingSpeed;
 	}
-
-	public List<string> tempDebugContactList = new List<string>();
-
+#pragma warning disable 0219
 	//! Detect if Character is grounded (true)
 	void OnCollisionEnter(Collision collisionInfo) {
 		foreach(ContactPoint d in collisionInfo.contacts) {
 			if(d.thisCollider.GetType().ToString() == "UnityEngine.BoxCollider") {
-				tempDebugContactList.Add(d.otherCollider.name);
 				grounded = true;
 				return;
 			}
@@ -79,13 +76,11 @@ public abstract class CharacterController_2 : MonoBehaviour {
 	//! Detect if Character is grounded (false)
 	void OnCollisionExit(Collision collisionInfo) {
 		foreach(ContactPoint d in collisionInfo.contacts) {
-			if(d.thisCollider.GetType().ToString() == "UnityEngine.BoxCollider") {
-				tempDebugContactList.Remove(d.otherCollider.name);
 				grounded = false;
 				return;
-			}
 		}
 	}
+#pragma warning restore 0219
 
 	void OnTriggerEnter(Collider collider) {
 		if(collider.tag == "PlayerAction") {

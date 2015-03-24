@@ -12,7 +12,7 @@ public sealed class PlayerActionPath : MonoBehaviour {
 	public List<Vector3> path = new List<Vector3>();
 
 	void Start() {
-		if(path.Count < 2)
+		if(path.Count == 0)
 			Debug.Log("safety", "ActionPath at " + transform.position + "has less than 2 positions.");
 	}
 }
