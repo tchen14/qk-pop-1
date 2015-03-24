@@ -12,6 +12,7 @@ using UnityEngine.UI;
 
 public class GameHUD : MonoBehaviour {
 
+	public GameObject mainHUDCanvas;				//!The canvas HUD is rendered on
 	public GameObject worldMapCanvas;				//!<All the game map elements
 	public GameObject gameMap;						//!<The map iamge on a plane
 	public GameObject player;						//!<reference to player
@@ -33,6 +34,7 @@ public class GameHUD : MonoBehaviour {
 
 	void Awake () {
 
+		mainHUDCanvas = GameObject.Find ("mainHUD");
 		//!Turn on UI stuff
 		worldMapCanvas.SetActive (true);
 
@@ -163,17 +165,26 @@ public class GameHUD : MonoBehaviour {
 	void SpawnHudAbilityIcons () {
 		GameObject spawnPoint = GameObject.Find ("abilitySelectPivot");
 
+		//Calculate size of buttons based on screen size (HUD Canvas Size)
 		middleAbilityIcon = Instantiate (phoneAbilitiesAvailible [0], spawnPoint.transform.position, Quaternion.identity) as GameObject;
+		RectTransform middleRect = middleAbilityIcon.GetComponent<RectTransform> ();
+
+		Vector2 newMainDmiensions = new Vector2 (Screen.height/4, Screen.height/4);
+
+		middleRect.sizeDelta = newMainDmiensions;
+
 		middleAbilityIcon.transform.SetParent (spawnPoint.transform);
 
 		//spawn ability on the right if there is at least 2 elements in the array
 		if(phoneAbilitiesAvailible.Count > 1){
 			Vector3 newPos = spawnPoint.transform.position;
-			Vector3 newScale = phoneAbilitiesAvailible [0].transform.localScale;
-			newScale /= 1.5f;
-			newPos.x += 10;
-			newPos.y -= 40;
+
+			newPos.x += Screen.width/20;
+			newPos.y -= Screen.height/8;
 			rightAbilityIcon = Instantiate (phoneAbilitiesAvailible [1], newPos, Quaternion.identity) as GameObject;
+			Vector3 newScale = rightAbilityIcon.transform.localScale;
+			newScale *= 1.8f;
+
 			rightAbilityIcon.transform.localScale = newScale;
 			rightAbilityIcon.transform.SetParent (spawnPoint.transform);
 		}
@@ -183,8 +194,8 @@ public class GameHUD : MonoBehaviour {
 			Vector3 newPos = spawnPoint.transform.position;
 			Vector3 newScale = phoneAbilitiesAvailible [0].transform.localScale;
 			newScale /= 1.5f;
-			newPos.x += 10;
-			newPos.y += 40;
+			newPos.x += Screen.width/12;
+			newPos.y += Screen.height/8;
 			leftAbilityIcon = Instantiate (phoneAbilitiesAvailible[phoneAbilitiesAvailible.Count-1], newPos, Quaternion.identity) as GameObject;
 			leftAbilityIcon.transform.localScale = newScale;
 			leftAbilityIcon.transform.SetParent (spawnPoint.transform);
