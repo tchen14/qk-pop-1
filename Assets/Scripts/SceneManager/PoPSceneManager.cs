@@ -12,11 +12,11 @@ public class PoPSceneManager : SceneManager {
     }
     
     void OnEnable(){
-    	Screen.showCursor = false;
+    	Cursor.visible = false;
     }
     
 	void OnDisable(){
-		Screen.showCursor = true;
+		Cursor.visible = true;
 	}
 	
 	void Start(){

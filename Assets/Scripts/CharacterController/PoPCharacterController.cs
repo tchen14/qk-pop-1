@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
-using UnityEditor;
+using System.Collections.Generic;
 using Debug = FFP.Debug;
 
 /*!
@@ -10,14 +10,14 @@ using Debug = FFP.Debug;
 public sealed class PoPCharacterController : CharacterController_2 {
 #pragma warning disable 0114
 	//Set in Start() function
-	const float mass = 2f;
+	const float mass = 1f;
 	const float drag = 1f;
 	const float rigidbodyDrag = 1f; 		//Typical values for Drag are between .001 (solid block of metal) and 10 (feather).
 	const float rigidbodyAngularDrag = Mathf.Infinity;
 
 	public Transform cameraTransform;		//!< Moves in conjunction with camera's transform
 	private float inputThreshold = 0.1f;	//!< Dead zone value to determine if input is applied
-	private Vector3 highestPoint;			//!< TBD
+	GoTweenChain chain;						//!< Used for tweening player actions
 
 	//! Unity Start function
 	void Start() {
@@ -29,12 +29,12 @@ public sealed class PoPCharacterController : CharacterController_2 {
 				Debug.Error("player", "Cannot find this.cameraTransform. Please connect the camera to the component using the inspector.");
 		}
 		// Reduce drag for momentum to carry
-		rigidbody.drag = rigidbodyDrag;
-		rigidbody.angularDrag = rigidbodyAngularDrag;
-		rigidbody.mass = mass;
-		rigidbody.drag = drag;
+		GetComponent<Rigidbody>().drag = rigidbodyDrag;
+		GetComponent<Rigidbody>().angularDrag = rigidbodyAngularDrag;
+		GetComponent<Rigidbody>().mass = mass;
+		GetComponent<Rigidbody>().drag = drag;
 		// Constrain player rotations. Player can only turn on the Y axis
-		rigidbody.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ;
+		GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ;
 
 		currentWalkingSpeed = minWalkingSpeed;
 		currentClimbingSpeed = minClimbingSpeed;
@@ -52,9 +52,9 @@ public sealed class PoPCharacterController : CharacterController_2 {
 
 		// action:event button used to get out of events
 		if(Input.GetKeyDown(KeyCode.Q)) {
-			rigidbody.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ;
-			rigidbody.useGravity = true;
-			rigidbody.drag = 1.0f;
+			GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ;
+			GetComponent<Rigidbody>().useGravity = true;
+			GetComponent<Rigidbody>().drag = 1.0f;
 		}
 
 		// temporary hotkey to kill player
@@ -83,48 +83,40 @@ public sealed class PoPCharacterController : CharacterController_2 {
 	private void PlayerInput(float xPlaneInput, float yPlaneInput, float zPlaneInput, bool action) {
 		if(action) {
 			if(actionAvaiable && myActionState == actionState.prepState) { //Start Action
-				switch(actionComponent.GetType().ToString()) {
-					case "SidlePoint":
-						//sidle setup crap
-						transform.position = SetPosition(actionComponent.transform.position);
-						transform.rotation = actionComponent.transform.rotation;
-						break;
-					case "LadderPoint":
-						//ladder setup crap
-						transform.position = SetPosition(actionComponent.transform.position);
-						transform.rotation = actionComponent.transform.rotation;
-						break;
-					default:
-						Debug.Error("player", "Action start called with no valid action.");
-						break;
+				//action setup crap
+				//transform.position = SetPosition(actionComponent.transform.position);
+				transform.rotation = actionComponent.transform.rotation;
+				rigidbody.useGravity = false;
+
+				List<Vector3> v = new List<Vector3>();
+				v.Add(transform.position);
+				v.Add(SetPosition(actionComponent.transform.position));
+				for(int i = 0; i < actionComponent.path.Count; i++) {
+					v.Add(SetPosition(actionComponent.path[i]));
 				}
+				var path = new GoSpline(v, true);
+				GoTween tween = new GoTween(transform, 4f, new GoTweenConfig().positionPath(path));
+				chain = new GoTweenChain();
+				chain.append(tween);
+
 				myActionState = actionState.loopState;
 			} else if(myActionState == actionState.loopState) { //End Action
 				//todo: end action state code
-				switch(actionComponent.GetType().ToString()) {
-					case "SidlePoint":
-						//sidle ending crap
-						break;
-					case "LadderPoint":
-						//ladder ending crap
-						break;
-					default:
-						Debug.Error("player", "Action end called with no valid action.");
-						break;
-				}
+				//action ending crap
+				rigidbody.useGravity = true;
 				actionComponent = null;
 				myActionState = actionState.prepState;
 			} else {
-				Debug.Error("player", "Code should not reach here.");
+				Debug.Log("player", "No action avaiable.");
 			}
 		} else if(myActionState == actionState.loopState) { //Loop Action
 			// todo: determine what to loop to do
-			switch(actionComponent.GetType().ToString()) {
-				case "SidlePoint":
-					SidleLoop(xPlaneInput);
+			switch(actionComponent.actionType) {
+				case PlayerActionPath.PlayerAction.sidle:
+					ActionLoop(xPlaneInput);
 					break;
-				case "LadderPoint":
-					LadderLoop(yPlaneInput);
+				case PlayerActionPath.PlayerAction.ladder:
+					ActionLoop(zPlaneInput);
 					break;
 				default:
 					Debug.Error("player", "Action loop called with no valid action.");
@@ -177,11 +169,11 @@ public sealed class PoPCharacterController : CharacterController_2 {
 		// Movement velocity threshold
 		if(grounded) {
 			if(isRunning)
-				rigidbody.AddForce(targetDirection.normalized * currentWalkingSpeed * runningSpeedMod);
+				GetComponent<Rigidbody>().AddForce(targetDirection.normalized * currentWalkingSpeed * runningSpeedMod);
 			else
-				rigidbody.AddForce(targetDirection.normalized * currentWalkingSpeed);
+				GetComponent<Rigidbody>().AddForce(targetDirection.normalized * currentWalkingSpeed);
 		} else {
-			rigidbody.AddForce(targetDirection.normalized * currentWalkingSpeed * airMovementSpeedPercentage);
+			GetComponent<Rigidbody>().AddForce(targetDirection.normalized * currentWalkingSpeed * airMovementSpeedPercentage);
 		}
 		// Reset target direction
 		targetDirection = Vector3.zero;
@@ -190,163 +182,24 @@ public sealed class PoPCharacterController : CharacterController_2 {
 	// y arguments taken to rotate player		
 	private void UpdateJump(float yPlaneMovement) {
 		if(grounded) {
-			rigidbody.AddForce((yPlaneMovement * Vector3.up * maxJumpingHeight), ForceMode.Impulse);
+			GetComponent<Rigidbody>().AddForce((yPlaneMovement * Vector3.up * maxJumpingHeight), ForceMode.Impulse);
 		}
 		// Reset target direction
 		targetDirection = Vector3.zero;
 	}
 
-	private void SidleLoop(float xPlaneInput) {
-		SidlePoint s = (SidlePoint)actionComponent;
-		if (xPlaneInput != 0) {
-			if (s.leftDestination != null && (s.leftDestination.transform.position - s.transform.position).sqrMagnitude < (s.rightDestination.transform.position - s.transform.position).sqrMagnitude) { 
-				//left is closer
-				rigidbody.AddForce(transform.right * -xPlaneInput * currentWalkingSpeed);
-			} else if (s.rightDestination != null){
-				//right is closer
-				rigidbody.AddForce(transform.right * xPlaneInput * currentWalkingSpeed);
-			}
-
-			
-			//transform.rotationTo(1,new Vector3(0,Vector3.Angle(s.transform.position, s.rightDestination.transform.position),0));
-			if(Vec3Approx(transform.position, s.rightDestination.transform.position))
-				;
+	private void ActionLoop(float input) {
+		if(input > 0) {
+			if(chain.state == GoTweenState.Paused || chain.isReversed == true)
+				chain.playForward();
+		} else if(input < 0) {
+			if(chain.state == GoTweenState.Paused || chain.isReversed == false)
+				chain.playBackwards();
+		} else {
+			chain.pause();
+			Debug.Log("player", "stopped");
 		}
 	}
-
-	private void LadderLoop(float yPlaneInput) {
-
-	}
-
-	/*public void ClimbUpdate(float climbingSpeed)
-	{
-		// If you are lower than the top of the ladder or you're moving down
-		if((highestPoint.y >= transform.position.y || climbingSpeed < 0))
-		{
-			rigidbody.AddForce(cameraTransform.TransformDirection(Vector3.up) * climbingSpeed);
-		}
-	}*/
-
-	/*
-	//! Unity built in function. Used to detect continous collision with another GameObject
-	//!	Something something climbing code
-	void OnTriggerStay(Collider collider)
-	{ 
-		// if you're in a collider
-		if(Input.GetKeyDown(KeyCode.Q))
-		{
-			eventInput = !eventInput;
-		}
-		// starting a ladder event from the bottom
-		if(collider.gameObject.tag == "BottomStartRange")
-		{
-			// player has hit event button
-			if(eventInput)
-			{
-				// not in a movement event already
-				if(!inMovementEvent)
-				{ 
-					// what object we started the climb from
-					last = "BottomStartRange";
-					// limit movement to movementEvent movement
-					inMovementEvent = true;
-					// set climbing state
-					currentCharacterState = characterState.climbingState;
-					// stop movement
-					rigidbody.velocity = Vector3.zero;
-					// no gravity while climbing
-					rigidbody.useGravity = false;
-					// more drag so player doesnt slide
-					rigidbody.drag = 5.0f;
-					// limit rotations
-					rigidbody.constraints = RigidbodyConstraints.FreezeRotationY | RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ;
-					// snap player to ladder
-					transform.position = collider.transform.parent.GetChild(1).position;
-					// snap rotation to ladder
-					transform.rotation = collider.gameObject.transform.rotation;
-					// highest point of ladder
-					highestPoint = collider.transform.parent.parent.GetChild(2).GetChild(0).position;
-				}
-			}
-		}
-		else
-		{
-			last = "";
-		}
-		// starting a ladder event from the top
-		if(collider.gameObject.tag == "TopStartRange")
-		{
-			// player has hit event button
-			if(eventInput)
-			{
-				// not in a movement event already
-				if(!inMovementEvent)
-				{
-					// what object we started the climb from
-					last = "TopStartRange";
-					// limit movement to movementEvent movement
-					inMovementEvent = true;
-					// set climbing state
-					currentCharacterState = characterState.climbingState;
-					rigidbody.velocity = Vector3.zero;
-					// no gravity while climbing
-					rigidbody.useGravity = false;
-					// more drag so player doesnt slide
-					rigidbody.drag = 5.0f;
-					rigidbody.constraints = RigidbodyConstraints.FreezeRotationY | RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ;
-					// snap player to ladder
-					transform.position = collider.transform.parent.GetChild(1).position;
-					// snap rotation to ladder
-					transform.rotation = collider.gameObject.transform.rotation;
-					// highest point of ladder
-					highestPoint = collider.transform.parent.GetChild(0).position;
-				}
-			}
-			else
-			{
-				last = "";
-			}
-		}
-	}
-	
-	//! Unity built in function. Used to detect collision
-	//! More ladder shit
-	void OnTriggerEnter(Collider collider)
-	{
-		// if we're in a movement even and we collide with the bottom of the ladder
-		if(inMovementEvent && collider.gameObject.tag == "BottomEndPos" && last != "BottomStartRange")
-		{
-			// reset variables for normal movement
-			eventInput = false;
-			rigidbody.constraints =  RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ;
-			rigidbody.useGravity = true;
-			rigidbody.drag = 1.0f;
-			inMovementEvent = false;
-		}
-		// if we're in a movement even and we collide with the top of the ladder
-		if(inMovementEvent && collider.gameObject.tag == "TopEndPos" && last != "TopStartRange")
-		{
-			// reset variables for normal movement
-			eventInput = false;
-			rigidbody.constraints =  RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ;
-			rigidbody.useGravity = true;
-			rigidbody.drag = 1.0f;
-			inMovementEvent = false;
-			// put player on roof next to top of ladder
-			PositionAfterEvent(collider.transform.parent.GetChild(2).position);
-			
-		}
-	}
-	
-	//! This function is only called once currently; if you want a smooth transform, you need to create a function that is called in FixedUpdate
-	public void PositionAfterEvent(Vector3 position)
-	{
-		while(Vector3.Distance(transform.position,position) > 0.1f)
-		{
-			transform.position = Vector3.Lerp(transform.position,position,0.01f);
-		}
-	}
-	*/
 
 	[EventField]
 	//! Kills the character
@@ -362,9 +215,8 @@ public sealed class PoPCharacterController : CharacterController_2 {
 		transform.position = SetPosition(spawnpoint);
 	}
 
-	private Vector3 SetPosition(Vector3 pos){
+	private Vector3 SetPosition(Vector3 pos) {
 		return new Vector3(pos.x, pos.y + myCollider.bounds.size.y / 2, pos.z);
-		
 	}
 
 	private bool Vec3Approx(Vector3 a, Vector3 b) {

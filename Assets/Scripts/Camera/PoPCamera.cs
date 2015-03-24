@@ -68,7 +68,7 @@ public class PoPCamera : Camera_2
 		//**Used for target testing**
 		if(targetedObject)
 		{
-			targetedObject.renderer.material.color = Color.red;
+			targetedObject.GetComponent<Renderer>().material.color = Color.red;
 		}
 
 		if(inEvent)
@@ -120,7 +120,7 @@ public class PoPCamera : Camera_2
 
 			if(targetedObject)
 			{
-				targetedObject.renderer.material.color = Color.green;
+				targetedObject.GetComponent<Renderer>().material.color = Color.green;
 			}
 		}
 
@@ -217,7 +217,7 @@ public class PoPCamera : Camera_2
 		if (Physics.Linecast (from, PlanePoints.LowerRight, out HitInfo) && HitInfo.collider.tag != "Player")
 			if(HitInfo.distance < NearDistance || NearDistance == -1)
 				NearDistance = HitInfo.distance;
-		if (Physics.Linecast (from, to + transform.forward * -camera.nearClipPlane, out HitInfo) && HitInfo.collider.tag != "Player")
+		if (Physics.Linecast (from, to + transform.forward * -GetComponent<Camera>().nearClipPlane, out HitInfo) && HitInfo.collider.tag != "Player")
 			if(HitInfo.distance < NearDistance || NearDistance == -1)
 				NearDistance = HitInfo.distance;
 

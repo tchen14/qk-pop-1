@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
-using UnityEditor;
 using System.Collections;
+#if UNITY_ENGINE
+using UnityEditor;
+#endif
 
 /*
  * Class for triggering camera events

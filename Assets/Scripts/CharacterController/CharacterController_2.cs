@@ -21,8 +21,8 @@ public abstract class CharacterController_2 : MonoBehaviour {
 	protected Vector3 targetDirection = Vector3.zero;
 	protected float currentWalkingSpeed;
 	public const float rotationSpeed = 3.5f;
-	protected const float minWalkingSpeed = 20f;
-	protected const float maxWalkingSpeed = 40f;
+	protected const float minWalkingSpeed = 10f;
+	protected const float maxWalkingSpeed = 20f;
 	protected const float runningSpeedMod = 1.2f;
 	protected const float moveAcceleration = 7.5f;
 	protected const int movePow = 3;
@@ -46,7 +46,8 @@ public abstract class CharacterController_2 : MonoBehaviour {
 	// Action variables
 	[ReadOnly]
 	public bool actionAvaiable; //Only public for inspector. Should be protected
-	protected PlayerAction actionComponent;
+	protected PlayerActionPath actionComponent;
+	protected Rigidbody rigidbody;
 
 	// Modifiers variables
 	[ReadOnly]
@@ -56,6 +57,7 @@ public abstract class CharacterController_2 : MonoBehaviour {
 
 	public virtual void Start() {
 		myCollider = GetComponent<CapsuleCollider>();
+		rigidbody = GetComponent<Rigidbody>();
 
 		currentWalkingSpeed = minWalkingSpeed;
 		currentClimbingSpeed = minClimbingSpeed;
@@ -88,7 +90,7 @@ public abstract class CharacterController_2 : MonoBehaviour {
 	void OnTriggerEnter(Collider collider) {
 		if(collider.tag == "PlayerAction") {
 			actionAvaiable = true;
-			actionComponent = collider.gameObject.GetComponent<PlayerAction>();
+			actionComponent = collider.gameObject.GetComponent<PlayerActionPath>();
 		}
 	}
 
