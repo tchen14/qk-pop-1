@@ -12,7 +12,7 @@ using UnityEngine.UI;
 
 public class GameHUD : MonoBehaviour {
 
-	public GameObject mainHUDCanvas;				//!The canvas HUD is rendered on
+	public GameObject mainHUDCanvas;				//!<The canvas HUD is rendered on
 	public GameObject worldMapCanvas;				//!<All the game map elements
 	public GameObject gameMap;						//!<The map iamge on a plane
 	public GameObject player;						//!<reference to player
@@ -179,25 +179,24 @@ public class GameHUD : MonoBehaviour {
 		if(phoneAbilitiesAvailible.Count > 1){
 			Vector3 newPos = spawnPoint.transform.position;
 
-			newPos.x += Screen.width/20;
+			newPos.x += Screen.width/24;
 			newPos.y -= Screen.height/8;
 			rightAbilityIcon = Instantiate (phoneAbilitiesAvailible [1], newPos, Quaternion.identity) as GameObject;
-			Vector3 newScale = rightAbilityIcon.transform.localScale;
-			newScale *= 1.8f;
+			rightAbilityIcon.GetComponent<RectTransform>().sizeDelta = new Vector2(Screen.height/6,Screen.height/6);
 
-			rightAbilityIcon.transform.localScale = newScale;
+
 			rightAbilityIcon.transform.SetParent (spawnPoint.transform);
 		}
 
 		//spawn ability on the left if there is at least 3 elements in the array
 		if(phoneAbilitiesAvailible.Count > 2){
 			Vector3 newPos = spawnPoint.transform.position;
-			Vector3 newScale = phoneAbilitiesAvailible [0].transform.localScale;
-			newScale /= 1.5f;
-			newPos.x += Screen.width/12;
+
+			newPos.x += Screen.width/24;
 			newPos.y += Screen.height/8;
 			leftAbilityIcon = Instantiate (phoneAbilitiesAvailible[phoneAbilitiesAvailible.Count-1], newPos, Quaternion.identity) as GameObject;
-			leftAbilityIcon.transform.localScale = newScale;
+			leftAbilityIcon.GetComponent<RectTransform>().sizeDelta = new Vector2(Screen.height/6,Screen.height/6);
+
 			leftAbilityIcon.transform.SetParent (spawnPoint.transform);
 		}
 
