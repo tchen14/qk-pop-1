@@ -8,8 +8,9 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 400000}
-  - 135: {fileID: 13500000}
-  - 114: {fileID: 11400000}
+  - 135: {fileID: 13571940}
+  - 65: {fileID: 6558800}
+  - 114: {fileID: 11420232}
   m_Layer: 0
   m_Name: Ladder
   m_TagString: PlayerAction
@@ -29,7 +30,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
---- !u!114 &11400000
+--- !u!65 &6558800
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100000}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 2, z: 0}
+--- !u!114 &11420232
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -37,23 +50,23 @@ MonoBehaviour:
   m_GameObject: {fileID: 100000}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7ce7b4d7e95bc4f42b2c9b89b6aa2335, type: 3}
+  m_Script: {fileID: 11500000, guid: 966e16477640f479bb47611a160f8f27, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  id: 
-  upDestination: {fileID: 0}
-  downDestination: {fileID: 0}
---- !u!135 &13500000
+  actionType: 1
+  path:
+  - {x: 0, y: 2, z: 0}
+--- !u!135 &13571940
 SphereCollider:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100000}
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 1
+  m_Radius: .5
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1001 &100100000
 Prefab:
@@ -66,4 +79,3 @@ Prefab:
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 100000}
   m_IsPrefabParent: 1
-  m_IsExploded: 1

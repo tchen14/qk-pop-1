@@ -15,4 +15,8 @@ public sealed class PlayerActionPath : MonoBehaviour {
 		if(path.Count == 0)
 			Debug.Log("safety", "ActionPath at " + transform.position + "has less than 2 positions.");
 	}
+
+	void OnGizmo() {
+
+	}
 }

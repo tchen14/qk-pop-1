@@ -202,7 +202,7 @@ public sealed class PoPCharacterController : CharacterController_2 {
 		}
 	}
 
-	[EventField]
+	//[EventField]
 	//! Kills the character
 	public void Death() {
 		Debug.Log("player", "Player has died.");

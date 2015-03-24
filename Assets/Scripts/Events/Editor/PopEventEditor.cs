@@ -11,7 +11,6 @@ public class PopEventEditor : Editor {
 
     private GUIStyle style;
     private int columnWidth = 200;
-    private GUIStyle buttonStyle;
 
     PopEvent m;
 
@@ -30,8 +29,6 @@ public class PopEventEditor : Editor {
         #endif
         style.fontStyle = FontStyle.Bold;
         style.clipping = TextClipping.Clip;
-
-        buttonStyle = new GUIStyle();
 
         if (m.couple == null) {
             m.couple = new EventCouple();
