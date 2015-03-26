@@ -18,6 +18,7 @@ public class GameHUD : MonoBehaviour {
 	public GameObject player;						//!<reference to player
 	public int numOfAbilities;						//!<temporary int for number of abilities in game
 	public GameObject[] hudAbilityIcons;			//!<Array of hud icons, set in inspector
+	public bool abilitiesUp = false;
 
 	List<GameObject> phoneAbilitiesAvailible;		//!<List containing hud phone abilties
 	GameObject mapCam;								//!<Camera used for minimap
@@ -28,6 +29,8 @@ public class GameHUD : MonoBehaviour {
 	GameObject rightAbilityIcon;
 	GameObject leftAbilityIcon;
 
+	GameObject phoneButtons;
+	GameObject mapElements;
 	GameObject compassCameraPoint;					//!<Point at camera location used to calculate objective positions
 
 	public GameObject testObjective;
@@ -50,6 +53,10 @@ public class GameHUD : MonoBehaviour {
 		//!Set initial test objective
 		UpdateObjectiveText("Head to the Objective Point");
 
+		phoneButtons = GameObject.Find ("PhoneButtons");
+		mapElements = GameObject.Find ("MapElements");
+		mapElements.SetActive (false);
+
 		//Testing for filling ability list
 		List<string> tempAbList = new List<string>();
 		tempAbList.Add ("Push");
@@ -69,7 +76,7 @@ public class GameHUD : MonoBehaviour {
 
 	void Start() {
 		//Place the ability buttons in the Phone Menu
-		SpawnHudAbilityIcons ();
+		//SpawnHudAbilityIcons ();
 	}
 	
 
@@ -162,45 +169,56 @@ public class GameHUD : MonoBehaviour {
 	}
 
 	//Display the HUD icons in the phone menu
-	void SpawnHudAbilityIcons () {
-		GameObject spawnPoint = GameObject.Find ("abilitySelectPivot");
+	public void SpawnHudAbilityIcons () {
+		if (!abilitiesUp) {
+			abilitiesUp = true;
+			GameObject spawnPoint = GameObject.Find ("abilitySelectPivot");
 
-		//Calculate size of buttons based on screen size (HUD Canvas Size)
-		middleAbilityIcon = Instantiate (phoneAbilitiesAvailible [0], spawnPoint.transform.position, Quaternion.identity) as GameObject;
-		RectTransform middleRect = middleAbilityIcon.GetComponent<RectTransform> ();
+			//Calculate size of buttons based on screen size (HUD Canvas Size)
+			middleAbilityIcon = Instantiate (phoneAbilitiesAvailible [0], spawnPoint.transform.position, Quaternion.identity) as GameObject;
+			RectTransform middleRect = middleAbilityIcon.GetComponent<RectTransform> ();
 
-		Vector2 newMainDmiensions = new Vector2 (Screen.height/4, Screen.height/4);
+			Vector2 newMainDmiensions = new Vector2 (Screen.height / 4, Screen.height / 4);
 
-		middleRect.sizeDelta = newMainDmiensions;
+			middleRect.sizeDelta = newMainDmiensions;
 
-		middleAbilityIcon.transform.SetParent (spawnPoint.transform);
+			middleAbilityIcon.transform.SetParent (spawnPoint.transform);
 
-		//spawn ability on the right if there is at least 2 elements in the array
-		if(phoneAbilitiesAvailible.Count > 1){
-			Vector3 newPos = spawnPoint.transform.position;
+			//spawn ability on the right if there is at least 2 elements in the array
+			if (phoneAbilitiesAvailible.Count > 1) {
+				Vector3 newPos = spawnPoint.transform.position;
 
-			newPos.x += Screen.width/24;
-			newPos.y -= Screen.height/8;
-			rightAbilityIcon = Instantiate (phoneAbilitiesAvailible [1], newPos, Quaternion.identity) as GameObject;
-			rightAbilityIcon.GetComponent<RectTransform>().sizeDelta = new Vector2(Screen.height/6,Screen.height/6);
+				newPos.x += Screen.width / 24;
+				newPos.y -= Screen.height / 8;
+				rightAbilityIcon = Instantiate (phoneAbilitiesAvailible [1], newPos, Quaternion.identity) as GameObject;
+				rightAbilityIcon.GetComponent<RectTransform> ().sizeDelta = new Vector2 (Screen.height / 6, Screen.height / 6);
 
 
-			rightAbilityIcon.transform.SetParent (spawnPoint.transform);
+				rightAbilityIcon.transform.SetParent (spawnPoint.transform);
+			}
+
+			//spawn ability on the left if there is at least 3 elements in the array
+			if (phoneAbilitiesAvailible.Count > 2) {
+				Vector3 newPos = spawnPoint.transform.position;
+
+				newPos.x += Screen.width / 24;
+				newPos.y += Screen.height / 8;
+				leftAbilityIcon = Instantiate (phoneAbilitiesAvailible [phoneAbilitiesAvailible.Count - 1], newPos, Quaternion.identity) as GameObject;
+				leftAbilityIcon.GetComponent<RectTransform> ().sizeDelta = new Vector2 (Screen.height / 6, Screen.height / 6);
+
+				leftAbilityIcon.transform.SetParent (spawnPoint.transform);
+			}
+		} else {
+			Destroy(middleAbilityIcon); Destroy(rightAbilityIcon); Destroy(leftAbilityIcon);
+			abilitiesUp = false;
 		}
-
-		//spawn ability on the left if there is at least 3 elements in the array
-		if(phoneAbilitiesAvailible.Count > 2){
-			Vector3 newPos = spawnPoint.transform.position;
-
-			newPos.x += Screen.width/24;
-			newPos.y += Screen.height/8;
-			leftAbilityIcon = Instantiate (phoneAbilitiesAvailible[phoneAbilitiesAvailible.Count-1], newPos, Quaternion.identity) as GameObject;
-			leftAbilityIcon.GetComponent<RectTransform>().sizeDelta = new Vector2(Screen.height/6,Screen.height/6);
-
-			leftAbilityIcon.transform.SetParent (spawnPoint.transform);
-		}
-
 	}
 
+	//SHows map on phone and roates and resizes phone to screen
+	public void showMap () {
+		phoneButtons.SetActive (false);
+		mapElements.SetActive (true);
+		GameObject.Find ("PhoneMenu").GetComponent<Animator> ().SetBool ("mapActive", true);
+	}
 
 }
