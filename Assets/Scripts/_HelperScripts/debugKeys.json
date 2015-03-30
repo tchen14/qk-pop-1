@@ -6,8 +6,8 @@
 	"core",
 	"editor",
 	"input",
-	"json",
 	"player",
 	"safety",
+	"save",
 	"ui"
 ]
