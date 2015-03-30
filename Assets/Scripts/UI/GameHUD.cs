@@ -11,7 +11,8 @@ using UnityEngine.UI;
  */
 
 public class GameHUD : MonoBehaviour {
-
+#pragma warning disable 0219
+#pragma warning disable 0414
 	public GameObject mainHUDCanvas;				//!<The canvas HUD is rendered on
 	public GameObject worldMapCanvas;				//!<All the game map elements
 	public GameObject gameMap;						//!<The map iamge on a plane
@@ -35,154 +36,154 @@ public class GameHUD : MonoBehaviour {
 
 	public GameObject testObjective;
 
-	void Awake () {
+	void Awake() {
 
-		mainHUDCanvas = GameObject.Find ("mainHUD");
+		mainHUDCanvas = GameObject.Find("mainHUD");
 		//!Turn on UI stuff
-		worldMapCanvas.SetActive (true);
+		worldMapCanvas.SetActive(true);
 
 		//!Fill mapLabels array
-		mapLabels = GameObject.FindGameObjectsWithTag ("worldMapLabel");
+		mapLabels = GameObject.FindGameObjectsWithTag("worldMapLabel");
 
 		//!Set mapcam reference
-		mapCam = GameObject.Find ("mapCam");
+		mapCam = GameObject.Find("mapCam");
 		//!Set compassCameraPoint reference
-		compassCameraPoint = GameObject.Find ("compassCameraPoint");
+		compassCameraPoint = GameObject.Find("compassCameraPoint");
 		//!Set objective text reference
 		objectiveText = GameObject.Find("objectiveText");
 		//!Set initial test objective
 		UpdateObjectiveText("Head to the Objective Point");
 
-		phoneButtons = GameObject.Find ("PhoneButtons");
-		mapElements = GameObject.Find ("MapElements");
-		mapElements.SetActive (false);
+		phoneButtons = GameObject.Find("PhoneButtons");
+		mapElements = GameObject.Find("MapElements");
+		mapElements.SetActive(false);
 
 		//Testing for filling ability list
 		List<string> tempAbList = new List<string>();
-		tempAbList.Add ("Push");
-		tempAbList.Add ("Pull");
-		tempAbList.Add ("Shock");
+		tempAbList.Add("Push");
+		tempAbList.Add("Pull");
+		tempAbList.Add("Shock");
 
 
 		//Initialize phone abilities list
-		phoneAbilitiesAvailible = new List<GameObject> ();
+		phoneAbilitiesAvailible = new List<GameObject>();
 
-		fillAbilityList (tempAbList);
+		fillAbilityList(tempAbList);
 
 
 
-		
+
 	}
 
 	void Start() {
 		//Place the ability buttons in the Phone Menu
 		//SpawnHudAbilityIcons ();
 	}
-	
 
-	void Update () {
+
+	void Update() {
 		//!This is for testing, call update map from player movements
-		rotateMapObjects ();
+		rotateMapObjects();
 
 		//!Set the compass indicator
-		setCompassValue (calculateObjectiveAngle (testObjective));
+		setCompassValue(calculateObjectiveAngle(testObjective));
 		//Debug.Log("Angle found: " + calculateObjectiveAngle(testObjective));
 
 	}
 
 	//!Call this to update objective tet at top of the screen
-	public void UpdateObjectiveText (string newObjective) {
-		objectiveText.GetComponent<Text> ().text = "Objective: " + newObjective;
+	public void UpdateObjectiveText(string newObjective) {
+		objectiveText.GetComponent<Text>().text = "Objective: " + newObjective;
 	}
 
 	//!Rotates map labels so that the text is always right side up, call this from anything that rotates the camera
 	//!Right now its based on Player rotation, needs to be based on camera
-	public void rotateMapObjects () {
+	public void rotateMapObjects() {
 		Quaternion newRotation;
-		foreach(GameObject curLabel in mapLabels) {
-			newRotation = Quaternion.Euler(new Vector3(90,0,-player.transform.rotation.eulerAngles.y));
+		foreach (GameObject curLabel in mapLabels) {
+			newRotation = Quaternion.Euler(new Vector3(90, 0, -player.transform.rotation.eulerAngles.y));
 			curLabel.GetComponent<RectTransform>().rotation = newRotation;
 		}
 	}
 
-	public void setCompassValue (float newValue) {
-		GameObject compass = GameObject.Find ("compassSlider");
-		if(newValue > 105){
+	public void setCompassValue(float newValue) {
+		GameObject compass = GameObject.Find("compassSlider");
+		if (newValue > 105) {
 			newValue = 105;
 		}
-		if(newValue < 75){
+		if (newValue < 75) {
 			newValue = 75;
 		}
-		compass.GetComponent<Slider> ().value = newValue;
+		compass.GetComponent<Slider>().value = newValue;
 	}
 
-	public float calculateObjectiveAngle (GameObject objective) {
+	public float calculateObjectiveAngle(GameObject objective) {
 		Vector3 pointToObjective;
 		Vector3 pointStraightFromCam;
 
 		//!Set points to determine which side of the player the vector towards the objective is going
-		GameObject camPointRight = GameObject.Find ("camPointRight");
-		GameObject camPointleft = GameObject.Find ("camPointLeft");
+		GameObject camPointRight = GameObject.Find("camPointRight");
+		GameObject camPointleft = GameObject.Find("camPointLeft");
 
 
 		//!create vector3 from player to objective and normalize it
 		pointToObjective = objective.gameObject.transform.position - compassCameraPoint.transform.position;
-		pointToObjective.Normalize ();
+		pointToObjective.Normalize();
 
 		//!Set this vector to point right away from camera
 		pointStraightFromCam = -compassCameraPoint.transform.right;
-		pointStraightFromCam.Normalize ();
+		pointStraightFromCam.Normalize();
 
 		//!return angle from right facing vector
-		
+
 		return Vector3.Angle(pointStraightFromCam, pointToObjective);
-		
+
 
 	}
-	
+
 	//This is for testing
-	void OnTriggerEnter (Collider col) {
-		if(col.gameObject.tag == "Finish"){
+	void OnTriggerEnter(Collider col) {
+		if (col.gameObject.tag == "Finish") {
 			UpdateObjectiveText("Objective Complete!");
 		}
 	}
 
 	//fills HUD ability list
-	void fillAbilityList (List<string> abilities){
+	void fillAbilityList(List<string> abilities) {
 		//Add the proper ability to the phone wheel
-		foreach (string curAbility in abilities){
+		foreach (string curAbility in abilities) {
 			switch (curAbility) {
-			
-			case "Push":
-				phoneAbilitiesAvailible.Add(hudAbilityIcons[0]);
-				break;
 
-			case "Pull":
-				phoneAbilitiesAvailible.Add(hudAbilityIcons[1]);
-				break;
-			
-			case "Shock":
-				phoneAbilitiesAvailible.Add(hudAbilityIcons[2]);
-				break;
+				case "Push":
+					phoneAbilitiesAvailible.Add(hudAbilityIcons[0]);
+					break;
+
+				case "Pull":
+					phoneAbilitiesAvailible.Add(hudAbilityIcons[1]);
+					break;
+
+				case "Shock":
+					phoneAbilitiesAvailible.Add(hudAbilityIcons[2]);
+					break;
 			}
 		}
 	}
 
 	//Display the HUD icons in the phone menu
-	public void SpawnHudAbilityIcons () {
+	public void SpawnHudAbilityIcons() {
 		if (!abilitiesUp) {
 			abilitiesUp = true;
-			GameObject spawnPoint = GameObject.Find ("abilitySelectPivot");
+			GameObject spawnPoint = GameObject.Find("abilitySelectPivot");
 
 			//Calculate size of buttons based on screen size (HUD Canvas Size)
-			middleAbilityIcon = Instantiate (phoneAbilitiesAvailible [0], spawnPoint.transform.position, Quaternion.identity) as GameObject;
-			RectTransform middleRect = middleAbilityIcon.GetComponent<RectTransform> ();
+			middleAbilityIcon = Instantiate(phoneAbilitiesAvailible[0], spawnPoint.transform.position, Quaternion.identity) as GameObject;
+			RectTransform middleRect = middleAbilityIcon.GetComponent<RectTransform>();
 
-			Vector2 newMainDmiensions = new Vector2 (Screen.height / 4, Screen.height / 4);
+			Vector2 newMainDmiensions = new Vector2(Screen.height / 4, Screen.height / 4);
 
 			middleRect.sizeDelta = newMainDmiensions;
 
-			middleAbilityIcon.transform.SetParent (spawnPoint.transform);
+			middleAbilityIcon.transform.SetParent(spawnPoint.transform);
 
 			//spawn ability on the right if there is at least 2 elements in the array
 			if (phoneAbilitiesAvailible.Count > 1) {
@@ -190,11 +191,11 @@ public class GameHUD : MonoBehaviour {
 
 				newPos.x += Screen.width / 24;
 				newPos.y -= Screen.height / 8;
-				rightAbilityIcon = Instantiate (phoneAbilitiesAvailible [1], newPos, Quaternion.identity) as GameObject;
-				rightAbilityIcon.GetComponent<RectTransform> ().sizeDelta = new Vector2 (Screen.height / 6, Screen.height / 6);
+				rightAbilityIcon = Instantiate(phoneAbilitiesAvailible[1], newPos, Quaternion.identity) as GameObject;
+				rightAbilityIcon.GetComponent<RectTransform>().sizeDelta = new Vector2(Screen.height / 6, Screen.height / 6);
 
 
-				rightAbilityIcon.transform.SetParent (spawnPoint.transform);
+				rightAbilityIcon.transform.SetParent(spawnPoint.transform);
 			}
 
 			//spawn ability on the left if there is at least 3 elements in the array
@@ -203,10 +204,10 @@ public class GameHUD : MonoBehaviour {
 
 				newPos.x += Screen.width / 24;
 				newPos.y += Screen.height / 8;
-				leftAbilityIcon = Instantiate (phoneAbilitiesAvailible [phoneAbilitiesAvailible.Count - 1], newPos, Quaternion.identity) as GameObject;
-				leftAbilityIcon.GetComponent<RectTransform> ().sizeDelta = new Vector2 (Screen.height / 6, Screen.height / 6);
+				leftAbilityIcon = Instantiate(phoneAbilitiesAvailible[phoneAbilitiesAvailible.Count - 1], newPos, Quaternion.identity) as GameObject;
+				leftAbilityIcon.GetComponent<RectTransform>().sizeDelta = new Vector2(Screen.height / 6, Screen.height / 6);
 
-				leftAbilityIcon.transform.SetParent (spawnPoint.transform);
+				leftAbilityIcon.transform.SetParent(spawnPoint.transform);
 			}
 		} else {
 			Destroy(middleAbilityIcon); Destroy(rightAbilityIcon); Destroy(leftAbilityIcon);
@@ -215,10 +216,10 @@ public class GameHUD : MonoBehaviour {
 	}
 
 	//SHows map on phone and roates and resizes phone to screen
-	public void showMap () {
-		phoneButtons.SetActive (false);
-		mapElements.SetActive (true);
-		GameObject.Find ("PhoneMenu").GetComponent<Animator> ().SetBool ("mapActive", true);
+	public void showMap() {
+		phoneButtons.SetActive(false);
+		mapElements.SetActive(true);
+		GameObject.Find("PhoneMenu").GetComponent<Animator>().SetBool("mapActive", true);
 	}
 
 }
