@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.Audio;
 
 /*!
  *	Manages audio for all levels. This class pretty much just loads and plays sounds, on a (timed or untimed) repeat if desired.
@@ -24,6 +25,10 @@ public class AudioManager : MonoBehaviour {
 	}
 	#endregion
 
+	public AudioMixer masterMixer;
+
+
+
 	//! Unity Start function
     void Start() {
 		
@@ -44,6 +49,32 @@ public class AudioManager : MonoBehaviour {
 	}
 
     //! Unity Update function
-    void Update() {
-    }
+    //void Update() {
+	//}
+	#region setFunct
+	public void setMasterVol(float masterLvl){
+		masterMixer.SetFloat ("MasterVol", masterLvl);
+	}
+	public void setMaxAmbiance(float ambianceLvl){
+		masterMixer.SetFloat ("MaxAmbianceVol", ambianceLvl);
+	}
+	public void setMaxEffect(float effectLvl){
+		masterMixer.SetFloat ("MaxEffectVol", effectLvl);
+	}
+	public void setMaxMusic(float musicLvl){
+		masterMixer.SetFloat ("MaxMusicVol", musicLvl);
+	}
+	public void setMaxVoice(float voiceLvl){
+		masterMixer.SetFloat ("MaxVoiceVol", voiceLvl);
+	}
+	public void resetToDefault(){
+		masterMixer.ClearFloat ("MasterVol");
+		masterMixer.ClearFloat ("MaxAmbianceVol");
+		masterMixer.ClearFloat ("MaxEffectVol");
+		masterMixer.ClearFloat ("MaxMusicVol");
+		masterMixer.ClearFloat ("MaxVoiceVol");
+
+	}
+
+	#endregion
 }
