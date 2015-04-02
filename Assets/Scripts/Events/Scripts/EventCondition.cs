@@ -8,11 +8,14 @@ public class EventCondition {
     public string conditionField;
     public System.Type conditionType;
     public int conditionIndex;
-    public int conditionInt;
-    public float conditionFloat;
-    public Vector3 conditionVector3;
 
-    public enum WatchType { WatchScript }
+    //  Potential Parameters
+    public int p_int;
+    public float p_float;
+    public Vector3 p_Vector3;
+    public Transform p_Transform;
+
+    public enum WatchType { ChooseACondition, WatchScript, PlayerEntersArea, WaitXSeconds }
     public WatchType watchType;
     
     public enum NumberCompareOption { EqualTo, GreaterThan, LessThan }
