@@ -7,6 +7,15 @@ public class MainMenuInputManager : InputManager {
 	protected string cancel = "q";
 	protected string action0 = "e";
 
+	protected string forward = "w";
+	protected string backward = "s";
+	protected string left = "a";
+	protected string right = "d";
+	protected string action = "return";
+	protected string sprint = "left shift";
+	protected string crouch = "left ctrl";
+	protected string jump = "space";
+
 	//! Unity Start function
 	void Start () 
 	{
