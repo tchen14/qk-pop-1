@@ -76,5 +76,14 @@ public class AudioManager : MonoBehaviour {
 
 	}
 
+	//public void setObjectVolume(string objectName, float objectLvl){
+		//needs work
+	//}
+
+	#endregion
+
+	#region playFunct
+	//set up each type of sound play functions
+
 	#endregion
 }
