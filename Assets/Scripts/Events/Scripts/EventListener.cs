@@ -17,34 +17,77 @@ public static class EventListener {
         int testsPassed = 0;
 
         foreach(EventCondition condition in couple.conditions){
-            if (condition.conditionScript != null) {
-                numberOfConditions++;
-                if (condition.conditionType == null) {
-                    condition.conditionType = condition.conditionScript.GetType().GetField(condition.conditionField).FieldType;
+            numberOfConditions++;
+            //  Watch Script Type Condition
+            if (condition.watchType == EventCondition.WatchType.WatchScript) {
+                if (condition.conditionScript != null) {
+                    numberOfConditions--;
+                    if (condition.conditionType == null) {
+                        condition.conditionType = condition.conditionScript.GetType().GetField(condition.conditionField).FieldType;
+                    }
+                }
+
+                if (condition.conditionType == typeof(System.Int32)) {
+                    int intValue = (int)condition.conditionScript.GetType().GetField(condition.conditionField).GetValue(condition.conditionScript);
+                    if (Compare(intValue, condition.p_int, condition.numberCompareOption)) {
+                        testsPassed++;
+                    }
+                }
+                else if (condition.conditionType == typeof(System.Single)) {
+                    float floatValue = (float)condition.conditionScript.GetType().GetField(condition.conditionField).GetValue(condition.conditionScript);
+                    if (Compare(floatValue, condition.p_float, condition.numberCompareOption)) {
+                        testsPassed++;
+                    }
                 }
             }
-
-            if (condition.conditionType == typeof(System.Int32)) {
-                int intValue = (int)condition.conditionScript.GetType().GetField(condition.conditionField).GetValue(condition.conditionScript);
-                if (Compare(intValue, condition.conditionInt, condition.numberCompareOption)) {
+            //  Player Enters Area
+            else if (condition.watchType == EventCondition.WatchType.PlayerEntersArea) {
+                if (condition.p_Transform == null) {
+                    condition.p_Transform = GameObject.Find("/_Player").transform;
+                }
+                if (Vector3.Distance(condition.p_Transform.position, couple.popEvent.conditionRegionCenter) <= couple.popEvent.conditionRegionRadius) {
                     testsPassed++;
                 }
             }
-            else if (condition.conditionType == typeof(System.Single)) {
-                float floatValue = (float)condition.conditionScript.GetType().GetField(condition.conditionField).GetValue(condition.conditionScript);
-                if (Compare(floatValue, condition.conditionFloat, condition.numberCompareOption)) {
+            else if (condition.watchType == EventCondition.WatchType.WaitXSeconds) {
+                if (couple.popEvent.totalTimeActive >= condition.p_float) {
                     testsPassed++;
                 }
             }
         }
-        if (testsPassed >= numberOfConditions) {
-            InvokeAction(couple);
+        if (couple.andOrCompare == EventCouple.AndOrCompare.EveryCondition) {
+            if (testsPassed >= numberOfConditions) {
+                InvokeAction(couple);
+            }
+        }
+        else if (couple.andOrCompare == EventCouple.AndOrCompare.OneOrMore) {
+            if (testsPassed >= 1) {
+                InvokeAction(couple);
+            }
+        }
+        else if (couple.andOrCompare == EventCouple.AndOrCompare.ExactlyOne) {
+            if (testsPassed == 1) {
+                InvokeAction(couple);
+            }
         }
     }
 
     public static void InvokeAction(EventCouple couple) {
         foreach (EventAction action in couple.actions) {
-            action.actionScript.GetType().GetMethod(action.actionName).Invoke(action.actionScript, action.args);
+            if (action.executeType == EventAction.ExecuteType.ExecuteFunction) {
+                if (action.actionName != string.Empty) {
+                    action.actionScript.GetType().GetMethod(action.actionName).Invoke(action.actionScript, action.args);
+                }
+            }
+            else if (action.executeType == EventAction.ExecuteType.DebugMessage) {
+                MonoBehaviour.print(action.p_string);
+            }
+            else if (action.executeType == EventAction.ExecuteType.ActivateNextEvent) {
+                couple.popEvent.ActivateNextEvent();
+            }
+        }
+        if (couple.popEvent.executeOnce == true) {
+            couple.popEvent.Deactivate();
         }
     }
 
