@@ -265,8 +265,8 @@ namespace FFP
 				
 				File.Delete((securityModeEnabled ? fileName : secureFileName));
 				
-				if (fileWriter == null) { 
-					Debug.Warning ("json", "PlayerPrefs::Flush() opening file for writing failed: " + fileName);
+				if (fileWriter == null) {
+					Debug.Warning ("save", "PlayerPrefs::Flush() opening file for writing failed: " + fileName);
 					return;
 				}
 					
@@ -321,7 +321,7 @@ namespace FFP
 				playerPrefsHashtable.Add (DeEscapeNonSeperators (parameterContent [0], seperators), GetTypeValue (parameterContent [2], DeEscapeNonSeperators (parameterContent [1], seperators)));
 				
 				if (parameterContent.Length > 3) {
-					Debug.Warning ("json", "PlayerPrefs::Deserialize() parameterContent has " + parameterContent.Length + " elements");
+					Debug.Warning ("save", "PlayerPrefs::Deserialize() parameterContent has " + parameterContent.Length + " elements");
 				}
 			}
 		}
@@ -397,7 +397,7 @@ namespace FFP
 			if (typeName == "System.Int64") { //long
 				return Convert.ToInt64 (value);
 			} else {
-				Debug.Error ("json", "Unsupported type: " + typeName);
+				Debug.Error ("save", "Unsupported type: " + typeName);
 			}	
 			
 			return null;

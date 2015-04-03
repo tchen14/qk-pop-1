@@ -34,7 +34,7 @@ namespace FFP {
 		//! \endcond
 			
         // Add menu named "My Window" to the Window menu
-        [MenuItem ("Custom Tools/DLM")]
+        [MenuItem ("Custom Tools/Debug Log Manager")]
         static void Init() {
             EditorWindow.GetWindow (typeof (Debug)).title = "Debug Log";
         }
