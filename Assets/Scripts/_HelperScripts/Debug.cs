@@ -21,15 +21,18 @@ namespace FFP {
 #endif
     	//! Path to the json file required to display debug logs
 		const string JSONPATH = "/Scripts/_HelperScripts/debugKeys.json";
-    	//! \cond doxygen_ignore
-        static List<string> logStrings = new List<string>();
-
+		
+		//! \cond doxygen_ignore
         public List<bool> logBools = new List<bool>();
-
 		[SerializeField]
         public static bool enabled = true, all = true;
     	//! \endcond
 #if UNITY_EDITOR
+			
+		//! \cond doxygen_ignore
+		static List<string> logStrings = new List<string>();
+		//! \endcond
+			
         // Add menu named "My Window" to the Window menu
         [MenuItem ("Custom Tools/DLM")]
         static void Init() {

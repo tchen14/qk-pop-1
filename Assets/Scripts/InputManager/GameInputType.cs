@@ -1,9 +1,8 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 
-//Edited by KD
-
-public class GameInputManager : InputManager {
+//! InputType responsible for normal QK in game movement controls
+public class GameInputType : InputType {
 
 	// TO_DO set variables from json file; for mappable keys
 	protected string forward = "w";
@@ -16,7 +15,7 @@ public class GameInputManager : InputManager {
 	protected string jump = "space";
 
 	public int VerticalAxis() {
-		if(POPInputManager.currentInputState == "GameInputManager") {
+		if(InputManager.activeInputType == "GameInputManager") {
 			if(Input.GetKey(forward) && Input.GetKey(backward))
 				return 0;
 			if(Input.GetKey(forward))
@@ -27,32 +26,32 @@ public class GameInputManager : InputManager {
 		return 0;
 	}
 	public bool HorizontalAxis() {
-		if(POPInputManager.currentInputState == "GameInputManager") {
+		if(InputManager.activeInputType == "GameInputManager") {
 			return true;
 		}
 		return false;
 	}
 
 	public bool isCrouched() {
-		if(POPInputManager.currentInputState == "GameInputManager") {
+		if(InputManager.activeInputType == "GameInputManager") {
 			return true;
 		} 
 			return false;
 	}
 	public bool isSprinting() {
-		if(POPInputManager.currentInputState == "GameInputManager") {
+		if(InputManager.activeInputType == "GameInputManager") {
 			return true;
 		}
 		return false;
 	}
 	public bool isJumping() {
-		if(POPInputManager.currentInputState == "GameInputManager") {
+		if(InputManager.activeInputType == "GameInputManager") {
 			return true;
 		}
 		return false;
 	}
 	public bool isActionPressed() {
-		if(POPInputManager.currentInputState == "GameInputManager") {
+		if(InputManager.activeInputType == "GameInputManager") {
 			return true;
 		}
 		return false;

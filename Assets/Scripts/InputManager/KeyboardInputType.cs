@@ -1,7 +1,8 @@
 using UnityEngine;
 using System.Collections.Generic;
 
-public class KeyboardInputManager : InputManager {
+//! InputType to emulate a normal keyboard. Useful when having the user enter a string
+public class KeyboardInputType : InputType {
 	private string typedString;
 	private char[] array;
 	private float timeHeld = 0f;

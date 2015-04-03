@@ -3,18 +3,8 @@ using System.Collections;
 
 public class MenuSceneManager : SceneManager {
 
-    /*
-     * This code is to load the initial scene.
-     * Because Unity uses the first scene in the Build Settings, this code isn't really needed
-     * unless MasterManager.cs is changed to properly utilize additive scene loading.
-     * Uncomment the below code if a SceneManager is being used before the menu scene (eg: InitSceneManager.cs).
-     */
     void Start() {
-        /*if (!MasterManager.Instance.init) {
-            MasterManager.Instance.ToggleLevel ("Menu");
-
-            MasterManager.Instance.LoadLevels();
-        }*/
+		//todo: set default input type using InputManager
     }
 
     //! testing code until we get Scaleform UI fully working \todo: implement scaleform UI and delete this function

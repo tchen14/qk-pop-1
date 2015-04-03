@@ -1,7 +1,8 @@
 using UnityEngine;
 using System.Collections;
 
-public class MainMenuInputManager : InputManager {
+//! InputType responsible for UI interaction
+public class MenuInputType : InputType {
 	
 	// TO_DO set variables from json file; for mappable keys
 	protected string cancel = "q";
