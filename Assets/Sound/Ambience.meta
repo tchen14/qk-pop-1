@@ -1,8 +1,13 @@
 fileFormatVersion: 2
 guid: 47ba49fd6d0d46e4e928fbff552cc6a0
 folderAsset: yes
+<<<<<<< HEAD
 timeCreated: 1427231735
 licenseType: Free
+=======
+timeCreated: 1427233802
+licenseType: Pro
+>>>>>>> origin/feature/CharacterController
 DefaultImporter:
   userData: 
   assetBundleName: 

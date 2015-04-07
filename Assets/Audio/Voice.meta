@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<< HEAD
 guid: 9c50c27597633d24da1b3cca69b4b81a
+=======
+guid: 2b21311ca5e174362b39f9b037e88bce
+>>>>>>> origin/feature/CharacterController
 folderAsset: yes
 DefaultImporter:
   userData: 
