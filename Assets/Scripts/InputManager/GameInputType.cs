@@ -25,33 +25,38 @@ public class GameInputType : InputType {
 		}
 		return 0;
 	}
-	public bool HorizontalAxis() {
+	public int HorizontalAxis() {
 		if(InputManager.activeInputType == "GameInputManager") {
-			return true;
+			if(Input.GetKey(left) && Input.GetKey(right))
+				return 0;
+			if(Input.GetKey(right))
+				return 1;
+			if(Input.GetKey(left))
+				return -1;
 		}
-		return false;
+		return 0;
 	}
 
 	public bool isCrouched() {
-		if(InputManager.activeInputType == "GameInputManager") {
+		if(Input.GetKey(crouch)) {
 			return true;
 		} 
 			return false;
 	}
 	public bool isSprinting() {
-		if(InputManager.activeInputType == "GameInputManager") {
+		if(Input.GetKey(sprint)) {
 			return true;
 		}
 		return false;
 	}
 	public bool isJumping() {
-		if(InputManager.activeInputType == "GameInputManager") {
+		if(Input.GetKey(jump)) {
 			return true;
 		}
 		return false;
 	}
 	public bool isActionPressed() {
-		if(InputManager.activeInputType == "GameInputManager") {
+		if(Input.GetKey(action)) {
 			return true;
 		}
 		return false;
