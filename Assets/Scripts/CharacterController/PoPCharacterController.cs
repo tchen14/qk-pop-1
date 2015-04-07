@@ -18,6 +18,7 @@ public sealed class PoPCharacterController : CharacterController_2 {
 	public Transform cameraTransform;		//!< Moves in conjunction with camera's transform
 	private float inputThreshold = 0.1f;	//!< Dead zone value to determine if input is applied
 	GoTweenChain chain;						//!< Used for tweening player actions
+	Vector3 lastPosition;					//!< Last position of the character
 
 	//! Unity Start function
 	void Start() {
@@ -84,16 +85,35 @@ public sealed class PoPCharacterController : CharacterController_2 {
 		if(action) {
 			if(actionAvaiable && myActionState == actionState.prepState) { //Start Action
 				//action setup crap
-				//transform.position = SetPosition(actionComponent.transform.position);
-				transform.rotation = actionComponent.transform.rotation;
 				rigidbody.useGravity = false;
-
+				lastPosition = transform.position;
 				List<Vector3> v = new List<Vector3>();
-				v.Add(transform.position);
-				v.Add(SetPosition(actionComponent.transform.position));
-				for(int i = 0; i < actionComponent.path.Count; i++) {
-					v.Add(SetPosition(actionComponent.path[i]));
+
+
+				if (actionForward) {
+					transform.positionTo(0.2f, SetPosition(actionComponent.transform.position));
+					float angle = Vector3.Angle(actionComponent.path[0] - actionComponent.transform.position, Vector3.left);
+					transform.rotation = Quaternion.Euler(new Vector3(0,angle,0));
+
+					v.Add(SetPosition(actionComponent.transform.position));
+					for (int i = 0; i < actionComponent.path.Count; i++) {
+						v.Add(SetPosition(actionComponent.path[i]));
+					}
+				} else {
+					transform.positionTo(0.2f, SetPosition(actionComponent.path[actionComponent.path.Count - 1]));
+					float angle;
+					if(actionComponent.path.Count >= 2)
+						angle = Vector3.Angle(actionComponent.path[actionComponent.path.Count-2] - actionComponent.path[actionComponent.path.Count-1], Vector3.left);
+					else
+						angle = Vector3.Angle(actionComponent.transform.position - actionComponent.path[actionComponent.path.Count-1], Vector3.left);
+					transform.rotation = Quaternion.Euler(new Vector3(0, angle, 0));
+
+					for (int i = actionComponent.path.Count - 1; i > 0; i--) {
+						v.Add(SetPosition(actionComponent.path[i]));
+					}
+					v.Add(SetPosition(actionComponent.transform.position));
 				}
+
 				var path = new GoSpline(v, true);
 				GoTween tween = new GoTween(transform, 4f, new GoTweenConfig().positionPath(path));
 				chain = new GoTweenChain();
@@ -113,10 +133,16 @@ public sealed class PoPCharacterController : CharacterController_2 {
 			// todo: determine what to loop to do
 			switch(actionComponent.actionType) {
 				case PlayerActionPath.PlayerAction.sidle:
-					ActionLoop(xPlaneInput);
+					if (actionForward)
+						ActionLoop(xPlaneInput);
+					else
+						ActionLoop(-xPlaneInput);
 					break;
 				case PlayerActionPath.PlayerAction.ladder:
-					ActionLoop(zPlaneInput);
+					if (actionForward)
+						ActionLoop(zPlaneInput);
+					else
+						ActionLoop(-zPlaneInput);
 					break;
 				default:
 					Debug.Error("player", "Action loop called with no valid action.");
@@ -198,7 +224,20 @@ public sealed class PoPCharacterController : CharacterController_2 {
 				chain.playBackwards();
 		} else {
 			chain.pause();
-			Debug.Log("player", "stopped");
+		}
+		if (!Vec3Approx(lastPosition, transform.position)) {
+			if(input != 0){
+				float angle;
+				if(input > 0)
+					angle = Vector3.Angle(lastPosition - transform.position, Vector3.right);
+				else  //assert (input < 0)
+					angle = Vector3.Angle(lastPosition - transform.position, Vector3.left);
+
+				if (!Vec3Approx(transform.rotation.eulerAngles, new Vector3(0, angle, 0), 2))
+					transform.rotation = Quaternion.Euler(new Vector3(0, angle, 0));
+
+				lastPosition = transform.position;
+			}
 		}
 	}
 
@@ -220,13 +259,23 @@ public sealed class PoPCharacterController : CharacterController_2 {
 		return new Vector3(pos.x, pos.y + myCollider.bounds.size.y / 2, pos.z);
 	}
 
-	private bool Vec3Approx(Vector3 a, Vector3 b) {
-		if(!Mathf.Approximately(a.x, b.x))
-			return false;
-		if(!Mathf.Approximately(a.y, b.y))
-			return false;
-		if(!Mathf.Approximately(a.z, b.z))
-			return false;
+	private bool Vec3Approx(Vector3 a, Vector3 b, int sigFigs = 15) {
+		if (sigFigs >= 15) {
+			if(!Mathf.Approximately(a.x, b.x))
+				return false;
+			if(!Mathf.Approximately(a.y, b.y))
+				return false;
+			if(!Mathf.Approximately(a.z, b.z))
+				return false;
+		} else {
+			int offset = (int)Mathf.Pow(10, sigFigs);
+			if (((int)(a.x * offset) - (int)(b.x * offset)) != 0)
+				return false;
+			if (((int)(a.y * offset) - (int)(b.y * offset)) != 0)
+				return false;
+			if (((int)(a.z * offset) - (int)(b.z * offset)) != 0)
+				return false;
+		}
 		return true;
 	}
 }

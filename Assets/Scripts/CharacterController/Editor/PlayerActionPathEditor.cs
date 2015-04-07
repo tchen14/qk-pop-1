@@ -20,7 +20,11 @@ public class PlayerActionPathEditor : Editor {
 	}
 	
 	void OnSceneGUI() {
-		Handles.color = Color.red;
+		if (myTarget.actionType == PlayerActionPath.PlayerAction.sidle)
+			Handles.color = Color.cyan;
+		else
+			Handles.color = Color.red;
+
 		Handles.Label(myTarget.transform.position, "start");
 		Vector3[] v = new Vector3[1 + myTarget.path.Count];
 		v[0] = myTarget.transform.position;
