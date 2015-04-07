@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine.Audio;
 using SimpleJSON;
 using Debug = FFP.Debug;
@@ -27,6 +28,8 @@ public class AudioManager : MonoBehaviour {
 	}
 	#endregion
 
+	public string soundListFilePath = "/Resources/Json/soundListData.json";
+
 	public AudioMixer masterMixer;
 
 
@@ -48,12 +51,47 @@ public class AudioManager : MonoBehaviour {
 		#endregion
 
 
+
+	}
+	 json stuff
+	#region json
+	public bool loadListFromFile(string path) {		//checks to make sure json file is there
+		if(!System.IO.File.Exists(path)) {
+			Debug.Error("audio", "File does not exist: " + path);
+			return false;
+		}
+
+		string json = System.IO.File.ReadAllText(path);
+		return loadListFromJson(json);
 	}
 
-    //! Unity Update function
+	public bool loadListFromJson(string json) {		//loads json data into
+		JSONNode soundData = JSON.Parse(json);
+
+		totalNodes = checkpointData["totalNodes"].AsInt;
+		InsertNodeFromJson(m_root, checkpointData["node"]);
+
+		return totalNodes == 0 ? false : true;
+	}
+		 
+		 /*
+	public bool loadJSON() { 
+		
+	}
+	
+	public bool findSound(string name) {
+
+	}
+	*/
+	#endregion
+	
+	
+	
+	//! Unity Update function
     //void Update() {
 	//}
-	#region Set&CheckFunct
+
+	#region Set & Check Sound
 	[EventVisible]
 	//!Change volume for groups in MasterMixer
 	public void changeVol(string name, float level){
@@ -156,6 +194,53 @@ public class AudioManager : MonoBehaviour {
 	//}
 
 	#endregion
+
+
+	/*#region soundObjectClass
+	public class SoundObject {
+		public string filename, type;		//file name & type of sound
+		public bool priority = false;		//priority for load, loaded at game start or on call
+
+		public SoundObject(string nFilename, string nType, bool nPriortiy) {
+			filename = nFilename;
+			type = nType;
+			priority = nPriortiy;
+		}
+	}
+	#endregion*/
+
+	#region sound Dictionary
+	public class SoundDict {
+
+
+		Dictionary<string, bool> ambianceDict = new Dictionary<string, bool>();
+		Dictionary<string, bool> effectDict = new Dictionary<string, bool>();
+		Dictionary<string, bool> musicDict = new Dictionary<string, bool>();
+		Dictionary<string, bool> voiceDict = new Dictionary<string, bool>();
+		
+		public void addSound(string type, string name, bool priority){
+			switch(type) {
+				case "Ambiance":
+					ambianceDict.Add(name, priority);
+					break;
+				case "Effect":
+					effectDict.Add(name, priority);
+					break;
+				case "Music":
+					musicDict.Add(name, priority);
+					break;
+				case "Voice":
+					ambianceDict.Add(name, priority);
+					break;
+				default:
+					Debug.Log("type", type + "is not an option, or you spelled it wrong");
+					break;
+			}
+		}
+
+		
+	}
+	#endregion
 }
 
 
@@ -163,6 +248,7 @@ public class AudioManager : MonoBehaviour {
 /*Ideas/todo
  * 
  * json sound list
+ *	json file: filename, type of sound, priority always load or on use load
  *	look at checkpointManager.cs & AchievementManager.cs
  *	http://wiki.unity3d.com/index.php/SimpleJSON
  * check sounds are on list and ready to load
