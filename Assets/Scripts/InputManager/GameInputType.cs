@@ -9,56 +9,40 @@ public class GameInputType : InputType {
 	protected string backward = "s";
 	protected string left = "a";
 	protected string right = "d";
-	protected string action = "return";
+	protected string action = "f";
 	protected string sprint = "left shift";
 	protected string crouch = "left ctrl";
 	protected string jump = "space";
 
-	public int VerticalAxis() {
-		if(InputManager.activeInputType == "GameInputManager") {
+	public override int VerticalAxis() {
 			if(Input.GetKey(forward) && Input.GetKey(backward))
 				return 0;
-			if(Input.GetKey(forward))
+			else if(Input.GetKey(forward))
 				return 1;
-			if(Input.GetKey(backward))
+			else if(Input.GetKey(backward))
 				return -1;
-		}
 		return 0;
 	}
-	public int HorizontalAxis() {
-		if(InputManager.activeInputType == "GameInputManager") {
+	public override int HorizontalAxis() {
 			if(Input.GetKey(left) && Input.GetKey(right))
 				return 0;
-			if(Input.GetKey(right))
+			else if(Input.GetKey(right))
 				return 1;
-			if(Input.GetKey(left))
+			else if(Input.GetKey(left))
 				return -1;
-		}
 		return 0;
 	}
 
-	public bool isCrouched() {
-		if(Input.GetKey(crouch)) {
-			return true;
-		} 
-			return false;
+	public override bool isCrouched() {
+		return Input.GetKey(crouch);
 	}
-	public bool isSprinting() {
-		if(Input.GetKey(sprint)) {
-			return true;
-		}
-		return false;
+	public override bool isSprinting() {
+		return Input.GetKey(sprint);
 	}
-	public bool isJumping() {
-		if(Input.GetKey(jump)) {
-			return true;
-		}
-		return false;
+	public override bool isJumping() {
+		return Input.GetKey(jump);
 	}
-	public bool isActionPressed() {
-		if(Input.GetKey(action)) {
-			return true;
-		}
-		return false;
+	public override bool isActionPressed() {
+		return Input.GetKey(action);
 	}
 }

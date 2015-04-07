@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections.Generic;
+using Debug = FFP.Debug;
 
 //! Class manages different InputTypes and chooses one to be the active input type
 public sealed class InputManager : MonoBehaviour
@@ -9,35 +10,26 @@ public sealed class InputManager : MonoBehaviour
 		get { return instance ?? (instance = GameObject.FindObjectOfType<InputManager>());} 
 		private set{ }
 	}
-	public static string activeInputType = "MenuInput"; //!< Active inptytype, todo: make enum
-	
-	//!This might need to be reworked or something. don't know if the code is actually needed/useful
-	public bool switchState(string desiredState) {
-		bool stateChanged = false;
-		switch(desiredState) {
-			case "MenuInput":
-				activeInputType = "MenuInput";
-				stateChanged = true;
-				//			Camera.main.GetComponent<MainMenuInputManager>().enabled = true;
-				//			Camera.main.GetComponent<GameInputManager>().enabled = false;
-				Camera.main.GetComponent<KeyboardInputType>().enabled = false;
-				break;
-			case "GameInput":
-				activeInputType = "GameInput";
-				stateChanged = true;
-				//			Camera.main.GetComponent<MainMenuInputManager>().enabled = false;			
-				//			Camera.main.GetComponent<GameInputManager>().enabled = true;
-				Camera.main.GetComponent<KeyboardInputType>().enabled = false;
-				break;
-			case "KeyboardInput":
-				activeInputType = "KeyboardInput";
-				stateChanged = true;
-				//			Camera.main.GetComponent<MainMenuInputManager>().enabled = false;			
-				//			Camera.main.GetComponent<GameInputManager>().enabled = false;
-				Camera.main.GetComponent<KeyboardInputType>().enabled = true;
-				break;
-		}
-		return stateChanged;
+	public InputType activeInputType; //!< Active input type, todo: make enum
+
+	public Dictionary<string, InputType> inputs = new Dictionary<string, InputType>();
+
+	void Start() {
+		inputs.Add("UIInputType", this.gameObject.AddComponent<UIInputType>());
+		inputs.Add("GameInputType", this.gameObject.AddComponent<GameInputType>());
+		inputs.Add("KeyboardInputType", this.gameObject.AddComponent<KeyboardInputType>());
+
+		if(inputs.Count > 0)
+			ChangeInputType("UIInputType");
+		else
+			Debug.Error("input", "InputManager.inputs is empty.");
+
+		ChangeInputType("GameInputType");
+	}
+
+	public void ChangeInputType(string inputType) {
+		if(inputs.ContainsKey(inputType))
+			activeInputType = inputs[inputType];
 	}
 	
 }
