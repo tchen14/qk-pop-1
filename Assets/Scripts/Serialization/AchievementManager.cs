@@ -110,13 +110,11 @@ public class AchievementManager : SerializationManager {
 		//read in achievement json file
 		string jsonRead = System.IO.File.ReadAllText(Application.dataPath + "/Resources/Json/achievementJson");
 		JSONNode jsonParsed = JSON.Parse (jsonRead);
-		
-		//get total achievements in json file
-		int totalAchievements = jsonParsed["numberOfAchievements"].AsInt;
+
 		//iterate through json file and load each key and its value into to check against playerpref keys and set them to false(0)
-		for(int count = 0; count < totalAchievements; count = count + 1)
+		for(int count = 0; count < jsonParsed["Achievements"].Count; count = count + 1)
 		{
-			string loadedAchievement = jsonParsed["achievements"][count];
+			string loadedAchievement = jsonParsed["Achievements"][count];
 			PlayerPrefs.SetInt(loadedAchievement, 0);
 		}
 		
@@ -140,14 +138,12 @@ public class AchievementManager : SerializationManager {
 		//read in achievement json file
 		string jsonRead = System.IO.File.ReadAllText(Application.dataPath + "/Resources/Json/achievementJson");
 		JSONNode jsonParsed = JSON.Parse (jsonRead);
-		
-		//get total achievements in json file
-		int totalAchievements = jsonParsed["numberOfAchievements"].AsInt;
+
 		//iterate through json file and load each key and its value into playerprefs
 		//all achievements are set to false(0) by defualt
-		for(int count = 0; count < totalAchievements; count = count + 1)
+		for(int count = 0; count < jsonParsed["Achievements"].Count; count = count + 1)
 		{
-			string loadedAchievement = jsonParsed["achievements"][count];
+			string loadedAchievement = jsonParsed["Achievements"][count];
 			PlayerPrefs.SetInt(loadedAchievement, 0);
 		}
 
