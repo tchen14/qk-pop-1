@@ -12,6 +12,7 @@ public class EventCouple {
     public enum AndOrCompare { EveryCondition, OneOrMore, ExactlyOne }
     public AndOrCompare andOrCompare = AndOrCompare.EveryCondition;
 
+
     public EventCouple(PopEvent newPopEvent) {
         popEvent = newPopEvent;
         conditions = new List<EventCondition>();

@@ -14,6 +14,9 @@ public class PopEventEditor : Editor {
 
     PopEvent popTarget;
 
+    private SerializedProperty thingsProp;
+
+
     void OnEnable() {
         Reload();
     }
@@ -145,7 +148,10 @@ public class PopEventEditor : Editor {
 
         EditorGUI.BeginChangeCheck();
         GUILayout.BeginHorizontal();
-        condition.watchType = (EventCondition.WatchType)EditorGUILayout.EnumPopup(condition.watchType, GUILayout.MaxWidth(columnWidth));
+
+        condition.watchIndex = FindIndex(condition.watchType, PopEventCore.watchTypes);
+        condition.watchIndex = (int)EditorGUILayout.Popup(condition.watchIndex, PopEventCore.watchTypes, GUILayout.MaxWidth(columnWidth));
+        condition.watchType = PopEventCore.watchTypes[condition.watchIndex];
 
         GUI.backgroundColor = Color.red;
         if (popTarget.couple.conditions.Count > 1 && GUILayout.Button("X", GUILayout.MaxWidth(20))) {
@@ -160,13 +166,13 @@ public class PopEventEditor : Editor {
 
         GUILayout.EndHorizontal();
 
-        if (condition.watchType == EventCondition.WatchType.WatchScript) {
+        if (condition.watchType == "Watch Script") {
             DrawWatchScript(condition);
         }
-        else if (condition.watchType == EventCondition.WatchType.PlayerEntersArea) {
+        else if (condition.watchType == "Player Enters Area") {
             DrawPlayerEntersArea(condition);
         }
-        else if (condition.watchType == EventCondition.WatchType.WaitXSeconds) {
+        else if (condition.watchType == "Wait X Seconds") {
             DrawWaitXSeconds(condition);
         }
         EditorGUILayout.Space();
@@ -180,7 +186,9 @@ public class PopEventEditor : Editor {
         EditorGUI.BeginChangeCheck();
 
         EditorGUILayout.BeginHorizontal();
-        action.executeType = (EventAction.ExecuteType)EditorGUILayout.EnumPopup(action.executeType, GUILayout.MaxWidth(columnWidth));
+        action.executeIndex = FindIndex(action.executeType, PopEventCore.executeTypes);
+        action.executeIndex = (int)EditorGUILayout.Popup(action.executeIndex, PopEventCore.executeTypes, GUILayout.MaxWidth(columnWidth));
+        action.executeType = PopEventCore.executeTypes[action.executeIndex];
 
         GUI.backgroundColor = Color.red;
         if (popTarget.couple.actions.Count > 1 && GUILayout.Button("X", GUILayout.MaxWidth(20))) {
@@ -194,10 +202,10 @@ public class PopEventEditor : Editor {
         GUI.backgroundColor = Color.white;
         EditorGUILayout.EndHorizontal();
 
-        if (action.executeType == EventAction.ExecuteType.ExecuteFunction) {
+        if (action.executeType == "Execute Function") {
             DrawExecuteFunction(action);
         }
-        else if (action.executeType == EventAction.ExecuteType.DebugMessage) {
+        else if (action.executeType == "Debug Message") {
             DrawDebugMessage(action);
         }
         EditorGUILayout.Space();
@@ -347,35 +355,34 @@ public class PopEventEditor : Editor {
         EditorGUILayout.EndHorizontal();
     }
 
-    void DrawBackground(EventCondition.WatchType watchType) {
-        Color color = new Color(0, 0, 1, 0.45f);
-        if (watchType == EventCondition.WatchType.PlayerEntersArea) {
-            DrawBackground(62, color);
-        }
-        else if (watchType == EventCondition.WatchType.WatchScript) {
-            DrawBackground(132, color);
-        }
-        else if (watchType == EventCondition.WatchType.WaitXSeconds) {
-            DrawBackground(42, color);
-        }
-        else if (watchType == EventCondition.WatchType.ChooseACondition) {
-            DrawBackground(24, new Color(0.5f, 0.5f, 1f, 0.45f));
-        }
-    }
+    void DrawBackground(string type) {
+        Color blue = new Color(0, 0.58f, 0.69f, 0.45f);
+        Color red = new Color(1, 0.46f, 0, 0.45f);
 
-    void DrawBackground(EventAction.ExecuteType executeType) {
-        Color color = new Color(1, 0, 0, 0.45f);
-        if (executeType == EventAction.ExecuteType.ExecuteFunction) {
-            DrawBackground(132, color);
+        if (type == "Player Enters Area") {
+            DrawBackground(62, blue);
         }
-        else if (executeType == EventAction.ExecuteType.ActivateNextEvent) {
-            DrawBackground(24, color);
+        else if (type == "Watch Script") {
+            DrawBackground(132, blue);
         }
-        else if (executeType == EventAction.ExecuteType.DebugMessage) {
-            DrawBackground(42, color);
+        else if (type == "Wait X Seconds") {
+            DrawBackground(42, blue);
         }
-        else if (executeType == EventAction.ExecuteType.ChooseAnAction) {
-            DrawBackground(24, new Color(1, 0.5f, 0.5f, 0.45f));
+        else if (type == "Choose A Condition") {
+            DrawBackground(24, blue - new Color(0, 0, 0, 0.2f));
+        }
+
+        if (type == "Execute Function") {
+            DrawBackground(132, red);
+        }
+        else if (type == "Activate Next Event") {
+            DrawBackground(24, red);
+        }
+        else if (type == "Debug Message") {
+            DrawBackground(42, red);
+        }
+        else if (type == "Choose An Action") {
+            DrawBackground(24, red - new Color(0, 0, 0, 0.2f));
         }
     }
     
@@ -407,5 +414,14 @@ public class PopEventEditor : Editor {
     void RemoveAction(int index) {
         Undo.RecordObject(popTarget, "Delete Action");
         popTarget.couple.actions.RemoveAt(index);
+    }
+
+    int FindIndex(string name, string[] names) {
+        for (int i=0; i < names.Length; i++) {
+            if (name == names[i]) {
+                return i;
+            }
+        }
+        return 0;
     }
 }

@@ -15,8 +15,10 @@ public class EventCondition {
     public Vector3 p_Vector3;
     public Transform p_Transform;
 
-    public enum WatchType { ChooseACondition, WatchScript, PlayerEntersArea, WaitXSeconds }
-    public WatchType watchType;
+    public string watchType = "Choose A Condition";
+
+    public string watchString;
+    public int watchIndex;
     
     public enum NumberCompareOption { EqualTo, GreaterThan, LessThan }
     public NumberCompareOption numberCompareOption;

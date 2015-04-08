@@ -19,7 +19,7 @@ public static class EventListener {
         foreach(EventCondition condition in couple.conditions){
             numberOfConditions++;
             //  Watch Script Type Condition
-            if (condition.watchType == EventCondition.WatchType.WatchScript) {
+            if (condition.watchType == "Watch Script") {
                 if (condition.conditionScript != null) {
                     numberOfConditions--;
                     if (condition.conditionType == null) {
@@ -41,7 +41,7 @@ public static class EventListener {
                 }
             }
             //  Player Enters Area
-            else if (condition.watchType == EventCondition.WatchType.PlayerEntersArea) {
+            else if (condition.watchType == "Player Enters Area") {
                 if (condition.p_Transform == null) {
                     condition.p_Transform = GameObject.Find("/_Player").transform;
                 }
@@ -49,7 +49,7 @@ public static class EventListener {
                     testsPassed++;
                 }
             }
-            else if (condition.watchType == EventCondition.WatchType.WaitXSeconds) {
+            else if (condition.watchType == "Wait X Seconds") {
                 if (couple.popEvent.totalTimeActive >= condition.p_float) {
                     testsPassed++;
                 }
@@ -74,15 +74,15 @@ public static class EventListener {
 
     public static void InvokeAction(EventCouple couple) {
         foreach (EventAction action in couple.actions) {
-            if (action.executeType == EventAction.ExecuteType.ExecuteFunction) {
+            if (action.executeType == "Execute Function") {
                 if (action.actionName != string.Empty) {
                     action.actionScript.GetType().GetMethod(action.actionName).Invoke(action.actionScript, action.args);
                 }
             }
-            else if (action.executeType == EventAction.ExecuteType.DebugMessage) {
+            else if (action.executeType == "Debug Message") {
                 MonoBehaviour.print(action.p_string);
             }
-            else if (action.executeType == EventAction.ExecuteType.ActivateNextEvent) {
+            else if (action.executeType == "Activate Next Event") {
                 couple.popEvent.ActivateNextEvent();
             }
         }

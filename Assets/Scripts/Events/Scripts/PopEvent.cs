@@ -31,6 +31,10 @@ public class PopEvent : MonoBehaviour {
                 break;
             }
         }
+
+        foreach (EventCondition condition in couple.conditions){
+
+        }
     }
 
     void Update() {
@@ -45,6 +49,10 @@ public class PopEvent : MonoBehaviour {
             timer = 0;
             EventListener.SlowUpdate(couple);
         }
+    }
+
+    void OnTriggerEnter(Collider other) {
+
     }
 
     void OnDrawGizmosSelected() {
