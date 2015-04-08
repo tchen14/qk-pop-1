@@ -33,7 +33,12 @@ public class PopEvent : MonoBehaviour {
         }
 
         foreach (EventCondition condition in couple.conditions){
-
+            if (condition.watchType == "Player Enters Area" || condition.watchType == "Player Leaves Area") {
+                SphereCollider newCollider = gameObject.AddComponent<SphereCollider>();
+                newCollider.radius = couple.popEvent.conditionRegionRadius;
+                newCollider.isTrigger = true;
+                break;
+            }
         }
     }
 
@@ -52,19 +57,27 @@ public class PopEvent : MonoBehaviour {
     }
 
     void OnTriggerEnter(Collider other) {
-
+        if (isActive == false) { return; }
+        if (other.gameObject.GetComponent<PoPCharacterController>()) {
+            EventListener.SlowUpdate(couple);
+        }
+    }
+    void OnTriggerExit(Collider other) {
+        print("exit");
+        if (isActive == false) { return; }
+        if (other.gameObject.GetComponent<PoPCharacterController>()) {
+            EventListener.SlowUpdate(couple);
+        }
     }
 
     void OnDrawGizmosSelected() {
         // The other portion of the custom Editor graphics are found in PopEventEditor.cs
         if (isRegional == true) {
-            Gizmos.color = new Color(1, 1, 0, 0.2F);
-            Gizmos.DrawSphere(transform.position, regionRadius);
         }
 
         if (drawRegionTwo) {
             Gizmos.color = new Color(0, 1, 0, 0.3F);
-            Gizmos.DrawSphere(conditionRegionCenter, conditionRegionRadius);
+            Gizmos.DrawSphere(transform.position, conditionRegionRadius);
         }
     }
 

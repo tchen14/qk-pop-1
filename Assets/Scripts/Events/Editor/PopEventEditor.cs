@@ -38,9 +38,10 @@ public class PopEventEditor : Editor {
         }
     }
 
+    #region General Inspector GUI
     override public void OnInspectorGUI() {
 
-        columnWidth = Mathf.FloorToInt(Screen.width / 2.4f);
+       columnWidth = Mathf.FloorToInt(Screen.width / 2.4f);
 
         /*!     Enabled Boolean & Update Timer     */
         EditorGUILayout.Space();
@@ -101,22 +102,18 @@ public class PopEventEditor : Editor {
     }
 
     void OnSceneGUI() {
-        // The other portion of the custom Editor graphics are found in PopEvent.cs
-        if (popTarget.isRegional == true) {
-            popTarget.regionRadius = Handles.RadiusHandle(Quaternion.identity, popTarget.transform.position, popTarget.regionRadius);
-            Handles.Label(popTarget.transform.position, "Event Region");
-        }
 
         if (popTarget.drawRegionTwo == true) {
-            popTarget.conditionRegionRadius = Handles.RadiusHandle(Quaternion.identity, popTarget.conditionRegionCenter, popTarget.conditionRegionRadius);
-            popTarget.conditionRegionCenter = Handles.PositionHandle(popTarget.conditionRegionCenter, Quaternion.identity);
-            Handles.Label(popTarget.conditionRegionCenter, "Condition Trigger");
+            popTarget.conditionRegionRadius = Handles.RadiusHandle(Quaternion.identity, popTarget.transform.position, popTarget.conditionRegionRadius);
         }
         if (GUI.changed) {
             EditorUtility.SetDirty(target);
         }
 
     }
+
+    #endregion General Inspector GUI
+
 
     void DrawConditions() {
         EditorGUILayout.BeginVertical();
@@ -171,6 +168,9 @@ public class PopEventEditor : Editor {
         }
         else if (condition.watchType == "Player Enters Area") {
             DrawPlayerEntersArea(condition);
+        }
+        else if (condition.watchType == "Player Leaves Area") {
+            DrawPlayerLeavesArea(condition);
         }
         else if (condition.watchType == "Wait X Seconds") {
             DrawWaitXSeconds(condition);
@@ -334,13 +334,15 @@ public class PopEventEditor : Editor {
 
     void DrawPlayerEntersArea(EventCondition condition) {
         popTarget.drawRegionTwo = true;
+
         GUILayout.BeginHorizontal();
-        if (GUILayout.Button("P", GUILayout.MaxWidth(columnWidth / 8))) {
-            popTarget.conditionRegionCenter = popTarget.transform.position;
-            EditorUtility.SetDirty(target);
-        }
-        popTarget.conditionRegionCenter = EditorGUILayout.Vector3Field("", popTarget.conditionRegionCenter, GUILayout.MaxWidth(columnWidth * 7 / 8));
+        EditorGUILayout.LabelField("Radius", GUILayout.MaxWidth(columnWidth / 3));
+        popTarget.conditionRegionRadius = EditorGUILayout.FloatField(popTarget.conditionRegionRadius, GUILayout.MaxWidth(columnWidth / 3 * 2));
         GUILayout.EndHorizontal();
+    }
+
+    void DrawPlayerLeavesArea(EventCondition condition) {
+        popTarget.drawRegionTwo = true;
 
         GUILayout.BeginHorizontal();
         EditorGUILayout.LabelField("Radius", GUILayout.MaxWidth(columnWidth / 3));
@@ -360,7 +362,10 @@ public class PopEventEditor : Editor {
         Color red = new Color(1, 0.46f, 0, 0.45f);
 
         if (type == "Player Enters Area") {
-            DrawBackground(62, blue);
+            DrawBackground(42, blue);
+        }
+        if (type == "Player Leaves Area") {
+            DrawBackground(42, blue);
         }
         else if (type == "Watch Script") {
             DrawBackground(132, blue);
@@ -371,8 +376,7 @@ public class PopEventEditor : Editor {
         else if (type == "Choose A Condition") {
             DrawBackground(24, blue - new Color(0, 0, 0, 0.2f));
         }
-
-        if (type == "Execute Function") {
+        else if (type == "Execute Function") {
             DrawBackground(132, red);
         }
         else if (type == "Activate Next Event") {

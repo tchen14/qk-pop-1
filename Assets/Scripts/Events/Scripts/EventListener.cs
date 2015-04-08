@@ -40,12 +40,20 @@ public static class EventListener {
                     }
                 }
             }
-            //  Player Enters Area
             else if (condition.watchType == "Player Enters Area") {
                 if (condition.p_Transform == null) {
                     condition.p_Transform = GameObject.Find("/_Player").transform;
                 }
-                if (Vector3.Distance(condition.p_Transform.position, couple.popEvent.conditionRegionCenter) <= couple.popEvent.conditionRegionRadius) {
+                //  Add to couple.popEvent.conditionRegionRadius a distance equal to the width of the player (right now we can test with 1)
+                if (Vector3.Distance(condition.p_Transform.position, couple.popEvent.transform.position) <= couple.popEvent.conditionRegionRadius + 1) {
+                    testsPassed++;
+                }
+            }
+            else if (condition.watchType == "Player Leaves Area") {
+                if (condition.p_Transform == null) {
+                    condition.p_Transform = GameObject.Find("/_Player").transform;
+                }
+                if (Vector3.Distance(condition.p_Transform.position, couple.popEvent.transform.position) >= couple.popEvent.conditionRegionRadius) {
                     testsPassed++;
                 }
             }
@@ -53,6 +61,9 @@ public static class EventListener {
                 if (couple.popEvent.totalTimeActive >= condition.p_float) {
                     testsPassed++;
                 }
+            }
+            else if (condition.watchType == "Choose A Condition"){
+                numberOfConditions--;
             }
         }
         if (couple.andOrCompare == EventCouple.AndOrCompare.EveryCondition) {

@@ -21,7 +21,7 @@ public class EventAction {
     //  Function Arguments
     public object[] args;
 
-    public string executeType = "Choose A Condition";
+    public string executeType = "Choose An Action";
 
     public string executeString;
     public int executeIndex;
