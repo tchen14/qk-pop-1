@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class PoPSceneManager : SceneManager {
+public class GameSceneManager : SceneManager {
 
     //! testing code until we get Scaleform UI fully working \todo: implement scaleform UI and delete this function
     void OnGUI () {
@@ -21,5 +21,6 @@ public class PoPSceneManager : SceneManager {
 	
 	void Start(){
 		Physics.gravity =  new Vector3(0,-20.0f,0);
+		//todo: set default input type using InputManager
 	}
 }

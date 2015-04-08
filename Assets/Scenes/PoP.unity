@@ -607,7 +607,6 @@ MonoBehaviour:
   grounded: 0
   currentClimbingSpeed: 0
   actionAvaiable: 0
-  actionForward: 1
   isRunning: 0
   isCrouched: 0
   cameraTransform: {fileID: 349475306}

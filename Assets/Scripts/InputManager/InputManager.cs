@@ -1,60 +1,35 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections.Generic;
+using Debug = FFP.Debug;
 
-/*
- *	Main input manager class. Called from MasterManager.
- */
-public class InputManager : MonoBehaviour
+//! Class manages different InputTypes and chooses one to be the active input type
+public sealed class InputManager : MonoBehaviour
 {
-	#pragma warning disable 0414
-	private string currentInputState;
-	#pragma warning restore 0414
-	private const int inputStateCount = 3;
-	//private string[] inputStateArray;
-	
-	// TO_DO set variables from json file; for mappable keys
-	protected string forward = "w";
-	protected string backward = "s";
-	protected string left = "a";
-	protected string right = "d";
-	protected string action = "return";
-	protected string sprint = "left shift";
-	protected string crouch = "left ctrl";
-	protected string jump = "space";
-	
-	//! Unity Start function
-	void Awake()
-	{
-		//inputStateArray = new string[inputStateCount] {"MainMenuInputManager", "GameInputManager", "KeyboardInputManager"};
+	//Singleton variable
+	public static InputManager instance {
+		get { return instance ?? (instance = GameObject.FindObjectOfType<InputManager>());} 
+		private set{ }
 	}
-	
-	public bool switchState(string desiredState)
-	{
-		bool stateChanged = false;
-		switch (desiredState) {
-			case "MainMenuInputManager":
-				currentInputState = "MainMenuInputManager";
-				stateChanged = true;
-//			Camera.main.GetComponent<MainMenuInputManager>().enabled = true;
-//			Camera.main.GetComponent<GameInputManager>().enabled = false;
-				Camera.main.GetComponent<KeyboardInputManager>().enabled = false;
-				break;
-			case "gameInputManager":
-				currentInputState = "GameInputManager";
-				stateChanged = true;
-//			Camera.main.GetComponent<MainMenuInputManager>().enabled = false;			
-//			Camera.main.GetComponent<GameInputManager>().enabled = true;
-				Camera.main.GetComponent<KeyboardInputManager>().enabled = false;
-				break;
-			case "keyboardInputManager":
-				currentInputState = "KeyboardInputManager";
-				stateChanged = true;
-//			Camera.main.GetComponent<MainMenuInputManager>().enabled = false;			
-//			Camera.main.GetComponent<GameInputManager>().enabled = false;
-				Camera.main.GetComponent<KeyboardInputManager>().enabled = true;
-				break;
-		}
-		return stateChanged;
+	public InputType activeInputType; //!< Active input type, todo: make enum
+
+	public Dictionary<string, InputType> inputs = new Dictionary<string, InputType>();
+
+	void Start() {
+		inputs.Add("UIInputType", this.gameObject.AddComponent<UIInputType>());
+		inputs.Add("GameInputType", this.gameObject.AddComponent<GameInputType>());
+		inputs.Add("KeyboardInputType", this.gameObject.AddComponent<KeyboardInputType>());
+
+		if(inputs.Count > 0)
+			ChangeInputType("UIInputType");
+		else
+			Debug.Error("input", "InputManager.inputs is empty.");
+
+		ChangeInputType("GameInputType");
+	}
+
+	public void ChangeInputType(string inputType) {
+		if(inputs.ContainsKey(inputType))
+			activeInputType = inputs[inputType];
 	}
 	
 }

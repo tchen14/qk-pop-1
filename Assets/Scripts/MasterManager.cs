@@ -44,7 +44,16 @@ public sealed class MasterManager {
         for (int i = 0; i < N.Count; i++)
             scenes.Add (N [i].Value, false);
         Debug.Log ("core", "Scenes dictionary loaded");
-    }
+	}
+	
+	[RuntimeInitializeOnLoadMethod]
+	static void OnRuntimeMethodLoad ()
+	{
+		#if BUILD
+		MasterManager.Instance.QuickLoadLevel ("Menu");
+		#endif
+		//todo: set InputManager to have the defaul input type
+	}
 
 	//! Clears Dictionary variable scenes of all values
     private void ClearAllLevels() {
