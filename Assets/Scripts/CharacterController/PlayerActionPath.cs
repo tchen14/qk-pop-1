@@ -13,7 +13,7 @@ public sealed class PlayerActionPath : MonoBehaviour {
 
 	void Start() {
 		if (path.Count == 0) {
-			Debug.Log("safety", "ActionPath at " + transform.position + "has less than 2 positions.");
+			Debug.Log("safety", "ActionPath at " + transform.position + " has less than 2 positions.");
 			Destroy(this.gameObject);
 		}
 	}
@@ -28,4 +28,12 @@ public sealed class PlayerActionPath : MonoBehaviour {
 			Gizmos.DrawLine(path[i], path[i+1]);
 		}
 	}
+
+#if UNITY_EDITOR
+	public bool BuildCheck(){
+		if (path.Count == 0) {
+			Debug.Log("safety", "ActionPath at " + transform.position + " is invalid.");
+		}
+	}
+#endif
 }
