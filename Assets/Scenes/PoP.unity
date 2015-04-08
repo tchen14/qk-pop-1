@@ -607,6 +607,7 @@ MonoBehaviour:
   grounded: 0
   currentClimbingSpeed: 0
   actionAvaiable: 0
+  actionForward: 1
   isRunning: 0
   isCrouched: 0
   cameraTransform: {fileID: 349475306}
@@ -18235,7 +18236,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1853220182}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 44f182ca81031c747a92cd327a6f7cdf, type: 3}
+  m_Script: {fileID: 11500000, guid: 4bd6919a0a5af4c43b3fb8b5386aa16d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!4 &1853220184

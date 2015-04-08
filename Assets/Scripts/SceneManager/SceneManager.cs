@@ -6,4 +6,5 @@ using System.Collections;
  */
 public abstract class SceneManager : MonoBehaviour {
 
+	public virtual void LoadScene() { }
 }
