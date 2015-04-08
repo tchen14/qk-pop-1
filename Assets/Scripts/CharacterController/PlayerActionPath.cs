@@ -33,7 +33,9 @@ public sealed class PlayerActionPath : MonoBehaviour {
 	public bool BuildCheck(){
 		if (path.Count == 0) {
 			Debug.Log("safety", "ActionPath at " + transform.position + " is invalid.");
+			return false;
 		}
+		return true;
 	}
 #endif
 }
