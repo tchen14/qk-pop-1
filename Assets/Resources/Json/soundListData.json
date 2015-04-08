@@ -1,0 +1,22 @@
+{
+   "Effects":[
+      {
+         "name":"one.mp3",
+         "priority":false
+      },
+      {
+         "name":"two.mp3",
+         "priority":true
+      }
+   ],
+   "Music":[
+      {
+         "name":"three.mp3",
+         "priority":false
+      },
+      {
+         "name":"four.mp3",
+         "priority":false
+      }
+   ]
+}

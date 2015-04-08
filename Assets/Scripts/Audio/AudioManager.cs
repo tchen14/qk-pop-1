@@ -249,6 +249,8 @@ public class AudioManager : MonoBehaviour {
  * 
  * json sound list
  *	json file: filename, type of sound, priority always load or on use load
+ *	http://jsonformatter.curiousconcept.com/ - format json, may not be simplejson
+ *	http://json.org/example
  *	look at checkpointManager.cs & AchievementManager.cs
  *	http://wiki.unity3d.com/index.php/SimpleJSON
  * check sounds are on list and ready to load
