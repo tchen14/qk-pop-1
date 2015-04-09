@@ -97,6 +97,10 @@ namespace FFP {
                 EditorGUILayout.EndToggleGroup();
             }
         }
+		
+		public static bool IsKeyActive(string key){
+			return EditorPrefs.GetBool(key.ToLower());
+		}
         
 		//! Function will call UnityEngine.Debug.ClearDeveloperConsole
 		public static void ClearDeveloperConsole(){
