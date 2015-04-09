@@ -5,6 +5,9 @@ using Debug = FFP.Debug;
 //! Class manages different InputTypes and chooses one to be the active input type
 public sealed class InputManager : MonoBehaviour
 {
+
+	public GameInputType test;
+
 	//Singleton variable
 	public static InputManager instance {
 		get { return instance ?? (instance = GameObject.FindObjectOfType<InputManager>());} 
@@ -25,12 +28,21 @@ public sealed class InputManager : MonoBehaviour
 			Debug.Error("input", "InputManager.inputs is empty.");
 
 		ChangeInputType("GameInputType");
+
+		test = GameObject.FindObjectOfType<GameInputType>();
 	}
 
 	//!Switch input type
 	public void ChangeInputType(string inputType) {
 		if(inputs.ContainsKey(inputType))
 			activeInputType = inputs[inputType];
+	}
+	
+
+	void Update() {
+		test.VerticalAxis();
+		test.HorizontalAxis();
+		test.isCrouched();
 	}
 	
 }

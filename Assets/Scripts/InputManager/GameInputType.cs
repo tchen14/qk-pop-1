@@ -22,10 +22,17 @@ public class GameInputType : InputType {
 	public override int VerticalAxis() {
 			if(Input.GetKey(forward) && Input.GetKey(backward))
 				return 0;
-			else if(Input.GetKey(forward))
+			else if(Input.GetKey(forward)){
 				return 1;
+			}	
 			else if(Input.GetKey(backward))
 				return -1;
+			else if(Input.GetAxis("Vertical")>0) {
+				return 1;
+			} 
+			else if(Input.GetAxis("Vertical") < 0) {
+				return -1;
+			}
 		return 0;
 	}
 	public override int HorizontalAxis() {
@@ -35,10 +42,18 @@ public class GameInputType : InputType {
 				return 1;
 			else if(Input.GetKey(left))
 				return -1;
+			else if(Input.GetAxis("Horizontal") > 0) {
+				return 1;
+			} else if(Input.GetAxis("Horizontal") < 0) {
+				return -1;
+			}
 		return 0;
 	}
 
 	public override bool isCrouched() {
+		if(Input.GetButton("A Button")) {
+			return true;
+		}
 		return Input.GetKey(crouch);
 	}
 	public override bool isSprinting() {
