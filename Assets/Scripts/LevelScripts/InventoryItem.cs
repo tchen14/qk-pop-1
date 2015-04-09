@@ -4,12 +4,24 @@ using System.Collections;
 [System.Serializable]
 public class InventoryItem
 {
-    private string itemName = "";
-    private int itemID;
-    private string itemDescription;
-    private int itemValue;
-	private int itemAmount;
-    private ItemType itemType;
+    [SerializeField]
+    private string itemName = ""; //!<
+
+    [SerializeField]
+    private int itemID; //!<
+
+    [SerializeField]
+    private string itemDescription; //!<
+
+    [SerializeField]
+    private int itemValue; //!<
+
+    [SerializeField]
+    private int itemAmount; //!<
+
+    [SerializeField]
+    private ItemType itemType; //!<
+
 
     public InventoryItem(string Name, int ID, string Description, int Value, int Amount, int Type)
     {
@@ -20,6 +32,11 @@ public class InventoryItem
         itemAmount = Amount;
         itemType = (ItemType) Type;
     }
+
+    /*public InventoryItem(string Name, string Description, int Value, int Amount, int Type)
+    {
+        InventoryItem(Name, 0, Description, Value, Amount, Type);
+    }*/
 
     private enum ItemType
     {
@@ -53,6 +70,11 @@ public class InventoryItem
 	{
 		return itemAmount;
 	}
+
+    public void SetItemAmount(int value)
+    {
+        itemAmount = value;
+    }
 	
 	public int GetItemID()
 	{
