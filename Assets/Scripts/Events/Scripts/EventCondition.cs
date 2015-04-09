@@ -16,10 +16,15 @@ public class EventCondition {
     public Vector3 p_Vector3;
     public Transform p_Transform;
 
+    public string watchCategory = "System";
     public string watchType = "Choose A Condition";
 
     public string watchString;
     public int watchIndex;
+
+    public string watchCategoryString;
+    public int watchCategoryIndex;
+
     
     public enum NumberCompareOption { EqualTo, GreaterThan, LessThan }
     public NumberCompareOption numberCompareOption;

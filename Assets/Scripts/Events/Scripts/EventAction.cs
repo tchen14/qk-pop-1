@@ -22,10 +22,15 @@ public class EventAction {
     //  Function Arguments
     public object[] args;
 
+    public string executeCategory = "System";
     public string executeType = "Choose An Action";
 
     public string executeString;
     public int executeIndex;
+
+    public string executeCategoryString;
+    public int executeCategoryIndex;
+
 
     //  Called by EventManagerEditor with reflected parameter
     public object[] SetParameters(System.Type type){

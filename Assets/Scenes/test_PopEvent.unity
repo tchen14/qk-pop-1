@@ -5281,9 +5281,12 @@ MonoBehaviour:
       p_string: 
       p_Vector3: {x: 0, y: 0, z: 0}
       p_Transform: {fileID: 0}
+      watchCategory: Player
       watchType: Player Enters Area
       watchString: 
-      watchIndex: 2
+      watchIndex: 1
+      watchCategoryString: 
+      watchCategoryIndex: 1
       numberCompareOption: 0
       vectorCompareOption: 0
     actions:
@@ -5297,9 +5300,12 @@ MonoBehaviour:
       p_Vector3: {x: 0, y: 0, z: 0}
       p_GameObject: {fileID: 0}
       p_MonoBehaviour: {fileID: 0}
+      executeCategory: System
       executeType: Activate Another Event
       executeString: 
       executeIndex: 4
+      executeCategoryString: 
+      executeCategoryIndex: 0
     andOrCompare: 0
   isActive: 1
   isRegional: 0
@@ -5334,9 +5340,12 @@ MonoBehaviour:
       p_string: 
       p_Vector3: {x: 0, y: 0, z: 0}
       p_Transform: {fileID: 0}
+      watchCategory: Player
       watchType: Player Leaves Area
       watchString: 
-      watchIndex: 3
+      watchIndex: 2
+      watchCategoryString: 
+      watchCategoryIndex: 1
       numberCompareOption: 0
       vectorCompareOption: 0
     actions:
@@ -5350,9 +5359,12 @@ MonoBehaviour:
       p_Vector3: {x: 0, y: 0, z: 0}
       p_GameObject: {fileID: 0}
       p_MonoBehaviour: {fileID: 0}
+      executeCategory: System
       executeType: Deactivate Another Event
       executeString: 
       executeIndex: 5
+      executeCategoryString: 
+      executeCategoryIndex: 0
     andOrCompare: 0
   isActive: 1
   isRegional: 0
@@ -5387,9 +5399,12 @@ MonoBehaviour:
       p_string: 
       p_Vector3: {x: 0, y: 0, z: 0}
       p_Transform: {fileID: 0}
+      watchCategory: System
       watchType: Wait X Seconds
       watchString: 
-      watchIndex: 4
+      watchIndex: 2
+      watchCategoryString: 
+      watchCategoryIndex: 0
       numberCompareOption: 0
       vectorCompareOption: 0
     actions:
@@ -5398,14 +5413,17 @@ MonoBehaviour:
       actionEditorIndex: 0
       p_int: 0
       p_float: 0
-      p_string: Id
+      p_string: Stayed in Area
       p_string2: Box
       p_Vector3: {x: 0, y: 1, z: 0}
       p_GameObject: {fileID: 162326, guid: afe756e0f00f7ee418ec05eddf8c0a04, type: 2}
       p_MonoBehaviour: {fileID: 0}
-      executeType: Create Prefab
+      executeCategory: System
+      executeType: Debug Message
       executeString: 
-      executeIndex: 6
+      executeIndex: 2
+      executeCategoryString: 
+      executeCategoryIndex: 0
     andOrCompare: 0
   isActive: 0
   isRegional: 0
@@ -18907,141 +18925,6 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1963041157}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!1 &1975819327
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 4
-  m_Component:
-  - 4: {fileID: 1975819328}
-  - 114: {fileID: 1975819329}
-  - 114: {fileID: 1975819330}
-  m_Layer: 0
-  m_Name: Event_CreateTextBox
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1975819328
-Transform:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1975819327}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: .231118679, y: 2.09698582, z: 5.88340473}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 8
---- !u!114 &1975819329
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1975819327}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3bce9737e13a17340acb5aabb86ba137, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  uniqueId: Stay1
-  couple:
-    popEvent: {fileID: 1975819329}
-    conditions:
-    - conditionScript: {fileID: 0}
-      conditionField: 
-      conditionIndex: 0
-      p_int: 0
-      p_float: 1
-      p_string: 
-      p_Vector3: {x: 0, y: 0, z: 0}
-      p_Transform: {fileID: 0}
-      watchType: Wait X Seconds
-      watchString: 
-      watchIndex: 4
-      numberCompareOption: 0
-      vectorCompareOption: 0
-    actions:
-    - actionScript: {fileID: 0}
-      actionName: 
-      actionEditorIndex: 0
-      p_int: 0
-      p_float: 0
-      p_string: Another Ob
-      p_string2: 
-      p_Vector3: {x: 0, y: 0, z: 0}
-      p_GameObject: {fileID: 0}
-      p_MonoBehaviour: {fileID: 0}
-      executeType: Debug Message
-      executeString: 
-      executeIndex: 2
-    andOrCompare: 0
-  isActive: 0
-  isRegional: 0
-  executeOnce: 1
-  hasExecuted: 0
-  totalTimeActive: 0
-  delay: 1
-  regionRadius: 1
-  drawRegionTwo: 0
-  conditionRegionCenter: {x: 0, y: 0, z: 0}
-  conditionRegionRadius: 1
---- !u!114 &1975819330
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1975819327}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3bce9737e13a17340acb5aabb86ba137, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  uniqueId: 
-  couple:
-    popEvent: {fileID: 1975819330}
-    conditions:
-    - conditionScript: {fileID: 0}
-      conditionField: 
-      conditionIndex: 0
-      p_int: 4
-      p_float: 5
-      p_string: Flower
-      p_Vector3: {x: 0, y: 0, z: 0}
-      p_Transform: {fileID: 0}
-      watchType: Collect X Items
-      watchString: 
-      watchIndex: 5
-      numberCompareOption: 0
-      vectorCompareOption: 0
-    actions:
-    - actionScript: {fileID: 0}
-      actionName: 
-      actionEditorIndex: 0
-      p_int: 3
-      p_float: 0
-      p_string: Something
-      p_string2: 
-      p_Vector3: {x: 0, y: 0, z: 0}
-      p_GameObject: {fileID: 0}
-      p_MonoBehaviour: {fileID: 0}
-      executeType: Destroy This Object
-      executeString: 
-      executeIndex: 10
-    andOrCompare: 0
-  isActive: 1
-  isRegional: 0
-  executeOnce: 1
-  hasExecuted: 0
-  totalTimeActive: 0
-  delay: 1
-  regionRadius: 1
-  drawRegionTwo: 0
-  conditionRegionCenter: {x: 0, y: 0, z: 0}
-  conditionRegionRadius: 1
 --- !u!1 &1979275403
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,7 +1,8 @@
 ﻿using UnityEngine;
+using UnityEditor;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor;
+using System.Linq;
 
 [CustomEditor(typeof(PopEvent), true)]
 public class PopEventEditor : Editor {
@@ -56,7 +57,7 @@ public class PopEventEditor : Editor {
             DrawBackground("Execution Complete");
         }
 
-        /*!     Enabled Boolean & Update Timer     */
+        //     Enabled Boolean & Update Timer
         EditorGUILayout.Space();
         int halfWidth = columnWidth / 2;
         int quarterWidth = columnWidth / 4;
@@ -88,16 +89,16 @@ public class PopEventEditor : Editor {
         popTarget.couple.andOrCompare = (EventCouple.AndOrCompare)EditorGUILayout.EnumPopup(popTarget.couple.andOrCompare, GUILayout.MaxWidth(halfWidth + sixthWidth));
         EditorGUILayout.EndHorizontal();
 
-        /*!     Conditions and Actions    */
+        //     Conditions and Actions
         EditorGUILayout.Space();
         EditorGUILayout.Space();
 
         GUILayout.BeginHorizontal();
 
-        /*!     List of every Condition in this manager    */
+        //     List of every Condition in this manager
         DrawConditions();
 
-        /*!     List of every Action in this manager    */
+        //     List of every Action in this manager
         DrawActions();
 
         EditorGUILayout.Space();
@@ -105,7 +106,7 @@ public class PopEventEditor : Editor {
         EditorGUILayout.EndHorizontal();
 
 
-        /*!     Condition and Action Buttons    */
+        //     Condition and Action Buttons
         EditorGUILayout.Space();
         EditorGUILayout.Space();
         if (duplicateId == true) {
@@ -171,13 +172,20 @@ public class PopEventEditor : Editor {
     }
 
     bool DrawOneCondition(EventCondition condition, int count){
+        string[] popupArray;
         DrawBackground(condition.watchType);
 
         GUILayout.BeginHorizontal();
 
-        condition.watchIndex = FindIndex(condition.watchType, PopEventCore.watchTypes);
-        condition.watchIndex = (int)EditorGUILayout.Popup(condition.watchIndex, PopEventCore.watchTypes, GUILayout.MaxWidth(columnWidth));
-        condition.watchType = PopEventCore.watchTypes[condition.watchIndex];
+        popupArray = PopEventCore.watchLibrary.Keys.ToArray();
+        condition.watchCategoryIndex = FindIndex(condition.watchCategory, popupArray);
+        condition.watchCategoryIndex = (int)EditorGUILayout.Popup(condition.watchCategoryIndex, popupArray, GUILayout.MaxWidth(columnWidth / 3));
+        condition.watchCategory = popupArray[condition.watchCategoryIndex];
+
+        popupArray = PopEventCore.watchLibrary[condition.watchCategory];
+        condition.watchIndex = FindIndex(condition.watchType, popupArray);
+        condition.watchIndex = (int)EditorGUILayout.Popup(condition.watchIndex, popupArray, GUILayout.MaxWidth(columnWidth * 2 / 3));
+        condition.watchType = popupArray[condition.watchIndex];
 
         GUI.backgroundColor = Color.red;
         if (popTarget.couple.conditions.Count > 1 && GUILayout.Button("X", GUILayout.MaxWidth(20))) {
@@ -236,7 +244,7 @@ public class PopEventEditor : Editor {
 
                 EditorGUILayout.LabelField("Target Value", GUILayout.MaxWidth(columnWidth));
                 GUILayout.BeginHorizontal();
-                /*!     ComparisonOption        */
+                //     ComparisonOption
                 if (condition.conditionType == typeof(System.Int32) || condition.conditionType == typeof(System.Single)) {
                     condition.numberCompareOption = (EventCondition.NumberCompareOption)EditorGUILayout.EnumPopup(condition.numberCompareOption, GUILayout.MaxWidth(columnWidth / 2));
                 }
@@ -244,7 +252,7 @@ public class PopEventEditor : Editor {
                     condition.vectorCompareOption = (EventCondition.VectorCompareOption)EditorGUILayout.EnumPopup(condition.vectorCompareOption, GUILayout.MaxWidth(columnWidth / 2));
                 }
 
-                /*!     Value Field             */
+                //     Value Field
                 if (condition.conditionType == typeof(System.Int32)) {
                     condition.p_int = EditorGUILayout.IntField(condition.p_int, GUILayout.MaxWidth(columnWidth / 2));
                 }
@@ -330,14 +338,20 @@ public class PopEventEditor : Editor {
     }
 
     bool DrawOneAction(EventAction action, int count) {
+        string[] popupArray;
         DrawBackground(action.executeType);
 
-        //  Action Components
-
         EditorGUILayout.BeginHorizontal();
-        action.executeIndex = FindIndex(action.executeType, PopEventCore.executeTypes);
-        action.executeIndex = (int)EditorGUILayout.Popup(action.executeIndex, PopEventCore.executeTypes, GUILayout.MaxWidth(columnWidth));
-        action.executeType = PopEventCore.executeTypes[action.executeIndex];
+        popupArray = PopEventCore.executeLibrary.Keys.ToArray();
+        action.executeCategoryIndex = FindIndex(action.executeCategory, popupArray);
+        action.executeCategoryIndex = (int)EditorGUILayout.Popup(action.executeCategoryIndex, popupArray, GUILayout.MaxWidth(columnWidth / 3));
+        action.executeCategory = popupArray[action.executeCategoryIndex];
+
+
+        popupArray = PopEventCore.executeLibrary[action.executeCategory];
+        action.executeIndex = FindIndex(action.executeType, popupArray);
+        action.executeIndex = (int)EditorGUILayout.Popup(action.executeIndex, popupArray, GUILayout.MaxWidth(columnWidth * 2 / 3));
+        action.executeType = popupArray[action.executeIndex];
 
         GUI.backgroundColor = Color.red;
         if (popTarget.couple.actions.Count > 1 && GUILayout.Button("X", GUILayout.MaxWidth(20))) {
@@ -378,6 +392,10 @@ public class PopEventEditor : Editor {
         else if (action.executeType == "Destroy This Object") {
             destroyThisObject = true;
         }
+        else if (action.executeType == "Move Player To Location" || action.executeType == "Play Sound") {
+            EditorGUILayout.LabelField("<b>NOT YET IMPLEMENTED</b>", style, GUILayout.MaxWidth(columnWidth));
+        }
+
 
         EditorGUILayout.Space();
         return true;
@@ -554,6 +572,9 @@ public class PopEventEditor : Editor {
         else if (type == "Add X Items") {
             DrawBackground(60 + notImplemented, orange);
         }
+        else if (type == "Move Player To Location" || type == "Play Sound") {
+            DrawBackground(24 + notImplemented, orange);
+        }
         else if (type == "Choose An Action") {
             DrawBackground(24, orange - new Color(0, 0, 0, 0.2f));
         }
@@ -574,7 +595,7 @@ public class PopEventEditor : Editor {
     }
     #endregion Background
 
-    /*!     Buttons         */
+    //     Buttons
     void AddCondition() {
         Undo.RecordObject(popTarget, "Add Condition");
         popTarget.couple.conditions.Add(new EventCondition());
