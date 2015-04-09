@@ -12,6 +12,7 @@ public class EventCondition {
     //  Potential Parameters
     public int p_int;
     public float p_float;
+    public string p_string;
     public Vector3 p_Vector3;
     public Transform p_Transform;
 

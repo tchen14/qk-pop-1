@@ -5278,6 +5278,7 @@ MonoBehaviour:
       conditionIndex: 0
       p_int: 0
       p_float: 0
+      p_string: 
       p_Vector3: {x: 0, y: 0, z: 0}
       p_Transform: {fileID: 0}
       watchType: Player Enters Area
@@ -5330,6 +5331,7 @@ MonoBehaviour:
       conditionIndex: 0
       p_int: 0
       p_float: 0
+      p_string: 
       p_Vector3: {x: 0, y: 0, z: 0}
       p_Transform: {fileID: 0}
       watchType: Player Leaves Area
@@ -5382,6 +5384,7 @@ MonoBehaviour:
       conditionIndex: 0
       p_int: 0
       p_float: 5
+      p_string: 
       p_Vector3: {x: 0, y: 0, z: 0}
       p_Transform: {fileID: 0}
       watchType: Wait X Seconds
@@ -18913,6 +18916,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 1975819328}
   - 114: {fileID: 1975819329}
+  - 114: {fileID: 1975819330}
   m_Layer: 0
   m_Name: Event_CreateTextBox
   m_TagString: Untagged
@@ -18952,6 +18956,7 @@ MonoBehaviour:
       conditionIndex: 0
       p_int: 0
       p_float: 1
+      p_string: 
       p_Vector3: {x: 0, y: 0, z: 0}
       p_Transform: {fileID: 0}
       watchType: Wait X Seconds
@@ -18975,6 +18980,59 @@ MonoBehaviour:
       executeIndex: 2
     andOrCompare: 0
   isActive: 0
+  isRegional: 0
+  executeOnce: 1
+  hasExecuted: 0
+  totalTimeActive: 0
+  delay: 1
+  regionRadius: 1
+  drawRegionTwo: 0
+  conditionRegionCenter: {x: 0, y: 0, z: 0}
+  conditionRegionRadius: 1
+--- !u!114 &1975819330
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1975819327}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3bce9737e13a17340acb5aabb86ba137, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  uniqueId: 
+  couple:
+    popEvent: {fileID: 1975819330}
+    conditions:
+    - conditionScript: {fileID: 0}
+      conditionField: 
+      conditionIndex: 0
+      p_int: 4
+      p_float: 5
+      p_string: Flower
+      p_Vector3: {x: 0, y: 0, z: 0}
+      p_Transform: {fileID: 0}
+      watchType: Collect X Items
+      watchString: 
+      watchIndex: 5
+      numberCompareOption: 0
+      vectorCompareOption: 0
+    actions:
+    - actionScript: {fileID: 0}
+      actionName: 
+      actionEditorIndex: 0
+      p_int: 3
+      p_float: 0
+      p_string: Something
+      p_string2: 
+      p_Vector3: {x: 0, y: 0, z: 0}
+      p_GameObject: {fileID: 0}
+      p_MonoBehaviour: {fileID: 0}
+      executeType: Destroy This Object
+      executeString: 
+      executeIndex: 10
+    andOrCompare: 0
+  isActive: 1
   isRegional: 0
   executeOnce: 1
   hasExecuted: 0

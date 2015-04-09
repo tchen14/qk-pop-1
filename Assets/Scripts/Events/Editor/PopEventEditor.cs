@@ -18,6 +18,7 @@ public class PopEventEditor : Editor {
     bool duplicateId = false;
     bool chooseACondition = false;
     bool chooseAnAction = false;
+    bool destroyThisObject = false;
 
     void OnEnable() {
         Reload();
@@ -42,6 +43,7 @@ public class PopEventEditor : Editor {
         duplicateId = EventListener.CheckForDuplicateId(popTarget, popTarget.uniqueId);
         chooseACondition = false;
         chooseAnAction = false;
+        destroyThisObject = false;
     }
 
     #region General Inspector GUI
@@ -114,6 +116,9 @@ public class PopEventEditor : Editor {
         }
         if (chooseAnAction == true) {
             EditorGUILayout.HelpBox("Any actions marked \"Choose An Action\" will be ignored during gameplay.", MessageType.Warning, true);
+        }
+        if (destroyThisObject == true) {
+            EditorGUILayout.HelpBox("\"Destroy This Object\" will destroy this Game Object, all of its children, and everything attached to it.", MessageType.Warning, true);
         }
 
         EditorGUILayout.BeginHorizontal();
@@ -201,6 +206,9 @@ public class PopEventEditor : Editor {
         }
         else if (condition.watchType == "Wait X Seconds") {
             DrawWaitXSeconds(condition);
+        }
+        else if (condition.watchType == "Collect X Items") {
+            DrawCollectXItems(condition);
         }
 
         EditorGUILayout.Space();
@@ -290,6 +298,21 @@ public class PopEventEditor : Editor {
 
     }
 
+    void DrawCollectXItems(EventCondition condition) {
+        EditorGUILayout.LabelField("<b>NOT YET IMPLEMENTED</b>", style, GUILayout.MaxWidth(columnWidth));
+
+        EditorGUILayout.BeginHorizontal();
+        EditorGUILayout.LabelField("Collect", GUILayout.MaxWidth(columnWidth / 3));
+        condition.p_int = EditorGUILayout.IntField(condition.p_int, GUILayout.MaxWidth(columnWidth / 3));
+        EditorGUILayout.LabelField("Items", GUILayout.MaxWidth(columnWidth / 3));
+        EditorGUILayout.EndHorizontal();
+
+        EditorGUILayout.BeginHorizontal();
+        EditorGUILayout.LabelField("Named", GUILayout.MaxWidth(columnWidth / 3));
+        condition.p_string = EditorGUILayout.TextField(condition.p_string, GUILayout.MaxWidth(columnWidth * 2 / 3));
+        EditorGUILayout.EndHorizontal();
+    }
+
     #endregion Condition GUI
 
     #region Action GUI
@@ -349,6 +372,13 @@ public class PopEventEditor : Editor {
         else if (action.executeType == "Create Prefab") {
             DrawCreatePrefab(action);
         }
+        else if (action.executeType == "Add X Items") {
+            DrawAddXItems(action);
+        }
+        else if (action.executeType == "Destroy This Object") {
+            destroyThisObject = true;
+        }
+
         EditorGUILayout.Space();
         return true;
     }
@@ -427,6 +457,8 @@ public class PopEventEditor : Editor {
     }
 
     void DrawCreateTextBox(EventAction action) {
+        EditorGUILayout.LabelField("<b>NOT YET IMPLEMENTED</b>", style, GUILayout.MaxWidth(columnWidth));
+
         EditorGUILayout.BeginHorizontal();
         EditorGUILayout.LabelField("Id", GUILayout.MaxWidth(columnWidth / 2));
         action.p_string = EditorGUILayout.TextField(action.p_string, GUILayout.MaxWidth(columnWidth / 2));
@@ -436,6 +468,8 @@ public class PopEventEditor : Editor {
     }
 
     void DrawDestroyTextBox(EventAction action) {
+        EditorGUILayout.LabelField("<b>NOT YET IMPLEMENTED</b>", style, GUILayout.MaxWidth(columnWidth));
+
         EditorGUILayout.BeginHorizontal();
         EditorGUILayout.LabelField("Id", GUILayout.MaxWidth(columnWidth / 2));
         action.p_string = EditorGUILayout.TextField(action.p_string, GUILayout.MaxWidth(columnWidth / 2));
@@ -447,12 +481,28 @@ public class PopEventEditor : Editor {
         action.p_Vector3 = EditorGUILayout.Vector3Field("", action.p_Vector3, GUILayout.MaxWidth(columnWidth));
     }
 
+    void DrawAddXItems(EventAction action) {
+        EditorGUILayout.LabelField("<b>NOT YET IMPLEMENTED</b>", style, GUILayout.MaxWidth(columnWidth));
+
+        EditorGUILayout.BeginHorizontal();
+        EditorGUILayout.LabelField("Add", GUILayout.MaxWidth(columnWidth / 3));
+        action.p_int = EditorGUILayout.IntField(action.p_int, GUILayout.MaxWidth(columnWidth / 3));
+        EditorGUILayout.LabelField("Items", GUILayout.MaxWidth(columnWidth / 3));
+        EditorGUILayout.EndHorizontal();
+
+        EditorGUILayout.BeginHorizontal();
+        EditorGUILayout.LabelField("Named", GUILayout.MaxWidth(columnWidth / 3));
+        action.p_string = EditorGUILayout.TextField(action.p_string, GUILayout.MaxWidth(columnWidth * 2 / 3));
+        EditorGUILayout.EndHorizontal();
+    }
+
     #endregion Action GUI
 
     #region Background
 
     //  Background  -------------------------------------------------------------------------------------
     void DrawBackground(string type) {
+        int notImplemented = 18;
         Color blue = new Color(0, 0.58f, 0.69f, 0.45f);
         Color orange = new Color(1, 0.46f, 0, 0.45f);
 
@@ -471,6 +521,9 @@ public class PopEventEditor : Editor {
         else if (type == "Wait X Seconds") {
             DrawBackground(60, blue);
         }
+        else if (type == "Collect X Items") {
+            DrawBackground(60 + notImplemented, blue);
+        }
         else if (type == "Choose A Condition") {
             DrawBackground(24, blue - new Color(0, 0, 0, 0.2f));
         }
@@ -486,14 +539,20 @@ public class PopEventEditor : Editor {
         else if (type == "Debug Message") {
             DrawBackground(42, orange);
         }
+        else if (type == "Destroy This Object") {
+            DrawBackground(24, orange);
+        }
         else if (type == "Create Text Box") {
-            DrawBackground(60, orange);
+            DrawBackground(60 + notImplemented, orange);
         }
         else if (type == "Destroy Text Box") {
-            DrawBackground(42, orange);
+            DrawBackground(42 + notImplemented, orange);
         }
         else if (type == "Create Prefab") {
             DrawBackground(60, orange);
+        }
+        else if (type == "Add X Items") {
+            DrawBackground(60 + notImplemented, orange);
         }
         else if (type == "Choose An Action") {
             DrawBackground(24, orange - new Color(0, 0, 0, 0.2f));

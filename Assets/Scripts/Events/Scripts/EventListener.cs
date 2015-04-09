@@ -116,6 +116,7 @@ public static class EventListener {
 
     public static void InvokeAction(EventCouple couple) {
         couple.popEvent.hasExecuted = true;
+        bool destroyAfterwards = false;
         foreach (EventAction action in couple.actions) {
             if (action.executeType == "Execute Function") {
                 if (action.actionName != string.Empty) {
@@ -137,9 +138,15 @@ public static class EventListener {
             else if (action.executeType == "Create Prefab") {
                 MonoBehaviour.Instantiate(action.p_GameObject, action.p_Vector3, Quaternion.identity);
             }
+            else if (action.executeType == "Destroy This Object") {
+                destroyAfterwards = true;
+            }
         }
         if (couple.popEvent.executeOnce == true) {
             couple.popEvent.MakeActive(false);
+        }
+        if (destroyAfterwards == true) {
+            MonoBehaviour.Destroy(couple.popEvent.gameObject);
         }
     }
 
