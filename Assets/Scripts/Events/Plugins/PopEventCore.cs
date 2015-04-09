@@ -21,7 +21,7 @@ public static class PopEventCore {
 		{ "System", new string[] { "Choose An Action", "Execute Function", "Debug Message", "Activate Next Event", "Activate Another Event", "Deactivate Another Event" } },
 		{ "Player", new string[] { "Choose An Action", "Move Player To Location" } },
 		{ "Item", new string[] { "Choose An Action", "Add X Items" } },
-		{ "Object", new string[] { "Choose An Action", "Create Prefab", "Destroy This Object" } },
+		{ "Object", new string[] { "Choose An Action", "Create Prefab At Position", "Create Prefab Here", "Destroy This Object" } },
 		{ "GUI", new string[] { "Choose An Action", "Create Text Box", "Destroy Text Box" } },
 		{ "Sound", new string[] { "Choose An Action", "Play Sound" } },
 	};

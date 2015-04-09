@@ -5253,7 +5253,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 536043394}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -.270000011, y: 0, z: 11.9399996}
+  m_LocalPosition: {x: -.300000012, y: .400000006, z: 11.8999996}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -5395,7 +5395,7 @@ MonoBehaviour:
       conditionField: 
       conditionIndex: 0
       p_int: 0
-      p_float: 5
+      p_float: 3
       p_string: 
       p_Vector3: {x: 0, y: 0, z: 0}
       p_Transform: {fileID: 0}
@@ -5418,12 +5418,12 @@ MonoBehaviour:
       p_Vector3: {x: 0, y: 1, z: 0}
       p_GameObject: {fileID: 162326, guid: afe756e0f00f7ee418ec05eddf8c0a04, type: 2}
       p_MonoBehaviour: {fileID: 0}
-      executeCategory: System
-      executeType: Debug Message
+      executeCategory: Object
+      executeType: Create Prefab Here
       executeString: 
       executeIndex: 2
       executeCategoryString: 
-      executeCategoryIndex: 0
+      executeCategoryIndex: 3
     andOrCompare: 0
   isActive: 0
   isRegional: 0

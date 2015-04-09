@@ -135,8 +135,11 @@ public static class EventListener {
             else if (action.executeType == "Deactivate Another Event") {
                 ActivateById(action.p_string, false);
             }
-            else if (action.executeType == "Create Prefab") {
+            else if (action.executeType == "Create Prefab At Position") {
                 MonoBehaviour.Instantiate(action.p_GameObject, action.p_Vector3, Quaternion.identity);
+            }
+            else if (action.executeType == "Create Prefab Here") {
+                MonoBehaviour.Instantiate(action.p_GameObject, couple.popEvent.gameObject.transform.position, Quaternion.identity);
             }
             else if (action.executeType == "Destroy This Object") {
                 destroyAfterwards = true;

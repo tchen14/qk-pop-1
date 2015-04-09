@@ -268,6 +268,7 @@ public class PopEventEditor : Editor {
             }
             else {
                 EditorGUILayout.LabelField("<b><color=#ff2222ff>No Valid Fields</color></b>", style, GUILayout.MaxWidth(columnWidth));
+                for (int sp = 0; sp < 9; sp++) { EditorGUILayout.Space(); }
             }
         }
         else {
@@ -383,8 +384,11 @@ public class PopEventEditor : Editor {
         else if (action.executeType == "Destroy Text Box") {
             DrawDestroyTextBox(action);
         }
-        else if (action.executeType == "Create Prefab") {
-            DrawCreatePrefab(action);
+        else if (action.executeType == "Create Prefab At Position") {
+            DrawCreatePrefabAtPosition(action);
+        }
+        else if (action.executeType == "Create Prefab Here") {
+            DrawCreatePrefabHere(action);
         }
         else if (action.executeType == "Add X Items") {
             DrawAddXItems(action);
@@ -494,9 +498,13 @@ public class PopEventEditor : Editor {
         EditorGUILayout.EndHorizontal();
     }
 
-    void DrawCreatePrefab(EventAction action) {
+    void DrawCreatePrefabAtPosition(EventAction action) {
         action.p_GameObject = (GameObject)EditorGUILayout.ObjectField(action.p_GameObject, typeof(GameObject), true, GUILayout.MaxWidth(columnWidth));
         action.p_Vector3 = EditorGUILayout.Vector3Field("", action.p_Vector3, GUILayout.MaxWidth(columnWidth));
+    }
+
+    void DrawCreatePrefabHere(EventAction action) {
+        action.p_GameObject = (GameObject)EditorGUILayout.ObjectField(action.p_GameObject, typeof(GameObject), true, GUILayout.MaxWidth(columnWidth));
     }
 
     void DrawAddXItems(EventAction action) {
@@ -523,60 +531,66 @@ public class PopEventEditor : Editor {
         int notImplemented = 18;
         Color blue = new Color(0, 0.58f, 0.69f, 0.45f);
         Color orange = new Color(1, 0.46f, 0, 0.45f);
+        int one = 24;
+        int two = 42;
+        int three = 60;
 
         if (type == "Execution Complete") {
             DrawBackground(70, new Color(1, 0, 0, 0.25f), true);
         }
         else if (type == "Player Enters Area") {
-            DrawBackground(42, blue);
+            DrawBackground(two, blue);
         }
         if (type == "Player Leaves Area") {
-            DrawBackground(42, blue);
+            DrawBackground(two, blue);
         }
         else if (type == "Watch Script") {
             DrawBackground(132, blue);
         }
         else if (type == "Wait X Seconds") {
-            DrawBackground(60, blue);
+            DrawBackground(three, blue);
         }
         else if (type == "Collect X Items") {
-            DrawBackground(60 + notImplemented, blue);
+            DrawBackground(three + notImplemented, blue);
         }
         else if (type == "Choose A Condition") {
-            DrawBackground(24, blue - new Color(0, 0, 0, 0.2f));
+            DrawBackground(one, blue - new Color(0, 0, 0, 0.2f));
         }
         else if (type == "Execute Function") {
             DrawBackground(132, orange);
         }
         else if (type == "Activate Next Event") {
-            DrawBackground(24, orange);
+            DrawBackground(one, orange);
         }
         else if (type == "Activate Another Event" || type == "Deactivate Another Event") {
-            DrawBackground(42, orange);
+            DrawBackground(two, orange);
         }
         else if (type == "Debug Message") {
-            DrawBackground(42, orange);
+            DrawBackground(two, orange);
         }
         else if (type == "Destroy This Object") {
-            DrawBackground(24, orange);
+            DrawBackground(one, orange);
         }
         else if (type == "Create Text Box") {
-            DrawBackground(60 + notImplemented, orange);
+            DrawBackground(three + notImplemented, orange);
         }
         else if (type == "Destroy Text Box") {
-            DrawBackground(42 + notImplemented, orange);
+            DrawBackground(two + notImplemented, orange);
         }
-        else if (type == "Create Prefab") {
-            DrawBackground(60, orange);
+        else if (type == "Create Prefab At Position") {
+            DrawBackground(three, orange);
+        }
+        else if (type == "Create Prefab Here") {
+            DrawBackground(two, orange);
         }
         else if (type == "Add X Items") {
-            DrawBackground(60 + notImplemented, orange);
+            DrawBackground(three + notImplemented, orange);
         }
         else if (type == "Move Player To Location" || type == "Play Sound") {
-            DrawBackground(24 + notImplemented, orange);
+            DrawBackground(one + notImplemented, orange);
         }
         else if (type == "Choose An Action") {
-            DrawBackground(24, orange - new Color(0, 0, 0, 0.2f));
+            DrawBackground(one, orange - new Color(0, 0, 0, 0.2f));
         }
     }
     
