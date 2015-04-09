@@ -32,11 +32,16 @@ public class AudioManager : MonoBehaviour {
 
 	public AudioMixer masterMixer;
 
+	Dictionary<string, bool> ambianceDict = new Dictionary<string, bool>();
+	Dictionary<string, bool> effectDict = new Dictionary<string, bool>();
+	Dictionary<string, bool> musicDict = new Dictionary<string, bool>();
+	Dictionary<string, bool> voiceDict = new Dictionary<string, bool>();
+
 
 
 	//! Unity Start function
     void Start() {
-		
+		//print("Start");
 		#region singletonCreation
 		if(_instance == null) {
 			//If I am the first instance, make me the Singleton
@@ -50,36 +55,65 @@ public class AudioManager : MonoBehaviour {
 		}
 		#endregion
 
+		loadListFromFile(soundListFilePath);
 
 
 	}
-	 json stuff
+	//json stuff
 	#region json
 	public bool loadListFromFile(string path) {		//checks to make sure json file is there
-		if(!System.IO.File.Exists(path)) {
+		if(!System.IO.File.Exists(Application.dataPath + path)) {
 			Debug.Error("audio", "File does not exist: " + path);
 			return false;
 		}
-
-		string json = System.IO.File.ReadAllText(path);
+		string json = System.IO.File.ReadAllText(Application.dataPath + path);
 		return loadListFromJson(json);
 	}
 
 	public bool loadListFromJson(string json) {		//loads json data into
 		JSONNode soundData = JSON.Parse(json);
-
-		totalNodes = checkpointData["totalNodes"].AsInt;
-		InsertNodeFromJson(m_root, checkpointData["node"]);
-
-		return totalNodes == 0 ? false : true;
-	}
-		 
-		 /*
-	public bool loadJSON() { 
+		//print(soundData);
+		if(soundData == null) {						//there is no json data
+			Debug.Error("audio", "Json file is empty");
+			return false;
+		}
 		
+		JSONNode audioNode = soundData["audio"];
+		string[] types = { "Ambiance", "Effect", "Music", "Voice" };
+
+		foreach(string type in types) {
+			JSONArray tempArray = audioNode[type].AsArray;
+			foreach(JSONNode j in tempArray) {
+				var name = j[0];				//name of object
+				bool priority = j[1].AsBool;	//priority of object
+				addSound(type, name, priority);
+			}
+		}
+		return true;
 	}
 	
-	public bool findSound(string name) {
+	public void addSound(string type, string name, bool priority){
+			switch(type) {
+				case "Ambiance":
+					ambianceDict.Add(name, priority);
+					break;
+				case "Effect":
+					effectDict.Add(name, priority);
+					break;
+				case "Music":
+					musicDict.Add(name, priority);
+					break;
+				case "Voice":
+					voiceDict.Add(name, priority);
+					break;
+				default:
+					Debug.Log("type", type + "is not an option, or you spelled it wrong");
+					break;
+			}
+		} 
+
+	
+/*	public bool findSound(string type, string name) {
 
 	}
 	*/
@@ -91,7 +125,7 @@ public class AudioManager : MonoBehaviour {
     //void Update() {
 	//}
 
-	#region Set & Check Sound
+	#region Set Sound volume
 	[EventVisible]
 	//!Change volume for groups in MasterMixer
 	public void changeVol(string name, float level){
@@ -208,7 +242,7 @@ public class AudioManager : MonoBehaviour {
 		}
 	}
 	#endregion*/
-
+/*
 	#region sound Dictionary
 	public class SoundDict {
 
@@ -240,7 +274,7 @@ public class AudioManager : MonoBehaviour {
 
 		
 	}
-	#endregion
+	#endregion */
 }
 
 

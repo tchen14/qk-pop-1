@@ -1,22 +1,44 @@
 {
-   "Effects":[
-      {
-         "name":"one.mp3",
-         "priority":false
-      },
-      {
-         "name":"two.mp3",
-         "priority":true
-      }
-   ],
-   "Music":[
-      {
-         "name":"three.mp3",
-         "priority":false
-      },
-      {
-         "name":"four.mp3",
-         "priority":false
-      }
-   ]
+	"audio": {
+		"Ambiance": [
+			{
+				"name": "Aone.mp3",
+				"priority": false
+			},
+			{
+				"name": "Atwo.mp3",
+				"priority": true
+			}
+		],
+		"Effect": [
+			{
+				"name": "Ethree.mp3",
+				"priority": false
+			},
+			{
+				"name": "Efour.mp3",
+				"priority": false
+			}
+		]
+		"Music": [
+			{
+				"name": "Mone.mp3",
+				"priority": false
+			},
+			{
+				"name": "Mtwo.mp3",
+				"priority": true
+			}
+		],
+		"Voice": [
+			{
+				"name": "Vthree.mp3",
+				"priority": false
+			},
+			{
+				"name": "Vfour.mp3",
+				"priority": false
+			}
+		]
+	}
 }
