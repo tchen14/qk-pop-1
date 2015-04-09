@@ -4,6 +4,8 @@ using System.Collections.Generic;
 
 public class PopEvent : MonoBehaviour {
 
+    public string uniqueId;
+
     public EventCouple couple;
 
     public bool isActive = true;
@@ -63,7 +65,6 @@ public class PopEvent : MonoBehaviour {
         }
     }
     void OnTriggerExit(Collider other) {
-        print("exit");
         if (isActive == false) { return; }
         if (other.gameObject.GetComponent<PoPCharacterController>()) {
             EventListener.SlowUpdate(couple);

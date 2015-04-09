@@ -5238,6 +5238,7 @@ GameObject:
   - 4: {fileID: 536043395}
   - 114: {fileID: 536043396}
   - 114: {fileID: 536043397}
+  - 114: {fileID: 536043398}
   m_Layer: 0
   m_Name: _PopEvent
   m_TagString: Untagged
@@ -5270,6 +5271,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3bce9737e13a17340acb5aabb86ba137, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  uniqueId: Go
   couple:
     popEvent: {fileID: 536043396}
     conditions:
@@ -5283,6 +5285,106 @@ MonoBehaviour:
       watchType: Player Leaves Area
       watchString: 
       watchIndex: 3
+      numberCompareOption: 0
+      vectorCompareOption: 0
+    actions:
+    - actionScript: {fileID: 0}
+      actionName: 
+      actionEditorIndex: 0
+      p_int: 0
+      p_float: 0
+      p_string: Three
+      p_Vector3: {x: 0, y: 0, z: 0}
+      p_GameObject: {fileID: 0}
+      p_MonoBehaviour: {fileID: 0}
+      executeType: Activate Another Event
+      executeString: 
+      executeIndex: 3
+    andOrCompare: 0
+  isActive: 1
+  isRegional: 0
+  executeOnce: 1
+  totalTimeActive: 0
+  delay: 90
+  regionRadius: 1
+  drawRegionTwo: 1
+  conditionRegionCenter: {x: 88.5999985, y: 1.5, z: 93}
+  conditionRegionRadius: 4.23803425
+--- !u!114 &536043397
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 536043394}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3bce9737e13a17340acb5aabb86ba137, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  uniqueId: Three
+  couple:
+    popEvent: {fileID: 536043397}
+    conditions:
+    - conditionScript: {fileID: 0}
+      conditionField: 
+      conditionIndex: 0
+      p_int: 0
+      p_float: 1
+      p_Vector3: {x: 0, y: 0, z: 0}
+      p_Transform: {fileID: 0}
+      watchType: Wait X Seconds
+      watchString: 
+      watchIndex: 4
+      numberCompareOption: 0
+      vectorCompareOption: 0
+    actions:
+    - actionScript: {fileID: 0}
+      actionName: 
+      actionEditorIndex: 0
+      p_int: 0
+      p_float: 0
+      p_string: Two
+      p_Vector3: {x: 0, y: 0, z: 0}
+      p_GameObject: {fileID: 0}
+      p_MonoBehaviour: {fileID: 0}
+      executeType: Debug Message
+      executeString: 
+      executeIndex: 4
+    andOrCompare: 0
+  isActive: 0
+  isRegional: 0
+  executeOnce: 1
+  totalTimeActive: 0
+  delay: 5
+  regionRadius: 1
+  drawRegionTwo: 0
+  conditionRegionCenter: {x: 0, y: 0, z: 0}
+  conditionRegionRadius: 1
+--- !u!114 &536043398
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 536043394}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3bce9737e13a17340acb5aabb86ba137, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  uniqueId: Three
+  couple:
+    popEvent: {fileID: 536043398}
+    conditions:
+    - conditionScript: {fileID: 0}
+      conditionField: 
+      conditionIndex: 0
+      p_int: 0
+      p_float: 1
+      p_Vector3: {x: 0, y: 0, z: 0}
+      p_Transform: {fileID: 0}
+      watchType: Wait X Seconds
+      watchString: 
+      watchIndex: 4
       numberCompareOption: 0
       vectorCompareOption: 0
     - conditionScript: {fileID: 0}
@@ -5303,86 +5405,13 @@ MonoBehaviour:
       actionEditorIndex: 0
       p_int: 0
       p_float: 0
-      p_string: Success
+      p_string: Complete
       p_Vector3: {x: 0, y: 0, z: 0}
       p_GameObject: {fileID: 0}
       p_MonoBehaviour: {fileID: 0}
       executeType: Debug Message
       executeString: 
-      executeIndex: 3
-    - actionScript: {fileID: 0}
-      actionName: 
-      actionEditorIndex: 0
-      p_int: 0
-      p_float: 0
-      p_string: 
-      p_Vector3: {x: 0, y: 0, z: 0}
-      p_GameObject: {fileID: 0}
-      p_MonoBehaviour: {fileID: 0}
-      executeType: Activate Next Event
-      executeString: 
-      executeIndex: 2
-    - actionScript: {fileID: 0}
-      actionName: 
-      actionEditorIndex: 0
-      p_int: 0
-      p_float: 0
-      p_string: 
-      p_Vector3: {x: 0, y: 0, z: 0}
-      p_GameObject: {fileID: 0}
-      p_MonoBehaviour: {fileID: 0}
-      executeType: Choose An Action
-      executeString: 
-      executeIndex: 0
-    andOrCompare: 0
-  isActive: 1
-  isRegional: 0
-  executeOnce: 1
-  totalTimeActive: 0
-  delay: 100
-  regionRadius: 1
-  drawRegionTwo: 1
-  conditionRegionCenter: {x: 88.5999985, y: 1.5, z: 93}
-  conditionRegionRadius: 4.23803425
---- !u!114 &536043397
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 536043394}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3bce9737e13a17340acb5aabb86ba137, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  couple:
-    popEvent: {fileID: 536043397}
-    conditions:
-    - conditionScript: {fileID: 0}
-      conditionField: 
-      conditionIndex: 0
-      p_int: 0
-      p_float: 5
-      p_Vector3: {x: 0, y: 0, z: 0}
-      p_Transform: {fileID: 0}
-      watchType: Wait X Seconds
-      watchString: 
-      watchIndex: 4
-      numberCompareOption: 0
-      vectorCompareOption: 0
-    actions:
-    - actionScript: {fileID: 0}
-      actionName: 
-      actionEditorIndex: 0
-      p_int: 0
-      p_float: 0
-      p_string: Waited
-      p_Vector3: {x: 0, y: 0, z: 0}
-      p_GameObject: {fileID: 0}
-      p_MonoBehaviour: {fileID: 0}
-      executeType: Debug Message
-      executeString: 
-      executeIndex: 3
+      executeIndex: 4
     andOrCompare: 0
   isActive: 0
   isRegional: 0

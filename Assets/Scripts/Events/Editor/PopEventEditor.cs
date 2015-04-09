@@ -14,8 +14,7 @@ public class PopEventEditor : Editor {
 
     PopEvent popTarget;
 
-    private SerializedProperty thingsProp;
-
+    bool duplicateId = false;
 
     void OnEnable() {
         Reload();
@@ -36,29 +35,47 @@ public class PopEventEditor : Editor {
         if (popTarget.couple == null) {
             popTarget.couple = new EventCouple(popTarget);
         }
+        EventListener.AddPopEvent(popTarget);
+        duplicateId = EventListener.CheckForDuplicateId(popTarget, popTarget.uniqueId);
     }
 
     #region General Inspector GUI
     override public void OnInspectorGUI() {
+        EditorGUI.BeginChangeCheck();
 
-       columnWidth = Mathf.FloorToInt(Screen.width / 2.4f);
+        columnWidth = Mathf.FloorToInt(Screen.width / 2.4f);
 
         /*!     Enabled Boolean & Update Timer     */
         EditorGUILayout.Space();
-
-        popTarget.isActive = EditorGUILayout.Toggle("Active", popTarget.isActive, GUILayout.MaxWidth(columnWidth));
-        
+        int halfWidth = columnWidth / 2;
+        int thirdWidth = columnWidth / 3;
+        int quarterWidth = columnWidth / 4;
+        int sixthWidth = columnWidth / 6;
         EditorGUILayout.BeginHorizontal();
-        popTarget.delay = EditorGUILayout.FloatField("Check Every", popTarget.delay);
-        EditorGUILayout.LabelField("Seconds");
+        EditorGUILayout.LabelField("Active", GUILayout.MaxWidth(halfWidth));
+        popTarget.isActive = EditorGUILayout.Toggle(popTarget.isActive, GUILayout.MaxWidth(sixthWidth));
+        GUILayout.Label("", GUILayout.MaxWidth(columnWidth / 10));
+
+        EditorGUILayout.LabelField("Unique Id (optional)", GUILayout.MaxWidth(halfWidth + quarterWidth));
+        popTarget.uniqueId = EditorGUILayout.TextField(popTarget.uniqueId, GUILayout.MaxWidth(halfWidth + sixthWidth));
         EditorGUILayout.EndHorizontal();
 
-        popTarget.isRegional = EditorGUILayout.Toggle("Regional", popTarget.isRegional);
-        popTarget.executeOnce = EditorGUILayout.Toggle("Only Execute Once", popTarget.executeOnce);
+        EditorGUILayout.BeginHorizontal();
+        EditorGUILayout.LabelField("Execute Once", GUILayout.MaxWidth(halfWidth));
+        popTarget.executeOnce = EditorGUILayout.Toggle(popTarget.executeOnce, GUILayout.MaxWidth(sixthWidth));
+        GUILayout.Label("", GUILayout.MaxWidth(columnWidth / 10));
+
+        EditorGUILayout.LabelField("Check Every (seconds)", GUILayout.MaxWidth(halfWidth + quarterWidth));
+        popTarget.delay = EditorGUILayout.FloatField(popTarget.delay, GUILayout.MaxWidth(halfWidth + sixthWidth));
+        EditorGUILayout.EndHorizontal();
 
         EditorGUILayout.BeginHorizontal();
-        EditorGUILayout.LabelField("Conditions to Meet", GUILayout.MaxWidth(columnWidth - 30));
-        popTarget.couple.andOrCompare = (EventCouple.AndOrCompare)EditorGUILayout.EnumPopup(popTarget.couple.andOrCompare, GUILayout.MaxWidth(columnWidth));
+        EditorGUILayout.LabelField("Regional", GUILayout.MaxWidth(halfWidth));
+        popTarget.isRegional = EditorGUILayout.Toggle(popTarget.isRegional, GUILayout.MaxWidth(sixthWidth));
+        GUILayout.Label("", GUILayout.MaxWidth(columnWidth / 10));
+
+        EditorGUILayout.LabelField("Conditions to Meet", GUILayout.MaxWidth(halfWidth + quarterWidth));
+        popTarget.couple.andOrCompare = (EventCouple.AndOrCompare)EditorGUILayout.EnumPopup(popTarget.couple.andOrCompare, GUILayout.MaxWidth(halfWidth + sixthWidth));
         EditorGUILayout.EndHorizontal();
 
         /*!     Conditions and Actions    */
@@ -81,6 +98,9 @@ public class PopEventEditor : Editor {
         /*!     Condition and Action Buttons    */
         EditorGUILayout.Space();
         EditorGUILayout.Space();
+        if (duplicateId == true) {
+            EditorGUILayout.HelpBox("Id \"" + popTarget.uniqueId + "\" is not Unique. If this event is referenced by id, all events with this id will be targeted.", MessageType.Warning, true);
+        }
 
         EditorGUILayout.BeginHorizontal();
         GUI.backgroundColor = Color.green;
@@ -98,7 +118,9 @@ public class PopEventEditor : Editor {
         if (GUILayout.Button("Add Another Event", GUILayout.MaxWidth(columnWidth * 2.14f))) {
             AddPopEvent.AddComponent();
         }
-
+        if (EditorGUI.EndChangeCheck()) {
+            Reload();
+        }
     }
 
     void OnSceneGUI() {
@@ -114,7 +136,8 @@ public class PopEventEditor : Editor {
 
     #endregion General Inspector GUI
 
-
+    #region Condition GUI
+    //  Draw Condition    -------------------------------------------------------------------------------------------------
     void DrawConditions() {
         EditorGUILayout.BeginVertical();
         int count = 0;
@@ -128,22 +151,9 @@ public class PopEventEditor : Editor {
         EditorGUILayout.EndVertical();
     }
 
-    void DrawActions() {
-        EditorGUILayout.BeginVertical();
-        int count = 0;
-        foreach (var action in popTarget.couple.actions) {
-            count++;
-            if (DrawOneAction(action, count) == false) {
-                break;
-            }
-        }
-        EditorGUILayout.EndVertical();
-    }
-
     bool DrawOneCondition(EventCondition condition, int count){
         DrawBackground(condition.watchType);
 
-        EditorGUI.BeginChangeCheck();
         GUILayout.BeginHorizontal();
 
         condition.watchIndex = FindIndex(condition.watchType, PopEventCore.watchTypes);
@@ -179,110 +189,9 @@ public class PopEventEditor : Editor {
         return true;
     }
 
-    bool DrawOneAction(EventAction action, int count) {
-        DrawBackground(action.executeType);
-
-        //  Action Components
-        EditorGUI.BeginChangeCheck();
-
-        EditorGUILayout.BeginHorizontal();
-        action.executeIndex = FindIndex(action.executeType, PopEventCore.executeTypes);
-        action.executeIndex = (int)EditorGUILayout.Popup(action.executeIndex, PopEventCore.executeTypes, GUILayout.MaxWidth(columnWidth));
-        action.executeType = PopEventCore.executeTypes[action.executeIndex];
-
-        GUI.backgroundColor = Color.red;
-        if (popTarget.couple.actions.Count > 1 && GUILayout.Button("X", GUILayout.MaxWidth(20))) {
-            RemoveAction(count - 1);
-            return false;
-        }
-        else if (popTarget.couple.actions.Count == 1) {
-            GUILayout.Label(" ", GUILayout.MaxWidth(20));
-        }
-
-        GUI.backgroundColor = Color.white;
-        EditorGUILayout.EndHorizontal();
-
-        if (action.executeType == "Execute Function") {
-            DrawExecuteFunction(action);
-        }
-        else if (action.executeType == "Debug Message") {
-            DrawDebugMessage(action);
-        }
-        EditorGUILayout.Space();
-        return true;
-    }
-
-    void DrawExecuteFunction(EventAction action){
-
-        EditorGUILayout.LabelField("Action Script", GUILayout.MaxWidth(columnWidth));
-        action.actionScript = (MonoBehaviour)EditorGUILayout.ObjectField(action.actionScript, typeof(MonoBehaviour), true, GUILayout.MaxWidth(columnWidth));
-        EditorGUI.EndChangeCheck();
-
-        if (action.actionScript != null) {
-            EventLibrary.library.TryGetValue((action.actionScript.GetType().Name + "Methods"), out actionNames);
-            if (actionNames != null) {
-                EditorGUILayout.LabelField("Action Function", GUILayout.MaxWidth(columnWidth));
-                action.actionEditorIndex = EditorGUILayout.Popup(action.actionEditorIndex, actionNames, EditorStyles.popup, GUILayout.MaxWidth(columnWidth));
-
-
-                if (actionNames.Length <= action.actionEditorIndex) {
-                    action.actionEditorIndex = 0;
-                }
-
-                //  Determine type to pass
-                System.Type paramType = typeof(void);
-
-                if (actionNames.Length > action.actionEditorIndex) {
-                    action.actionName = actionNames[action.actionEditorIndex];
-                    var par = action.actionScript.GetType().GetMethod(action.actionName).GetParameters();
-                    if (par.Length > 0) {
-                        paramType = par[0].ParameterType;
-                    }
-                }
-                //  Label for non-null
-                if (paramType != typeof(void)) {
-                    EditorGUILayout.LabelField("Value to Pass", GUILayout.MaxWidth(columnWidth));
-                }
-                //  Expose the proper variable
-                if (paramType == typeof(System.Int32)) {
-                    action.p_int = EditorGUILayout.IntField(action.p_int, GUILayout.MaxWidth(columnWidth));
-                }
-                else if (paramType == typeof(System.Single)) {
-                    action.p_float = EditorGUILayout.FloatField(action.p_float, GUILayout.MaxWidth(columnWidth));
-                }
-                else if (paramType == typeof(Vector3)) {
-                    action.p_Vector3 = EditorGUILayout.Vector3Field("", action.p_Vector3, GUILayout.MaxWidth(columnWidth));
-                }
-                else if (paramType == typeof(GameObject)) {
-                    action.p_GameObject = (GameObject)EditorGUILayout.ObjectField(action.p_GameObject, typeof(GameObject), true, GUILayout.MaxWidth(columnWidth));
-                }
-                else if (paramType == typeof(MonoBehaviour)) {
-                    action.p_MonoBehaviour = (MonoBehaviour)EditorGUILayout.ObjectField(action.p_MonoBehaviour, typeof(MonoBehaviour), true, GUILayout.MaxWidth(columnWidth));
-                }
-                else {
-                    for (int sp = 0; sp < 6; sp++) { EditorGUILayout.Space(); }
-                }
-
-                //  Set the parameters
-                action.args = action.SetParameters(paramType);
-            }
-            else {
-                EditorGUILayout.LabelField("<b><color=#ff2222ff>No Valid Methods</color></b>", style, GUILayout.MaxWidth(columnWidth));
-            }
-        }
-        else {
-            for (int sp = 0; sp < 12; sp++) { EditorGUILayout.Space(); }
-        }
-    }
-
-    void DrawDebugMessage(EventAction action) {
-        action.p_string = EditorGUILayout.TextField(action.p_string, GUILayout.MaxWidth(columnWidth));
-    }
-
-    void DrawWatchScript(EventCondition condition){
+    void DrawWatchScript(EventCondition condition) {
         EditorGUILayout.LabelField("Condition Script", GUILayout.MaxWidth(columnWidth));
         condition.conditionScript = (MonoBehaviour)EditorGUILayout.ObjectField(condition.conditionScript, typeof(MonoBehaviour), true, GUILayout.MaxWidth(columnWidth));
-        EditorGUI.EndChangeCheck();
 
         if (condition.conditionScript != null) {
             EventLibrary.library.TryGetValue((condition.conditionScript.GetType().Name + "Fields"), out conditionNames);
@@ -357,6 +266,135 @@ public class PopEventEditor : Editor {
         EditorGUILayout.EndHorizontal();
     }
 
+    #endregion Condition GUI
+
+    #region Action GUI
+    //  Draw Actions    -------------------------------------------------------------------------------------------------
+    void DrawActions() {
+        EditorGUILayout.BeginVertical();
+        int count = 0;
+        foreach (var action in popTarget.couple.actions) {
+            count++;
+            if (DrawOneAction(action, count) == false) {
+                break;
+            }
+        }
+        EditorGUILayout.EndVertical();
+    }
+
+    bool DrawOneAction(EventAction action, int count) {
+        DrawBackground(action.executeType);
+
+        //  Action Components
+
+        EditorGUILayout.BeginHorizontal();
+        action.executeIndex = FindIndex(action.executeType, PopEventCore.executeTypes);
+        action.executeIndex = (int)EditorGUILayout.Popup(action.executeIndex, PopEventCore.executeTypes, GUILayout.MaxWidth(columnWidth));
+        action.executeType = PopEventCore.executeTypes[action.executeIndex];
+
+        GUI.backgroundColor = Color.red;
+        if (popTarget.couple.actions.Count > 1 && GUILayout.Button("X", GUILayout.MaxWidth(20))) {
+            RemoveAction(count - 1);
+            return false;
+        }
+        else if (popTarget.couple.actions.Count == 1) {
+            GUILayout.Label(" ", GUILayout.MaxWidth(20));
+        }
+
+        GUI.backgroundColor = Color.white;
+        EditorGUILayout.EndHorizontal();
+
+        if (action.executeType == "Execute Function") {
+            DrawExecuteFunction(action);
+        }
+        else if (action.executeType == "Debug Message") {
+            DrawDebugMessage(action);
+        }
+        else if (action.executeType == "Activate Another Event") {
+            DrawActivateAnotherEvent(action);
+        }
+        EditorGUILayout.Space();
+        return true;
+    }
+
+    void DrawExecuteFunction(EventAction action){
+
+        EditorGUILayout.LabelField("Action Script", GUILayout.MaxWidth(columnWidth));
+        action.actionScript = (MonoBehaviour)EditorGUILayout.ObjectField(action.actionScript, typeof(MonoBehaviour), true, GUILayout.MaxWidth(columnWidth));
+
+        if (action.actionScript != null) {
+            EventLibrary.library.TryGetValue((action.actionScript.GetType().Name + "Methods"), out actionNames);
+            if (actionNames != null) {
+                EditorGUILayout.LabelField("Action Function", GUILayout.MaxWidth(columnWidth));
+                action.actionEditorIndex = EditorGUILayout.Popup(action.actionEditorIndex, actionNames, EditorStyles.popup, GUILayout.MaxWidth(columnWidth));
+
+
+                if (actionNames.Length <= action.actionEditorIndex) {
+                    action.actionEditorIndex = 0;
+                }
+
+                //  Determine type to pass
+                System.Type paramType = typeof(void);
+
+                if (actionNames.Length > action.actionEditorIndex) {
+                    action.actionName = actionNames[action.actionEditorIndex];
+                    var par = action.actionScript.GetType().GetMethod(action.actionName).GetParameters();
+                    if (par.Length > 0) {
+                        paramType = par[0].ParameterType;
+                    }
+                }
+                //  Label for non-null
+                if (paramType != typeof(void)) {
+                    EditorGUILayout.LabelField("Value to Pass", GUILayout.MaxWidth(columnWidth));
+                }
+                //  Expose the proper variable
+                if (paramType == typeof(System.Int32)) {
+                    action.p_int = EditorGUILayout.IntField(action.p_int, GUILayout.MaxWidth(columnWidth));
+                }
+                else if (paramType == typeof(System.Single)) {
+                    action.p_float = EditorGUILayout.FloatField(action.p_float, GUILayout.MaxWidth(columnWidth));
+                }
+                else if (paramType == typeof(Vector3)) {
+                    action.p_Vector3 = EditorGUILayout.Vector3Field("", action.p_Vector3, GUILayout.MaxWidth(columnWidth));
+                }
+                else if (paramType == typeof(GameObject)) {
+                    action.p_GameObject = (GameObject)EditorGUILayout.ObjectField(action.p_GameObject, typeof(GameObject), true, GUILayout.MaxWidth(columnWidth));
+                }
+                else if (paramType == typeof(MonoBehaviour)) {
+                    action.p_MonoBehaviour = (MonoBehaviour)EditorGUILayout.ObjectField(action.p_MonoBehaviour, typeof(MonoBehaviour), true, GUILayout.MaxWidth(columnWidth));
+                }
+                else {
+                    for (int sp = 0; sp < 6; sp++) { EditorGUILayout.Space(); }
+                }
+
+                //  Set the parameters
+                action.args = action.SetParameters(paramType);
+            }
+            else {
+                EditorGUILayout.LabelField("<b><color=#ff2222ff>No Valid Methods</color></b>", style, GUILayout.MaxWidth(columnWidth));
+            }
+        }
+        else {
+            for (int sp = 0; sp < 12; sp++) { EditorGUILayout.Space(); }
+        }
+    }
+
+    void DrawDebugMessage(EventAction action) {
+        action.p_string = EditorGUILayout.TextField(action.p_string, GUILayout.MaxWidth(columnWidth));
+    }
+
+    void DrawActivateAnotherEvent(EventAction action) {
+        EditorGUILayout.BeginHorizontal();
+        EditorGUILayout.LabelField("Event Id", GUILayout.MaxWidth(columnWidth / 2));
+        action.p_string = EditorGUILayout.TextField(action.p_string, GUILayout.MaxWidth(columnWidth / 2));
+        EditorGUILayout.EndHorizontal();
+    }
+
+    #endregion Action GUI
+
+    #region Background
+
+    //  Background  -------------------------------------------------------------------------------------
     void DrawBackground(string type) {
         Color blue = new Color(0, 0.58f, 0.69f, 0.45f);
         Color red = new Color(1, 0.46f, 0, 0.45f);
@@ -382,6 +420,9 @@ public class PopEventEditor : Editor {
         else if (type == "Activate Next Event") {
             DrawBackground(24, red);
         }
+        else if (type == "Activate Another Event") {
+            DrawBackground(42, red);
+        }
         else if (type == "Debug Message") {
             DrawBackground(42, red);
         }
@@ -396,8 +437,9 @@ public class PopEventEditor : Editor {
         texture.SetPixel(0, 0, color);
         texture.Apply();
         GUI.skin.box.normal.background = texture;
-        GUI.Box(new Rect(rt.x, rt.y, Screen.width / 2.1f, height), GUIContent.none);
+        GUI.Box(new Rect(rt.x, rt.y, Screen.width / 2.15f, height), GUIContent.none);
     }
+    #endregion Background
 
     /*!     Buttons         */
     void AddCondition() {

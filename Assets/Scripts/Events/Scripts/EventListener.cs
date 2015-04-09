@@ -4,6 +4,36 @@ using System.Collections.Generic;
 
 public static class EventListener {
 
+    public static List<PopEvent> eventList = new List<PopEvent>();
+    public static void AddPopEvent(PopEvent popEvent) {
+        for (int i = 0; i < eventList.Count; i++){
+            if (eventList[i] == null) {
+                eventList.RemoveAt(i);
+                //MonoBehaviour.print(eventList.Count);
+                AddPopEvent(popEvent);
+                return;
+            }
+            if (eventList[i] == popEvent) {
+                return;
+            }
+        }
+        eventList.Add(popEvent);
+        //MonoBehaviour.print(eventList.Count);
+    }
+
+    public static bool CheckForDuplicateId(PopEvent popEvent, string id) {
+        if (id == "") {
+            return false;
+        }
+        for (int i = 0; i < eventList.Count; i++) {
+            if (eventList[i] != popEvent) {
+                if (eventList[i].uniqueId == id) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
 
     public static void Report(MonoBehaviour mono, string value) {
         //StackFrame stackFrame = new StackFrame(1);
@@ -96,6 +126,9 @@ public static class EventListener {
             else if (action.executeType == "Activate Next Event") {
                 couple.popEvent.ActivateNextEvent();
             }
+            else if (action.executeType == "Activate Another Event") {
+                ActivateById(action.p_string);
+            }
         }
         if (couple.popEvent.executeOnce == true) {
             couple.popEvent.Deactivate();
@@ -128,6 +161,14 @@ public static class EventListener {
             if (valueA < valueB) { return true; }
         }
         return false;
+    }
+
+    private static void ActivateById(string id) {
+        for (int i = 0; i < eventList.Count; i++) {
+            if (eventList[i].uniqueId == id) {
+                eventList[i].isActive = true;
+            }
+        }
     }
 
 }
