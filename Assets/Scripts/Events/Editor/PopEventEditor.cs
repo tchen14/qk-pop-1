@@ -264,6 +264,12 @@ public class PopEventEditor : Editor {
         EditorGUILayout.LabelField("Seconds to Wait", GUILayout.MaxWidth(columnWidth / 2));
         condition.p_float = EditorGUILayout.FloatField(condition.p_float, GUILayout.MaxWidth(columnWidth / 2));
         EditorGUILayout.EndHorizontal();
+
+        EditorGUILayout.BeginHorizontal();
+        EditorGUILayout.LabelField("Seconds Waited", GUILayout.MaxWidth(columnWidth / 2));
+        EditorGUILayout.LabelField(popTarget.totalTimeActive.ToString(), GUILayout.MaxWidth(columnWidth / 2));
+        EditorGUILayout.EndHorizontal();
+
     }
 
     #endregion Condition GUI
@@ -310,7 +316,7 @@ public class PopEventEditor : Editor {
         else if (action.executeType == "Debug Message") {
             DrawDebugMessage(action);
         }
-        else if (action.executeType == "Activate Another Event") {
+        else if (action.executeType == "Activate Another Event" || action.executeType == "Deactivate Another Event") {
             DrawActivateAnotherEvent(action);
         }
         EditorGUILayout.Space();
@@ -409,7 +415,7 @@ public class PopEventEditor : Editor {
             DrawBackground(132, blue);
         }
         else if (type == "Wait X Seconds") {
-            DrawBackground(42, blue);
+            DrawBackground(60, blue);
         }
         else if (type == "Choose A Condition") {
             DrawBackground(24, blue - new Color(0, 0, 0, 0.2f));
@@ -420,7 +426,7 @@ public class PopEventEditor : Editor {
         else if (type == "Activate Next Event") {
             DrawBackground(24, red);
         }
-        else if (type == "Activate Another Event") {
+        else if (type == "Activate Another Event" || type == "Deactivate Another Event") {
             DrawBackground(42, red);
         }
         else if (type == "Debug Message") {

@@ -5240,7 +5240,7 @@ GameObject:
   - 114: {fileID: 536043397}
   - 114: {fileID: 536043398}
   m_Layer: 0
-  m_Name: _PopEvent
+  m_Name: Event_StayInArea
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5253,11 +5253,9 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 536043394}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2.9000001, y: 0, z: -1.5}
+  m_LocalPosition: {x: -.270000011, y: 0, z: 11.9399996}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children:
-  - {fileID: 1565074302}
-  - {fileID: 2064629033}
+  m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 7
 --- !u!114 &536043396
@@ -5271,9 +5269,59 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3bce9737e13a17340acb5aabb86ba137, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  uniqueId: Go
+  uniqueId: 
   couple:
     popEvent: {fileID: 536043396}
+    conditions:
+    - conditionScript: {fileID: 0}
+      conditionField: 
+      conditionIndex: 0
+      p_int: 0
+      p_float: 0
+      p_Vector3: {x: 0, y: 0, z: 0}
+      p_Transform: {fileID: 0}
+      watchType: Player Enters Area
+      watchString: 
+      watchIndex: 2
+      numberCompareOption: 0
+      vectorCompareOption: 0
+    actions:
+    - actionScript: {fileID: 0}
+      actionName: 
+      actionEditorIndex: 0
+      p_int: 0
+      p_float: 0
+      p_string: Stay1
+      p_Vector3: {x: 0, y: 0, z: 0}
+      p_GameObject: {fileID: 0}
+      p_MonoBehaviour: {fileID: 0}
+      executeType: Activate Another Event
+      executeString: 
+      executeIndex: 3
+    andOrCompare: 0
+  isActive: 1
+  isRegional: 0
+  executeOnce: 0
+  totalTimeActive: 0
+  delay: 90
+  regionRadius: 1
+  drawRegionTwo: 1
+  conditionRegionCenter: {x: 88.5999985, y: 1.5, z: 93}
+  conditionRegionRadius: 7
+--- !u!114 &536043397
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 536043394}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3bce9737e13a17340acb5aabb86ba137, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  uniqueId: 
+  couple:
+    popEvent: {fileID: 536043397}
     conditions:
     - conditionScript: {fileID: 0}
       conditionField: 
@@ -5293,73 +5341,23 @@ MonoBehaviour:
       actionEditorIndex: 0
       p_int: 0
       p_float: 0
-      p_string: Three
+      p_string: Stay1
       p_Vector3: {x: 0, y: 0, z: 0}
       p_GameObject: {fileID: 0}
       p_MonoBehaviour: {fileID: 0}
-      executeType: Activate Another Event
-      executeString: 
-      executeIndex: 3
-    andOrCompare: 0
-  isActive: 1
-  isRegional: 0
-  executeOnce: 1
-  totalTimeActive: 0
-  delay: 90
-  regionRadius: 1
-  drawRegionTwo: 1
-  conditionRegionCenter: {x: 88.5999985, y: 1.5, z: 93}
-  conditionRegionRadius: 4.23803425
---- !u!114 &536043397
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 536043394}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3bce9737e13a17340acb5aabb86ba137, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  uniqueId: Three
-  couple:
-    popEvent: {fileID: 536043397}
-    conditions:
-    - conditionScript: {fileID: 0}
-      conditionField: 
-      conditionIndex: 0
-      p_int: 0
-      p_float: 1
-      p_Vector3: {x: 0, y: 0, z: 0}
-      p_Transform: {fileID: 0}
-      watchType: Wait X Seconds
-      watchString: 
-      watchIndex: 4
-      numberCompareOption: 0
-      vectorCompareOption: 0
-    actions:
-    - actionScript: {fileID: 0}
-      actionName: 
-      actionEditorIndex: 0
-      p_int: 0
-      p_float: 0
-      p_string: Two
-      p_Vector3: {x: 0, y: 0, z: 0}
-      p_GameObject: {fileID: 0}
-      p_MonoBehaviour: {fileID: 0}
-      executeType: Debug Message
+      executeType: Deactivate Another Event
       executeString: 
       executeIndex: 4
     andOrCompare: 0
-  isActive: 0
+  isActive: 1
   isRegional: 0
-  executeOnce: 1
+  executeOnce: 0
   totalTimeActive: 0
-  delay: 5
+  delay: 1
   regionRadius: 1
-  drawRegionTwo: 0
+  drawRegionTwo: 1
   conditionRegionCenter: {x: 0, y: 0, z: 0}
-  conditionRegionRadius: 1
+  conditionRegionRadius: 7
 --- !u!114 &536043398
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5371,7 +5369,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3bce9737e13a17340acb5aabb86ba137, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  uniqueId: Three
+  uniqueId: Stay1
   couple:
     popEvent: {fileID: 536043398}
     conditions:
@@ -5379,24 +5377,12 @@ MonoBehaviour:
       conditionField: 
       conditionIndex: 0
       p_int: 0
-      p_float: 1
+      p_float: 10
       p_Vector3: {x: 0, y: 0, z: 0}
       p_Transform: {fileID: 0}
       watchType: Wait X Seconds
       watchString: 
       watchIndex: 4
-      numberCompareOption: 0
-      vectorCompareOption: 0
-    - conditionScript: {fileID: 0}
-      conditionField: 
-      conditionIndex: 0
-      p_int: 0
-      p_float: 0
-      p_Vector3: {x: 0, y: 0, z: 0}
-      p_Transform: {fileID: 0}
-      watchType: Choose A Condition
-      watchString: 
-      watchIndex: 0
       numberCompareOption: 0
       vectorCompareOption: 0
     actions:
@@ -5411,7 +5397,7 @@ MonoBehaviour:
       p_MonoBehaviour: {fileID: 0}
       executeType: Debug Message
       executeString: 
-      executeIndex: 4
+      executeIndex: 5
     andOrCompare: 0
   isActive: 0
   isRegional: 0
@@ -15124,51 +15110,6 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1561530498}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!1 &1565074301
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 4
-  m_Component:
-  - 4: {fileID: 1565074302}
-  - 114: {fileID: 1565074303}
-  m_Layer: 0
-  m_Name: Left
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1565074302
-Transform:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1565074301}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 536043395}
-  m_RootOrder: 0
---- !u!114 &1565074303
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1565074301}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9aea0a90c6f832041a2cc5056b678dc2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  timer: 0
-  delay: 1
-  counter: 5
-  fieldA: 5
-  fieldB: 5
-  vectorA: {x: 0, y: 0, z: 0}
 --- !u!1 &1566323730
 GameObject:
   m_ObjectHideFlags: 0
@@ -20289,46 +20230,6 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2062365568}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!1 &2064629031
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 4
-  m_Component:
-  - 4: {fileID: 2064629033}
-  - 114: {fileID: 2064629032}
-  m_Layer: 0
-  m_Name: Right
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &2064629032
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 2064629031}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2d9fafca4c8b4314db9235f5689c35bf, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  CubePrefab: {fileID: 0}
---- !u!4 &2064629033
-Transform:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 2064629031}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 536043395}
-  m_RootOrder: 1
 --- !u!1 &2068614623
 GameObject:
   m_ObjectHideFlags: 0

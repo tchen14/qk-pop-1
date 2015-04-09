@@ -75,7 +75,7 @@ public static class EventListener {
                     condition.p_Transform = GameObject.Find("/_Player").transform;
                 }
                 //  Add to couple.popEvent.conditionRegionRadius a distance equal to the width of the player (right now we can test with 1)
-                if (Vector3.Distance(condition.p_Transform.position, couple.popEvent.transform.position) <= couple.popEvent.conditionRegionRadius + 1) {
+                if (Vector3.Distance(condition.p_Transform.position, couple.popEvent.transform.position) < couple.popEvent.conditionRegionRadius + 1) {
                     testsPassed++;
                 }
             }
@@ -83,7 +83,7 @@ public static class EventListener {
                 if (condition.p_Transform == null) {
                     condition.p_Transform = GameObject.Find("/_Player").transform;
                 }
-                if (Vector3.Distance(condition.p_Transform.position, couple.popEvent.transform.position) >= couple.popEvent.conditionRegionRadius) {
+                if (Vector3.Distance(condition.p_Transform.position, couple.popEvent.transform.position) > couple.popEvent.conditionRegionRadius + 1) {
                     testsPassed++;
                 }
             }
@@ -127,7 +127,10 @@ public static class EventListener {
                 couple.popEvent.ActivateNextEvent();
             }
             else if (action.executeType == "Activate Another Event") {
-                ActivateById(action.p_string);
+                ActivateById(action.p_string, true);
+            }
+            else if (action.executeType == "Deactivate Another Event") {
+                ActivateById(action.p_string, false);
             }
         }
         if (couple.popEvent.executeOnce == true) {
@@ -163,10 +166,10 @@ public static class EventListener {
         return false;
     }
 
-    private static void ActivateById(string id) {
+    private static void ActivateById(string id, bool active) {
         for (int i = 0; i < eventList.Count; i++) {
             if (eventList[i].uniqueId == id) {
-                eventList[i].isActive = true;
+                eventList[i].isActive = active;
             }
         }
     }
