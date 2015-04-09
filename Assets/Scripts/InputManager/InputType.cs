@@ -49,4 +49,16 @@ public abstract class InputType : MonoBehaviour {
 	public virtual bool CrouchPressed() {
 		return false;
 	}
+	public virtual bool isTargetPressed() {
+		return false;
+	}
+	public virtual bool isCameraReset() {
+		return false;
+	}
+	public virtual bool isQAbility1() {
+		return false;
+	}
+	public virtual bool isQAbility2() {
+		return false;
+	}
 }
