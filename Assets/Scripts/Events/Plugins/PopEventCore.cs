@@ -1,9 +1,10 @@
-﻿//using UnityEngine;
+﻿using UnityEngine;
 //using System.Diagnostics;
 using System.Collections.Generic;
 
 public class EventVisibleAttribute : System.Attribute { }
 
+[EventVisible]
 public static class PopEventCore {
 
     public static Dictionary<string, string[]> watchLibrary = new Dictionary<string, string[]> {
@@ -26,4 +27,8 @@ public static class PopEventCore {
 		{ "Sound", new string[] { "Choose An Action", "Play Sound" } },
 	};
 
+    [EventVisible]
+    public static void TestFunction() {
+        MonoBehaviour.print("Test Function");
+    }
 }

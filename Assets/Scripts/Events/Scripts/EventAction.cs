@@ -31,6 +31,8 @@ public class EventAction {
     public string executeCategoryString;
     public int executeCategoryIndex;
 
+    public bool executeStaticFunction = false;
+
 
     //  Called by EventManagerEditor with reflected parameter
     public object[] SetParameters(System.Type type){

@@ -118,31 +118,36 @@ public static class EventListener {
         couple.popEvent.hasExecuted = true;
         bool destroyAfterwards = false;
         foreach (EventAction action in couple.actions) {
-            if (action.executeType == "Execute Function") {
-                if (action.actionName != string.Empty) {
-                    action.actionScript.GetType().GetMethod(action.actionName).Invoke(action.actionScript, action.args);
+            if (action.executeStaticFunction == false) {
+                if (action.executeType == "Execute Function") {
+                    if (action.actionName != string.Empty) {
+                        action.actionScript.GetType().GetMethod(action.actionName).Invoke(action.actionScript, action.args);
+                    }
+                }
+                else if (action.executeType == "Debug Message") {
+                    MonoBehaviour.print(action.p_string);
+                }
+                else if (action.executeType == "Activate Next Event") {
+                    couple.popEvent.ActivateNextEvent();
+                }
+                else if (action.executeType == "Activate Another Event") {
+                    ActivateById(action.p_string, true);
+                }
+                else if (action.executeType == "Deactivate Another Event") {
+                    ActivateById(action.p_string, false);
+                }
+                else if (action.executeType == "Create Prefab At Position") {
+                    MonoBehaviour.Instantiate(action.p_GameObject, action.p_Vector3, Quaternion.identity);
+                }
+                else if (action.executeType == "Create Prefab Here") {
+                    MonoBehaviour.Instantiate(action.p_GameObject, couple.popEvent.gameObject.transform.position, Quaternion.identity);
+                }
+                else if (action.executeType == "Destroy This Object") {
+                    destroyAfterwards = true;
                 }
             }
-            else if (action.executeType == "Debug Message") {
-                MonoBehaviour.print(action.p_string);
-            }
-            else if (action.executeType == "Activate Next Event") {
-                couple.popEvent.ActivateNextEvent();
-            }
-            else if (action.executeType == "Activate Another Event") {
-                ActivateById(action.p_string, true);
-            }
-            else if (action.executeType == "Deactivate Another Event") {
-                ActivateById(action.p_string, false);
-            }
-            else if (action.executeType == "Create Prefab At Position") {
-                MonoBehaviour.Instantiate(action.p_GameObject, action.p_Vector3, Quaternion.identity);
-            }
-            else if (action.executeType == "Create Prefab Here") {
-                MonoBehaviour.Instantiate(action.p_GameObject, couple.popEvent.gameObject.transform.position, Quaternion.identity);
-            }
-            else if (action.executeType == "Destroy This Object") {
-                destroyAfterwards = true;
+            else {
+                EventLibrary.staticClasses[action.executeCategory].GetMethod(action.executeType).Invoke(null, null);
             }
         }
         if (couple.popEvent.executeOnce == true) {

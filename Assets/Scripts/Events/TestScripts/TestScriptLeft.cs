@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+[EventVisible]
 public class TestScriptLeft : MonoBehaviour {
 
     [EventVisible]

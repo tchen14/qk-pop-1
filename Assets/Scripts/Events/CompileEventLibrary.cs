@@ -16,15 +16,37 @@ public class CompileEventLibrary : EditorWindow {
         string fileName = Application.dataPath + "\\Scripts\\Events\\Plugins\\EventLibrary.cs";
 
         string compilationString = "/*\n\n\n\n\n\n\n\n\n\n\n\n\t\t\t\t\t\tThis script has been automatically generated.\n\t\t\t\t\t\tDo not alter it, or your changes will be undone.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n*/\n";
-        compilationString += "using System.Collections.Generic;\npublic static class EventLibrary {\n\n\tpublic static Dictionary<string, string[]> library = new Dictionary<string, string[]> {\n";
+        compilationString += "using System.Collections.Generic;\npublic static class EventLibrary {";
 
         // Use reflection to get all classes in the project
          var q = from t in Assembly.GetExecutingAssembly().GetTypes() where t.IsClass select t;
         List<System.Type> classList = new List<System.Type>();
         q.ToList().ForEach(t => classList.Add(t));
 
+
+        compilationString += "\n\n\tpublic static Dictionary<string, System.Type> staticClasses = new Dictionary<string, System.Type> {\n";
+
+        // Get every static class with the EventVisibleAttribute
+        foreach (var t in classList) {
+
+            if (t.IsAbstract && t.IsSealed) {   // This combination actually means t.isStatic
+                List<string> attList = new List<string>();
+                foreach (var att in t.GetCustomAttributes(false)) {
+                    attList.Add(att.ToString());
+                }
+                if (ListContains(attList, "EventVisibleAttribute")) {
+                    compilationString += "\t\t{ \"" + t.Name + "\", typeof(" + t.Name + ") },\n";
+                }
+            }
+        }
+        compilationString += "\t};";
+
+
+        compilationString += "\n\n\tpublic static Dictionary<string, string[]> library = new Dictionary<string, string[]> {\n";
+
         // Get every method with the EventVisibleAttribute
         foreach (var t in classList) {
+
             bool validMethods = false;
             string compilationBuffer = "\t\t{ \"" + t.Name + "Methods\", new string[] {";
 

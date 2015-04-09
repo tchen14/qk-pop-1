@@ -177,12 +177,17 @@ public class PopEventEditor : Editor {
 
         GUILayout.BeginHorizontal();
 
-        popupArray = PopEventCore.watchLibrary.Keys.ToArray();
+        popupArray = PopEventCore.watchLibrary.Keys.ToArray().Concat(new string[] {"PopEventCore"}).ToArray();
         condition.watchCategoryIndex = FindIndex(condition.watchCategory, popupArray);
         condition.watchCategoryIndex = (int)EditorGUILayout.Popup(condition.watchCategoryIndex, popupArray, GUILayout.MaxWidth(columnWidth / 3));
         condition.watchCategory = popupArray[condition.watchCategoryIndex];
 
-        popupArray = PopEventCore.watchLibrary[condition.watchCategory];
+        if (PopEventCore.watchLibrary.ContainsKey(condition.watchCategory)) {
+            popupArray = PopEventCore.watchLibrary[condition.watchCategory];
+        }
+        else {
+            popupArray = new string[] { "TestFunction" };
+        }
         condition.watchIndex = FindIndex(condition.watchType, popupArray);
         condition.watchIndex = (int)EditorGUILayout.Popup(condition.watchIndex, popupArray, GUILayout.MaxWidth(columnWidth * 2 / 3));
         condition.watchType = popupArray[condition.watchIndex];
@@ -343,13 +348,23 @@ public class PopEventEditor : Editor {
         DrawBackground(action.executeType);
 
         EditorGUILayout.BeginHorizontal();
-        popupArray = PopEventCore.executeLibrary.Keys.ToArray();
+        popupArray = PopEventCore.executeLibrary.Keys.ToArray().Concat(EventLibrary.staticClasses.Keys.ToArray()).ToArray();
         action.executeCategoryIndex = FindIndex(action.executeCategory, popupArray);
         action.executeCategoryIndex = (int)EditorGUILayout.Popup(action.executeCategoryIndex, popupArray, GUILayout.MaxWidth(columnWidth / 3));
         action.executeCategory = popupArray[action.executeCategoryIndex];
 
-
-        popupArray = PopEventCore.executeLibrary[action.executeCategory];
+        if (PopEventCore.executeLibrary.ContainsKey(action.executeCategory)) {
+            popupArray = PopEventCore.executeLibrary[action.executeCategory];
+            action.executeStaticFunction = false;
+        }
+        else if (EventLibrary.library.ContainsKey(action.executeCategory + "Methods")) {
+            popupArray = EventLibrary.library[action.executeCategory + "Methods"];
+            action.executeStaticFunction = true;
+        }
+        else {
+            popupArray = new string[] { "Choose An Action" };
+            action.executeStaticFunction = false;
+        }
         action.executeIndex = FindIndex(action.executeType, popupArray);
         action.executeIndex = (int)EditorGUILayout.Popup(action.executeIndex, popupArray, GUILayout.MaxWidth(columnWidth * 2 / 3));
         action.executeType = popupArray[action.executeIndex];
@@ -530,7 +545,7 @@ public class PopEventEditor : Editor {
     void DrawBackground(string type) {
         int notImplemented = 18;
         Color blue = new Color(0, 0.58f, 0.69f, 0.45f);
-        Color orange = new Color(1, 0.46f, 0, 0.45f);
+        Color orange = new Color(1, 0.46f, 0, 0.55f);
         int one = 24;
         int two = 42;
         int three = 60;
