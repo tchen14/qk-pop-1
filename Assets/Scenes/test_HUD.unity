@@ -4785,8 +4785,8 @@ RectTransform:
   m_RootOrder: 0
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -2, y: 42}
-  m_SizeDelta: {x: 5, y: -168}
+  m_AnchoredPosition: {x: -2, y: 96}
+  m_SizeDelta: {x: 5, y: -60}
   m_Pivot: {x: .5, y: .5}
 --- !u!114 &1788269004
 MonoBehaviour:
@@ -6286,8 +6286,8 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: .1953125, g: .1953125, b: .1953125, a: 1}
   m_FontData:
-    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 74
+    m_Font: {fileID: 12800000, guid: 34dd938d30602044b9822d29809561c5, type: 3}
+    m_FontSize: 101
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 10
@@ -6297,7 +6297,9 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Objective Point
+  m_Text: 'Ye Olde
+
+    Objective Pointe'
 --- !u!222 &2120502481
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -6318,6 +6320,6 @@ RectTransform:
   m_RootOrder: 1
   m_AnchorMin: {x: .5, y: .5}
   m_AnchorMax: {x: .5, y: .5}
-  m_AnchoredPosition: {x: 8.58309977e-06, y: 10.8999996}
-  m_SizeDelta: {x: 509, y: 144}
+  m_AnchoredPosition: {x: 0, y: 78.5000153}
+  m_SizeDelta: {x: 509, y: 261}
   m_Pivot: {x: .5, y: .5}
