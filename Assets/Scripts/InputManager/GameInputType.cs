@@ -13,6 +13,11 @@ public class GameInputType : InputType {
 	protected string sprint = "left shift";
 	protected string crouch = "left ctrl";
 	protected string jump = "space";
+	protected string target = "Mouse1";
+	protected string cameraReset = "`";
+	protected string qAbility1 = "q";
+	protected string qAbility2 = "e";
+
 
 	public override int VerticalAxis() {
 			if(Input.GetKey(forward) && Input.GetKey(backward))
@@ -44,5 +49,17 @@ public class GameInputType : InputType {
 	}
 	public override bool isActionPressed() {
 		return Input.GetKey(action);
+	}
+	public override bool isTargetPressed() {
+		return Input.GetKey(target);
+	}
+	public override bool isCameraReset() {
+		return Input.GetKey(cameraReset);
+	}
+	public override bool isQAbility1() {
+		return Input.GetKey(qAbility1);
+	}
+	public override bool isQAbility2() {
+		return Input.GetKey(qAbility2);
 	}
 }

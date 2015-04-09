@@ -27,6 +27,7 @@ public sealed class InputManager : MonoBehaviour
 		ChangeInputType("GameInputType");
 	}
 
+	//!Switch input type
 	public void ChangeInputType(string inputType) {
 		if(inputs.ContainsKey(inputType))
 			activeInputType = inputs[inputType];

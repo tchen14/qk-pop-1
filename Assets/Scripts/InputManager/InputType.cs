@@ -28,7 +28,25 @@ public abstract class InputType : MonoBehaviour {
 	public virtual bool isActionPressed() {
 		return false;
 	}
-	public virtual int ForwardPressed(string keyPressed) {
+	public virtual int VerticalValue(string keyPressed) {
 		return 0;
+	}
+	public virtual int HorizontalValue(string keyPressed) {
+		return 0;
+	}
+	public virtual bool CancelPressed() {
+		return false;
+	}
+	public virtual bool ActionPressed() {
+		return false;
+	}
+	public virtual bool SprintPressed() {
+		return false;
+	}
+	public virtual bool JumpPressed() {
+		return false;
+	}
+	public virtual bool CrouchPressed() {
+		return false;
 	}
 }
