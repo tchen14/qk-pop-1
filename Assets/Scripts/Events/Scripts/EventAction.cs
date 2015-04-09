@@ -14,6 +14,7 @@ public class EventAction {
     public int p_int;
     public float p_float;
     public string p_string;
+    public string p_string2;
     public Vector3 p_Vector3;
     public GameObject p_GameObject;
     public MonoBehaviour p_MonoBehaviour;

@@ -11,6 +11,7 @@ public class PopEvent : MonoBehaviour {
     public bool isActive = true;
     public bool isRegional = false;
     public bool executeOnce = true;
+    public bool hasExecuted = false;
 
     private PopEvent nextEvent;
     private int index = 0;
@@ -25,6 +26,7 @@ public class PopEvent : MonoBehaviour {
     public float conditionRegionRadius = 1;
 
     void Awake() {
+        EventListener.AddPopEvent(this);
         PopEvent[] popEvents = gameObject.GetComponents<PopEvent>();
         for (int i = 0; i < popEvents.Length - 1; i++) { //  Don't check the last element
             if (this.Equals(popEvents[i])) {
@@ -39,6 +41,7 @@ public class PopEvent : MonoBehaviour {
                 SphereCollider newCollider = gameObject.AddComponent<SphereCollider>();
                 newCollider.radius = couple.popEvent.conditionRegionRadius;
                 newCollider.isTrigger = true;
+                gameObject.layer = 2;
                 break;
             }
         }
@@ -46,6 +49,7 @@ public class PopEvent : MonoBehaviour {
 
     void Update() {
         if (isActive == false) { return; }
+        if (executeOnce == true && hasExecuted == true) { return; }
 
         totalTimeActive += Time.deltaTime;
 
@@ -84,11 +88,12 @@ public class PopEvent : MonoBehaviour {
 
     public void ActivateNextEvent() {
         if (nextEvent != null) {
-            nextEvent.isActive = true;
+            nextEvent.MakeActive(true);
         }
     }
 
-    public void Deactivate() {
-        isActive = false;
+    public void MakeActive(bool active) {
+        if (active == true && executeOnce == true && hasExecuted == true) { return; }
+        isActive = active;
     }
 }

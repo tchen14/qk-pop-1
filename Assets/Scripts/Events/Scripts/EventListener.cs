@@ -43,6 +43,7 @@ public static class EventListener {
     public static List<EventCouple> coupleScripts = new List<EventCouple>();
 
     public static void SlowUpdate(EventCouple couple) {
+        if (couple.popEvent.executeOnce == true && couple.popEvent.hasExecuted == true) { return; }
         int numberOfConditions = 0;
         int testsPassed = 0;
 
@@ -114,6 +115,7 @@ public static class EventListener {
     }
 
     public static void InvokeAction(EventCouple couple) {
+        couple.popEvent.hasExecuted = true;
         foreach (EventAction action in couple.actions) {
             if (action.executeType == "Execute Function") {
                 if (action.actionName != string.Empty) {
@@ -132,9 +134,12 @@ public static class EventListener {
             else if (action.executeType == "Deactivate Another Event") {
                 ActivateById(action.p_string, false);
             }
+            else if (action.executeType == "Create Prefab") {
+                MonoBehaviour.Instantiate(action.p_GameObject, action.p_Vector3, Quaternion.identity);
+            }
         }
         if (couple.popEvent.executeOnce == true) {
-            couple.popEvent.Deactivate();
+            couple.popEvent.MakeActive(false);
         }
     }
 
@@ -169,7 +174,7 @@ public static class EventListener {
     private static void ActivateById(string id, bool active) {
         for (int i = 0; i < eventList.Count; i++) {
             if (eventList[i].uniqueId == id) {
-                eventList[i].isActive = active;
+                eventList[i].MakeActive(active);
             }
         }
     }

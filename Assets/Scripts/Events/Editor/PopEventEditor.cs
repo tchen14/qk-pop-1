@@ -14,7 +14,10 @@ public class PopEventEditor : Editor {
 
     PopEvent popTarget;
 
+    //  Error flags
     bool duplicateId = false;
+    bool chooseACondition = false;
+    bool chooseAnAction = false;
 
     void OnEnable() {
         Reload();
@@ -37,6 +40,8 @@ public class PopEventEditor : Editor {
         }
         EventListener.AddPopEvent(popTarget);
         duplicateId = EventListener.CheckForDuplicateId(popTarget, popTarget.uniqueId);
+        chooseACondition = false;
+        chooseAnAction = false;
     }
 
     #region General Inspector GUI
@@ -45,10 +50,13 @@ public class PopEventEditor : Editor {
 
         columnWidth = Mathf.FloorToInt(Screen.width / 2.4f);
 
+        if (popTarget.executeOnce == true && popTarget.hasExecuted == true) {
+            DrawBackground("Execution Complete");
+        }
+
         /*!     Enabled Boolean & Update Timer     */
         EditorGUILayout.Space();
         int halfWidth = columnWidth / 2;
-        int thirdWidth = columnWidth / 3;
         int quarterWidth = columnWidth / 4;
         int sixthWidth = columnWidth / 6;
         EditorGUILayout.BeginHorizontal();
@@ -99,7 +107,13 @@ public class PopEventEditor : Editor {
         EditorGUILayout.Space();
         EditorGUILayout.Space();
         if (duplicateId == true) {
-            EditorGUILayout.HelpBox("Id \"" + popTarget.uniqueId + "\" is not Unique. If this event is referenced by id, all events with this id will be targeted.", MessageType.Warning, true);
+            EditorGUILayout.HelpBox("Id \"" + popTarget.uniqueId + "\" is not Unique. If this event is referenced by Id, all events with this Id will be targeted.", MessageType.Warning, true);
+        }
+        if (chooseACondition == true) {
+            EditorGUILayout.HelpBox("Any conditions marked \"Choose A Condition\" will be ignored during gameplay.", MessageType.Warning, true);
+        }
+        if (chooseAnAction == true) {
+            EditorGUILayout.HelpBox("Any actions marked \"Choose An Action\" will be ignored during gameplay.", MessageType.Warning, true);
         }
 
         EditorGUILayout.BeginHorizontal();
@@ -173,7 +187,10 @@ public class PopEventEditor : Editor {
 
         GUILayout.EndHorizontal();
 
-        if (condition.watchType == "Watch Script") {
+        if (condition.watchType == "Choose A Condition") {
+            chooseACondition = true;
+        }
+        else if (condition.watchType == "Watch Script") {
             DrawWatchScript(condition);
         }
         else if (condition.watchType == "Player Enters Area") {
@@ -185,6 +202,7 @@ public class PopEventEditor : Editor {
         else if (condition.watchType == "Wait X Seconds") {
             DrawWaitXSeconds(condition);
         }
+
         EditorGUILayout.Space();
         return true;
     }
@@ -310,7 +328,10 @@ public class PopEventEditor : Editor {
         GUI.backgroundColor = Color.white;
         EditorGUILayout.EndHorizontal();
 
-        if (action.executeType == "Execute Function") {
+        if (action.executeType == "Choose An Action") {
+            chooseAnAction = true;
+        }
+        else if (action.executeType == "Execute Function") {
             DrawExecuteFunction(action);
         }
         else if (action.executeType == "Debug Message") {
@@ -318,6 +339,15 @@ public class PopEventEditor : Editor {
         }
         else if (action.executeType == "Activate Another Event" || action.executeType == "Deactivate Another Event") {
             DrawActivateAnotherEvent(action);
+        }
+        else if (action.executeType == "Create Text Box") {
+            DrawCreateTextBox(action);
+        }
+        else if (action.executeType == "Destroy Text Box") {
+            DrawDestroyTextBox(action);
+        }
+        else if (action.executeType == "Create Prefab") {
+            DrawCreatePrefab(action);
         }
         EditorGUILayout.Space();
         return true;
@@ -396,6 +426,27 @@ public class PopEventEditor : Editor {
         EditorGUILayout.EndHorizontal();
     }
 
+    void DrawCreateTextBox(EventAction action) {
+        EditorGUILayout.BeginHorizontal();
+        EditorGUILayout.LabelField("Id", GUILayout.MaxWidth(columnWidth / 2));
+        action.p_string = EditorGUILayout.TextField(action.p_string, GUILayout.MaxWidth(columnWidth / 2));
+        EditorGUILayout.EndHorizontal();
+
+        action.p_string2 = EditorGUILayout.TextArea(action.p_string2, GUILayout.MaxWidth(columnWidth));
+    }
+
+    void DrawDestroyTextBox(EventAction action) {
+        EditorGUILayout.BeginHorizontal();
+        EditorGUILayout.LabelField("Id", GUILayout.MaxWidth(columnWidth / 2));
+        action.p_string = EditorGUILayout.TextField(action.p_string, GUILayout.MaxWidth(columnWidth / 2));
+        EditorGUILayout.EndHorizontal();
+    }
+
+    void DrawCreatePrefab(EventAction action) {
+        action.p_GameObject = (GameObject)EditorGUILayout.ObjectField(action.p_GameObject, typeof(GameObject), true, GUILayout.MaxWidth(columnWidth));
+        action.p_Vector3 = EditorGUILayout.Vector3Field("", action.p_Vector3, GUILayout.MaxWidth(columnWidth));
+    }
+
     #endregion Action GUI
 
     #region Background
@@ -403,9 +454,12 @@ public class PopEventEditor : Editor {
     //  Background  -------------------------------------------------------------------------------------
     void DrawBackground(string type) {
         Color blue = new Color(0, 0.58f, 0.69f, 0.45f);
-        Color red = new Color(1, 0.46f, 0, 0.45f);
+        Color orange = new Color(1, 0.46f, 0, 0.45f);
 
-        if (type == "Player Enters Area") {
+        if (type == "Execution Complete") {
+            DrawBackground(70, new Color(1, 0, 0, 0.25f), true);
+        }
+        else if (type == "Player Enters Area") {
             DrawBackground(42, blue);
         }
         if (type == "Player Leaves Area") {
@@ -421,29 +475,43 @@ public class PopEventEditor : Editor {
             DrawBackground(24, blue - new Color(0, 0, 0, 0.2f));
         }
         else if (type == "Execute Function") {
-            DrawBackground(132, red);
+            DrawBackground(132, orange);
         }
         else if (type == "Activate Next Event") {
-            DrawBackground(24, red);
+            DrawBackground(24, orange);
         }
         else if (type == "Activate Another Event" || type == "Deactivate Another Event") {
-            DrawBackground(42, red);
+            DrawBackground(42, orange);
         }
         else if (type == "Debug Message") {
-            DrawBackground(42, red);
+            DrawBackground(42, orange);
+        }
+        else if (type == "Create Text Box") {
+            DrawBackground(60, orange);
+        }
+        else if (type == "Destroy Text Box") {
+            DrawBackground(42, orange);
+        }
+        else if (type == "Create Prefab") {
+            DrawBackground(60, orange);
         }
         else if (type == "Choose An Action") {
-            DrawBackground(24, red - new Color(0, 0, 0, 0.2f));
+            DrawBackground(24, orange - new Color(0, 0, 0, 0.2f));
         }
     }
     
-    void DrawBackground(float height, Color color){
+    void DrawBackground(float height, Color color, bool doubleWidth = false){
         Rect rt = GUILayoutUtility.GetRect(0,0);
         Texture2D texture = new Texture2D(1, 1);
         texture.SetPixel(0, 0, color);
         texture.Apply();
         GUI.skin.box.normal.background = texture;
-        GUI.Box(new Rect(rt.x, rt.y, Screen.width / 2.15f, height), GUIContent.none);
+        if (doubleWidth == true) {
+            GUI.Box(new Rect(rt.x, rt.y, Screen.width * 0.93f, height), GUIContent.none);
+        }
+        else {
+            GUI.Box(new Rect(rt.x, rt.y, Screen.width / 2.15f, height), GUIContent.none);
+        }
     }
     #endregion Background
 
