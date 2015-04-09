@@ -21,6 +21,7 @@ public class GameHUD : MonoBehaviour {
 	public GameObject[] hudAbilityIcons;			//!<Array of hud icons, set in inspector
 	public bool abilitiesUp = false;
 	public GameObject[] abilityWheelIcons;
+	Animator abilityWheelAnchorAnim;
 
 	List<GameObject> phoneAbilitiesAvailible;		//!<List containing hud phone abilties
 	GameObject mapCam;								//!<Camera used for minimap
@@ -48,6 +49,7 @@ public class GameHUD : MonoBehaviour {
 
 		mainHUDCanvas = GameObject.Find("mainHUD");
 		skillWheel = GameObject.Find("abilityWheel");
+		abilityWheelAnchorAnim = GameObject.Find("AbilityWheelAnchor").GetComponent<Animator>();
 
 		//!Turn on UI stuff
 		worldMapCanvas.SetActive(true);
@@ -274,6 +276,7 @@ public class GameHUD : MonoBehaviour {
 			skillsOpen = true;
 			skillWheel.SetActive(true);
 			abilityWheelIcons[4].GetComponent<RectTransform>().localScale *= 1.5f;
+			abilityWheelAnchorAnim.SetBool("slideIn", true);
 			canSpin = true;
 		} else {
 			skillsOpen = false;
@@ -281,6 +284,7 @@ public class GameHUD : MonoBehaviour {
 			abilityWheelIcons[curAbility].GetComponent<RectTransform>().localScale /= 1.5f;
 			skillWheel.SetActive(false);
 			curAbility = 4;
+			abilityWheelAnchorAnim.SetBool("slideIn", false);
 			canSpin = false;
 		}
 	}
