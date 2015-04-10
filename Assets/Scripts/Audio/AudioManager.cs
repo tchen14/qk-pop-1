@@ -34,7 +34,7 @@ public class AudioManager : MonoBehaviour {
 
 	public AudioMixer masterMixer;
 
-	[Range(0.0f, 1.0f)]
+	[Range(-80.0f, 1.0f)]
 	public float tempvol = 0.5f;
 
 	Dictionary<string, bool> ambianceDict = new Dictionary<string, bool>();
@@ -75,9 +75,12 @@ public class AudioManager : MonoBehaviour {
 	}
 
 	//! Unity Update function
-	void Update() {
-		changeVol("master", tempvol);
-	}
+	//void Update() {
+	//	if (Input.GetButtonDown("Fire1"))
+	//		changeVol("master", tempvol);
+	//	if(Input.GetButtonDown("Fire2"))
+	//		changeVol("reset", tempvol);
+	//}
 
 	#region json file reading
 	//!checks JSON file exists and loads it
@@ -177,13 +180,13 @@ public class AudioManager : MonoBehaviour {
 			switch(type.ToLower()) {
 				case "ambiance":
 					path = path + "/Ambiance/" + name;
-					_www = new WWW("http://www.unity3d.com/webplayers/Movie/sample.ogg");
+					_www = new WWW("http://upload.wikimedia.org/wikipedia/commons/c/c8/Example.ogg");
 					//print(Path.GetFileName("file:///" + path));
 					StartCoroutine(waitForRequest(_www));
 					//print(path);
 					//tempSound = AudioClip.Create(path, )					//Still broken
 					//tempSound = Resources.Load(path) as AudioClip;	//maybe works?
-					tempSound = _www.GetAudioClip(false, true);
+					tempSound = _www.GetAudioClip(false, false);
 					break;
 				//case "effect":
 				//	//effectDict.Add(name, priority);
@@ -201,7 +204,7 @@ public class AudioManager : MonoBehaviour {
 			}
 		}
 
-		Debug.Log("audio", tempSound);
+		Debug.Log("audio", tempSound.name);
 		return tempSound;
 	}
 
@@ -215,14 +218,16 @@ public class AudioManager : MonoBehaviour {
 			return false;
 		} else {
 			//sound = loadSound(type, name);
-
+			print(sound.name);
 			speaker = target.AddComponent<AudioSource>();
+			while(!sound.LoadAudioData()) {
+				Debug.Warning("audio", "there was a problem loading sound object");
+				
+			}
 			speaker.clip = sound;
-
-
 		}
-		if(!speaker.isPlaying && speaker.clip.isReadyToPlay)
-			speaker.Play();
+		//if(!speaker.isPlaying && speaker.clip.isReadyToPlay)
+		//	speaker.Play();
 
 		//speaker.Play();
 		return true;
