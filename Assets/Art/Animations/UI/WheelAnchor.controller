@@ -5,19 +5,19 @@ AnimatorController:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: PhoneMenuAnimator
+  m_Name: WheelAnchor
   serializedVersion: 5
   m_AnimatorParameters:
-  - m_Name: mapActive
+  - m_Name: slideIn
     m_Type: 4
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 9100000}
+    m_Controller: {fileID: 0}
   m_AnimatorLayers:
   - serializedVersion: 5
     m_Name: Base Layer
-    m_StateMachine: {fileID: 110772124}
+    m_StateMachine: {fileID: 110740286}
     m_Mask: {fileID: 0}
     m_Motions: []
     m_Behaviours: []
@@ -26,17 +26,20 @@ AnimatorController:
     m_DefaultWeight: 0
     m_IKPass: 0
     m_SyncedLayerAffectsTiming: 0
-    m_Controller: {fileID: 9100000}
+    m_Controller: {fileID: 0}
   m_MultiThreadedStateMachine: 1
---- !u!1101 &110111122
+--- !u!1101 &110143146
 AnimatorStateTransition:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_Name: 
-  m_Conditions: []
+  m_Conditions:
+  - m_ConditionMode: 2
+    m_ConditionEvent: slideIn
+    m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
-  m_DstState: {fileID: 110291586}
+  m_DstState: {fileID: 110276318}
   m_Solo: 0
   m_Mute: 0
   m_IsExit: 0
@@ -48,30 +51,27 @@ AnimatorStateTransition:
   m_InterruptionSource: 0
   m_OrderedInterruption: 1
   m_CanTransitionToSelf: 1
---- !u!1101 &110142218
+--- !u!1101 &110147870
 AnimatorStateTransition:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_Name: 
-  m_Conditions:
-  - m_ConditionMode: 2
-    m_ConditionEvent: mapActive
-    m_EventTreshold: 0
+  m_Conditions: []
   m_DstStateMachine: {fileID: 0}
-  m_DstState: {fileID: 110215510}
+  m_DstState: {fileID: 110268806}
   m_Solo: 0
   m_Mute: 0
   m_IsExit: 0
   serializedVersion: 3
-  m_TransitionDuration: .166666672
+  m_TransitionDuration: .75
   m_TransitionOffset: 0
-  m_ExitTime: .833333313
+  m_ExitTime: .25
   m_HasExitTime: 1
   m_InterruptionSource: 0
   m_OrderedInterruption: 1
   m_CanTransitionToSelf: 1
---- !u!1101 &110181696
+--- !u!1101 &110162226
 AnimatorStateTransition:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -79,10 +79,10 @@ AnimatorStateTransition:
   m_Name: 
   m_Conditions:
   - m_ConditionMode: 1
-    m_ConditionEvent: mapActive
+    m_ConditionEvent: slideIn
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
-  m_DstState: {fileID: 110230788}
+  m_DstState: {fileID: 110273870}
   m_Solo: 0
   m_Mute: 0
   m_IsExit: 0
@@ -94,53 +94,17 @@ AnimatorStateTransition:
   m_InterruptionSource: 0
   m_OrderedInterruption: 1
   m_CanTransitionToSelf: 1
---- !u!1102 &110215510
+--- !u!1102 &110268806
 AnimatorState:
   serializedVersion: 5
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: phoneMenuClose
+  m_Name: Static
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions:
-  - {fileID: 110111122}
-  m_StateMachineBehaviours: []
-  m_Position: {x: 50, y: 50, z: 0}
-  m_IKOnFeet: 0
-  m_WriteDefaultValues: 1
-  m_Mirror: 0
-  m_Motion: {fileID: 7400000, guid: 86d134486b075da488c0074cac255fb0, type: 2}
-  m_Tag: 
---- !u!1102 &110230788
-AnimatorState:
-  serializedVersion: 5
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_Name: phoneMenuToScreen
-  m_Speed: 1
-  m_CycleOffset: 0
-  m_Transitions:
-  - {fileID: 110142218}
-  m_StateMachineBehaviours: []
-  m_Position: {x: 50, y: 50, z: 0}
-  m_IKOnFeet: 0
-  m_WriteDefaultValues: 1
-  m_Mirror: 0
-  m_Motion: {fileID: 7400000, guid: 333ed300486836d4b90be43b2b3b7c1d, type: 2}
-  m_Tag: 
---- !u!1102 &110291586
-AnimatorState:
-  serializedVersion: 5
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_Name: Phone Static
-  m_Speed: 1
-  m_CycleOffset: 0
-  m_Transitions:
-  - {fileID: 110181696}
+  - {fileID: 110162226}
   m_StateMachineBehaviours: []
   m_Position: {x: 50, y: 50, z: 0}
   m_IKOnFeet: 0
@@ -148,7 +112,43 @@ AnimatorState:
   m_Mirror: 0
   m_Motion: {fileID: 0}
   m_Tag: 
---- !u!1107 &110772124
+--- !u!1102 &110273870
+AnimatorState:
+  serializedVersion: 5
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: abilityWheelSlideIn
+  m_Speed: 2
+  m_CycleOffset: 0
+  m_Transitions:
+  - {fileID: 110143146}
+  m_StateMachineBehaviours: []
+  m_Position: {x: 50, y: 50, z: 0}
+  m_IKOnFeet: 0
+  m_WriteDefaultValues: 1
+  m_Mirror: 0
+  m_Motion: {fileID: 7400000, guid: d21b6f22f32af82439dc9dbecccb8da9, type: 2}
+  m_Tag: 
+--- !u!1102 &110276318
+AnimatorState:
+  serializedVersion: 5
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: abilityWheelSlideOut
+  m_Speed: 2
+  m_CycleOffset: 0
+  m_Transitions:
+  - {fileID: 110147870}
+  m_StateMachineBehaviours: []
+  m_Position: {x: 50, y: 50, z: 0}
+  m_IKOnFeet: 0
+  m_WriteDefaultValues: 1
+  m_Mirror: 0
+  m_Motion: {fileID: 7400000, guid: 7135dbb9203e36849b47454545fd76e6, type: 2}
+  m_Tag: 
+--- !u!1107 &110740286
 AnimatorStateMachine:
   serializedVersion: 5
   m_ObjectHideFlags: 1
@@ -157,24 +157,24 @@ AnimatorStateMachine:
   m_Name: Base Layer
   m_ChildStates:
   - serializedVersion: 1
-    m_State: {fileID: 110291586}
+    m_State: {fileID: 110268806}
     m_Position: {x: 264, y: 108, z: 0}
   - serializedVersion: 1
-    m_State: {fileID: 110230788}
-    m_Position: {x: 264, y: 192, z: 0}
+    m_State: {fileID: 110273870}
+    m_Position: {x: 264, y: 180, z: 0}
   - serializedVersion: 1
-    m_State: {fileID: 110215510}
+    m_State: {fileID: 110276318}
     m_Position: {x: 516, y: 144, z: 0}
   m_ChildStateMachines: []
   m_AnyStateTransitions: []
   m_EntryTransitions: []
   m_StateMachineTransitions:
     data:
-      first: {fileID: 110772124}
+      first: {fileID: 110740286}
       second: []
   m_StateMachineBehaviours: []
-  m_AnyStatePosition: {x: 84, y: 72, z: 0}
-  m_EntryPosition: {x: 84, y: 108, z: 0}
-  m_ExitPosition: {x: 84, y: 144, z: 0}
+  m_AnyStatePosition: {x: 48, y: 84, z: 0}
+  m_EntryPosition: {x: 48, y: 120, z: 0}
+  m_ExitPosition: {x: 48, y: 156, z: 0}
   m_ParentStateMachinePosition: {x: 800, y: 20, z: 0}
-  m_DefaultState: {fileID: 110291586}
+  m_DefaultState: {fileID: 110268806}

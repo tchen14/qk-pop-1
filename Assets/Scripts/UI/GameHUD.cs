@@ -20,6 +20,8 @@ public class GameHUD : MonoBehaviour {
 	public int numOfAbilities;						//!<temporary int for number of abilities in game
 	public GameObject[] hudAbilityIcons;			//!<Array of hud icons, set in inspector
 	public bool abilitiesUp = false;
+	public GameObject[] abilityWheelIcons;
+	Animator abilityWheelAnchorAnim;
 
 	List<GameObject> phoneAbilitiesAvailible;		//!<List containing hud phone abilties
 	GameObject mapCam;								//!<Camera used for minimap
@@ -29,7 +31,14 @@ public class GameHUD : MonoBehaviour {
 	GameObject middleAbilityIcon;					//!<Phone ability icon references
 	GameObject rightAbilityIcon;
 	GameObject leftAbilityIcon;
+	GameObject[] abilityButtons;
 
+	int curAbility = 4;
+
+	bool skillsOpen = false;
+	bool canSpin = true;
+	GameObject skillWheel;
+	GameObject closeMapButton;
 	GameObject phoneButtons;
 	GameObject mapElements;
 	GameObject compassCameraPoint;					//!<Point at camera location used to calculate objective positions
@@ -39,11 +48,20 @@ public class GameHUD : MonoBehaviour {
 	void Awake() {
 
 		mainHUDCanvas = GameObject.Find("mainHUD");
+		skillWheel = GameObject.Find("abilityWheel");
+		abilityWheelAnchorAnim = GameObject.Find("AbilityWheelAnchor").GetComponent<Animator>();
+
 		//!Turn on UI stuff
 		worldMapCanvas.SetActive(true);
+		canSpin = false;
+		skillWheel.SetActive(false);
 
 		//!Fill mapLabels array
 		mapLabels = GameObject.FindGameObjectsWithTag("worldMapLabel");
+		closeMapButton = GameObject.Find("CloseMapButton");
+		closeMapButton.SetActive(false);
+
+		abilityButtons = GameObject.FindGameObjectsWithTag("abilityButton");
 
 		//!Set mapcam reference
 		mapCam = GameObject.Find("mapCam");
@@ -78,6 +96,8 @@ public class GameHUD : MonoBehaviour {
 	void Start() {
 		//Place the ability buttons in the Phone Menu
 		//SpawnHudAbilityIcons ();
+		skillWheel.GetComponent<Animator>().speed = 0;
+
 	}
 
 
@@ -88,6 +108,17 @@ public class GameHUD : MonoBehaviour {
 		//!Set the compass indicator
 		setCompassValue(calculateObjectiveAngle(testObjective));
 		//Debug.Log("Angle found: " + calculateObjectiveAngle(testObjective));
+
+		//Testing
+		if(Input.GetKeyDown("1") && canSpin) {
+			StartCoroutine(rotateSkillDown());
+
+		}
+
+		if(Input.GetKeyDown("2") && canSpin) {
+			StartCoroutine(rotateSkillUp());
+
+		}
 
 	}
 
@@ -215,11 +246,92 @@ public class GameHUD : MonoBehaviour {
 		}
 	}
 
-	//SHows map on phone and roates and resizes phone to screen
+	//Shows map on phone and roates and resizes phone to screen
 	public void showMap() {
+		if(skillsOpen) {
+			skillsOpen = false;
+			abilityWheelIcons[curAbility].GetComponent<RectTransform>().localScale /= 1.5f;
+			skillWheel.SetActive(false);
+			curAbility = 0;
+			canSpin = false;
+		}
 		phoneButtons.SetActive(false);
 		mapElements.SetActive(true);
+		closeMapButton.SetActive(true);
 		GameObject.Find("PhoneMenu").GetComponent<Animator>().SetBool("mapActive", true);
+	}
+
+	//hides map and plays close phone animation
+	public void hideMap() {
+		mapElements.SetActive(false);
+		phoneButtons.SetActive(true);
+		closeMapButton.SetActive(false);
+		GameObject.Find("PhoneMenu").GetComponent<Animator>().SetBool("mapActive", false);
+	
+	}
+
+
+	public void showSkills() {
+		if(!skillsOpen) {
+			skillsOpen = true;
+			skillWheel.SetActive(true);
+			abilityWheelIcons[4].GetComponent<RectTransform>().localScale *= 1.5f;
+			abilityWheelAnchorAnim.SetBool("slideIn", true);
+			canSpin = true;
+		} else {
+			skillsOpen = false;
+			Debug.Log("skills closed");
+			abilityWheelIcons[curAbility].GetComponent<RectTransform>().localScale /= 1.5f;
+			skillWheel.SetActive(false);
+			curAbility = 4;
+			abilityWheelAnchorAnim.SetBool("slideIn", false);
+			canSpin = false;
+		}
+	}
+
+	public IEnumerator rotateSkillDown() {
+		canSpin = false;
+		skillWheel.GetComponent<Animator>().speed = 1;
+		yield return new WaitForSeconds(0.49f);
+		skillWheel.GetComponent<Animator>().speed = 0;
+
+		curAbility++;
+		if(curAbility > 7){
+			curAbility = 0;
+			abilityWheelIcons[7].GetComponent<RectTransform>().localScale /= 1.5f;
+		}
+		else{
+			abilityWheelIcons[curAbility -1].GetComponent<RectTransform>().localScale /= 1.5f;
+		}
+		
+		abilityWheelIcons[curAbility].GetComponent<RectTransform>().localScale *= 1.5f;
+
+		canSpin = true;
+	}
+
+	public IEnumerator rotateSkillUp() {
+		canSpin = false;
+		if(curAbility == 0){
+		
+		}
+		skillWheel.GetComponent<Animator>().speed = -1;
+		yield return new WaitForSeconds(0.49f);
+		skillWheel.GetComponent<Animator>().speed = 0;
+
+
+		curAbility--;
+		if(curAbility < 0){
+			curAbility = 7;
+			abilityWheelIcons[0].GetComponent<RectTransform>().localScale /= 1.5f;
+		}
+		else{
+			abilityWheelIcons[curAbility +1].GetComponent<RectTransform>().localScale /= 1.5f;
+		}
+		
+		abilityWheelIcons[curAbility].GetComponent<RectTransform>().localScale *= 1.5f;
+
+
+		canSpin = true;
 	}
 
 }
