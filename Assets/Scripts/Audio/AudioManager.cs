@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.Audio;
 using SimpleJSON;
+using System.IO;
 using Debug = FFP.Debug;
 
 /*!
@@ -28,15 +29,22 @@ public class AudioManager : MonoBehaviour {
 	}
 	#endregion
 
-	public string soundListFilePath = "/Resources/Json/audioListData.json";
-	public string soundFilePath = "/StreamingAssets/Audio/";
+	const string soundListFilePath = "/Resources/Json/audioListData.json";
+	const string soundFilePath = "/StreamingAssets/Audio/";
 
 	public AudioMixer masterMixer;
+
+	[Range(0.0f, 1.0f)]
+	public float tempvol = 0.5f;
 
 	Dictionary<string, bool> ambianceDict = new Dictionary<string, bool>();
 	Dictionary<string, bool> effectDict = new Dictionary<string, bool>();
 	Dictionary<string, bool> musicDict = new Dictionary<string, bool>();
 	Dictionary<string, bool> voiceDict = new Dictionary<string, bool>();
+
+	public GameObject player;
+
+	WWW _www;
 
 
 	//! Unity Start function
@@ -61,19 +69,22 @@ public class AudioManager : MonoBehaviour {
 		} else
 			Debug.Warning("audio", "JSON file loaded");
 
-		
+		player = new GameObject("Player");
+		playMe(player, "ambiance", "ambiant2.ogg");
 
 	}
 
 	//! Unity Update function
-	//void Update() {
-	//}
+	void Update() {
+		changeVol("master", tempvol);
+	}
 
 	#region json file reading
 	//!checks JSON file exists and loads it
 	public bool loadListFromFile(string path) {		//checks to make sure json file is there
+		
 		if(!System.IO.File.Exists(Application.dataPath + path)) {
-			Debug.Error("audio", "File does not exist: " + path);
+			Debug.Error("audio", "File does not exist: " + Application.dataPath + path);
 			return false;
 		}
 		string json = System.IO.File.ReadAllText(Application.dataPath + path);
@@ -157,42 +168,76 @@ public class AudioManager : MonoBehaviour {
 	//!Load single sound, must include file name and extension
 	public AudioClip loadSound(string type, string name) {
 		AudioClip tempSound;
-		string path = Application.dataPath + soundFilePath;
 
+		string path = Application.streamingAssetsPath;
+		//print(path);
 		if(!findSound(type, name)) {
 			tempSound = null;
 		} else {
 			switch(type.ToLower()) {
 				case "ambiance":
-					path = path + "Ambiance/" + name;
-					tempSound = AudioClip.Create(path, )
-					ambianceDict.Add(name, priority);
+					path = path + "/Ambiance/" + name;
+					_www = new WWW("http://www.unity3d.com/webplayers/Movie/sample.ogg");
+					//print(Path.GetFileName("file:///" + path));
+					StartCoroutine(waitForRequest(_www));
+					//print(path);
+					//tempSound = AudioClip.Create(path, )					//Still broken
+					//tempSound = Resources.Load(path) as AudioClip;	//maybe works?
+					tempSound = _www.GetAudioClip(false, true);
 					break;
-				case "effect":
-					effectDict.Add(name, priority);
-					break;
-				case "music":
-					musicDict.Add(name, priority);
-					break;
-				case "voice":
-					voiceDict.Add(name, priority);
-					break;
+				//case "effect":
+				//	//effectDict.Add(name, priority);
+				//	break;
+				//case "music":
+				//	//musicDict.Add(name, priority);
+				//	break;
+				//case "voice":
+				//	//voiceDict.Add(name, priority);
+				//	break;
 				default:
 					Debug.Log("audio", type + "is not an option, or you spelled it wrong");
+					tempSound = null;
 					break;
 			}
 		}
-			
 
+		Debug.Log("audio", tempSound);
 		return tempSound;
 	}
 
-	/*playMe(this, type, name){
+	public bool playMe(GameObject target, string type, string name){
 		AudioClip sound;
-		
-		if(!sound)
+		AudioSource speaker; //= gameObject.AddComponent<AudioSource>();
+
+		sound = loadSound(type, name);
+		if(sound == null) {
 			Debug.Warning("audio", "there was a problem loading " + name);
-	}*/
+			return false;
+		} else {
+			//sound = loadSound(type, name);
+
+			speaker = target.AddComponent<AudioSource>();
+			speaker.clip = sound;
+
+
+		}
+		if(!speaker.isPlaying && speaker.clip.isReadyToPlay)
+			speaker.Play();
+
+		//speaker.Play();
+		return true;
+	}
+
+	IEnumerator waitForRequest(WWW www) {
+		yield return www;
+
+		// check for errors
+		if(www.error == null) {
+			Debug.Log("audio","WWW Ok!: " + www.text);
+		} else {
+			Debug.Log("audio", "WWW Error: " + www.error);
+		}   
+	}
 
 	#endregion
 
@@ -294,6 +339,7 @@ public class AudioManager : MonoBehaviour {
  * 
  * Audio should come from streaming Assets
  *   http://docs.unity3d.com/Manual/StreamingAssets.html
+ *   http://answers.unity3d.com/questions/11021/how-can-i-send-and-receive-data-to-and-from-a-url.html
  *  
  * 
  * check sounds are on list and ready to load
