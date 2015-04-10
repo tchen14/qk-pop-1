@@ -15,6 +15,8 @@ public class TestScriptLeft : MonoBehaviour {
     public int fieldA = 5;
     [EventVisible]
     public int fieldB = 5;
+    [EventVisible]
+    public bool trueFalse = false;
 
     [EventVisible]
     public Vector3 vectorA= Vector3.zero;

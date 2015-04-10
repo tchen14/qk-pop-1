@@ -70,6 +70,13 @@ public static class EventListener {
                         testsPassed++;
                     }
                 }
+                else if (condition.conditionType == typeof(System.Boolean)) {
+                    bool boolValue = (bool)condition.conditionScript.GetType().GetField(condition.conditionField).GetValue(condition.conditionScript);
+                    bool conditionBool = (condition.p_int == 1) ? true : false;
+                    if (boolValue == conditionBool) {
+                        testsPassed++;
+                    }
+                }
             }
             else if (condition.watchType == "Player Enters Area") {
                 if (condition.p_Transform == null) {
@@ -147,7 +154,7 @@ public static class EventListener {
                 }
             }
             else {
-                EventLibrary.staticClasses[action.executeCategory].GetMethod(action.executeType).Invoke(null, null);
+                EventLibrary.staticClasses[action.executeCategory].GetMethod(action.executeType).Invoke(null, action.args);
             }
         }
         if (couple.popEvent.executeOnce == true) {

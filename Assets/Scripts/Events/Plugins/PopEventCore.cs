@@ -31,4 +31,16 @@ public static class PopEventCore {
     public static void TestFunction() {
         MonoBehaviour.print("Test Function");
     }
+    [EventVisible]
+    public static void TestFunction2(string stringy) {
+        MonoBehaviour.print(stringy);
+    }
+    [EventVisible]
+    public static void TestFunction3(float floaty) {
+        MonoBehaviour.print(floaty);
+    }
+    [EventVisible]
+    public static void TestFunctionDoub(string stringy, float floaty) {
+        MonoBehaviour.print(stringy + ", " + floaty);
+    }
 }

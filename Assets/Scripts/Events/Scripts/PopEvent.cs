@@ -14,7 +14,6 @@ public class PopEvent : MonoBehaviour {
     public bool hasExecuted = false;
 
     private PopEvent nextEvent;
-    private int index = 0;
 
     public float totalTimeActive = 0;
     private float timer = 0;
@@ -30,7 +29,6 @@ public class PopEvent : MonoBehaviour {
         PopEvent[] popEvents = gameObject.GetComponents<PopEvent>();
         for (int i = 0; i < popEvents.Length - 1; i++) { //  Don't check the last element
             if (this.Equals(popEvents[i])) {
-                index = i;
                 nextEvent = popEvents[i + 1];
                 break;
             }

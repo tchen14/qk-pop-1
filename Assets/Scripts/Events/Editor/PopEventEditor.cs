@@ -177,7 +177,8 @@ public class PopEventEditor : Editor {
 
         GUILayout.BeginHorizontal();
 
-        popupArray = PopEventCore.watchLibrary.Keys.ToArray().Concat(new string[] {"PopEventCore"}).ToArray();
+        //popupArray = PopEventCore.watchLibrary.Keys.ToArray().Concat(new string[] {"PopEventCore"}).ToArray();
+        popupArray = PopEventCore.watchLibrary.Keys.ToArray();
         condition.watchCategoryIndex = FindIndex(condition.watchCategory, popupArray);
         condition.watchCategoryIndex = (int)EditorGUILayout.Popup(condition.watchCategoryIndex, popupArray, GUILayout.MaxWidth(columnWidth / 3));
         condition.watchCategory = popupArray[condition.watchCategoryIndex];
@@ -186,7 +187,7 @@ public class PopEventEditor : Editor {
             popupArray = PopEventCore.watchLibrary[condition.watchCategory];
         }
         else {
-            popupArray = new string[] { "TestFunction" };
+            popupArray = new string[] { "Choose A Condition" };
         }
         condition.watchIndex = FindIndex(condition.watchType, popupArray);
         condition.watchIndex = (int)EditorGUILayout.Popup(condition.watchIndex, popupArray, GUILayout.MaxWidth(columnWidth * 2 / 3));
@@ -256,6 +257,9 @@ public class PopEventEditor : Editor {
                 else if (condition.conditionType == typeof(Vector3)) {
                     condition.vectorCompareOption = (EventCondition.VectorCompareOption)EditorGUILayout.EnumPopup(condition.vectorCompareOption, GUILayout.MaxWidth(columnWidth / 2));
                 }
+                else if (condition.conditionType == typeof(System.Boolean)){
+                    condition.p_int = EditorGUILayout.Popup(condition.p_int, new string[] { "Is False", "Is True" }, GUILayout.MaxWidth(columnWidth / 2));
+                }
 
                 //     Value Field
                 if (condition.conditionType == typeof(System.Int32)) {
@@ -265,6 +269,7 @@ public class PopEventEditor : Editor {
                     condition.p_float = EditorGUILayout.FloatField(condition.p_float, GUILayout.MaxWidth(columnWidth / 2));
 
                 }
+
                 else {
                     for (int sp = 0; sp < 6; sp++) { EditorGUILayout.Space(); }
                 }
@@ -345,7 +350,17 @@ public class PopEventEditor : Editor {
 
     bool DrawOneAction(EventAction action, int count) {
         string[] popupArray;
-        DrawBackground(action.executeType);
+        if (action.executeStaticFunction == false) {
+            DrawBackground(action.executeType);
+        }
+        else {
+            if (action.args == null) {
+                DrawBackground("Execute Static Function");
+            }
+            else {
+                DrawBackground("Execute Static Function", action.args.Length * 36);
+            }
+        }
 
         EditorGUILayout.BeginHorizontal();
         popupArray = PopEventCore.executeLibrary.Keys.ToArray().Concat(EventLibrary.staticClasses.Keys.ToArray()).ToArray();
@@ -381,38 +396,43 @@ public class PopEventEditor : Editor {
         GUI.backgroundColor = Color.white;
         EditorGUILayout.EndHorizontal();
 
-        if (action.executeType == "Choose An Action") {
-            chooseAnAction = true;
+        if (action.executeStaticFunction == false) {
+            if (action.executeType == "Choose An Action") {
+                chooseAnAction = true;
+            }
+            else if (action.executeType == "Execute Function") {
+                DrawExecuteFunction(action);
+            }
+            else if (action.executeType == "Debug Message") {
+                DrawDebugMessage(action);
+            }
+            else if (action.executeType == "Activate Another Event" || action.executeType == "Deactivate Another Event") {
+                DrawActivateAnotherEvent(action);
+            }
+            else if (action.executeType == "Create Text Box") {
+                DrawCreateTextBox(action);
+            }
+            else if (action.executeType == "Destroy Text Box") {
+                DrawDestroyTextBox(action);
+            }
+            else if (action.executeType == "Create Prefab At Position") {
+                DrawCreatePrefabAtPosition(action);
+            }
+            else if (action.executeType == "Create Prefab Here") {
+                DrawCreatePrefabHere(action);
+            }
+            else if (action.executeType == "Add X Items") {
+                DrawAddXItems(action);
+            }
+            else if (action.executeType == "Destroy This Object") {
+                destroyThisObject = true;
+            }
+            else if (action.executeType == "Move Player To Location" || action.executeType == "Play Sound") {
+                EditorGUILayout.LabelField("<b>NOT YET IMPLEMENTED</b>", style, GUILayout.MaxWidth(columnWidth));
+            }
         }
-        else if (action.executeType == "Execute Function") {
-            DrawExecuteFunction(action);
-        }
-        else if (action.executeType == "Debug Message") {
-            DrawDebugMessage(action);
-        }
-        else if (action.executeType == "Activate Another Event" || action.executeType == "Deactivate Another Event") {
-            DrawActivateAnotherEvent(action);
-        }
-        else if (action.executeType == "Create Text Box") {
-            DrawCreateTextBox(action);
-        }
-        else if (action.executeType == "Destroy Text Box") {
-            DrawDestroyTextBox(action);
-        }
-        else if (action.executeType == "Create Prefab At Position") {
-            DrawCreatePrefabAtPosition(action);
-        }
-        else if (action.executeType == "Create Prefab Here") {
-            DrawCreatePrefabHere(action);
-        }
-        else if (action.executeType == "Add X Items") {
-            DrawAddXItems(action);
-        }
-        else if (action.executeType == "Destroy This Object") {
-            destroyThisObject = true;
-        }
-        else if (action.executeType == "Move Player To Location" || action.executeType == "Play Sound") {
-            EditorGUILayout.LabelField("<b>NOT YET IMPLEMENTED</b>", style, GUILayout.MaxWidth(columnWidth));
+        else {
+            DrawExecuteStaticFunction(action);
         }
 
 
@@ -422,6 +442,7 @@ public class PopEventEditor : Editor {
 
     void DrawExecuteFunction(EventAction action){
 
+        //if (action.actionScript
         EditorGUILayout.LabelField("Action Script", GUILayout.MaxWidth(columnWidth));
         action.actionScript = (MonoBehaviour)EditorGUILayout.ObjectField(action.actionScript, typeof(MonoBehaviour), true, GUILayout.MaxWidth(columnWidth));
 
@@ -437,37 +458,19 @@ public class PopEventEditor : Editor {
                 }
 
                 //  Determine type to pass
-                System.Type paramType = typeof(void);
+                System.Type[] paramType = new System.Type[] { typeof(void) };
 
                 if (actionNames.Length > action.actionEditorIndex) {
                     action.actionName = actionNames[action.actionEditorIndex];
-                    var par = action.actionScript.GetType().GetMethod(action.actionName).GetParameters();
+                    System.Reflection.ParameterInfo[] par = action.actionScript.GetType().GetMethod(action.actionName).GetParameters();
                     if (par.Length > 0) {
-                        paramType = par[0].ParameterType;
+                        paramType = new System.Type[par.Length];
                     }
-                }
-                //  Label for non-null
-                if (paramType != typeof(void)) {
-                    EditorGUILayout.LabelField("Value to Pass", GUILayout.MaxWidth(columnWidth));
-                }
-                //  Expose the proper variable
-                if (paramType == typeof(System.Int32)) {
-                    action.p_int = EditorGUILayout.IntField(action.p_int, GUILayout.MaxWidth(columnWidth));
-                }
-                else if (paramType == typeof(System.Single)) {
-                    action.p_float = EditorGUILayout.FloatField(action.p_float, GUILayout.MaxWidth(columnWidth));
-                }
-                else if (paramType == typeof(Vector3)) {
-                    action.p_Vector3 = EditorGUILayout.Vector3Field("", action.p_Vector3, GUILayout.MaxWidth(columnWidth));
-                }
-                else if (paramType == typeof(GameObject)) {
-                    action.p_GameObject = (GameObject)EditorGUILayout.ObjectField(action.p_GameObject, typeof(GameObject), true, GUILayout.MaxWidth(columnWidth));
-                }
-                else if (paramType == typeof(MonoBehaviour)) {
-                    action.p_MonoBehaviour = (MonoBehaviour)EditorGUILayout.ObjectField(action.p_MonoBehaviour, typeof(MonoBehaviour), true, GUILayout.MaxWidth(columnWidth));
-                }
-                else {
-                    for (int sp = 0; sp < 6; sp++) { EditorGUILayout.Space(); }
+
+                    for (int i = 0; i < par.Length; i++) {
+                        paramType[i] = par[i].ParameterType;
+                        DrawExecuteParameter(action, paramType[i]);
+                    }
                 }
 
                 //  Set the parameters
@@ -479,6 +482,54 @@ public class PopEventEditor : Editor {
         }
         else {
             for (int sp = 0; sp < 12; sp++) { EditorGUILayout.Space(); }
+        }
+    }
+
+    void DrawExecuteStaticFunction(EventAction action) {
+
+        //  Determine type to pass
+        System.Type[] paramType = new System.Type[] { typeof(void) };
+        System.Reflection.ParameterInfo[] par = EventLibrary.staticClasses[action.executeCategory].GetMethod(action.executeType).GetParameters();
+        if (par.Length > 0) {
+            paramType = new System.Type[par.Length];
+        }
+
+        for (int i = 0; i < par.Length; i++) {
+            paramType[i] = par[i].ParameterType;
+            DrawExecuteParameter(action, paramType[i]);
+        }
+
+        //  Set the parameters
+        action.args = action.SetParameters(paramType);
+
+    }
+
+    void DrawExecuteParameter(EventAction action, System.Type paramType) {
+        //  Label for non-null
+        if (paramType != typeof(void)) {
+            EditorGUILayout.LabelField(paramType.Name + " to Pass", GUILayout.MaxWidth(columnWidth));
+        }
+        //  Expose the proper variable
+        if (paramType == typeof(System.Int32)) {
+            action.p_int = EditorGUILayout.IntField(action.p_int, GUILayout.MaxWidth(columnWidth));
+        }
+        else if (paramType == typeof(System.Single)) {
+            action.p_float = EditorGUILayout.FloatField(action.p_float, GUILayout.MaxWidth(columnWidth));
+        }
+        else if (paramType == typeof(System.String)) {
+            action.p_string = EditorGUILayout.TextField(action.p_string, GUILayout.MaxWidth(columnWidth));
+        }
+        else if (paramType == typeof(Vector3)) {
+            action.p_Vector3 = EditorGUILayout.Vector3Field("", action.p_Vector3, GUILayout.MaxWidth(columnWidth));
+        }
+        else if (paramType == typeof(GameObject)) {
+            action.p_GameObject = (GameObject)EditorGUILayout.ObjectField(action.p_GameObject, typeof(GameObject), true, GUILayout.MaxWidth(columnWidth));
+        }
+        else if (paramType == typeof(MonoBehaviour)) {
+            action.p_MonoBehaviour = (MonoBehaviour)EditorGUILayout.ObjectField(action.p_MonoBehaviour, typeof(MonoBehaviour), true, GUILayout.MaxWidth(columnWidth));
+        }
+        else {
+            for (int sp = 0; sp < 6; sp++) { EditorGUILayout.Space(); }
         }
     }
 
@@ -542,7 +593,7 @@ public class PopEventEditor : Editor {
     #region Background
 
     //  Background  -------------------------------------------------------------------------------------
-    void DrawBackground(string type) {
+    void DrawBackground(string type, int extraLength = 0) {
         int notImplemented = 18;
         Color blue = new Color(0, 0.58f, 0.69f, 0.45f);
         Color orange = new Color(1, 0.46f, 0, 0.55f);
@@ -573,6 +624,9 @@ public class PopEventEditor : Editor {
         }
         else if (type == "Execute Function") {
             DrawBackground(132, orange);
+        }
+        else if (type == "Execute Static Function") {
+            DrawBackground(one + extraLength, orange);
         }
         else if (type == "Activate Next Event") {
             DrawBackground(one, orange);
