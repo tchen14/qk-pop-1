@@ -203,7 +203,7 @@ public class MainMenuManager : MonoBehaviour {
 		switch (diff) {
 		
 		case 0:
-			newDiff = "Jordan";
+			newDiff = "Easiest";
 			break;
 		case 1:
 			newDiff = "Easy";
@@ -215,7 +215,7 @@ public class MainMenuManager : MonoBehaviour {
 			newDiff = "Hard";
 			break;
 		case 4:
-			newDiff = "Shelby!";
+			newDiff = "Hardest";
 			break;
 		}
 
@@ -245,11 +245,11 @@ public class MainMenuManager : MonoBehaviour {
 			QualitySettings.SetQualityLevel(3,true);
 			break;
 		case 3:
-			newQual = "Fancy";
+			newQual = "High";
 			QualitySettings.SetQualityLevel(4,true);
 			break;
 		case 4:
-			newQual = "Fantastic";
+			newQual = "Highest";
 			QualitySettings.SetQualityLevel(5,true);
 			break;
 		}
@@ -283,7 +283,7 @@ public class MainMenuManager : MonoBehaviour {
 	public void SetVideoChanges () {
 
 		//FoV
-		float newFoVvalue = FoVSlider.GetComponent<Slider> ().value * 100f;
+		float newFoVvalue = FoVSlider.GetComponent<Slider> ().value;
 		int newFoVvalue2 = (int)newFoVvalue;
 		string newFoVtext = newFoVvalue2.ToString();
 		GameObject.Find ("FoVvalueText").GetComponent<Text> ().text = newFoVtext;
@@ -406,6 +406,31 @@ public class MainMenuManager : MonoBehaviour {
 	//WARNING! DO NOT REMOVE THE FOLLOWING FUNCTION! EVERY PIECE OF THE UI RELIES ON IT
 	public void GoToDog () {
 		Application.OpenURL("http://youtu.be/y9K18CGEeiI");
+	}
+
+	//Apply Music Vol text
+	public void changeMainVolText () {
+		float newValue = volumeSlider.GetComponent<Slider> ().value;
+		int newValue2 = (int)newValue;
+		string newText = newValue2.ToString();
+
+		GameObject.Find ("masterVolNum").GetComponent<Text> ().text = newText;
+	}
+
+	public void changeMusicVolText () {
+		float newValue = musicVSlider.GetComponent<Slider> ().value;
+		int newValue2 = (int)newValue;
+		string newText = newValue2.ToString ();
+		
+		GameObject.Find ("musicVolNum").GetComponent<Text> ().text = newText;
+	}
+
+	public void changeEffectsVolText () {
+		float newValue = effectsVSlider.GetComponent<Slider> ().value;
+		int newValue2 = (int)newValue;
+		string newText = newValue2.ToString ();
+			
+		GameObject.Find ("effectsVolNum").GetComponent<Text> ().text = newText;
 	}
 
 	//---------------------------

@@ -31,7 +31,6 @@ using System.Collections.Generic;
 public static class EventLibrary {
 
 	public static Dictionary<string, string[]> library = new Dictionary<string, string[]> {
-		{ "PoPCharacterControllerMethods", new string[] {"Death", } },
 		{ "TestScriptLeftMethods", new string[] {"FunctionOne", "FunctionTwo", } },
 		{ "TestScriptRightMethods", new string[] {"NullFunction", "IntFunction", "FloatFunction", "VectorFunction", "GameObjectFunction", } },
 		{ "TestScriptLeftFields", new string[] {"timer", "delay", "counter", "fieldA", "fieldB", "vectorA", } },

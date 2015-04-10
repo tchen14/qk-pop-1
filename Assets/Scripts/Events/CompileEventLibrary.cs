@@ -89,6 +89,8 @@ public class CompileEventLibrary : EditorWindow {
         streamWriter.Close();
 
         fileInfo.IsReadOnly = true;
+
+        AssetDatabase.ImportAsset("Assets/Scripts/Events/Plugins/EventLibrary.cs");
     }
 
     public static bool ListContains(List<string> stringList, string name) {

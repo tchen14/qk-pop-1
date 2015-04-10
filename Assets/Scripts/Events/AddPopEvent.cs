@@ -7,7 +7,7 @@ using UnityEditor;
 public class AddPopEvent : EditorWindow {
 
     [MenuItem("Custom Tools/(+) Add Pop Event")]
-    static void AddComponent() {
+    static public void AddComponent() {
         if (UnityEditor.Selection.objects.Length == 1) {
             GameObject go = UnityEditor.Selection.objects[0] as GameObject;
             go.AddComponent<PopEvent>();
