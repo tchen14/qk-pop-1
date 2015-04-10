@@ -69,8 +69,8 @@ public class AudioManager : MonoBehaviour {
 		} else
 			Debug.Warning("audio", "JSON file loaded");
 
-		player = new GameObject("Player");
-		playMe(player, "ambiance", "ambiant2.ogg");
+		//player = new GameObject("Player");
+		//playMe(player, "ambiance", "ambiant2.ogg");
 
 	}
 
@@ -179,8 +179,13 @@ public class AudioManager : MonoBehaviour {
 		} else {
 			switch(type.ToLower()) {
 				case "ambiance":
-					path = path + "/Ambiance/" + name;
-					_www = new WWW("http://upload.wikimedia.org/wikipedia/commons/c/c8/Example.ogg");
+					//print("file:///" + Application.dataPath + "/Audio/ambiant2.ogg");
+					//_www = new WWW("file:///" + Application.dataPath + "/Audio/ambiant2.ogg");
+					//tempSound = _www.GetAudioClip(false, false);
+					
+					
+					//path = path + "/Ambiance/" + name;
+					//_www = new WWW("http://upload.wikimedia.org/wikipedia/commons/c/c8/Example.ogg");		//clears check in wait for request
 					//print(Path.GetFileName("file:///" + path));
 					StartCoroutine(waitForRequest(_www));
 					//print(path);
@@ -220,16 +225,16 @@ public class AudioManager : MonoBehaviour {
 			//sound = loadSound(type, name);
 			print(sound.name);
 			speaker = target.AddComponent<AudioSource>();
-			while(!sound.LoadAudioData()) {
+			//speaker.outputAudioMixerGroup = masterMixer.FindMatchingGroups("AmbianceMixer");
+
+
+			//while(!sound.LoadAudioData()) {									//possible infinite loop
 				Debug.Warning("audio", "there was a problem loading sound object");
 				
-			}
+			//}
 			speaker.clip = sound;
 		}
-		//if(!speaker.isPlaying && speaker.clip.isReadyToPlay)
-		//	speaker.Play();
-
-		//speaker.Play();
+		
 		return true;
 	}
 
@@ -244,6 +249,11 @@ public class AudioManager : MonoBehaviour {
 		}   
 	}
 
+	//IEnumerator waitForLoad(AudioClip sound) {
+	//	yield return sound;
+	//	if(sound.LoadAudioData())
+			
+	//}
 	#endregion
 
 
