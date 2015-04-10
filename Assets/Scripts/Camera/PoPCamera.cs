@@ -28,7 +28,6 @@ public sealed class PoPCamera : Camera_2
 	//@{
 	/// Tracks mouse and player position between frames
 	private Vector3 mousePosition;
-	private Vector3 targetPosition;
 	//@}
 
 	//@{
@@ -40,7 +39,6 @@ public sealed class PoPCamera : Camera_2
 	private float curRotateX = 0f;
 
 	public float maxTimeSinceMouseMoved = 2.0f;			//!< Time frame until camera becomes follow cam b/c of mouse inactivity
-	private float currentTimeSinceMouseMoved = 0.0f;	//!< Private variable that stores mouse inactivity
 	private bool occluded = false;						//!< Used to check if camera is compensating for occlusion
 	public float targetingRange = 40f;					//!< Range allowed to target objects
 	public float screenTargetArea = 20f;				//!< Area of screen object can be targeted
@@ -66,7 +64,6 @@ public sealed class PoPCamera : Camera_2
 			}
 		}
 
-		targetPosition = target.position;
 		distance = Mathf.Clamp(distance, distanceMin, distanceMax);
 		cameraLatency = Mathf.Clamp (cameraLatency, 0.05f, 1f);
 		Reset();
@@ -168,7 +165,6 @@ public sealed class PoPCamera : Camera_2
 		}
 
 		mousePosition = Input.mousePosition;
-		targetPosition = target.position;
 	}
 
 	void CalculateDesiredPosition(float rotateY, float rotateX) {
@@ -193,7 +189,6 @@ public sealed class PoPCamera : Camera_2
 			if(!targetting) {
 				mouseX += Input.GetAxis("Mouse X") * xMouseSensitivity;
 				mouseY -= Input.GetAxis("Mouse Y") * yMouseSensitivity;
-				currentTimeSinceMouseMoved = 0.0f;
 			} else {
 				curRotateX += Input.GetAxis("Mouse X") * xMouseSensitivity;
 				mouseY -= Input.GetAxis("Mouse Y") * yMouseSensitivity;
