@@ -1,0 +1,220 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &126366
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 495492}
+  - 114: {fileID: 11471692}
+  - 114: {fileID: 11474428}
+  - 114: {fileID: 11476832}
+  m_Layer: 4
+  m_Name: Event_StayInArea
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &495492
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 126366}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -.300000012, y: .400000006, z: 11.8999996}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+--- !u!114 &11471692
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 126366}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3bce9737e13a17340acb5aabb86ba137, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  uniqueId: 
+  couple:
+    popEvent: {fileID: 11471692}
+    conditions:
+    - conditionScript: {fileID: 0}
+      conditionField: 
+      conditionIndex: 0
+      p_int: 0
+      p_float: 0
+      p_string: 
+      p_Vector3: {x: 0, y: 0, z: 0}
+      p_Transform: {fileID: 0}
+      watchCategory: Player
+      watchType: Player Enters Area
+      watchString: 
+      watchIndex: 1
+      watchCategoryString: 
+      watchCategoryIndex: 1
+      numberCompareOption: 0
+      vectorCompareOption: 0
+    actions:
+    - actionScript: {fileID: 0}
+      actionName: 
+      actionEditorIndex: 0
+      p_int: 0
+      p_float: 0
+      p_string: Stay1
+      p_string2: 
+      p_Vector3: {x: 0, y: 0, z: 0}
+      p_GameObject: {fileID: 0}
+      p_MonoBehaviour: {fileID: 0}
+      executeCategory: System
+      executeType: Activate Another Event
+      executeString: 
+      executeIndex: 4
+      executeCategoryString: 
+      executeCategoryIndex: 0
+    andOrCompare: 0
+  isActive: 1
+  isRegional: 0
+  executeOnce: 0
+  hasExecuted: 0
+  totalTimeActive: 0
+  delay: 90
+  regionRadius: 1
+  drawRegionTwo: 1
+  conditionRegionCenter: {x: 88.5999985, y: 1.5, z: 93}
+  conditionRegionRadius: 7
+--- !u!114 &11474428
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 126366}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3bce9737e13a17340acb5aabb86ba137, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  uniqueId: 
+  couple:
+    popEvent: {fileID: 11474428}
+    conditions:
+    - conditionScript: {fileID: 0}
+      conditionField: 
+      conditionIndex: 0
+      p_int: 0
+      p_float: 0
+      p_string: 
+      p_Vector3: {x: 0, y: 0, z: 0}
+      p_Transform: {fileID: 0}
+      watchCategory: Player
+      watchType: Player Leaves Area
+      watchString: 
+      watchIndex: 2
+      watchCategoryString: 
+      watchCategoryIndex: 1
+      numberCompareOption: 0
+      vectorCompareOption: 0
+    actions:
+    - actionScript: {fileID: 0}
+      actionName: 
+      actionEditorIndex: 0
+      p_int: 0
+      p_float: 0
+      p_string: Stay1
+      p_string2: 
+      p_Vector3: {x: 0, y: 0, z: 0}
+      p_GameObject: {fileID: 0}
+      p_MonoBehaviour: {fileID: 0}
+      executeCategory: System
+      executeType: Deactivate Another Event
+      executeString: 
+      executeIndex: 5
+      executeCategoryString: 
+      executeCategoryIndex: 0
+    andOrCompare: 0
+  isActive: 1
+  isRegional: 0
+  executeOnce: 0
+  hasExecuted: 0
+  totalTimeActive: 0
+  delay: 1
+  regionRadius: 1
+  drawRegionTwo: 1
+  conditionRegionCenter: {x: 0, y: 0, z: 0}
+  conditionRegionRadius: 7
+--- !u!114 &11476832
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 126366}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3bce9737e13a17340acb5aabb86ba137, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  uniqueId: Stay1
+  couple:
+    popEvent: {fileID: 11476832}
+    conditions:
+    - conditionScript: {fileID: 0}
+      conditionField: 
+      conditionIndex: 0
+      p_int: 0
+      p_float: 3
+      p_string: 
+      p_Vector3: {x: 0, y: 0, z: 0}
+      p_Transform: {fileID: 0}
+      watchCategory: System
+      watchType: Wait X Seconds
+      watchString: 
+      watchIndex: 2
+      watchCategoryString: 
+      watchCategoryIndex: 0
+      numberCompareOption: 0
+      vectorCompareOption: 0
+    actions:
+    - actionScript: {fileID: 0}
+      actionName: 
+      actionEditorIndex: 0
+      p_int: 0
+      p_float: 0
+      p_string: Stayed in Area
+      p_string2: Box
+      p_Vector3: {x: 0, y: 1, z: 0}
+      p_GameObject: {fileID: 162326, guid: afe756e0f00f7ee418ec05eddf8c0a04, type: 2}
+      p_MonoBehaviour: {fileID: 0}
+      executeCategory: Object
+      executeType: Create Prefab Here
+      executeString: 
+      executeIndex: 2
+      executeCategoryString: 
+      executeCategoryIndex: 3
+    andOrCompare: 0
+  isActive: 0
+  isRegional: 0
+  executeOnce: 1
+  hasExecuted: 0
+  totalTimeActive: 0
+  delay: 1
+  regionRadius: 1
+  drawRegionTwo: 0
+  conditionRegionCenter: {x: 0, y: 0, z: 0}
+  conditionRegionRadius: 1
+--- !u!1001 &100100000
+Prefab:
+  m_ObjectHideFlags: 1
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications: []
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 0}
+  m_RootGameObject: {fileID: 126366}
+  m_IsPrefabParent: 1

@@ -12,11 +12,19 @@ public class EventCondition {
     //  Potential Parameters
     public int p_int;
     public float p_float;
+    public string p_string;
     public Vector3 p_Vector3;
     public Transform p_Transform;
 
-    public enum WatchType { ChooseACondition, WatchScript, PlayerEntersArea, WaitXSeconds }
-    public WatchType watchType;
+    public string watchCategory = "System";
+    public string watchType = "Choose A Condition";
+
+    public string watchString;
+    public int watchIndex;
+
+    public string watchCategoryString;
+    public int watchCategoryIndex;
+
     
     public enum NumberCompareOption { EqualTo, GreaterThan, LessThan }
     public NumberCompareOption numberCompareOption;
