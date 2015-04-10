@@ -34,7 +34,7 @@ public class AudioManager : MonoBehaviour {
 
 	public AudioMixer masterMixer;
 
-	[Range(-80.0f, 1.0f)]
+	[Range(-80.0f, 20.0f)]
 	public float tempvol = 0.5f;
 
 	Dictionary<string, bool> ambianceDict = new Dictionary<string, bool>();
