@@ -28,7 +28,8 @@ public class AudioManager : MonoBehaviour {
 	}
 	#endregion
 
-	public string soundListFilePath = "/Resources/Json/soundListData.json";
+	public string soundListFilePath = "/Resources/Json/audioListData.json";
+	public string soundFilePath = "/StreamingAssets/Audio/";
 
 	public AudioMixer masterMixer;
 
@@ -41,6 +42,7 @@ public class AudioManager : MonoBehaviour {
 	//! Unity Start function
     void Start() {
 		Debug.Warning("audio", "SoundManager has started");
+		
 		#region singletonCreation
 		if(_instance == null) {
 			//If I am the first instance, make me the Singleton
@@ -59,6 +61,7 @@ public class AudioManager : MonoBehaviour {
 		} else
 			Debug.Warning("audio", "JSON file loaded");
 
+		
 
 	}
 
@@ -78,22 +81,21 @@ public class AudioManager : MonoBehaviour {
 	}
 
 	//!checks JSON file isnt empty and loads data into audio dictionaries
-	public bool loadListFromJson(string json) {		//loads json data into
+	public bool loadListFromJson(string json) {		
 		JSONNode soundData = JSON.Parse(json);
-		//print(soundData);
-		if(soundData == null) {						//there is no json data
+		if(soundData == null) {
 			Debug.Error("audio", "Json file is empty");
 			return false;
 		}
 		
 		JSONNode audioNode = soundData["audio"];
-		string[] types = { "Ambiance", "Effect", "Music", "Voice" };
+		string[] types = { "ambiance", "effect", "music", "voice" };
 
 		foreach(string type in types) {
 			JSONArray tempArray = audioNode[type].AsArray;
 			foreach(JSONNode j in tempArray) {
-				var name = j[0];				//name of object
-				bool priority = j[1].AsBool;	//priority of object
+				var name = j[0];				//j[0] is name of object
+				bool priority = j[1].AsBool;	//j[1] priority of object
 				addSound(type, name, priority);
 			}
 		}
@@ -101,19 +103,20 @@ public class AudioManager : MonoBehaviour {
 	}
 	#endregion 
 	
+	#region General Sound Functions
 	//!Adds sound info to Dictionaries
 	public void addSound(string type, string name, bool priority){
-			switch(type) {
-				case "Ambiance":
+		switch(type.ToLower()) {
+				case "ambiance":
 					ambianceDict.Add(name, priority);
 					break;
-				case "Effect":
+				case "effect":
 					effectDict.Add(name, priority);
 					break;
-				case "Music":
+				case "music":
 					musicDict.Add(name, priority);
 					break;
-				case "Voice":
+				case "voice":
 					voiceDict.Add(name, priority);
 					break;
 				default:
@@ -122,26 +125,25 @@ public class AudioManager : MonoBehaviour {
 			}
 		} 
 
-
 	//!checks if sounds in dictionary
 	public bool findSound(string type, string name) {
-		switch(type) {
-			case "Ambiance":
+		switch(type.ToLower()) {
+			case "ambiance":
 				if(ambianceDict.ContainsKey(name))
 					return true;
 				else
 					return false;
-			case "Effect":
+			case "effect":
 				if(effectDict.ContainsKey(name))
 					return true;
 				else
 					return false;
-			case "Music":
+			case "music":
 				if(musicDict.ContainsKey(name))
 					return true;
 				else
 					return false;
-			case "Voice":
+			case "voice":
 				if(voiceDict.ContainsKey(name))
 					return true;
 				else
@@ -151,30 +153,71 @@ public class AudioManager : MonoBehaviour {
 				return false;
 		}
 	}
-	
+
+	//!Load single sound, must include file name and extension
+	public AudioClip loadSound(string type, string name) {
+		AudioClip tempSound;
+		string path = Application.dataPath + soundFilePath;
+
+		if(!findSound(type, name)) {
+			tempSound = null;
+		} else {
+			switch(type.ToLower()) {
+				case "ambiance":
+					path = path + "Ambiance/" + name;
+					tempSound = AudioClip.Create(path, )
+					ambianceDict.Add(name, priority);
+					break;
+				case "effect":
+					effectDict.Add(name, priority);
+					break;
+				case "music":
+					musicDict.Add(name, priority);
+					break;
+				case "voice":
+					voiceDict.Add(name, priority);
+					break;
+				default:
+					Debug.Log("audio", type + "is not an option, or you spelled it wrong");
+					break;
+			}
+		}
+			
+
+		return tempSound;
+	}
+
+	/*playMe(this, type, name){
+		AudioClip sound;
+		
+		if(!sound)
+			Debug.Warning("audio", "there was a problem loading " + name);
+	}*/
+
+	#endregion
 
 
 	#region Sound volume
 	[EventVisible]
 	//!Change volume for groups in MasterMixer
 	public void changeVol(string name, float level){
-		switch(name){
-			case "Master":
+		switch(name.ToLower()){
+			case "master":
 				masterMixer.SetFloat ("MasterVol", level);
 				break;
-			case "Ambiance":
+			case "ambiance":
 				masterMixer.SetFloat ("MaxAmbianceVol", level);
 				break;
-			case "Effect":
+			case "effect":
 				masterMixer.SetFloat ("MaxEffectVol", level);
 				break;
-			case "Music":
+			case "music":
 				masterMixer.SetFloat ("MaxMusicVol", level);
 				break;
-			case "Voice":
+			case "voice":
 				masterMixer.SetFloat ("MaxVoiceVol", level);
 				break;
-			case "Reset":
+			case "reset":
 				masterMixer.ClearFloat ("MasterVol");
 				masterMixer.ClearFloat ("MaxAmbianceVol");
 				masterMixer.ClearFloat ("MaxEffectVol");
@@ -191,20 +234,20 @@ public class AudioManager : MonoBehaviour {
 	//!Check the current volume levels in MasterMixer
 	public float seeVol(string name){
 		float level = 100;
-		switch(name){
-			case "Master":
+		switch(name.ToLower()) {
+			case "master":
 				masterMixer.GetFloat ("MasterVol", out level);
 				return level;
-			case "Ambiance":
+			case "ambiance":
 				masterMixer.GetFloat ("MaxAmbianceVol", out level);
 				return level;
-			case "Effect":
+			case "effect":
 				masterMixer.GetFloat ("MaxEffectVol", out level);
 				return level;
-			case "Music":
+			case "music":
 				masterMixer.GetFloat ("MaxMusicVol", out level);
 				return level;
-			case "Voice":
+			case "voice":
 				masterMixer.GetFloat ("MaxVoiceVol", out level);
 				return level;
 			default:
@@ -219,38 +262,13 @@ public class AudioManager : MonoBehaviour {
 	//}
 
 
-
-	//cleanup
-	/*public void setMasterVol(float masterLvl){
-		masterMixer.SetFloat ("MasterVol", masterLvl);
-	}
-	public void setMaxAmbiance(float ambianceLvl){
-		masterMixer.SetFloat ("MaxAmbianceVol", ambianceLvl);
-	}
-	public void setMaxEffect(float effectLvl){
-		masterMixer.SetFloat ("MaxEffectVol", effectLvl);
-	}
-	public void setMaxMusic(float musicLvl){
-		masterMixer.SetFloat ("MaxMusicVol", musicLvl);
-	}
-	public void setMaxVoice(float voiceLvl){
-		masterMixer.SetFloat ("MaxVoiceVol", voiceLvl);
-	}
-	public void resetToDefault(){
-		masterMixer.ClearFloat ("MasterVol");
-		masterMixer.ClearFloat ("MaxAmbianceVol");
-		masterMixer.ClearFloat ("MaxEffectVol");
-		masterMixer.ClearFloat ("MaxMusicVol");
-		masterMixer.ClearFloat ("MaxVoiceVol");
-
-	}*/
 	#endregion
 
 	#region playFunct
 	//set up each type of sound play functions
 
 	//generic idea for sending and playing an audio on object
-	//AudioManager.playMe(this, "fire");
+	//AudioManager.playMe(this, type, "fire");
 	//bool playMe(monobehavior mono, string name){
 	//sound = Mono.gameObject.addComponent<AudioSource>;
 	//as.clip;
@@ -265,16 +283,27 @@ public class AudioManager : MonoBehaviour {
 
 /*Ideas/todo
  * 
- * json sound list
- *	json file: filename, type of sound, priority always load or on use load			- DONE
+ * json sound list - DONE
+ *	json file: filename, type of sound, priority always load or on use load
  *	http://jsonformatter.curiousconcept.com/ - format json, may not be simplejson
  *	http://json.org/example
  *	look at checkpointManager.cs & AchievementManager.cs
  *	http://wiki.unity3d.com/index.php/SimpleJSON
+ *	ALL TYPE HAS BEEN SET TO LOWERCASE AND INPUT HAS BEEN CONVERTED VIA ToLower()
+ * 
+ * 
+ * Audio should come from streaming Assets
+ *   http://docs.unity3d.com/Manual/StreamingAssets.html
+ *  
  * 
  * check sounds are on list and ready to load
+ *   make sure file paths are correct either in JSON or hardcoded
+ * Add priority sounds into game at game start
+ * 
+ * 
  * when called play sound or throw error
  * gui should call sound manager for volume changes
+ * 
  * 
  * play functions
  *	void play sound
@@ -282,4 +311,20 @@ public class AudioManager : MonoBehaviour {
  *	bool is playing
  *	void stop playing
  *	void set loop sound
+ *	
+ *   pause all, group sounds
+ * 
+ *  play on player, if given no object play on player
+ *  play on object, if given object play on object
+ *  
+ * local object sound script should call sound manager
+ * local script should create audio source & delete when done playing
+ * 
+ *  Custom sound inspector window
+ *   http://unity3d.com/learn/tutorials/modules/intermediate/editor/building-custom-inspector
+ *   on inspector gui - only in manager
+ *     display list of active sounds
+ *     print as text/cant interract
+ *     total time & time left of each
+ * 
 */

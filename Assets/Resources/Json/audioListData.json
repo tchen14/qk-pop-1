@@ -1,0 +1,32 @@
+{
+	"audio": {
+		"ambiance": [
+			{
+				"name": "ambiant1.mp3",
+				"priority": false
+			},
+			{
+				"name": "ambiant2.mp3",
+				"priority": true
+			}
+		],
+		"effect": [
+			{
+				"name": "effect1.mp3",
+				"priority": false
+			}
+		]
+		"music": [
+			{
+				"name": "music1.mp3",
+				"priority": true
+			}
+		],
+		"voice": [
+			{
+				"name": "voice1.mp3",
+				"priority": false
+			}
+		]
+	}
+}
