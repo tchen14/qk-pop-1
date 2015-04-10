@@ -5,9 +5,8 @@ using System.Collections.Generic;
 public class PlayerInventory : MonoBehaviour
 {
     private static PlayerInventory _instance;
-    private static PlayerSaveManager saveManager;
   
-    public static PlayerInventory instance
+    public static PlayerInventory Instance
     {
       get
       {
@@ -21,30 +20,87 @@ public class PlayerInventory : MonoBehaviour
 
     public List<InventoryItem> inventory = new List<InventoryItem>();
 
-
-    //! Function that adds an item to player inventory
-    public void AddItem (InventoryItem item)
+    //! Helper function used to search for an already existing item in PlayerInventory
+    public int FindItemIndex(InventoryItem item)
     {
-        inventory.Add(item);
+        for (int index = 0; index < inventory.Count; index++)
+        {
+            if(item.GetItemName() == inventory[index].GetItemName())
+            {
+                return index;
+            }
+        }
+        return -1;
     }
 
-    //! Function that removes an item from player inventory
-    public void RemoveItem (InventoryItem item)
+    //! Function that adds an item to player inventory
+    public bool AddItem (InventoryItem item)
     {
-        inventory.Remove(item);
+        if (item.GetItemAmount() < 1)
+        {
+            // Item amount invalid, return false and error
+            return false;
+        }
+
+        int index = FindItemIndex(item);
+
+        if (index == -1) // Item not found
+        {
+            inventory.Add(item);
+            return true;
+        }
+        else
+        {
+            int value = inventory[index].GetItemAmount();
+            value += item.GetItemAmount();
+            inventory[index].SetItemAmount(value);
+            return true;
+        }
+    }
+
+    //! Function that removes an item from player inventory, need to specify itemAmount to remove a certain # of items
+    public bool RemoveItem (InventoryItem item)
+    {
+        if (item.GetItemAmount() < 1)
+        {
+            // Item amount invalid, return false and error
+            return false;
+        }
+
+        int index = FindItemIndex(item);
+
+        if (index == -1)
+        {
+            // Item not found, so return error?
+            return false;
+        }
+        else
+        {
+            int value = inventory[index].GetItemAmount();
+            value -= item.GetItemAmount();
+
+            if (value < 0)
+            {
+                // Error because you tried to remove more items than the player currently has
+                return false;
+            }
+
+            inventory[index].SetItemAmount(value);
+            return true;
+        }
     }
 
     //! Load Inventory with saved state
     public void LoadInventory()
     {
         inventory.Clear();
-        inventory = saveManager.LoadPlayerInventory();
+        inventory = PlayerSaveManager.Instance.LoadPlayerInventory();
     }
 
 
     //! Function that returns the current state of player inventory to PlayerSaveManager
 	public void SaveInventory()
 	{
-        saveManager.SavePlayerInventory(inventory);
+        PlayerSaveManager.Instance.SavePlayerInventory(inventory);
 	}
 }
