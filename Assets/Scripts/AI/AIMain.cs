@@ -47,7 +47,7 @@ public class AIMain : MonoBehaviour {
 
 	[EventVisible]
 	public void SetAgression(bool b){
-		agression = b;
+		aggression = b;
 	}
 
 	//! Unity Start function
