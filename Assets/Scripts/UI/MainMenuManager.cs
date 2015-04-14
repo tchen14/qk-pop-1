@@ -49,19 +49,13 @@ public class MainMenuManager : MonoBehaviour {
 	public GameObject aaText;
 	public GameObject aTextureText;
 
+	//Cursor stuff
 	public GameObject cursor;
 	public GameObject cursorPoint;
-
-	//Button Arrays
-	public GameObject[] mainButtons;
-	public GameObject[] optionButtons;
-	public GameObject[] soundButtons;
-	public GameObject[] videoButtons;
-
 	bool controllerUsed = false;
-
 	Vector2 cursorPos;
 	GameObject lastButtonHovered;
+
 
 	//Important Things
 	public string url = "http://i.imgur.com/Me04jVB.jpg";
@@ -74,7 +68,7 @@ public class MainMenuManager : MonoBehaviour {
 	void Start () {
 
 		cursorPos = cursor.transform.position;
-		cursor.SetActive(false);
+		//cursor.SetActive(false);
 
 		//trust me, this is important
 		urlTar = GameObject.Find ("urlTar");
@@ -98,6 +92,12 @@ public class MainMenuManager : MonoBehaviour {
 	
 
 	void Update () {
+
+		if(Input.GetAxis("Mouse X") != 0 || Input.GetAxis("Mouse Y") != 0 ){
+			cursor.transform.position = Input.mousePosition;
+		}
+
+		//Controller cursor control
 		if(Input.GetAxis("Vertical") > 0){
 			if(controllerUsed == false){
 				cursor.SetActive(true);
