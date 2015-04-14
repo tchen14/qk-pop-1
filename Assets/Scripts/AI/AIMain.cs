@@ -25,10 +25,11 @@ public class AIMain : MonoBehaviour {
 	public bool 				aggression 			= false;					//!<If the NPC will attack the player
 
 	//Variables Controllers
-	
+	[EventVisible]
 	[ReadOnly]public bool 		seesTarget 			= false;					//!<If the Player has been spotted
 	[ReadOnly]public GameObject target				= null;						//!<The transform of the player
 	[ReadOnly]public bool 		attacking 			= false;					//!<If the AI is attacking
+	[EventVisible]
 	[ReadOnly]public bool 		panic 				= false;					//!<If the AI is panicking
 	[ReadOnly]public Vector3 	panicTarget			= new Vector3 (0, 0, 0);	//!<Target of AI panic
 	[ReadOnly]public float 		aggressionLevel 	= 0;						//!<The current awareness of the NPC to the Player	
@@ -43,6 +44,11 @@ public class AIMain : MonoBehaviour {
 
 	private RaycastHit 			hit;											//!<Takes information from RayCast
 	private GameObject[] 		viableTargets;									//!<All the available targets for the AI
+
+	[EventVisible]
+	public void SetAgression(bool b){
+		agression = b;
+	}
 
 	//! Unity Start function
 	void Start() 
@@ -153,6 +159,7 @@ public class AIMain : MonoBehaviour {
 
     #region movement
     //!<Sets a new destination for the AI
+    [EventVisible]
 	public void ChangeNavPoint(string N,Vector3 T)
 	{
 		navCheck = N;
