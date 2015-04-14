@@ -11,6 +11,8 @@ TagManager:
   - PlayerAction
   - worldMapLabel
   - abilityButton
+  - menuButton
+  - menuBack
   layers:
   - Default
   - TransparentFX
