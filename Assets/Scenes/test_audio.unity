@@ -199,6 +199,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   masterMixer: {fileID: 24100000, guid: c1408774ce09dd14587ad1e98d876742, type: 2}
+  tempClip: {fileID: 8300000, guid: 8e05b72ba1f3a0e4ea6223b7f3cc01fe, type: 3}
   tempvol: .5
   player: {fileID: 0}
 --- !u!4 &1071465153

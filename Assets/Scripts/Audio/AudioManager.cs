@@ -33,9 +33,10 @@ public class AudioManager : MonoBehaviour {
 	const string soundFilePath = "/StreamingAssets/Audio/";
 
 	public AudioMixer masterMixer;
+	public AudioClip tempClip;
 
-	[Range(-80.0f, 20.0f)]
-	public float tempvol = 0.5f;
+	[Range(1.0f, 100.0f)]
+	public float tempvol = 60f;
 
 	Dictionary<string, bool> ambianceDict = new Dictionary<string, bool>();
 	Dictionary<string, bool> effectDict = new Dictionary<string, bool>();
@@ -50,7 +51,9 @@ public class AudioManager : MonoBehaviour {
 	//! Unity Start function
     void Start() {
 		Debug.Warning("audio", "SoundManager has started");
-		
+
+		tempvol = 60f;
+
 		#region singletonCreation
 		if(_instance == null) {
 			//If I am the first instance, make me the Singleton
@@ -75,12 +78,18 @@ public class AudioManager : MonoBehaviour {
 	}
 
 	//! Unity Update function
-	//void Update() {
-	//	if (Input.GetButtonDown("Fire1"))
-	//		changeVol("master", tempvol);
-	//	if(Input.GetButtonDown("Fire2"))
-	//		changeVol("reset", tempvol);
-	//}
+	void Update() {
+		
+		//For testing only
+		if(Input.GetButtonDown("Fire1")) {
+			//changeVol("master", tempvol);
+			//Debug.Log("audio", "Temp Volume level is now " + tempvol);
+			Debug.Log("audio", "tempClip's file");
+		}
+		if(Input.GetButtonDown("Fire2"))
+			Debug.Log("audio", "Volume level is now " + seeVol("master"));		//slightly slower than change vol
+			//changeVol("reset", tempvol);
+	}
 
 	#region json file reading
 	//!checks JSON file exists and loads it
@@ -259,8 +268,10 @@ public class AudioManager : MonoBehaviour {
 
 	#region Sound volume
 	[EventVisible]
-	//!Change volume for groups in MasterMixer
+	//!Change volume for groups in MasterMixer, handles volume levels of 1-100 converts to dB level for mixer
 	public void changeVol(string name, float level){
+		level = level - 80f;
+
 		switch(name.ToLower()){
 			case "master":
 				masterMixer.SetFloat ("MasterVol", level);
@@ -283,6 +294,7 @@ public class AudioManager : MonoBehaviour {
 				masterMixer.ClearFloat ("MaxEffectVol");
 				masterMixer.ClearFloat ("MaxMusicVol");
 				masterMixer.ClearFloat ("MaxVoiceVol");
+				tempvol = 60f;
 				break;
 			default:
 				Debug.Log("audio", name + "is not an option, or you spelled it wrong");
@@ -291,28 +303,34 @@ public class AudioManager : MonoBehaviour {
 
 	}
 
+	[EventVisible]
 	//!Check the current volume levels in MasterMixer
 	public float seeVol(string name){
-		float level = 100;
+		float level = 100f;
 		switch(name.ToLower()) {
 			case "master":
 				masterMixer.GetFloat ("MasterVol", out level);
+				level = level + 80f;
 				return level;
 			case "ambiance":
 				masterMixer.GetFloat ("MaxAmbianceVol", out level);
+				level = level + 80f;
 				return level;
 			case "effect":
 				masterMixer.GetFloat ("MaxEffectVol", out level);
+				level = level + 80f;
 				return level;
 			case "music":
 				masterMixer.GetFloat ("MaxMusicVol", out level);
+				level = level + 80f;
 				return level;
 			case "voice":
 				masterMixer.GetFloat ("MaxVoiceVol", out level);
+				level = level + 80f;
 				return level;
 			default:
 				Debug.Log("audio", name + "is not an option, or you spelled it wrong");
-				return 300;
+				return 300f;
 		}
 
 	}
@@ -342,6 +360,12 @@ public class AudioManager : MonoBehaviour {
 
 
 /*Ideas/todo
+ * DONE:
+ *	Master Volumes
+ *		public functions: changeVol, seeVol
+ *		handles volume level 1-100, converts to dB level of mixer 
+ * 
+ * 
  * 
  * json sound list - DONE
  *	json file: filename, type of sound, priority always load or on use load
@@ -355,7 +379,15 @@ public class AudioManager : MonoBehaviour {
  * Audio should come from streaming Assets
  *   http://docs.unity3d.com/Manual/StreamingAssets.html
  *   http://answers.unity3d.com/questions/11021/how-can-i-send-and-receive-data-to-and-from-a-url.html
+ *   
+ *		http://answers.unity3d.com/questions/787173/load-ogg-file-into-audioclip.html
+ *		http://answers.unity3d.com/questions/332450/how-do-i-load-an-audioclip-from-code.html
  *  
+ *	Asset bundles
+ *		http://docs.unity3d.com/Manual/BuildingAssetBundles5x.html
+ *		http://docs.unity3d.com/ScriptReference/AssetBundle.html
+ *		http://answers.unity3d.com/questions/416895/wwwloadfromcacheordownload-and-audioclip-with-thre.html
+ *		http://answers.unity3d.com/questions/7653/dynamic-asset-loading.html
  * 
  * check sounds are on list and ready to load
  *   make sure file paths are correct either in JSON or hardcoded
@@ -381,6 +413,10 @@ public class AudioManager : MonoBehaviour {
  * local object sound script should call sound manager
  * local script should create audio source & delete when done playing
  * 
+ * After clip load & play, attach to dictionary for visual output of sounds playing with time left in clip.
+ * 
+ * 
+ * Not by tuesday
  *  Custom sound inspector window
  *   http://unity3d.com/learn/tutorials/modules/intermediate/editor/building-custom-inspector
  *   on inspector gui - only in manager
