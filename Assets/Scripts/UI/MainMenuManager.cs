@@ -58,7 +58,7 @@ public class MainMenuManager : MonoBehaviour {
 
 
 	//Important Things
-	public string url = "http://i.imgur.com/Me04jVB.jpg";
+	string url = "http://i.imgur.com/eBXyo2w.jpg";
 	GameObject urlTar;
 
 	//---------------------------
