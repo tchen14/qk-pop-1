@@ -8,7 +8,6 @@ using System.Linq;
 public class PopEventEditor : Editor {
 
     string[] conditionNames = new string[] { };
-    string[] actionNames = new string[] { };
 
     private GUIStyle style;
     private int columnWidth = 200;
@@ -173,24 +172,39 @@ public class PopEventEditor : Editor {
 
     bool DrawOneCondition(EventCondition condition, int count){
         string[] popupArray;
-        DrawBackground(condition.watchType);
+        string[] popupArrayNice;
+        if (condition.watchStaticField == false) {
+            DrawBackground(condition.watchType);
+        }
+        else {
+            DrawBackground("Watch Static Field");
+        }
 
         GUILayout.BeginHorizontal();
 
-        //popupArray = PopEventCore.watchLibrary.Keys.ToArray().Concat(new string[] {"PopEventCore"}).ToArray();
-        popupArray = PopEventCore.watchLibrary.Keys.ToArray();
+        popupArray = PopEventCore.watchLibrary.Keys.ToArray().Concat(EventLibrary.staticClasses.Keys.ToArray()).ToArray();
+        popupArrayNice = PopEventCore.watchLibrary.Keys.ToArray().Concat(EventLibrary.staticClassesNice).ToArray();
         condition.watchCategoryIndex = FindIndex(condition.watchCategory, popupArray);
-        condition.watchCategoryIndex = (int)EditorGUILayout.Popup(condition.watchCategoryIndex, popupArray, GUILayout.MaxWidth(columnWidth / 3));
+        condition.watchCategoryIndex = (int)EditorGUILayout.Popup(condition.watchCategoryIndex, popupArrayNice, GUILayout.MaxWidth(columnWidth / 3));
         condition.watchCategory = popupArray[condition.watchCategoryIndex];
 
         if (PopEventCore.watchLibrary.ContainsKey(condition.watchCategory)) {
             popupArray = PopEventCore.watchLibrary[condition.watchCategory];
+            popupArrayNice = PopEventCore.watchLibrary[condition.watchCategory];
+            condition.watchStaticField = false;
+        }
+        else if (EventLibrary.library.ContainsKey(condition.watchCategory + "Fields")) {
+            popupArray = EventLibrary.library[condition.watchCategory + "Fields"];
+            popupArrayNice = EventLibrary.libraryNice[condition.watchCategory + "Fields"];
+            condition.watchStaticField = true;
         }
         else {
             popupArray = new string[] { "Choose A Condition" };
+            popupArrayNice = new string[] { "Choose A Condition" };
         }
+
         condition.watchIndex = FindIndex(condition.watchType, popupArray);
-        condition.watchIndex = (int)EditorGUILayout.Popup(condition.watchIndex, popupArray, GUILayout.MaxWidth(columnWidth * 2 / 3));
+        condition.watchIndex = (int)EditorGUILayout.Popup(condition.watchIndex, popupArrayNice, GUILayout.MaxWidth(columnWidth * 2 / 3));
         condition.watchType = popupArray[condition.watchIndex];
 
         GUI.backgroundColor = Color.red;
@@ -206,23 +220,28 @@ public class PopEventEditor : Editor {
 
         GUILayout.EndHorizontal();
 
-        if (condition.watchType == "Choose A Condition") {
-            chooseACondition = true;
+        if (condition.watchStaticField == false) {
+            if (condition.watchType == "Choose A Condition") {
+                chooseACondition = true;
+            }
+            else if (condition.watchType == "Watch Script") {
+                DrawWatchScript(condition);
+            }
+            else if (condition.watchType == "Player Enters Area") {
+                DrawPlayerEntersArea(condition);
+            }
+            else if (condition.watchType == "Player Leaves Area") {
+                DrawPlayerLeavesArea(condition);
+            }
+            else if (condition.watchType == "Wait X Seconds") {
+                DrawWaitXSeconds(condition);
+            }
+            else if (condition.watchType == "Collect X Items") {
+                DrawCollectXItems(condition);
+            }
         }
-        else if (condition.watchType == "Watch Script") {
-            DrawWatchScript(condition);
-        }
-        else if (condition.watchType == "Player Enters Area") {
-            DrawPlayerEntersArea(condition);
-        }
-        else if (condition.watchType == "Player Leaves Area") {
-            DrawPlayerLeavesArea(condition);
-        }
-        else if (condition.watchType == "Wait X Seconds") {
-            DrawWaitXSeconds(condition);
-        }
-        else if (condition.watchType == "Collect X Items") {
-            DrawCollectXItems(condition);
+        else {
+            DrawWatchStaticScript(condition);
         }
 
         EditorGUILayout.Space();
@@ -230,51 +249,33 @@ public class PopEventEditor : Editor {
     }
 
     void DrawWatchScript(EventCondition condition) {
+        string[] popupArray = new string[0];
+        string[] popupArrayNice = new string[0];
+
         EditorGUILayout.LabelField("Condition Script", GUILayout.MaxWidth(columnWidth));
         condition.conditionScript = (MonoBehaviour)EditorGUILayout.ObjectField(condition.conditionScript, typeof(MonoBehaviour), true, GUILayout.MaxWidth(columnWidth));
 
         if (condition.conditionScript != null) {
-            EventLibrary.library.TryGetValue((condition.conditionScript.GetType().Name + "Fields"), out conditionNames);
-            if (conditionNames != null) {
+            string conditionScriptString = condition.conditionScript.GetType().ToString();
+            if (EventLibrary.library.ContainsKey(conditionScriptString + "Fields")) {
+                popupArray = EventLibrary.library[conditionScriptString + "Fields"];
+                popupArrayNice = EventLibrary.libraryNice[conditionScriptString + "Fields"];
+            }
+            if (popupArray != null) {
                 EditorGUILayout.LabelField("Condition", GUILayout.MaxWidth(columnWidth));
-                condition.conditionIndex = EditorGUILayout.Popup(condition.conditionIndex, conditionNames, EditorStyles.popup, GUILayout.MaxWidth(columnWidth));
+                condition.conditionIndex = FindIndex(condition.conditionName, popupArray);
+                condition.conditionIndex = (int)EditorGUILayout.Popup(condition.conditionIndex, popupArrayNice, GUILayout.MaxWidth(columnWidth));
+                condition.conditionName = popupArray[condition.conditionIndex];
 
-                if (conditionNames.Length <= condition.conditionIndex) {
+                if (popupArray.Length <= condition.conditionIndex) {
                     condition.conditionIndex = 0;
                 }
 
                 if (conditionNames.Length > condition.conditionIndex) {
-                    condition.conditionField = conditionNames[condition.conditionIndex];
-                    condition.conditionType = condition.conditionScript.GetType().GetField(condition.conditionField).FieldType;
+                    condition.conditionName = conditionNames[condition.conditionIndex];
+                    condition.conditionType = condition.conditionScript.GetType().GetField(condition.conditionName).FieldType;
                 }
-
-                EditorGUILayout.LabelField("Target Value", GUILayout.MaxWidth(columnWidth));
-                GUILayout.BeginHorizontal();
-                //     ComparisonOption
-                if (condition.conditionType == typeof(System.Int32) || condition.conditionType == typeof(System.Single)) {
-                    condition.numberCompareOption = (EventCondition.NumberCompareOption)EditorGUILayout.EnumPopup(condition.numberCompareOption, GUILayout.MaxWidth(columnWidth / 2));
-                }
-                else if (condition.conditionType == typeof(Vector3)) {
-                    condition.vectorCompareOption = (EventCondition.VectorCompareOption)EditorGUILayout.EnumPopup(condition.vectorCompareOption, GUILayout.MaxWidth(columnWidth / 2));
-                }
-                else if (condition.conditionType == typeof(System.Boolean)){
-                    condition.p_int = EditorGUILayout.Popup(condition.p_int, new string[] { "Is False", "Is True" }, GUILayout.MaxWidth(columnWidth / 2));
-                }
-
-                //     Value Field
-                if (condition.conditionType == typeof(System.Int32)) {
-                    condition.p_int = EditorGUILayout.IntField(condition.p_int, GUILayout.MaxWidth(columnWidth / 2));
-                }
-                else if (condition.conditionType == typeof(System.Single) || condition.conditionType == typeof(Vector3)) {
-                    condition.p_float = EditorGUILayout.FloatField(condition.p_float, GUILayout.MaxWidth(columnWidth / 2));
-
-                }
-
-                else {
-                    for (int sp = 0; sp < 6; sp++) { EditorGUILayout.Space(); }
-                }
-                GUILayout.EndHorizontal();
-
+                DrawWatchField(condition);
             }
             else {
                 EditorGUILayout.LabelField("<b><color=#ff2222ff>No Valid Fields</color></b>", style, GUILayout.MaxWidth(columnWidth));
@@ -284,6 +285,39 @@ public class PopEventEditor : Editor {
         else {
             for (int sp = 0; sp < 12; sp++) { EditorGUILayout.Space(); }
         }
+    }
+    void DrawWatchStaticScript(EventCondition condition) {
+        EditorGUILayout.LabelField("<b>NOT YET IMPLEMENTED</b>", style, GUILayout.MaxWidth(columnWidth));
+    }
+
+
+    void DrawWatchField(EventCondition condition){
+        EditorGUILayout.LabelField("Target Value", GUILayout.MaxWidth(columnWidth));
+        GUILayout.BeginHorizontal();
+        //     ComparisonOption
+        if (condition.conditionType == typeof(System.Int32) || condition.conditionType == typeof(System.Single)) {
+            condition.numberCompareOption = (EventCondition.NumberCompareOption)EditorGUILayout.EnumPopup(condition.numberCompareOption, GUILayout.MaxWidth(columnWidth / 2));
+        }
+        else if (condition.conditionType == typeof(Vector3)) {
+            condition.vectorCompareOption = (EventCondition.VectorCompareOption)EditorGUILayout.EnumPopup(condition.vectorCompareOption, GUILayout.MaxWidth(columnWidth / 2));
+        }
+        else if (condition.conditionType == typeof(System.Boolean)){
+            condition.p_int = EditorGUILayout.Popup(condition.p_int, new string[] { "Is False", "Is True" }, GUILayout.MaxWidth(columnWidth / 2));
+        }
+
+        //     Value Field
+        if (condition.conditionType == typeof(System.Int32)) {
+            condition.p_int = EditorGUILayout.IntField(condition.p_int, GUILayout.MaxWidth(columnWidth / 2));
+        }
+        else if (condition.conditionType == typeof(System.Single) || condition.conditionType == typeof(Vector3)) {
+            condition.p_float = EditorGUILayout.FloatField(condition.p_float, GUILayout.MaxWidth(columnWidth / 2));
+
+        }
+
+        else {
+            for (int sp = 0; sp < 6; sp++) { EditorGUILayout.Space(); }
+        }
+        GUILayout.EndHorizontal();
     }
 
     void DrawPlayerEntersArea(EventCondition condition) {
@@ -314,7 +348,6 @@ public class PopEventEditor : Editor {
         EditorGUILayout.LabelField("Seconds Waited", GUILayout.MaxWidth(columnWidth / 2));
         EditorGUILayout.LabelField(popTarget.totalTimeActive.ToString(), GUILayout.MaxWidth(columnWidth / 2));
         EditorGUILayout.EndHorizontal();
-
     }
 
     void DrawCollectXItems(EventCondition condition) {
@@ -350,6 +383,7 @@ public class PopEventEditor : Editor {
 
     bool DrawOneAction(EventAction action, int count) {
         string[] popupArray;
+        string[] popupArrayNice;
         if (action.executeStaticFunction == false) {
             DrawBackground(action.executeType);
         }
@@ -364,24 +398,28 @@ public class PopEventEditor : Editor {
 
         EditorGUILayout.BeginHorizontal();
         popupArray = PopEventCore.executeLibrary.Keys.ToArray().Concat(EventLibrary.staticClasses.Keys.ToArray()).ToArray();
+        popupArrayNice = PopEventCore.executeLibrary.Keys.ToArray().Concat(EventLibrary.staticClassesNice).ToArray();
         action.executeCategoryIndex = FindIndex(action.executeCategory, popupArray);
-        action.executeCategoryIndex = (int)EditorGUILayout.Popup(action.executeCategoryIndex, popupArray, GUILayout.MaxWidth(columnWidth / 3));
+        action.executeCategoryIndex = (int)EditorGUILayout.Popup(action.executeCategoryIndex, popupArrayNice, GUILayout.MaxWidth(columnWidth / 3));
         action.executeCategory = popupArray[action.executeCategoryIndex];
 
         if (PopEventCore.executeLibrary.ContainsKey(action.executeCategory)) {
             popupArray = PopEventCore.executeLibrary[action.executeCategory];
+            popupArrayNice = PopEventCore.executeLibrary[action.executeCategory];
             action.executeStaticFunction = false;
         }
         else if (EventLibrary.library.ContainsKey(action.executeCategory + "Methods")) {
             popupArray = EventLibrary.library[action.executeCategory + "Methods"];
+            popupArrayNice = EventLibrary.libraryNice[action.executeCategory + "Methods"];
             action.executeStaticFunction = true;
         }
         else {
             popupArray = new string[] { "Choose An Action" };
+            popupArrayNice = new string[] { "Choose An Action" };
             action.executeStaticFunction = false;
         }
         action.executeIndex = FindIndex(action.executeType, popupArray);
-        action.executeIndex = (int)EditorGUILayout.Popup(action.executeIndex, popupArray, GUILayout.MaxWidth(columnWidth * 2 / 3));
+        action.executeIndex = (int)EditorGUILayout.Popup(action.executeIndex, popupArrayNice, GUILayout.MaxWidth(columnWidth * 2 / 3));
         action.executeType = popupArray[action.executeIndex];
 
         GUI.backgroundColor = Color.red;
@@ -441,27 +479,33 @@ public class PopEventEditor : Editor {
     }
 
     void DrawExecuteFunction(EventAction action){
+        string[] popupArray = new string[0];
+        string[] popupArrayNice = new string[0];
 
-        //if (action.actionScript
         EditorGUILayout.LabelField("Action Script", GUILayout.MaxWidth(columnWidth));
         action.actionScript = (MonoBehaviour)EditorGUILayout.ObjectField(action.actionScript, typeof(MonoBehaviour), true, GUILayout.MaxWidth(columnWidth));
 
         if (action.actionScript != null) {
-            EventLibrary.library.TryGetValue((action.actionScript.GetType().Name + "Methods"), out actionNames);
-            if (actionNames != null) {
+            string actionScriptString = action.actionScript.GetType().ToString();
+            if (EventLibrary.library.ContainsKey(actionScriptString + "Methods")) {
+                popupArray = EventLibrary.library[actionScriptString + "Methods"];
+                popupArrayNice = EventLibrary.libraryNice[actionScriptString + "Methods"];
+            }
+            if (popupArray != null) {
                 EditorGUILayout.LabelField("Action Function", GUILayout.MaxWidth(columnWidth));
-                action.actionEditorIndex = EditorGUILayout.Popup(action.actionEditorIndex, actionNames, EditorStyles.popup, GUILayout.MaxWidth(columnWidth));
+                action.actionEditorIndex = FindIndex(action.actionName, popupArray);
+                action.actionEditorIndex = (int)EditorGUILayout.Popup(action.actionEditorIndex, popupArrayNice, GUILayout.MaxWidth(columnWidth));
+                action.actionName = popupArray[action.actionEditorIndex];
 
-
-                if (actionNames.Length <= action.actionEditorIndex) {
+                if (popupArray.Length <= action.actionEditorIndex) {
                     action.actionEditorIndex = 0;
                 }
 
                 //  Determine type to pass
                 System.Type[] paramType = new System.Type[] { typeof(void) };
 
-                if (actionNames.Length > action.actionEditorIndex) {
-                    action.actionName = actionNames[action.actionEditorIndex];
+                if (popupArray.Length > action.actionEditorIndex) {
+                    action.actionName = popupArray[action.actionEditorIndex];
                     System.Reflection.ParameterInfo[] par = action.actionScript.GetType().GetMethod(action.actionName).GetParameters();
                     if (par.Length > 0) {
                         paramType = new System.Type[par.Length];
@@ -501,7 +545,6 @@ public class PopEventEditor : Editor {
 
         //  Set the parameters
         action.args = action.SetParameters(paramType);
-
     }
 
     void DrawExecuteParameter(EventAction action, System.Type paramType) {
@@ -565,12 +608,12 @@ public class PopEventEditor : Editor {
     }
 
     void DrawCreatePrefabAtPosition(EventAction action) {
-        action.p_GameObject = (GameObject)EditorGUILayout.ObjectField(action.p_GameObject, typeof(GameObject), true, GUILayout.MaxWidth(columnWidth));
+        action.p_GameObject = (GameObject)EditorGUILayout.ObjectField(action.p_GameObject, typeof(GameObject), false, GUILayout.MaxWidth(columnWidth));
         action.p_Vector3 = EditorGUILayout.Vector3Field("", action.p_Vector3, GUILayout.MaxWidth(columnWidth));
     }
 
     void DrawCreatePrefabHere(EventAction action) {
-        action.p_GameObject = (GameObject)EditorGUILayout.ObjectField(action.p_GameObject, typeof(GameObject), true, GUILayout.MaxWidth(columnWidth));
+        action.p_GameObject = (GameObject)EditorGUILayout.ObjectField(action.p_GameObject, typeof(GameObject), false, GUILayout.MaxWidth(columnWidth));
     }
 
     void DrawAddXItems(EventAction action) {

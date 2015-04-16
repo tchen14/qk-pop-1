@@ -2,9 +2,14 @@
 //using System.Diagnostics;
 using System.Collections.Generic;
 
-public class EventVisibleAttribute : System.Attribute { }
+public class EventVisibleAttribute : System.Attribute {
+    public string niceName = "";
+    public EventVisibleAttribute(string name) {
+        niceName = name;
+    }
+    public EventVisibleAttribute() { }
+}
 
-[EventVisible]
 public static class PopEventCore {
 
     public static Dictionary<string, string[]> watchLibrary = new Dictionary<string, string[]> {
@@ -24,23 +29,6 @@ public static class PopEventCore {
 		{ "Item", new string[] { "Choose An Action", "Add X Items" } },
 		{ "Object", new string[] { "Choose An Action", "Create Prefab At Position", "Create Prefab Here", "Destroy This Object" } },
 		{ "GUI", new string[] { "Choose An Action", "Create Text Box", "Destroy Text Box" } },
-		{ "Sound", new string[] { "Choose An Action", "Play Sound" } },
+		{ "Audio", new string[] { "Choose An Action", "Play Sound" } },
 	};
-
-    [EventVisible]
-    public static void TestFunction() {
-        MonoBehaviour.print("Test Function");
-    }
-    [EventVisible]
-    public static void TestFunction2(string stringy) {
-        MonoBehaviour.print(stringy);
-    }
-    [EventVisible]
-    public static void TestFunction3(float floaty) {
-        MonoBehaviour.print(floaty);
-    }
-    [EventVisible]
-    public static void TestFunctionDoub(string stringy, float floaty) {
-        MonoBehaviour.print(stringy + ", " + floaty);
-    }
 }

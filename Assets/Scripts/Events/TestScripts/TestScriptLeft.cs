@@ -4,12 +4,10 @@ using System.Collections;
 [EventVisible]
 public class TestScriptLeft : MonoBehaviour {
 
-    [EventVisible]
     public float timer = 0;
-    [EventVisible]
     public float delay = 1;
 
-    [EventVisible]
+    [EventVisible("Nice Counter")]
     public int counter = 5;
     [EventVisible]
     public int fieldA = 5;
@@ -53,7 +51,7 @@ public class TestScriptLeft : MonoBehaviour {
         EventListener.Report(this, "Press One");
     }
 
-    [EventVisible]
+    [EventVisible("Function One")]
     public void FunctionOne() {
         print("FunctionOne was called");
     }

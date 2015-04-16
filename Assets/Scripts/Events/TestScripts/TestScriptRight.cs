@@ -33,3 +33,11 @@ public class TestScriptRight : MonoBehaviour {
         print(gameObject.name + " GameObjectFunction was passed " + value.name);
     }
 }
+
+[EventVisible("Test Static Class")]
+public static class TestScriptRightStatic {
+    [EventVisible("Print \\\"Debug\\\"")]
+    static public void GameObjectFunction() {
+        MonoBehaviour.print("Debug");
+    }
+}

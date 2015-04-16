@@ -5,7 +5,7 @@ using System.Collections;
 public class EventCondition {
 
     public MonoBehaviour conditionScript;
-    public string conditionField;
+    public string conditionName;
     public System.Type conditionType;
     public int conditionIndex;
 
@@ -24,6 +24,8 @@ public class EventCondition {
 
     public string watchCategoryString;
     public int watchCategoryIndex;
+
+    public bool watchStaticField = false;
 
     
     public enum NumberCompareOption { EqualTo, GreaterThan, LessThan }

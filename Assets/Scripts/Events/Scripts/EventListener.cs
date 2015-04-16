@@ -54,24 +54,24 @@ public static class EventListener {
                 if (condition.conditionScript != null) {
                     numberOfConditions--;
                     if (condition.conditionType == null) {
-                        condition.conditionType = condition.conditionScript.GetType().GetField(condition.conditionField).FieldType;
+                        condition.conditionType = condition.conditionScript.GetType().GetField(condition.conditionName).FieldType;
                     }
                 }
 
                 if (condition.conditionType == typeof(System.Int32)) {
-                    int intValue = (int)condition.conditionScript.GetType().GetField(condition.conditionField).GetValue(condition.conditionScript);
+                    int intValue = (int)condition.conditionScript.GetType().GetField(condition.conditionName).GetValue(condition.conditionScript);
                     if (Compare(intValue, condition.p_int, condition.numberCompareOption)) {
                         testsPassed++;
                     }
                 }
                 else if (condition.conditionType == typeof(System.Single)) {
-                    float floatValue = (float)condition.conditionScript.GetType().GetField(condition.conditionField).GetValue(condition.conditionScript);
+                    float floatValue = (float)condition.conditionScript.GetType().GetField(condition.conditionName).GetValue(condition.conditionScript);
                     if (Compare(floatValue, condition.p_float, condition.numberCompareOption)) {
                         testsPassed++;
                     }
                 }
                 else if (condition.conditionType == typeof(System.Boolean)) {
-                    bool boolValue = (bool)condition.conditionScript.GetType().GetField(condition.conditionField).GetValue(condition.conditionScript);
+                    bool boolValue = (bool)condition.conditionScript.GetType().GetField(condition.conditionName).GetValue(condition.conditionScript);
                     bool conditionBool = (condition.p_int == 1) ? true : false;
                     if (boolValue == conditionBool) {
                         testsPassed++;
@@ -127,7 +127,7 @@ public static class EventListener {
         foreach (EventAction action in couple.actions) {
             if (action.executeStaticFunction == false) {
                 if (action.executeType == "Execute Function") {
-                    if (action.actionName != string.Empty) {
+                    if (action.actionName != string.Empty && action.actionScript != null) {
                         action.actionScript.GetType().GetMethod(action.actionName).Invoke(action.actionScript, action.args);
                     }
                 }

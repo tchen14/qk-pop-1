@@ -9,7 +9,7 @@ public class PopEvent : MonoBehaviour {
     public EventCouple couple;
 
     public bool isActive = true;
-    public bool isRegional = false;
+    public bool isRegional = true;
     public bool executeOnce = true;
     public bool hasExecuted = false;
 
