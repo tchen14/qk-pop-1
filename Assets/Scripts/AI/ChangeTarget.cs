@@ -32,7 +32,7 @@ public class ChangeTarget : MonoBehaviour {
 	}
 	void OnTriggerEnter(Collider col)
 	{
-		if (col.gameObject.name == "_NPC") 
+		if (col.gameObject.tag == "AI") 
 		{
 			if(col.gameObject.GetComponent<AIMain>().navCheck == gameObject.name)
 			{
