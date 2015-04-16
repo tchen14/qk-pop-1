@@ -1234,7 +1234,6 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1116271714}
-  - {fileID: 1853220184}
   m_Father: {fileID: 0}
   m_RootOrder: 4
 --- !u!1 &147088974
@@ -2957,13 +2956,17 @@ MonoBehaviour:
   yMinLimit: -30
   yMaxLimit: 80
   occlusionDistanceMove: .100000001
+  inTargetLock: 0
   targetLookAt: {x: 0, y: 0, z: 0}
   desiredPosition: {x: 0, y: 0, z: 0}
+  distanceSmooth: .0299999993
   eventTrigger: {fileID: 0}
   inEvent: 0
   maxTimeSinceMouseMoved: 2
   targetingRange: 40
   screenTargetArea: 20
+  targetindex: 0
+  targetedObjects: []
   allTargetables: []
 --- !u!1 &359029141
 GameObject:
@@ -15290,12 +15293,12 @@ MonoBehaviour:
       p_string: 
       p_Vector3: {x: 0, y: 0, z: 0}
       p_Transform: {fileID: 0}
-      watchCategory: System
-      watchType: Wait X Seconds
+      watchCategory: TestScriptRightStatic
+      watchType: Choose A Condition
       watchString: 
-      watchIndex: 2
+      watchIndex: 0
       watchCategoryString: 
-      watchCategoryIndex: 0
+      watchCategoryIndex: 3
       watchStaticField: 0
       numberCompareOption: 0
       vectorCompareOption: 1
@@ -15310,13 +15313,13 @@ MonoBehaviour:
       p_Vector3: {x: 3, y: 4, z: 3}
       p_GameObject: {fileID: 0}
       p_MonoBehaviour: {fileID: 0}
-      executeCategory: TestScriptRightStatic
-      executeType: GameObjectFunction
+      executeCategory: GUI
+      executeType: Choose An Action
       executeString: 
       executeIndex: 0
       executeCategoryString: 
-      executeCategoryIndex: 6
-      executeStaticFunction: 1
+      executeCategoryIndex: 4
+      executeStaticFunction: 0
     andOrCompare: 2
   isActive: 1
   isRegional: 1
@@ -16349,7 +16352,6 @@ MonoBehaviour:
   cutCompatible: 0
   soundThrowCompatible: 0
   stunCompatible: 0
-  isDirty: 0
 --- !u!1 &1643994881
 GameObject:
   m_ObjectHideFlags: 0
@@ -18465,45 +18467,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 784469586}
   m_RootOrder: 0
---- !u!1 &1853220182
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 4
-  m_Component:
-  - 4: {fileID: 1853220184}
-  - 114: {fileID: 1853220183}
-  m_Layer: 0
-  m_Name: SceneManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1853220183
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1853220182}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 44f182ca81031c747a92cd327a6f7cdf, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!4 &1853220184
-Transform:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1853220182}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -1.67155135, z: -.3862378}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 125515417}
-  m_RootOrder: 1
 --- !u!1 &1869794210
 GameObject:
   m_ObjectHideFlags: 0
