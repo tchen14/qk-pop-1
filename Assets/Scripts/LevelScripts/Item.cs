@@ -7,7 +7,8 @@ public abstract class Item : MonoBehaviour
 {
 
     public string itemName = "";
-
+    public int pushCounter, pullCounter, cutCounter, soundThrowCounter, stunCounter;
+    public bool quincAffected = false;
 	public bool pushCompatible = false;
 	public bool pullCompatible = false;
 	public bool cutCompatible = false;
