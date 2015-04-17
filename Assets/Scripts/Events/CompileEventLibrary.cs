@@ -14,8 +14,6 @@ public class CompileEventLibrary : EditorWindow {
         int count = 0;
         List<string> niceNames = new List<string>();
 
-        string fileName = Application.dataPath + "\\Scripts\\Events\\Plugins\\EventLibrary.cs";
-
         string compilationString = "/*\n\n\n\n\n\n\n\n\n\n\n\n\t\t\t\t\t\tThis script has been automatically generated.\n\t\t\t\t\t\tDo not alter it, or your changes will be undone.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n*/\n";
         compilationString += "using System.Collections.Generic;\npublic static class EventLibrary {";
 
@@ -196,7 +194,11 @@ public class CompileEventLibrary : EditorWindow {
         }
 
 
-
+        #if UNITY_EDITOR_OSX
+                    string fileName = Application.dataPath + "/Scripts/Events/Plugins/EventLibrary.cs";
+        #else
+                string fileName = Application.dataPath + "\\Scripts\\Events\\Plugins\\EventLibrary.cs";
+        #endif
 
         StreamWriter streamWriter;
         FileInfo fileInfo = new FileInfo(fileName);
