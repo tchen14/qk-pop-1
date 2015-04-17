@@ -15272,8 +15272,7 @@ MeshFilter:
 --- !u!114 &1589997360
 MonoBehaviour:
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 11433698, guid: f59b17bd6d0e1bd49b944577bdf39413,
-    type: 2}
+  m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1589997356}
   m_Enabled: 1
@@ -15281,46 +15280,135 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3bce9737e13a17340acb5aabb86ba137, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  uniqueId: Name
-  couple:
-    popEvent: {fileID: 1589997360}
-    conditions:
-    - conditionScript: {fileID: 852066767}
-      conditionName: counter
-      conditionIndex: 0
-      p_int: 0
-      p_float: 1
-      p_string: 
-      p_Vector3: {x: 0, y: 0, z: 0}
-      p_Transform: {fileID: 0}
-      watchCategory: TestScriptRightStatic
-      watchType: Choose A Condition
-      watchString: 
-      watchIndex: 0
-      watchCategoryString: 
-      watchCategoryIndex: 3
-      watchStaticField: 0
-      numberCompareOption: 0
-      vectorCompareOption: 1
-    actions:
-    - actionScript: {fileID: 852066767}
-      actionName: FunctionOne
-      actionEditorIndex: 0
-      p_int: 34
-      p_float: 4.30000019
-      p_string: as
-      p_string2: 
-      p_Vector3: {x: 3, y: 4, z: 3}
-      p_GameObject: {fileID: 0}
-      p_MonoBehaviour: {fileID: 0}
-      executeCategory: GUI
-      executeType: Choose An Action
-      executeString: 
-      executeIndex: 0
-      executeCategoryString: 
-      executeCategoryIndex: 4
-      executeStaticFunction: 0
-    andOrCompare: 2
+  conditions:
+  - e_categoryString: System
+    e_categoryIndex: 0
+    e_classString: Choose A Condition
+    e_classIndex: 0
+    e_fieldString: Choose An Action
+    e_fieldIndex: 0
+    e_MonoBehaviour: {fileID: 0}
+    e_GameObject: {fileID: 0}
+    p_int: 0000000000000000000000000000000000000000
+    p_bool: 0000000000
+    p_float:
+    - 0
+    - 0
+    - 0
+    - 0
+    - 0
+    p_string:
+    - 
+    - 
+    - 
+    - 
+    - 
+    p_Vector3:
+    - {x: 0, y: 0, z: 0}
+    - {x: 0, y: 0, z: 0}
+    - {x: 0, y: 0, z: 0}
+    - {x: 0, y: 0, z: 0}
+    - {x: 0, y: 0, z: 0}
+    p_Transform:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    p_GameObject:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    p_MonoBehaviour:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    numberCompareString:
+    - Equal To
+    - Greater Than
+    - Less Than
+    vectorCompareString:
+    - Nearer Than
+    - Further Than
+    boolCompareString:
+    - Is False
+    - If True
+    compareString: 
+    compareIndex: 0
+    color: {r: 0, g: .579999983, b: .689999998, a: .25}
+    editorHeight: 20
+  actions:
+  - e_categoryString: Static Script
+    e_categoryIndex: 7
+    e_classString: TestScriptRightStatic
+    e_classIndex: 0
+    e_fieldString: Several
+    e_fieldIndex: 3
+    e_MonoBehaviour: {fileID: 0}
+    e_GameObject: {fileID: 0}
+    p_int: 0000000000000000030000000000000000000000
+    p_bool: 0000000000
+    p_float:
+    - 0
+    - 0
+    - 0
+    - 0
+    - 3.54999995
+    p_string:
+    - a
+    - b
+    - 
+    - 
+    - 
+    p_Vector3:
+    - {x: 0, y: 0, z: 0}
+    - {x: 0, y: 0, z: 0}
+    - {x: 0, y: 0, z: 0}
+    - {x: 1, y: 2, z: 3}
+    - {x: 0, y: 0, z: 0}
+    p_Transform:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    p_GameObject:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    p_MonoBehaviour:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    numberCompareString:
+    - Equal To
+    - Greater Than
+    - Less Than
+    vectorCompareString:
+    - Nearer Than
+    - Further Than
+    boolCompareString:
+    - Is False
+    - If True
+    compareString: 
+    compareIndex: 0
+    color: {r: 1, g: .460000008, b: 0, a: .550000012}
+    editorHeight: 230
+  andOrCompare:
+  - Every Condition
+  - One or More
+  - Exactly One
+  andOrCompareString: Every Condition
+  andOrCompareIndex: 0
+  uniqueId: 
   isActive: 1
   isRegional: 1
   executeOnce: 1
@@ -15330,7 +15418,7 @@ MonoBehaviour:
   regionRadius: 1
   drawRegionTwo: 0
   conditionRegionCenter: {x: 0, y: 0, z: 0}
-  conditionRegionRadius: 3
+  conditionRegionRadius: 1
 --- !u!1 &1595376954
 GameObject:
   m_ObjectHideFlags: 0
@@ -16347,6 +16435,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemName: 
+  pushCounter: 0
+  pullCounter: 0
+  cutCounter: 0
+  soundThrowCounter: 0
+  stunCounter: 0
+  quincAffected: 0
   pushCompatible: 0
   pullCompatible: 0
   cutCompatible: 0

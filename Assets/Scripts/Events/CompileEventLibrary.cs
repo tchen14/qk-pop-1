@@ -12,6 +12,7 @@ public class CompileEventLibrary : EditorWindow {
     [MenuItem("Custom Tools/Compile Event Library")]
     static void Compile() {
         int count = 0;
+        List<string> niceNames = new List<string>();
 
         string fileName = Application.dataPath + "\\Scripts\\Events\\Plugins\\EventLibrary.cs";
 
@@ -28,7 +29,7 @@ public class CompileEventLibrary : EditorWindow {
         compilationString += "\n\n\tpublic static Dictionary<string, System.Type> staticClasses = new Dictionary<string, System.Type> {\n";
 
         // Get every static class with the EventVisibleAttribute
-        List<string> niceNames = new List<string>();
+        niceNames = new List<string>();
         foreach (var t in classList) {
             if (t.IsAbstract && t.IsSealed) {   // This combination actually means t.isStatic
                 foreach (var att in t.GetCustomAttributes(false)) {
@@ -49,6 +50,35 @@ public class CompileEventLibrary : EditorWindow {
 
         compilationString += "\n\n\tpublic static string[] staticClassesNice = new string[] {";
         foreach(string name in niceNames){
+            compilationString += " \"" + name + "\", ";
+        }
+        compilationString += "};";
+
+        //  Mono Classes Library
+        compilationString += "\n\n\tpublic static Dictionary<string, System.Type> monoClasses = new Dictionary<string, System.Type> {\n";
+
+        // Get every Mono class with the EventVisibleAttribute
+        niceNames = new List<string>();
+        foreach (var t in classList) {
+            if (t.IsSubclassOf(typeof(MonoBehaviour))) {
+                foreach (var att in t.GetCustomAttributes(false)) {
+                    if (att is EventVisibleAttribute) {
+                        compilationString += "\t\t{ \"" + t.Name + "\", typeof(" + t.Name + ") },\n";
+                        EventVisibleAttribute a = (EventVisibleAttribute)att;
+                        if (a.niceName != "") {
+                            niceNames.Add(a.niceName);
+                        }
+                        else {
+                            niceNames.Add(t.Name);
+                        }
+                    }
+                }
+            }
+        }
+        compilationString += "\t};";
+
+        compilationString += "\n\n\tpublic static string[] monoClassesNice = new string[] {";
+        foreach (string name in niceNames) {
             compilationString += " \"" + name + "\", ";
         }
         compilationString += "};";
