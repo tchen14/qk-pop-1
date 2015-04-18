@@ -148,6 +148,9 @@ public static class EventListener {
         popEvent.hasExecuted = true;
         bool destroyAfterwards = false;
         foreach (EventHalf action in popEvent.actions) {
+            if (action.args == null) {
+                action.SetParameters();
+            }
             if (action.e_categoryString == "Static Script") {
                 EventLibrary.staticClasses[action.e_classString].GetMethod(action.e_fieldString).Invoke(null, action.args);
             }
