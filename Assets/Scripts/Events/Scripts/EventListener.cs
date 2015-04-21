@@ -165,6 +165,10 @@ public static class EventListener {
             if (action.args == null) {
                 action.SetParameters();
             }
+            if (action.args.Length > 5) {
+                Debug.LogWarning("Event functions cannot have more than 5 parameters");
+                continue;
+            }
             if (action.e_categoryString == "Static Script") {
                 EventLibrary.staticClasses[action.e_classString].GetMethod(action.e_fieldString).Invoke(null, action.args);
             }
@@ -187,7 +191,7 @@ public static class EventListener {
                     ActivateById(action.p_string[0], false);
                 }
                 else if (action.e_classString == "Create Prefab At Position") {
-                    MonoBehaviour.Instantiate(action.p_GameObject[0], action.p_Vector3[0], Quaternion.identity);
+                    MonoBehaviour.Instantiate(action.p_GameObject[0], action.p_Vector3[0], Quaternion.Euler(action.p_Vector3[1]));
                 }
                 else if (action.e_classString == "Create Prefab Here") {
                     MonoBehaviour.Instantiate(action.p_GameObject[0], popEvent.gameObject.transform.position, Quaternion.identity);
@@ -208,9 +212,6 @@ public static class EventListener {
 
     /*!     Comparison functions        */
     public static bool Compare(int valueA, int valueB, string compareOption) {
-        MonoBehaviour.print(valueA);
-        MonoBehaviour.print(valueB);
-
         if (compareOption == "Equal To") {
             if (valueA == valueB) { return true; }
         }
