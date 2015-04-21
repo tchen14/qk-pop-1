@@ -236,8 +236,18 @@ public class PopEventEditor : Editor {
         string[] popupArray = new string[0];
         string[] popupArrayNice = new string[0];
 
-        EditorGUILayout.LabelField("Condition Script", GUILayout.MaxWidth(columnWidth));
-        condition.e_MonoBehaviour = (MonoBehaviour)EditorGUILayout.ObjectField(condition.e_MonoBehaviour, typeof(MonoBehaviour), true, GUILayout.MaxWidth(columnWidth));
+        EditorGUILayout.LabelField("Target Object", GUILayout.MaxWidth(columnWidth));
+        condition.e_GameObject = (GameObject)EditorGUILayout.ObjectField(condition.e_GameObject, typeof(GameObject), true, GUILayout.MaxWidth(columnWidth));
+        if (condition.e_GameObject != null) {
+            condition.e_MonoBehaviour = condition.e_GameObject.GetComponent(condition.e_classString) as MonoBehaviour;
+        }
+        if (condition.e_MonoBehaviour == null) {
+            condition.e_GameObject = null;
+            EditorGUILayout.LabelField("Select a GameObject with attached script:", GUILayout.MaxWidth(columnWidth));
+            EditorGUILayout.LabelField("<b>" + condition.e_classString + "</b>", style, GUILayout.MaxWidth(columnWidth));
+            condition.editorHeight += 34;
+        }
+
         if (condition.e_MonoBehaviour != null && condition.e_MonoBehaviour.GetType().ToString() != condition.e_classString) {
             condition.e_MonoBehaviour = null;
         }
@@ -467,9 +477,13 @@ public class PopEventEditor : Editor {
         if (action.e_GameObject != null) {
             action.e_MonoBehaviour = action.e_GameObject.GetComponent(action.e_classString) as MonoBehaviour;
         }
-        else {
-            action.e_MonoBehaviour = null;
+        if (action.e_MonoBehaviour == null){
+            action.e_GameObject = null;
+            EditorGUILayout.LabelField("Select a GameObject with attached script:", GUILayout.MaxWidth(columnWidth));
+            EditorGUILayout.LabelField("<b>" + action.e_classString + "</b>", style, GUILayout.MaxWidth(columnWidth));
+            action.editorHeight += 34;
         }
+
         if (action.e_MonoBehaviour != null) {
             action.editorHeight += 32;
             if (EventLibrary.library.ContainsKey(action.e_classString + "Methods")) {
