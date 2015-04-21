@@ -38,11 +38,4 @@ public sealed class InputManager : MonoBehaviour
 			activeInputType = inputs[inputType];
 	}
 	
-
-	void Update() {
-		test.VerticalAxis();
-		test.HorizontalAxis();
-		test.isCrouched();
-	}
-	
 }

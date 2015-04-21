@@ -16,6 +16,12 @@ public abstract class InputType : MonoBehaviour {
 	public virtual int HorizontalAxis() {
 		return 0;
 	}
+	public virtual int RightVerticalAxis() {
+		return 0;
+	}
+	public virtual int RightHorizontalAxis() {
+		return 0;
+	}
 	public virtual bool isCrouched() {
 		return false;
 	}
@@ -55,7 +61,16 @@ public abstract class InputType : MonoBehaviour {
 	public virtual bool isCameraReset() {
 		return false;
 	}
-	public virtual int isQAbility() {
-		return 0;
+	public virtual bool isAbilityEquip() {
+		return false;
+	}
+	public virtual bool isNotifications() {
+		return false;
+	}
+	public virtual bool isCompass() {
+		return false;
+	}
+	public virtual bool isJournal() {
+		return false;
 	}
 }
