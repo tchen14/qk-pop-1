@@ -51,30 +51,60 @@ public class GameInputType : InputType {
 	}
 
 	public override bool isCrouched() {
-		if(Input.GetButton("A Button")) {
+		if(Input.GetButton("B Button")) {
 			return true;
 		}
 		return Input.GetKey(crouch);
 	}
 	public override bool isSprinting() {
+		if(Input.GetButton("Y Button")) {
+			return true;
+		}
 		return Input.GetKey(sprint);
 	}
 	public override bool isJumping() {
+		if(Input.GetButton("A Button")) {
+			return true;
+		}
 		return Input.GetKey(jump);
 	}
 	public override bool isActionPressed() {
+		if(Input.GetButton("X Button")) {
+			return true;
+		}
 		return Input.GetKey(action);
 	}
 	public override bool isTargetPressed() {
+		if(Input.GetButton("RB")) {
+			return true;
+		}
 		return Input.GetKey(target);
 	}
 	public override bool isCameraReset() {
+		if(Input.GetButton("LB")) {
+			return true;
+		}
 		return Input.GetKey(cameraReset);
 	}
-	public override bool isQAbility1() {
-		return Input.GetKey(qAbility1);
-	}
-	public override bool isQAbility2() {
-		return Input.GetKey(qAbility2);
+	public override int isQAbility() {
+		if(Input.GetAxis("D-Pad Hor") > 0) {
+			return 3;
+		} 
+		else if(Input.GetAxis("D-Pad Hor") < 0) {
+			return 1;
+		}
+		if(Input.GetAxis("D-Pad Vert") > 0) {
+			return 2;
+		} 
+		else if(Input.GetAxis("D-Pad Vert") < 0) {
+			return 4;
+		}
+		else if(Input.GetKey(qAbility1)){
+			return 1;
+		}
+		else if(Input.GetKey(qAbility2)){
+			return 2;
+		}
+		return 0;
 	}
 }
