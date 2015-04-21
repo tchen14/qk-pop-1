@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using Debug = FFP.Debug;
 
 [RequireComponent(typeof(Rigidbody))]
 [RequireComponent(typeof(CapsuleCollider))]
@@ -46,6 +47,7 @@ public abstract class CharacterController_2 : MonoBehaviour {
 	// Action variables
 	[ReadOnly]
 	public bool actionAvaiable; //Only public for inspector. Should be protected
+	public bool actionForward = true;
 	protected PlayerActionPath actionComponent;
 	new protected Rigidbody rigidbody;
 
@@ -86,6 +88,19 @@ public abstract class CharacterController_2 : MonoBehaviour {
 		if(collider.tag == "PlayerAction") {
 			actionAvaiable = true;
 			actionComponent = collider.gameObject.GetComponent<PlayerActionPath>();
+
+			//determine if player is closer to the sphere or the box collider
+			bool forward = true;
+			if (Vector3.SqrMagnitude(transform.position - collider.transform.position - collider.GetComponent<SphereCollider>().center) >
+				Vector3.SqrMagnitude(transform.position - collider.transform.position - collider.GetComponent<BoxCollider>().center))
+				forward = false;
+
+			if (myActionState == actionState.prepState) {
+				if (forward)
+					actionForward = true;
+				else
+					actionForward = false;
+			}
 		}
 	}
 

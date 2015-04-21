@@ -11,6 +11,12 @@ using SimpleJSON;
 
 public class PlayerSaveManager : SaveManager {
 
+    public static PlayerSaveManager Instance
+    {
+        get { return Instance ?? (Instance = GameObject.FindObjectOfType<PlayerSaveManager>()); }
+        private set { }
+    }
+
     //! Saves player data as json string to PlayerPrefs \todo pseudo code -> code
 	//public void SavePlayerInventory(List <InventoryItem> inputInventory)
 	//{
