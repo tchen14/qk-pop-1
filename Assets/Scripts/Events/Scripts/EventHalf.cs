@@ -31,6 +31,7 @@ public class EventHalf {
     public string[] numberCompareString = new string[] { "Equal To", "Greater Than", "Less Than" };
     public string[] vectorCompareString = new string[] { "Nearer Than", "Further Than" };
     public string[] boolCompareString = new string[] { "Is False", "If True" };
+    public string[] stringCompareString = new string[] { "Equal To", "Different Than" };
     public string compareString;
     public int compareIndex;
 

@@ -236,8 +236,18 @@ public class PopEventEditor : Editor {
         string[] popupArray = new string[0];
         string[] popupArrayNice = new string[0];
 
-        EditorGUILayout.LabelField("Condition Script", GUILayout.MaxWidth(columnWidth));
-        condition.e_MonoBehaviour = (MonoBehaviour)EditorGUILayout.ObjectField(condition.e_MonoBehaviour, typeof(MonoBehaviour), true, GUILayout.MaxWidth(columnWidth));
+        EditorGUILayout.LabelField("Target Object", GUILayout.MaxWidth(columnWidth));
+        condition.e_GameObject = (GameObject)EditorGUILayout.ObjectField(condition.e_GameObject, typeof(GameObject), true, GUILayout.MaxWidth(columnWidth));
+        if (condition.e_GameObject != null) {
+            condition.e_MonoBehaviour = condition.e_GameObject.GetComponent(condition.e_classString) as MonoBehaviour;
+        }
+        if (condition.e_MonoBehaviour == null) {
+            condition.e_GameObject = null;
+            EditorGUILayout.LabelField("Select a GameObject with attached script:", GUILayout.MaxWidth(columnWidth));
+            EditorGUILayout.LabelField("<b>" + condition.e_classString + "</b>", style, GUILayout.MaxWidth(columnWidth));
+            condition.editorHeight += 34;
+        }
+
         if (condition.e_MonoBehaviour != null && condition.e_MonoBehaviour.GetType().ToString() != condition.e_classString) {
             condition.e_MonoBehaviour = null;
         }
@@ -285,7 +295,15 @@ public class PopEventEditor : Editor {
 
     void DrawWatchField(EventHalf condition) {
         EditorGUILayout.LabelField("Target Value", GUILayout.MaxWidth(columnWidth));
+
+        //  Draw above Comparison Popout
+        if (condition.e_fieldType == typeof(Dictionary<string, int>)) {
+            condition.p_string[0] = EditorGUILayout.TextField(condition.p_string[0], GUILayout.MaxWidth(columnWidth));
+            condition.editorHeight += 20;
+        }
+
         GUILayout.BeginHorizontal();
+
         //     ComparisonOption
         if (condition.e_fieldType == typeof(System.Int32) || condition.e_fieldType == typeof(System.Single)) {
             condition.compareIndex = FindIndex(condition.compareString, condition.numberCompareString);
@@ -302,16 +320,30 @@ public class PopEventEditor : Editor {
             condition.compareIndex = EditorGUILayout.Popup(condition.compareIndex, condition.boolCompareString, GUILayout.MaxWidth(columnWidth / 2));
             condition.compareString = condition.boolCompareString[condition.compareIndex];
         }
+        else if (condition.e_fieldType == typeof(Dictionary<string, int>)) {
+            condition.compareIndex = FindIndex(condition.compareString, condition.numberCompareString);
+            condition.compareIndex = EditorGUILayout.Popup(condition.compareIndex, condition.numberCompareString, GUILayout.MaxWidth(columnWidth / 2));
+            condition.compareString = condition.numberCompareString[condition.compareIndex];
+        }
+        else if (condition.e_fieldType == typeof(System.String)) {
+            condition.compareIndex = FindIndex(condition.compareString, condition.stringCompareString);
+            condition.compareIndex = EditorGUILayout.Popup(condition.compareIndex, condition.stringCompareString, GUILayout.MaxWidth(columnWidth / 2));
+            condition.compareString = condition.stringCompareString[condition.compareIndex];
+        }
 
         //     Value Field
         if (condition.e_fieldType == typeof(System.Int32)) {
             condition.p_int[0] = EditorGUILayout.IntField(condition.p_int[0], GUILayout.MaxWidth(columnWidth / 2));
         }
+        else if (condition.e_fieldType == typeof(System.String)) {
+            condition.p_string[0] = EditorGUILayout.TextField(condition.p_string[0], GUILayout.MaxWidth(columnWidth / 2));
+        }
         else if (condition.e_fieldType == typeof(System.Single) || condition.e_fieldType == typeof(Vector3)) {
             condition.p_float[0] = EditorGUILayout.FloatField(condition.p_float[0], GUILayout.MaxWidth(columnWidth / 2));
-
         }
-
+        else if (condition.e_fieldType == typeof(Dictionary<string, int>)) {
+            condition.p_int[0] = EditorGUILayout.IntField(condition.p_int[0], GUILayout.MaxWidth(columnWidth / 2));
+        }
         else {
             for (int sp = 0; sp < 6; sp++) { EditorGUILayout.Space(); }
         }
@@ -467,9 +499,13 @@ public class PopEventEditor : Editor {
         if (action.e_GameObject != null) {
             action.e_MonoBehaviour = action.e_GameObject.GetComponent(action.e_classString) as MonoBehaviour;
         }
-        else {
-            action.e_MonoBehaviour = null;
+        if (action.e_MonoBehaviour == null){
+            action.e_GameObject = null;
+            EditorGUILayout.LabelField("Select a GameObject with attached script:", GUILayout.MaxWidth(columnWidth));
+            EditorGUILayout.LabelField("<b>" + action.e_classString + "</b>", style, GUILayout.MaxWidth(columnWidth));
+            action.editorHeight += 34;
         }
+
         if (action.e_MonoBehaviour != null) {
             action.editorHeight += 32;
             if (EventLibrary.library.ContainsKey(action.e_classString + "Methods")) {
