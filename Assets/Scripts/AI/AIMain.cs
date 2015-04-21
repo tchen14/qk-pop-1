@@ -8,6 +8,7 @@ using Debug = FFP.Debug;
 /*! 
  *	This code is the main ai controller. The class is segmented into the following regions: attack, movement, state, sight, and health
  */
+[EventVisible]
 public class AIMain : MonoBehaviour {
 
 	//Variables Editable

@@ -527,7 +527,10 @@ public class PopEventEditor : Editor {
                     if (par.Length > 0) {
                         paramType = new System.Type[par.Length];
                     }
-
+                    if (par.Length > 5) {
+                        Debug.LogWarning("Event functions cannot have more than 5 parameters");
+                        return;
+                    }
                     for (int i = 0; i < par.Length; i++) {
                         paramType[i] = par[i].ParameterType;
                         DrawExecuteParameter(action, paramType[i], i);
@@ -566,6 +569,10 @@ public class PopEventEditor : Editor {
                     paramType = new System.Type[par.Length];
                 }
 
+                if (par.Length > 5) {
+                    Debug.LogWarning("Event functions cannot have more than 5 parameters");
+                    return;
+                }
                 for (int i = 0; i < par.Length; i++) {
                     paramType[i] = par[i].ParameterType;
                     DrawExecuteParameter(action, paramType[i], i);
@@ -666,9 +673,12 @@ public class PopEventEditor : Editor {
     }
 
     void DrawCreatePrefabAtPosition(EventHalf action) {
-        action.editorHeight = 60;
+        action.editorHeight = 110;
         action.p_GameObject[0] = (GameObject)EditorGUILayout.ObjectField(action.p_GameObject[0], typeof(GameObject), false, GUILayout.MaxWidth(columnWidth));
+        EditorGUILayout.LabelField("World Position", style, GUILayout.MaxWidth(columnWidth));
         action.p_Vector3[0] = EditorGUILayout.Vector3Field("", action.p_Vector3[0], GUILayout.MaxWidth(columnWidth));
+        EditorGUILayout.LabelField("Rotation", style, GUILayout.MaxWidth(columnWidth));
+        action.p_Vector3[1] = EditorGUILayout.Vector3Field("", action.p_Vector3[1], GUILayout.MaxWidth(columnWidth));
     }
 
     void DrawCreatePrefabHere(EventHalf action) {

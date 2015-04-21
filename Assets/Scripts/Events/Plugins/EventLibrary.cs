@@ -37,11 +37,12 @@ public static class EventLibrary {
 	public static string[] staticClassesNice = new string[] { "Test Static Class", };
 
 	public static Dictionary<string, System.Type> monoClasses = new Dictionary<string, System.Type> {
+		{ "AIMain", typeof(AIMain) },
 		{ "TestScriptLeft", typeof(TestScriptLeft) },
 		{ "TestScriptRight", typeof(TestScriptRight) },
 	};
 
-	public static string[] monoClassesNice = new string[] { "TestScriptLeft",  "TestScriptRight", };
+	public static string[] monoClassesNice = new string[] { "AIMain",  "TestScriptLeft",  "TestScriptRight", };
 
 	public static Dictionary<string, string[]> library = new Dictionary<string, string[]> {
 		{ "AIMainMethods", new string[] {"SetAgression", "ChangeNavPoint", } },

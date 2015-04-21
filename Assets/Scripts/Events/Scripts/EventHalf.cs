@@ -87,5 +87,8 @@ public class EventHalf {
         }
 
         args = SetParameters(paramType);
+        if (args.Length > 5) {
+            Debug.LogWarning("Event functions cannot have more than 5 parameters");
+        }
     }
 }

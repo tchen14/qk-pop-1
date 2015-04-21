@@ -685,7 +685,7 @@ Transform:
   - {fileID: 848903460}
   - {fileID: 2136427110}
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 4
 --- !u!65 &87453830
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1235,7 +1235,7 @@ Transform:
   m_Children:
   - {fileID: 1116271714}
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 5
 --- !u!1 &147088974
 GameObject:
   m_ObjectHideFlags: 0
@@ -3382,7 +3382,7 @@ Transform:
   m_LocalScale: {x: 47.6412392, y: 4.76412487, z: 47.6412468}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 3
 --- !u!1 &387020312
 GameObject:
   m_ObjectHideFlags: 0
@@ -3618,7 +3618,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 11
+  m_RootOrder: 12
 --- !u!1 &392601589
 GameObject:
   m_ObjectHideFlags: 0
@@ -5307,6 +5307,137 @@ MeshFilter:
 Transform:
   m_PrefabParentObject: {fileID: 400000, guid: 3e020da3fb441b342b570b5d16e0502f, type: 2}
   m_PrefabInternal: {fileID: 343877849}
+--- !u!1 &533088327
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 114784, guid: f59b17bd6d0e1bd49b944577bdf39413, type: 2}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 533088333}
+  - 33: {fileID: 533088332}
+  - 23: {fileID: 533088331}
+  - 54: {fileID: 533088330}
+  - 195: {fileID: 533088329}
+  - 114: {fileID: 533088328}
+  m_Layer: 0
+  m_Name: Cube 1
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 8
+  m_IsActive: 1
+--- !u!114 &533088328
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 533088327}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b40baaf327f0e4e02b17f6fa651b25bb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hp: 100
+  sightDistance: 20
+  sightAngle: 35
+  speed: 5
+  runSpeed: 8
+  seekTag:
+  - Player
+  attackDistance: 3
+  aggressionLimit: 100
+  startPoint: {fileID: 0}
+  panicPoints: PanicPoints
+  aggression: 0
+  seesTarget: 0
+  target: {fileID: 0}
+  attacking: 0
+  panic: 0
+  panicTarget: {x: 0, y: 0, z: 0}
+  aggressionLevel: 0
+  navCheck: 
+  navPoint: {x: 0, y: 0, z: 0}
+--- !u!195 &533088329
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 533088327}
+  m_Enabled: 1
+  m_Radius: .5
+  m_Speed: 3.5
+  m_Acceleration: 8
+  avoidancePriority: 50
+  m_AngularSpeed: 120
+  m_StoppingDistance: 0
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 1
+  m_BaseOffset: .5
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4
+--- !u!54 &533088330
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 533088327}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: .0500000007
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!23 &533088331
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 2388148, guid: f59b17bd6d0e1bd49b944577bdf39413,
+    type: 2}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 533088327}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 0
+  m_Materials:
+  - {fileID: 2100000, guid: 0aeba1e175f6dda4dbfc61840d8a9419, type: 2}
+  m_SubsetIndices: 
+  m_StaticBatchRoot: {fileID: 0}
+  m_UseLightProbes: 0
+  m_ReflectionProbeUsage: 1
+  m_ProbeAnchor: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_PreserveUVs: 0
+  m_ImportantGI: 0
+  m_AutoUVMaxDistance: .5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingOrder: 0
+--- !u!33 &533088332
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 3313200, guid: f59b17bd6d0e1bd49b944577bdf39413,
+    type: 2}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 533088327}
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!4 &533088333
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 400306, guid: f59b17bd6d0e1bd49b944577bdf39413, type: 2}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 533088327}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: .860000014, y: 1.36000001, z: 13.6099997}
+  m_LocalScale: {x: .744888008, y: .576089025, z: .832805037}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
 --- !u!1 &535707518
 GameObject:
   m_ObjectHideFlags: 0
@@ -8310,7 +8441,7 @@ Transform:
   - {fileID: 1852727104}
   - {fileID: 349475306}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 1
 --- !u!1 &791856755
 GameObject:
   m_ObjectHideFlags: 0
@@ -9143,6 +9274,7 @@ MonoBehaviour:
   fieldA: 5
   fieldB: 5
   trueFalse: 0
+  testString: Hello
   vectorA: {x: 0, y: 0, z: 0}
 --- !u!4 &852066768
 Transform:
@@ -9155,7 +9287,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 9
 --- !u!1 &858640613
 GameObject:
   m_ObjectHideFlags: 0
@@ -12360,7 +12492,7 @@ Transform:
   - {fileID: 1510367784}
   - {fileID: 559080218}
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 7
 --- !u!1 &1196417007
 GameObject:
   m_ObjectHideFlags: 0
@@ -15235,7 +15367,7 @@ Transform:
   m_LocalScale: {x: .744888008, y: .576089025, z: .832805037}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 8
 --- !u!23 &1589997358
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -15283,10 +15415,74 @@ MonoBehaviour:
   conditions:
   - e_categoryString: System
     e_categoryIndex: 0
-    e_classString: Choose A Condition
-    e_classIndex: 0
-    e_fieldString: Choose An Action
+    e_classString: Wait X Seconds
+    e_classIndex: 1
+    e_fieldString: field
     e_fieldIndex: 0
+    e_MonoBehaviour: {fileID: 533088328}
+    e_GameObject: {fileID: 533088327}
+    p_int: 0300000000000000000000000000000000000000
+    p_bool: 0000000000
+    p_float:
+    - 0
+    - 0
+    - 0
+    - 0
+    - 0
+    p_string:
+    - Hello
+    - 
+    - 
+    - 
+    - 
+    p_Vector3:
+    - {x: 0, y: 0, z: 0}
+    - {x: 0, y: 0, z: 0}
+    - {x: 0, y: 0, z: 0}
+    - {x: 0, y: 0, z: 0}
+    - {x: 0, y: 0, z: 0}
+    p_Transform:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    p_GameObject:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    p_MonoBehaviour:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    numberCompareString:
+    - Equal To
+    - Greater Than
+    - Less Than
+    vectorCompareString:
+    - Nearer Than
+    - Further Than
+    boolCompareString:
+    - Is False
+    - If True
+    stringCompareString:
+    - Equal To
+    - Different Than
+    compareString: Equal To
+    compareIndex: 0
+    color: {r: 0, g: .579999983, b: .689999998, a: .449999988}
+    editorHeight: 60
+  actions:
+  - e_categoryString: Object
+    e_categoryIndex: 3
+    e_classString: Create Prefab At Position
+    e_classIndex: 1
+    e_fieldString: Several
+    e_fieldIndex: 3
     e_MonoBehaviour: {fileID: 0}
     e_GameObject: {fileID: 0}
     p_int: 0000000000000000000000000000000000000000
@@ -15298,77 +15494,16 @@ MonoBehaviour:
     - 0
     - 0
     p_string:
-    - 
-    - 
-    - 
-    - 
-    - 
-    p_Vector3:
-    - {x: 0, y: 0, z: 0}
-    - {x: 0, y: 0, z: 0}
-    - {x: 0, y: 0, z: 0}
-    - {x: 0, y: 0, z: 0}
-    - {x: 0, y: 0, z: 0}
-    p_Transform:
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-    p_GameObject:
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-    p_MonoBehaviour:
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-    numberCompareString:
-    - Equal To
-    - Greater Than
-    - Less Than
-    vectorCompareString:
-    - Nearer Than
-    - Further Than
-    boolCompareString:
-    - Is False
-    - If True
-    compareString: 
-    compareIndex: 0
-    color: {r: 0, g: .579999983, b: .689999998, a: .25}
-    editorHeight: 20
-  actions:
-  - e_categoryString: Static Script
-    e_categoryIndex: 7
-    e_classString: TestScriptRightStatic
-    e_classIndex: 0
-    e_fieldString: Several
-    e_fieldIndex: 3
-    e_MonoBehaviour: {fileID: 0}
-    e_GameObject: {fileID: 0}
-    p_int: 0000000000000000030000000000000000000000
-    p_bool: 0000000000
-    p_float:
-    - 0
-    - 0
-    - 0
-    - 0
-    - 3.54999995
-    p_string:
     - a
-    - b
+    - a
     - 
     - 
     - 
     p_Vector3:
+    - {x: 50, y: 50, z: 50}
+    - {x: 0, y: 0, z: 90}
     - {x: 0, y: 0, z: 0}
     - {x: 0, y: 0, z: 0}
-    - {x: 0, y: 0, z: 0}
-    - {x: 1, y: 2, z: 3}
     - {x: 0, y: 0, z: 0}
     p_Transform:
     - {fileID: 0}
@@ -15377,7 +15512,7 @@ MonoBehaviour:
     - {fileID: 0}
     - {fileID: 0}
     p_GameObject:
-    - {fileID: 0}
+    - {fileID: 123232, guid: 26922a4de1227d34180775cd6647f262, type: 2}
     - {fileID: 0}
     - {fileID: 0}
     - {fileID: 0}
@@ -15398,10 +15533,13 @@ MonoBehaviour:
     boolCompareString:
     - Is False
     - If True
+    stringCompareString:
+    - Equal To
+    - Different Than
     compareString: 
     compareIndex: 0
     color: {r: 1, g: .460000008, b: 0, a: .550000012}
-    editorHeight: 230
+    editorHeight: 110
   andOrCompare:
   - Every Condition
   - One or More
@@ -15411,7 +15549,7 @@ MonoBehaviour:
   uniqueId: 
   isActive: 1
   isRegional: 1
-  executeOnce: 1
+  executeOnce: 0
   hasExecuted: 0
   totalTimeActive: 0
   delay: 1
@@ -15699,7 +15837,7 @@ Transform:
   - {fileID: 554227256}
   - {fileID: 2087356993}
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 2
 --- !u!1 &1601748116
 GameObject:
   m_ObjectHideFlags: 0
@@ -16361,7 +16499,7 @@ Transform:
   m_LocalScale: {x: 1.95555377, y: 1.34728789, z: 1.95555377}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 10
+  m_RootOrder: 11
 --- !u!64 &1643857346
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -17470,7 +17608,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 9
+  m_RootOrder: 10
 --- !u!1 &1746359633
 GameObject:
   m_ObjectHideFlags: 0
@@ -18683,7 +18821,7 @@ Transform:
   - {fileID: 1876570325}
   - {fileID: 2110201828}
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 6
 --- !u!1001 &1879799648
 Prefab:
   m_ObjectHideFlags: 0

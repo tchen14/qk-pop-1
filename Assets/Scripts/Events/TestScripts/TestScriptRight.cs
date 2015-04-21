@@ -50,7 +50,7 @@ public static class TestScriptRightStatic {
         MonoBehaviour.print(a + b);
     }
     [EventVisible("Several Parameters")]
-    static public void Several(string a, string b, int c, Vector3 d, float e) {
+    static public void Several(string a, string b, int c, Vector3 d, float e, float f) {
         MonoBehaviour.print(a + b + c + d + e);
     }
     [EventVisible]
