@@ -1,15 +1,14 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 [EventVisible]
 public class TestScriptLeft : MonoBehaviour {
 
-    [EventVisible]
     public float timer = 0;
-    [EventVisible]
     public float delay = 1;
 
-    [EventVisible]
+    [EventVisible("Nice Counter")]
     public int counter = 5;
     [EventVisible]
     public int fieldA = 5;
@@ -19,7 +18,17 @@ public class TestScriptLeft : MonoBehaviour {
     public bool trueFalse = false;
 
     [EventVisible]
-    public Vector3 vectorA= Vector3.zero;
+    public Dictionary<string, int> dictionary = new Dictionary<string, int>();
+
+    [EventVisible]
+    public string testString = "Hello";
+
+    [EventVisible]
+    public Vector3 vectorA = Vector3.zero;
+
+    void Awake() {
+        dictionary.Add("Flower", 0);
+    }
 
     void Start(){
         object[] obj = new object[] { counter };
@@ -37,7 +46,7 @@ public class TestScriptLeft : MonoBehaviour {
     void Update() {
         if (Input.GetKeyDown(KeyCode.Alpha1)) {
             PressOne();
-
+            dictionary["Flower"]++;
             counter++;
         }
         
@@ -53,7 +62,7 @@ public class TestScriptLeft : MonoBehaviour {
         EventListener.Report(this, "Press One");
     }
 
-    [EventVisible]
+    [EventVisible("Function One")]
     public void FunctionOne() {
         print("FunctionOne was called");
     }

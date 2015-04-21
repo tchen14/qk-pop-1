@@ -4,12 +4,17 @@ using System.Collections.Generic;
 
 public class PopEvent : MonoBehaviour {
 
-    public string uniqueId;
+    public List<EventHalf> conditions;
+    public List<EventHalf> actions;
 
-    public EventCouple couple;
+    public string[] andOrCompare = new string[] { "Every Condition", "One or More", "Exactly One" };
+    public string andOrCompareString;
+    public int andOrCompareIndex;
+
+    public string uniqueId; //!<    Used to identify an event from anywhere in the scene
 
     public bool isActive = true;
-    public bool isRegional = false;
+    public bool isRegional = true;
     public bool executeOnce = true;
     public bool hasExecuted = false;
 
@@ -24,6 +29,13 @@ public class PopEvent : MonoBehaviour {
     public Vector3 conditionRegionCenter = new Vector3(0, 0, 0);
     public float conditionRegionRadius = 1;
 
+    public PopEvent() {
+        conditions = new List<EventHalf>();
+        conditions.Add(new EventHalf());
+        actions = new List<EventHalf>();
+        actions.Add(new EventHalf());
+    }
+
     void Awake() {
         EventListener.AddPopEvent(this);
         PopEvent[] popEvents = gameObject.GetComponents<PopEvent>();
@@ -34,10 +46,10 @@ public class PopEvent : MonoBehaviour {
             }
         }
 
-        foreach (EventCondition condition in couple.conditions){
-            if (condition.watchType == "Player Enters Area" || condition.watchType == "Player Leaves Area") {
+        foreach (EventHalf condition in conditions){
+            if (condition.e_classString == "Player Enters Area" || condition.e_classString == "Player Leaves Area") {
                 SphereCollider newCollider = gameObject.AddComponent<SphereCollider>();
-                newCollider.radius = couple.popEvent.conditionRegionRadius;
+                newCollider.radius = conditionRegionRadius;
                 newCollider.isTrigger = true;
                 gameObject.layer = 2;
                 break;
@@ -56,20 +68,20 @@ public class PopEvent : MonoBehaviour {
         }
         if (timer >= delay) {
             timer = 0;
-            EventListener.SlowUpdate(couple);
+            EventListener.SlowUpdate(this);
         }
     }
 
     void OnTriggerEnter(Collider other) {
         if (isActive == false) { return; }
         if (other.gameObject.GetComponent<PoPCharacterController>()) {
-            EventListener.SlowUpdate(couple);
+            EventListener.SlowUpdate(this);
         }
     }
     void OnTriggerExit(Collider other) {
         if (isActive == false) { return; }
         if (other.gameObject.GetComponent<PoPCharacterController>()) {
-            EventListener.SlowUpdate(couple);
+            EventListener.SlowUpdate(this);
         }
     }
 
