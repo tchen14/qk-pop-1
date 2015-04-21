@@ -94,13 +94,13 @@ public class PlayerInventory : MonoBehaviour
     public void LoadInventory()
     {
         inventory.Clear();
-        inventory = PlayerSaveManager.Instance.LoadPlayerInventory();
+       // inventory = PlayerSaveManager.Instance.LoadPlayerInventory();
     }
 
 
     //! Function that returns the current state of player inventory to PlayerSaveManager
 	public void SaveInventory()
 	{
-        PlayerSaveManager.Instance.SavePlayerInventory(inventory);
+       // PlayerSaveManager.Instance.SavePlayerInventory(inventory);
 	}
 }
