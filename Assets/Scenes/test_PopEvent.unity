@@ -3512,7 +3512,7 @@ MonoBehaviour:
   - Player
   attackDistance: 3
   aggressionLimit: 100
-  startPoint: {fileID: 852066766}
+  startPoint: {fileID: 0}
   panicPoints: PanicPoints
   aggression: 1
   seesTarget: 0
@@ -3618,7 +3618,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 12
+  m_RootOrder: 10
 --- !u!1 &392601589
 GameObject:
   m_ObjectHideFlags: 0
@@ -9109,54 +9109,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 87453829}
   m_RootOrder: 1
---- !u!1 &852066766
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 195344, guid: f59b17bd6d0e1bd49b944577bdf39413, type: 2}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 4
-  m_Component:
-  - 4: {fileID: 852066768}
-  - 114: {fileID: 852066767}
-  m_Layer: 0
-  m_Name: TestLeft
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &852066767
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 11430216, guid: f59b17bd6d0e1bd49b944577bdf39413,
-    type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 852066766}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9aea0a90c6f832041a2cc5056b678dc2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  timer: 0
-  delay: 1
-  counter: 5
-  fieldA: 5
-  fieldB: 5
-  trueFalse: 0
-  testString: Hello
-  vectorA: {x: 0, y: 0, z: 0}
---- !u!4 &852066768
-Transform:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 407134, guid: f59b17bd6d0e1bd49b944577bdf39413, type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 852066766}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -4.01247454, y: .607834816, z: 13.6054192}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 9
 --- !u!1 &858640613
 GameObject:
   m_ObjectHideFlags: 0
@@ -13813,16 +13765,6 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1337864519}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!1 &1353024196
-GameObject:
-  m_PrefabParentObject: {fileID: 167898, guid: c85491f82bb6f4f4bade94400dcedf81, type: 2}
-  m_PrefabInternal: {fileID: 1311958667}
---- !u!114 &1353024197
-MonoBehaviour:
-  m_PrefabParentObject: {fileID: 11493844, guid: c85491f82bb6f4f4bade94400dcedf81,
-    type: 2}
-  m_PrefabInternal: {fileID: 1311958667}
-  m_Script: {fileID: 11500000, guid: 368ffc541c30b4149a60ba9209a26584, type: 3}
 --- !u!1 &1363585411
 GameObject:
   m_ObjectHideFlags: 0
@@ -15338,14 +15280,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   conditions:
-  - e_categoryString: Object Script
-    e_categoryIndex: 3
-    e_classString: Enemy
-    e_classIndex: 4
-    e_fieldString: stunCounter
-    e_fieldIndex: 4
-    e_MonoBehaviour: {fileID: 1353024197}
-    e_GameObject: {fileID: 1353024196}
+  - e_categoryString: System
+    e_categoryIndex: 0
+    e_classString: Wait X Seconds
+    e_classIndex: 1
+    e_fieldString: pushCounter
+    e_fieldIndex: 0
+    e_MonoBehaviour: {fileID: 0}
+    e_GameObject: {fileID: 0}
     p_int: 0300000000000000000000000000000000000000
     p_bool: 0000000000
     p_float:
@@ -15400,12 +15342,12 @@ MonoBehaviour:
     compareString: Equal To
     compareIndex: 0
     color: {r: 0, g: .579999983, b: .689999998, a: .449999988}
-    editorHeight: 130
+    editorHeight: 60
   actions:
-  - e_categoryString: System
-    e_categoryIndex: 0
-    e_classString: Debug Message
-    e_classIndex: 1
+  - e_categoryString: Object
+    e_categoryIndex: 3
+    e_classString: Move This Object
+    e_classIndex: 4
     e_fieldString: Several
     e_fieldIndex: 3
     e_MonoBehaviour: {fileID: 0}
@@ -15464,7 +15406,7 @@ MonoBehaviour:
     compareString: 
     compareIndex: 0
     color: {r: 1, g: .460000008, b: 0, a: .550000012}
-    editorHeight: 42
+    editorHeight: 60
   andOrCompare:
   - Every Condition
   - One or More
@@ -16423,7 +16365,7 @@ Transform:
   m_LocalScale: {x: 1.95555377, y: 1.34728789, z: 1.95555377}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 11
+  m_RootOrder: 9
 --- !u!23 &1643857347
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -17479,47 +17421,6 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1738911084}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!1 &1742128574
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 113540, guid: f59b17bd6d0e1bd49b944577bdf39413, type: 2}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 4
-  m_Component:
-  - 4: {fileID: 1742128576}
-  - 114: {fileID: 1742128575}
-  m_Layer: 0
-  m_Name: TestRight
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1742128575
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 11492738, guid: f59b17bd6d0e1bd49b944577bdf39413,
-    type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1742128574}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2d9fafca4c8b4314db9235f5689c35bf, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  CubePrefab: {fileID: 0}
---- !u!4 &1742128576
-Transform:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 452906, guid: f59b17bd6d0e1bd49b944577bdf39413, type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1742128574}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -4.01247454, y: .607834816, z: 13.6054192}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 10
 --- !u!1 &1746359633
 GameObject:
   m_ObjectHideFlags: 0

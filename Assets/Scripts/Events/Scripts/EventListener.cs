@@ -191,10 +191,17 @@ public static class EventListener {
                     ActivateById(action.p_string[0], false);
                 }
                 else if (action.e_classString == "Create Prefab At Position") {
-                    MonoBehaviour.Instantiate(action.p_GameObject[0], action.p_Vector3[0], Quaternion.Euler(action.p_Vector3[1]));
+                    if (action.p_GameObject[0] != null) {
+                        MonoBehaviour.Instantiate(action.p_GameObject[0], action.p_Vector3[0], Quaternion.Euler(action.p_Vector3[1]));
+                    }
                 }
                 else if (action.e_classString == "Create Prefab Here") {
-                    MonoBehaviour.Instantiate(action.p_GameObject[0], popEvent.gameObject.transform.position, Quaternion.identity);
+                    if (action.p_GameObject[0] != null) {
+                        MonoBehaviour.Instantiate(action.p_GameObject[0], popEvent.gameObject.transform.position, Quaternion.identity);
+                    }
+                }
+                else if (action.e_classString == "Move This Object") {
+                    popEvent.gameObject.transform.position = action.p_Vector3[0];
                 }
                 else if (action.e_classString == "Destroy This Object") {
                     destroyAfterwards = true;
