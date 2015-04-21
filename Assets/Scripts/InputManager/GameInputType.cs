@@ -107,8 +107,4 @@ public class GameInputType : InputType {
 		}
 		return 0;
 	}
-
-	void Update(){
-		isQAbility();
-	}
 }
