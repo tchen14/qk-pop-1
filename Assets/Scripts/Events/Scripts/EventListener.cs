@@ -76,7 +76,10 @@ public static class EventListener {
                 }
                 else if (condition.e_fieldType == typeof(System.Boolean)) {
                     bool boolValue = (bool)condition.e_MonoBehaviour.GetType().GetField(condition.e_fieldString).GetValue(condition.e_MonoBehaviour);
-                    bool conditionBool = (condition.p_int[0] == 1) ? true : false;
+                    bool conditionBool = true;
+                    if (condition.compareString == "Is False") {
+                        conditionBool = false;
+                    }
                     if (boolValue == conditionBool) {
                         testsPassed++;
                     }
@@ -109,7 +112,10 @@ public static class EventListener {
                 }
                 else if (condition.e_fieldType == typeof(System.Boolean)) {
                     bool boolValue = (bool)EventLibrary.staticClasses[condition.e_classString].GetField(condition.e_fieldString).GetValue(condition.e_MonoBehaviour);
-                    bool conditionBool = (condition.p_int[0] == 1) ? true : false;
+                    bool conditionBool = true;
+                    if (condition.compareString == "Is False"){
+                        conditionBool = false;
+                    }
                     if (boolValue == conditionBool) {
                         testsPassed++;
                     }
