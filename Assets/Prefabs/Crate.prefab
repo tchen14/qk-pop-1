@@ -12,7 +12,8 @@ GameObject:
   - 54: {fileID: 5462326}
   - 65: {fileID: 6562326}
   - 23: {fileID: 2362326}
-  - 114: {fileID: 11462326}
+  - 114: {fileID: 11467440}
+  - 114: {fileID: 11486096}
   m_Layer: 0
   m_Name: Crate
   m_TagString: Untagged
@@ -33,7 +34,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
 --- !u!23 &2362326
-Renderer:
+MeshRenderer:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
@@ -41,15 +42,19 @@ Renderer:
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
-  m_LightmapIndex: 255
-  m_LightmapTilingOffset: {x: 1, y: 1, z: 0, w: 0}
   m_Materials:
   - {fileID: 2100000, guid: 0aeba1e175f6dda4dbfc61840d8a9419, type: 2}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_UseLightProbes: 0
-  m_LightProbeAnchor: {fileID: 0}
+  m_ReflectionProbeUsage: 1
+  m_ProbeAnchor: {fileID: 0}
   m_ScaleInLightmap: 1
+  m_PreserveUVs: 0
+  m_ImportantGI: 0
+  m_AutoUVMaxDistance: .5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingOrder: 0
 --- !u!33 &3362326
@@ -86,7 +91,21 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &11462326
+--- !u!114 &11467440
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 162326}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 585bcb68bf8f0ba498702cfc51d4ed62, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isTargetable: 0
+  range: 0
+  time: 0
+--- !u!114 &11486096
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -97,11 +116,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cd9203f3cf5f5374ea3162a47be97d5a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemName: Crate1
-  speedMod: 1
-  jumpMod: 1
-  pushCompatible: 1
-  pullCompatible: 1
+  itemName: 
+  pushCompatible: 0
+  pullCompatible: 0
   cutCompatible: 0
   soundThrowCompatible: 0
   stunCompatible: 0
@@ -116,4 +133,3 @@ Prefab:
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 162326}
   m_IsPrefabParent: 1
-  m_IsExploded: 1

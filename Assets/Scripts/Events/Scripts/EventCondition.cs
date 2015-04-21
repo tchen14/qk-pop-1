@@ -8,12 +8,23 @@ public class EventCondition {
     public string conditionField;
     public System.Type conditionType;
     public int conditionIndex;
-    public int conditionInt;
-    public float conditionFloat;
-    public Vector3 conditionVector3;
 
-    public enum WatchType { WatchScript }
-    public WatchType watchType;
+    //  Potential Parameters
+    public int p_int;
+    public float p_float;
+    public string p_string;
+    public Vector3 p_Vector3;
+    public Transform p_Transform;
+
+    public string watchCategory = "System";
+    public string watchType = "Choose A Condition";
+
+    public string watchString;
+    public int watchIndex;
+
+    public string watchCategoryString;
+    public int watchCategoryIndex;
+
     
     public enum NumberCompareOption { EqualTo, GreaterThan, LessThan }
     public NumberCompareOption numberCompareOption;

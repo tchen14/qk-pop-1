@@ -2,6 +2,7 @@
 using System.Collections;
 using Debug=FFP.Debug;
 
+[RequireComponent(typeof(Targetable))]
 public class Rope : Item
 {
 	// Use this for initialization
