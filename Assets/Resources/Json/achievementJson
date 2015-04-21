@@ -1,1 +1,25 @@
-{"achievements":[ "Complete Fifty Events", "Find Twenty-Five Baskets", "Complete Game On Easy", "Complete 'Retrieve Documents' Mission"], "numberOfAchievements": "4"}
+{
+	"Achievements":
+			[ 
+			"Complete Fifty Events", 
+			"Find Twenty-Five Baskets", 
+			"Complete Game On Easy", 
+			"Complete Retrieve Documents Mission",
+			"Complete Faction Story: Abraham Lincoln",
+			"Complete Faction Story: Benjamin Franklin",
+			"Find All Hidden Eggs",
+			"Find All Confederate Flags",
+			"Recover George Washington's Glasses",
+			"Touch Every Roof",
+			"Sign Your Name On The Constitution",
+			"Push Over George Washington's Horse",
+			"Find The Secret Room",
+			"Discover All The Secrets Of The Free Masons",
+			"Find The UFO In The Forest",
+			"Bring Back The Dead",
+			"Put All Vases In Place",
+			"Bring Back HomeWork Assignment",
+			"Sneak the item....",
+			"Complete Everything Imaginable"
+			]
+}

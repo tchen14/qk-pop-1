@@ -9,7 +9,10 @@ TagManager:
   - Heaven
   - Navigation
   - PlayerAction
-  - AI
+  - worldMapLabel
+  - abilityButton
+  - menuButton
+  - menuBack
   layers:
   - Default
   - TransparentFX

@@ -2,15 +2,26 @@
 using System.Collections;
 
 [RequireComponent (typeof (Collider))]
-public abstract class Item : MonoBehaviour {
+[System.Serializable]
+public abstract class Item : MonoBehaviour
+{
 
     public string itemName = "";
-
+    public int pushCounter, pullCounter, cutCounter, soundThrowCounter, stunCounter;
+    public bool quincAffected = false;
 	public bool pushCompatible = false;
 	public bool pullCompatible = false;
 	public bool cutCompatible = false;
 	public bool soundThrowCompatible = false;
-	public bool stunCompatible = false; // Might not need this for items
+	public bool stunCompatible = false; //!> Might not need this for items
+  
+    public enum ItemType
+    {
+      //! Need list of item types
+      Consumable,
+      Quest,
+      Sellable
+    }
 
     //!Player gathers X number of this item, (kill all enemies in area, use other item script to auto drop item into play inventory)
     protected virtual void GatherObjective (int count)

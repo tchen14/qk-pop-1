@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+[EventVisible]
 public class TestScriptRight : MonoBehaviour {
 
     public GameObject CubePrefab;
@@ -32,4 +33,26 @@ public class TestScriptRight : MonoBehaviour {
     public void GameObjectFunction(GameObject value) {
         print(gameObject.name + " GameObjectFunction was passed " + value.name);
     }
+}
+
+[EventVisible("Test Static Class")]
+public static class TestScriptRightStatic {
+    [EventVisible("Print \\\"Debug\\\"")]
+    static public void GameObjectFunction() {
+        MonoBehaviour.print("Debug");
+    }
+    [EventVisible("Pass Int")]
+    static public void IntFunction(int pass) {
+        MonoBehaviour.print(pass);
+    }
+    [EventVisible("Two Strings")]
+    static public void TwoStrings(string a, string b) {
+        MonoBehaviour.print(a + b);
+    }
+    [EventVisible("Several Parameters")]
+    static public void Several(string a, string b, int c, Vector3 d, float e) {
+        MonoBehaviour.print(a + b + c + d + e);
+    }
+    [EventVisible]
+    static public int field = 0;
 }

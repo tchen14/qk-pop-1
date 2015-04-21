@@ -50,6 +50,8 @@ public class Quinc : MonoBehaviour
 			if(Push(ref pushStatus, pushPullTarget))
 			{
 				print ("Push status: " + pushStatus);
+                pushPullTarget.GetComponent<Item>().pushCounter++;
+                pushPullTarget.GetComponent<Item>().quincAffected = true;
 			}
 			else
 			{
@@ -65,6 +67,8 @@ public class Quinc : MonoBehaviour
 			if(Pull(ref pullStatus, pushPullTarget))
 			{
 				print ("Pull Status: " + pullStatus);
+                pushPullTarget.GetComponent<Item>().pullCounter++;
+                pushPullTarget.GetComponent<Item>().quincAffected = true;
 			}
 			else
 			{
@@ -79,6 +83,8 @@ public class Quinc : MonoBehaviour
 			if(Cut(ref cutStatus, cutTarget))
 			{
 				print ("Cut Status: " + cutStatus);
+                cutTarget.GetComponent<Item>().cutCounter++;
+                cutTarget.GetComponent<Item>().quincAffected = true;
 			}
 			else
 			{
@@ -93,6 +99,8 @@ public class Quinc : MonoBehaviour
 			if(SoundThrow(ref soundStatus, soundThrowTarget))
 			{
 				print ("Sound Status: " + soundStatus);
+                soundThrowTarget.GetComponent<Item>().soundThrowCounter++;
+                soundThrowTarget.GetComponent<Item>().quincAffected = true;
 			}
 			else
 			{
@@ -107,6 +115,8 @@ public class Quinc : MonoBehaviour
 			if(Stun(ref stunStatus, stunTarget))
 			{
 				print ("Stun Status: " + stunStatus);
+                stunTarget.GetComponent<Item>().stunCounter++;
+                stunTarget.GetComponent<Item>().quincAffected = true;
 			}
 			else
 			{
