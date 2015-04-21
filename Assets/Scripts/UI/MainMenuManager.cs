@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 //******************************************************************************************
@@ -11,6 +12,8 @@ using UnityEngine.UI;
 //******************************************************************************************
 
 public class MainMenuManager : MonoBehaviour {
+
+	public float cursorSpeed = 7f;
 
 	//Editor
 	public bool useDefaultSettings = false;					//check this in the editor to load default settings
@@ -46,9 +49,16 @@ public class MainMenuManager : MonoBehaviour {
 	public GameObject aaText;
 	public GameObject aTextureText;
 
+	//Cursor stuff
+	public GameObject cursor;
+	public GameObject cursorPoint;
+	bool controllerUsed = false;
+	Vector2 cursorPos;
+	GameObject lastButtonHovered;
+
 
 	//Important Things
-	public string url = "http://i.imgur.com/Me04jVB.jpg";
+	string url = "http://i.imgur.com/eBXyo2w.jpg";
 	GameObject urlTar;
 
 	//---------------------------
@@ -56,6 +66,9 @@ public class MainMenuManager : MonoBehaviour {
 	//---------------------------
 
 	void Start () {
+
+		cursorPos = cursor.transform.position;
+		//cursor.SetActive(false);
 
 		//trust me, this is important
 		urlTar = GameObject.Find ("urlTar");
@@ -79,10 +92,70 @@ public class MainMenuManager : MonoBehaviour {
 	
 
 	void Update () {
-		//we like to have fun here
-		if(seizureModeOn){
-			Camera.main.backgroundColor = new Color(Random.value,Random.value,Random.value);
+
+		if(Input.GetAxis("Mouse X") != 0 || Input.GetAxis("Mouse Y") != 0 ){
+			cursor.transform.position = Input.mousePosition;
 		}
+
+		//Controller cursor control
+		if(Input.GetAxis("Vertical") > 0){
+			if(controllerUsed == false){
+				cursor.SetActive(true);
+				controllerUsed = true;
+			}
+			cursorPos.y += Input.GetAxis("Vertical") * cursorSpeed;
+			cursor.transform.position = cursorPos;
+			//cursor.transform.Translate(Vector2.up * Time.deltaTime * 100);
+		}
+		if(Input.GetAxis("Vertical") < 0){
+			if(controllerUsed == false){
+				cursor.SetActive(true);
+				controllerUsed = true;
+			}
+			cursorPos.y += Input.GetAxis("Vertical") * cursorSpeed;
+			cursor.transform.position = cursorPos;
+		}
+		if(Input.GetAxis("Horizontal") > 0){
+			if(controllerUsed == false){
+				cursor.SetActive(true);
+				controllerUsed = true;
+			}
+			cursorPos.x += Input.GetAxis("Horizontal") * cursorSpeed;
+			cursor.transform.position = cursorPos;
+			//cursor.transform.Translate(Vector2.right * Time.deltaTime * 100);
+		}
+		if(Input.GetAxis("Horizontal") < 0){
+			if(controllerUsed == false){
+				cursor.SetActive(true);
+				controllerUsed = true;
+			}
+			cursorPos.x += Input.GetAxis("Horizontal") * cursorSpeed;
+			cursor.transform.position = cursorPos;
+			//cursor.transform.Translate(-Vector2.right * Time.deltaTime * 100);
+		}
+
+		Ray ray = new Ray(cursorPoint.transform.position, cursorPoint.transform.forward * 10);
+		RaycastHit hit;
+		Debug.DrawRay(ray.origin, ray.direction * 20, Color.red);
+
+		if (Physics.Raycast (ray, out hit, 25)) {
+			var pointer = new PointerEventData(EventSystem.current);
+			if(hit.collider.gameObject.tag == "menuButton" && hit.collider != null) {
+				ExecuteEvents.Execute(hit.collider.gameObject, pointer, ExecuteEvents.pointerEnterHandler);
+				lastButtonHovered = hit.collider.gameObject;
+				if(Input.GetButtonDown("Jump")){
+					ExecuteEvents.Execute(hit.collider.gameObject, pointer, ExecuteEvents.pointerClickHandler);
+				}
+			}
+
+			if(hit.collider.gameObject.tag == "menuBack" && hit.collider != null) {
+				ExecuteEvents.Execute(lastButtonHovered, pointer, ExecuteEvents.pointerExitHandler);
+				
+			}
+		}
+
+
+
 	}
 
 	//---------------------------
@@ -403,9 +476,9 @@ public class MainMenuManager : MonoBehaviour {
 		
 	}
 
-	//WARNING! DO NOT REMOVE THE FOLLOWING FUNCTION! EVERY PIECE OF THE UI RELIES ON IT
+
 	public void GoToDog () {
-		Application.OpenURL("http://youtu.be/y9K18CGEeiI");
+		Application.OpenURL("https://youtu.be/oT3mCybbhf0?t=76");
 	}
 
 	//Apply Music Vol text
