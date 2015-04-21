@@ -2,6 +2,7 @@
 using System.Collections;
 using Debug=FFP.Debug;
 
+[EventVisible]
 public class Enemy : Item
 {
 	public const float stunPeriod = 10.0f;

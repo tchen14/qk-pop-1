@@ -233,6 +233,7 @@ public class PopEventEditor : Editor {
     }
 
     void DrawWatchScript(EventHalf condition) {
+
         string[] popupArray = new string[0];
         string[] popupArrayNice = new string[0];
 

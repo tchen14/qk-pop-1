@@ -7,7 +7,17 @@ public abstract class Item : MonoBehaviour
 {
 
     public string itemName = "";
-    public int pushCounter, pullCounter, cutCounter, soundThrowCounter, stunCounter;
+    [EventVisible("Pushed X Times")]
+    public int pushCounter;
+    [EventVisible("Pulled X Times")]
+    public int pullCounter;
+    [EventVisible("Cut X Times")]
+    public int cutCounter;
+    [EventVisible("Sound Thrown X Times")]
+    public int soundThrowCounter;
+    [EventVisible("Stunned X Times")]
+    public int stunCounter;
+    [EventVisible("Affected by QuinC")]
     public bool quincAffected = false;
 	public bool pushCompatible = false;
 	public bool pullCompatible = false;
