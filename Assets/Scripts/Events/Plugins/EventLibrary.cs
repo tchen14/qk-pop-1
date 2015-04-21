@@ -50,7 +50,7 @@ public static class EventLibrary {
 		{ "TestScriptRightMethods", new string[] {"NullFunction", "IntFunction", "FloatFunction", "VectorFunction", "GameObjectFunction", } },
 		{ "TestScriptRightStaticMethods", new string[] {"GameObjectFunction", "IntFunction", "TwoStrings", "Several", } },
 		{ "AIMainFields", new string[] {"seesTarget", "panic", } },
-		{ "TestScriptLeftFields", new string[] {"counter", "fieldA", "fieldB", "trueFalse", "vectorA", } },
+		{ "TestScriptLeftFields", new string[] {"counter", "fieldA", "fieldB", "trueFalse", "dictionary", "testString", "vectorA", } },
 		{ "TestScriptRightStaticFields", new string[] {"field", } },
 	};
 
@@ -61,7 +61,7 @@ public static class EventLibrary {
 		{ "TestScriptRightMethods", new string[] {"NullFunction", "IntFunction", "FloatFunction", "VectorFunction", "GameObjectFunction", } },
 		{ "TestScriptRightStaticMethods", new string[] {"Print \"Debug\"", "Pass Int", "Two Strings", "Several Parameters", } },
 		{ "AIMainFields", new string[] {"seesTarget", "panic", } },
-		{ "TestScriptLeftFields", new string[] {"Nice Counter", "fieldA", "fieldB", "trueFalse", "vectorA", } },
+		{ "TestScriptLeftFields", new string[] {"Nice Counter", "fieldA", "fieldB", "trueFalse", "dictionary", "testString", "vectorA", } },
 		{ "TestScriptRightStaticFields", new string[] {"field", } },
 	};
 }

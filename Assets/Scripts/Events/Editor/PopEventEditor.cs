@@ -295,7 +295,15 @@ public class PopEventEditor : Editor {
 
     void DrawWatchField(EventHalf condition) {
         EditorGUILayout.LabelField("Target Value", GUILayout.MaxWidth(columnWidth));
+
+        //  Draw above Comparison Popout
+        if (condition.e_fieldType == typeof(Dictionary<string, int>)) {
+            condition.p_string[0] = EditorGUILayout.TextField(condition.p_string[0], GUILayout.MaxWidth(columnWidth));
+            condition.editorHeight += 20;
+        }
+
         GUILayout.BeginHorizontal();
+
         //     ComparisonOption
         if (condition.e_fieldType == typeof(System.Int32) || condition.e_fieldType == typeof(System.Single)) {
             condition.compareIndex = FindIndex(condition.compareString, condition.numberCompareString);
@@ -312,16 +320,30 @@ public class PopEventEditor : Editor {
             condition.compareIndex = EditorGUILayout.Popup(condition.compareIndex, condition.boolCompareString, GUILayout.MaxWidth(columnWidth / 2));
             condition.compareString = condition.boolCompareString[condition.compareIndex];
         }
+        else if (condition.e_fieldType == typeof(Dictionary<string, int>)) {
+            condition.compareIndex = FindIndex(condition.compareString, condition.numberCompareString);
+            condition.compareIndex = EditorGUILayout.Popup(condition.compareIndex, condition.numberCompareString, GUILayout.MaxWidth(columnWidth / 2));
+            condition.compareString = condition.numberCompareString[condition.compareIndex];
+        }
+        else if (condition.e_fieldType == typeof(System.String)) {
+            condition.compareIndex = FindIndex(condition.compareString, condition.stringCompareString);
+            condition.compareIndex = EditorGUILayout.Popup(condition.compareIndex, condition.stringCompareString, GUILayout.MaxWidth(columnWidth / 2));
+            condition.compareString = condition.stringCompareString[condition.compareIndex];
+        }
 
         //     Value Field
         if (condition.e_fieldType == typeof(System.Int32)) {
             condition.p_int[0] = EditorGUILayout.IntField(condition.p_int[0], GUILayout.MaxWidth(columnWidth / 2));
         }
+        else if (condition.e_fieldType == typeof(System.String)) {
+            condition.p_string[0] = EditorGUILayout.TextField(condition.p_string[0], GUILayout.MaxWidth(columnWidth / 2));
+        }
         else if (condition.e_fieldType == typeof(System.Single) || condition.e_fieldType == typeof(Vector3)) {
             condition.p_float[0] = EditorGUILayout.FloatField(condition.p_float[0], GUILayout.MaxWidth(columnWidth / 2));
-
         }
-
+        else if (condition.e_fieldType == typeof(Dictionary<string, int>)) {
+            condition.p_int[0] = EditorGUILayout.IntField(condition.p_int[0], GUILayout.MaxWidth(columnWidth / 2));
+        }
         else {
             for (int sp = 0; sp < 6; sp++) { EditorGUILayout.Space(); }
         }

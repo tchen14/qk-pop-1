@@ -49,7 +49,7 @@ public static class EventListener {
             numberOfConditions++;
             //  Watch Script Type Condition
             if (condition.e_categoryString == "Object Script") {
-                if (condition.e_MonoBehaviour != null) {
+                if (condition.e_MonoBehaviour == null) {
                     numberOfConditions--;
                     if (condition.e_fieldType == null) {
                         condition.e_fieldType = condition.e_MonoBehaviour.GetType().GetField(condition.e_fieldString).FieldType;
@@ -59,6 +59,12 @@ public static class EventListener {
                 if (condition.e_fieldType == typeof(System.Int32)) {
                     int intValue = (int)condition.e_MonoBehaviour.GetType().GetField(condition.e_fieldString).GetValue(condition.e_MonoBehaviour);
                     if (Compare(intValue, condition.p_int[0], condition.compareString)) {
+                        testsPassed++;
+                    }
+                }
+                else if (condition.e_fieldType == typeof(System.String)) {
+                    string stringValue = (string)condition.e_MonoBehaviour.GetType().GetField(condition.e_fieldString).GetValue(condition.e_MonoBehaviour);
+                    if (Compare(stringValue, condition.p_string[0], condition.compareString)) {
                         testsPassed++;
                     }
                 }
@@ -73,6 +79,14 @@ public static class EventListener {
                     bool conditionBool = (condition.p_int[0] == 1) ? true : false;
                     if (boolValue == conditionBool) {
                         testsPassed++;
+                    }
+                }
+                else if (condition.e_fieldType == typeof(Dictionary<string, int>)) {
+                    Dictionary<string, int> dictionaryValue = (Dictionary<string, int>)condition.e_MonoBehaviour.GetType().GetField(condition.e_fieldString).GetValue(condition.e_MonoBehaviour);
+                    if (dictionaryValue.ContainsKey(condition.p_string[0])) {
+                        if (Compare(dictionaryValue[condition.p_string[0]], condition.p_int[0], condition.compareString)) {
+                            testsPassed++;
+                        }
                     }
                 }
             }
@@ -161,7 +175,7 @@ public static class EventListener {
             }
             else {
                 if (action.e_classString == "Debug Message") {
-                    MonoBehaviour.print(action.p_string);
+                    MonoBehaviour.print(action.p_string[0]);
                 }
                 else if (action.e_classString == "Activate Next Event") {
                     popEvent.ActivateNextEvent();
@@ -194,6 +208,9 @@ public static class EventListener {
 
     /*!     Comparison functions        */
     public static bool Compare(int valueA, int valueB, string compareOption) {
+        MonoBehaviour.print(valueA);
+        MonoBehaviour.print(valueB);
+
         if (compareOption == "Equal To") {
             if (valueA == valueB) { return true; }
         }
@@ -216,6 +233,17 @@ public static class EventListener {
         else if (compareOption == "Less Than") {
             if (valueA < valueB) { return true; }
         }
+        return false;
+    }
+
+    public static bool Compare(string valueA, string valueB, string compareOption) {
+        if (compareOption == "Equal To") {
+            if (valueA == valueB) { return true; }
+        }
+        else if (compareOption == "Different Than") {
+            if (valueA != valueB) { return true; }
+        }
+
         return false;
     }
 
