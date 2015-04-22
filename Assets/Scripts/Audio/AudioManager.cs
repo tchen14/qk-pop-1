@@ -12,7 +12,8 @@ using Debug = FFP.Debug;
  *	written by Ace
  */
 public class AudioManager : MonoBehaviour {
-
+#pragma warning disable 0219
+#pragma warning disable 0649
 	#region singletonEnforcement
 	private static AudioManager _instance;
 

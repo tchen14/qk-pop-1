@@ -217,7 +217,7 @@ public sealed class PoPCamera : Camera_2
 		// If compensating for occlusion don't clamp distance
 		if(Input.GetAxis("Mouse ScrollWheel")< deadzone || Input.GetAxis("Mouse ScrollWheel") > deadzone)
 		{
-			Debug.Log("camera", Input.GetAxis("Mouse ScrollWheel"));
+			Debug.Log("camera", Input.GetAxis("Mouse ScrollWheel").ToString());
 			desiredDistance = distance - Input.GetAxis("Mouse ScrollWheel") * mouseWheelSensitivity;
 
 			if(!occluded)

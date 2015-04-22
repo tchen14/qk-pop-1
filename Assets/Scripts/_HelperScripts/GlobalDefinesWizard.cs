@@ -1,3 +1,4 @@
+#if UNITY_EDITOR
 using UnityEngine;
 using UnityEditor;
 using System.Collections;
@@ -37,7 +38,7 @@ public class GlobalDefinesWizard : ScriptableWizard
 	}
 	
 	private const string _prefsKey = "kGlobalDefines";
-	public List<GlobalDefine> _globalDefines = new List<GlobalDefine>();
+	public static List<GlobalDefine> _globalDefines = new List<GlobalDefine>();
 	
 	
 	[MenuItem( "Custom Tools/Edit Global Defines" )]
@@ -55,7 +56,7 @@ public class GlobalDefinesWizard : ScriptableWizard
 			var stream = new MemoryStream( bytes );
 			
 			var formatter = new BinaryFormatter();
-			helper._globalDefines = (List<GlobalDefine>)formatter.Deserialize( stream );
+			_globalDefines = (List<GlobalDefine>)formatter.Deserialize( stream );
 		}
 	}
 	
@@ -90,7 +91,7 @@ public class GlobalDefinesWizard : ScriptableWizard
 	}
 	
 	
-	private void save()
+	public void save()
 	{
 		// nothing to save means delete everything
 		if( _globalDefines.Count == 0 )
@@ -152,16 +153,23 @@ public class GlobalDefinesWizard : ScriptableWizard
 	}
 	
 	
-	private void deleteFiles()
-	{
-		var smcsFile = Path.Combine( Application.dataPath, "smcs.rsp" );
-		var gmcsFile = Path.Combine( Application.dataPath, "gmcs.rsp" );
-		
-		if( File.Exists( smcsFile ) )
-			File.Delete( smcsFile );
+	private void deleteFiles() {
+		var smcsFile = Path.Combine(Application.dataPath, "smcs.rsp");
+		var gmcsFile = Path.Combine(Application.dataPath, "gmcs.rsp");
+		var smcsMetaFile = Path.Combine(Application.dataPath, "smcs.rsp.meta");
+		var gmcsMetaFile = Path.Combine(Application.dataPath, "gmcs.rsp.meta");
 
-		if( File.Exists( gmcsFile ) )
-			File.Delete( gmcsFile );
+		if (File.Exists(smcsFile))
+			File.Delete(smcsFile);
+
+		if (File.Exists(gmcsFile))
+			File.Delete(gmcsFile);
+
+		if (File.Exists(smcsMetaFile))
+			File.Delete(smcsMetaFile);
+
+		if (File.Exists(gmcsMetaFile))
+			File.Delete(gmcsMetaFile);
 	}
 	
 	
@@ -208,3 +216,4 @@ public class GlobalDefinesWizard : ScriptableWizard
     }
 
 }
+#endif

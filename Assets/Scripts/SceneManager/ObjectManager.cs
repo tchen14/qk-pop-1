@@ -7,17 +7,17 @@ public sealed class ObjectManager : MonoBehaviour {
 
 	#region singletonEnforcement
 	private static ObjectManager instance;
-
 	public static ObjectManager Instance {
 		get {
 			return instance;
 		}
+		private set { }
 	}
 
 	void Start() {
-		if (instance == null)
+		if (instance == null){
 			instance = this;
-		else {
+		}else {
 			Destroy(this.gameObject);
 			Debug.Error("core", "Second ObjectManager detected. Deleting gameOject.");
 			return;
@@ -31,6 +31,7 @@ public sealed class ObjectManager : MonoBehaviour {
 	public static void LoadTopObjects() {
 		Transform[] gameObjects = GameObject.FindObjectsOfType<Transform>();
 		foreach (Transform t in gameObjects) {
+			Debug.Log("core", t.name);
 			if (t.parent == null && !TopObjects.ContainsKey(t.name) && !SavedObjects.ContainsKey(t.name)) {
 				TopObjects.Add(t.name, t);
 			}
@@ -58,6 +59,7 @@ public sealed class ObjectManager : MonoBehaviour {
 	}
 	public static void AddSavedObject(Transform go) {
 		if (go.parent == null && !SavedObjects.ContainsKey(go.name)) {
+			DontDestroyOnLoad (go);
 			SavedObjects.Add(go.name, go);
 		}
 	}

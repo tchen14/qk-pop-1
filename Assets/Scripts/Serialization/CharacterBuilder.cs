@@ -649,7 +649,7 @@ public class CharacterBuilder : MonoBehaviour {
 	protected void BuildLists(JSONNode jsonNode)
 	{
 	//Iterates through the arrays in the JSON node and adds and fills the lists with their appropriate models from the project file
-		for(int count = 0; count < jsonNode["Head"]["Male"].Count; count = count + 1)
+		/*for(int count = 0; count < jsonNode["Head"]["Male"].Count; count = count + 1)
 		{
 			string object_name = jsonNode["Head"]["Male"][count];
 			GameObject loaded_object = Resources.LoadAssetAtPath<GameObject>("Assets/Prefabs/CharacterBuilder/Head/Male/" + object_name + ".prefab");
@@ -759,7 +759,7 @@ public class CharacterBuilder : MonoBehaviour {
 			string object_name = jsonNode["Shoe"]["Female"][count];
 			GameObject loaded_object = Resources.LoadAssetAtPath<GameObject>("Assets/Prefabs/CharacterBuilder/Shoe/Female/" + object_name + ".prefab");
 			femaleShoe.Add(loaded_object);
-		}
+		}*/
 	}
 
 	//!Creates a JSONNode from the JSON file and calls a function to build the lists of gameobjects
