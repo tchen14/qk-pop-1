@@ -208,6 +208,7 @@ public static class EventListener {
                 }
                 else if (action.e_classString == "Move This Object") {
                     popEvent.gameObject.transform.position = action.p_Vector3[0];
+                    popEvent.gameObject.transform.eulerAngles = action.p_Vector3[1];
                 }
                 else if (action.e_classString == "Destroy This Object") {
                     destroyAfterwards = true;

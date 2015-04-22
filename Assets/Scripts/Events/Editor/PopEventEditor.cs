@@ -705,9 +705,11 @@ public class PopEventEditor : Editor {
     }
 
     void DrawMoveThisObject(EventHalf action) {
-        action.editorHeight = 60;
+        action.editorHeight = 100;
         EditorGUILayout.LabelField("New World Position", style, GUILayout.MaxWidth(columnWidth));
         action.p_Vector3[0] = EditorGUILayout.Vector3Field("", action.p_Vector3[0], GUILayout.MaxWidth(columnWidth));
+        EditorGUILayout.LabelField("Rotation", style, GUILayout.MaxWidth(columnWidth));
+        action.p_Vector3[1] = EditorGUILayout.Vector3Field("", action.p_Vector3[1], GUILayout.MaxWidth(columnWidth));
     }
 
     void DrawCreatePrefabHere(EventHalf action) {
