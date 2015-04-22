@@ -76,7 +76,10 @@ public static class EventListener {
                 }
                 else if (condition.e_fieldType == typeof(System.Boolean)) {
                     bool boolValue = (bool)condition.e_MonoBehaviour.GetType().GetField(condition.e_fieldString).GetValue(condition.e_MonoBehaviour);
-                    bool conditionBool = (condition.p_int[0] == 1) ? true : false;
+                    bool conditionBool = true;
+                    if (condition.compareString == "Is False") {
+                        conditionBool = false;
+                    }
                     if (boolValue == conditionBool) {
                         testsPassed++;
                     }
@@ -109,7 +112,10 @@ public static class EventListener {
                 }
                 else if (condition.e_fieldType == typeof(System.Boolean)) {
                     bool boolValue = (bool)EventLibrary.staticClasses[condition.e_classString].GetField(condition.e_fieldString).GetValue(condition.e_MonoBehaviour);
-                    bool conditionBool = (condition.p_int[0] == 1) ? true : false;
+                    bool conditionBool = true;
+                    if (condition.compareString == "Is False"){
+                        conditionBool = false;
+                    }
                     if (boolValue == conditionBool) {
                         testsPassed++;
                     }
@@ -191,10 +197,18 @@ public static class EventListener {
                     ActivateById(action.p_string[0], false);
                 }
                 else if (action.e_classString == "Create Prefab At Position") {
-                    MonoBehaviour.Instantiate(action.p_GameObject[0], action.p_Vector3[0], Quaternion.Euler(action.p_Vector3[1]));
+                    if (action.p_GameObject[0] != null) {
+                        MonoBehaviour.Instantiate(action.p_GameObject[0], action.p_Vector3[0], Quaternion.Euler(action.p_Vector3[1]));
+                    }
                 }
                 else if (action.e_classString == "Create Prefab Here") {
-                    MonoBehaviour.Instantiate(action.p_GameObject[0], popEvent.gameObject.transform.position, Quaternion.identity);
+                    if (action.p_GameObject[0] != null) {
+                        MonoBehaviour.Instantiate(action.p_GameObject[0], popEvent.gameObject.transform.position, Quaternion.identity);
+                    }
+                }
+                else if (action.e_classString == "Move This Object") {
+                    popEvent.gameObject.transform.position = action.p_Vector3[0];
+                    popEvent.gameObject.transform.eulerAngles = action.p_Vector3[1];
                 }
                 else if (action.e_classString == "Destroy This Object") {
                     destroyAfterwards = true;

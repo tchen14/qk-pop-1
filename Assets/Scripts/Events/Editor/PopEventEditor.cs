@@ -191,6 +191,13 @@ public class PopEventEditor : Editor {
             popupArrayNice = new string[] { "Choose A Condition" };
         }
 
+        if (popupArray.Length < 1) {
+            GUILayout.EndHorizontal();
+            condition.editorHeight = 40;
+            EditorGUILayout.LabelField("No valid Classes in that Category", GUILayout.MaxWidth(columnWidth));
+            return true;
+        }
+
         condition.e_classIndex = FindIndex(condition.e_classString, popupArray);
         condition.e_classIndex = (int)EditorGUILayout.Popup(condition.e_classIndex, popupArrayNice, GUILayout.MaxWidth(columnWidth * 2 / 3));
         condition.e_classString = popupArray[condition.e_classIndex];
@@ -233,11 +240,15 @@ public class PopEventEditor : Editor {
     }
 
     void DrawWatchScript(EventHalf condition) {
+
         string[] popupArray = new string[0];
         string[] popupArrayNice = new string[0];
 
         EditorGUILayout.LabelField("Target Object", GUILayout.MaxWidth(columnWidth));
         condition.e_GameObject = (GameObject)EditorGUILayout.ObjectField(condition.e_GameObject, typeof(GameObject), true, GUILayout.MaxWidth(columnWidth));
+        if (condition.e_GameObject == null) {
+            condition.e_MonoBehaviour = null;
+        }
         if (condition.e_GameObject != null) {
             condition.e_MonoBehaviour = condition.e_GameObject.GetComponent(condition.e_classString) as MonoBehaviour;
         }
@@ -268,7 +279,7 @@ public class PopEventEditor : Editor {
                 DrawWatchField(condition);
             }
             else {
-                EditorGUILayout.LabelField("<b><color=#ff2222ff>No Valid Fields</color></b>", style, GUILayout.MaxWidth(columnWidth));
+                EditorGUILayout.LabelField("<b>No Valid Fields</b>", style, GUILayout.MaxWidth(columnWidth));
             }
         }
     }
@@ -442,6 +453,12 @@ public class PopEventEditor : Editor {
             popupArray = new string[] { "Choose An Action" };
             popupArrayNice = new string[] { "Choose An Action" };
         }
+        if (popupArray.Length < 1) {
+            GUILayout.EndHorizontal();
+            action.editorHeight = 40;
+            EditorGUILayout.LabelField("No valid Classes in that Category", GUILayout.MaxWidth(columnWidth));
+            return true;
+        }
 
         action.e_classIndex = FindIndex(action.e_classString, popupArray);
         action.e_classIndex = (int)EditorGUILayout.Popup(action.e_classIndex, popupArrayNice, GUILayout.MaxWidth(columnWidth * 2 / 3));
@@ -496,6 +513,9 @@ public class PopEventEditor : Editor {
 
         EditorGUILayout.LabelField("Target Object", GUILayout.MaxWidth(columnWidth));
         action.e_GameObject = (GameObject)EditorGUILayout.ObjectField(action.e_GameObject, typeof(GameObject), true, GUILayout.MaxWidth(columnWidth));
+        if (action.e_GameObject == null) {
+            action.e_MonoBehaviour = null;
+        }
         if (action.e_GameObject != null) {
             action.e_MonoBehaviour = action.e_GameObject.GetComponent(action.e_classString) as MonoBehaviour;
         }
@@ -541,7 +561,7 @@ public class PopEventEditor : Editor {
                 action.args = action.SetParameters(paramType);
             }
             else {
-                EditorGUILayout.LabelField("<b><color=#ff2222ff>No Valid Methods</color></b>", style, GUILayout.MaxWidth(columnWidth));
+                EditorGUILayout.LabelField("<b>No Valid Methods</b>", style, GUILayout.MaxWidth(columnWidth));
             }
         }
     }
@@ -633,6 +653,9 @@ public class PopEventEditor : Editor {
         else if (action.e_classString == "Create Prefab Here") {
             DrawCreatePrefabHere(action);
         }
+        else if (action.e_classString == "Move This Object") {
+            DrawMoveThisObject(action);
+        }
         else if (action.e_classString == "Add X Items") {
             DrawAddXItems(action);
         }
@@ -676,6 +699,14 @@ public class PopEventEditor : Editor {
         action.editorHeight = 110;
         action.p_GameObject[0] = (GameObject)EditorGUILayout.ObjectField(action.p_GameObject[0], typeof(GameObject), false, GUILayout.MaxWidth(columnWidth));
         EditorGUILayout.LabelField("World Position", style, GUILayout.MaxWidth(columnWidth));
+        action.p_Vector3[0] = EditorGUILayout.Vector3Field("", action.p_Vector3[0], GUILayout.MaxWidth(columnWidth));
+        EditorGUILayout.LabelField("Rotation", style, GUILayout.MaxWidth(columnWidth));
+        action.p_Vector3[1] = EditorGUILayout.Vector3Field("", action.p_Vector3[1], GUILayout.MaxWidth(columnWidth));
+    }
+
+    void DrawMoveThisObject(EventHalf action) {
+        action.editorHeight = 100;
+        EditorGUILayout.LabelField("New World Position", style, GUILayout.MaxWidth(columnWidth));
         action.p_Vector3[0] = EditorGUILayout.Vector3Field("", action.p_Vector3[0], GUILayout.MaxWidth(columnWidth));
         EditorGUILayout.LabelField("Rotation", style, GUILayout.MaxWidth(columnWidth));
         action.p_Vector3[1] = EditorGUILayout.Vector3Field("", action.p_Vector3[1], GUILayout.MaxWidth(columnWidth));

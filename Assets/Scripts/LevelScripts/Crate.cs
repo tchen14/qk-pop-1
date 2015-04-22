@@ -3,6 +3,7 @@ using System.Collections;
 using Debug=FFP.Debug;
 
 [RequireComponent(typeof(Targetable))]
+[EventVisible]
 public class Crate : Item
 {
 	// Use this for initialization
