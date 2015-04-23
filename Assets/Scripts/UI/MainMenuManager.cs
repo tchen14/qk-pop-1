@@ -13,7 +13,7 @@ using UnityEngine.UI;
 
 public class MainMenuManager : MonoBehaviour {
 
-	public float cursorSpeed = 7f;
+	public float cursorSpeed = 7f;							//Controller cursor speed
 
 	//Editor
 	public bool useDefaultSettings = false;					//check this in the editor to load default settings
@@ -50,12 +50,18 @@ public class MainMenuManager : MonoBehaviour {
 	public GameObject aTextureText;
 
 	//Cursor stuff
-	public GameObject cursor;
-	public GameObject cursorPoint;
-	bool controllerUsed = false;
-	Vector2 cursorPos;
-	GameObject lastButtonHovered;
+	public GameObject cursor;								//Cursor gameobject
+	public GameObject cursorPoint;							//point where raycast is shot from
+	bool controllerUsed = false;							//Controller mode checker
+	Vector2 cursorPos;										//cursor pos on canvas
+	GameObject lastButtonHovered;							//last gameobject selected with cursor
 
+	//ghetto clamping
+	Vector2 cursorPosLeft = new Vector2 (-540, 0);
+	Vector2 cursorPosRight = new Vector2 (562, 0);
+
+	Vector2 cursorPosUp = new Vector2 (0, 248);
+	Vector2 cursorPosDown = new Vector2 (0, -266);
 
 	//Important Things
 	string url = "http://i.imgur.com/eBXyo2w.jpg";
@@ -132,6 +138,24 @@ public class MainMenuManager : MonoBehaviour {
 			cursorPos.x += Input.GetAxis("Horizontal") * cursorSpeed;
 			cursor.transform.position = cursorPos;
 			//cursor.transform.Translate(-Vector2.right * Time.deltaTime * 100);
+		}
+
+		//ghetto clamp
+		if (cursorPos.x < -540) {
+			cursorPosLeft.y = cursorPos.y;
+			cursorPos = cursorPosLeft;
+		}
+		if (cursorPos.x > 562) {
+			cursorPosLeft.y = cursorPos.y;
+			//cursorPos = cursorPosLeft;
+		}
+		if (cursorPos.x < -540) {
+			cursorPosLeft.y = cursorPos.y;
+			//cursorPos = cursorPosLeft;
+		}
+		if (cursorPos.x < -540) {
+			cursorPosLeft.y = cursorPos.y;
+			//cursorPos = cursorPosLeft;
 		}
 
 		Ray ray = new Ray(cursorPoint.transform.position, cursorPoint.transform.forward * 10);
