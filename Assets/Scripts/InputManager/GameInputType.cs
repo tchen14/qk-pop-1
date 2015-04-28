@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 //! InputType responsible for normal QK in game movement controls
 public class GameInputType : InputType {
@@ -164,4 +165,62 @@ public class GameInputType : InputType {
 		}
 		return Input.GetKey(journal);
 	}
+
+	//Save keyboard controls
+	public override void SaveInput(){
+		Dictionary<string, string> inputs = new Dictionary<string, string>();
+		inputs.Add ("forward", forward);
+		inputs.Add ("backward", backward);
+		inputs.Add ("left", left);
+		inputs.Add ("right", right);
+		inputs.Add ("action", action);
+		inputs.Add ("sprint", sprint);
+		inputs.Add ("crouch", crouch);
+		inputs.Add ("cover", cover);
+		inputs.Add ("climb", climb);
+		inputs.Add ("jump", jump);
+		inputs.Add ("target", target);
+		inputs.Add ("cameraReset", cameraReset);
+		inputs.Add ("abilityEquip", abilityEquip);
+		inputs.Add ("notifications", notifications);
+		inputs.Add ("compass", compass);
+		inputs.Add ("journal", journal);
+		inputs.Add ("qAbility1", qAbility1);
+		inputs.Add ("nextAbility", nextAbility);
+		inputs.Add ("previousAbility", previousAbility);
+		inputs.Add ("nextTarget", nextTarget);
+		inputs.Add ("previousTarget", previousTarget);
+		inputs.Add ("pause", pause);
+
+		InputSerialization.SaveInput (inputs);
+	}
+
+	//Load keyboard controls
+	public override void LoadInput(){
+		Dictionary<string, string> inputs = InputSerialization.LoadInput ();
+		forward = inputs ["forward"];
+		backward = inputs ["backward"];
+		left = inputs ["left"];
+		right = inputs ["right"];
+		action = inputs ["action"];
+		sprint = inputs ["sprint"];
+		crouch = inputs ["crouch"];
+		cover = inputs ["cover"];
+		climb = inputs ["climb"];
+		jump = inputs ["jump"];
+		target = inputs ["target"];
+		cameraReset = inputs ["cameraReset"];
+		abilityEquip = inputs ["abilityEquip"];
+		notifications = inputs ["notifications"];
+		compass = inputs ["compass"];
+		journal = inputs ["journal"];
+		qAbility1 = inputs ["qAbility1"];
+		nextAbility = inputs ["nextAbility"];
+		previousAbility = inputs ["previousAbility"];
+		nextTarget = inputs ["nextTarget"];
+		previousTarget = inputs ["previousTarget"];
+		pause = inputs ["pause"];
+
+	}
+
 }

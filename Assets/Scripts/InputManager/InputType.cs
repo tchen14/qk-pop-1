@@ -73,4 +73,8 @@ public abstract class InputType : MonoBehaviour {
 	public virtual bool isJournal() {
 		return false;
 	}
+	public virtual void SaveInput(){
+	}
+	public virtual void LoadInput(){
+	}
 }
