@@ -56,13 +56,6 @@ public class MainMenuManager : MonoBehaviour {
 	Vector2 cursorPos;										//cursor pos on canvas
 	GameObject lastButtonHovered;							//last gameobject selected with cursor
 
-	//ghetto clamping
-	Vector2 cursorPosLeft = new Vector2 (-540, 0);
-	Vector2 cursorPosRight = new Vector2 (562, 0);
-
-	Vector2 cursorPosUp = new Vector2 (0, 248);
-	Vector2 cursorPosDown = new Vector2 (0, -266);
-
 	//Important Things
 	string url = "http://i.imgur.com/eBXyo2w.jpg";
 	GameObject urlTar;
@@ -100,7 +93,7 @@ public class MainMenuManager : MonoBehaviour {
 	void Update () {
 
 		if(Input.GetAxis("Mouse X") != 0 || Input.GetAxis("Mouse Y") != 0 ){
-			cursor.transform.position = Input.mousePosition;
+			//cursor.transform.position = Input.mousePosition;
 		}
 
 		//Controller cursor control
@@ -110,6 +103,9 @@ public class MainMenuManager : MonoBehaviour {
 				controllerUsed = true;
 			}
 			cursorPos.y += Input.GetAxis("Vertical") * cursorSpeed;
+			if(cursorPos.y > Screen.height){
+				cursorPos.y = Screen.height;
+			}
 			cursor.transform.position = cursorPos;
 			//cursor.transform.Translate(Vector2.up * Time.deltaTime * 100);
 		}
@@ -119,14 +115,20 @@ public class MainMenuManager : MonoBehaviour {
 				controllerUsed = true;
 			}
 			cursorPos.y += Input.GetAxis("Vertical") * cursorSpeed;
+			if(cursorPos.y < 0){
+				cursorPos.y = 0;
+			}
 			cursor.transform.position = cursorPos;
 		}
-		if(Input.GetAxis("Horizontal") > 0){
+		if(Input.GetAxis("Horizontal") > 0 ){
 			if(controllerUsed == false){
 				cursor.SetActive(true);
 				controllerUsed = true;
 			}
 			cursorPos.x += Input.GetAxis("Horizontal") * cursorSpeed;
+			if(cursorPos.x > Screen.width){
+				cursorPos.x = Screen.width;
+			}
 			cursor.transform.position = cursorPos;
 			//cursor.transform.Translate(Vector2.right * Time.deltaTime * 100);
 		}
@@ -135,28 +137,15 @@ public class MainMenuManager : MonoBehaviour {
 				cursor.SetActive(true);
 				controllerUsed = true;
 			}
+
 			cursorPos.x += Input.GetAxis("Horizontal") * cursorSpeed;
+			if(cursorPos.x < 10){
+				cursorPos.x = 10;
+			}
 			cursor.transform.position = cursorPos;
 			//cursor.transform.Translate(-Vector2.right * Time.deltaTime * 100);
 		}
 
-		//ghetto clamp
-		if (cursorPos.x < -540) {
-			cursorPosLeft.y = cursorPos.y;
-			cursorPos = cursorPosLeft;
-		}
-		if (cursorPos.x > 562) {
-			cursorPosLeft.y = cursorPos.y;
-			//cursorPos = cursorPosLeft;
-		}
-		if (cursorPos.x < -540) {
-			cursorPosLeft.y = cursorPos.y;
-			//cursorPos = cursorPosLeft;
-		}
-		if (cursorPos.x < -540) {
-			cursorPosLeft.y = cursorPos.y;
-			//cursorPos = cursorPosLeft;
-		}
 
 		Ray ray = new Ray(cursorPoint.transform.position, cursorPoint.transform.forward * 10);
 		RaycastHit hit;
