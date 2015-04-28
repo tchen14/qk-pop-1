@@ -135,7 +135,18 @@ public class PopEventEditor : Editor {
         if (EditorGUI.EndChangeCheck()) {
             Reload();
         }
+        EditorGUILayout.Space();
+        EditorGUILayout.Space();
+        Rect rt = GUILayoutUtility.GetRect(0, 50);
+        EditorGUI.ObjectField(rt, go, typeof(GameObject));
+        var window = EditorWindow.focusedWindow;
+        MonoBehaviour.print(window.position);
+        EditorGUILayout.Space();
+        EditorGUILayout.Space();
+
     }
+    GameObject go;
+
 
     void OnSceneGUI() {
 
@@ -628,6 +639,14 @@ public class PopEventEditor : Editor {
         }
         else if (paramType == typeof(MonoBehaviour)) {
             action.p_MonoBehaviour[i] = (MonoBehaviour)EditorGUILayout.ObjectField(action.p_MonoBehaviour[i], typeof(MonoBehaviour), true, GUILayout.MaxWidth(columnWidth));
+        }
+        else if (paramType == typeof(System.Boolean)) {
+            int boolIndex = 0;
+            string[] boolPopup = { "True", "False" };
+            if (action.p_bool[i] == false) { boolIndex = 1; }
+            boolIndex = EditorGUILayout.Popup(boolIndex, boolPopup, GUILayout.MaxWidth(columnWidth));
+            if (boolIndex == 0) { action.p_bool[i] = true; }
+            else { action.p_bool[i] = false; } 
         }
     }
 

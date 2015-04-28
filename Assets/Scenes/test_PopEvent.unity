@@ -86,7 +86,7 @@ NavMeshSettings:
     minRegionArea: 2
     cellSize: .166666657
     manualCellSize: 0
-  m_NavMeshData: {fileID: 23800000, guid: f4318338452e7c74b9b879926c9db0e9, type: 2}
+  m_NavMeshData: {fileID: 23800000, guid: 65e18eba1b1a558408c1f82a5ca69e04, type: 2}
 --- !u!1 &1525310
 GameObject:
   m_ObjectHideFlags: 0
@@ -1236,6 +1236,79 @@ Transform:
   - {fileID: 1116271714}
   m_Father: {fileID: 0}
   m_RootOrder: 5
+--- !u!1 &132043576
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 132043580}
+  - 33: {fileID: 132043579}
+  - 65: {fileID: 132043578}
+  - 23: {fileID: 132043577}
+  m_Layer: 0
+  m_Name: Cube
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!23 &132043577
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 132043576}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_Materials:
+  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  m_SubsetIndices: 
+  m_StaticBatchRoot: {fileID: 0}
+  m_UseLightProbes: 1
+  m_ReflectionProbeUsage: 1
+  m_ProbeAnchor: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_PreserveUVs: 1
+  m_ImportantGI: 0
+  m_AutoUVMaxDistance: .5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingOrder: 0
+--- !u!65 &132043578
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 132043576}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!33 &132043579
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 132043576}
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!4 &132043580
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 132043576}
+  m_LocalRotation: {x: .0190406367, y: .822362602, z: -.0275691599, w: .567976356}
+  m_LocalPosition: {x: -2.74900007, y: 6.73000002, z: 14.1850004}
+  m_LocalScale: {x: .794525146, y: .99999994, z: 4.41659212}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 11
 --- !u!1 &147088974
 GameObject:
   m_ObjectHideFlags: 0
@@ -3490,7 +3563,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &388730554
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15280,9 +15353,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   conditions:
-  - e_categoryString: System
-    e_categoryIndex: 0
-    e_classString: Wait X Seconds
+  - e_categoryString: Object Script
+    e_categoryIndex: 3
+    e_classString: Crate
     e_classIndex: 1
     e_fieldString: pushCounter
     e_fieldIndex: 0
@@ -15342,18 +15415,18 @@ MonoBehaviour:
     compareString: Equal To
     compareIndex: 0
     color: {r: 0, g: .579999983, b: .689999998, a: .449999988}
-    editorHeight: 60
+    editorHeight: 94
   actions:
-  - e_categoryString: Object
-    e_categoryIndex: 3
-    e_classString: Move This Object
-    e_classIndex: 4
-    e_fieldString: Several
-    e_fieldIndex: 3
-    e_MonoBehaviour: {fileID: 0}
-    e_GameObject: {fileID: 0}
+  - e_categoryString: Object Script
+    e_categoryIndex: 6
+    e_classString: AIMain
+    e_classIndex: 0
+    e_fieldString: ChangeNavPoint
+    e_fieldIndex: 1
+    e_MonoBehaviour: {fileID: 388730554}
+    e_GameObject: {fileID: 388730553}
     p_int: 0000000000000000000000000000000000000000
-    p_bool: 0000000000
+    p_bool: 0100000000
     p_float:
     - 0
     - 0
@@ -15406,7 +15479,7 @@ MonoBehaviour:
     compareString: 
     compareIndex: 0
     color: {r: 1, g: .460000008, b: 0, a: .550000012}
-    editorHeight: 60
+    editorHeight: 160
   andOrCompare:
   - Every Condition
   - One or More
@@ -15416,7 +15489,7 @@ MonoBehaviour:
   uniqueId: 
   isActive: 1
   isRegional: 1
-  executeOnce: 0
+  executeOnce: 1
   hasExecuted: 0
   totalTimeActive: 0
   delay: 1

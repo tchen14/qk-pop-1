@@ -5,7 +5,7 @@ AudioMixerController:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: AmbianceMixer
+  m_Name: AmbienceMixer
   m_OutputGroup: {fileID: 24308816, guid: c1408774ce09dd14587ad1e98d876742, type: 2}
   m_MasterGroup: {fileID: 24300001}
   m_Snapshots:

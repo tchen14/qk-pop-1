@@ -49,7 +49,8 @@ public class EventHalf {
 
         List<object> objects = new List<object>();
         for (int i = 0; i < type.Length; i++) {
-            if (type[i] == typeof(System.Int32)) { objects.Add(p_int[i]); }
+            if (type[i] == typeof(int)) { objects.Add(p_int[i]); }
+            else if (type[i] == typeof(bool)) { objects.Add(p_bool[i]); }
             else if (type[i] == typeof(float)) { objects.Add(p_float[i]); }
             else if (type[i] == typeof(string)) { objects.Add(p_string[i]); }
             else if (type[i] == typeof(Vector3)) { objects.Add(p_Vector3[i]); }
