@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 using Debug=FFP.Debug;
 
 public class Quinc : MonoBehaviour
@@ -30,6 +31,10 @@ public class Quinc : MonoBehaviour
 	private GameObject soundThrowTarget;
 	private GameObject stunTarget;
 
+	List <GameObject> acquiredTargets = new List<GameObject> ();
+	int currentTargetedObjectIndex = 0;
+	bool inTargetLock = false;
+
 	void Start ()
 	{
 		print ("Press 1: Push");
@@ -41,86 +46,98 @@ public class Quinc : MonoBehaviour
 	
 	void FixedUpdate ()
 	{
-		if (Input.GetKeyDown(KeyCode.Alpha1) && Time.time > nextPush)
+		//Get the list of targeted objects and the index if in camera target mode
+		inTargetLock = PoPCamera.instance.inTargetLock;
+		if (inTargetLock)
 		{
-			string pushStatus = "";
-			nextPush = Time.time + pushRate;
-			pushPullTarget = GameObject.Find("Crate"); //!> Reference Targeting Script to get current Target
-
-			if(Push(ref pushStatus, pushPullTarget))
-			{
-				print ("Push status: " + pushStatus);
-                pushPullTarget.GetComponent<Item>().pushCounter++;
-                pushPullTarget.GetComponent<Item>().quincAffected = true;
-			}
-			else
-			{
-				print ("Push Error: " + pushStatus);
-			}
+			acquiredTargets = PoPCamera.instance.targetedObjects;
+			currentTargetedObjectIndex = PoPCamera.instance.targetindex;
 		}
-		else if (Input.GetKeyDown(KeyCode.Alpha2) && Time.time > nextPull)
-		{
-			string pullStatus = "";
-			nextPull = Time.time + pullRate;
-			pushPullTarget = GameObject.Find("Crate"); //!> Reference Targeting Script to get current Target
 
-			if(Pull(ref pullStatus, pushPullTarget))
-			{
-				print ("Pull Status: " + pullStatus);
-                pushPullTarget.GetComponent<Item>().pullCounter++;
-                pushPullTarget.GetComponent<Item>().quincAffected = true;
-			}
-			else
-			{
-				print ("Pull Error: " + pullStatus);
-			}
-		}
-		else if (Input.GetKeyDown(KeyCode.Alpha3))
+		//if there targted objects in the list allow actions on them
+		if(acquiredTargets.Count != 0 && inTargetLock)
 		{
-			string cutStatus = "";
-			cutTarget = GameObject.Find("Rope"); //!> Reference Targeting Script to get current Target
+			//if (Input.GetKeyDown(KeyCode.Alpha1) && Time.time > nextPush)
+			if (Input.GetKeyDown(KeyCode.Y) && Time.time > nextPush)
+			{
+				string pushStatus = "";
+				nextPush = Time.time + pushRate;
+				//pushPullTarget = GameObject.Find("Crate"); //!> Reference Targeting Script to get current Target
+				pushPullTarget = acquiredTargets[currentTargetedObjectIndex];
 
-			if(Cut(ref cutStatus, cutTarget))
-			{
-				print ("Cut Status: " + cutStatus);
-                cutTarget.GetComponent<Item>().cutCounter++;
-                cutTarget.GetComponent<Item>().quincAffected = true;
+				if(Push(ref pushStatus, pushPullTarget))
+				{
+					print ("Push status: " + pushStatus);
+				}
+				else
+				{
+					print ("Push Error: " + pushStatus);
+				}
 			}
-			else
+			//else if (Input.GetKeyDown(KeyCode.Alpha2) && Time.time > nextPull)
+			else if (Input.GetKeyDown(KeyCode.U) && Time.time > nextPull)
 			{
-				print ("Cut Error: " + cutStatus);
-			}
-		}
-		else if(Input.GetKeyDown(KeyCode.Alpha4))
-		{
-			string soundStatus = "";
-			soundThrowTarget = GameObject.Find("Well"); //!> Reference Targeting Script to get current Target
+				string pullStatus = "";
+				nextPull = Time.time + pullRate;
+				//pushPullTarget = GameObject.Find("Crate"); //!> Reference Targeting Script to get current Target
+				pushPullTarget = acquiredTargets[currentTargetedObjectIndex];
 
-			if(SoundThrow(ref soundStatus, soundThrowTarget))
-			{
-				print ("Sound Status: " + soundStatus);
-                soundThrowTarget.GetComponent<Item>().soundThrowCounter++;
-                soundThrowTarget.GetComponent<Item>().quincAffected = true;
+				if(Pull(ref pullStatus, pushPullTarget))
+				{
+					print ("Pull Status: " + pullStatus);
+				}
+				else
+				{
+					print ("Pull Error: " + pullStatus);
+				}
 			}
-			else
+			//else if (Input.GetKeyDown(KeyCode.Alpha3))
+			else if (Input.GetKeyDown(KeyCode.I))
 			{
-				print ("Sound Error: " + soundStatus);
-			}
-		}
-		else if(Input.GetKeyDown(KeyCode.Alpha5))
-		{
-			string stunStatus = "";
-			stunTarget = GameObject.Find("Enemy"); //!> Reference Targeting Script to get current Target
+				string cutStatus = "";
+				//cutTarget = GameObject.Find("Rope"); //!> Reference Targeting Script to get current Target
+				cutTarget = acquiredTargets[currentTargetedObjectIndex];
 
-			if(Stun(ref stunStatus, stunTarget))
-			{
-				print ("Stun Status: " + stunStatus);
-                stunTarget.GetComponent<Item>().stunCounter++;
-                stunTarget.GetComponent<Item>().quincAffected = true;
+				if(Cut(ref cutStatus, cutTarget))
+				{
+					print ("Cut Status: " + cutStatus);
+				}
+				else
+				{
+					print ("Cut Error: " + cutStatus);
+				}
 			}
-			else
+			//else if(Input.GetKeyDown(KeyCode.Alpha4))
+			else if(Input.GetKeyDown(KeyCode.O))
 			{
-				print ("Stun Error: " + stunStatus);
+				string soundStatus = "";
+				//soundThrowTarget = GameObject.Find("Well"); //!> Reference Targeting Script to get current Target
+				soundThrowTarget = acquiredTargets[currentTargetedObjectIndex];
+
+				if(SoundThrow(ref soundStatus, soundThrowTarget))
+				{
+					print ("Sound Status: " + soundStatus);
+				}
+				else
+				{
+					print ("Sound Error: " + soundStatus);
+				}
+			}
+			//else if(Input.GetKeyDown(KeyCode.Alpha5))
+			else if(Input.GetKeyDown(KeyCode.P))
+			{
+				string stunStatus = "";
+				//stunTarget = GameObject.Find("Enemy"); //!> Reference Targeting Script to get current Target
+				stunTarget = acquiredTargets[currentTargetedObjectIndex];
+
+				if(Stun(ref stunStatus, stunTarget))
+				{
+					print ("Stun Status: " + stunStatus);
+				}
+				else
+				{
+					print ("Stun Error: " + stunStatus);
+				}
 			}
 		}
 	}
