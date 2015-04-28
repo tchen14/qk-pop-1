@@ -140,7 +140,7 @@ public class PopEventEditor : Editor {
         Rect rt = GUILayoutUtility.GetRect(0, 50);
         EditorGUI.ObjectField(rt, go, typeof(GameObject));
         var window = EditorWindow.focusedWindow;
-        MonoBehaviour.print(window.position);
+        //MonoBehaviour.print(window.position);
         EditorGUILayout.Space();
         EditorGUILayout.Space();
 
@@ -660,10 +660,10 @@ public class PopEventEditor : Editor {
         else if (action.e_classString == "Activate Another Event" || action.e_classString == "Deactivate Another Event") {
             DrawActivateAnotherEvent(action);
         }
-        else if (action.e_classString == "Create Text Box") {
+        else if (action.e_classString == "Set Text") {
             DrawCreateTextBox(action);
         }
-        else if (action.e_classString == "Destroy Text Box") {
+        else if (action.e_classString == "Clear Text") {
             DrawDestroyTextBox(action);
         }
         else if (action.e_classString == "Create Prefab At Position") {
@@ -693,15 +693,15 @@ public class PopEventEditor : Editor {
     }
 
     void DrawCreateTextBox(EventHalf action) {
-        action.editorHeight = 78;
-        EditorGUILayout.LabelField("<b>NOT YET IMPLEMENTED</b>", style, GUILayout.MaxWidth(columnWidth));
+        action.editorHeight = 42; //78
+        //EditorGUILayout.LabelField("<b>NOT YET IMPLEMENTED</b>", style, GUILayout.MaxWidth(columnWidth));
 
-        EditorGUILayout.BeginHorizontal();
-        EditorGUILayout.LabelField("Id", GUILayout.MaxWidth(columnWidth / 2));
-        action.p_string[0] = EditorGUILayout.TextField(action.p_string[0], GUILayout.MaxWidth(columnWidth / 2));
-        EditorGUILayout.EndHorizontal();
+        //EditorGUILayout.BeginHorizontal();
+        //EditorGUILayout.LabelField("Id", GUILayout.MaxWidth(columnWidth / 2));
+        action.p_string[0] = EditorGUILayout.TextField(action.p_string[0], GUILayout.MaxWidth(columnWidth / 1));
+        //EditorGUILayout.EndHorizontal();
 
-        action.p_string[1] = EditorGUILayout.TextArea(action.p_string[1], GUILayout.MaxWidth(columnWidth));
+        //action.p_string[1] = EditorGUILayout.TextArea(action.p_string[1], GUILayout.MaxWidth(columnWidth));
     }
 
     void DrawDestroyTextBox(EventHalf action) {

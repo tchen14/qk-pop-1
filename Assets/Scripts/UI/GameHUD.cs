@@ -25,7 +25,7 @@ public class GameHUD : MonoBehaviour {
 
 	List<GameObject> phoneAbilitiesAvailible;		//!<List containing hud phone abilties
 	GameObject mapCam;								//!<Camera used for minimap
-	GameObject objectiveText;						//!<Objective Text UI element
+	static GameObject objectiveText;						//!<Objective Text UI element
 	GameObject[] mapLabels;							//!<Array of text taht appears on minimap
 
 	GameObject middleAbilityIcon;					//!<Phone ability icon references
@@ -126,8 +126,8 @@ public class GameHUD : MonoBehaviour {
 	}
 
 	//!Call this to update objective tet at top of the screen
-	public void UpdateObjectiveText(string newObjective) {
-		objectiveText.GetComponent<Text>().text = "Objective: " + newObjective;
+	public static void UpdateObjectiveText(string newObjective) {
+		objectiveText.GetComponent<Text>().text = newObjective;
 	}
 
 	//!Rotates map labels so that the text is always right side up, call this from anything that rotates the camera

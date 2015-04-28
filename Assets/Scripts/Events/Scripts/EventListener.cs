@@ -182,7 +182,14 @@ public static class EventListener {
                 if (action.e_fieldString != string.Empty && action.e_MonoBehaviour != null) {
                     action.e_MonoBehaviour.GetType().GetMethod(action.e_fieldString).Invoke(action.e_MonoBehaviour, action.args);
                 }
-            }
+			}
+			else if (action.e_categoryString == "GUI") {
+				if (action.e_classString == "Set Text") {
+					GameHUD.UpdateObjectiveText(action.p_string[0]);
+				}else if (action.e_classString == "Clear Text") {
+					GameHUD.UpdateObjectiveText("");
+				}
+			}
             else {
                 if (action.e_classString == "Debug Message") {
                     MonoBehaviour.print(action.p_string[0]);
@@ -209,10 +216,10 @@ public static class EventListener {
                 else if (action.e_classString == "Move This Object") {
                     popEvent.gameObject.transform.position = action.p_Vector3[0];
                     popEvent.gameObject.transform.eulerAngles = action.p_Vector3[1];
-                }
-                else if (action.e_classString == "Destroy This Object") {
-                    destroyAfterwards = true;
-                }
+				}
+				else if (action.e_classString == "Destroy This Object") {
+					destroyAfterwards = true;
+				}
             }
         }
         if (popEvent.executeOnce == true) {

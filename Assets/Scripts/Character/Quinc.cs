@@ -34,15 +34,6 @@ public class Quinc : MonoBehaviour
 	List <GameObject> acquiredTargets = new List<GameObject> ();
 	int currentTargetedObjectIndex = 0;
 	bool inTargetLock = false;
-
-	void Start ()
-	{
-		print ("Press 1: Push");
-		print ("Press 2: Pull");
-		print ("Press 3: Cut");
-		print ("Press 4: SoundThrow");
-		print ("Press 5: Stun");
-	}
 	
 	void FixedUpdate ()
 	{
