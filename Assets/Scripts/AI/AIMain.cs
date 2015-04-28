@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
-using Debug = FFP.Debug;
+//using Debug = FFP.Debug;
 
 [RequireComponent(typeof(NavMeshAgent))]	//Automaticly Make a navMeshAgent on this game object when this script is applied
 [RequireComponent(typeof(Rigidbody))]
@@ -25,11 +25,10 @@ public class AIMain : MonoBehaviour {
 	public bool 				aggression 			= false;					//!<If the NPC will attack the player
 
 	//Variables Controllers
-	[EventVisible]
+	
 	[ReadOnly]public bool 		seesTarget 			= false;					//!<If the Player has been spotted
 	[ReadOnly]public GameObject target				= null;						//!<The transform of the player
 	[ReadOnly]public bool 		attacking 			= false;					//!<If the AI is attacking
-	[EventVisible]
 	[ReadOnly]public bool 		panic 				= false;					//!<If the AI is panicking
 	[ReadOnly]public Vector3 	panicTarget			= new Vector3 (0, 0, 0);	//!<Target of AI panic
 	[ReadOnly]public float 		aggressionLevel 	= 0;						//!<The current awareness of the NPC to the Player	
@@ -44,11 +43,6 @@ public class AIMain : MonoBehaviour {
 
 	private RaycastHit 			hit;											//!<Takes information from RayCast
 	private GameObject[] 		viableTargets;									//!<All the available targets for the AI
-
-	[EventVisible]
-	public void SetAgression(bool b){
-		aggression = b;
-	}
 
 	//! Unity Start function
 	void Start() 
@@ -72,40 +66,45 @@ public class AIMain : MonoBehaviour {
     //! Unity Update function
     void Update() 
 	{
-    	#region attack
-	        //If the AI does not have an active target then there is nothing to attack
-	        if (target != null) 
-			{
-				//If the AI is within range to attack then activate the Attack Funtionality
-	            if (attackDistance >= Vector3.Distance (transform.position,target.transform.position)) 
-				{
-	               attacking = true;	//begin the attack timer
-				/*
+				if (hp > 0) {
+						#region attack
+						//If the AI does not have an active target then there is nothing to attack
+						if (target != null) {
+								//If the AI is within range to attack then activate the Attack Funtionality
+								if (attackDistance >= Vector3.Distance (transform.position, target.transform.position)) {
+										attacking = true;	//begin the attack timer
+										/*
 				 * This is where the function for attacking is called. It is currently unclear as to whether the player will be reset or damaged,
 				 * If this code will be an external, internal, or written function here, and if the game will check for checkpoints from this
 				 * location in the script
 				 */
-	               //Debug.Log("ai","ATTACK!");
-				/*
+										//Debug.Log("ai","ATTACK!");
+										/*
 				 */
-	               target = null;		//reset target to make the AI search for the player again
-	            }
-	        }
-        #endregion
+										target = null;		//reset target to make the AI search for the player again
+								}
+						}
+						#endregion
 
-        #region movement
-			//continue walking to the current location, reseting the nav grid to insure other AI, the player, or movable objects have not become obsticals
-	        mesh.SetDestination(navPoint);
-		#endregion
+						#region movement
+						//continue walking to the current location, reseting the nav grid to insure other AI, the player, or movable objects have not become obsticals
+						mesh.SetDestination (navPoint);
+						#endregion
 
-        #region sight
-        //If the AI is willing to fight but has not found an enemy begin the coroutine to find a viable target
-		if(aggression == true && target == null)
-		{
-			StartCoroutine("CheckForTargets");
+						#region sight
+						//If the AI is willing to fight but has not found an enemy begin the coroutine to find a viable target
+						if (aggression == true && target == null) {
+								StartCoroutine ("CheckForTargets");
+						}
+						#endregion
+				}
+			else
+			{
+				Pause();
+				//Log.M ("ai","DEAD");
+			}
 		}
-        #endregion
-    }
+
 
     //! Unity FixedUpdate function
 	void FixedUpdate () 
@@ -129,7 +128,7 @@ public class AIMain : MonoBehaviour {
 			//If the AI has a target already and is willing to fight and is not currently attacking the target
 			if(aggression == true && seesTarget == true && attacking == false)
 			{
-				Debug.Log ("ai", aggressionLevel.ToString());
+				Log.M ("ai", aggressionLevel.ToString());
 				//If the AI is aware of its target set the navPoint to the target
 				if(aggressionLevel >= aggressionLimit)
 					ChangeNavPoint(target.name,target.transform.position);
@@ -154,12 +153,12 @@ public class AIMain : MonoBehaviour {
     public IEnumerator EndAttack() 
 	{
         yield return new WaitForSeconds (1);
+		attacking = false;
     }
     #endregion
 
     #region movement
     //!<Sets a new destination for the AI
-    [EventVisible]
 	public void ChangeNavPoint(string N,Vector3 T)
 	{
 		navCheck = N;
@@ -173,7 +172,7 @@ public class AIMain : MonoBehaviour {
 	//!<Stops the AI from moving on the mesh
 	public void Pause()
 	{
-		Debug.Log("ai", "W");
+		//Log.M ("ai", "W");
 		mesh.Stop();
 	}
 	//!<Resumes the AI on its current path
@@ -199,34 +198,32 @@ public class AIMain : MonoBehaviour {
 
 		 
 		//Gathers all enemy targets by tags and adds them to the end of the array
-		for(int i = 0; i < seekTag.Length; i++)
+		for(int enemyType = 0; enemyType < seekTag.Length; enemyType++)
 		{
-			GameObject[] targets = GameObject.FindGameObjectsWithTag(seekTag[i]);
-			for(int ii = 0; ii < targets.Length; ii++)
-				 viableTargets.Add(targets[ii]);
+			GameObject[] targets = GameObject.FindGameObjectsWithTag(seekTag[enemyType]);
+			for(int searchEnemyType = 0;searchEnemyType < targets.Length; searchEnemyType++)
+				 viableTargets.Add(targets[searchEnemyType]);
 		}
 		//sets our dynamic array to a static array for easy use		GameObject[] viableTargets = (GameObject[])checkingTargets.ToArray (typeof(GameObject));
 
 		if(viableTargets.Count != 0)
 		{
-			for(int i = 0; i < viableTargets.Count; i++)
+			for(int searchTargets = 0; searchTargets < viableTargets.Count; searchTargets++)
 			{
 				//If the target is within the field of view of the AI continue
-				if(Vector3.Angle(viableTargets[i].transform.position-transform.position,transform.forward)< sightAngle)
+				if(Vector3.Angle(viableTargets[searchTargets].transform.position-transform.position,transform.forward)< sightAngle)
 				{
-					//Debug.DrawRay("ai",transform.position,viableTargets[0].transform.position - transform.position);
 					//If the target is within the sight distance of the AI continue
-					if(Vector3.Distance(transform.position,viableTargets[i].transform.position) < sightDistance)
+					if(Vector3.Distance(transform.position,viableTargets[searchTargets].transform.position) < sightDistance)
 					{
 						//If the target is within Line of Sight continue
-						if(Physics.Raycast(transform.position,viableTargets[i].transform.position-transform.position,out hit))
+						if(Physics.Raycast(transform.position,viableTargets[searchTargets].transform.position-transform.position,out hit))
 						{
 							//If sight is true continue
-							if(hit.collider.tag == viableTargets[i].tag)
+							if(hit.collider.tag == viableTargets[searchTargets].tag)
 							{
 								//Set this as the target
 								target = hit.collider.gameObject;
-								//GetComponent<AI_movement>().ChangeNavPoint(GetComponent<AI_main>().AI_target.transform);
 								seesTarget = true;
 							}
 						}
