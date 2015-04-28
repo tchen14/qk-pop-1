@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
-//using Debug = FFP.Debug;
+using Debug = FFP.Debug;
 
 [RequireComponent(typeof(NavMeshAgent))]	//Automaticly Make a navMeshAgent on this game object when this script is applied
 [RequireComponent(typeof(Rigidbody))]
@@ -129,7 +129,7 @@ public class AIMain : MonoBehaviour {
 			//If the AI has a target already and is willing to fight and is not currently attacking the target
 			if(aggression == true && seesTarget == true && attacking == false)
 			{
-				Log.M ("ai", aggressionLevel.ToString());
+				Debug.Log("ai", aggressionLevel.ToString());
 				//If the AI is aware of its target set the navPoint to the target
 				if(aggressionLevel >= aggressionLimit)
 					ChangeNavPoint(target.name,target.transform.position);

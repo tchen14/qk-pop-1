@@ -13,10 +13,10 @@ using UnityEngine.UI;
 public class GameHUD : MonoBehaviour {
 #pragma warning disable 0219
 #pragma warning disable 0414
-	public GameObject mainHUDCanvas;				//!<The canvas HUD is rendered on
-	public GameObject worldMapCanvas;				//!<All the game map elements
-	public GameObject gameMap;						//!<The map iamge on a plane
-	public GameObject player;						//!<reference to player
+	GameObject mainHUDCanvas;				//!<The canvas HUD is rendered on
+	GameObject worldMapCanvas;				//!<All the game map elements
+	GameObject gameMap;						//!<The map iamge on a plane
+	GameObject player;						//!<reference to player
 	public int numOfAbilities;						//!<temporary int for number of abilities in game
 	public GameObject[] hudAbilityIcons;			//!<Array of hud icons, set in inspector
 	public bool abilitiesUp = false;
@@ -43,14 +43,17 @@ public class GameHUD : MonoBehaviour {
 	GameObject mapElements;
 	GameObject compassCameraPoint;					//!<Point at camera location used to calculate objective positions
 
-	public GameObject testObjective;
+	GameObject testObjective;
 
 	void Awake() {
 
 		mainHUDCanvas = GameObject.Find("mainHUD");
 		skillWheel = GameObject.Find("abilityWheel");
 		abilityWheelAnchorAnim = GameObject.Find("AbilityWheelAnchor").GetComponent<Animator>();
-
+		worldMapCanvas = GameObject.Find ("worldMapCanvas");
+		gameMap = GameObject.Find("mapBG");
+		player = GameObject.Find ("_Player");
+		testObjective = GameObject.Find("testObjectiveCanvas");
 		//!Turn on UI stuff
 		worldMapCanvas.SetActive(true);
 		canSpin = false;
