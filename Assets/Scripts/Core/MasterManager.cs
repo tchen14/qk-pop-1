@@ -26,10 +26,10 @@ public static class MasterManager {
 		MasterSceneManager.Instance.InitScenesDictionary();
 		
 		//Debug.Break();
-		/*go = new GameObject();
+		go = new GameObject();
 		go.AddComponent<InputManager>();
 		go.name = "_InputManager";
-		ObjectManager.AddSavedObject(go.transform);*/
+		ObjectManager.AddSavedObject(go.transform);
 		
 		/*go = new GameObject();
 		go.AddComponent<AchievementManager>();

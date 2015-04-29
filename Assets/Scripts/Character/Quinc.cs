@@ -35,6 +35,8 @@ public class Quinc : MonoBehaviour
 	int currentTargetedObjectIndex = 0;
 	bool inTargetLock = false;
 	
+	public static int activeAbility = 0;
+	
 	void FixedUpdate ()
 	{
 		//Get the list of targeted objects and the index if in camera target mode
@@ -49,57 +51,27 @@ public class Quinc : MonoBehaviour
 		if(acquiredTargets.Count != 0 && inTargetLock)
 		{
 			//if (Input.GetKeyDown(KeyCode.Alpha1) && Time.time > nextPush)
-			if (Input.GetKeyDown(KeyCode.Y) && Time.time > nextPush)
+			if (InputManager.input.isActionPressed() && activeAbility == 0 && Time.time > nextPush)
 			{
-				string pushStatus = "";
 				nextPush = Time.time + pushRate;
 				//pushPullTarget = GameObject.Find("Crate"); //!> Reference Targeting Script to get current Target
 				pushPullTarget = acquiredTargets[currentTargetedObjectIndex];
-
-				if(Push(ref pushStatus, pushPullTarget))
-				{
-					print ("Push status: " + pushStatus);
-				}
-				else
-				{
-					print ("Push Error: " + pushStatus);
-				}
 			}
 			//else if (Input.GetKeyDown(KeyCode.Alpha2) && Time.time > nextPull)
-			else if (Input.GetKeyDown(KeyCode.U) && Time.time > nextPull)
+			else if (InputManager.input.isActionPressed() && activeAbility == 1 && Time.time > nextPull)
 			{
-				string pullStatus = "";
 				nextPull = Time.time + pullRate;
 				//pushPullTarget = GameObject.Find("Crate"); //!> Reference Targeting Script to get current Target
 				pushPullTarget = acquiredTargets[currentTargetedObjectIndex];
-
-				if(Pull(ref pullStatus, pushPullTarget))
-				{
-					print ("Pull Status: " + pullStatus);
-				}
-				else
-				{
-					print ("Pull Error: " + pullStatus);
-				}
 			}
 			//else if (Input.GetKeyDown(KeyCode.Alpha3))
-			else if (Input.GetKeyDown(KeyCode.I))
+			else if (InputManager.input.isActionPressed() && activeAbility == 2 && Input.GetKeyDown(KeyCode.I))
 			{
-				string cutStatus = "";
 				//cutTarget = GameObject.Find("Rope"); //!> Reference Targeting Script to get current Target
 				cutTarget = acquiredTargets[currentTargetedObjectIndex];
-
-				if(Cut(ref cutStatus, cutTarget))
-				{
-					print ("Cut Status: " + cutStatus);
-				}
-				else
-				{
-					print ("Cut Error: " + cutStatus);
-				}
 			}
 			//else if(Input.GetKeyDown(KeyCode.Alpha4))
-			else if(Input.GetKeyDown(KeyCode.O))
+			else if(InputManager.input.isActionPressed() && activeAbility == 3 && Input.GetKeyDown(KeyCode.O))
 			{
 				string soundStatus = "";
 				//soundThrowTarget = GameObject.Find("Well"); //!> Reference Targeting Script to get current Target
@@ -115,20 +87,11 @@ public class Quinc : MonoBehaviour
 				}
 			}
 			//else if(Input.GetKeyDown(KeyCode.Alpha5))
-			else if(Input.GetKeyDown(KeyCode.P))
+			else if(InputManager.input.isActionPressed() && activeAbility == 4 && Input.GetKeyDown(KeyCode.P))
 			{
-				string stunStatus = "";
 				//stunTarget = GameObject.Find("Enemy"); //!> Reference Targeting Script to get current Target
 				stunTarget = acquiredTargets[currentTargetedObjectIndex];
 
-				if(Stun(ref stunStatus, stunTarget))
-				{
-					print ("Stun Status: " + stunStatus);
-				}
-				else
-				{
-					print ("Stun Error: " + stunStatus);
-				}
 			}
 		}
 	}
@@ -155,7 +118,7 @@ public class Quinc : MonoBehaviour
 		{
 			status = "Not Compatible";
 			return false;
-		}
+		}	
 		if(Vector3.Distance(pushTarget.transform.position, transform.position) > pushRange)
 		{
 			status = "Not In Range";

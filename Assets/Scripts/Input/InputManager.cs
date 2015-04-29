@@ -13,7 +13,7 @@ public sealed class InputManager : MonoBehaviour
 		get { return instance ?? (instance = GameObject.FindObjectOfType<InputManager>());} 
 		private set{ }
 	}
-	public InputType activeInputType; //!< Active input type, todo: make enum
+	public static InputType input; //!< Active input type, todo: make enum
 
 	public Dictionary<string, InputType> inputs = new Dictionary<string, InputType>();
 
@@ -35,7 +35,7 @@ public sealed class InputManager : MonoBehaviour
 	//!Switch input type
 	public void ChangeInputType(string inputType) {
 		if(inputs.ContainsKey(inputType))
-			activeInputType = inputs[inputType];
+			input = inputs[inputType];
 	}
 	
 }

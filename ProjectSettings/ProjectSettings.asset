@@ -143,6 +143,9 @@ PlayerSettings:
   - m_BuildTarget: iPhone
     m_StaticBatching: 1
     m_DynamicBatching: 1
+  - m_BuildTarget: Standalone
+    m_StaticBatching: 1
+    m_DynamicBatching: 1
   webPlayerTemplate: APPLICATION:Default
   m_TemplateCustomTags: {}
   actionOnDotNetUnhandledException: 1
@@ -259,6 +262,7 @@ PlayerSettings:
   spritePackerPolicy: 
   scriptingDefineSymbols:
     1: 
+    4: 
   metroPackageName: _aaa
   metroPackageLogo: 
   metroPackageLogo140: 

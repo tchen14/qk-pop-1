@@ -41,14 +41,12 @@ public static class EventLibrary {
 		{ "Enemy", typeof(Enemy) },
 		{ "Rope", typeof(Rope) },
 		{ "Well", typeof(Well) },
-		{ "GameHUD", typeof(GameHUD) },
 	};
 
-	public static string[] monoClassesNice = new string[] { "AIMain",  "Crate",  "Enemy",  "Rope",  "Well",  "GameHUD", };
+	public static string[] monoClassesNice = new string[] { "AIMain",  "Crate",  "Enemy",  "Rope",  "Well", };
 
 	public static Dictionary<string, string[]> library = new Dictionary<string, string[]> {
 		{ "AudioManagerMethods", new string[] {"changeVol", "seeVol", } },
-		{ "GameHUDMethods", new string[] {"UpdateObjectiveText", } },
 		{ "CrateFields", new string[] {"pushCounter", "pullCounter", "cutCounter", "soundThrowCounter", "stunCounter", "quincAffected", } },
 		{ "EnemyFields", new string[] {"pushCounter", "pullCounter", "cutCounter", "soundThrowCounter", "stunCounter", "quincAffected", } },
 		{ "ItemFields", new string[] {"pushCounter", "pullCounter", "cutCounter", "soundThrowCounter", "stunCounter", "quincAffected", } },
@@ -58,7 +56,6 @@ public static class EventLibrary {
 
 	public static Dictionary<string, string[]> libraryNice = new Dictionary<string, string[]> {
 		{ "AudioManagerMethods", new string[] {"changeVol", "seeVol", } },
-		{ "GameHUDMethods", new string[] {"UpdateObjectiveText", } },
 		{ "CrateFields", new string[] {"Pushed X Times", "Pulled X Times", "Cut X Times", "Sound Thrown X Times", "Stunned X Times", "Affected by QuinC", } },
 		{ "EnemyFields", new string[] {"Pushed X Times", "Pulled X Times", "Cut X Times", "Sound Thrown X Times", "Stunned X Times", "Affected by QuinC", } },
 		{ "ItemFields", new string[] {"Pushed X Times", "Pulled X Times", "Cut X Times", "Sound Thrown X Times", "Stunned X Times", "Affected by QuinC", } },

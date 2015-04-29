@@ -660,11 +660,11 @@ public class PopEventEditor : Editor {
         else if (action.e_classString == "Activate Another Event" || action.e_classString == "Deactivate Another Event") {
             DrawActivateAnotherEvent(action);
         }
-        else if (action.e_classString == "Set Text") {
-            DrawCreateTextBox(action);
+        else if (action.e_classString == "Set Objective") {
+			DrawSetObjective(action);
         }
-        else if (action.e_classString == "Clear Text") {
-            DrawDestroyTextBox(action);
+		else if (action.e_classString == "Set Dialogue") {
+			DrawSetDialogue(action);
         }
         else if (action.e_classString == "Create Prefab At Position") {
             DrawCreatePrefabAtPosition(action);
@@ -692,7 +692,7 @@ public class PopEventEditor : Editor {
         EditorGUILayout.EndHorizontal();
     }
 
-    void DrawCreateTextBox(EventHalf action) {
+    void DrawSetObjective(EventHalf action) {
         action.editorHeight = 42; //78
         //EditorGUILayout.LabelField("<b>NOT YET IMPLEMENTED</b>", style, GUILayout.MaxWidth(columnWidth));
 
@@ -703,17 +703,11 @@ public class PopEventEditor : Editor {
 
         //action.p_string[1] = EditorGUILayout.TextArea(action.p_string[1], GUILayout.MaxWidth(columnWidth));
     }
-
-    void DrawDestroyTextBox(EventHalf action) {
-        action.editorHeight = 60;
-        EditorGUILayout.LabelField("<b>NOT YET IMPLEMENTED</b>", style, GUILayout.MaxWidth(columnWidth));
-
-        EditorGUILayout.BeginHorizontal();
-        EditorGUILayout.LabelField("Id", GUILayout.MaxWidth(columnWidth / 2));
-        action.p_string[0] = EditorGUILayout.TextField(action.p_string[0], GUILayout.MaxWidth(columnWidth / 2));
-        EditorGUILayout.EndHorizontal();
-    }
-
+	void DrawSetDialogue(EventHalf action) {
+		action.editorHeight = 58;
+		action.p_string[0] = EditorGUILayout.TextField(action.p_string[0], GUILayout.MaxWidth(columnWidth / 1));
+		action.p_string[1] = EditorGUILayout.TextField(action.p_string[1], GUILayout.MaxWidth(columnWidth / 1));
+	}
     void DrawCreatePrefabAtPosition(EventHalf action) {
         action.editorHeight = 110;
         action.p_GameObject[0] = (GameObject)EditorGUILayout.ObjectField(action.p_GameObject[0], typeof(GameObject), false, GUILayout.MaxWidth(columnWidth));

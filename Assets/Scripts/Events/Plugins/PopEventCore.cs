@@ -30,7 +30,7 @@ public static class PopEventCore {
 		{ "Player", new string[] { "Choose An Action", "Move Player To Location" } },
 		{ "Item", new string[] { "Choose An Action", "Add X Items" } },
 		{ "Object", new string[] { "Choose An Action", "Create Prefab At Position", "Create Prefab Here", "Destroy This Object", "Move This Object" } },
-		{ "GUI", new string[] { "Choose An Action", "Set Text", "Clear Text" } },
+		{ "GUI", new string[] { "Choose An Action", "Set Objective", "Set Dialogue" } },
 		{ "Audio", new string[] { "Choose An Action", "Play Sound" } },
         { "Object Script", new string[] { "" } },
 		{ "Static Script", new string[] { "" } },

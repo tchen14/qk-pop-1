@@ -184,10 +184,10 @@ public static class EventListener {
                 }
 			}
 			else if (action.e_categoryString == "GUI") {
-				if (action.e_classString == "Set Text") {
+				if (action.e_classString == "Set Objective") {
 					GameHUD.UpdateObjectiveText(action.p_string[0]);
-				}else if (action.e_classString == "Clear Text") {
-					GameHUD.UpdateObjectiveText("");
+				}else if (action.e_classString == "Set Dialogue") {
+					GameHUD.UpdateDialogueText(action.p_string[0], action.p_string[1]);
 				}
 			}
             else {
