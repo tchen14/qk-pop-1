@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using SimpleJSON;
 
 //! InputType responsible for normal QK in game movement controls
 public class GameInputType : InputType {
@@ -16,130 +17,136 @@ public class GameInputType : InputType {
 	protected string cover = "e";
 	protected string climb = "q";
 	protected string jump = "space";
-	protected string target = "Mouse1";
-	protected string cameraReset = "Mouse2";
+	protected KeyCode target = KeyCode.Mouse1;
+	protected KeyCode cameraReset = KeyCode.Mouse2;
 	protected string abilityEquip = "tab";
 	protected string notifications = "l";
 	protected string compass = "k";
 	protected string journal = "j";
 	protected string qAbility1 = "q";
-	protected string nextAbility = "scroll up";
-	protected string previousAbility = "scroll down";
-	protected string nextTarget = "scroll up";
-	protected string previousTarget = "scroll down";
+	protected bool nextTarget {get { return Input.GetAxis("Mouse ScrollWheel") > 0; } }
+	protected bool previousTarget { get { return Input.GetAxis("Mouse ScrollWheel") < 0; } }
 	protected string pause = "escape";
 	//_______________________________
-	protected string controllerVert = "Vertical";
 	protected string controllerHor = "Horizontal";
-	protected string controllerRightVert = "Right Stick Vertical";
+	protected string controllerVert = "Vertical";
 	protected string controllerRightHor = "Right Stick Horizontal";
-	protected string controllerCrouch = "X Button";
+	protected string controllerRightVert = "Right Stick Vertical";
+	protected string controllerCrouch = "Left Stick Press";
 	protected string controllerJump = "A Button";
-	protected string controllerAbilityEquip = "D-Pad Up";
-	protected string controllerNextAbility = "Right Trigger";
-	protected string controllerPreviousAbility = "Left Trigger";
+	protected string controllerAction = "B Button";
+	protected string controllerSprint = "RB";
+	protected string controllerTarget = "LB";
+	protected string controllerNextTarget = "Right Trigger";
+	protected string controllerPreviousTarget = "Left Trigger";
+	protected string controllerCameraReset = "Right Stick Press";
+	protected string dPadHorString = "D-Pad Hor";
 	protected string dPadVertString = "D-Pad Vert";
-	protected string dPadHorString = "D-Pad Vert";
 	protected bool dPadUp { get { return Input.GetAxis(dPadVertString) > 0; } }
 	protected bool dPadDown { get { return Input.GetAxis(dPadVertString) < 0; } }
 	protected bool dPadRight { get { return Input.GetAxis(dPadHorString) > 0; } }
 	protected bool dPadLeft { get { return Input.GetAxis(dPadHorString) < 0; } }
 
-	public override int VerticalAxis() {
-			if(Input.GetKey(forward) && Input.GetKey(backward))
-				return 0;
-			else if(Input.GetKey(forward)){
-				return 1;
-			}	
-			else if(Input.GetKey(backward))
-				return -1;
-			else if(Input.GetAxis("Vertical")>0) {
-				return 1;
-			} 
-			else if(Input.GetAxis("Vertical") < 0) {
-				return -1;
-			}
-		return 0;
+	const string controllerInputFilePath = "/controllerInput.json";
+
+	void Start(){
+		//string json = System.IO.File.ReadAllText (Application.dataPath + controllerInputFilePath);
 	}
-	public override int HorizontalAxis() {
-			if(Input.GetKey(left) && Input.GetKey(right))
-				return 0;
-			else if(Input.GetKey(right))
-				return 1;
-			else if(Input.GetKey(left))
-				return -1;
-			else if(Input.GetAxis("Horizontal") > 0) {
-				return 1;
-			} else if(Input.GetAxis("Horizontal") < 0) {
-				return -1;
-			}
+
+	public override float CameraVerticalAxis() {
+		if(Input.GetAxis("Mouse Y") != 0)
+			return Input.GetAxis("Mouse Y");
+		else if(Input.GetAxis(controllerVert) != 0)
+			return Input.GetAxis(controllerVert);
+			
+		if(Input.GetAxis("Mouse Y") > 0 || Input.GetAxis(controllerVert)>0){
+			return 1;
+		}else if(Input.GetAxis("Mouse Y") < 0 || Input.GetAxis(controllerVert) < 0){
+			return -1;
+		}
 		return 0;
 	}
 
-	public override int RightVerticalAxis() {
+	public override float CameraHorizontalAxis() {
+		if(Input.GetAxis("Mouse X") != 0)
+			return Input.GetAxis("Mouse X");
+		else if(Input.GetAxis(controllerHor) != 0)
+			return Input.GetAxis(controllerHor);
+			
+		if(Input.GetAxis("Mouse X") > 0 || Input.GetAxis(controllerHor)>0){
+			return 1;
+		}else if(Input.GetAxis("Mouse X") < 0 || Input.GetAxis(controllerHor) < 0){
+			return -1;
+		}
+		return 0;
+	}
+
+	public override int MoveVerticalAxis() {
 		if(Input.GetKey(forward) && Input.GetKey(backward))
 			return 0;
 		else if(Input.GetKey(forward)) {
 			return 1;
 		} else if(Input.GetKey(backward))
 			return -1;
-		else if(Input.GetAxis("Right Stick Vertical") > 0) {
+		else if(Input.GetAxis(controllerRightVert) > 0) {
 			return 1;
-		} else if(Input.GetAxis("Right Stick Vertical") < 0) {
+		} else if(Input.GetAxis(controllerRightVert) < 0) {
 			return -1;
 		}
 		return 0;
 	}
-	public override int RightHorizontalAxis() {
+	public override int MoveHorizontalAxis() {
 		if(Input.GetKey(left) && Input.GetKey(right))
 			return 0;
 		else if(Input.GetKey(right))
 			return 1;
 		else if(Input.GetKey(left))
 			return -1;
-		else if(Input.GetAxis("Right Stick Horizontal") > 0) {
+		else if(Input.GetAxis(controllerRightHor) > 0) {
 			return 1;
-		} else if(Input.GetAxis("Right Stick Horizontal") < 0) {
+		} else if(Input.GetAxis(controllerRightHor) < 0) {
 			return -1;
 		}
 		return 0;
 	}
 
 	public override bool isCrouched() {
-		if(Input.GetButton("Left Stick Press")) {
+		if(Input.GetButton(controllerCrouch)) {
 			return true;
 		}
 		return Input.GetKey(crouch);
 	}
 	public override bool isSprinting() {
-		if(Input.GetButton("RB")) {
+		if(Input.GetButton(controllerSprint)) {
 			return true;
 		}
 		return Input.GetKey(sprint);
 	}
 	public override bool isJumping() {
-		if(Input.GetButton("A Button")) {
+		if(Input.GetButton(controllerJump)) {
 			return true;
 		}
 		return Input.GetKey(jump);
 	}
 	public override bool isActionPressed() {
-		if(Input.GetButton("B Button")) {
+		if(Input.GetButton(controllerAction)) {
 			return true;
 		}
 		return Input.GetKey(action);
 	}
 	public override bool isTargetPressed() {
-		if(Input.GetButton("LB")) {
-			return true;
-		}
-		return Input.GetKey(target);
+	//todo: fix this
+//		if(Input.GetButton(controllerTarget)) {
+//			return true;
+//		}
+		return Input.GetKeyDown(target);
 	}
-	public override bool isCameraReset() {
-		if(Input.GetButton("Right Stick Press")) {
-			return true;
-		}
-		return Input.GetKey(cameraReset);
+	public override bool isCameraResetPressed() {
+	//todo: fix this
+//		if(Input.GetButton(controllerCameraReset)) {
+//			return true;
+//		}
+		return Input.GetKeyDown(cameraReset);
 	}
 	public override bool isAbilityEquip() {
 		if(dPadUp) {
@@ -165,6 +172,15 @@ public class GameInputType : InputType {
 		}
 		return Input.GetKey(journal);
 	}
+	public override int scrollTarget() {
+	//todo: fix this
+		if(Input.GetAxis("Mouse ScrollWheel") > 0 /*|| Input.GetAxis(controllerNextTarget)>0*/){
+			return 1;
+		}else if(Input.GetAxis("Mouse ScrollWheel") < 0 /*|| Input.GetAxis(controllerPreviousTarget) < 0*/){
+			return -1;
+		}
+		return 0;
+	}
 
 	//Save keyboard controls
 	public override void SaveInput(){
@@ -179,17 +195,13 @@ public class GameInputType : InputType {
 		inputs.Add ("cover", cover);
 		inputs.Add ("climb", climb);
 		inputs.Add ("jump", jump);
-		inputs.Add ("target", target);
-		inputs.Add ("cameraReset", cameraReset);
+		inputs.Add ("target", target.ToString());
+		inputs.Add ("cameraReset", cameraReset.ToString());
 		inputs.Add ("abilityEquip", abilityEquip);
 		inputs.Add ("notifications", notifications);
 		inputs.Add ("compass", compass);
 		inputs.Add ("journal", journal);
 		inputs.Add ("qAbility1", qAbility1);
-		inputs.Add ("nextAbility", nextAbility);
-		inputs.Add ("previousAbility", previousAbility);
-		inputs.Add ("nextTarget", nextTarget);
-		inputs.Add ("previousTarget", previousTarget);
 		inputs.Add ("pause", pause);
 
 		InputSerialization.SaveInput (inputs);
@@ -208,17 +220,14 @@ public class GameInputType : InputType {
 		cover = inputs ["cover"];
 		climb = inputs ["climb"];
 		jump = inputs ["jump"];
-		target = inputs ["target"];
-		cameraReset = inputs ["cameraReset"];
+		//todo: fix this
+		//target = inputs ["target"];
+		//cameraReset = inputs ["cameraReset"];
 		abilityEquip = inputs ["abilityEquip"];
 		notifications = inputs ["notifications"];
 		compass = inputs ["compass"];
 		journal = inputs ["journal"];
 		qAbility1 = inputs ["qAbility1"];
-		nextAbility = inputs ["nextAbility"];
-		previousAbility = inputs ["previousAbility"];
-		nextTarget = inputs ["nextTarget"];
-		previousTarget = inputs ["previousTarget"];
 		pause = inputs ["pause"];
 
 	}

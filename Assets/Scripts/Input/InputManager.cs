@@ -23,7 +23,7 @@ public sealed class InputManager : MonoBehaviour
 		inputs.Add("KeyboardInputType", this.gameObject.AddComponent<KeyboardInputType>());
 
 		if(inputs.Count > 0)
-			ChangeInputType("UIInputType");
+			ChangeInputType("GameInputType");
 		else
 			Debug.Error("input", "InputManager.inputs is empty.");
 

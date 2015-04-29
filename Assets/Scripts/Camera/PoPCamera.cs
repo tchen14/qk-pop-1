@@ -70,19 +70,19 @@ public sealed class PoPCamera : Camera_2
 	}
 
 	void Update() {
-		if(inTargetLock && Input.GetMouseButtonDown(1))
+		if(inTargetLock && InputManager.input.isTargetPressed())
 			inTargetLock = false;
-		else if(!inTargetLock && Input.GetMouseButtonDown(1) && AcquireTarget().Count != 0f)
+		else if(!inTargetLock && InputManager.input.isTargetPressed() && AcquireTarget().Count != 0f)
 			inTargetLock = true;
 
-		if(inTargetLock && Input.GetAxis("Mouse ScrollWheel") > 0f) {
+		if(inTargetLock && InputManager.input.scrollTarget() > 0f) {
 			if(targetindex <= 0)
 				targetindex = targetedObjects.Count - 1;
 			else
 				targetindex--;
 		}
 
-		if(inTargetLock && Input.GetAxis("Mouse ScrollWheel") < 0f) {
+		if(inTargetLock && InputManager.input.scrollTarget() < 0f) {
 			if(targetindex == targetedObjects.Count - 1)
 				targetindex = 0;
 			else
@@ -177,6 +177,7 @@ public sealed class PoPCamera : Camera_2
 		desiredPosition = CalculatePosition(rotateY, rotateX, distance);
 	}
 
+	//todo: make this code work with the new inputmanager
 	// Handle all player mouse input and prepare for camera position calculation
 	void HandleMouseInput(bool targetting)
 	{

@@ -10,16 +10,16 @@ public abstract class InputType : MonoBehaviour {
 	public virtual bool GetKey(string keyPressed) {
 		return false;
 	}
-	public virtual int VerticalAxis() {
+	public virtual float CameraVerticalAxis() {
 		return 0;
 	}
-	public virtual int HorizontalAxis() {
+	public virtual float CameraHorizontalAxis() {
 		return 0;
 	}
-	public virtual int RightVerticalAxis() {
+	public virtual int MoveVerticalAxis() {
 		return 0;
 	}
-	public virtual int RightHorizontalAxis() {
+	public virtual int MoveHorizontalAxis() {
 		return 0;
 	}
 	public virtual bool isCrouched() {
@@ -34,31 +34,10 @@ public abstract class InputType : MonoBehaviour {
 	public virtual bool isActionPressed() {
 		return false;
 	}
-	public virtual int VerticalValue(string keyPressed) {
-		return 0;
-	}
-	public virtual int HorizontalValue(string keyPressed) {
-		return 0;
-	}
-	public virtual bool CancelPressed() {
-		return false;
-	}
-	public virtual bool ActionPressed() {
-		return false;
-	}
-	public virtual bool SprintPressed() {
-		return false;
-	}
-	public virtual bool JumpPressed() {
-		return false;
-	}
-	public virtual bool CrouchPressed() {
-		return false;
-	}
 	public virtual bool isTargetPressed() {
 		return false;
 	}
-	public virtual bool isCameraReset() {
+	public virtual bool isCameraResetPressed() {
 		return false;
 	}
 	public virtual bool isAbilityEquip() {
@@ -72,6 +51,9 @@ public abstract class InputType : MonoBehaviour {
 	}
 	public virtual bool isJournal() {
 		return false;
+	}
+	public virtual int scrollTarget() {
+		return 0;
 	}
 	public virtual void SaveInput(){
 	}

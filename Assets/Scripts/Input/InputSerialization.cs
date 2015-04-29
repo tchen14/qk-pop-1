@@ -32,10 +32,6 @@ public class InputSerialization {
 		inputs.Add ("compass", PlayerPrefs.GetString("compass"));
 		inputs.Add ("journal", PlayerPrefs.GetString("journal"));
 		inputs.Add ("qAbility1", PlayerPrefs.GetString("qAbility1"));
-		inputs.Add ("nextAbility", PlayerPrefs.GetString("nextAbility"));
-		inputs.Add ("previousAbility", PlayerPrefs.GetString("previousAbility"));
-		inputs.Add ("nextTarget", PlayerPrefs.GetString("nextTarget"));
-		inputs.Add ("previousTarget", PlayerPrefs.GetString("previousTarget"));
 		inputs.Add ("pause", PlayerPrefs.GetString("pause"));
 
 		return inputs;
