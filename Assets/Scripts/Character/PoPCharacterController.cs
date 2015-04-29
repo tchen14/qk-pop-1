@@ -43,7 +43,7 @@ public sealed class PoPCharacterController : CharacterController_2 {
 	
 	void Update() {
 		// Input used for running and crouching
-		SetModifiers(Input.GetKey("left shift"), Input.GetKey("left ctrl"));
+		SetModifiers(InputManager.input.isSprinting(), InputManager.input.isCrouched());
 		
 		// Input used for movement, rotation, jumping, eventInput
 		PlayerInput(InputManager.input.MoveHorizontalAxis(),

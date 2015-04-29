@@ -88,11 +88,12 @@ public class GameInputType : InputType {
 			return 1;
 		} else if(Input.GetKey(backward))
 			return -1;
-		else if(Input.GetAxis(controllerRightVert) > 0) {
-			return 1;
-		} else if(Input.GetAxis(controllerRightVert) < 0) {
-			return -1;
-		}
+		//todo: fix this shit
+//		else if(Input.GetAxis(controllerRightVert) > 0) {
+//			return 1;
+//		} else if(Input.GetAxis(controllerRightVert) < 0) {
+//			return -1;
+//		}
 		return 0;
 	}
 	public override int MoveHorizontalAxis() {
@@ -102,24 +103,27 @@ public class GameInputType : InputType {
 			return 1;
 		else if(Input.GetKey(left))
 			return -1;
-		else if(Input.GetAxis(controllerRightHor) > 0) {
-			return 1;
-		} else if(Input.GetAxis(controllerRightHor) < 0) {
-			return -1;
-		}
+		//todo: fix this shit
+//		else if(Input.GetAxis(controllerRightHor) > 0) {
+//			return 1;
+//		} else if(Input.GetAxis(controllerRightHor) < 0) {
+//			return -1;
+//		}
 		return 0;
 	}
 
 	public override bool isCrouched() {
-		if(Input.GetButton(controllerCrouch)) {
-			return true;
-		}
+		//todo: fix this shit
+//		if(Input.GetButton(controllerCrouch)) {
+//			return true;
+//		}
 		return Input.GetKey(crouch);
 	}
 	public override bool isSprinting() {
-		if(Input.GetButton(controllerSprint)) {
-			return true;
-		}
+		//todo: fix this shit
+//		if(Input.GetButton(controllerSprint)) {
+//			return true;
+//		}
 		return Input.GetKey(sprint);
 	}
 	public override bool isJumping() {
