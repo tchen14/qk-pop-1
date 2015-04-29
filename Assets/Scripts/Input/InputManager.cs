@@ -13,7 +13,7 @@ public sealed class InputManager : MonoBehaviour
 		get { return instance ?? (instance = GameObject.FindObjectOfType<InputManager>());} 
 		private set{ }
 	}
-	public static InputType input; //!< Active input type, todo: make enum
+	public static InputType input; //!< Active input type, todo: make enum?
 
 	public Dictionary<string, InputType> inputs = new Dictionary<string, InputType>();
 
