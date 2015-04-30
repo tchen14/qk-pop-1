@@ -81,6 +81,23 @@ public class CompileEventLibrary : EditorWindow {
         }
         compilationString += "};";
 
+		/*
+		 * 
+		compilationString += "\n\n\tpublic static Dictionary<string, bool> instanceClasses = new Dictionary<string, bool> {\n";
+		// Get every Mono class with the EventVisibleAttribute
+		niceNames = new List<string>();
+		foreach(var t in classList) {
+			if(t.IsSubclassOf(typeof(MonoBehaviour))) {
+				foreach(var att in t.GetCustomAttributes(false)) {
+					if(att is EventVisibleAttribute) {
+						EventVisibleAttribute a = (EventVisibleAttribute)att;
+						compilationString += "\t\t{ \"" + t.Name + "\", " + a.useInstance.ToString().ToLower() + "},\n";
+					}
+				}
+			}
+		}
+		compilationString += "\t};";
+		 */
 
         //  Names Library
         compilationString += "\n\n\tpublic static Dictionary<string, string[]> library = new Dictionary<string, string[]> {\n";

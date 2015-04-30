@@ -18,10 +18,8 @@ public sealed class MasterSceneManager : MonoBehaviour {
 		}
 		private set { }
 	}
-	#endregion
 
 	void Awake(){
-		#region singletonEnforcement
 		if (instance == null){
 			instance = this;
 		}else {
@@ -29,8 +27,8 @@ public sealed class MasterSceneManager : MonoBehaviour {
 			Debug.Error("core", "Second MasterSceneManager detected. Deleting gameOject.");
 			return;
 		}
-		#endregion
 	}
+	#endregion
 	
 	public void InitScenesDictionary(){
 		if(scenes.Count == 0)

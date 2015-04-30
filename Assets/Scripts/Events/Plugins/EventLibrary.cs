@@ -44,7 +44,7 @@ public static class EventLibrary {
 		{ "GameHUD", typeof(GameHUD) },
 	};
 
-	public static string[] monoClassesNice = new string[] { "AIMain",  "Crate",  "Enemy",  "Rope",  "Well",  "GameHUD", };
+	public static string[] monoClassesNice = new string[] { "AIMain",  "Crate",  "Enemy",  "Rope",  "Well",  "UI", };
 
 	public static Dictionary<string, string[]> library = new Dictionary<string, string[]> {
 		{ "AudioManagerMethods", new string[] {"changeVol", "seeVol", } },

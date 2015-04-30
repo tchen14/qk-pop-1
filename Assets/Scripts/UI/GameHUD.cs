@@ -1,16 +1,26 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
-//using System;
 using UnityEngine.UI;
+using Debug = FFP.Debug;
 
 /*! ----------------------------------------------------------------------------
  * Main hud control, contains functions for updating HUD information on the player's screen
  * these functions are designed to be called from whatever script needs to update them.
  * ----------------------------------------------------------------------------
  */
-[EventVisible]
+[EventVisible("UI", true)]
 public class GameHUD : MonoBehaviour {
+	#region singletonEnforcement
+	private static GameObject instance;
+	public static GameObject Instance {
+		get {
+			return instance;
+		}
+		private set { }
+	}
+	#endregion
+
 #pragma warning disable 0219
 #pragma warning disable 0414
 	GameObject mainHUDCanvas;				//!<The canvas HUD is rendered on
@@ -48,6 +58,15 @@ public class GameHUD : MonoBehaviour {
 	GameObject testObjective;
 
 	void Awake() {
+		#region singletonEnforcement
+		if(instance == null) {
+			instance = this.gameObject;
+		} else {
+			Destroy(this.gameObject);
+			Debug.Error("core", "Second GameHUD detected. Deleting gameOject.");
+			return;
+		}
+		#endregion
 
 		mainHUDCanvas = GameObject.Find("mainHUD");
 		skillWheel = GameObject.Find("abilityWheel");

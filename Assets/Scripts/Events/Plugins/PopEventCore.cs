@@ -4,8 +4,10 @@ using System.Collections.Generic;
 
 public class EventVisibleAttribute : System.Attribute {
     public string niceName = "";
-    public EventVisibleAttribute(string name) {
+	public bool useInstance = false;
+    public EventVisibleAttribute(string name, bool instance = false) {
         niceName = name;
+		useInstance = instance;
     }
     public EventVisibleAttribute() { }
 }
