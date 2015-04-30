@@ -24,11 +24,16 @@ public static class MasterManager {
 		go.name = "_MasterSceneManager";
 		ObjectManager.AddSavedObject(go.transform);
 		MasterSceneManager.Instance.InitScenesDictionary();
-		
+
 		//Debug.Break();
 		go = new GameObject();
 		go.AddComponent<InputManager>();
 		go.name = "_InputManager";
+		ObjectManager.AddSavedObject(go.transform);
+
+		go = new GameObject();
+		go.AddComponent<AudioManager>();
+		go.name = "_AudioManager";
 		ObjectManager.AddSavedObject(go.transform);
 		
 		/*go = new GameObject();

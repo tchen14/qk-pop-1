@@ -10,8 +10,18 @@ using Debug = FFP.Debug;
  *	Manages audio for all levels. This class pretty much just loads and plays sounds, on a (timed or untimed) repeat if desired.
  *	\todo implementation + code
  *	written by Ace
- */
+*/
+[EventVisible]
 public class AudioManager : MonoBehaviour {
+
+	[EventVisible]
+	public int testInt = 10;
+
+	[EventVisible]
+	public void testPrint(string value) {
+		MonoBehaviour.print(value);
+	}
+
 #pragma warning disable 0219
 #pragma warning disable 0649
 	#region singletonEnforcement
@@ -29,6 +39,8 @@ public class AudioManager : MonoBehaviour {
 		}
 	}
 	#endregion
+
+
 
 	const string soundListFilePath = "/Resources/Json/audioListData.json";
 	const string soundFilePath = "/StreamingAssets/Audio/";
