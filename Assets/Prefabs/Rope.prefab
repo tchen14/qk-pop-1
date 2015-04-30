@@ -12,8 +12,8 @@ GameObject:
   - 54: {fileID: 5486794}
   - 136: {fileID: 13686794}
   - 23: {fileID: 2386794}
-  - 114: {fileID: 11429480}
-  - 114: {fileID: 11499728}
+  - 114: {fileID: 11422734}
+  - 114: {fileID: 11419072}
   m_Layer: 0
   m_Name: Rope
   m_TagString: Untagged
@@ -79,21 +79,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &11429480
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 186794}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 585bcb68bf8f0ba498702cfc51d4ed62, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  isTargetable: 0
-  range: 0
-  time: 0
---- !u!114 &11499728
+--- !u!114 &11419072
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -105,11 +91,31 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemName: 
+  pushCounter: 0
+  pullCounter: 0
+  cutCounter: 0
+  soundThrowCounter: 0
+  stunCounter: 0
+  quincAffected: 0
   pushCompatible: 0
   pullCompatible: 0
   cutCompatible: 0
   soundThrowCompatible: 0
   stunCompatible: 0
+--- !u!114 &11422734
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 186794}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5bd4250af48bf414e8341b0d343669f0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isTargetable: 0
+  range: 0
+  time: 0
 --- !u!136 &13686794
 CapsuleCollider:
   m_ObjectHideFlags: 1

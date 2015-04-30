@@ -11,7 +11,7 @@ GameObject:
   - 135: {fileID: 13552976}
   - 65: {fileID: 6524366}
   - 114: {fileID: 11446058}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Sidle
   m_TagString: PlayerAction
   m_Icon: {fileID: 0}

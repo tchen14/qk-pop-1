@@ -47,8 +47,9 @@ public abstract class CharacterController_2 : MonoBehaviour {
 	// Action variables
 	[ReadOnly]
 	public bool actionAvaiable; //Only public for inspector. Should be protected
+	[ReadOnly]
 	public bool actionForward = true;
-	protected PlayerActionPath actionComponent;
+	public PlayerActionPath actionComponent;
 	new protected Rigidbody rigidbody;
 
 	// Modifiers variables
@@ -78,8 +79,8 @@ public abstract class CharacterController_2 : MonoBehaviour {
 	//! Detect if Character is grounded (false)
 	void OnCollisionExit(Collision collisionInfo) {
 		foreach(ContactPoint d in collisionInfo.contacts) {
-				grounded = false;
-				return;
+			grounded = false;
+			return;
 		}
 	}
 #pragma warning restore 0219
@@ -91,12 +92,12 @@ public abstract class CharacterController_2 : MonoBehaviour {
 
 			//determine if player is closer to the sphere or the box collider
 			bool forward = true;
-			if (Vector3.SqrMagnitude(transform.position - collider.transform.position - collider.GetComponent<SphereCollider>().center) >
+			if(Vector3.SqrMagnitude(transform.position - collider.transform.position - collider.GetComponent<SphereCollider>().center) >
 				Vector3.SqrMagnitude(transform.position - collider.transform.position - collider.GetComponent<BoxCollider>().center))
 				forward = false;
 
-			if (myActionState == actionState.prepState) {
-				if (forward)
+			if(myActionState == actionState.prepState) {
+				if(forward)
 					actionForward = true;
 				else
 					actionForward = false;

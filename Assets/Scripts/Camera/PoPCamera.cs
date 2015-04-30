@@ -25,25 +25,20 @@ public sealed class PoPCamera : Camera_2
 		}
 	}
 
-	//@{
-	/// Tracks mouse and player position between frames
+	/// Tracks mouse position between frames
 	private Vector3 mousePosition;
-	//@}
 
-	//@{
-	/// Hidden members used for camera events
+	/// Hidden reference for local camera events
 	[HideInInspector] public PoPCameraEvent eventTrigger;
-	[HideInInspector] public bool inEvent;
-	//@}
+	[HideInInspector] public GoSpline eventPath;
 	
 	private float curRotateX = 0f;
 
-	public float maxTimeSinceMouseMoved = 2.0f;			//!< Time frame until camera becomes follow cam b/c of mouse inactivity
 	private bool occluded = false;						//!< Used to check if camera is compensating for occlusion
-	public float targetingRange = 40f;					//!< Range allowed to target objects
-	public float screenTargetArea = 20f;				//!< Area of screen object can be targeted
+	[ReadOnly] public float targetingRange = 40f;		//!< Range allowed to target objects
+	[ReadOnly] public float screenTargetArea = 20f;		//!< Area of screen object can be targeted
 	[HideInInspector] public int targetindex = 0;	    //!< Index in list of target objects to look at
-    private float targetResetTimer = 0f;                //!< Timeframe camera resets after losing track of target
+    private float targetResetTimer = 0f;				//!< Timeframe camera resets after losing track of target
 	public List<GameObject> targetedObjects;			//!< List of objects player is targeting
 	public List<GameObject> allTargetables;				//!< Master List of all available targets in scene
 
@@ -62,32 +57,40 @@ public sealed class PoPCamera : Camera_2
 				Debug.Error ("camera","Cannot find this.target. Please connect the GameObject to the component using the inspector.");
 				target = transform;
 			}
+			if(!gameObject.GetComponent<CheckTargets>()) {
+				Debug.Warning("camera", "\"CheckTargets\" object not on Camera. Targeting is not enabled");
+			}
 		}
 
+		Go.defaultUpdateType = GoUpdateType.FixedUpdate;
 		distance = Mathf.Clamp(distance, distanceMin, distanceMax);
 		cameraLatency = Mathf.Clamp (cameraLatency, 0.05f, 1f);
 		Reset();
 	}
 
-	void Update() {
-		if(inTargetLock && InputManager.input.isTargetPressed())
+	void Update() 
+	{
+		if(inTargetLock && Input.GetMouseButtonDown(1)) {
 			inTargetLock = false;
-		else if(!inTargetLock && InputManager.input.isTargetPressed() && AcquireTarget().Count != 0f)
+			targetReset = true;
+		} else if(!inTargetLock && Input.GetMouseButtonDown(1) && AcquireTarget().Count != 0f) {
 			inTargetLock = true;
+		}
 
-		if(inTargetLock && InputManager.input.CameraScrollTarget() > 0f) {
+		if(inTargetLock && Input.GetAxis("Mouse ScrollWheel") > 0f) {
 			if(targetindex <= 0)
 				targetindex = targetedObjects.Count - 1;
 			else
 				targetindex--;
 		}
 
-		if(inTargetLock && InputManager.input.CameraScrollTarget() < 0f) {
+		if(inTargetLock && Input.GetAxis("Mouse ScrollWheel") < 0f) {
 			if(targetindex == targetedObjects.Count - 1)
 				targetindex = 0;
 			else
 				targetindex++;
 		}
+
 	}
 
 	/*!
@@ -104,23 +107,31 @@ public sealed class PoPCamera : Camera_2
 		}
 
 		#if UNITY_EDITOR
-		/** Swap material color of targeted objects for debug targetting **/
+		/** Swap material color of targeted objects to debug targetting **/
 		if(Debug.IsKeyActive("camera")) {
 			foreach(GameObject go in allTargetables) {
-				go.GetComponent<Renderer>().material.SetColor("_Color", Color.gray);
+				go.GetComponent<Renderer>().material.SetColor("_Color", Color.red);
 			}
 		}
 		#endif
 
-		if(inEvent)
-		{
+		if(inEvent) {
+
 			eventTrigger.Event ();
-			transform.position = Vector3.Lerp (eventTrigger.cameraStartPosition, eventTrigger.eventCameraPosition, cameraLatency);
-			transform.LookAt (eventTrigger.eventCameraFocus);
-		}
-		else if(inTargetLock && (AcquireTarget().Count != 0f || targetedObjects.Count != 0))
-		{
-            if (targetedObjects.Count == 0f) {
+
+		} else if(targetReset) {
+				
+			targetLookAt = player.position;
+			CalculateDesiredPosition();
+			UpdatePosition();
+			Quaternion rotation = Quaternion.LookRotation(targetLookAt - transform.position);
+			if(transform.rotation == rotation) {
+				targetReset = false;
+			}
+
+		} else if(inTargetLock && (AcquireTarget().Count != 0f || targetedObjects.Count != 0)) {
+           
+			if (targetedObjects.Count == 0f) {
                 targetedObjects = AcquireTarget();
             }
 
@@ -132,11 +143,6 @@ public sealed class PoPCamera : Camera_2
                 targetResetTimer = 3f;
             }
 
-            if (targetResetTimer <= 0f) {
-                Reset();
-                return;
-            }
-
 			TargetLockCamera(targetindex);
 
 			#if UNITY_EDITOR
@@ -145,10 +151,15 @@ public sealed class PoPCamera : Camera_2
 				targetedObjects[targetindex].GetComponent<Renderer>().material.color = Color.green;
 			#endif
 
-			UpdatePosition ();
-		}
-		else
-		{
+			if(targetResetTimer <= 0f) {
+				Reset();
+				targetReset = true;
+			} else 
+				UpdatePosition ();
+
+		} else {
+
+			targetReset = false;
 			inTargetLock = false;
 			targetLookAt = player.position;
 			
@@ -177,7 +188,6 @@ public sealed class PoPCamera : Camera_2
 		desiredPosition = CalculatePosition(rotateY, rotateX, distance);
 	}
 
-	//todo: make this code work with the new inputmanager
 	// Handle all player mouse input and prepare for camera position calculation
 	void HandleMouseInput(bool targetting)
 	{
@@ -200,17 +210,6 @@ public sealed class PoPCamera : Camera_2
 		if(Input.GetKey(KeyCode.LeftShift) && Input.GetKey(KeyCode.BackQuote))
 			mouseX = target.eulerAngles.y;
 		
-		/* Unused Code for followcam if mouse isn't moved
-		 * Keeping in case we decide to put it back in
-		else if(currentTimeSinceMouseMoved < maxTimeSinceMouseMoved)
-		{
-			currentTimeSinceMouseMoved += Time.deltaTime;
-		}
-		else if(targetPosition != target.position)
-		{
-			mouseX = target.eulerAngles.y;
-		}*/
-
 		//Limit Y-axis input
 		mouseY = ClampAngle(mouseY, yMinLimit, yMaxLimit);
 
@@ -218,7 +217,6 @@ public sealed class PoPCamera : Camera_2
 		// If compensating for occlusion don't clamp distance
 		if(Input.GetAxis("Mouse ScrollWheel")< deadzone || Input.GetAxis("Mouse ScrollWheel") > deadzone)
 		{
-			//Debug.Log("camera", Input.GetAxis("Mouse ScrollWheel").ToString());
 			desiredDistance = distance - Input.GetAxis("Mouse ScrollWheel") * mouseWheelSensitivity;
 
 			if(!occluded)
@@ -252,7 +250,7 @@ public sealed class PoPCamera : Camera_2
 			curRotateX = angleFrom180 + 180f - 20f;
 		}
 
-		cameraLatency = 0.4f;
+		rotateSmooth = 0.4f;
 		targetLookAt = targetedObjects[targetindex].transform.position;
 
 		int count = 0;
@@ -428,9 +426,12 @@ public sealed class PoPCamera : Camera_2
 		preOccludedDistance = desiredDistance;
 		inEvent = false;
 		inTargetLock = false;
-		targetedObjects.Clear();
-		targetedObjects.TrimExcess();
+		if (targetedObjects.Count > 0) {
+			targetedObjects.Clear ();
+			targetedObjects.TrimExcess ();
+		}
         targetResetTimer = 3f;
+		targetReset = false;
 	}
 
 	// Clamps a given angle to 360, then clamps that to min/max 
@@ -450,32 +451,26 @@ public sealed class PoPCamera : Camera_2
 	// Draws Gizmos when Camera is selected in scene editor to assist in targetable object placing
 	void OnDrawGizmosSelected()
 	{
-		foreach(GameObject target in allTargetables)
-		{
-			if(Vector3.Distance(this.target.position, target.transform.position) <= target.GetComponent<Targetable>().range)
-			{
-				if(target.GetComponent<Targetable>().isTargetable)
-				{
-					if(Vector3.Angle(this.transform.forward, target.transform.position - this.transform.position) <= screenTargetArea)
-					{
-						Gizmos.color = Color.green;
-						Gizmos.DrawRay (target.transform.position, (this.transform.position - target.transform.position));
-					}
-					else
-					{
+		if (Debug.IsKeyActive ("camera")) {
+			foreach (GameObject target in allTargetables) {
+				if (Vector3.Distance (this.target.position, target.transform.position) <= target.GetComponent<Targetable> ().range) {
+					if (target.GetComponent<Targetable> ().isTargetable) {
+						if (Vector3.Angle (this.transform.forward, target.transform.position - this.transform.position) <= screenTargetArea) {
+							Gizmos.color = Color.green;
+							Gizmos.DrawRay (target.transform.position, (this.transform.position - target.transform.position));
+						} else {
+							Gizmos.color = Color.red;
+							Gizmos.DrawRay (target.transform.position, (this.transform.position - target.transform.position));
+						}
+					} else {
 						Gizmos.color = Color.red;
 						Gizmos.DrawRay (target.transform.position, (this.transform.position - target.transform.position));
 					}
 				}
-				else
-				{
-					Gizmos.color = Color.red;
-					Gizmos.DrawRay (target.transform.position, (this.transform.position - target.transform.position));
-				}
 			}
-		}
 
-		Gizmos.color = new Color(1,1,1,0.5f);
-		Gizmos.DrawSphere(this.target.position, targetingRange);
+			Gizmos.color = new Color (1, 1, 1, 0.5f);
+			Gizmos.DrawSphere (this.target.position, targetingRange);
+		}
 	}
 }

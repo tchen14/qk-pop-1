@@ -10,7 +10,7 @@ GameObject:
   - 4: {fileID: 400000}
   - 135: {fileID: 13500000}
   - 114: {fileID: 11400000}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Checkpoint
   m_TagString: Checkpoint
   m_Icon: {fileID: 0}
@@ -40,7 +40,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ee0a68a2f59e5f9408dd645711230fb1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  id: 
   minDist: 0
 --- !u!135 &13500000
 SphereCollider:
@@ -65,4 +64,3 @@ Prefab:
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 100000}
   m_IsPrefabParent: 1
-  m_IsExploded: 1

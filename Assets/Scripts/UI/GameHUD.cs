@@ -12,8 +12,8 @@ using Debug = FFP.Debug;
 [EventVisible("UI")]
 public class GameHUD : MonoBehaviour {
 	#region singletonEnforcement
-	private static GameObject instance;
-	public static GameObject Instance {
+	private static GameHUD instance;
+	public static GameHUD Instance {
 		get {
 			return instance;
 		}
@@ -27,6 +27,8 @@ public class GameHUD : MonoBehaviour {
 	GameObject worldMapCanvas;				//!<All the game map elements
 	GameObject gameMap;						//!<The map iamge on a plane
 	GameObject player;						//!<reference to player
+	GameObject pauseMenu;
+	
 	public int numOfAbilities;						//!<temporary int for number of abilities in game
 	public GameObject[] hudAbilityIcons;			//!<Array of hud icons, set in inspector
 	public bool abilitiesUp = false;
@@ -45,7 +47,7 @@ public class GameHUD : MonoBehaviour {
 	GameObject leftAbilityIcon;
 	GameObject[] abilityButtons;
 
-	int curAbility = 4;
+	[ReadOnly]public int curAbility = 1;
 
 	bool skillsOpen = false;
 	bool canSpin = false;
@@ -60,7 +62,7 @@ public class GameHUD : MonoBehaviour {
 	void Awake() {
 		#region singletonEnforcement
 		if(instance == null) {
-			instance = this.gameObject;
+			instance = this;
 		} else {
 			Destroy(this.gameObject);
 			Debug.Error("core", "Second GameHUD detected. Deleting gameOject.");
@@ -75,6 +77,9 @@ public class GameHUD : MonoBehaviour {
 		gameMap = GameObject.Find("mapBG");
 		player = GameObject.Find("_Player");
 		testObjective = GameObject.Find("testObjectiveCanvas");
+		pauseMenu = GameObject.Find ("pauseMenu");
+		pauseMenu.SetActive (false);
+		
 		//!Turn on UI stuff
 		worldMapCanvas.SetActive(true);
 		skillWheel.SetActive(false);
@@ -265,11 +270,13 @@ public class GameHUD : MonoBehaviour {
 
 	//Shows map on phone and roates and resizes phone to screen
 	public void showMap() {
-		if(skillsOpen) {
+		if (skillsOpen) {
 			skillsOpen = false;
+			//Debug.Log("skills closed");
 			abilityWheelIcons[curAbility].GetComponent<RectTransform>().localScale /= 1.5f;
 			skillWheel.SetActive(false);
-			curAbility = 0;
+			curAbility = 4;
+			abilityWheelAnchorAnim.SetBool("slideIn", false);
 			canSpin = false;
 		}
 		phoneButtons.SetActive(false);
@@ -313,9 +320,13 @@ public class GameHUD : MonoBehaviour {
 		skillWheel.GetComponent<Animator>().speed = 0;
 
 		curAbility++;
-		abilityWheelIcons[curAbility % 8].GetComponent<RectTransform>().localScale /= 1.5f;
+		if(curAbility > 7) {
+			curAbility = 0;
+			abilityWheelIcons[7].GetComponent<RectTransform>().localScale /= 1.5f;
+		} else {
+			abilityWheelIcons[curAbility - 1].GetComponent<RectTransform>().localScale /= 1.5f;
+		}
 
-		Quinc.activeAbility = (curAbility - 1) % 8;
 		abilityWheelIcons[curAbility].GetComponent<RectTransform>().localScale *= 1.5f;
 
 		canSpin = true;
@@ -323,13 +334,9 @@ public class GameHUD : MonoBehaviour {
 
 	public IEnumerator rotateSkillUp() {
 		canSpin = false;
-		if(curAbility == 0) {
-
-		}
 		skillWheel.GetComponent<Animator>().speed = -1;
 		yield return new WaitForSeconds(0.49f);
 		skillWheel.GetComponent<Animator>().speed = 0;
-
 
 		curAbility--;
 		if(curAbility < 0) {
@@ -340,7 +347,6 @@ public class GameHUD : MonoBehaviour {
 		}
 
 		abilityWheelIcons[curAbility].GetComponent<RectTransform>().localScale *= 1.5f;
-
 
 		canSpin = true;
 	}
@@ -355,8 +361,14 @@ public class GameHUD : MonoBehaviour {
 
 	[EventVisible]
 	public void SetDialogueBoxText(string name, string dialogue) {
+		dialogueBox.SetActive(true);
 		dialogueTitleText.GetComponent<Text>().text = name;
 		dialogueText.GetComponent<Text>().text = dialogue;
+	}
+
+	[EventVisible]
+	public void HideDialogueBoxText(string name, string dialogue) {
+		dialogueBox.SetActive(false);
 	}
 
 	public void skillCut() {
@@ -384,6 +396,22 @@ public class GameHUD : MonoBehaviour {
 			InputManager.instance.ChangeInputType("UIInputType");
 		else
 			InputManager.instance.ChangeInputType("GameInputType");
+	}
+	
+	public void showPauseMenu () {
+		pauseMenu.SetActive (true);
+	}
+
+	public void hidePauseMenu () {
+		pauseMenu.SetActive (false);
+	}
+
+	public void loadScene(string s) {
+		Application.LoadLevel(s);
+	}
+
+	public void quitGame () {
+		Application.Quit ();
 	}
 
 }

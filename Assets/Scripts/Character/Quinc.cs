@@ -1,11 +1,10 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
-using Debug=FFP.Debug;
+using Debug = FFP.Debug;
 
-public class Quinc : MonoBehaviour
-{
-//this class is a cluster fuck and needs to be organized
+public class Quinc : MonoBehaviour {
+	//this class is a cluster fuck and needs to be organized
 #pragma warning disable 0414
 	private float pushRate = 0.5f;
 	public float pushDistance = 5.0f;
@@ -22,7 +21,7 @@ public class Quinc : MonoBehaviour
 	private int cutRange = 20;
 
 	private int soundThrowRange = 20;
-	
+
 	private int stunRange = 20;
 
 	public float smoothing = 1f;
@@ -33,64 +32,58 @@ public class Quinc : MonoBehaviour
 	private GameObject soundThrowTarget;
 	private GameObject stunTarget;
 
-	List <GameObject> acquiredTargets = new List<GameObject> ();
+	List <GameObject> acquiredTargets = new List<GameObject>();
 	int currentTargetedObjectIndex = 0;
 	bool inTargetLock = false;
-	
+
 	public static int activeAbility = 0;
-	
-	void FixedUpdate ()
-	{
+
+
+
+
+	void FixedUpdate() {
+		if(GameHUD.Instance.curAbility != activeAbility)
+			activeAbility = GameHUD.Instance.curAbility;
 		//Get the list of targeted objects and the index if in camera target mode
 		inTargetLock = PoPCamera.instance.inTargetLock;
-		if (inTargetLock)
-		{
+		if(inTargetLock) {
 			acquiredTargets = PoPCamera.instance.targetedObjects;
 			currentTargetedObjectIndex = PoPCamera.instance.targetindex;
 		}
 
 		//if there targted objects in the list allow actions on them
-		if(acquiredTargets.Count != 0 && inTargetLock)
-		{
+		if(acquiredTargets.Count != 0 && inTargetLock) {
 			//if (Input.GetKeyDown(KeyCode.Alpha1) && Time.time > nextPush)
-			if (InputManager.input.isActionPressed() && activeAbility == 0 && Time.time > nextPush)
-			{
+			if(InputManager.input.isActionPressed() && activeAbility == 0 && Time.time > nextPush) {
 				nextPush = Time.time + pushRate;
 				//pushPullTarget = GameObject.Find("Crate"); //!> Reference Targeting Script to get current Target
 				pushPullTarget = acquiredTargets[currentTargetedObjectIndex];
 			}
-			//else if (Input.GetKeyDown(KeyCode.Alpha2) && Time.time > nextPull)
-			else if (InputManager.input.isActionPressed() && activeAbility == 1 && Time.time > nextPull)
-			{
+				//else if (Input.GetKeyDown(KeyCode.Alpha2) && Time.time > nextPull)
+			else if(InputManager.input.isActionPressed() && activeAbility == 1 && Time.time > nextPull) {
 				nextPull = Time.time + pullRate;
 				//pushPullTarget = GameObject.Find("Crate"); //!> Reference Targeting Script to get current Target
 				pushPullTarget = acquiredTargets[currentTargetedObjectIndex];
 			}
-			//else if (Input.GetKeyDown(KeyCode.Alpha3))
-			else if (InputManager.input.isActionPressed() && activeAbility == 2 && Input.GetKeyDown(KeyCode.I))
-			{
+				//else if (Input.GetKeyDown(KeyCode.Alpha3))
+			else if(InputManager.input.isActionPressed() && activeAbility == 2 && Input.GetKeyDown(KeyCode.I)) {
 				//cutTarget = GameObject.Find("Rope"); //!> Reference Targeting Script to get current Target
 				cutTarget = acquiredTargets[currentTargetedObjectIndex];
 			}
-			//else if(Input.GetKeyDown(KeyCode.Alpha4))
-			else if(InputManager.input.isActionPressed() && activeAbility == 3 && Input.GetKeyDown(KeyCode.O))
-			{
+				//else if(Input.GetKeyDown(KeyCode.Alpha4))
+			else if(InputManager.input.isActionPressed() && activeAbility == 3 && Input.GetKeyDown(KeyCode.O)) {
 				string soundStatus = "";
 				//soundThrowTarget = GameObject.Find("Well"); //!> Reference Targeting Script to get current Target
 				soundThrowTarget = acquiredTargets[currentTargetedObjectIndex];
 
-				if(SoundThrow(ref soundStatus, soundThrowTarget))
-				{
-					print ("Sound Status: " + soundStatus);
-				}
-				else
-				{
-					print ("Sound Error: " + soundStatus);
+				if(SoundThrow(ref soundStatus, soundThrowTarget)) {
+					print("Sound Status: " + soundStatus);
+				} else {
+					print("Sound Error: " + soundStatus);
 				}
 			}
-			//else if(Input.GetKeyDown(KeyCode.Alpha5))
-			else if(InputManager.input.isActionPressed() && activeAbility == 4 && Input.GetKeyDown(KeyCode.P))
-			{
+				//else if(Input.GetKeyDown(KeyCode.Alpha5))
+			else if(InputManager.input.isActionPressed() && activeAbility == 4 && Input.GetKeyDown(KeyCode.P)) {
 				//stunTarget = GameObject.Find("Enemy"); //!> Reference Targeting Script to get current Target
 				stunTarget = acquiredTargets[currentTargetedObjectIndex];
 
@@ -99,8 +92,7 @@ public class Quinc : MonoBehaviour
 	}
 
 	//! Function to be called when pushing a box or other heavy object, pushing at intervals (think Ocarina of time)
-	bool Push (ref string status, GameObject pushTarget)
-	{
+	bool Push(ref string status, GameObject pushTarget) {
 		/*
 		Check if Object is Push Compatible
 		Else return "Object not Compatible"
@@ -111,18 +103,15 @@ public class Quinc : MonoBehaviour
 		*/
 		print("Distance between Player and Target: " + Vector3.Distance(pushTarget.transform.position, transform.position));
 
-		if(pushTarget == null)
-		{
+		if(pushTarget == null) {
 			status = "No Target Selected";
 			return false;
 		}
-		if(!pushPullTarget.GetComponent<Item>().pushCompatible)
-		{
+		if(!pushPullTarget.GetComponent<Item>().pushCompatible) {
 			status = "Not Compatible";
 			return false;
-		}	
-		if(Vector3.Distance(pushTarget.transform.position, transform.position) > pushRange)
-		{
+		}
+		if(Vector3.Distance(pushTarget.transform.position, transform.position) > pushRange) {
 			status = "Not In Range";
 			return false;
 		}
@@ -143,8 +132,7 @@ public class Quinc : MonoBehaviour
 	}
 
 	//! Function to be called when pulling an object, pulling at intervals (think Ocarina of time)
-	bool Pull (ref string status, GameObject pullTarget)
-	{
+	bool Pull(ref string status, GameObject pullTarget) {
 		/*
 		Check if Object is PullCompatible
 		Else return "Object not Compatible"
@@ -154,18 +142,15 @@ public class Quinc : MonoBehaviour
 		Play animation for player using Pull
 		*/
 
-		if(pullTarget == null)
-		{
+		if(pullTarget == null) {
 			status = "No Target Selected";
 			return false;
 		}
-		if(!pullTarget.GetComponent<Item>().pullCompatible)
-		{
+		if(!pullTarget.GetComponent<Item>().pullCompatible) {
 			status = "Not Compatible";
 			return false;
 		}
-		if(Vector3.Distance(pullTarget.transform.position, transform.position) > pullRange)
-		{
+		if(Vector3.Distance(pullTarget.transform.position, transform.position) > pullRange) {
 			status = "Not In Range";
 			return false;
 		}
@@ -176,12 +161,11 @@ public class Quinc : MonoBehaviour
 		StartCoroutine(MoveSlowly(pullTarget.gameObject, targetPosition, pullDirection));
 		status = "Pull Successful";
 		return true;
-		
+
 	}
 
 	//! Function to be called when cutting rope
-	bool Cut (ref string status, GameObject cutTarget)
-	{
+	bool Cut(ref string status, GameObject cutTarget) {
 		/*
 		Check if Object is Cut Compatible
 		Else return "Object not Compatible"
@@ -191,33 +175,29 @@ public class Quinc : MonoBehaviour
 		Play animation for player using Cut
 		Untarget GameObject?
 		*/
-		if(cutTarget == null)
-		{
+		if(cutTarget == null) {
 			status = "No Target Selected";
 			return false;
 		}
-		if(!cutTarget.GetComponent<Item>().cutCompatible)
-		{
+		if(!cutTarget.GetComponent<Item>().cutCompatible) {
 			status = "Not Compatible";
 			return false;
 		}
-		if(Vector3.Distance(cutTarget.transform.position, transform.position) > cutRange)
-		{
+		if(Vector3.Distance(cutTarget.transform.position, transform.position) > cutRange) {
 			status = "Not In Range";
 			return false;
 		}
-		
+
 		cutTarget.GetComponent<Rope>().Cut();
-		
+
 		// Untarget Cuttable Object?
 		status = "Cut Successful";
 		return true;
-		
+
 	}
 
 	//! Function that activates SoundThrow app on Quinc phone that distracts enemies
-	bool SoundThrow (ref string status, GameObject soundThrowTarget)
-	{
+	bool SoundThrow(ref string status, GameObject soundThrowTarget) {
 		/*
 		Check if Object is SoundThrow compatible
 		Else return "Object not Compatible"
@@ -227,18 +207,15 @@ public class Quinc : MonoBehaviour
 		Play sound and animation
 		Untarget GameObject?
 		*/
-		if(soundThrowTarget == null)
-		{
+		if(soundThrowTarget == null) {
 			status = "No Target Selected";
 			return false;
 		}
-		if(!soundThrowTarget.GetComponent<Item>().soundThrowCompatible)
-		{
+		if(!soundThrowTarget.GetComponent<Item>().soundThrowCompatible) {
 			status = "Not Compatible";
 			return false;
 		}
-		if(Vector3.Distance(soundThrowTarget.transform.position, transform.position) > soundThrowRange)
-		{
+		if(Vector3.Distance(soundThrowTarget.transform.position, transform.position) > soundThrowRange) {
 			status = "Not In Range";
 			return false;
 		}
@@ -253,8 +230,7 @@ public class Quinc : MonoBehaviour
 	}
 
 	//! Function called when activating Stun App on Quinc phone. Only works against enemies.
-	bool Stun (ref string status, GameObject stunTarget)
-	{
+	bool Stun(ref string status, GameObject stunTarget) {
 		/*
 		Check if Object is Stunnable object
 		Else return "Object not Compatible"
@@ -265,18 +241,15 @@ public class Quinc : MonoBehaviour
 		Untarget GameObject?
 		*/
 
-		if(stunTarget == null)
-		{
+		if(stunTarget == null) {
 			status = "No Target Selected";
 			return false;
 		}
-		if(!stunTarget.GetComponent<Item>().stunCompatible)
-		{
+		if(!stunTarget.GetComponent<Item>().stunCompatible) {
 			status = "Not Compatible";
 			return false;
 		}
-		if(Vector3.Distance(stunTarget.transform.position, transform.position) > stunRange)
-		{
+		if(Vector3.Distance(stunTarget.transform.position, transform.position) > stunRange) {
 			status = "Not In Range";
 			return false;
 		}
@@ -288,18 +261,16 @@ public class Quinc : MonoBehaviour
 		return true;
 	}
 
-	IEnumerator MoveSlowly(GameObject targetObject, Vector3 targetPosition, Vector3 direction)
-	{
-		print ("Target Position In CoRoutine: " + targetPosition);
+	IEnumerator MoveSlowly(GameObject targetObject, Vector3 targetPosition, Vector3 direction) {
+		print("Target Position In CoRoutine: " + targetPosition);
 
-		while(Vector3.Distance(targetObject.transform.position, targetPosition) > 2.0f)
-		{
+		while(Vector3.Distance(targetObject.transform.position, targetPosition) > 2.0f) {
 			targetObject.transform.position = Vector3.Lerp(targetObject.transform.position, targetPosition, smoothing * Time.deltaTime);
 			yield return null;
 		}
 		yield return null;
 
-		print ("Target Reached");
+		print("Target Reached");
 	}
 
 }

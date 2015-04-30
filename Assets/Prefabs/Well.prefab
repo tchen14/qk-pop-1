@@ -75,6 +75,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemName: 
+  pushCounter: 0
+  pullCounter: 0
+  cutCounter: 0
+  soundThrowCounter: 0
+  stunCounter: 0
+  quincAffected: 0
   pushCompatible: 0
   pullCompatible: 0
   cutCompatible: 0
@@ -88,7 +94,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 123232}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 585bcb68bf8f0ba498702cfc51d4ed62, type: 3}
+  m_Script: {fileID: 11500000, guid: 5bd4250af48bf414e8341b0d343669f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   isTargetable: 0
