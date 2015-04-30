@@ -181,6 +181,26 @@ public class PopEventEditor : Editor {
 		GUILayout.BeginHorizontal();
 		popupArray = PopEventCore.watchLibrary.Keys.ToArray();
 		popupArrayNice = PopEventCore.watchLibrary.Keys.ToArray();
+		
+		int sLength = popupArray.Length;
+		string[] popupLArray = EventLibrary.monoClasses.Keys.ToArray();
+		string[] popupLArrayNice = EventLibrary.monoClassesNice;
+		int length = sLength + popupLArray.Length;
+		
+		string[] popupFArray = new string[length];
+		string[] popupFArrayNice = new string[length];
+		for(int i = 0; i < length; i++){
+			if(i < popupArray.Length){
+				popupFArray[i] = popupArray[i];
+				popupFArrayNice[i] = popupArrayNice[i];
+			}else{
+				popupFArray[i] = popupLArray[i-popupArray.Length];
+				popupFArrayNice[i] = popupLArrayNice[i-popupArray.Length];
+			}
+		}
+		popupArray = popupFArray;
+		popupArrayNice = popupFArrayNice;
+		
 		condition.e_categoryIndex = FindIndex(condition.e_categoryString, popupArray);
 		condition.e_categoryIndex = (int)EditorGUILayout.Popup(condition.e_categoryIndex, popupArrayNice, GUILayout.MaxWidth(columnWidth / 3));
 		condition.e_categoryString = popupArray[condition.e_categoryIndex];
@@ -189,17 +209,13 @@ public class PopEventEditor : Editor {
 			popupArray = EventLibrary.staticClasses.Keys.ToArray();
 			popupArrayNice = EventLibrary.staticClassesNice;
 		}
-		else if (condition.e_categoryString == "Object Script") {
-			popupArray = EventLibrary.monoClasses.Keys.ToArray();
-			popupArrayNice = EventLibrary.monoClassesNice;
-		}
-		else if (PopEventCore.watchLibrary.ContainsKey(condition.e_categoryString)) {
+		else if (condition.e_categoryString == "System") {
 			popupArray = PopEventCore.watchLibrary[condition.e_categoryString];
 			popupArrayNice = PopEventCore.watchLibrary[condition.e_categoryString];
 		}
 		else {
-			popupArray = new string[] { "Choose A Condition" };
-			popupArrayNice = new string[] { "Choose A Condition" };
+			popupArray = EventLibrary.monoClasses.Keys.ToArray();
+			popupArrayNice = EventLibrary.monoClassesNice;
 		}
 		
 		if (popupArray.Length < 1) {
@@ -209,9 +225,14 @@ public class PopEventEditor : Editor {
 			return true;
 		}
 		
-		condition.e_classIndex = FindIndex(condition.e_classString, popupArray);
-		condition.e_classIndex = (int)EditorGUILayout.Popup(condition.e_classIndex, popupArrayNice, GUILayout.MaxWidth(columnWidth * 2 / 3));
-		condition.e_classString = popupArray[condition.e_classIndex];
+		if(condition.e_categoryString == "System"){
+			condition.e_classIndex = FindIndex(condition.e_classString, popupArray);
+			condition.e_classIndex = (int)EditorGUILayout.Popup(condition.e_classIndex, popupArrayNice, GUILayout.MaxWidth(columnWidth * 2 / 3));
+			condition.e_classString = popupArray[condition.e_classIndex];
+		}else{
+			condition.e_classIndex = condition.e_categoryIndex - sLength;
+			condition.e_classString = condition.e_categoryString;
+		}
 		
 		GUI.backgroundColor = Color.red;
 		if (popTarget.conditions.Count > 1 && GUILayout.Button("X", GUILayout.MaxWidth(20))) {
@@ -237,12 +258,12 @@ public class PopEventEditor : Editor {
 				condition.editorHeight = 94;
 				DrawWatchStaticScript(condition);
 			}
-			else if (condition.e_categoryString == "Object Script") {
-				condition.editorHeight = 60;
-				DrawWatchScript(condition);
+			else if (condition.e_categoryString == "System") {
+				DrawSpecialCondition(condition);
 			}
 			else {
-				DrawSpecialCondition(condition);
+				condition.editorHeight = 60;
+				DrawWatchScript(condition);
 			}
 		}
 		
@@ -444,14 +465,15 @@ public class PopEventEditor : Editor {
 		EditorGUILayout.BeginHorizontal();
 		popupArray = PopEventCore.executeLibrary.Keys.ToArray();
 		popupArrayNice = PopEventCore.executeLibrary.Keys.ToArray();
-				
+		
+		int sLength = popupArray.Length;
 		string[] popupLArray = EventLibrary.monoClasses.Keys.ToArray();
 		string[] popupLArrayNice = EventLibrary.monoClassesNice;
-		int length = popupArray.Length + popupLArray.Length;
+		int length = sLength + popupLArray.Length;
 		
 		string[] popupFArray = new string[length];
 		string[] popupFArrayNice = new string[length];
-		for(int i = 0; i < length - 1; i++){
+		for(int i = 0; i < length; i++){
 			if(i < popupArray.Length){
 				popupFArray[i] = popupArray[i];
 				popupFArrayNice[i] = popupArrayNice[i];
@@ -493,7 +515,7 @@ public class PopEventEditor : Editor {
 			action.e_classIndex = (int)EditorGUILayout.Popup(action.e_classIndex, popupArrayNice, GUILayout.MaxWidth(columnWidth * 2 / 3));
 			action.e_classString = popupArray[action.e_classIndex];
 		}else{
-			action.e_classIndex = action.e_categoryIndex - 1;
+			action.e_classIndex = action.e_categoryIndex - sLength;
 			action.e_classString = action.e_categoryString;
 		}
 		
@@ -520,7 +542,7 @@ public class PopEventEditor : Editor {
 				action.editorHeight = 60;
 				DrawExecuteStaticFunction(action);
 			}
-			else if (action.e_categoryString == "System") {//This should be something else
+			else if (action.e_categoryString == "System") {
 				DrawSpecialAction(action);
 			}
 			else if (action.e_classString == "Destroy This Object") {

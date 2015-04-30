@@ -49,52 +49,8 @@ public static class EventListener {
         foreach (EventHalf condition in popEvent.conditions) {
             numberOfConditions++;
             //  Watch Script Type Condition
-            if (condition.e_categoryString == "Object Script") {
-                if (condition.e_MonoBehaviour == null) {
-                    numberOfConditions--;
-                    if (condition.e_fieldType == null) {
-                        condition.e_fieldType = condition.e_MonoBehaviour.GetType().GetField(condition.e_fieldString).FieldType;
-                    }
-                }
-
-                if (condition.e_fieldType == typeof(System.Int32)) {
-                    int intValue = (int)condition.e_MonoBehaviour.GetType().GetField(condition.e_fieldString).GetValue(condition.e_MonoBehaviour);
-                    if (Compare(intValue, condition.p_int[0], condition.compareString)) {
-                        testsPassed++;
-                    }
-                }
-                else if (condition.e_fieldType == typeof(System.String)) {
-                    string stringValue = (string)condition.e_MonoBehaviour.GetType().GetField(condition.e_fieldString).GetValue(condition.e_MonoBehaviour);
-                    if (Compare(stringValue, condition.p_string[0], condition.compareString)) {
-                        testsPassed++;
-                    }
-                }
-                else if (condition.e_fieldType == typeof(System.Single)) {
-                    float floatValue = (float)condition.e_MonoBehaviour.GetType().GetField(condition.e_fieldString).GetValue(condition.e_MonoBehaviour);
-                    if (Compare(floatValue, condition.p_float[0], condition.compareString)) {
-                        testsPassed++;
-                    }
-                }
-                else if (condition.e_fieldType == typeof(System.Boolean)) {
-                    bool boolValue = (bool)condition.e_MonoBehaviour.GetType().GetField(condition.e_fieldString).GetValue(condition.e_MonoBehaviour);
-                    bool conditionBool = true;
-                    if (condition.compareString == "Is False") {
-                        conditionBool = false;
-                    }
-                    if (boolValue == conditionBool) {
-                        testsPassed++;
-                    }
-                }
-                else if (condition.e_fieldType == typeof(Dictionary<string, int>)) {
-                    Dictionary<string, int> dictionaryValue = (Dictionary<string, int>)condition.e_MonoBehaviour.GetType().GetField(condition.e_fieldString).GetValue(condition.e_MonoBehaviour);
-                    if (dictionaryValue.ContainsKey(condition.p_string[0])) {
-                        if (Compare(dictionaryValue[condition.p_string[0]], condition.p_int[0], condition.compareString)) {
-                            testsPassed++;
-                        }
-                    }
-                }
-            }
-            else if (condition.e_categoryString == "Static Script") {
+            
+            if (condition.e_categoryString == "Static Script") {
                 if (condition.e_fieldType == null) {
                     condition.e_fieldType = EventLibrary.staticClasses[condition.e_classString].GetField(condition.e_fieldString).FieldType;
                 }
@@ -146,6 +102,50 @@ public static class EventListener {
             }
             else if (condition.e_classString == "Choose A Condition") {
                 numberOfConditions--;
+            }else{
+				if (condition.e_MonoBehaviour == null) {
+					numberOfConditions--;
+					if (condition.e_fieldType == null) {
+						condition.e_fieldType = condition.e_MonoBehaviour.GetType().GetField(condition.e_fieldString).FieldType;
+					}
+				}
+				
+				if (condition.e_fieldType == typeof(System.Int32)) {
+					int intValue = (int)condition.e_MonoBehaviour.GetType().GetField(condition.e_fieldString).GetValue(condition.e_MonoBehaviour);
+					if (Compare(intValue, condition.p_int[0], condition.compareString)) {
+						testsPassed++;
+					}
+				}
+				else if (condition.e_fieldType == typeof(System.String)) {
+					string stringValue = (string)condition.e_MonoBehaviour.GetType().GetField(condition.e_fieldString).GetValue(condition.e_MonoBehaviour);
+					if (Compare(stringValue, condition.p_string[0], condition.compareString)) {
+						testsPassed++;
+					}
+				}
+				else if (condition.e_fieldType == typeof(System.Single)) {
+					float floatValue = (float)condition.e_MonoBehaviour.GetType().GetField(condition.e_fieldString).GetValue(condition.e_MonoBehaviour);
+					if (Compare(floatValue, condition.p_float[0], condition.compareString)) {
+						testsPassed++;
+					}
+				}
+				else if (condition.e_fieldType == typeof(System.Boolean)) {
+					bool boolValue = (bool)condition.e_MonoBehaviour.GetType().GetField(condition.e_fieldString).GetValue(condition.e_MonoBehaviour);
+					bool conditionBool = true;
+					if (condition.compareString == "Is False") {
+						conditionBool = false;
+					}
+					if (boolValue == conditionBool) {
+						testsPassed++;
+					}
+				}
+				else if (condition.e_fieldType == typeof(Dictionary<string, int>)) {
+					Dictionary<string, int> dictionaryValue = (Dictionary<string, int>)condition.e_MonoBehaviour.GetType().GetField(condition.e_fieldString).GetValue(condition.e_MonoBehaviour);
+					if (dictionaryValue.ContainsKey(condition.p_string[0])) {
+						if (Compare(dictionaryValue[condition.p_string[0]], condition.p_int[0], condition.compareString)) {
+							testsPassed++;
+						}
+					}
+				}
             }
         }
         if (popEvent.andOrCompareString == "Every Condition") {
@@ -179,13 +179,14 @@ public static class EventListener {
             if (action.e_categoryString == "Static Script") {
                 EventLibrary.staticClasses[action.e_classString].GetMethod(action.e_fieldString).Invoke(null, action.args);
             }
-			else if (action.e_categoryString == "GUI") {
-				if (action.e_classString == "Set Objective") {
-					GameHUD.UpdateObjectiveText(action.p_string[0]);
-				}else if (action.e_classString == "Set Dialogue") {
-					GameHUD.SetDialogueBoxText(action.p_string[0], action.p_string[1]);
-				}
-			} else if (action.e_categoryString == "System") {
+//			else if (action.e_categoryString == "GUI") {
+//				if (action.e_classString == "Set Objective") {
+//					GameHUD.UpdateObjectiveText(action.p_string[0]);
+//				}else if (action.e_classString == "Set Dialogue") {
+//					GameHUD.SetDialogueBoxText(action.p_string[0], action.p_string[1]);
+//				}
+//			}
+			else if (action.e_categoryString == "System") {
                 if (action.e_classString == "Debug Message") {
 					Debug.Log("event", action.p_string[0]);
                     //MonoBehaviour.print(action.p_string[0]);

@@ -475,6 +475,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 56138464}
   - 114: {fileID: 56138463}
+  - 114: {fileID: 56138466}
   m_Layer: 0
   m_Name: TEMP_EVENT
   m_TagString: Untagged
@@ -498,10 +499,10 @@ MonoBehaviour:
     e_categoryIndex: 0
     e_classString: Wait X Seconds
     e_classIndex: 1
-    e_fieldString: Choose An Action
+    e_fieldString: temp
     e_fieldIndex: 0
-    e_MonoBehaviour: {fileID: 0}
-    e_GameObject: {fileID: 0}
+    e_MonoBehaviour: {fileID: 11486096, guid: afe756e0f00f7ee418ec05eddf8c0a04, type: 2}
+    e_GameObject: {fileID: 162326, guid: afe756e0f00f7ee418ec05eddf8c0a04, type: 2}
     p_int: 0000000000000000000000000000000000000000
     p_bool: 0000000000
     p_float:
@@ -553,15 +554,15 @@ MonoBehaviour:
     stringCompareString:
     - Equal To
     - Different Than
-    compareString: 
-    compareIndex: 0
+    compareString: Greater Than
+    compareIndex: 1
     color: {r: 0, g: .579999983, b: .689999998, a: .449999988}
     editorHeight: 60
   actions:
-  - e_categoryString: System
-    e_categoryIndex: 0
-    e_classString: Choose An Action
-    e_classIndex: 0
+  - e_categoryString: Crate
+    e_categoryIndex: 2
+    e_classString: Crate
+    e_classIndex: 1
     e_fieldString: TestCrateFunction
     e_fieldIndex: 0
     e_MonoBehaviour: {fileID: 11486096, guid: afe756e0f00f7ee418ec05eddf8c0a04, type: 2}
@@ -619,8 +620,8 @@ MonoBehaviour:
     - Different Than
     compareString: 
     compareIndex: 0
-    color: {r: 1, g: .460000008, b: 0, a: .349999994}
-    editorHeight: 20
+    color: {r: 1, g: .460000008, b: 0, a: .550000012}
+    editorHeight: 92
   andOrCompare:
   - Every Condition
   - One or More
@@ -650,6 +651,162 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 12
+--- !u!114 &56138466
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 56138462}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3bce9737e13a17340acb5aabb86ba137, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  conditions:
+  - e_categoryString: Crate
+    e_categoryIndex: 2
+    e_classString: Crate
+    e_classIndex: 1
+    e_fieldString: temp
+    e_fieldIndex: 0
+    e_MonoBehaviour: {fileID: 11486096, guid: afe756e0f00f7ee418ec05eddf8c0a04, type: 2}
+    e_GameObject: {fileID: 162326, guid: afe756e0f00f7ee418ec05eddf8c0a04, type: 2}
+    p_int: 0000000000000000000000000000000000000000
+    p_bool: 0000000000
+    p_float:
+    - 0
+    - 0
+    - 0
+    - 0
+    - 0
+    p_string:
+    - 
+    - 
+    - 
+    - 
+    - 
+    p_Vector3:
+    - {x: 0, y: 0, z: 0}
+    - {x: 0, y: 0, z: 0}
+    - {x: 0, y: 0, z: 0}
+    - {x: 0, y: 0, z: 0}
+    - {x: 0, y: 0, z: 0}
+    p_Transform:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    p_GameObject:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    p_MonoBehaviour:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    numberCompareString:
+    - Equal To
+    - Greater Than
+    - Less Than
+    vectorCompareString:
+    - Nearer Than
+    - Further Than
+    boolCompareString:
+    - Is True
+    - Is False
+    stringCompareString:
+    - Equal To
+    - Different Than
+    compareString: Equal To
+    compareIndex: 0
+    color: {r: 0, g: .579999983, b: .689999998, a: .449999988}
+    editorHeight: 130
+  actions:
+  - e_categoryString: GameHUD
+    e_categoryIndex: 6
+    e_classString: GameHUD
+    e_classIndex: 5
+    e_fieldString: UpdateObjectiveText
+    e_fieldIndex: 0
+    e_MonoBehaviour: {fileID: 1853220185}
+    e_GameObject: {fileID: 1853220182}
+    p_int: 0000000000000000000000000000000000000000
+    p_bool: 0000000000
+    p_float:
+    - 0
+    - 0
+    - 0
+    - 0
+    - 0
+    p_string:
+    - Shelby
+    - I like pie!
+    - 
+    - 
+    - 
+    p_Vector3:
+    - {x: 0, y: 0, z: 0}
+    - {x: 0, y: 0, z: 0}
+    - {x: 0, y: 0, z: 0}
+    - {x: 0, y: 0, z: 0}
+    - {x: 0, y: 0, z: 0}
+    p_Transform:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    p_GameObject:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    p_MonoBehaviour:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    numberCompareString:
+    - Equal To
+    - Greater Than
+    - Less Than
+    vectorCompareString:
+    - Nearer Than
+    - Further Than
+    boolCompareString:
+    - Is True
+    - Is False
+    stringCompareString:
+    - Equal To
+    - Different Than
+    compareString: 
+    compareIndex: 0
+    color: {r: 1, g: .460000008, b: 0, a: .550000012}
+    editorHeight: 126
+  andOrCompare:
+  - Every Condition
+  - One or More
+  - Exactly One
+  andOrCompareString: Every Condition
+  andOrCompareIndex: 0
+  uniqueId: 
+  isActive: 1
+  isRegional: 1
+  executeOnce: 1
+  hasExecuted: 0
+  totalTimeActive: 0
+  delay: 1
+  regionRadius: 1
+  drawRegionTwo: 0
+  conditionRegionCenter: {x: 0, y: 0, z: 0}
+  conditionRegionRadius: 1
 --- !u!1 &64807505
 GameObject:
   m_ObjectHideFlags: 0
@@ -10785,6 +10942,7 @@ MonoBehaviour:
   cutCompatible: 0
   soundThrowCompatible: 0
   stunCompatible: 0
+  temp: 0
 --- !u!114 &641962355
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10999,6 +11157,7 @@ MonoBehaviour:
   cutCompatible: 0
   soundThrowCompatible: 0
   stunCompatible: 0
+  temp: 0
 --- !u!114 &655357100
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -22322,6 +22481,7 @@ MonoBehaviour:
   cutCompatible: 0
   soundThrowCompatible: 0
   stunCompatible: 0
+  temp: 0
 --- !u!114 &1303391373
 MonoBehaviour:
   m_ObjectHideFlags: 0

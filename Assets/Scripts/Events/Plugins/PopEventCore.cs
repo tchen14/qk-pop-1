@@ -16,7 +16,7 @@ public static class PopEventCore {
 		{ "System", new string[] { "Choose A Condition", "Wait X Seconds", "Player Enters Area", "Player Leaves Area" } },
 		//{ "Player", new string[] { "Choose A Condition", "Player Enters Area", "Player Leaves Area" } },
 		//{ "Item", new string[] { "Choose A Condition", "Collect X Items" } },
-		{ "Object Script", new string[] { "" } },
+		//{ "Object Script", new string[] { "" } },
 		//{ "Static Script", new string[] { "" } },
         /*
 		{ "Object", new string[] { "Choose A Condition" } },

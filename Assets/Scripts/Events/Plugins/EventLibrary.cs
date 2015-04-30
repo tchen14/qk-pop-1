@@ -41,14 +41,16 @@ public static class EventLibrary {
 		{ "Enemy", typeof(Enemy) },
 		{ "Rope", typeof(Rope) },
 		{ "Well", typeof(Well) },
+		{ "GameHUD", typeof(GameHUD) },
 	};
 
-	public static string[] monoClassesNice = new string[] { "AIMain",  "Crate",  "Enemy",  "Rope",  "Well", };
+	public static string[] monoClassesNice = new string[] { "AIMain",  "Crate",  "Enemy",  "Rope",  "Well",  "GameHUD", };
 
 	public static Dictionary<string, string[]> library = new Dictionary<string, string[]> {
 		{ "AudioManagerMethods", new string[] {"changeVol", "seeVol", } },
 		{ "CrateMethods", new string[] {"TestCrateFunction", } },
-		{ "CrateFields", new string[] {"pushCounter", "pullCounter", "cutCounter", "soundThrowCounter", "stunCounter", "quincAffected", } },
+		{ "GameHUDMethods", new string[] {"UpdateObjectiveText", "SetDialogueBoxText", } },
+		{ "CrateFields", new string[] {"temp", "pushCounter", "pullCounter", "cutCounter", "soundThrowCounter", "stunCounter", "quincAffected", } },
 		{ "EnemyFields", new string[] {"pushCounter", "pullCounter", "cutCounter", "soundThrowCounter", "stunCounter", "quincAffected", } },
 		{ "ItemFields", new string[] {"pushCounter", "pullCounter", "cutCounter", "soundThrowCounter", "stunCounter", "quincAffected", } },
 		{ "RopeFields", new string[] {"pushCounter", "pullCounter", "cutCounter", "soundThrowCounter", "stunCounter", "quincAffected", } },
@@ -58,7 +60,8 @@ public static class EventLibrary {
 	public static Dictionary<string, string[]> libraryNice = new Dictionary<string, string[]> {
 		{ "AudioManagerMethods", new string[] {"changeVol", "seeVol", } },
 		{ "CrateMethods", new string[] {"test", } },
-		{ "CrateFields", new string[] {"Pushed X Times", "Pulled X Times", "Cut X Times", "Sound Thrown X Times", "Stunned X Times", "Affected by QuinC", } },
+		{ "GameHUDMethods", new string[] {"UpdateObjectiveText", "SetDialogueBoxText", } },
+		{ "CrateFields", new string[] {"temp", "Pushed X Times", "Pulled X Times", "Cut X Times", "Sound Thrown X Times", "Stunned X Times", "Affected by QuinC", } },
 		{ "EnemyFields", new string[] {"Pushed X Times", "Pulled X Times", "Cut X Times", "Sound Thrown X Times", "Stunned X Times", "Affected by QuinC", } },
 		{ "ItemFields", new string[] {"Pushed X Times", "Pulled X Times", "Cut X Times", "Sound Thrown X Times", "Stunned X Times", "Affected by QuinC", } },
 		{ "RopeFields", new string[] {"Pushed X Times", "Pulled X Times", "Cut X Times", "Sound Thrown X Times", "Stunned X Times", "Affected by QuinC", } },

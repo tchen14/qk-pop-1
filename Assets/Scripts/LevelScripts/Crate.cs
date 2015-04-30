@@ -25,6 +25,8 @@ public class Crate : Item
 		//Play push sound associated with crates
 		return;
 	}
+	[EventVisible("temp")]
+	public int temp = 0;
 	
 	[EventVisible("test")]
 	public void TestCrateFunction(){

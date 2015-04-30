@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
-using System;
+//using System;
 using UnityEngine.UI;
 
 /*! ----------------------------------------------------------------------------
@@ -9,7 +9,7 @@ using UnityEngine.UI;
  * these functions are designed to be called from whatever script needs to update them.
  * ----------------------------------------------------------------------------
  */
-
+[EventVisible]
 public class GameHUD : MonoBehaviour {
 #pragma warning disable 0219
 #pragma warning disable 0414
@@ -132,7 +132,8 @@ public class GameHUD : MonoBehaviour {
 	}
 
 	//!Call this to update objective tet at top of the screen
-	public static void UpdateObjectiveText(string newObjective) {
+	[EventVisible]
+	public void UpdateObjectiveText(string newObjective) {
 		objectiveText.GetComponent<Text>().text = newObjective;
 	}
 
@@ -344,8 +345,11 @@ public class GameHUD : MonoBehaviour {
 	public void HideDialogueBox() {
 		dialogueBox.SetActive(false);
 	}
-
-	public static void SetDialogueBoxText(string name, string dialogue) {
+	[EventVisible]
+	int xxx;
+	
+	[EventVisible]
+	public void SetDialogueBoxText(string name, string dialogue) {
 		dialogueTitleText.GetComponent<Text>().text = name;
 		dialogueText.GetComponent<Text>().text = dialogue;
 	}
