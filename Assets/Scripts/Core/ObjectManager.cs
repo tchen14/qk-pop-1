@@ -31,7 +31,7 @@ public sealed class ObjectManager : MonoBehaviour {
 	public static void LoadTopObjects() {
 		Transform[] gameObjects = GameObject.FindObjectsOfType<Transform>();
 		foreach (Transform t in gameObjects) {
-			Debug.Log("core", t.name);
+			//Debug.Log("core", t.name);
 			if (t.parent == null && !TopObjects.ContainsKey(t.name) && !SavedObjects.ContainsKey(t.name)) {
 				TopObjects.Add(t.name, t);
 			}

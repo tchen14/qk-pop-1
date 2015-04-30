@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using Debug = FFP.Debug;
 
 public static class EventListener {
 
@@ -172,7 +173,7 @@ public static class EventListener {
                 action.SetParameters();
             }
             if (action.args.Length > 5) {
-                Debug.LogWarning("Event functions cannot have more than 5 parameters");
+                Debug.Warning("core", "Event functions cannot have more than 5 parameters");
                 continue;
             }
             if (action.e_categoryString == "Static Script") {
@@ -187,12 +188,12 @@ public static class EventListener {
 				if (action.e_classString == "Set Objective") {
 					GameHUD.UpdateObjectiveText(action.p_string[0]);
 				}else if (action.e_classString == "Set Dialogue") {
-					GameHUD.UpdateDialogueText(action.p_string[0], action.p_string[1]);
+					GameHUD.SetDialogueBoxText(action.p_string[0], action.p_string[1]);
 				}
-			}
-            else {
+			} else if (action.e_categoryString == "System") {
                 if (action.e_classString == "Debug Message") {
-                    MonoBehaviour.print(action.p_string[0]);
+					Debug.Log("event", action.p_string[0]);
+                    //MonoBehaviour.print(action.p_string[0]);
                 }
                 else if (action.e_classString == "Activate Next Event") {
                     popEvent.ActivateNextEvent();

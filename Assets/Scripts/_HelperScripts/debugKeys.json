@@ -5,6 +5,7 @@
 	"checkpoint",
 	"core",
 	"editor",
+	"event",
 	"input",
 	"player",
 	"safety",

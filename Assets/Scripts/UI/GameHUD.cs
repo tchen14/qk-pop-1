@@ -26,8 +26,8 @@ public class GameHUD : MonoBehaviour {
 	List<GameObject> phoneAbilitiesAvailible;		//!<List containing hud phone abilties
 	GameObject mapCam;								//!<Camera used for minimap
 	static GameObject objectiveText;						//!<Objective Text UI element
-	static GameObject speechPanelNameText;						//!<Objective Text UI element
-	static GameObject speechPanelDialogueText;						//!<Objective Text UI element
+	static GameObject dialogueBox, dialogueText, dialogueTitleText;
+
 	GameObject[] mapLabels;							//!<Array of text taht appears on minimap
 
 	GameObject middleAbilityIcon;					//!<Phone ability icon references
@@ -52,9 +52,9 @@ public class GameHUD : MonoBehaviour {
 		mainHUDCanvas = GameObject.Find("mainHUD");
 		skillWheel = GameObject.Find("abilityWheel");
 		abilityWheelAnchorAnim = GameObject.Find("AbilityWheelAnchor").GetComponent<Animator>();
-		worldMapCanvas = GameObject.Find ("worldMapCanvas");
+		worldMapCanvas = GameObject.Find("worldMapCanvas");
 		gameMap = GameObject.Find("mapBG");
-		player = GameObject.Find ("_Player");
+		player = GameObject.Find("_Player");
 		testObjective = GameObject.Find("testObjectiveCanvas");
 		//!Turn on UI stuff
 		worldMapCanvas.SetActive(true);
@@ -72,11 +72,14 @@ public class GameHUD : MonoBehaviour {
 		mapCam = GameObject.Find("mapCam");
 		//!Set compassCameraPoint reference
 		compassCameraPoint = GameObject.Find("compassCameraPoint");
+
 		//!Set objective text reference
 		objectiveText = GameObject.Find("objectiveText");
-		speechPanelNameText = GameObject.Find("speechPanelNameText");
-		speechPanelDialogueText = GameObject.Find("speechPanelDialogueText");
-		//!Set initial test objective
+		dialogueBox = GameObject.Find("SpeechBubble");
+		dialogueText = GameObject.Find("speechPanelDialogueText");
+		dialogueTitleText = GameObject.Find("speechPanelNameText");
+		dialogueBox.SetActive(false);
+
 
 		phoneButtons = GameObject.Find("PhoneButtons");
 		mapElements = GameObject.Find("MapElements");
@@ -116,12 +119,12 @@ public class GameHUD : MonoBehaviour {
 		//Debug.Log("Angle found: " + calculateObjectiveAngle(testObjective));
 
 		//Testing
-		if(Input.GetKeyDown("1") && canSpin) {
+		if (Input.GetKeyDown("1") && canSpin) {
 			StartCoroutine(rotateSkillDown());
 
 		}
 
-		if(Input.GetKeyDown("2") && canSpin) {
+		if (Input.GetKeyDown("2") && canSpin) {
 			StartCoroutine(rotateSkillUp());
 
 		}
@@ -132,13 +135,6 @@ public class GameHUD : MonoBehaviour {
 	public static void UpdateObjectiveText(string newObjective) {
 		objectiveText.GetComponent<Text>().text = newObjective;
 	}
-
-	//!Call this to update objective tet at top of the screen
-	public static void UpdateDialogueText(string s1, string s2) {
-		speechPanelNameText.GetComponent<Text>().text = s1;
-		speechPanelDialogueText.GetComponent<Text>().text = s2;
-	}
-	
 
 	//!Rotates map labels so that the text is always right side up, call this from anything that rotates the camera
 	//!Right now its based on Player rotation, needs to be based on camera
@@ -261,7 +257,7 @@ public class GameHUD : MonoBehaviour {
 
 	//Shows map on phone and roates and resizes phone to screen
 	public void showMap() {
-		if(skillsOpen) {
+		if (skillsOpen) {
 			skillsOpen = false;
 			abilityWheelIcons[curAbility].GetComponent<RectTransform>().localScale /= 1.5f;
 			skillWheel.SetActive(false);
@@ -280,12 +276,12 @@ public class GameHUD : MonoBehaviour {
 		phoneButtons.SetActive(true);
 		closeMapButton.SetActive(false);
 		GameObject.Find("PhoneMenu").GetComponent<Animator>().SetBool("mapActive", false);
-	
+
 	}
 
 
 	public void showSkills() {
-		if(!skillsOpen) {
+		if (!skillsOpen) {
 			skillsOpen = true;
 			skillWheel.SetActive(true);
 			abilityWheelIcons[4].GetComponent<RectTransform>().localScale *= 1.5f;
@@ -301,7 +297,7 @@ public class GameHUD : MonoBehaviour {
 			canSpin = false;
 		}
 	}
-	
+
 	public IEnumerator rotateSkillDown() {
 		canSpin = false;
 		skillWheel.GetComponent<Animator>().speed = 1;
@@ -309,8 +305,8 @@ public class GameHUD : MonoBehaviour {
 		skillWheel.GetComponent<Animator>().speed = 0;
 
 		curAbility++;
-		abilityWheelIcons[(curAbility -1) % 8].GetComponent<RectTransform>().localScale /= 1.5f;
-		
+		abilityWheelIcons[(curAbility - 1) % 8].GetComponent<RectTransform>().localScale /= 1.5f;
+
 		Quinc.activeAbility = (curAbility - 1) % 8;
 		abilityWheelIcons[curAbility].GetComponent<RectTransform>().localScale *= 1.5f;
 
@@ -319,8 +315,8 @@ public class GameHUD : MonoBehaviour {
 
 	public IEnumerator rotateSkillUp() {
 		canSpin = false;
-		if(curAbility == 0){
-		
+		if (curAbility == 0) {
+
 		}
 		skillWheel.GetComponent<Animator>().speed = -1;
 		yield return new WaitForSeconds(0.49f);
@@ -328,22 +324,54 @@ public class GameHUD : MonoBehaviour {
 
 
 		curAbility--;
-		if(curAbility < 0){
+		if (curAbility < 0) {
 			curAbility = 7;
 			abilityWheelIcons[0].GetComponent<RectTransform>().localScale /= 1.5f;
+		} else {
+			abilityWheelIcons[curAbility + 1].GetComponent<RectTransform>().localScale /= 1.5f;
 		}
-		else{
-			abilityWheelIcons[curAbility +1].GetComponent<RectTransform>().localScale /= 1.5f;
-		}
-		
+
 		abilityWheelIcons[curAbility].GetComponent<RectTransform>().localScale *= 1.5f;
 
 
 		canSpin = true;
 	}
-	
-	public void ChangeInputToUI(bool change = true){
-		if(change)
+
+	public void ShowDialogueBox() {
+		dialogueBox.SetActive(true);
+	}
+
+	public void HideDialogueBox() {
+		dialogueBox.SetActive(false);
+	}
+
+	public static void SetDialogueBoxText(string name, string dialogue) {
+		dialogueTitleText.GetComponent<Text>().text = name;
+		dialogueText.GetComponent<Text>().text = dialogue;
+	}
+
+	public void skillCut() {
+
+	}
+
+	public void skillSound() {
+
+	}
+
+	public void skillPull() {
+
+	}
+
+	public void skillPush() {
+
+	}
+
+	public void skillStun() {
+
+	}
+
+	public void ChangeInputToUI(bool change = true) {
+		if (change)
 			InputManager.instance.ChangeInputType("UIInputType");
 		else
 			InputManager.instance.ChangeInputType("GameInputType");

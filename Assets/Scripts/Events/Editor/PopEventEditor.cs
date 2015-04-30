@@ -198,6 +198,8 @@ public class PopEventEditor : Editor {
             popupArrayNice = PopEventCore.watchLibrary[condition.e_categoryString];
         }
         else {
+			//popupArray = EventLibrary.monoClasses.Keys.ToArray();//j
+			//popupArrayNice = EventLibrary.monoClassesNice;//j
             popupArray = new string[] { "Choose A Condition" };
             popupArrayNice = new string[] { "Choose A Condition" };
         }
