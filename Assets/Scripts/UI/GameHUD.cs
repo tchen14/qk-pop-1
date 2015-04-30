@@ -28,6 +28,11 @@ public class GameHUD : MonoBehaviour {
 	GameObject objectiveText;						//!<Objective Text UI element
 	GameObject[] mapLabels;							//!<Array of text taht appears on minimap
 
+
+	GameObject dialogueBox;
+	GameObject dialogueText;
+	GameObject dialogueTitleText;
+
 	GameObject middleAbilityIcon;					//!<Phone ability icon references
 	GameObject rightAbilityIcon;
 	GameObject leftAbilityIcon;
@@ -50,7 +55,10 @@ public class GameHUD : MonoBehaviour {
 		mainHUDCanvas = GameObject.Find("mainHUD");
 		skillWheel = GameObject.Find("abilityWheel");
 		abilityWheelAnchorAnim = GameObject.Find("AbilityWheelAnchor").GetComponent<Animator>();
-
+		dialogueBox = GameObject.Find("SpeachBubble");
+		dialogueText = GameObject.Find("speachPanelDialogueText");
+		dialogueTitleText = GameObject.Find ("speachPanelNameText");
+		dialogueBox.SetActive(false);
 		//!Turn on UI stuff
 		worldMapCanvas.SetActive(true);
 		canSpin = false;
@@ -332,6 +340,39 @@ public class GameHUD : MonoBehaviour {
 
 
 		canSpin = true;
+	}
+
+	public void showDialogueBox () {
+		dialogueBox.SetActive(true);
+	}
+
+	public void hideDialogueBox () {
+		dialogueBox.SetActive(false);
+	}
+
+	public void setDialogueBoxText (string name, string dialogue) {
+		dialogueTitleText.GetComponent<Text>().text = name;
+		dialogueText.GetComponent<Text>().text = dialogue;
+	}
+
+	public void skillCut () {
+
+	}
+
+	public void skillSound () {
+
+	}
+
+	public void skillPull () {
+
+	}
+
+	public void skillPush () {
+
+	}
+
+	public void skillStun () {
+
 	}
 
 }
