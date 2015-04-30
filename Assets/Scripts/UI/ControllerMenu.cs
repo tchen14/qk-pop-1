@@ -3,7 +3,9 @@ using UnityEngine.UI;
 using System.Collections;
 
 public class ControllerMenu : MonoBehaviour {
-
+	//does this need to be here?
+	#pragma warning disable 0414
+	//does this need to be here?
 	bool waitForInput = false;
 
 	public GameObject jumpButton;
@@ -27,23 +29,4 @@ public class ControllerMenu : MonoBehaviour {
 	public GameObject movePlayerButton;
 	public GameObject moveCamButton;
 	public GameObject PauseButton;
-
-
-	// Use this for initialization
-	void Start () {
-	
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		if (waitForInput == true) {
-			string temp = Input.inputString;
-		}
-	}
-
-	public void changeButtonAssign (string action) {
-		//string input = Input.inputString;
-
-
-	}
 }

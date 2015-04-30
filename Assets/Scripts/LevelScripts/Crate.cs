@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
-using Debug=FFP.Debug;
+//using Debug=FFP.Debug;
 
 [RequireComponent(typeof(Targetable))]
 [EventVisible]
@@ -24,5 +24,10 @@ public class Crate : Item
 	{
 		//Play push sound associated with crates
 		return;
+	}
+	
+	[EventVisible("test")]
+	public void TestCrateFunction(){
+		Debug.Log("TestCrateFunction");
 	}
 }

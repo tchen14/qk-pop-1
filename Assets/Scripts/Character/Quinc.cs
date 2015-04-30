@@ -5,6 +5,8 @@ using Debug=FFP.Debug;
 
 public class Quinc : MonoBehaviour
 {
+//this class is a cluster fuck and needs to be organized
+#pragma warning disable 0414
 	private float pushRate = 0.5f;
 	public float pushDistance = 5.0f;
 	public float pushModifier = 50.0f;

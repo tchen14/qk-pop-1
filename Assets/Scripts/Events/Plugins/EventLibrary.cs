@@ -47,6 +47,7 @@ public static class EventLibrary {
 
 	public static Dictionary<string, string[]> library = new Dictionary<string, string[]> {
 		{ "AudioManagerMethods", new string[] {"changeVol", "seeVol", } },
+		{ "CrateMethods", new string[] {"TestCrateFunction", } },
 		{ "CrateFields", new string[] {"pushCounter", "pullCounter", "cutCounter", "soundThrowCounter", "stunCounter", "quincAffected", } },
 		{ "EnemyFields", new string[] {"pushCounter", "pullCounter", "cutCounter", "soundThrowCounter", "stunCounter", "quincAffected", } },
 		{ "ItemFields", new string[] {"pushCounter", "pullCounter", "cutCounter", "soundThrowCounter", "stunCounter", "quincAffected", } },
@@ -56,6 +57,7 @@ public static class EventLibrary {
 
 	public static Dictionary<string, string[]> libraryNice = new Dictionary<string, string[]> {
 		{ "AudioManagerMethods", new string[] {"changeVol", "seeVol", } },
+		{ "CrateMethods", new string[] {"test", } },
 		{ "CrateFields", new string[] {"Pushed X Times", "Pulled X Times", "Cut X Times", "Sound Thrown X Times", "Stunned X Times", "Affected by QuinC", } },
 		{ "EnemyFields", new string[] {"Pushed X Times", "Pulled X Times", "Cut X Times", "Sound Thrown X Times", "Stunned X Times", "Affected by QuinC", } },
 		{ "ItemFields", new string[] {"Pushed X Times", "Pulled X Times", "Cut X Times", "Sound Thrown X Times", "Stunned X Times", "Affected by QuinC", } },

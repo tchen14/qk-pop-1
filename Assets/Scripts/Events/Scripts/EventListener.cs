@@ -179,11 +179,6 @@ public static class EventListener {
             if (action.e_categoryString == "Static Script") {
                 EventLibrary.staticClasses[action.e_classString].GetMethod(action.e_fieldString).Invoke(null, action.args);
             }
-            else if (action.e_categoryString == "Object Script") {
-                if (action.e_fieldString != string.Empty && action.e_MonoBehaviour != null) {
-                    action.e_MonoBehaviour.GetType().GetMethod(action.e_fieldString).Invoke(action.e_MonoBehaviour, action.args);
-                }
-			}
 			else if (action.e_categoryString == "GUI") {
 				if (action.e_classString == "Set Objective") {
 					GameHUD.UpdateObjectiveText(action.p_string[0]);
@@ -220,6 +215,10 @@ public static class EventListener {
 				}
 				else if (action.e_classString == "Destroy This Object") {
 					destroyAfterwards = true;
+				}
+            }else{
+				if (action.e_fieldString != string.Empty && action.e_MonoBehaviour != null) {
+					action.e_MonoBehaviour.GetType().GetMethod(action.e_fieldString).Invoke(action.e_MonoBehaviour, action.args);
 				}
             }
         }
