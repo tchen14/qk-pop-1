@@ -9,7 +9,7 @@ using Debug = FFP.Debug;
  * these functions are designed to be called from whatever script needs to update them.
  * ----------------------------------------------------------------------------
  */
-[EventVisible("UI", true)]
+[EventVisible("UI")]
 public class GameHUD : MonoBehaviour {
 	#region singletonEnforcement
 	private static GameObject instance;
@@ -48,7 +48,7 @@ public class GameHUD : MonoBehaviour {
 	int curAbility = 4;
 
 	bool skillsOpen = false;
-	bool canSpin = true;
+	bool canSpin = false;
 	GameObject skillWheel;
 	GameObject closeMapButton;
 	GameObject phoneButtons;
@@ -77,7 +77,6 @@ public class GameHUD : MonoBehaviour {
 		testObjective = GameObject.Find("testObjectiveCanvas");
 		//!Turn on UI stuff
 		worldMapCanvas.SetActive(true);
-		canSpin = false;
 		skillWheel.SetActive(false);
 
 		//!Fill mapLabels array
@@ -110,24 +109,17 @@ public class GameHUD : MonoBehaviour {
 		tempAbList.Add("Pull");
 		tempAbList.Add("Shock");
 
-
 		//Initialize phone abilities list
 		phoneAbilitiesAvailible = new List<GameObject>();
 
 		fillAbilityList(tempAbList);
-
-
-
-
 	}
 
 	void Start() {
 		//Place the ability buttons in the Phone Menu
 		//SpawnHudAbilityIcons ();
 		skillWheel.GetComponent<Animator>().speed = 0;
-
 	}
-
 
 	void Update() {
 		//!This is for testing, call update map from player movements
@@ -135,17 +127,13 @@ public class GameHUD : MonoBehaviour {
 
 		//!Set the compass indicator
 		setCompassValue(calculateObjectiveAngle(testObjective));
-		//Debug.Log("Angle found: " + calculateObjectiveAngle(testObjective));
 
 		//Testing
-		if (Input.GetKeyDown("1") && canSpin) {
-			StartCoroutine(rotateSkillDown());
-
-		}
-
-		if (Input.GetKeyDown("2") && canSpin) {
-			StartCoroutine(rotateSkillUp());
-
+		if(InputManager.input.ScrollTarget() != 0 && canSpin) {
+			if(InputManager.input.ScrollTarget() > 0)
+				StartCoroutine(rotateSkillDown());
+			else
+				StartCoroutine(rotateSkillUp());
 		}
 
 	}
@@ -160,7 +148,7 @@ public class GameHUD : MonoBehaviour {
 	//!Right now its based on Player rotation, needs to be based on camera
 	public void rotateMapObjects() {
 		Quaternion newRotation;
-		foreach (GameObject curLabel in mapLabels) {
+		foreach(GameObject curLabel in mapLabels) {
 			newRotation = Quaternion.Euler(new Vector3(90, 0, -player.transform.rotation.eulerAngles.y));
 			curLabel.GetComponent<RectTransform>().rotation = newRotation;
 		}
@@ -168,10 +156,10 @@ public class GameHUD : MonoBehaviour {
 
 	public void setCompassValue(float newValue) {
 		GameObject compass = GameObject.Find("compassSlider");
-		if (newValue > 105) {
+		if(newValue > 105) {
 			newValue = 105;
 		}
-		if (newValue < 75) {
+		if(newValue < 75) {
 			newValue = 75;
 		}
 		compass.GetComponent<Slider>().value = newValue;
@@ -203,7 +191,7 @@ public class GameHUD : MonoBehaviour {
 
 	//This is for testing
 	void OnTriggerEnter(Collider col) {
-		if (col.gameObject.tag == "Finish") {
+		if(col.gameObject.tag == "Finish") {
 			UpdateObjectiveText("Objective Complete!");
 		}
 	}
@@ -211,8 +199,8 @@ public class GameHUD : MonoBehaviour {
 	//fills HUD ability list
 	void fillAbilityList(List<string> abilities) {
 		//Add the proper ability to the phone wheel
-		foreach (string curAbility in abilities) {
-			switch (curAbility) {
+		foreach(string curAbility in abilities) {
+			switch(curAbility) {
 
 				case "Push":
 					phoneAbilitiesAvailible.Add(hudAbilityIcons[0]);
@@ -231,7 +219,7 @@ public class GameHUD : MonoBehaviour {
 
 	//Display the HUD icons in the phone menu
 	public void SpawnHudAbilityIcons() {
-		if (!abilitiesUp) {
+		if(!abilitiesUp) {
 			abilitiesUp = true;
 			GameObject spawnPoint = GameObject.Find("abilitySelectPivot");
 
@@ -246,7 +234,7 @@ public class GameHUD : MonoBehaviour {
 			middleAbilityIcon.transform.SetParent(spawnPoint.transform);
 
 			//spawn ability on the right if there is at least 2 elements in the array
-			if (phoneAbilitiesAvailible.Count > 1) {
+			if(phoneAbilitiesAvailible.Count > 1) {
 				Vector3 newPos = spawnPoint.transform.position;
 
 				newPos.x += Screen.width / 24;
@@ -259,7 +247,7 @@ public class GameHUD : MonoBehaviour {
 			}
 
 			//spawn ability on the left if there is at least 3 elements in the array
-			if (phoneAbilitiesAvailible.Count > 2) {
+			if(phoneAbilitiesAvailible.Count > 2) {
 				Vector3 newPos = spawnPoint.transform.position;
 
 				newPos.x += Screen.width / 24;
@@ -277,7 +265,7 @@ public class GameHUD : MonoBehaviour {
 
 	//Shows map on phone and roates and resizes phone to screen
 	public void showMap() {
-		if (skillsOpen) {
+		if(skillsOpen) {
 			skillsOpen = false;
 			abilityWheelIcons[curAbility].GetComponent<RectTransform>().localScale /= 1.5f;
 			skillWheel.SetActive(false);
@@ -299,22 +287,22 @@ public class GameHUD : MonoBehaviour {
 
 	}
 
-
 	public void showSkills() {
-		if (!skillsOpen) {
+		if(!skillsOpen) {
 			skillsOpen = true;
 			skillWheel.SetActive(true);
 			abilityWheelIcons[4].GetComponent<RectTransform>().localScale *= 1.5f;
 			abilityWheelAnchorAnim.SetBool("slideIn", true);
 			canSpin = true;
+			InputManager.changeSkills = true;
 		} else {
 			skillsOpen = false;
-			Debug.Log("skills closed");
 			abilityWheelIcons[curAbility].GetComponent<RectTransform>().localScale /= 1.5f;
 			skillWheel.SetActive(false);
 			curAbility = 4;
 			abilityWheelAnchorAnim.SetBool("slideIn", false);
 			canSpin = false;
+			InputManager.changeSkills = false;
 		}
 	}
 
@@ -325,7 +313,7 @@ public class GameHUD : MonoBehaviour {
 		skillWheel.GetComponent<Animator>().speed = 0;
 
 		curAbility++;
-		abilityWheelIcons[(curAbility - 1) % 8].GetComponent<RectTransform>().localScale /= 1.5f;
+		abilityWheelIcons[curAbility % 8].GetComponent<RectTransform>().localScale /= 1.5f;
 
 		Quinc.activeAbility = (curAbility - 1) % 8;
 		abilityWheelIcons[curAbility].GetComponent<RectTransform>().localScale *= 1.5f;
@@ -335,7 +323,7 @@ public class GameHUD : MonoBehaviour {
 
 	public IEnumerator rotateSkillUp() {
 		canSpin = false;
-		if (curAbility == 0) {
+		if(curAbility == 0) {
 
 		}
 		skillWheel.GetComponent<Animator>().speed = -1;
@@ -344,7 +332,7 @@ public class GameHUD : MonoBehaviour {
 
 
 		curAbility--;
-		if (curAbility < 0) {
+		if(curAbility < 0) {
 			curAbility = 7;
 			abilityWheelIcons[0].GetComponent<RectTransform>().localScale /= 1.5f;
 		} else {
@@ -364,7 +352,7 @@ public class GameHUD : MonoBehaviour {
 	public void HideDialogueBox() {
 		dialogueBox.SetActive(false);
 	}
-	
+
 	[EventVisible]
 	public void SetDialogueBoxText(string name, string dialogue) {
 		dialogueTitleText.GetComponent<Text>().text = name;
@@ -392,7 +380,7 @@ public class GameHUD : MonoBehaviour {
 	}
 
 	public void ChangeInputToUI(bool change = true) {
-		if (change)
+		if(change)
 			InputManager.instance.ChangeInputType("UIInputType");
 		else
 			InputManager.instance.ChangeInputType("GameInputType");

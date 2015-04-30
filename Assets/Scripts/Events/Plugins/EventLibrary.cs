@@ -52,7 +52,7 @@ public static class EventLibrary {
 		{ "Enemy", false},
 		{ "Rope", false},
 		{ "Well", false},
-		{ "GameHUD", true},
+		{ "GameHUD", false},
 	};
 
 	public static Dictionary<string, string[]> library = new Dictionary<string, string[]> {

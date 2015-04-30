@@ -5,7 +5,7 @@ using Debug = FFP.Debug;
 //! Class manages different InputTypes and chooses one to be the active input type
 public sealed class InputManager : MonoBehaviour
 {
-
+	public static bool changeSkills = false;
 	public GameInputType test;
 
 	//Singleton variable

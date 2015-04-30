@@ -75,14 +75,14 @@ public sealed class PoPCamera : Camera_2
 		else if(!inTargetLock && InputManager.input.isTargetPressed() && AcquireTarget().Count != 0f)
 			inTargetLock = true;
 
-		if(inTargetLock && InputManager.input.scrollTarget() > 0f) {
+		if(inTargetLock && InputManager.input.CameraScrollTarget() > 0f) {
 			if(targetindex <= 0)
 				targetindex = targetedObjects.Count - 1;
 			else
 				targetindex--;
 		}
 
-		if(inTargetLock && InputManager.input.scrollTarget() < 0f) {
+		if(inTargetLock && InputManager.input.CameraScrollTarget() < 0f) {
 			if(targetindex == targetedObjects.Count - 1)
 				targetindex = 0;
 			else

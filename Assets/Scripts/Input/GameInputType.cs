@@ -176,7 +176,13 @@ public class GameInputType : InputType {
 		}
 		return Input.GetKey(journal);
 	}
-	public override int scrollTarget() {
+	public override int CameraScrollTarget() {
+		if(!InputManager.changeSkills)
+			return ScrollTarget();
+		else
+			return 0;
+	}
+	public override int ScrollTarget() {
 	//todo: fix this
 		if(Input.GetAxis("Mouse ScrollWheel") > 0 /*|| Input.GetAxis(controllerNextTarget)>0*/){
 			return 1;

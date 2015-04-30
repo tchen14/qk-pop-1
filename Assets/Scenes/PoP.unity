@@ -726,6 +726,69 @@ MonoBehaviour:
     compareIndex: 0
     color: {r: 0, g: .579999983, b: .689999998, a: .449999988}
     editorHeight: 130
+  - e_categoryString: System
+    e_categoryIndex: 0
+    e_classString: Choose A Condition
+    e_classIndex: 0
+    e_fieldString: Choose An Action
+    e_fieldIndex: 0
+    e_MonoBehaviour: {fileID: 0}
+    e_GameObject: {fileID: 0}
+    p_int: 0000000000000000000000000000000000000000
+    p_bool: 0000000000
+    p_float:
+    - 0
+    - 0
+    - 0
+    - 0
+    - 0
+    p_string:
+    - 
+    - 
+    - 
+    - 
+    - 
+    p_Vector3:
+    - {x: 0, y: 0, z: 0}
+    - {x: 0, y: 0, z: 0}
+    - {x: 0, y: 0, z: 0}
+    - {x: 0, y: 0, z: 0}
+    - {x: 0, y: 0, z: 0}
+    p_Transform:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    p_GameObject:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    p_MonoBehaviour:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    numberCompareString:
+    - Equal To
+    - Greater Than
+    - Less Than
+    vectorCompareString:
+    - Nearer Than
+    - Further Than
+    boolCompareString:
+    - Is True
+    - Is False
+    stringCompareString:
+    - Equal To
+    - Different Than
+    compareString: 
+    compareIndex: 0
+    color: {r: 0, g: .579999983, b: .689999998, a: .25}
+    editorHeight: 20
   actions:
   - e_categoryString: GameHUD
     e_categoryIndex: 6

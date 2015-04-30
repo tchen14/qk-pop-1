@@ -52,11 +52,16 @@ public abstract class InputType : MonoBehaviour {
 	public virtual bool isJournal() {
 		return false;
 	}
-	public virtual int scrollTarget() {
+	public virtual int CameraScrollTarget() {
 		return 0;
 	}
+	public virtual int ScrollTarget() {
+		return 0;
+	}
+
 	public virtual void SaveInput(){
 	}
+
 	public virtual void LoadInput(){
 	}
 }
