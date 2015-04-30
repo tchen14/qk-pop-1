@@ -276,8 +276,12 @@ public class PopEventEditor : Editor {
 		string[] popupArray = new string[0];
 		string[] popupArrayNice = new string[0];
 		
-		EditorGUILayout.LabelField("Target Object", GUILayout.MaxWidth(columnWidth));
-		condition.e_GameObject = (GameObject)EditorGUILayout.ObjectField(condition.e_GameObject, typeof(GameObject), true, GUILayout.MaxWidth(columnWidth));
+		if(!EventLibrary.instanceClasses[condition.e_classString]){
+			EditorGUILayout.LabelField("Target Object", GUILayout.MaxWidth(columnWidth));
+			condition.e_GameObject = (GameObject)EditorGUILayout.ObjectField(condition.e_GameObject, typeof(GameObject), true, GUILayout.MaxWidth(columnWidth));
+		}else{
+			;//condition.e_GameObject = typeof(condition.e_classString)
+		}
 		if (condition.e_GameObject == null) {
 			condition.e_MonoBehaviour = null;
 		}
@@ -568,8 +572,10 @@ public class PopEventEditor : Editor {
 		string[] popupArrayNice = new string[0];
 		//action.e_classString = action.e_categoryString;
 		
-		EditorGUILayout.LabelField("Target Object", GUILayout.MaxWidth(columnWidth));
-		action.e_GameObject = (GameObject)EditorGUILayout.ObjectField(action.e_GameObject, typeof(GameObject), true, GUILayout.MaxWidth(columnWidth));
+		if(!EventLibrary.instanceClasses[action.e_classString]){
+			EditorGUILayout.LabelField("Target Object", GUILayout.MaxWidth(columnWidth));
+			action.e_GameObject = (GameObject)EditorGUILayout.ObjectField(action.e_GameObject, typeof(GameObject), true, GUILayout.MaxWidth(columnWidth));
+		}
 		if (action.e_GameObject == null) {
 			action.e_MonoBehaviour = null;
 		}else{

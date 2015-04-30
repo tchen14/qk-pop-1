@@ -80,9 +80,7 @@ public class CompileEventLibrary : EditorWindow {
             compilationString += " \"" + name + "\", ";
         }
         compilationString += "};";
-
-		/*
-		 * 
+        
 		compilationString += "\n\n\tpublic static Dictionary<string, bool> instanceClasses = new Dictionary<string, bool> {\n";
 		// Get every Mono class with the EventVisibleAttribute
 		niceNames = new List<string>();
@@ -97,7 +95,6 @@ public class CompileEventLibrary : EditorWindow {
 			}
 		}
 		compilationString += "\t};";
-		 */
 
         //  Names Library
         compilationString += "\n\n\tpublic static Dictionary<string, string[]> library = new Dictionary<string, string[]> {\n";

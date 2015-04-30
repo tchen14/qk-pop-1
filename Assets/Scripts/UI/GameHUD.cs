@@ -364,8 +364,6 @@ public class GameHUD : MonoBehaviour {
 	public void HideDialogueBox() {
 		dialogueBox.SetActive(false);
 	}
-	[EventVisible]
-	int xxx;
 	
 	[EventVisible]
 	public void SetDialogueBoxText(string name, string dialogue) {

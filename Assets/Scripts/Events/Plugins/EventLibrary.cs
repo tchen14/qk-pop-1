@@ -46,6 +46,15 @@ public static class EventLibrary {
 
 	public static string[] monoClassesNice = new string[] { "AIMain",  "Crate",  "Enemy",  "Rope",  "Well",  "UI", };
 
+	public static Dictionary<string, bool> instanceClasses = new Dictionary<string, bool> {
+		{ "AIMain", false},
+		{ "Crate", false},
+		{ "Enemy", false},
+		{ "Rope", false},
+		{ "Well", false},
+		{ "GameHUD", true},
+	};
+
 	public static Dictionary<string, string[]> library = new Dictionary<string, string[]> {
 		{ "AudioManagerMethods", new string[] {"changeVol", "seeVol", } },
 		{ "CrateMethods", new string[] {"TestCrateFunction", } },
