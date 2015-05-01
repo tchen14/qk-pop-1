@@ -42,7 +42,7 @@ public class AudioManager : MonoBehaviour {
 
 
 
-	const string soundListFilePath = "/Resources/Json/audioListData.json";
+	const string soundListFilePath = "/Resources/audioListData.json";
 	const string soundFilePath = "/StreamingAssets/Audio/";
 
 	public AudioMixer masterMixer;
@@ -63,8 +63,6 @@ public class AudioManager : MonoBehaviour {
 
 	//! Unity Start function
     void Start() {
-		Debug.Warning("audio", "SoundManager has started");
-
 		tempvol = 60f;
 
 		#region singletonCreation

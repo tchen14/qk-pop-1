@@ -2,6 +2,7 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 using SimpleJSON;
+using Debug = FFP.Debug;
 
 //! InputType responsible for normal QK in game movement controls
 public class GameInputType : InputType {
@@ -28,40 +29,44 @@ public class GameInputType : InputType {
 	protected bool previousTarget { get { return Input.GetAxis("Mouse ScrollWheel") < 0; } }
 	protected string pause = "escape";
 	//_______________________________
-	protected string controllerHor = "Horizontal";
-	protected string controllerVert = "Vertical";
-	protected string controllerRightHor = "Right Stick Horizontal";
-	protected string controllerRightVert = "Right Stick Vertical";
-	protected string controllerCrouch = "Left Stick Press";
-	protected string controllerJump = "A Button";
-	protected string controllerAction = "B Button";
-	protected string controllerSprint = "RB";
-	protected string controllerTarget = "LB";
-	protected string controllerNextTarget = "Right Trigger";
-	protected string controllerPreviousTarget = "Left Trigger";
-	protected string controllerCameraReset = "Right Stick Press";
-	protected string dPadHorString = "D-Pad Hor";
-	protected string dPadVertString = "D-Pad Vert";
+	//Controller input list
+	protected string controllerHor = "Xbox L Hor";
+	protected string controllerVert = "Xbox L Vert";
+	protected string controllerRightHor = "Xbox R Hor";
+	protected string controllerRightVert = "Xbox R Vert";
+	protected string controllerCrouch = "Xbox L3";
+	protected string controllerCamReset = "Xbox R3";
+	protected string controllerJump = "Xbox A Button";
+	protected string controllerAction = "Xbox B Button";
+	protected string controllerStart = "Xbox Start Button";
+	protected string controllerSprint = "Xbox RB";
+	protected string controllerTarget = "Xbox LB";
+	protected string controllerNextAbility = "Xbox RT";
+	protected string controllerPreviousAbility = "Xbox LT";
+	protected string dPadVertString = "Xbox Dpad Vert";
+	protected string dPadHorString = "Xbox Dpad Hor";
 	protected bool dPadUp { get { return Input.GetAxis(dPadVertString) > 0; } }
 	protected bool dPadDown { get { return Input.GetAxis(dPadVertString) < 0; } }
 	protected bool dPadRight { get { return Input.GetAxis(dPadHorString) > 0; } }
 	protected bool dPadLeft { get { return Input.GetAxis(dPadHorString) < 0; } }
 
-	const string controllerInputFilePath = "/controllerInput.json";
 
 	void Start(){
-		//string json = System.IO.File.ReadAllText (Application.dataPath + controllerInputFilePath);
+		if(!loadListFromFile(StringManager.INPUTKEYS)) {
+			Debug.Log("input", "JSON file did not load");
+		} else
+			Debug.Log("input", "JSON file loaded");
 	}
 
 	public override float CameraVerticalAxis() {
 		if(Input.GetAxis("Mouse Y") != 0)
 			return Input.GetAxis("Mouse Y");
-		else if(Input.GetAxis(controllerVert) != 0)
-			return Input.GetAxis(controllerVert);
+		else if(Input.GetAxis(controllerRightVert) != 0)
+			return Input.GetAxis(controllerRightVert);
 			
-		if(Input.GetAxis("Mouse Y") > 0 || Input.GetAxis(controllerVert)>0){
+		if(Input.GetAxis("Mouse Y") > 0 || Input.GetAxis(controllerRightVert)>0){
 			return 1;
-		}else if(Input.GetAxis("Mouse Y") < 0 || Input.GetAxis(controllerVert) < 0){
+		}else if(Input.GetAxis("Mouse Y") < 0 || Input.GetAxis(controllerRightVert) < 0){
 			return -1;
 		}
 		return 0;
@@ -70,12 +75,12 @@ public class GameInputType : InputType {
 	public override float CameraHorizontalAxis() {
 		if(Input.GetAxis("Mouse X") != 0)
 			return Input.GetAxis("Mouse X");
-		else if(Input.GetAxis(controllerHor) != 0)
-			return Input.GetAxis(controllerHor);
+		else if(Input.GetAxis(controllerRightHor) != 0)
+			return Input.GetAxis(controllerRightHor);
 			
-		if(Input.GetAxis("Mouse X") > 0 || Input.GetAxis(controllerHor)>0){
+		if(Input.GetAxis("Mouse X") > 0 || Input.GetAxis(controllerRightHor)>0){
 			return 1;
-		}else if(Input.GetAxis("Mouse X") < 0 || Input.GetAxis(controllerHor) < 0){
+		}else if(Input.GetAxis("Mouse X") < 0 || Input.GetAxis(controllerRightHor) < 0){
 			return -1;
 		}
 		return 0;
@@ -88,12 +93,11 @@ public class GameInputType : InputType {
 			return 1;
 		} else if(Input.GetKey(backward))
 			return -1;
-		//todo: fix this shit
-//		else if(Input.GetAxis(controllerRightVert) > 0) {
-//			return 1;
-//		} else if(Input.GetAxis(controllerRightVert) < 0) {
-//			return -1;
-//		}
+		else if(Input.GetAxis(controllerVert) > 0) {
+			return 1;
+		} else if(Input.GetAxis(controllerVert) < 0) {
+			return -1;
+		}
 		return 0;
 	}
 	public override int MoveHorizontalAxis() {
@@ -103,27 +107,31 @@ public class GameInputType : InputType {
 			return 1;
 		else if(Input.GetKey(left))
 			return -1;
-		//todo: fix this shit
-//		else if(Input.GetAxis(controllerRightHor) > 0) {
-//			return 1;
-//		} else if(Input.GetAxis(controllerRightHor) < 0) {
-//			return -1;
-//		}
+		else if(Input.GetAxis(controllerHor) > 0) {
+			return 1;
+		} else if(Input.GetAxis(controllerHor) < 0) {
+			return -1;
+		}
 		return 0;
+	}
+	
+	public override bool AbilityPressed() {
+		if(Input.GetButton(controllerAction)) {
+			return true;
+		}
+		return Input.GetKey(qAbility1);
 	}
 
 	public override bool isCrouched() {
-		//todo: fix this shit
-//		if(Input.GetButton(controllerCrouch)) {
-//			return true;
-//		}
+		if(Input.GetButton(controllerCrouch)) {
+			return true;
+		}
 		return Input.GetKey(crouch);
 	}
 	public override bool isSprinting() {
-		//todo: fix this shit
-//		if(Input.GetButton(controllerSprint)) {
-//			return true;
-//		}
+		if(Input.GetButton(controllerSprint)) {
+			return true;
+		}
 		return Input.GetKey(sprint);
 	}
 	public override bool isJumping() {
@@ -139,17 +147,15 @@ public class GameInputType : InputType {
 		return Input.GetKey(action);
 	}
 	public override bool isTargetPressed() {
-	//todo: fix this
-//		if(Input.GetButton(controllerTarget)) {
-//			return true;
-//		}
+		if(Input.GetButton(controllerTarget)) {
+			return true;
+		}
 		return Input.GetKeyDown(target);
 	}
 	public override bool isCameraResetPressed() {
-	//todo: fix this
-//		if(Input.GetButton(controllerCameraReset)) {
-//			return true;
-//		}
+		if(Input.GetButton(controllerCamReset)) {
+			return true;
+		}
 		return Input.GetKeyDown(cameraReset);
 	}
 	public override bool isAbilityEquip() {
@@ -183,10 +189,9 @@ public class GameInputType : InputType {
 			return 0;
 	}
 	public override int ScrollTarget() {
-	//todo: fix this
-		if(Input.GetAxis("Mouse ScrollWheel") > 0 /*|| Input.GetAxis(controllerNextTarget)>0*/){
+		if(Input.GetAxis("Mouse ScrollWheel") > 0 || Input.GetAxis(controllerNextAbility)>0){
 			return 1;
-		}else if(Input.GetAxis("Mouse ScrollWheel") < 0 /*|| Input.GetAxis(controllerPreviousTarget) < 0*/){
+		}else if(Input.GetAxis("Mouse ScrollWheel") < 0 || Input.GetAxis(controllerPreviousAbility) < 0){
 			return -1;
 		}
 		return 0;
@@ -230,9 +235,8 @@ public class GameInputType : InputType {
 		cover = inputs ["cover"];
 		climb = inputs ["climb"];
 		jump = inputs ["jump"];
-		//todo: fix this
-		//target = inputs ["target"];
-		//cameraReset = inputs ["cameraReset"];
+		target = (KeyCode) System.Enum.Parse(typeof(KeyCode),inputs ["target"]);
+		cameraReset = (KeyCode) System.Enum.Parse(typeof(KeyCode),inputs ["cameraReset"]);
 		abilityEquip = inputs ["abilityEquip"];
 		notifications = inputs ["notifications"];
 		compass = inputs ["compass"];
@@ -240,6 +244,47 @@ public class GameInputType : InputType {
 		qAbility1 = inputs ["qAbility1"];
 		pause = inputs ["pause"];
 
+	}
+	
+	//JSON load stuff
+	private bool loadListFromFile(string filePath){
+		if(!System.IO.File.Exists(Application.dataPath + filePath)) {
+			Debug.Log("input", "File does not exist: " + Application.dataPath + filePath);
+			return false;
+		}
+		string json = System.IO.File.ReadAllText(Application.dataPath + filePath);
+		return loadListFromJson(json);
+	}
+
+	private bool loadListFromJson(string json){
+		JSONNode inputs = JSON.Parse (json);
+		if(inputs == null) {
+			Debug.Log("input", "Json file is empty");
+			return false;
+		}
+		JSONNode cont = inputs ["controller"];
+
+		//If game is running on the PS4
+		if (Application.platform == RuntimePlatform.PS4) {
+			JSONNode contInputs = cont ["PS4"];
+			controllerHor = contInputs[0].Value;
+			controllerVert = contInputs[1].Value;
+			controllerRightHor = contInputs[2].Value;
+			controllerRightVert = contInputs[3].Value;
+			controllerCrouch = contInputs[4].Value;
+			controllerCamReset = contInputs[5].Value;
+			controllerJump = contInputs[6].Value;
+			controllerAction = contInputs[7].Value;
+			controllerStart = contInputs[8].Value;
+			controllerSprint = contInputs[9].Value;
+			controllerTarget = contInputs[10].Value;
+			controllerNextAbility = contInputs[11].Value;
+			controllerPreviousAbility = contInputs[12].Value;
+			dPadVertString = contInputs[13].Value;
+			dPadHorString = contInputs[14].Value;
+			Debug.Log("input", "PS4 Input Loaded");
+		}
+		return true;
 	}
 
 }

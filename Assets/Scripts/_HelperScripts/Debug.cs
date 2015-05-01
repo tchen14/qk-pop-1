@@ -206,9 +206,9 @@ namespace FFP {
 		                            float duration = 0.0f, bool depthTest = true) {
 				Debug.DrawRay(start, end, color, duration, depthTest);
 		}
-		public static void Log (string message, UnityEngine.Object context = null) {
+		/*public static void Log (string message, UnityEngine.Object context = null) {
 			Debug.Log(message, context);
-		}
+		}*/
 		public static void Error (string message, UnityEngine.Object context = null) {
 			Debug.Error(message, context);
 		}

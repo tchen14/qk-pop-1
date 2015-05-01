@@ -34,6 +34,9 @@ public abstract class InputType : MonoBehaviour {
 	public virtual bool isActionPressed() {
 		return false;
 	}
+	public virtual bool AbilityPressed() {
+		return false;
+	}
 	public virtual bool isTargetPressed() {
 		return false;
 	}
@@ -57,6 +60,9 @@ public abstract class InputType : MonoBehaviour {
 	}
 	public virtual int ScrollTarget() {
 		return 0;
+	}
+	public virtual bool isStart() {
+		return false;
 	}
 
 	public virtual void SaveInput(){
