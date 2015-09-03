@@ -287,6 +287,16 @@ public sealed class PoPCamera : Camera_2
 
         return targets;
 	}
+
+	// Returns current gameobject or null if none is targetted
+	public GameObject CurrentTarget() {
+		if(targetedObjects != null)
+			return targetedObjects[targetindex];
+		else {
+			Debug.Warning("camera", "No current object targetted");
+			return null;
+		}
+	}
 	#endregion
 
 	#region Occlusion Checking
