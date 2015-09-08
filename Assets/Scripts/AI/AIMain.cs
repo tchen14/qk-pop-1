@@ -14,22 +14,22 @@ public class AIMain : MonoBehaviour {
 	//Variables Editable
 
 	public int 					hp 					= 100;						//!<Health of the NPC
-	public float 				sightDistance 		= 20;						//!<The distance the NPC is capable of seeing
+	public float 				sightDistance 		= 30;						//!<The distance the NPC is capable of seeing
 	public float 				sightAngle			= 35;						//!<The max angle of the cone of vision
 	public float 				speed 				= 5;						//!<Casual Speed of the NPC
 	public float		 		runSpeed 			= 8;						//!<Scared, Charging, Aggressive Speed of the NPC*
 	public string[]		 		seekTag 			= {"Player"};				//!<The enemy Tag of this NPC
 	public float 				attackDistance		= 3;						//!<The distance the NPC stands away from the target and attacks*
-	public float 				aggressionLimit		= 100;						//!<The aggression level of the attacker
+	public float 				aggressionLimit		= 250;						//!<The aggression level of the attacker
 	public GameObject 			startPoint 			= null;						//!<Sets the first navPoint, defaults to stationary
 	public string				panicPoints			= "PanicPoints";			//!<The object name of the vector keeper of related panic points for the AI
 	public bool 				aggression 			= false;					//!<If the NPC will attack the player
 
 	//Variables Controllers
 	
-	[ReadOnly]public bool 		seesTarget 			= false;					//!<If the Player has been spotted
+	public bool 		seesTarget 			= false;					//!<If the Player has been spotted
 	[ReadOnly]public GameObject target				= null;						//!<The transform of the player
-	[ReadOnly]public bool 		attacking 			= false;					//!<If the AI is attacking
+	public bool 		attacking 			= false;					//!<If the AI is attacking
 	[ReadOnly]public bool 		panic 				= false;					//!<If the AI is panicking
 	[ReadOnly]public Vector3 	panicTarget			= new Vector3 (0, 0, 0);	//!<Target of AI panic
 	[ReadOnly]public float 		aggressionLevel 	= 0;						//!<The current awareness of the NPC to the Player	
@@ -67,7 +67,7 @@ public class AIMain : MonoBehaviour {
     //! Unity Update function
     void Update() 
 	{
-				if (hp > 0) {
+			if (hp > 0) {
 						#region attack
 						//If the AI does not have an active target then there is nothing to attack
 						if (target != null) {
@@ -94,7 +94,8 @@ public class AIMain : MonoBehaviour {
 
 						#region sight
 						//If the AI is willing to fight but has not found an enemy begin the coroutine to find a viable target
-						if (aggression == true && target == null) {
+                            //modified this so it will keep checking as long as AI is aggressive. Allows for checks to see if the player can be seen
+						if (aggression == true) {
 								StartCoroutine ("CheckForTargets");
 						}
 						#endregion
@@ -129,7 +130,7 @@ public class AIMain : MonoBehaviour {
 			//If the AI has a target already and is willing to fight and is not currently attacking the target
 			if(aggression == true && seesTarget == true && attacking == false)
 			{
-				Debug.Log("ai", aggressionLevel.ToString());
+				//Debug.Log("ai", aggressionLevel.ToString());
 				//If the AI is aware of its target set the navPoint to the target
 				if(aggressionLevel >= aggressionLimit)
 					ChangeNavPoint(target.name,target.transform.position);
@@ -140,10 +141,17 @@ public class AIMain : MonoBehaviour {
 			//If the AI is not aware of a target,  not aggressive, or is attacking, decrease its aggression levels
 			else
 			{
+                
 				//So long as the AI is aggressive, this cannot go below 0, decrement agressionLevel
 				if(aggressionLevel > 0)
 				{
 					aggressionLevel -= 1;
+                    //Debug.Log("ai", aggressionLevel.ToString());
+                    //If the AI's agression level hits 0 it will go back to its origial destiation set on start
+                    if (aggressionLevel == 0 )
+                    {
+                        ChangeNavPoint(startPoint.name, startPoint.transform.position);
+                    }
 				}
 			}
 		#endregion
@@ -192,7 +200,7 @@ public class AIMain : MonoBehaviour {
 	}
 	
 	//!<Sends Raycast and sets up AI_Main
-	private void GetTargets()
+    public void GetTargets()
 	{
 		//Create a dynamic type array to add all targets into an array
 		List<GameObject> viableTargets = new List<GameObject> ();
@@ -213,7 +221,7 @@ public class AIMain : MonoBehaviour {
 			{
 				//If the target is within the field of view of the AI continue
 				if(Vector3.Angle(viableTargets[searchTargets].transform.position-transform.position,transform.forward)< sightAngle)
-				{
+				{  
 					//If the target is within the sight distance of the AI continue
 					if(Vector3.Distance(transform.position,viableTargets[searchTargets].transform.position) < sightDistance)
 					{
@@ -227,15 +235,23 @@ public class AIMain : MonoBehaviour {
 								target = hit.collider.gameObject;
 								seesTarget = true;
 							}
+                            else
+                            {
+                                seesTarget = false;
+                                //run LastKnowLoc
+                                //Log.M ("ai", "OUT OF SIGHT");
+                            }
 						}
 					}
 					else
 					{
+                        seesTarget = false;
 						//Log.M ("ai", "OUT OF DISTANCE");
 					}
 				}
 				else
 				{
+                    seesTarget = false;
 					//Log.M ("ai", "out of angles");
 				}
 			}
@@ -263,4 +279,13 @@ public class AIMain : MonoBehaviour {
         return HP;
     }
     #endregion
+
+    public void LastKnowLoc()
+    {
+        //triggers upon the player moving out of sight of the enemy
+        //spawn an unmoving transparent version of the player at the players location
+        //enemys target is set to that
+        //upon reaching that spot the enemy runs seach sequence
+
+    }
 }
