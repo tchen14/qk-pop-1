@@ -22,8 +22,8 @@ public abstract class CharacterController_2 : MonoBehaviour {
 	protected Vector3 targetDirection = Vector3.zero;
 	protected float currentWalkingSpeed;
 	public const float rotationSpeed = 3.5f;
-	protected const float minWalkingSpeed = 20f;
-	protected const float maxWalkingSpeed = 30f;
+	protected const float minWalkingSpeed = 30f;
+	protected const float maxWalkingSpeed = 40f;
 	protected const float runningSpeedMod = 1.2f;
 	protected const float moveAcceleration = 7.5f;
 	protected const int movePow = 3;

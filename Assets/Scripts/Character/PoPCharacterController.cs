@@ -41,7 +41,7 @@ public sealed class PoPCharacterController : CharacterController_2 {
 		currentClimbingSpeed = minClimbingSpeed;
 	}
 
-	void Update() {
+	void FixedUpdate() {
 		// Input used for running and crouching
 		SetModifiers(InputManager.input.isSprinting(), InputManager.input.isCrouched());
 
