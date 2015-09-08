@@ -58,17 +58,58 @@ public class Quinc : MonoBehaviour {
 				nextPush = Time.time + pushRate;
 				//pushPullTarget = GameObject.Find("Crate"); //!> Reference Targeting Script to get current Target
 				pushPullTarget = acquiredTargets[currentTargetedObjectIndex];
+
+				//push object
+				//push success/error string
+				string pushStatus = "trying to push";
+				//pass status string by reference and target game object to push
+				if(Push(ref pushStatus, pushPullTarget)) {
+					//output success message
+					print("Push status: " + pushStatus);
+				}
+				else{
+					//output error message
+					print("Push error: " + pushStatus);
+				}//END if(Push(ref pushStatus, pushPullTarget))
+
 			}
 				//else if (Input.GetKeyDown(KeyCode.Alpha2) && Time.time > nextPull)
 			else if(InputManager.input.isActionPressed() && activeAbility == 1 && Time.time > nextPull) {
 				nextPull = Time.time + pullRate;
 				//pushPullTarget = GameObject.Find("Crate"); //!> Reference Targeting Script to get current Target
 				pushPullTarget = acquiredTargets[currentTargetedObjectIndex];
+
+				//pull object
+				//push success/error string
+				string pullStatus = "trying to pull";
+				//pass status string by reference and target game object to pull
+				if(Pull(ref pullStatus, pushPullTarget)) {
+					//output success message
+					print("Pull status: " + pullStatus);
+				} else {
+					//output error message
+					print("Pull error: " + pullStatus);
+				}//END if(Pull(ref pullStatus, pushPullTarget))
+
 			}
 				//else if (Input.GetKeyDown(KeyCode.Alpha3))
 			else if(InputManager.input.isActionPressed() && activeAbility == 2 && Input.GetKeyDown(KeyCode.I)) {
 				//cutTarget = GameObject.Find("Rope"); //!> Reference Targeting Script to get current Target
 				cutTarget = acquiredTargets[currentTargetedObjectIndex];
+	//UNTESTED
+				//cut object
+				//cut success/error string
+				string cutStatus = "trying to cut";
+				//pass status by reference and target game object to cut
+				if(Cut(ref cutStatus, cutTarget)) {
+					//output success message
+					print("Cut status: " + cutStatus);
+				} else {
+					//output error message
+					print("Cut error: " + cutStatus);
+				}
+	//END UNTESTED
+
 			}
 				//else if(Input.GetKeyDown(KeyCode.Alpha4))
 			else if(InputManager.input.isActionPressed() && activeAbility == 3 && Input.GetKeyDown(KeyCode.O)) {
@@ -80,16 +121,32 @@ public class Quinc : MonoBehaviour {
 					print("Sound Status: " + soundStatus);
 				} else {
 					print("Sound Error: " + soundStatus);
-				}
+				}//END if(SoundThrow(ref soundStatus, soundThrowTarget))
+	
 			}
 				//else if(Input.GetKeyDown(KeyCode.Alpha5))
 			else if(InputManager.input.isActionPressed() && activeAbility == 4 && Input.GetKeyDown(KeyCode.P)) {
 				//stunTarget = GameObject.Find("Enemy"); //!> Reference Targeting Script to get current Target
 				stunTarget = acquiredTargets[currentTargetedObjectIndex];
 
+	//UNTESTED
+				//stun object
+				//stun success/error string
+				string stunStatus = "trying to stun";
+				//pass status by reference and target game object to cut
+				if(Cut(ref stunStatus, cutTarget)) {
+					//output success message
+					print("Stun status: " + stunStatus);
+				} else {
+					//output error message
+					print("Stun error: " + stunStatus);
+				}//END if(Cut(ref stunStatus, cutTarget))
+	//END UNTESTED
+
 			}
-		}
-	}
+		}//END if(acquiredTargets.Count != 0 && inTargetLock)
+
+	}//END void FixedUpdate()
 
 	//! Function to be called when pushing a box or other heavy object, pushing at intervals (think Ocarina of time)
 	bool Push(ref string status, GameObject pushTarget) {
