@@ -160,13 +160,28 @@ public class GameHUD : MonoBehaviour {
 	}
 
 	public void setCompassValue(float newValue) {
+
+		//! Calculates distances between "the player and the objective" and "the camera and the objective"
+		float distanceBetweenCamAndObj = Vector3.Distance (compassCameraPoint.transform.position, testObjective.transform.position);
+		float distanceBetweenPlayerAndObj = Vector3.Distance (player.transform.position, testObjective.transform.position);
+
 		GameObject compass = GameObject.Find("compassSlider");
-		if(newValue > 105) {
+
+		//!If the camera is closer to the objective, this means the 
+		if (distanceBetweenCamAndObj < distanceBetweenPlayerAndObj && newValue >= 90) {
 			newValue = 105;
-		}
-		if(newValue < 75) {
+		} 
+		else if (distanceBetweenCamAndObj < distanceBetweenPlayerAndObj && newValue < 90) {
 			newValue = 75;
 		}
+
+		else if(newValue > 105) {
+			newValue = 105;
+		}
+		else if(newValue < 75) {
+			newValue = 75;
+		}
+
 		compass.GetComponent<Slider>().value = newValue;
 	}
 
