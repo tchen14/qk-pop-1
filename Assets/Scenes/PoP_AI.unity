@@ -140,6 +140,7 @@ MonoBehaviour:
   - Player
   attackDistance: 3
   aggressionLimit: 100
+  suspicionLimit: 150
   startPoint: {fileID: 162979087}
   panicPoints: PanicPoints
   aggression: 1
@@ -149,6 +150,9 @@ MonoBehaviour:
   panic: 0
   panicTarget: {x: 0, y: 0, z: 0}
   aggressionLevel: 0
+  suspicionLevel: 0
+  suspicious: 0
+  alert: 0
   navCheck: 
   navPoint: {x: 0, y: 0, z: 0}
 --- !u!54 &1136891
@@ -575,6 +579,7 @@ MonoBehaviour:
   - Player
   attackDistance: 3
   aggressionLimit: 100
+  suspicionLimit: 150
   startPoint: {fileID: 162979087}
   panicPoints: PanicPoints
   aggression: 0
@@ -584,6 +589,9 @@ MonoBehaviour:
   panic: 0
   panicTarget: {x: 0, y: 0, z: 0}
   aggressionLevel: 0
+  suspicionLevel: 0
+  suspicious: 0
+  alert: 0
   navCheck: 
   navPoint: {x: 0, y: 0, z: 0}
 --- !u!54 &57177288
@@ -910,7 +918,7 @@ GameObject:
   - 54: {fileID: 87453825}
   - 114: {fileID: 87453824}
   - 65: {fileID: 87453830}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: _Player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -1664,6 +1672,7 @@ MonoBehaviour:
   - Player
   attackDistance: 3
   aggressionLimit: 100
+  suspicionLimit: 150
   startPoint: {fileID: 861910163}
   panicPoints: PanicPoints
   aggression: 0
@@ -1673,6 +1682,9 @@ MonoBehaviour:
   panic: 0
   panicTarget: {x: 0, y: 0, z: 0}
   aggressionLevel: 0
+  suspicionLevel: 0
+  suspicious: 0
+  alert: 0
   navCheck: 
   navPoint: {x: 0, y: 0, z: 0}
 --- !u!54 &153280571
@@ -2285,6 +2297,7 @@ MonoBehaviour:
   - Player
   attackDistance: 3
   aggressionLimit: 100
+  suspicionLimit: 150
   startPoint: {fileID: 999932284}
   panicPoints: PanicPoints
   aggression: 0
@@ -2294,6 +2307,9 @@ MonoBehaviour:
   panic: 0
   panicTarget: {x: 0, y: 0, z: 0}
   aggressionLevel: 0
+  suspicionLevel: 0
+  suspicious: 0
+  alert: 0
   navCheck: 
   navPoint: {x: 0, y: 0, z: 0}
 --- !u!54 &226852438
@@ -2505,6 +2521,7 @@ MonoBehaviour:
   - Player
   attackDistance: 3
   aggressionLimit: 100
+  suspicionLimit: 150
   startPoint: {fileID: 676408912}
   panicPoints: PanicPoints
   aggression: 1
@@ -2514,6 +2531,9 @@ MonoBehaviour:
   panic: 0
   panicTarget: {x: 0, y: 0, z: 0}
   aggressionLevel: 0
+  suspicionLevel: 0
+  suspicious: 0
+  alert: 0
   navCheck: 
   navPoint: {x: 0, y: 0, z: 0}
 --- !u!54 &235396204
@@ -3086,6 +3106,7 @@ MonoBehaviour:
   - Player
   attackDistance: 3
   aggressionLimit: 100
+  suspicionLimit: 150
   startPoint: {fileID: 1693536194}
   panicPoints: PanicPoints
   aggression: 1
@@ -3095,6 +3116,9 @@ MonoBehaviour:
   panic: 0
   panicTarget: {x: 0, y: 0, z: 0}
   aggressionLevel: 0
+  suspicionLevel: 0
+  suspicious: 0
+  alert: 0
   navCheck: 
   navPoint: {x: 0, y: 0, z: 0}
 --- !u!54 &294359752
@@ -3609,6 +3633,7 @@ MonoBehaviour:
   - Player
   attackDistance: 3
   aggressionLimit: 100
+  suspicionLimit: 150
   startPoint: {fileID: 790557517}
   panicPoints: PanicPoints
   aggression: 0
@@ -3618,6 +3643,9 @@ MonoBehaviour:
   panic: 0
   panicTarget: {x: 0, y: 0, z: 0}
   aggressionLevel: 0
+  suspicionLevel: 0
+  suspicious: 0
+  alert: 0
   navCheck: 
   navPoint: {x: 0, y: 0, z: 0}
 --- !u!54 &318684784
@@ -3752,6 +3780,7 @@ MonoBehaviour:
   - Player
   attackDistance: 3
   aggressionLimit: 100
+  suspicionLimit: 150
   startPoint: {fileID: 790557517}
   panicPoints: PanicPoints
   aggression: 0
@@ -3761,6 +3790,9 @@ MonoBehaviour:
   panic: 0
   panicTarget: {x: 0, y: 0, z: 0}
   aggressionLevel: 0
+  suspicionLevel: 0
+  suspicious: 0
+  alert: 0
   navCheck: 
   navPoint: {x: 0, y: 0, z: 0}
 --- !u!54 &340643571
@@ -4855,6 +4887,7 @@ MonoBehaviour:
   - Player
   attackDistance: 3
   aggressionLimit: 100
+  suspicionLimit: 150
   startPoint: {fileID: 162979087}
   panicPoints: PanicPoints
   aggression: 0
@@ -4864,6 +4897,9 @@ MonoBehaviour:
   panic: 0
   panicTarget: {x: 0, y: 0, z: 0}
   aggressionLevel: 0
+  suspicionLevel: 0
+  suspicious: 0
+  alert: 0
   navCheck: 
   navPoint: {x: 0, y: 0, z: 0}
 --- !u!54 &393802998
@@ -4998,6 +5034,7 @@ MonoBehaviour:
   - Player
   attackDistance: 3
   aggressionLimit: 100
+  suspicionLimit: 150
   startPoint: {fileID: 1826634066}
   panicPoints: PanicPoints
   aggression: 0
@@ -5007,6 +5044,9 @@ MonoBehaviour:
   panic: 0
   panicTarget: {x: 0, y: 0, z: 0}
   aggressionLevel: 0
+  suspicionLevel: 0
+  suspicious: 0
+  alert: 0
   navCheck: 
   navPoint: {x: 0, y: 0, z: 0}
 --- !u!54 &397374679
@@ -5275,6 +5315,7 @@ MonoBehaviour:
   - Player
   attackDistance: 3
   aggressionLimit: 100
+  suspicionLimit: 150
   startPoint: {fileID: 1841230705}
   panicPoints: PanicPoints
   aggression: 0
@@ -5284,6 +5325,9 @@ MonoBehaviour:
   panic: 0
   panicTarget: {x: 0, y: 0, z: 0}
   aggressionLevel: 0
+  suspicionLevel: 0
+  suspicious: 0
+  alert: 0
   navCheck: 
   navPoint: {x: 0, y: 0, z: 0}
 --- !u!54 &420992789
@@ -5827,7 +5871,7 @@ GameObject:
   - 33: {fileID: 449443351}
   - 65: {fileID: 449443350}
   - 23: {fileID: 449443349}
-  m_Layer: 8
+  m_Layer: 9
   m_Name: Hay
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6161,6 +6205,7 @@ MonoBehaviour:
   - Player
   attackDistance: 3
   aggressionLimit: 100
+  suspicionLimit: 150
   startPoint: {fileID: 1826634066}
   panicPoints: PanicPoints
   aggression: 0
@@ -6170,6 +6215,9 @@ MonoBehaviour:
   panic: 0
   panicTarget: {x: 0, y: 0, z: 0}
   aggressionLevel: 0
+  suspicionLevel: 0
+  suspicious: 0
+  alert: 0
   navCheck: 
   navPoint: {x: 0, y: 0, z: 0}
 --- !u!54 &457894289
@@ -6523,6 +6571,7 @@ MonoBehaviour:
   - Player
   attackDistance: 3
   aggressionLimit: 100
+  suspicionLimit: 150
   startPoint: {fileID: 676408912}
   panicPoints: PanicPoints
   aggression: 0
@@ -6532,6 +6581,9 @@ MonoBehaviour:
   panic: 0
   panicTarget: {x: 0, y: 0, z: 0}
   aggressionLevel: 0
+  suspicionLevel: 0
+  suspicious: 0
+  alert: 0
   navCheck: 
   navPoint: {x: 0, y: 0, z: 0}
 --- !u!54 &492125927
@@ -7883,6 +7935,7 @@ MonoBehaviour:
   - Player
   attackDistance: 3
   aggressionLimit: 100
+  suspicionLimit: 150
   startPoint: {fileID: 1554267659}
   panicPoints: PanicPoints
   aggression: 0
@@ -7892,6 +7945,9 @@ MonoBehaviour:
   panic: 0
   panicTarget: {x: 0, y: 0, z: 0}
   aggressionLevel: 0
+  suspicionLevel: 0
+  suspicious: 0
+  alert: 0
   navCheck: 
   navPoint: {x: 0, y: 0, z: 0}
 --- !u!54 &585179318
@@ -8026,6 +8082,7 @@ MonoBehaviour:
   - Player
   attackDistance: 3
   aggressionLimit: 100
+  suspicionLimit: 150
   startPoint: {fileID: 735367763}
   panicPoints: PanicPoints
   aggression: 0
@@ -8035,6 +8092,9 @@ MonoBehaviour:
   panic: 0
   panicTarget: {x: 0, y: 0, z: 0}
   aggressionLevel: 0
+  suspicionLevel: 0
+  suspicious: 0
+  alert: 0
   navCheck: 
   navPoint: {x: 0, y: 0, z: 0}
 --- !u!54 &588275211
@@ -9052,6 +9112,7 @@ MonoBehaviour:
   - Player
   attackDistance: 3
   aggressionLimit: 100
+  suspicionLimit: 150
   startPoint: {fileID: 1433929362}
   panicPoints: PanicPoints
   aggression: 0
@@ -9061,6 +9122,9 @@ MonoBehaviour:
   panic: 0
   panicTarget: {x: 0, y: 0, z: 0}
   aggressionLevel: 0
+  suspicionLevel: 0
+  suspicious: 0
+  alert: 0
   navCheck: 
   navPoint: {x: 0, y: 0, z: 0}
 --- !u!54 &660224487
@@ -9886,6 +9950,7 @@ MonoBehaviour:
   - Player
   attackDistance: 3
   aggressionLimit: 100
+  suspicionLimit: 150
   startPoint: {fileID: 999932284}
   panicPoints: PanicPoints
   aggression: 0
@@ -9895,6 +9960,9 @@ MonoBehaviour:
   panic: 0
   panicTarget: {x: 0, y: 0, z: 0}
   aggressionLevel: 0
+  suspicionLevel: 0
+  suspicious: 0
+  alert: 0
   navCheck: 
   navPoint: {x: 0, y: 0, z: 0}
 --- !u!54 &716915920
@@ -10787,6 +10855,7 @@ MonoBehaviour:
   - Player
   attackDistance: 3
   aggressionLimit: 100
+  suspicionLimit: 150
   startPoint: {fileID: 861910163}
   panicPoints: PanicPoints
   aggression: 1
@@ -10796,6 +10865,9 @@ MonoBehaviour:
   panic: 0
   panicTarget: {x: 0, y: 0, z: 0}
   aggressionLevel: 0
+  suspicionLevel: 0
+  suspicious: 0
+  alert: 0
   navCheck: 
   navPoint: {x: 0, y: 0, z: 0}
 --- !u!54 &755461957
@@ -10930,6 +11002,7 @@ MonoBehaviour:
   - Player
   attackDistance: 3
   aggressionLimit: 100
+  suspicionLimit: 150
   startPoint: {fileID: 790557517}
   panicPoints: PanicPoints
   aggression: 0
@@ -10939,6 +11012,9 @@ MonoBehaviour:
   panic: 0
   panicTarget: {x: 0, y: 0, z: 0}
   aggressionLevel: 0
+  suspicionLevel: 0
+  suspicious: 0
+  alert: 0
   navCheck: 
   navPoint: {x: 0, y: 0, z: 0}
 --- !u!54 &765983033
@@ -11454,6 +11530,7 @@ MonoBehaviour:
   - Player
   attackDistance: 3
   aggressionLimit: 100
+  suspicionLimit: 150
   startPoint: {fileID: 1693536194}
   panicPoints: PanicPoints
   aggression: 0
@@ -11463,6 +11540,9 @@ MonoBehaviour:
   panic: 0
   panicTarget: {x: 0, y: 0, z: 0}
   aggressionLevel: 0
+  suspicionLevel: 0
+  suspicious: 0
+  alert: 0
   navCheck: 
   navPoint: {x: 0, y: 0, z: 0}
 --- !u!54 &792251889
@@ -12258,6 +12338,7 @@ MonoBehaviour:
   - Player
   attackDistance: 3
   aggressionLimit: 100
+  suspicionLimit: 150
   startPoint: {fileID: 1433929362}
   panicPoints: PanicPoints
   aggression: 0
@@ -12267,6 +12348,9 @@ MonoBehaviour:
   panic: 0
   panicTarget: {x: 0, y: 0, z: 0}
   aggressionLevel: 0
+  suspicionLevel: 0
+  suspicious: 0
+  alert: 0
   navCheck: 
   navPoint: {x: 0, y: 0, z: 0}
 --- !u!54 &840718601
@@ -12362,7 +12446,7 @@ GameObject:
   - 4: {fileID: 848903460}
   - 33: {fileID: 848903459}
   - 23: {fileID: 848903457}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Sphere
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -13782,7 +13866,7 @@ GameObject:
   - 4: {fileID: 976438581}
   - 33: {fileID: 976438580}
   - 23: {fileID: 976438578}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14602,6 +14686,7 @@ MonoBehaviour:
   - Player
   attackDistance: 3
   aggressionLimit: 100
+  suspicionLimit: 150
   startPoint: {fileID: 999932284}
   panicPoints: PanicPoints
   aggression: 0
@@ -14611,6 +14696,9 @@ MonoBehaviour:
   panic: 0
   panicTarget: {x: 0, y: 0, z: 0}
   aggressionLevel: 0
+  suspicionLevel: 0
+  suspicious: 0
+  alert: 0
   navCheck: 
   navPoint: {x: 0, y: 0, z: 0}
 --- !u!54 &1022181781
@@ -15530,6 +15618,7 @@ MonoBehaviour:
   - Player
   attackDistance: 3
   aggressionLimit: 100
+  suspicionLimit: 150
   startPoint: {fileID: 1826634066}
   panicPoints: PanicPoints
   aggression: 0
@@ -15539,6 +15628,9 @@ MonoBehaviour:
   panic: 0
   panicTarget: {x: 0, y: 0, z: 0}
   aggressionLevel: 0
+  suspicionLevel: 0
+  suspicious: 0
+  alert: 0
   navCheck: 
   navPoint: {x: 0, y: 0, z: 0}
 --- !u!54 &1104142583
@@ -16382,6 +16474,7 @@ MonoBehaviour:
   - Player
   attackDistance: 3
   aggressionLimit: 100
+  suspicionLimit: 150
   startPoint: {fileID: 1433929362}
   panicPoints: PanicPoints
   aggression: 1
@@ -16391,6 +16484,9 @@ MonoBehaviour:
   panic: 0
   panicTarget: {x: 0, y: 0, z: 0}
   aggressionLevel: 0
+  suspicionLevel: 0
+  suspicious: 0
+  alert: 0
   navCheck: 
   navPoint: {x: 0, y: 0, z: 0}
 --- !u!54 &1187303373
@@ -16627,6 +16723,7 @@ MonoBehaviour:
   - Player
   attackDistance: 3
   aggressionLimit: 100
+  suspicionLimit: 150
   startPoint: {fileID: 1841230705}
   panicPoints: PanicPoints
   aggression: 0
@@ -16636,6 +16733,9 @@ MonoBehaviour:
   panic: 0
   panicTarget: {x: 0, y: 0, z: 0}
   aggressionLevel: 0
+  suspicionLevel: 0
+  suspicious: 0
+  alert: 0
   navCheck: 
   navPoint: {x: 0, y: 0, z: 0}
 --- !u!54 &1204250368
@@ -17952,6 +18052,7 @@ MonoBehaviour:
   - Player
   attackDistance: 3
   aggressionLimit: 100
+  suspicionLimit: 150
   startPoint: {fileID: 735367763}
   panicPoints: PanicPoints
   aggression: 0
@@ -17961,6 +18062,9 @@ MonoBehaviour:
   panic: 0
   panicTarget: {x: 0, y: 0, z: 0}
   aggressionLevel: 0
+  suspicionLevel: 0
+  suspicious: 0
+  alert: 0
   navCheck: 
   navPoint: {x: 0, y: 0, z: 0}
 --- !u!54 &1297193508
@@ -18245,6 +18349,7 @@ MonoBehaviour:
   - Player
   attackDistance: 3
   aggressionLimit: 100
+  suspicionLimit: 150
   startPoint: {fileID: 676408912}
   panicPoints: PanicPoints
   aggression: 0
@@ -18254,6 +18359,9 @@ MonoBehaviour:
   panic: 0
   panicTarget: {x: 0, y: 0, z: 0}
   aggressionLevel: 0
+  suspicionLevel: 0
+  suspicious: 0
+  alert: 0
   navCheck: 
   navPoint: {x: 0, y: 0, z: 0}
 --- !u!54 &1342736022
@@ -18388,6 +18496,7 @@ MonoBehaviour:
   - Player
   attackDistance: 3
   aggressionLimit: 100
+  suspicionLimit: 150
   startPoint: {fileID: 735367763}
   panicPoints: PanicPoints
   aggression: 0
@@ -18397,6 +18506,9 @@ MonoBehaviour:
   panic: 0
   panicTarget: {x: 0, y: 0, z: 0}
   aggressionLevel: 0
+  suspicionLevel: 0
+  suspicious: 0
+  alert: 0
   navCheck: 
   navPoint: {x: 0, y: 0, z: 0}
 --- !u!54 &1344440639
@@ -18531,6 +18643,7 @@ MonoBehaviour:
   - Player
   attackDistance: 3
   aggressionLimit: 100
+  suspicionLimit: 150
   startPoint: {fileID: 735367763}
   panicPoints: PanicPoints
   aggression: 1
@@ -18540,6 +18653,9 @@ MonoBehaviour:
   panic: 0
   panicTarget: {x: 0, y: 0, z: 0}
   aggressionLevel: 0
+  suspicionLevel: 0
+  suspicious: 0
+  alert: 0
   navCheck: 
   navPoint: {x: 0, y: 0, z: 0}
 --- !u!54 &1353697253
@@ -19054,6 +19170,7 @@ MonoBehaviour:
   - Player
   attackDistance: 3
   aggressionLimit: 100
+  suspicionLimit: 150
   startPoint: {fileID: 861910163}
   panicPoints: PanicPoints
   aggression: 0
@@ -19063,6 +19180,9 @@ MonoBehaviour:
   panic: 0
   panicTarget: {x: 0, y: 0, z: 0}
   aggressionLevel: 0
+  suspicionLevel: 0
+  suspicious: 0
+  alert: 0
   navCheck: 
   navPoint: {x: 0, y: 0, z: 0}
 --- !u!54 &1392531055
@@ -19434,6 +19554,7 @@ MonoBehaviour:
   - Player
   attackDistance: 3
   aggressionLimit: 100
+  suspicionLimit: 150
   startPoint: {fileID: 861910163}
   panicPoints: PanicPoints
   aggression: 0
@@ -19443,6 +19564,9 @@ MonoBehaviour:
   panic: 0
   panicTarget: {x: 0, y: 0, z: 0}
   aggressionLevel: 0
+  suspicionLevel: 0
+  suspicious: 0
+  alert: 0
   navCheck: 
   navPoint: {x: 0, y: 0, z: 0}
 --- !u!54 &1455027378
@@ -20191,6 +20315,7 @@ MonoBehaviour:
   - Player
   attackDistance: 3
   aggressionLimit: 100
+  suspicionLimit: 150
   startPoint: {fileID: 1554267659}
   panicPoints: PanicPoints
   aggression: 0
@@ -20200,6 +20325,9 @@ MonoBehaviour:
   panic: 0
   panicTarget: {x: 0, y: 0, z: 0}
   aggressionLevel: 0
+  suspicionLevel: 0
+  suspicious: 0
+  alert: 0
   navCheck: 
   navPoint: {x: 0, y: 0, z: 0}
 --- !u!54 &1531207810
@@ -21279,6 +21407,7 @@ MonoBehaviour:
   - Player
   attackDistance: 3
   aggressionLimit: 100
+  suspicionLimit: 150
   startPoint: {fileID: 1841230705}
   panicPoints: PanicPoints
   aggression: 1
@@ -21288,6 +21417,9 @@ MonoBehaviour:
   panic: 0
   panicTarget: {x: 0, y: 0, z: 0}
   aggressionLevel: 0
+  suspicionLevel: 0
+  suspicious: 0
+  alert: 0
   navCheck: 
   navPoint: {x: 0, y: 0, z: 0}
 --- !u!54 &1616364602
@@ -22129,6 +22261,7 @@ MonoBehaviour:
   - Player
   attackDistance: 3
   aggressionLimit: 100
+  suspicionLimit: 150
   startPoint: {fileID: 1841230705}
   panicPoints: PanicPoints
   aggression: 0
@@ -22138,6 +22271,9 @@ MonoBehaviour:
   panic: 0
   panicTarget: {x: 0, y: 0, z: 0}
   aggressionLevel: 0
+  suspicionLevel: 0
+  suspicious: 0
+  alert: 0
   navCheck: 
   navPoint: {x: 0, y: 0, z: 0}
 --- !u!54 &1655657093
@@ -22859,6 +22995,7 @@ MonoBehaviour:
   - Player
   attackDistance: 3
   aggressionLimit: 100
+  suspicionLimit: 150
   startPoint: {fileID: 908199300}
   panicPoints: PanicPoints
   aggression: 0
@@ -22868,6 +23005,9 @@ MonoBehaviour:
   panic: 0
   panicTarget: {x: 0, y: 0, z: 0}
   aggressionLevel: 0
+  suspicionLevel: 0
+  suspicious: 0
+  alert: 0
   navCheck: 
   navPoint: {x: 0, y: 0, z: 0}
 --- !u!54 &1722999878
@@ -23002,6 +23142,7 @@ MonoBehaviour:
   - Player
   attackDistance: 3
   aggressionLimit: 100
+  suspicionLimit: 150
   startPoint: {fileID: 1554267659}
   panicPoints: PanicPoints
   aggression: 0
@@ -23011,6 +23152,9 @@ MonoBehaviour:
   panic: 0
   panicTarget: {x: 0, y: 0, z: 0}
   aggressionLevel: 0
+  suspicionLevel: 0
+  suspicious: 0
+  alert: 0
   navCheck: 
   navPoint: {x: 0, y: 0, z: 0}
 --- !u!54 &1729448435
@@ -23483,6 +23627,7 @@ MonoBehaviour:
   - Player
   attackDistance: 3
   aggressionLimit: 100
+  suspicionLimit: 150
   startPoint: {fileID: 1693536194}
   panicPoints: PanicPoints
   aggression: 0
@@ -23492,6 +23637,9 @@ MonoBehaviour:
   panic: 0
   panicTarget: {x: 0, y: 0, z: 0}
   aggressionLevel: 0
+  suspicionLevel: 0
+  suspicious: 0
+  alert: 0
   navCheck: 
   navPoint: {x: 0, y: 0, z: 0}
 --- !u!54 &1741067415
@@ -23856,14 +24004,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hp: 100
-  sightDistance: 20
-  sightAngle: 35
+  sightDistance: 30
+  sightAngle: 45
   speed: 5
   runSpeed: 8
   seekTag:
   - Player
   attackDistance: 3
-  aggressionLimit: 250
+  aggressionLimit: 100
+  suspicionLimit: 150
   startPoint: {fileID: 790557517}
   panicPoints: PanicPoints
   aggression: 1
@@ -23873,6 +24022,9 @@ MonoBehaviour:
   panic: 0
   panicTarget: {x: 0, y: 0, z: 0}
   aggressionLevel: 0
+  suspicionLevel: 0
+  suspicious: 0
+  alert: 1
   navCheck: 
   navPoint: {x: 0, y: 0, z: 0}
 --- !u!54 &1779144473
@@ -25318,6 +25470,7 @@ MonoBehaviour:
   - Player
   attackDistance: 3
   aggressionLimit: 100
+  suspicionLimit: 150
   startPoint: {fileID: 676408912}
   panicPoints: PanicPoints
   aggression: 0
@@ -25327,6 +25480,9 @@ MonoBehaviour:
   panic: 0
   panicTarget: {x: 0, y: 0, z: 0}
   aggressionLevel: 0
+  suspicionLevel: 0
+  suspicious: 0
+  alert: 0
   navCheck: 
   navPoint: {x: 0, y: 0, z: 0}
 --- !u!54 &1910730033
@@ -25753,6 +25909,7 @@ MonoBehaviour:
   - Player
   attackDistance: 3
   aggressionLimit: 100
+  suspicionLimit: 150
   startPoint: {fileID: 1433929362}
   panicPoints: PanicPoints
   aggression: 0
@@ -25762,6 +25919,9 @@ MonoBehaviour:
   panic: 0
   panicTarget: {x: 0, y: 0, z: 0}
   aggressionLevel: 0
+  suspicionLevel: 0
+  suspicious: 0
+  alert: 0
   navCheck: 
   navPoint: {x: 0, y: 0, z: 0}
 --- !u!54 &1966784278
@@ -26188,6 +26348,7 @@ MonoBehaviour:
   - Player
   attackDistance: 3
   aggressionLimit: 100
+  suspicionLimit: 150
   startPoint: {fileID: 1693536194}
   panicPoints: PanicPoints
   aggression: 0
@@ -26197,6 +26358,9 @@ MonoBehaviour:
   panic: 0
   panicTarget: {x: 0, y: 0, z: 0}
   aggressionLevel: 0
+  suspicionLevel: 0
+  suspicious: 0
+  alert: 0
   navCheck: 
   navPoint: {x: 0, y: 0, z: 0}
 --- !u!54 &1999267720
@@ -26331,6 +26495,7 @@ MonoBehaviour:
   - Player
   attackDistance: 3
   aggressionLimit: 100
+  suspicionLimit: 150
   startPoint: {fileID: 1554267659}
   panicPoints: PanicPoints
   aggression: 1
@@ -26340,6 +26505,9 @@ MonoBehaviour:
   panic: 0
   panicTarget: {x: 0, y: 0, z: 0}
   aggressionLevel: 0
+  suspicionLevel: 0
+  suspicious: 0
+  alert: 0
   navCheck: 
   navPoint: {x: 0, y: 0, z: 0}
 --- !u!54 &2004635026
@@ -28242,6 +28410,7 @@ MonoBehaviour:
   - Player
   attackDistance: 3
   aggressionLimit: 100
+  suspicionLimit: 150
   startPoint: {fileID: 908199300}
   panicPoints: PanicPoints
   aggression: 1
@@ -28251,6 +28420,9 @@ MonoBehaviour:
   panic: 0
   panicTarget: {x: 0, y: 0, z: 0}
   aggressionLevel: 0
+  suspicionLevel: 0
+  suspicious: 0
+  alert: 0
   navCheck: 
   navPoint: {x: 0, y: 0, z: 0}
 --- !u!54 &2115792602
@@ -28397,6 +28569,7 @@ MonoBehaviour:
   - Player
   attackDistance: 3
   aggressionLimit: 100
+  suspicionLimit: 150
   startPoint: {fileID: 908199300}
   panicPoints: PanicPoints
   aggression: 0
@@ -28406,6 +28579,9 @@ MonoBehaviour:
   panic: 0
   panicTarget: {x: 0, y: 0, z: 0}
   aggressionLevel: 0
+  suspicionLevel: 0
+  suspicious: 0
+  alert: 0
   navCheck: 
   navPoint: {x: 0, y: 0, z: 0}
 --- !u!54 &2123465048
@@ -28613,6 +28789,7 @@ MonoBehaviour:
   - Player
   attackDistance: 3
   aggressionLimit: 100
+  suspicionLimit: 150
   startPoint: {fileID: 162979087}
   panicPoints: PanicPoints
   aggression: 0
@@ -28622,6 +28799,9 @@ MonoBehaviour:
   panic: 0
   panicTarget: {x: 0, y: 0, z: 0}
   aggressionLevel: 0
+  suspicionLevel: 0
+  suspicious: 0
+  alert: 0
   navCheck: 
   navPoint: {x: 0, y: 0, z: 0}
 --- !u!54 &2131049814
@@ -28873,7 +29053,7 @@ GameObject:
   - 4: {fileID: 2136427110}
   - 33: {fileID: 2136427109}
   - 23: {fileID: 2136427107}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Sphere
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -29063,6 +29243,7 @@ MonoBehaviour:
   - Player
   attackDistance: 3
   aggressionLimit: 100
+  suspicionLimit: 150
   startPoint: {fileID: 908199300}
   panicPoints: PanicPoints
   aggression: 0
@@ -29072,6 +29253,9 @@ MonoBehaviour:
   panic: 0
   panicTarget: {x: 0, y: 0, z: 0}
   aggressionLevel: 0
+  suspicionLevel: 0
+  suspicious: 0
+  alert: 0
   navCheck: 
   navPoint: {x: 0, y: 0, z: 0}
 --- !u!54 &2142727065

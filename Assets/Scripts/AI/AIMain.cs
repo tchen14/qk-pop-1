@@ -14,13 +14,14 @@ public class AIMain : MonoBehaviour {
 	//Variables Editable
 
 	public int 					hp 					= 100;						//!<Health of the NPC
-	public float 				sightDistance 		= 30;						//!<The distance the NPC is capable of seeing
-	public float 				sightAngle			= 35;						//!<The max angle of the cone of vision
+	public float 				sightDistance 		= 35;						//!<The distance the NPC is capable of seeing
+	public float 				sightAngle			= 45;						//!<The max angle of the cone of vision
 	public float 				speed 				= 5;						//!<Casual Speed of the NPC
 	public float		 		runSpeed 			= 8;						//!<Scared, Charging, Aggressive Speed of the NPC*
 	public string[]		 		seekTag 			= {"Player"};				//!<The enemy Tag of this NPC
 	public float 				attackDistance		= 3;						//!<The distance the NPC stands away from the target and attacks*
-	public float 				aggressionLimit		= 250;						//!<The aggression level of the attacker
+	public float 				aggressionLimit		= 100;						//!<The aggression level of the attacker
+    public float                suspicionLimit      = 150;						//!<The suspicon level of the attacker
 	public GameObject 			startPoint 			= null;						//!<Sets the first navPoint, defaults to stationary
 	public string				panicPoints			= "PanicPoints";			//!<The object name of the vector keeper of related panic points for the AI
 	public bool 				aggression 			= false;					//!<If the NPC will attack the player
@@ -32,8 +33,10 @@ public class AIMain : MonoBehaviour {
 	public bool 		attacking 			= false;					//!<If the AI is attacking
 	[ReadOnly]public bool 		panic 				= false;					//!<If the AI is panicking
 	[ReadOnly]public Vector3 	panicTarget			= new Vector3 (0, 0, 0);	//!<Target of AI panic
-	[ReadOnly]public float 		aggressionLevel 	= 0;						//!<The current awareness of the NPC to the Player	
-
+	[ReadOnly]public float 		aggressionLevel 	= 0;						//!<The current awareness of the NPC to the Player
+    [ReadOnly]public float      suspicionLevel      = 0;						//!<The current suspicion of the NPC to the Player	
+    public bool       suspicious          = false;					//!<If the AI is suspicous
+    public bool       alert               = false;					//!<If the AI is alert
 	//Movement variables
 
 	private NavMeshAgent 		mesh 				= null;						//!<Contains the component to use the navmesh
@@ -130,13 +133,33 @@ public class AIMain : MonoBehaviour {
 			//If the AI has a target already and is willing to fight and is not currently attacking the target
 			if(aggression == true && seesTarget == true && attacking == false)
 			{
-				//Debug.Log("ai", aggressionLevel.ToString());
-				//If the AI is aware of its target set the navPoint to the target
-				if(aggressionLevel >= aggressionLimit)
-					ChangeNavPoint(target.name,target.transform.position);
-				//If the AI is not yet aware of its target increase its awarness
-				else
-					aggressionLevel += 1;
+                //If Ai is aware of its target but is not suspicious or alert it will start getting suspicous
+                if (suspicious == false && alert == false)
+                {
+                    //Debug.Log("ai", suspcionLevel.ToString());
+                    //If the AI is aware of its target start building suspicion until maxed out. It will then be suspicious
+                    if (suspicionLevel >= suspicionLimit)
+                        suspicious = true;
+                    //If the AI is not yet aware of its target increase its suspicion
+                    else
+                        suspicionLevel += 1;
+                }
+                if (suspicious == true)
+                {
+                    //Debug.Log("ai", aggressionLevel.ToString());
+                    //If the AI is suspicious of its target set the navPoint to the target
+                    if (aggressionLevel >= aggressionLimit)
+                        ChangeNavPoint(target.name, target.transform.position);
+                    //If the AI is not yet alert of its target increase its aggression
+                    else
+                        aggressionLevel += 1;
+                }
+                //If AI is alert it's agression will max out as soon as the player is seen
+                if (alert == true)
+                {
+                    aggressionLevel = aggressionLimit;
+                    ChangeNavPoint(target.name, target.transform.position);
+                }
 			}
 			//If the AI is not aware of a target,  not aggressive, or is attacking, decrease its aggression levels
 			else
@@ -150,9 +173,18 @@ public class AIMain : MonoBehaviour {
                     //If the AI's agression level hits 0 it will go back to its origial destiation set on start
                     if (aggressionLevel == 0 )
                     {
+                        suspicionLevel = 0;
                         ChangeNavPoint(startPoint.name, startPoint.transform.position);
                     }
 				}
+                if (suspicionLevel > 0)
+                {
+                    suspicionLevel -= 1;
+                }
+                else
+                {
+                    suspicious = false;
+                }
 			}
 		#endregion
 	}
