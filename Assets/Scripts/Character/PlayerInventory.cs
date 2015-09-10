@@ -47,6 +47,7 @@ public class PlayerInventory : MonoBehaviour
         if (index == -1) // Item not found
         {
             inventory.Add(item);
+			Debug.Log(item.GetItemName() + " has been added!");
             return true;
         }
         else
@@ -94,13 +95,22 @@ public class PlayerInventory : MonoBehaviour
     public void LoadInventory()
     {
         inventory.Clear();
-       // inventory = PlayerSaveManager.Instance.LoadPlayerInventory();
+        inventory = PlayerSaveManager.Instance.LoadPlayerInventory();
     }
 
+	void Update() {
+		if (Input.GetKeyDown (KeyCode.J)) {
+			LoadInventory();
+		}
+		if (Input.GetKeyDown (KeyCode.L)) {
+			AddItem(new InventoryItem("Junk", 1, "This is junk!", 5, 1, 1));
+			SaveInventory();
+		}
+	}
 
     //! Function that returns the current state of player inventory to PlayerSaveManager
 	public void SaveInventory()
 	{
-       // PlayerSaveManager.Instance.SavePlayerInventory(inventory);
+       PlayerSaveManager.Instance.SavePlayerInventory(inventory);
 	}
 }
