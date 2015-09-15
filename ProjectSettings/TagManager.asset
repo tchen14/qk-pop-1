@@ -13,6 +13,7 @@ TagManager:
   - abilityButton
   - menuButton
   - menuBack
+  - AI
   layers:
   - Default
   - TransparentFX
@@ -22,7 +23,7 @@ TagManager:
   - UI
   - 
   - 
-  - 
+  - Identifiers
   - 
   - 
   - 
