@@ -27,7 +27,7 @@ public class Quinc : MonoBehaviour {
 	public float smoothing = 1f;
 
 	//! These variables are temporary for testing, can be removed when implementing Targeting into code
-	private GameObject pushPullTarget;
+	public GameObject pushPullTarget;
 	private GameObject cutTarget;
 	private GameObject soundThrowTarget;
 	private GameObject stunTarget;
@@ -45,31 +45,38 @@ public class Quinc : MonoBehaviour {
 		if(GameHUD.Instance.curAbility != activeAbility)
 			activeAbility = GameHUD.Instance.curAbility;
 		//Get the list of targeted objects and the index if in camera target mode
-		inTargetLock = PoPCamera.instance.inTargetLock;
-		if(inTargetLock) {
+//		inTargetLock = PoPCamera.instance.inTargetLock;
+		
+//		if(inTargetLock)
+		if(PoPCamera.State == PoPCamera.CameraState.TargetLock)
+		{
 			acquiredTargets = PoPCamera.instance.targetedObjects;
 //			currentTargetedObjectIndex = PoPCamera.instance.targetindex;
 		}
 
 		//if there targted objects in the list allow actions on them
-		if(acquiredTargets.Count != 0 && inTargetLock) {
+		if(acquiredTargets.Count != 0) //&& inTargetLock)
+		{
 			//if (Input.GetKeyDown(KeyCode.Alpha1) && Time.time > nextPush)
-			if(InputManager.input.isActionPressed() && activeAbility == 0 && Time.time > nextPush) {
+			if(InputManager.input.isActionPressed() && activeAbility == 0 && Time.time > nextPush)
+			{
 				nextPush = Time.time + pushRate;
 				//pushPullTarget = GameObject.Find("Crate"); //!> Reference Targeting Script to get current Target
 //				pushPullTarget = acquiredTargets[currentTargetedObjectIndex];
 
 				pushPullTarget = PoPCamera.instance.CurrentTarget();
-
+//				pushPullTarget = PoPCamera.instance.targetedObjects[0];
 				//push object
 				//push success/error string
 				string pushStatus = "trying to push";
 				//pass status string by reference and target game object to push
-				if(Push(ref pushStatus, pushPullTarget)) {
+				if(Push(ref pushStatus, pushPullTarget))
+				{
 					//output success message
 					print("Push status: " + pushStatus);
 				}
-				else{
+				else
+				{
 					//output error message
 					print("Push error: " + pushStatus);
 				}//END if(Push(ref pushStatus, pushPullTarget))
