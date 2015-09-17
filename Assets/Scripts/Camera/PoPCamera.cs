@@ -74,6 +74,12 @@ public sealed class PoPCamera : Camera_2
 		Reset();
 	}
 
+	/*
+	 * This Update functions serves decide whether we should be targeting or
+	 * not and which specific target in the group (if there is a group) to be
+	 * locked on. Since these functions query input we get a better result by
+	 * having it in vanilla Update instead of Fixed Update.
+	 */
 	void Update() 
 	{
         switch (_curState)
@@ -92,7 +98,7 @@ public sealed class PoPCamera : Camera_2
                 }
                 else
                 {
-					if(!GameHUD.Instance.skillsOpen) 
+					if(!GameHUD.Instance.skillsOpen && targetedObjects.Count != 0) 
 					{
 						targetindex += InputManager.input.CameraScrollTarget();
 						targetindex = targetindex < 0 ? targetedObjects.Count - 1 :
@@ -104,9 +110,9 @@ public sealed class PoPCamera : Camera_2
 	}
 
 	/*
-	 * The bulk of PoP's 3rd person camera controllers implementation
-	 * Determines whether camera should be in an event, behind player, or in targeting mode
-	 * Tracks mouse and player position at the end of the frame for use during frame
+	 * The bulk of PoP's 3rd person camera controllers implementation.
+	 * Determines whether camera should be in an event, behind player, or in targeting mode.
+	 * Tracks mouse and player position at the end of the frame for use during frame.
 	 */
 	void FixedUpdate()
 	{
