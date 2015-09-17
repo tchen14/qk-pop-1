@@ -225,11 +225,11 @@ public sealed class PoPCamera : Camera_2
 		// Takes mouse input if mouse is moving and increments camera rotation dependent variables
 		// If mouse has been inactive for specified time period camera will become a followcam once player moves
 		if(_curState == CameraState.Normal) {
-			mouseX += Input.GetAxis("Mouse X") * xMouseSensitivity;
-			mouseY -= Input.GetAxis("Mouse Y") * yMouseSensitivity;
+			mouseX += InputManager.input.CameraHorizontalAxis() * xMouseSensitivity;
+			mouseY -= InputManager.input.CameraVerticalAxis() * yMouseSensitivity;
 		} else {
-			curRotateX += Input.GetAxis("Mouse X") * xMouseSensitivity;
-			mouseY -= Input.GetAxis("Mouse Y") * yMouseSensitivity;
+			curRotateX += InputManager.input.CameraHorizontalAxis() * xMouseSensitivity;
+			mouseY -= InputManager.input.CameraVerticalAxis() * yMouseSensitivity;
 			ClampAngle(curRotateX, curRotateX - 10f, curRotateX + 10f);
 			Mathf.Clamp(mouseY, mouseY + 5f, mouseY - 5f);
 		}
@@ -242,15 +242,15 @@ public sealed class PoPCamera : Camera_2
 
 		// Get MouseWheel for zoom
 		// If compensating for occlusion don't clamp distance
-		if(Input.GetAxis("Mouse ScrollWheel")< deadzone || Input.GetAxis("Mouse ScrollWheel") > deadzone)
+		if((InputManager.input.ScrollTarget() < deadzone || InputManager.input.ScrollTarget() > deadzone) && !GameHUD.Instance.skillsOpen)
 		{
-			desiredDistance = distance - Input.GetAxis("Mouse ScrollWheel") * mouseWheelSensitivity;
+			desiredDistance = distance - InputManager.input.ScrollTarget() * mouseWheelSensitivity;
 
 			if(!occluded)
 				desiredDistance = Mathf.Clamp(desiredDistance, distanceMin, distanceMax);
 
-			if(Input.GetAxis("Mouse ScrollWheel") != 0)
-				preOccludedDistance = Mathf.Clamp(distance - Input.GetAxis("Mouse ScrollWheel") * mouseWheelSensitivity, 
+			if(InputManager.input.ScrollTarget() != 0)
+				preOccludedDistance = Mathf.Clamp(distance - InputManager.input.ScrollTarget() * mouseWheelSensitivity, 
 				                                  distanceMin, distanceMax);
 		}
 	}
