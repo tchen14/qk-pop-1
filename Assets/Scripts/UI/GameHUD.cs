@@ -49,7 +49,7 @@ public class GameHUD : MonoBehaviour {
 
 	[ReadOnly]public int curAbility = 1;
 
-	bool skillsOpen = false;
+	public bool skillsOpen = false;
 	bool canSpin = false;
 	GameObject skillWheel;
 	GameObject closeMapButton;
