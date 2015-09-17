@@ -33,7 +33,7 @@ public class Quinc : MonoBehaviour {
 	private GameObject stunTarget;
 
 	List <GameObject> acquiredTargets = new List<GameObject>();
-//	int currentTargetedObjectIndex = 0;
+
 	bool inTargetLock = false;
 
 	public static int activeAbility = 0;
@@ -41,20 +41,27 @@ public class Quinc : MonoBehaviour {
 
 
 
-	void FixedUpdate() {
+	void FixedUpdate()
+	{
+
+		//check current ability with active ability
 		if(GameHUD.Instance.curAbility != activeAbility)
-			activeAbility = GameHUD.Instance.curAbility;
-		//Get the list of targeted objects and the index if in camera target mode
-//		inTargetLock = PoPCamera.instance.inTargetLock;
-		
-//		if(inTargetLock)
-		if(PoPCamera.State == PoPCamera.CameraState.TargetLock)
 		{
-			acquiredTargets = PoPCamera.instance.targetedObjects;
-//			currentTargetedObjectIndex = PoPCamera.instance.targetindex;
+			activeAbility = GameHUD.Instance.curAbility;
 		}
 
-		//if there targted objects in the list allow actions on them
+
+		//Get the list of targeted objects and the index if in camera target mode
+
+		//check camera state for targets
+		if(PoPCamera.State == PoPCamera.CameraState.TargetLock)
+		{
+			//get list of targeted objects
+			acquiredTargets = PoPCamera.instance.targetedObjects;
+
+		}
+
+		//if there are targeted objects in the list, allow actions on them
 		if(acquiredTargets.Count != 0) //&& inTargetLock)
 		{
 			//if (Input.GetKeyDown(KeyCode.Alpha1) && Time.time > nextPush)
@@ -62,10 +69,10 @@ public class Quinc : MonoBehaviour {
 			{
 				nextPush = Time.time + pushRate;
 				//pushPullTarget = GameObject.Find("Crate"); //!> Reference Targeting Script to get current Target
-//				pushPullTarget = acquiredTargets[currentTargetedObjectIndex];
 
+				//get current target
 				pushPullTarget = PoPCamera.instance.CurrentTarget();
-//				pushPullTarget = PoPCamera.instance.targetedObjects[0];
+
 				//push object
 				//push success/error string
 				string pushStatus = "trying to push";
@@ -83,19 +90,24 @@ public class Quinc : MonoBehaviour {
 
 			}
 				//else if (Input.GetKeyDown(KeyCode.Alpha2) && Time.time > nextPull)
-			else if(InputManager.input.isActionPressed() && activeAbility == 1 && Time.time > nextPull) {
+			else if(InputManager.input.isActionPressed() && activeAbility == 1 && Time.time > nextPull)
+			{
 				nextPull = Time.time + pullRate;
 				//pushPullTarget = GameObject.Find("Crate"); //!> Reference Targeting Script to get current Target
-//				pushPullTarget = acquiredTargets[currentTargetedObjectIndex];
 
+				//get current target
+				pushPullTarget = PoPCamera.instance.CurrentTarget();
 				//pull object
 				//push success/error string
 				string pullStatus = "trying to pull";
 				//pass status string by reference and target game object to pull
-				if(Pull(ref pullStatus, pushPullTarget)) {
+				if(Pull(ref pullStatus, pushPullTarget))
+				{
 					//output success message
 					print("Pull status: " + pullStatus);
-				} else {
+				}
+				else
+				{
 					//output error message
 					print("Pull error: " + pullStatus);
 				}//END if(Pull(ref pullStatus, pushPullTarget))
@@ -104,7 +116,7 @@ public class Quinc : MonoBehaviour {
 				//else if (Input.GetKeyDown(KeyCode.Alpha3))
 			else if(InputManager.input.isActionPressed() && activeAbility == 2 && Input.GetKeyDown(KeyCode.I)) {
 				//cutTarget = GameObject.Find("Rope"); //!> Reference Targeting Script to get current Target
-//				cutTarget = acquiredTargets[currentTargetedObjectIndex];
+
 
 	//UNTESTED
 				cutTarget = PoPCamera.instance.CurrentTarget();
@@ -113,10 +125,13 @@ public class Quinc : MonoBehaviour {
 				//cut success/error string
 				string cutStatus = "trying to cut";
 				//pass status by reference and target game object to cut
-				if(Cut(ref cutStatus, cutTarget)) {
+				if(Cut(ref cutStatus, cutTarget))
+				{
 					//output success message
 					print("Cut status: " + cutStatus);
-				} else {
+				}
+				else
+				{
 					//output error message
 					print("Cut error: " + cutStatus);
 				}
@@ -127,7 +142,7 @@ public class Quinc : MonoBehaviour {
 			else if(InputManager.input.isActionPressed() && activeAbility == 3 && Input.GetKeyDown(KeyCode.O)) {
 				string soundStatus = "";
 				//soundThrowTarget = GameObject.Find("Well"); //!> Reference Targeting Script to get current Target
-//				soundThrowTarget = acquiredTargets[currentTargetedObjectIndex];
+
 
 				soundThrowTarget = PoPCamera.instance.CurrentTarget();
 
@@ -141,7 +156,6 @@ public class Quinc : MonoBehaviour {
 				//else if(Input.GetKeyDown(KeyCode.Alpha5))
 			else if(InputManager.input.isActionPressed() && activeAbility == 4 && Input.GetKeyDown(KeyCode.P)) {
 				//stunTarget = GameObject.Find("Enemy"); //!> Reference Targeting Script to get current Target
-//				stunTarget = acquiredTargets[currentTargetedObjectIndex];
 
 	//UNTESTED
 
@@ -151,13 +165,15 @@ public class Quinc : MonoBehaviour {
 				//stun success/error string
 				string stunStatus = "trying to stun";
 				//pass status by reference and target game object to cut
-				if(Cut(ref stunStatus, cutTarget)) {
+				if(Cut(ref stunStatus, stunTarget)) {
 					//output success message
 					print("Stun status: " + stunStatus);
-				} else {
+				}
+				else
+				{
 					//output error message
 					print("Stun error: " + stunStatus);
-				}//END if(Cut(ref stunStatus, cutTarget))
+				}//END if(Cut(ref stunStatus, stunTarget))
 	//END UNTESTED
 
 			}
