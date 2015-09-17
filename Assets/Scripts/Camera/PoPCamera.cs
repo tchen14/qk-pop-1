@@ -14,7 +14,7 @@ using Debug = FFP.Debug;
 [RequireComponent(typeof(CheckTargets))]
 public sealed class PoPCamera : Camera_2
 {
-	public static PoPCamera _instance;
+	private static PoPCamera _instance;
 
 	// Ensures PoPCamera is in the scene when attempting to access it
 	public static PoPCamera instance
@@ -92,9 +92,12 @@ public sealed class PoPCamera : Camera_2
                 }
                 else
                 {
-                    targetindex += InputManager.input.CameraScrollTarget();
-                    targetindex = targetindex < 0 ? targetedObjects.Count - 1 :
-                        Mathf.Abs(targetindex % targetedObjects.Count);
+					if(!GameHUD.Instance.skillsOpen) 
+					{
+						targetindex += InputManager.input.CameraScrollTarget();
+						targetindex = targetindex < 0 ? targetedObjects.Count - 1 :
+							Mathf.Abs(targetindex % targetedObjects.Count);
+					}
                 }
                 break;
         }
