@@ -110,7 +110,7 @@ GameObject:
   - 223: {fileID: 22352546}
   - 114: {fileID: 11445034}
   - 114: {fileID: 11426246}
-  - 114: {fileID: 11448250}
+  - 114: {fileID: 11484214}
   m_Layer: 8
   m_Name: EnemyBehaviorIndicator
   m_TagString: Untagged
@@ -249,17 +249,6 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
---- !u!114 &11448250
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 170790}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b7e65588781e66f4898d85e661b680f2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &11448854
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -356,6 +345,17 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.Slider+SliderEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
+--- !u!114 &11484214
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 170790}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 13a231f3693694e44b67585ea6405a89, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &11489072
 MonoBehaviour:
   m_ObjectHideFlags: 1
