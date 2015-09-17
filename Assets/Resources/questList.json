@@ -1,0 +1,21 @@
+{
+	"Test ID without Timer":
+		{
+			"name": "Test Name",
+			"description": "Test Description",
+			"objective": "Test Objective"
+		},
+	"Test ID with Timer":	
+		{
+			"name": "Another Test Name",
+			"description": "Another Test Description",
+			"objective": "Another Test Objective",
+			"duration": 1
+		},
+	"4":
+		{
+			"name": "Quest",
+			"description": "Description",
+			"objective": "Objective"
+		}
+}
