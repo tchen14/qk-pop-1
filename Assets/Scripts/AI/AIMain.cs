@@ -27,9 +27,9 @@ public class AIMain : MonoBehaviour {
 
 	//Variables Controllers
 	
-	public bool 		seesTarget 			= false;					//!<If the Player has been spotted
+	public bool 		        seesTarget 			= false;					//!<If the Player has been spotted
 	[ReadOnly]public GameObject target				= null;						//!<The transform of the player
-	public bool 		attacking 			= false;					//!<If the AI is attacking
+	public bool 		        attacking 			= false;					//!<If the AI is attacking
 	[ReadOnly]public bool 		panic 				= false;					//!<If the AI is panicking
 	[ReadOnly]public Vector3 	panicTarget			= new Vector3 (0, 0, 0);	//!<Target of AI panic
 	[ReadOnly]public float 		aggressionLevel 	= 0;						//!<The current awareness of the NPC to the Player	
