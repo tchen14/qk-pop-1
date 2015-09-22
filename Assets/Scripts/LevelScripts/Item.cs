@@ -24,6 +24,10 @@ public abstract class Item : MonoBehaviour
 	public bool cutCompatible = false;
 	public bool soundThrowCompatible = false;
 	public bool stunCompatible = false; //!> Might not need this for items
+
+	public bool heatCompatible = false;
+	public bool coldCompatible = false;
+	public bool blastCompatible = false;
   
     public enum ItemType
     {
