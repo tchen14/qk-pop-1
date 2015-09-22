@@ -7,7 +7,8 @@ using SimpleJSON;
 public class Quest {
 
 	const string questListFilePath = "/Resources/questList.json";
-	
+
+	int iden;
 	string name;
 	string description;
 	string objective;
@@ -16,21 +17,25 @@ public class Quest {
 	int duration;
 	bool timer;
 
-	public Quest(string n, string d, string o) {
+	public Quest(string n, string d, string o, int i) {
 		name = n;
 		description = d;
 		objective = o;
+		iden = i;
 	}
 
-	public Quest (string n, string d, string o, int t) {
+	public Quest (string n, string d, string o, int t, int i) {
 		name = n;
 		description = d;
 		objective = o;
 		duration = t;
+		iden = i;
 	}
 
 	public Quest AddQuest(int id) {
 		JSONNode quests = RetrieveQuestsFromJSON ();
+		 
+
 
 		if (quests[id.ToString()] == null) {
 			Debug.LogError("Quest ID: " + id + " doesn't exist! Make sure it is added into the JSON file.");
@@ -38,12 +43,12 @@ public class Quest {
 		}
 
 		if (quests [id.ToString()].Count == 3) {
-			Quest newQuest = new Quest(quests[id]["name"], quests[id]["description"], quests[id]["objective"]);
+			Quest newQuest = new Quest(quests[id.ToString ()][0], quests[id.ToString ()][1], quests[id.ToString ()][2], id);
 			return newQuest;
 		}
 
 		if (quests [id.ToString()].Count == 4) {
-			Quest newQuest = new Quest(quests[id]["name"], quests[id]["description"], quests[id]["objective"], quests[id]["duration"].AsInt);
+			Quest newQuest = new Quest(quests[id.ToString ()][0], quests[id.ToString ()][1], quests[id.ToString ()][2], quests[id.ToString ()][3].AsInt, id);
 			return newQuest;
 		}
 
@@ -63,6 +68,11 @@ public class Quest {
 
 		Debug.Log (jsonRead);
 
-		return jsonRead;
+		return jsonParsed;
+
+	}
+
+	public int GetID() {
+		return iden;
 	}
 }

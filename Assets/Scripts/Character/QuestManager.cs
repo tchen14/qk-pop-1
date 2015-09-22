@@ -6,18 +6,22 @@ public class QuestManager : MonoBehaviour {
 
 	List <Quest> currentQuests;
 	Quest _quest;
+	QuestSaveManager _questSaveManager;
 
 	void Start() {
-		_quest = new Quest (null, null, null);
+		_quest = new Quest (null, null, null, -1);
+		currentQuests = new List<Quest> ();
+		_questSaveManager = (QuestSaveManager)FindObjectOfType (typeof(QuestSaveManager));
 	}
 
-	void Update() {
-		if (Input.GetKeyDown (KeyCode.J)) {
-			Quest newQuest = _quest.AddQuest(4);
-			if(newQuest != null) {
-				currentQuests.Add(newQuest);
-			}
-		}
+	void LoadQuests(List<Quest> loadedQuests) {
+		currentQuests = loadedQuests;
+		Debug.Log (currentQuests.Count + " quests loaded!");
+
+		return;
 	}
 
+	public List<Quest> CurrentQuests() {
+		return currentQuests;
+	}
 }
