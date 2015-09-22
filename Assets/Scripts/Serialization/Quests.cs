@@ -12,6 +12,7 @@ public class Quest {
 	string name;
 	string description;
 	string objective;
+	Goal goal;
 	int progress = 0;
 	int currTimer = 0;
 	int duration;
@@ -74,5 +75,9 @@ public class Quest {
 
 	public int GetID() {
 		return iden;
+	}
+
+	public Goal GetGoal() {
+		return goal;
 	}
 }

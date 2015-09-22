@@ -24,4 +24,12 @@ public class QuestManager : MonoBehaviour {
 	public List<Quest> CurrentQuests() {
 		return currentQuests;
 	}
+
+	void UpdateQuests() {
+		foreach (Quest q in currentQuests) {
+			if(q.GetGoal().IsCompleted() == true) {
+				currentQuests.Remove(q);
+			}
+		}
+	}
 }
