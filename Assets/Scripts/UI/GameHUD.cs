@@ -56,6 +56,10 @@ public class GameHUD : MonoBehaviour {
 	GameObject phoneButtons;
 	GameObject mapElements;
 	GameObject compassCameraPoint;					//!<Point at camera location used to calculate objective positions
+	GameObject compass;
+	GameObject slider;
+	GameObject leftArrow;
+	GameObject rightArrow;
 
 	GameObject testObjective;
 
@@ -95,6 +99,13 @@ public class GameHUD : MonoBehaviour {
 		mapCam = GameObject.Find("mapCam");
 		//!Set compassCameraPoint reference
 		compassCameraPoint = GameObject.Find("compassCameraPoint");
+		compass = GameObject.Find("compassSlider");
+		slider = compass.transform.FindChild ("Handle Slide Area").gameObject;
+		slider.SetActive (false);
+		leftArrow = compass.transform.FindChild ("leftArrow").gameObject;
+		leftArrow.SetActive (false);
+		rightArrow = compass.transform.FindChild ("rightArrow").gameObject;
+		rightArrow.SetActive (false);
 
 		//!Set objective text reference
 		objectiveText = GameObject.Find("objectiveText");
@@ -160,12 +171,43 @@ public class GameHUD : MonoBehaviour {
 	}
 
 	public void setCompassValue(float newValue) {
-		GameObject compass = GameObject.Find("compassSlider");
-		if(newValue > 105) {
+
+		//!Calculates distances between "the player and the objective" and "the camera and the objective"
+		float distanceBetweenCamAndObj = Vector3.Distance (compassCameraPoint.transform.position, testObjective.transform.position);
+		float distanceBetweenPlayerAndObj = Vector3.Distance (player.transform.position, testObjective.transform.position);
+
+
+
+		//!If the camera is closer to the objective, this means the objective is behind the player.
+		//!In these first two cases, the compass will be forced to one side or the other as to not confuse the player
+		if (distanceBetweenCamAndObj < distanceBetweenPlayerAndObj && newValue >= 90) {
+			newValue = 105;
+		} 
+		else if (distanceBetweenCamAndObj < distanceBetweenPlayerAndObj && newValue < 90) {
+			newValue = 75;
+		}
+
+		else if(newValue > 105) {
 			newValue = 105;
 		}
-		if(newValue < 75) {
+		else if(newValue < 75) {
 			newValue = 75;
+		}
+
+		if (newValue == 105) {
+			slider.SetActive (false);
+			rightArrow.SetActive (true);
+			leftArrow.SetActive(false);
+		} 
+		else if (newValue == 75) {
+			slider.SetActive (false);
+			leftArrow.SetActive (true);
+			rightArrow.SetActive(false);
+		} 
+		else {
+			leftArrow.SetActive(false);
+			rightArrow.SetActive(false);
+			slider.SetActive(true);
 		}
 		compass.GetComponent<Slider>().value = newValue;
 	}
