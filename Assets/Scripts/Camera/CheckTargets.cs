@@ -27,7 +27,9 @@ public class CheckTargets : MonoBehaviour {
 			if(go.GetComponent<Renderer>().IsVisibleFrom(Camera.main))
 			{
 				RaycastHit hit;
-				Physics.Raycast(PoPCamera.instance.transform.position, (go.transform.position - PoPCamera.instance.transform.position), out hit);
+				Physics.Raycast(PoPCamera.instance.transform.position, 
+				                (go.transform.position - PoPCamera.instance.transform.position), 
+				                out hit, Mathf.Infinity, PoPCamera.instance.PlayerLM);
 				
 				if(hit.collider.name == go.GetComponent<Collider>().name)
 				{
