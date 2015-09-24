@@ -18,19 +18,31 @@ public class Quinc : MonoBehaviour {
 	private float nextPull = 0.0f;
 	private int pullRange = 20;
 
+	private float cutRate = 0.5f;		//cut recharge rate
 	private int cutRange = 20;
+	private float nextCut = 1.0f;		//timer for next cut
 
+	private float soundRate = 0.5f;		//sound throw recharge rate
 	private int soundThrowRange = 20;
+	private float nextSound = 1.0f;		//timer for sound throw
 
+	private float stunRate = 0.5f;		//stun recharge rate
 	private int stunRange = 20;
+	private float nextStun = 1.0f;		//timer for stun recharge
 
+	private float heatRate = 0.5f;		//heat recharge rate
 	private int heatRange = 20;
+	private float nextHeat = 1.0f;		//timer for heat ability
 
+	private float coldRate = 0.5f;		//freezing recharge rate
 	private int coldRange = 20;
+	private float nextCold = 1.0f;		//timer for cold ability
 
-	private int blastRange = 20;	//maximum distance from player to trigger blast
+	private float blastRate = 0.5f;		//smoke/light blast recharge rate
+	private int blastRange = 20;		//maximum distance from player to trigger blast
+	private float nextBlast = 1.0f;		//timer for smoke/light blast
 
-	private int blastRadius = 10;	//size of blast
+	private int blastRadius = 10;		//size of blast
 
 	public float smoothing = 1f;
 
@@ -127,10 +139,11 @@ public class Quinc : MonoBehaviour {
 
 			}
 				//else if (Input.GetKeyDown(KeyCode.Alpha3))
-			else if(InputManager.input.isActionPressed() && activeAbility == 2 && Input.GetKeyDown(KeyCode.I))
+			else if(InputManager.input.isActionPressed() && activeAbility == 2 && (Time.time > nextCut))// && Input.GetKeyDown(KeyCode.I))
 			{
 				//cutTarget = GameObject.Find("Rope"); //!> Reference Targeting Script to get current Target
 
+				nextCut = Time.time + cutRate;
 
 				cutTarget = PoPCamera.instance.CurrentTarget();
 
@@ -152,8 +165,11 @@ public class Quinc : MonoBehaviour {
 
 			}
 				//else if(Input.GetKeyDown(KeyCode.Alpha4))
-			else if(InputManager.input.isActionPressed() && activeAbility == 3 && Input.GetKeyDown(KeyCode.O))
+			else if(InputManager.input.isActionPressed() && activeAbility == 3 && (Time.time > nextSound))// && Input.GetKeyDown(KeyCode.O))
 			{
+
+				nextSound = Time.time + soundRate;
+
 				string soundStatus = "";
 				//soundThrowTarget = GameObject.Find("Well"); //!> Reference Targeting Script to get current Target
 
@@ -170,10 +186,11 @@ public class Quinc : MonoBehaviour {
 	
 			}
 				//else if(Input.GetKeyDown(KeyCode.Alpha5))
-			else if(InputManager.input.isActionPressed() && activeAbility == 4 && Input.GetKeyDown(KeyCode.P))
+			else if(InputManager.input.isActionPressed() && activeAbility == 4 && (Time.time > nextStun))// && Input.GetKeyDown(KeyCode.P))
 			{
 				//stunTarget = GameObject.Find("Enemy"); //!> Reference Targeting Script to get current Target
 
+				nextStun = Time.time + stunRate;
 	
 
 				stunTarget = PoPCamera.instance.CurrentTarget();
@@ -195,8 +212,10 @@ public class Quinc : MonoBehaviour {
 				}//END if(Cut(ref stunStatus, stunTarget))
 
 			}
-			else if(InputManager.input.isActionPressed() && activeAbility == 5)
+			else if(InputManager.input.isActionPressed() && activeAbility == 5 && (Time.time > nextHeat))
 			{
+
+				nextHeat = Time.time + heatRate;
 
 				heatColdTarget = PoPCamera.instance.CurrentTarget();
 
@@ -215,14 +234,17 @@ public class Quinc : MonoBehaviour {
 					print("Heat error: " + heatStatus);
 				}
 			}
-			else if(InputManager.input.isActionPressed() && activeAbility == 6)
+			else if(InputManager.input.isActionPressed() && activeAbility == 6 && (Time.time > nextCold))
 			{
+
+				nextCold = Time.time + nextCold;
+
 				heatColdTarget = PoPCamera.instance.CurrentTarget();
 
 				//heat object
 				string coldStatus = "trying to heat";
 
-				//pass status by reference and target object to heat
+				//pass status by reference and target object to freeze
 				if(Cold(ref coldStatus, heatColdTarget))
 				{
 					//output success message
@@ -234,15 +256,17 @@ public class Quinc : MonoBehaviour {
 					print("Cold error: " + coldStatus);
 				}
 			}
-			else if(InputManager.input.isActionPressed() && activeAbility == 7)
+			else if(InputManager.input.isActionPressed() && activeAbility == 7 && (Time.time > nextBlast))
 			{
+
+				nextBlast = Time.time + blastRate;
 
 				blastTarget = PoPCamera.instance.CurrentTarget();
 
 				//heat object
 				string blastStatus = "trying to blast";
 
-				//pass status by reference and target object to heat
+				//pass status by reference and target smoke or light blast
 				if(Blast(ref blastStatus, blastTarget))
 				{
 					//output success message
