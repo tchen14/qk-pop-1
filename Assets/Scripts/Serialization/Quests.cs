@@ -12,7 +12,7 @@ public class Quest {
 	string name;
 	string description;
 	string objective;
-	Goal goal;
+	Goal[] goal;
 	int progress = 0;
 	int currTimer = 0;
 	int duration;
@@ -77,7 +77,11 @@ public class Quest {
 		return iden;
 	}
 
-	public Goal GetGoal() {
+	public bool IsCompleted() {
+
+	}
+
+	public Goal[] GetGoal() {
 		return goal;
 	}
 }

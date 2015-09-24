@@ -4,13 +4,13 @@ using System.Collections;
 public class Goal {
 	bool completed = false;
 
-	public enum GoalTypes {
-		Interact,
-		Collect
+	protected virtual void Evaluate() {
+
 	}
 
-	void Evaluate() {
-
+	public void Complete() {
+		completed = true;
+		return;
 	}
 
 	public bool IsCompleted() {
