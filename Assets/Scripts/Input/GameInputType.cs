@@ -253,18 +253,19 @@ public class GameInputType : InputType {
 			return false;
 		}
 		string json = System.IO.File.ReadAllText(Application.dataPath + filePath);
-		return loadListFromJson(json);
+		string platform = Application.platform.ToString();
+		return loadListFromJson(json, platform);
 	}
 
-	private bool loadListFromJson(string json){
+	private bool loadListFromJson(string json, string platform){
 		JSONNode inputs = JSON.Parse (json);
 		if(inputs == null) {
 			Debug.Log("input", "Json file is empty");
 			return false;
 		}
-		JSONNode cont = inputs ["controller"];
+		JSONNode cont = inputs [platform];
 
-		//If game is running on the PS4
+		/*If game is running on the PS4
 		if (Application.platform == RuntimePlatform.PS4) {
 			JSONNode contInputs = cont ["PS4"];
 			controllerHor = contInputs[0].Value;
@@ -283,7 +284,7 @@ public class GameInputType : InputType {
 			dPadVertString = contInputs[13].Value;
 			dPadHorString = contInputs[14].Value;
 			Debug.Log("input", "PS4 Input Loaded");
-		}
+		}*/
 		return true;
 	}
 

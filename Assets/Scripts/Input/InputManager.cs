@@ -6,36 +6,40 @@ using Debug = FFP.Debug;
 public sealed class InputManager : MonoBehaviour
 {
 	public static bool changeSkills = false;
-	public GameInputType test;
+	public enum Inputs { UI, Game, Keyboard };
 
 	//Singleton variable
+	private static InputManager _instance;
 	public static InputManager instance {
-		get { return instance ?? (instance = GameObject.FindObjectOfType<InputManager>());} 
+		get { return _instance ?? (_instance = GameObject.FindObjectOfType<InputManager>());} 
 		private set{ }
 	}
-	public static InputType input; //!< Active input type, todo: make enum?
+	private Inputs _curInput { get; set; }
+	public static InputType input 
+	{ 
+		get { return InputManager.instance.inputs[InputManager.instance._curInput]; }
+		set { }
+	}
 
-	public Dictionary<string, InputType> inputs = new Dictionary<string, InputType>();
+	private Dictionary<Inputs, InputType> inputs = new Dictionary<Inputs, InputType>();
 
 	void Start() {
-		inputs.Add("UIInputType", this.gameObject.AddComponent<UIInputType>());
-		inputs.Add("GameInputType", this.gameObject.AddComponent<GameInputType>());
-		inputs.Add("KeyboardInputType", this.gameObject.AddComponent<KeyboardInputType>());
+		inputs.Add(Inputs.UI, this.gameObject.AddComponent<UIInputType>());
+		inputs.Add(Inputs.Game, this.gameObject.AddComponent<GameInputType>());
+		inputs.Add(Inputs.Keyboard, this.gameObject.AddComponent<KeyboardInputType>());
 
 		if(inputs.Count > 0)
-			ChangeInputType("GameInputType");
+			ChangeInputType(Inputs.Game);
 		else
 			Debug.Error("input", "InputManager.inputs is empty.");
 
-		ChangeInputType("GameInputType");
-
-		test = GameObject.FindObjectOfType<GameInputType>();
+		ChangeInputType(Inputs.Game);
 	}
 
 	//!Switch input type
-	public void ChangeInputType(string inputType) {
-		if(inputs.ContainsKey(inputType))
-			input = inputs[inputType];
+	public static void ChangeInputType(Inputs inputType) {
+		if(InputManager.instance.inputs.ContainsKey(inputType))
+			InputManager.instance._curInput = inputType;
 	}
 	
 }
