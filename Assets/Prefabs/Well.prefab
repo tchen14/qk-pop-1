@@ -11,8 +11,6 @@ GameObject:
   - 33: {fileID: 3323232}
   - 136: {fileID: 13623232}
   - 23: {fileID: 2323232}
-  - 114: {fileID: 11483820}
-  - 114: {fileID: 11430022}
   m_Layer: 0
   m_Name: Well
   m_TagString: Untagged
@@ -33,7 +31,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
 --- !u!23 &2323232
-MeshRenderer:
+Renderer:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
@@ -41,19 +39,15 @@ MeshRenderer:
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
+  m_LightmapIndex: 255
+  m_LightmapTilingOffset: {x: 1, y: 1, z: 0, w: 0}
   m_Materials:
   - {fileID: 2100000, guid: 3dbef185cf873f44295a5b83c89d1fe9, type: 2}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_UseLightProbes: 0
-  m_ReflectionProbeUsage: 1
-  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeAnchor: {fileID: 0}
   m_ScaleInLightmap: 1
-  m_PreserveUVs: 0
-  m_ImportantGI: 0
-  m_AutoUVMaxDistance: .5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingOrder: 0
 --- !u!33 &3323232
@@ -63,43 +57,6 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 123232}
   m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
---- !u!114 &11430022
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 123232}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8653f444320de5549bb713029f5a20f8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  itemName: 
-  pushCounter: 0
-  pullCounter: 0
-  cutCounter: 0
-  soundThrowCounter: 0
-  stunCounter: 0
-  quincAffected: 0
-  pushCompatible: 0
-  pullCompatible: 0
-  cutCompatible: 0
-  soundThrowCompatible: 0
-  stunCompatible: 0
---- !u!114 &11483820
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 123232}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5bd4250af48bf414e8341b0d343669f0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  isTargetable: 0
-  range: 0
-  time: 0
 --- !u!136 &13623232
 CapsuleCollider:
   m_ObjectHideFlags: 1
@@ -124,3 +81,4 @@ Prefab:
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 123232}
   m_IsPrefabParent: 1
+  m_IsExploded: 1
