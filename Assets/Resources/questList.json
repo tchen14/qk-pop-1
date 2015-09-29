@@ -1,21 +1,33 @@
 {
 	"Test ID without Timer":
 		[
-			"name": "Test Name",
-			"description": "Test Description",
-			"objective": "Test Objective"
+			"Test Name",
+			"Test Description",
+			"Test Objective",
+			[ 
+				"Goal1",
+				"Goal2"
+			]
 		],
 	"Test ID with Timer":	
 		[
-			"name": "Another Test Name",
-			"description": "Another Test Description",
-			"objective": "Another Test Objective",
-			"duration": 1
+			"Another Test Name",
+			"Another Test Description",
+			"Another Test Objective",
+			1,
+			[
+				"Goal1",
+				"Goal2"
+			]
 		],
 	"0":
 		[
 			"Quest",
 			"Description",
-			"Objective"
+			"Objective",
+			[
+				"Goal1",
+				"Goal2"
+			]
 		]
 }

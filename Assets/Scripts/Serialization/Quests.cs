@@ -18,19 +18,21 @@ public class Quest {
 	int duration;
 	bool timer;
 
-	public Quest(string n, string d, string o, int i) {
+	public Quest(string n, string d, string o, int i, Goal[] newGoals ) {
 		name = n;
 		description = d;
 		objective = o;
 		iden = i;
+		goal = newGoals;
 	}
 
-	public Quest (string n, string d, string o, int t, int i) {
+	public Quest (string n, string d, string o, int t, int i, Goal[] newGoals) {
 		name = n;
 		description = d;
 		objective = o;
 		duration = t;
 		iden = i;
+		goal = newGoals;
 	}
 
 	public Quest AddQuest(int id) {
@@ -43,13 +45,28 @@ public class Quest {
 			return null;
 		}
 
-		if (quests [id.ToString()].Count == 3) {
-			Quest newQuest = new Quest(quests[id.ToString ()][0], quests[id.ToString ()][1], quests[id.ToString ()][2], id);
+		if (quests [id.ToString()].Count == 4) {
+
+			Goal[] newGoals = new Goal[quests[id.ToString ()][3].Count];
+
+			for(int i = 0; i < quests[id.ToString ()][3].Count; i++) {
+				Goal newGoal = new Goal();
+				newGoals[i] = newGoal;
+			}
+
+			Quest newQuest = new Quest(quests[id.ToString ()][0], quests[id.ToString ()][1], quests[id.ToString ()][2], id, newGoals);
 			return newQuest;
 		}
 
-		if (quests [id.ToString()].Count == 4) {
-			Quest newQuest = new Quest(quests[id.ToString ()][0], quests[id.ToString ()][1], quests[id.ToString ()][2], quests[id.ToString ()][3].AsInt, id);
+		if (quests [id.ToString()].Count == 5) {
+			Goal[] newGoals = new Goal[quests[id.ToString ()][4].Count];
+
+			for(int i = 0; i < quests[id.ToString ()][4].Count; i++) {
+				Goal newGoal = new Goal();
+				newGoals[i] = newGoal;
+			}
+
+			Quest newQuest = new Quest(quests[id.ToString ()][0], quests[id.ToString ()][1], quests[id.ToString ()][2], quests[id.ToString ()][3].AsInt, id, newGoals);
 			return newQuest;
 		}
 
@@ -67,8 +84,6 @@ public class Quest {
 		string jsonRead = System.IO.File.ReadAllText(Application.dataPath + "/Resources/questList.json");
 		JSONNode jsonParsed = JSON.Parse (jsonRead);
 
-		Debug.Log (jsonRead);
-
 		return jsonParsed;
 
 	}
@@ -77,8 +92,34 @@ public class Quest {
 		return iden;
 	}
 
-	public bool IsCompleted() {
+	public string GetName() {
+		return name;
+	}
 
+	public bool IsCompleted() {
+		bool allCompleted = true;
+		foreach (Goal g in goal) {
+			if(g.IsCompleted() == false) {
+				allCompleted = false;
+				break;
+			}
+		}
+
+		return allCompleted;
+	}
+
+	public void CompleteGoalInQuest(int goalIndex) {
+		if (goal [goalIndex] == null) {
+			Debug.Log("Goal " + goalIndex + " does not exist!");
+			return;
+		}
+
+		if (goal [goalIndex].IsCompleted () == true) {
+			Debug.Log("Goal already completed!");
+		}
+
+		goal [goalIndex].Complete ();
+		return;
 	}
 
 	public Goal[] GetGoal() {

@@ -30,7 +30,7 @@ public class QuestSaveManager : SaveManager {
 	}
 
 	public List<Quest> LoadQuests() {
-		_quest = new Quest (null, null, null, -1);
+		_quest = new Quest (null, null, null, -1, null);
 		List<Quest> quests = new List<Quest>();
 		JSONNode loadedQuests = JSONClass.Parse(PlayerPrefs.GetString("PlayerQuests"));
 
