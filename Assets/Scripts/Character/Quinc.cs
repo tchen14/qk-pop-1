@@ -3,7 +3,27 @@ using System.Collections;
 using System.Collections.Generic;
 using Debug = FFP.Debug;
 
-public class Quinc : MonoBehaviour {
+public sealed class Quinc : MonoBehaviour
+{
+//	/*
+//START singleton code
+	private static Quinc instance;
+
+	static Quinc()
+	{
+
+	}
+
+	public static Quinc Instance
+	{
+		get
+		{
+			return instance ?? (instance = GameObject.FindObjectOfType<Quinc>());
+		}
+	}
+//	*/
+//END singleton code
+
 	//this class is a cluster fuck and needs to be organized
 #pragma warning disable 0414
 	private float pushRate = 0.5f;
@@ -79,205 +99,208 @@ public class Quinc : MonoBehaviour {
 		//Get the list of targeted objects and the index if in camera target mode
 
 		//check camera state for targets
-		if(PoPCamera.State == PoPCamera.CameraState.TargetLock)
-		{
-			//get list of targeted objects
-			acquiredTargets = PoPCamera.instance.targetedObjects;
-
-		}
+	
 
 		//if there are targeted objects in the list, allow actions on them
-		if(acquiredTargets.Count != 0) //&& inTargetLock)
+		if(PoPCamera.State == PoPCamera.CameraState.TargetLock) //&& inTargetLock)
 		{
-			//if (Input.GetKeyDown(KeyCode.Alpha1) && Time.time > nextPush)
-			if(InputManager.input.isActionPressed() && activeAbility == 0 && Time.time > nextPush)
+
+			if(InputManager.input.isActionPressed())
 			{
-				nextPush = Time.time + pushRate;
-				//pushPullTarget = GameObject.Find("Crate"); //!> Reference Targeting Script to get current Target
-
-				//get current target
-				pushPullTarget = PoPCamera.instance.CurrentTarget();
-
-				//push object
-				//push success/error string
-				string pushStatus = "trying to push";
-				//pass status string by reference and target game object to push
-				if(Push(ref pushStatus, pushPullTarget))
+				//if (Input.GetKeyDown(KeyCode.Alpha1) && Time.time > nextPush)
+				if(activeAbility == 0 && Time.time > nextPush)
 				{
-					//output success message
-					print("Push status: " + pushStatus);
+					nextPush = Time.time + pushRate;
+					//pushPullTarget = GameObject.Find("Crate"); //!> Reference Targeting Script to get current Target
+
+					//get current target
+					pushPullTarget = PoPCamera.instance.CurrentTarget();
+
+					//push object
+					//push success/error string
+					string pushStatus = "trying to push";
+					//pass status string by reference and target game object to push
+					if(Push(ref pushStatus, pushPullTarget))
+					{
+						//output success message
+						print("Push status: " + pushStatus);
+					}
+					else
+					{
+						//output error message
+						print("Push error: " + pushStatus);
+					}//END if(Push(ref pushStatus, pushPullTarget))
+
 				}
-				else
-				{
-					//output error message
-					print("Push error: " + pushStatus);
-				}//END if(Push(ref pushStatus, pushPullTarget))
-
-			}
 				//else if (Input.GetKeyDown(KeyCode.Alpha2) && Time.time > nextPull)
-			else if(InputManager.input.isActionPressed() && activeAbility == 1 && Time.time > nextPull)
-			{
-				nextPull = Time.time + pullRate;
-				//pushPullTarget = GameObject.Find("Crate"); //!> Reference Targeting Script to get current Target
-
-				//get current target
-				pushPullTarget = PoPCamera.instance.CurrentTarget();
-				//pull object
-				//push success/error string
-				string pullStatus = "trying to pull";
-				//pass status string by reference and target game object to pull
-				if(Pull(ref pullStatus, pushPullTarget))
+				else if(activeAbility == 1 && Time.time > nextPull)
 				{
-					//output success message
-					print("Pull status: " + pullStatus);
+					nextPull = Time.time + pullRate;
+					//pushPullTarget = GameObject.Find("Crate"); //!> Reference Targeting Script to get current Target
+
+					//get current target
+					pushPullTarget = PoPCamera.instance.CurrentTarget();
+					//pull object
+					//push success/error string
+					string pullStatus = "trying to pull";
+					//pass status string by reference and target game object to pull
+					if(Pull(ref pullStatus, pushPullTarget))
+					{
+						//output success message
+						print("Pull status: " + pullStatus);
+					}
+					else
+					{
+						//output error message
+						print("Pull error: " + pullStatus);
+					}//END if(Pull(ref pullStatus, pushPullTarget))
+
 				}
-				else
-				{
-					//output error message
-					print("Pull error: " + pullStatus);
-				}//END if(Pull(ref pullStatus, pushPullTarget))
-
-			}
 				//else if (Input.GetKeyDown(KeyCode.Alpha3))
-			else if(InputManager.input.isActionPressed() && activeAbility == 2 && (Time.time > nextCut))// && Input.GetKeyDown(KeyCode.I))
-			{
-				//cutTarget = GameObject.Find("Rope"); //!> Reference Targeting Script to get current Target
-
-				nextCut = Time.time + cutRate;
-
-				cutTarget = PoPCamera.instance.CurrentTarget();
-
-				//cut object
-				//cut success/error string
-				string cutStatus = "trying to cut";
-
-				//pass status by reference and target game object to cut
-				if(Cut(ref cutStatus, cutTarget))
+				else if(activeAbility == 2 && (Time.time > nextCut))// && Input.GetKeyDown(KeyCode.I))
 				{
-					//output success message
-					print("Cut status: " + cutStatus);
-				}
-				else
-				{
-					//output error message
-					print("Cut error: " + cutStatus);
-				}
+					//cutTarget = GameObject.Find("Rope"); //!> Reference Targeting Script to get current Target
 
-			}
+					nextCut = Time.time + cutRate;
+
+					cutTarget = PoPCamera.instance.CurrentTarget();
+
+					//cut object
+					//cut success/error string
+					string cutStatus = "trying to cut";
+
+					//pass status by reference and target game object to cut
+					if(Cut(ref cutStatus, cutTarget))
+					{
+						//output success message
+						print("Cut status: " + cutStatus);
+					}
+					else
+					{
+						//output error message
+						print("Cut error: " + cutStatus);
+					}
+
+				}
 				//else if(Input.GetKeyDown(KeyCode.Alpha4))
-			else if(InputManager.input.isActionPressed() && activeAbility == 3 && (Time.time > nextSound))// && Input.GetKeyDown(KeyCode.O))
-			{
-
-				nextSound = Time.time + soundRate;
-
-				string soundStatus = "";
-				//soundThrowTarget = GameObject.Find("Well"); //!> Reference Targeting Script to get current Target
-
-
-				soundThrowTarget = PoPCamera.instance.CurrentTarget();
-
-				if(SoundThrow(ref soundStatus, soundThrowTarget)) {
-					print("Sound Status: " + soundStatus);
-				}
-				else
+				else if(activeAbility == 3 && (Time.time > nextSound))// && Input.GetKeyDown(KeyCode.O))
 				{
-					print("Sound Error: " + soundStatus);
-				}//END if(SoundThrow(ref soundStatus, soundThrowTarget))
-	
-			}
+
+					nextSound = Time.time + soundRate;
+
+					string soundStatus = "";
+					//soundThrowTarget = GameObject.Find("Well"); //!> Reference Targeting Script to get current Target
+
+
+					soundThrowTarget = PoPCamera.instance.CurrentTarget();
+
+					if(SoundThrow(ref soundStatus, soundThrowTarget))
+					{
+						print("Sound Status: " + soundStatus);
+					}
+					else
+					{
+						print("Sound Error: " + soundStatus);
+					}//END if(SoundThrow(ref soundStatus, soundThrowTarget))
+
+				}
 				//else if(Input.GetKeyDown(KeyCode.Alpha5))
-			else if(InputManager.input.isActionPressed() && activeAbility == 4 && (Time.time > nextStun))// && Input.GetKeyDown(KeyCode.P))
-			{
-				//stunTarget = GameObject.Find("Enemy"); //!> Reference Targeting Script to get current Target
-
-				nextStun = Time.time + stunRate;
-	
-
-				stunTarget = PoPCamera.instance.CurrentTarget();
-
-				//stun object
-				//stun success/error string
-				string stunStatus = "trying to stun";
-
-				//pass status by reference and target game object to cut
-				if(Stun(ref stunStatus, stunTarget))
+				else if(activeAbility == 4 && (Time.time > nextStun))// && Input.GetKeyDown(KeyCode.P))
 				{
-					//output success message
-					print("Stun status: " + stunStatus);
+					//stunTarget = GameObject.Find("Enemy"); //!> Reference Targeting Script to get current Target
+
+					nextStun = Time.time + stunRate;
+
+
+					stunTarget = PoPCamera.instance.CurrentTarget();
+
+					//stun object
+					//stun success/error string
+					string stunStatus = "trying to stun";
+
+					//pass status by reference and target game object to cut
+					if(Stun(ref stunStatus, stunTarget))
+					{
+						//output success message
+						print("Stun status: " + stunStatus);
+					}
+					else
+					{
+						//output error message
+						print("Stun error: " + stunStatus);
+					}//END if(Cut(ref stunStatus, stunTarget))
+
 				}
-				else
+				else if(activeAbility == 5 && (Time.time > nextHeat))
 				{
-					//output error message
-					print("Stun error: " + stunStatus);
-				}//END if(Cut(ref stunStatus, stunTarget))
 
-			}
-			else if(InputManager.input.isActionPressed() && activeAbility == 5 && (Time.time > nextHeat))
-			{
+					nextHeat = Time.time + heatRate;
 
-				nextHeat = Time.time + heatRate;
+					heatColdTarget = PoPCamera.instance.CurrentTarget();
 
-				heatColdTarget = PoPCamera.instance.CurrentTarget();
+					//heat object
+					string heatStatus = "trying to heat";
 
-				//heat object
-				string heatStatus = "trying to heat";
-
-				//pass status by reference and target object to heat
-				if(Heat(ref heatStatus, heatColdTarget))
-				{
-					//output success message
-					print("Heat status: " + heatStatus);
+					//pass status by reference and target object to heat
+					if(Heat(ref heatStatus, heatColdTarget))
+					{
+						//output success message
+						print("Heat status: " + heatStatus);
+					}
+					else
+					{
+						//output error message
+						print("Heat error: " + heatStatus);
+					}
 				}
-				else
+				else if(activeAbility == 6 && (Time.time > nextCold))
 				{
-					//output error message
-					print("Heat error: " + heatStatus);
+
+					nextCold = Time.time + nextCold;
+
+					heatColdTarget = PoPCamera.instance.CurrentTarget();
+
+					//heat object
+					string coldStatus = "trying to heat";
+
+					//pass status by reference and target object to freeze
+					if(Cold(ref coldStatus, heatColdTarget))
+					{
+						//output success message
+						print("Cold status: " + coldStatus);
+					}
+					else
+					{
+						//output error message
+						print("Cold error: " + coldStatus);
+					}
 				}
-			}
-			else if(InputManager.input.isActionPressed() && activeAbility == 6 && (Time.time > nextCold))
-			{
-
-				nextCold = Time.time + nextCold;
-
-				heatColdTarget = PoPCamera.instance.CurrentTarget();
-
-				//heat object
-				string coldStatus = "trying to heat";
-
-				//pass status by reference and target object to freeze
-				if(Cold(ref coldStatus, heatColdTarget))
+				else if(activeAbility == 7 && (Time.time > nextBlast))
 				{
-					//output success message
-					print("Cold status: " + coldStatus);
-				}
-				else
-				{
-					//output error message
-					print("Cold error: " + coldStatus);
-				}
-			}
-			else if(InputManager.input.isActionPressed() && activeAbility == 7 && (Time.time > nextBlast))
-			{
 
-				nextBlast = Time.time + blastRate;
+					nextBlast = Time.time + blastRate;
 
-				blastTarget = PoPCamera.instance.CurrentTarget();
+					blastTarget = PoPCamera.instance.CurrentTarget();
 
-				//heat object
-				string blastStatus = "trying to blast";
+					//heat object
+					string blastStatus = "trying to blast";
 
-				//pass status by reference and target smoke or light blast
-				if(Blast(ref blastStatus, blastTarget))
-				{
-					//output success message
-					print("Blast status: " + blastStatus);
-				}
-				else
-				{
-					//output error message
-					print("Blast error: " + blastStatus);
-				}
-			}
+					//pass status by reference and target smoke or light blast
+					if(Blast(ref blastStatus, blastTarget))
+					{
+						//output success message
+						print("Blast status: " + blastStatus);
+					}
+					else
+					{
+						//output error message
+						print("Blast error: " + blastStatus);
+					}
+
+				}//END if(activeAbility == 0... else if(activeAblilit == 7
+
+			}//END if(InputManager.input.isActionPressed())
+
 		}//END if(acquiredTargets.Count != 0 && inTargetLock)
 
 	}//END void FixedUpdate()
@@ -297,6 +320,7 @@ public class Quinc : MonoBehaviour {
 		if(pushTarget == null)
 		{
 			status = "No Target Selected";
+			Debug.Warning("quinc", "pushTarget = null");
 			return false;
 		}
 		if(!pushPullTarget.GetComponent<Item>().pushCompatible)
@@ -340,6 +364,7 @@ public class Quinc : MonoBehaviour {
 		if(pullTarget == null)
 		{
 			status = "No Target Selected";
+			Debug.Warning("quinc", "pullTarget = null");
 			return false;
 		}
 		if(!pullTarget.GetComponent<Item>().pullCompatible)
@@ -377,6 +402,7 @@ public class Quinc : MonoBehaviour {
 		if(cutTarget == null)
 		{
 			status = "No Target Selected";
+			Debug.Warning("quinc", "cutTarget = null");
 			return false;
 		}
 		if(!cutTarget.GetComponent<Item>().cutCompatible)
@@ -414,6 +440,7 @@ public class Quinc : MonoBehaviour {
 		if(soundThrowTarget == null)
 		{
 			status = "No Target Selected";
+			Debug.Warning("quinc", "soundThrowTarget = null");
 			return false;
 		}
 		if(!soundThrowTarget.GetComponent<Item>().soundThrowCompatible)
@@ -452,6 +479,7 @@ public class Quinc : MonoBehaviour {
 		if(stunTarget == null)
 		{
 			status = "No Target Selected";
+			Debug.Warning("quinc", "stunTarget = null");
 			return false;
 		}
 		if(!stunTarget.GetComponent<Item>().stunCompatible)
@@ -478,6 +506,7 @@ public class Quinc : MonoBehaviour {
 		if(heatTarget == null)
 		{
 			status = "No Target Selected";
+			Debug.Warning("quinc", "heatTarget = null");
 			return false;
 		}
 		if(!heatTarget.GetComponent<Item>().heatCompatible)
@@ -504,6 +533,7 @@ public class Quinc : MonoBehaviour {
 		if(coldTarget == null)
 		{
 			status = "No Target Selected";
+			Debug.Warning("quinc", "coldTarget = null");
 			return false;
 		}
 		if(!coldTarget.GetComponent<Item>().coldCompatible)
@@ -530,6 +560,7 @@ public class Quinc : MonoBehaviour {
 		if(blastTarget == null)
 		{
 			status = "No Target Selected";
+			Debug.Warning("quinc", "blastTarget = null");
 			return false;
 		}
 		if(!blastTarget.GetComponent<Item>().blastCompatible)
