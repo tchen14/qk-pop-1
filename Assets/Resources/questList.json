@@ -6,7 +6,10 @@
 			"Test Objective",
 			[ 
 				"Goal1",
-				"Goal2"
+				"Goal2":
+					[
+						10
+					]
 			]
 		],
 	"Test ID with Timer":	
@@ -25,9 +28,12 @@
 			"Quest",
 			"Description",
 			"Objective",
-			[
+			[ 
 				"Goal1",
-				"Goal2"
+				"Goal2":
+					[
+						3
+					]
 			]
 		]
 }

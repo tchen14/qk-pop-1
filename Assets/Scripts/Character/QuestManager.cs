@@ -41,6 +41,7 @@ public class QuestManager : MonoBehaviour {
 		for (int count = currentQuests.Count - 1; count > -1; count--) {
 			if(currentQuests[count].IsCompleted() == true) {
 				Debug.Log (currentQuests[count].GetName() + " quest is completed and removed from List!");
+				_questSaveManager.SaveCompletedQuest(currentQuests[count]);
 				currentQuests.RemoveAt(count);
 			}
 		}
@@ -49,7 +50,7 @@ public class QuestManager : MonoBehaviour {
 	}
 
 	[EventVisibleAttribute]
-	public void CompleteGoalinQuest(int questID, int goalIndex) {
+	public void CompleteGoalInQuest(int questID, int goalIndex) {
 		if (currentQuests.Count < 1) {
 			Debug.Log("No quests in List!");
 			return;
@@ -62,12 +63,32 @@ public class QuestManager : MonoBehaviour {
 		}
 	}
 
+	[EventVisibleAttribute]
+	public void ProgressGoalInQuest(int questID, int goalIndex) {
+		if (currentQuests.Count < 1) {
+			Debug.Log("No quests in List!");
+			return;
+		}
+
+		foreach (Quest q in currentQuests) {
+			if(q.GetID() == questID) {
+				q.ProgressGoalInQuest(goalIndex);
+			}
+		}
+	}
+
 	void Update() {
 		questCount = currentQuests.Count;
 	}
 
 	[EventVisibleAttribute]
 	public void AddQuest(int questID) {
+
+		if (_questSaveManager.CompletedQuest (questID) == false) {
+			Debug.Log("Quest has already been completed. Delete in PlayerPrefs probably");
+			return;
+		}
+
 		Quest newQuest = _quest.AddQuest (questID);
 
 		if (newQuest == null) {

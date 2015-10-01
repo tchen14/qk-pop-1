@@ -10,7 +10,7 @@ public class QuestSaveManager : SaveManager {
 	QuestManager _questManager;
 	Quest _quest;
 
-	void SaveQuests() {
+	public void SaveQuests() {
 		_questManager = (QuestManager)FindObjectOfType (typeof(QuestManager));
 		List<Quest> currQuests = _questManager.CurrentQuests ();
 
@@ -27,6 +27,36 @@ public class QuestSaveManager : SaveManager {
 		}
 
 		PlayerPrefs.SetString ("PlayerQuests", questJSONNode.ToString ());
+	}
+
+	public void SaveCompletedQuest(Quest questToSave) {
+		if (PlayerPrefs.HasKey ("CompletedQuests") == true) {
+			JSONNode completedQuests = JSONClass.Parse(PlayerPrefs.GetString("CompletedQuests"));
+			completedQuests["CompletedQuests"][completedQuests["CompletedQuests"].Count] = questToSave.GetID().ToString();
+			PlayerPrefs.SetString("CompletedQuests", completedQuests.ToString());
+			return;
+		}
+
+		JSONClass completedQuestJSONNode = new JSONClass ();
+		completedQuestJSONNode ["CompletedQuests"] [0] = questToSave.GetID ().ToString();
+		PlayerPrefs.SetString("CompletedQuests", completedQuestJSONNode.ToString());
+		return;
+
+	}
+
+	public bool CompletedQuest(int questID) {
+		if (PlayerPrefs.HasKey ("CompletedQuests") == true) {
+			JSONNode completedQuests = JSONClass.Parse(PlayerPrefs.GetString("CompletedQuests"));
+			for(int i = 0; i < completedQuests["CompletedQuests"].Count; i++) {
+				if(completedQuests["CompletedQuests"][i] == questID.ToString()) {
+					return true;
+				}
+			}
+		} else {
+			return false;
+		}
+		//Debug.Log ("Something bad happened in CompletedQuest in QuestSaveManager");
+		return true;
 	}
 
 	public List<Quest> LoadQuests() {

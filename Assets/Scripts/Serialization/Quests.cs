@@ -50,8 +50,15 @@ public class Quest {
 			Goal[] newGoals = new Goal[quests[id.ToString ()][3].Count];
 
 			for(int i = 0; i < quests[id.ToString ()][3].Count; i++) {
-				Goal newGoal = new Goal();
-				newGoals[i] = newGoal;
+
+				if(quests[id.ToString ()][3][i][0] == null) {
+					Goal newGoal = new Goal(quests[id.ToString ()][3][i]);
+					newGoals[i] = newGoal;
+				}
+				else {
+					Goal newGoal = new Goal(quests[id.ToString ()][3][i], quests[id.ToString ()][3][0].AsInt);
+					newGoals[i] = newGoal;
+				}
 			}
 
 			Quest newQuest = new Quest(quests[id.ToString ()][0], quests[id.ToString ()][1], quests[id.ToString ()][2], id, newGoals);
@@ -62,7 +69,7 @@ public class Quest {
 			Goal[] newGoals = new Goal[quests[id.ToString ()][4].Count];
 
 			for(int i = 0; i < quests[id.ToString ()][4].Count; i++) {
-				Goal newGoal = new Goal();
+				Goal newGoal = new Goal(quests[id.ToString ()][i]);
 				newGoals[i] = newGoal;
 			}
 
@@ -119,6 +126,20 @@ public class Quest {
 		}
 
 		goal [goalIndex].Complete ();
+		return;
+	}
+
+	public void ProgressGoalInQuest(int goalIndex) {
+		if (goal [goalIndex] == null) {
+			Debug.Log("Goal " + goalIndex + " does not exist!");
+			return;
+		}
+		
+		if (goal [goalIndex].IsCompleted () == true) {
+			Debug.Log("Goal already completed!");
+		}
+		
+		goal [goalIndex].Progress ();
 		return;
 	}
 
