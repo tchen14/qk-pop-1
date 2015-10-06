@@ -3,14 +3,14 @@ using System.Collections;
 using System.Collections.Generic;
 using Debug = FFP.Debug;
 
+//! 3rd person camera controller.
 /*!
- * Child Class of Parent Camera_2 for Patriots of the Past,
- * Inherits initial camera settings from Camera_2,
- * Uses mouse input to orbit camera in a 3D space and mouse wheel for zoom, input works with joysticks
- * Camera follows character if no mouse input is detected
+ * Child Class of Parent Camera_2 for Patriots of the Past.
+ * Inherits initial camera settings from Camera_2.
+ * Uses mouse input to orbit camera in a 3D space and mouse wheel for zoom, input works with joysticks.
+ * Camera follows character if no mouse input is detected.
  * Includes methods to handle player occlusion and object/environment clipping
  */
-
 [RequireComponent(typeof(CheckTargets))]
 public sealed class PoPCamera : Camera_2
 {
@@ -28,9 +28,11 @@ public sealed class PoPCamera : Camera_2
 	/// Tracks mouse position between frames
 	private Vector3 mousePosition;
 
-	/// Hidden reference for local camera events
+	///\ingroup Event Members
+	///@{ Hidden reference for local camera events
 	[HideInInspector] public PoPCameraEvent eventTrigger;
 	[HideInInspector] public GoSpline eventPath;
+	///@}
 	
 	private float curRotateX = 0f;
 
@@ -262,7 +264,12 @@ public sealed class PoPCamera : Camera_2
 		inTargetLock = true;
 	}
 
-	// Finds closest targetable object from list and returns it
+	//! Finds objects available to be targeted. Returns a list with the GameObjects
+	//! that are available to be targeted. **NOTE** this function only returns a list
+	//! of objects in range, it doesn't actually make the camera target objects.
+	/*! 
+	 * \return the list of objects. Use List.Any() to check if any objects were returned 
+	 */
 	public static List<GameObject> AcquireTarget() 
 	{
 		List<GameObject> targets = new List<GameObject>();
@@ -286,6 +293,16 @@ public sealed class PoPCamera : Camera_2
 		}
 
         return targets;
+	}
+
+	// Returns current gameobject or null if none is targetted
+	public GameObject CurrentTarget() {
+		if(targetedObjects != null)
+			return targetedObjects[targetindex];
+		else {
+			Debug.Warning("camera", "No current object targetted");
+			return null;
+		}
 	}
 	#endregion
 
