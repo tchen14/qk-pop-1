@@ -37,14 +37,11 @@ public class Quest {
 
 	public Quest AddQuest(int id) {
 		JSONNode quests = RetrieveQuestsFromJSON ();
-		 
-
 
 		if (quests[id.ToString()] == null) {
 			Debug.LogError("Quest ID: " + id + " doesn't exist! Make sure it is added into the JSON file.");
 			return null;
 		}
-
 		if (quests [id.ToString()].Count == 4) {
 
 			Goal[] newGoals = new Goal[quests[id.ToString ()][3].Count];
@@ -60,7 +57,6 @@ public class Quest {
 					newGoals[i] = newGoal;
 				}
 			}
-
 			Quest newQuest = new Quest(quests[id.ToString ()][0], quests[id.ToString ()][1], quests[id.ToString ()][2], id, newGoals);
 			return newQuest;
 		}
@@ -72,11 +68,9 @@ public class Quest {
 				Goal newGoal = new Goal(quests[id.ToString ()][i]);
 				newGoals[i] = newGoal;
 			}
-
 			Quest newQuest = new Quest(quests[id.ToString ()][0], quests[id.ToString ()][1], quests[id.ToString ()][2], quests[id.ToString ()][3].AsInt, id, newGoals);
 			return newQuest;
 		}
-
 		return null;
 	}
 
@@ -89,7 +83,6 @@ public class Quest {
 			Debug.LogError("Quest ID: " + id + " doesn't exist! Make sure it is added into the JSON file.");
 			return null;
 		}
-		
 		if (quests [id.ToString()].Count == 4) {
 			
 			Goal[] newGoals = new Goal[quests[id.ToString ()][3].Count];
@@ -105,11 +98,9 @@ public class Quest {
 					newGoals[i] = newGoal;
 				}
 			}
-			
 			Quest newQuest = new Quest(quests[id.ToString ()][0], quests[id.ToString ()][1], quests[id.ToString ()][2], id, newGoals);
 			return newQuest;
 		}
-		
 		if (quests [id.ToString()].Count == 5) {
 			Goal[] newGoals = new Goal[quests[id.ToString ()][4].Count];
 			
@@ -117,11 +108,9 @@ public class Quest {
 				Goal newGoal = new Goal(quests[id.ToString ()][i]);
 				newGoals[i] = newGoal;
 			}
-			
 			Quest newQuest = new Quest(quests[id.ToString ()][0], quests[id.ToString ()][1], quests[id.ToString ()][2], quests[id.ToString ()][3].AsInt, id, newGoals);
 			return newQuest;
 		}
-		
 		return null;
 	}
 
@@ -137,7 +126,6 @@ public class Quest {
 		JSONNode jsonParsed = JSON.Parse (jsonRead);
 
 		return jsonParsed;
-
 	}
 
 	public int GetID() {

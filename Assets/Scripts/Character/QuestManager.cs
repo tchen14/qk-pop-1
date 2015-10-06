@@ -89,7 +89,7 @@ public class QuestManager : MonoBehaviour {
 	[EventVisibleAttribute]
 	public void AddQuest(int questID) {
 
-		if (_questSaveManager.CompletedQuest (questID) == false) {
+		if (_questSaveManager.CompletedQuest (questID) == true) {
 			Debug.Log("Quest has already been completed. Delete in PlayerPrefs probably");
 			return;
 		}

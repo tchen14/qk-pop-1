@@ -4,7 +4,7 @@ using System.Collections;
 public class Goal {
 
 	string goalName;
-	int goalProgress;
+	int goalProgress = -1;
 	int goalProgressNeeded;
 	bool completed = false;
 
