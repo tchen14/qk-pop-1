@@ -16,8 +16,8 @@ public class AIMainTrimmed : MonoBehaviour {
 	public int 					hp 					= 100;						//!<Health of the NPC
 	public float 				sightDistance 		= 45;						//!<The distance the NPC is capable of seeing
 	public float 				sightAngle			= 45;						//!<The max angle of the cone of vision
-	public float 				speed 				= 5;						//!<Casual Speed of the NPC
-	public float		 		runSpeed 			= 7;						//!<Scared, Charging, Aggressive Speed of the NPC*
+	public float 				speed 				= 4;						//!<Casual Speed of the NPC
+	public float		 		runSpeed 			= 6;						//!<Scared, Charging, Aggressive Speed of the NPC*
 	public string[]		 		seekTag 			= {"Player"};				//!<The enemy Tag of this NPC
 	public float 				attackDistance		= 3;						//!<The distance the NPC stands away from the target and attacks*
 	public float 				aggressionLimit		= 100;						//!<The aggression level of the attacker
@@ -46,11 +46,14 @@ public class AIMainTrimmed : MonoBehaviour {
     public bool                 dazed               = false;                    //!<If the AI is dazed
 
 
+
 	//Movement variables
 
 	private NavMeshAgent 		mesh 				= null;						//!<Contains the component to use the navmesh
+    public GameObject[]         checkpointsArray;                               //!Array to hold all the checkpoints for the AI to move to
 	[ReadOnly]public string		navCheck			= null;						//!<The name of the current checkpoint
 	[ReadOnly]public Vector3 	navPoint			= new Vector3 (0, 0, 0);	//!<Contains the point to move in the navmesh
+
 
 	//Sight variables
 
@@ -73,11 +76,13 @@ public class AIMainTrimmed : MonoBehaviour {
     }
 
 
-    void Update() 
-	{ 
-		if (hp > 0)
+    
+	void FixedUpdate ()
+    {
+        #region state 
+        if (hp > 0)
         {
-            if (dazed == false) 
+            if (dazed == false)
             {
                 mesh.SetDestination(navPoint);
                 #region attack
@@ -85,8 +90,6 @@ public class AIMainTrimmed : MonoBehaviour {
                 {
                     if (attackDistance >= Vector3.Distance(transform.position, target.transform.position))
                     {
-                        //if the target name is the player initiate reset of level
-                        //if target name is shadowPlayer then destroy it. 
                         if (target.name == "shadowPlayer(Clone)")
                         {
                             Destroy(target);
@@ -105,20 +108,14 @@ public class AIMainTrimmed : MonoBehaviour {
             }
             else
             {
-                
+
             }
-		}
+        }
         else
         {
             Pause();
         }
-	}
-
-
-    
-	void FixedUpdate ()
-    {
-        #region state
+        
         if (panic == true)
         {      
             if (aggressive == true)
@@ -175,7 +172,7 @@ public class AIMainTrimmed : MonoBehaviour {
                 StartCoroutine("Decrementaggression");
             }
         }
-        #endregion
+        
         
         if (suspicious == true && attacking == true)
         {
@@ -192,6 +189,14 @@ public class AIMainTrimmed : MonoBehaviour {
                 gameObject.GetComponent<Renderer>().material.color = Color.white;
             }
         }
+        #endregion
+
+        #region path
+        if (Vector3.Distance(transform.position, navPoint) < 10)
+        {
+           nextCheckpoint();
+        }
+        #endregion
     }
 
     public IEnumerator EndAttack() 
@@ -399,5 +404,21 @@ public class AIMainTrimmed : MonoBehaviour {
         //after animation ChangeNavPoint(startPoint.name, startPoint.transform.position);
         //set noiseHeard to false
         //Searching = false;
+    }
+
+    public void nextCheckpoint()
+    {
+        /*check the checkpointArray
+        for every object in the array check if the that object is the target
+            if that object is the current target set the next object as the target
+
+        for(array.length
+
+        */
+
+            for (int nofChecpoints = 0; nofChecpoints < checkpointsArray.Length; nofChecpoints++)
+        {
+            f (Vector3.Distance(transform.position, navPoint) < 10)
+        }
     }
 }

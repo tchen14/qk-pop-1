@@ -8935,6 +8935,7 @@ MonoBehaviour:
   alert: 0
   unconsious: 0
   dazed: 0
+  checkpointsArray: []
   navCheck: 
   navPoint: {x: 0, y: 0, z: 0}
 --- !u!54 &1779144473
