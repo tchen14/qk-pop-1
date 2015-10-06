@@ -16,6 +16,8 @@ public class abilityDockController : MonoBehaviour {
 	public Vector3[] targetLocation;
 	public Vector3[] startLocation;
 
+	int selectedAbility;
+
 	// Use this for initialization
 	void Start () {
 		selectAbility (0);
@@ -32,7 +34,8 @@ public class abilityDockController : MonoBehaviour {
 				openDock();
 			}
 			else{
-				closeDock();
+				//closeDock();
+
 			}
 		}
 		if (opening) {
@@ -52,6 +55,7 @@ public class abilityDockController : MonoBehaviour {
 	}
 
 	void openDock(){
+		abilities [selectedAbility].Select ();
 		for (int i = 0; i < abilities.Length; i++) {
 			//abilities[i].transform.position = new Vector3(abilities[i].transform.position.x, i*(iconHeight + iconSpacing) + spacingFromBottom, 0);
 			targetLocation[i] = new Vector3(abilities[i].transform.position.x, i*(iconHeight + iconSpacing) + spacingFromBottom, 0);
@@ -70,6 +74,7 @@ public class abilityDockController : MonoBehaviour {
 			openDock ();
 		} else {
 			changeSortOrder (i, 10);
+			selectedAbility = i;
 			closeDock ();
 	
 		}
