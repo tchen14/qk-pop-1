@@ -50,7 +50,7 @@ public class PoPCameraEvent : MonoBehaviour {
 	{
 		if (coll.gameObject.name == "_Player") {
 			PoPCamera.instance.eventTrigger = this;
-			PoPCamera.instance.inEvent = true;
+			PoPCamera.State = Camera_2.CameraState.CamEvent;
 		}
 	}
 
@@ -125,7 +125,7 @@ public class PoPCameraEvent : MonoBehaviour {
 		}
 
 		if(pathLength < 0) {
-			PoPCamera.instance.inEvent = false;
+			PoPCamera.State = Camera_2.CameraState.Normal;
 			Destroy(this.gameObject);
 		} else
 			pathLength -= Time.deltaTime;
