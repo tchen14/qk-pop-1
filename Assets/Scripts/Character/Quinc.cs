@@ -45,7 +45,7 @@ public class Quinc : MonoBehaviour {
 		if(GameHUD.Instance.curAbility != activeAbility)
 			activeAbility = GameHUD.Instance.curAbility;
 		//Get the list of targeted objects and the index if in camera target mode
-		//inTargetLock = PoPCamera.instance.inTargetLock;
+		inTargetLock = PoPCamera.instance.inTargetLock;
 		if(inTargetLock) {
 			acquiredTargets = PoPCamera.instance.targetedObjects;
 			currentTargetedObjectIndex = PoPCamera.instance.targetindex;

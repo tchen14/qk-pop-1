@@ -7,15 +7,27 @@ using System.IO;
 using Debug = FFP.Debug;
 
 /*!
- *	Manages audio loading and playing for all audio types. This class also handles preloading of priority audio.
- *	written by Ace Spring 2015
- */
+ *	Manages audio for all levels. This class pretty much just loads and plays sounds, on a (timed or untimed) repeat if desired.
+ *	\todo implementation + code
+ *	written by Ace
+*/
+[EventVisible]
 public class AudioManager : MonoBehaviour {
 
+	[EventVisible]
+	public int testInt = 10;
+
+	[EventVisible]
+	public void testPrint(string value) {
+		MonoBehaviour.print(value);
+	}
+
+#pragma warning disable 0219
+#pragma warning disable 0649
 	#region singletonEnforcement
 	private static AudioManager _instance;
 
-	public static AudioManager Instance {
+	public static AudioManager instance {
 		get {
 			if(_instance == null) {
 				_instance = GameObject.FindObjectOfType<AudioManager>();
@@ -28,149 +40,66 @@ public class AudioManager : MonoBehaviour {
 	}
 	#endregion
 
-	const string soundListFilePath = "/Resources/audioListData.json";		//Path for the audio json file
 
-	[SerializeField]
-	private AudioMixer masterMixer;		//!Location for the master mixer from scene
-	[SerializeField]
-	private AudioMixer ambienceMixer;	//!Location for the ambience mixer from scene
-	[SerializeField]
-	private AudioMixer effectMixer;		//!Location for the effect mixer from scene
-	[SerializeField]
-	private AudioMixer musicMixer;		//!Location for the music mixer from scene
-	[SerializeField]
-	private AudioMixer voiceMixer;		//!Location for the voice mixer from scene
+
+	const string soundListFilePath = "/Resources/audioListData.json";
+	const string soundFilePath = "/StreamingAssets/Audio/";
+
+	public AudioMixer masterMixer;
+	public AudioClip tempClip;
 
 	[Range(1.0f, 100.0f)]
-	public float editorVol = 60f;		//!Used for testing volume or indirect vol control
+	public float tempvol = 60f;
 
-	//Dictionaries that hold the file names from json file
-	Dictionary<string, bool> ambienceDict = new Dictionary<string, bool>();			//!Dictionaries that hold the ambience file names from json file
-	Dictionary<string, bool> effectDict = new Dictionary<string, bool>();			//!Dictionaries that hold the effect file names from json file
-	Dictionary<string, bool> musicDict = new Dictionary<string, bool>();			//!Dictionaries that hold the music file names from json file
-	Dictionary<string, bool> voiceDict = new Dictionary<string, bool>();			//!Dictionaries that hold the voice file names from json file
-	Dictionary<string, string> priorityDict = new Dictionary<string, string>();		//!Dictionaries that hold the priority file names from json file
+	Dictionary<string, bool> ambianceDict = new Dictionary<string, bool>();
+	Dictionary<string, bool> effectDict = new Dictionary<string, bool>();
+	Dictionary<string, bool> musicDict = new Dictionary<string, bool>();
+	Dictionary<string, bool> voiceDict = new Dictionary<string, bool>();
 
-	Dictionary<string, AudioSource> activeAudio = new Dictionary<string, AudioSource>();	//!holds songs that are actively playing
-	Dictionary<string, AudioClip> priorityAudio = new Dictionary<string, AudioClip>();		//!holds songs that are priority to be loaded at start
+	public GameObject player;
 
-	//Used for testing
-	GameObject player;					//test player game object
-	public bool testing = false;		//if we are running the testing
-	//bool onePause = false;				//pause single active audio
-	//bool groupPause = false;
-	//bool allPause = false;
-	//bool oneUnPause = false;
-	//bool groupUnPause = false;
-	//bool allUnPause = false;
-	//bool stop = false;
-
-	//Possible later use for custom gui buttons and visual output
-	public int numberOfActiveAudio = 0;			//may need to be public for custom inspector window
-	public int numberOfPriorityAudio = 0;		//may need to be public for custom inspector window
+	WWW _www;
 
 
 	//! Unity Start function
     void Start() {
-		Debug.Log("audio", "SoundManager has started");
+		tempvol = 60f;
 
 		#region singletonCreation
 		if(_instance == null) {
 			//If I am the first instance, make me the Singleton
-			Debug.Log("audio", "Audio Singleton did not exist, creating");
 			_instance = this;
 			DontDestroyOnLoad(this);
 		} else {
 			//If a Singleton already exists and you find
 			//another reference in scene, destroy it!
-			Debug.Error("audio", "There is more than one Audio Singleton, Destroying");
 			if(this != _instance)
 				Destroy(this.gameObject);
 		}
 		#endregion
 
-		if(testing) {
-			player = new GameObject("PlayerTest");
-			Debug.Warning("audio", "Audio testing is enabled");
-		}
-
-			
-		//JSON file load check
 		if(!loadListFromFile(soundListFilePath)) {
 			Debug.Error("audio", "JSON file did not load");
 		} else
-			Debug.Log("audio", "JSON file loaded");
+			Debug.Warning("audio", "JSON file loaded");
 
-        changeVol("master", 40f);
+		//player = new GameObject("Player");
+		//playMe(player, "ambiance", "ambiant2.ogg");
 
-		generatePriority();
 	}
 
 	//! Unity Update function
 	void Update() {
-
-		#region Testing features
+		
 		//For testing only
-		if(testing) {
-
-			editorVol = 60f;
-
-			if(Input.GetButtonDown("Fire1")) {
-				changeVol("master", editorVol);
-				Debug.Log("audio", "Temp Volume level is now " + editorVol);
-				//Debug.Log("audio", "tempClip's file");
-			}
-			if(Input.GetButtonDown("Fire2"))
-				Debug.Log("audio", "Volume level is now " + seeVol("master"));		//slightly slower than change vol
-			//changeVol("reset", tempvol);
-			if(Input.GetButtonDown("Jump")) {
-				//hard code song load
-				//player = new GameObject("PlayerTest");
-				Debug.Log("audio", "spacebar pressed playing music1");
-				playMe(player, "music", "music1");
-			}
-
-			if(activeAudio.Count > 0) {
-				//activeAudioEmpty = false;
-				numberOfActiveAudio = activeAudio.Count;
-				displayTime(player.GetComponent<AudioSource>());		//displays play time & total time in debug log
-			} else {
-				//activeAudioEmpty = true;
-				numberOfActiveAudio = 0;
-			}
-
-			if(priorityAudio.Count > 0) {
-				//priorityAudioEmpty = false;
-				numberOfPriorityAudio = priorityAudio.Count;
-				//displayTime(player.GetComponent<AudioSource>());		//displays play time & total time in debug log
-			} else {
-				//priorityAudioEmpty = true;
-				numberOfPriorityAudio = 0;
-			}
-
-			//pause checking
-			//if(onePause) {
-			//	pauseMe(player);
-			//} else if(groupPause) {
-			//	pauseGroup("music");
-			//} else if(allPause) {
-			//	pauseAll();
-			//} else if(oneUnPause) {
-			//	oneUnPause = false;
-			//	unpauseMe(player);
-			//} else if(groupUnPause) {
-			//	groupUnPause = false;
-			//	unpauseGroup("music");
-			//} else if(allUnPause) {
-			//	allUnPause = false;
-			//	unpauseAll();
-			//} else if(stop) {
-			//	stopMe(player);
-			//	stop = false;
-			//}
+		if(Input.GetButtonDown("Fire1")) {
+			//changeVol("master", tempvol);
+			//Debug.Log("audio", "Temp Volume level is now " + tempvol);
+			Debug.Log("audio", "tempClip's file");
 		}
-		#endregion 
-
+		if(Input.GetButtonDown("Fire2"))
+			Debug.Log("audio", "Volume level is now " + seeVol("master"));		//slightly slower than change vol
+			//changeVol("reset", tempvol);
 	}
 
 	#region json file reading
@@ -187,23 +116,21 @@ public class AudioManager : MonoBehaviour {
 
 	//!checks JSON file isnt empty and loads data into audio dictionaries
 	public bool loadListFromJson(string json) {		
-		JSONNode soundData = JSON.Parse(json);			//the whole JSON file
+		JSONNode soundData = JSON.Parse(json);
 		if(soundData == null) {
 			Debug.Error("audio", "Json file is empty");
 			return false;
 		}
 		
-		JSONNode audioNode = soundData["audio"];		//Just the ones under audio
-		string[] types = { "ambience", "effect", "music", "voice" };
+		JSONNode audioNode = soundData["audio"];
+		string[] types = { "ambiance", "effect", "music", "voice" };
 
 		foreach(string type in types) {
-			JSONArray tempArray = audioNode[type].AsArray;	//just the objects under the type
+			JSONArray tempArray = audioNode[type].AsArray;
 			foreach(JSONNode j in tempArray) {
 				var name = j[0];				//j[0] is name of object
 				bool priority = j[1].AsBool;	//j[1] priority of object
 				addSound(type, name, priority);
-				//if(priority)
-				//	loadPriority(type, name);
 			}
 		}
 		return true;
@@ -211,34 +138,32 @@ public class AudioManager : MonoBehaviour {
 	#endregion 
 	
 	#region General Sound Functions
-	//!Adds sound info from JSON to Dictionaries
+	//!Adds sound info to Dictionaries
 	public void addSound(string type, string name, bool priority){
 		switch(type.ToLower()) {
-			case "ambience":
-				ambienceDict.Add(name, priority);
-				break;
-			case "effect":
-				effectDict.Add(name, priority);
-				break;
-			case "music":
-				musicDict.Add(name, priority);
-				break;
-			case "voice":
-				voiceDict.Add(name, priority);
-				break;
-			default:
-				Debug.Log("audio", type + "is not an option, or you spelled it wrong");
-				break;
-		}
-		if(priority)
-			priorityDict.Add(name, type);
-	} 
+				case "ambiance":
+					ambianceDict.Add(name, priority);
+					break;
+				case "effect":
+					effectDict.Add(name, priority);
+					break;
+				case "music":
+					musicDict.Add(name, priority);
+					break;
+				case "voice":
+					voiceDict.Add(name, priority);
+					break;
+				default:
+					Debug.Log("audio", type + "is not an option, or you spelled it wrong");
+					break;
+			}
+		} 
 
 	//!checks if sounds in dictionary
 	public bool findSound(string type, string name) {
 		switch(type.ToLower()) {
-			case "ambience":
-				if(ambienceDict.ContainsKey(name))
+			case "ambiance":
+				if(ambianceDict.ContainsKey(name))
 					return true;
 				else
 					return false;
@@ -263,348 +188,107 @@ public class AudioManager : MonoBehaviour {
 		}
 	}
 
+	//!Load single sound, must include file name and extension
+	public AudioClip loadSound(string type, string name) {
+		AudioClip tempSound;
 
-	//!checks if sounds in any dictionary, returns which dictionary.
-	public string findSound(string name) {
-		
-		if(ambienceDict.ContainsKey(name))
-			return "ambience";
-		else if(effectDict.ContainsKey(name))
-			return "effect";
-		else if(musicDict.ContainsKey(name))
-			return "music";
-		else if(voiceDict.ContainsKey(name))
-			return "voice";
-		else{
-			Debug.Log("audio", name + " is not found in any dictionary, how did you mess this up?");
-				return "none";
-		}
-	}
-
-	//!returns dictionary requested
-    public Dictionary<string, bool> getDictionary(string type)
-    {
-        switch (type.ToLower())
-        {
-            case "ambience":
-                return ambienceDict;
-            case "effect":
-                return effectDict;
-            case "music":
-                return musicDict;
-            case "voice":
-                return voiceDict;
-            default:
-                Debug.Log("audio", type + "is not an option, or you spelled it wrong");
-                return null;
-        }
-    }
-
-	//!Displays playhead location and total time to audio debug
-	void displayTime(AudioSource source) {
-
-		//total time
-		float totalSeconds = source.clip.length;
-		float totalSec = totalSeconds % 60;
-		int totalMin = Mathf.FloorToInt(totalSeconds / 60);
-
-		//play head
-		float sec = source.time % 60;
-		int min = Mathf.FloorToInt(source.time / 60);
-
-
-		Debug.Log("audio", "Display: current play head location " + min + ":" + sec);
-		Debug.Log("audio", "Display: Total time " + totalMin + ":" + totalSec);
-	}
-
-	//!Takes priority entries from JSON file and loads them into a dictionary of audio sources
-	void generatePriority() {
-		foreach(string name in priorityDict.Keys){
-			string type = priorityDict[name];
-			loadPriority(type, name);
-		}
-		
-	}
-
-	//!Loads priority audio files into the priority que
-	void loadPriority(string type, string name) {
-		Debug.Log("audio", "Load priority, name is " + name);
-		StartCoroutine(loadAudio(null, type, name, "priority"));
-	}
-    #endregion
-
-    #region Play Functions
-    //!Checks to see if there was a target object given, if the target is already playing audio, if the requested audio is already preloaded, and calls loadAudio
-	[EventVisible]
-	public void playMe(GameObject target, string type, string name) {
-		string loadType;
-
-		if (!target){
-            target = GameObject.Find("_Player");
-            Debug.Log("audio", "PlayMe: target object was null, target is now the player");
-        }
-		if(playingCurrently(target)) {
-			Debug.Warning("audio", "PlayMe: target object is already playing audio");
+		string path = Application.streamingAssetsPath;
+		//print(path);
+		if(!findSound(type, name)) {
+			tempSound = null;
 		} else {
-			if(priorityAudio.ContainsKey(name))
-				loadType = "priority";
-			else
-				loadType = "play";
-
-			StartCoroutine(loadAudio(target, type, name, loadType));
-		}
-    }
-
-	//!Coroutine that checks the play medium(editor/application), creates file path, loads sound into a clip, if its a priority it adds it to list else it calls the audio source builder function
-    IEnumerator loadAudio(GameObject target, string type, string name, string loadType)
-    {
-        string typePath;
-		string filename;
-        AudioMixer mixerGroup;
-		
-		//checking if its a play or a priority load
-		if(loadType == "play") {
-			filename = name + ".ogg";
-			Debug.Log("audio", "LoadAudio: load type is " + loadType + " filename is " + filename);
-		} else if(loadType == "priority") {
-			filename = name;
-			Debug.Log("audio", "LoadAudio: load type is " + loadType + " filename is " + filename);
-		} else {
-			filename = "temp";
-			Debug.Log("audio", "LoadAudio: load type is " + loadType + " filename is " + filename);
-		}
-
-        //files handled differently between editor and player
-        //in editor: /Assets/StreamingAssets
-        //in player: Application.streamingAssetsPath
-        string dir;
-        if (Application.isEditor){
-            dir = Application.dataPath + "/Audio";
-
-            switch (type.ToLower())
-            {
-                case "ambience":
-                    typePath = "file:///" + dir + "/ambience/" + filename;
-                    mixerGroup = ambienceMixer;
-                    break;
-                case "effect":
-                    typePath = "file:///" + dir + "/Effects/" + filename;
-                    mixerGroup = effectMixer;
-                    break;
-                case "music":
-                    typePath = "file:///" + dir + "/Music/" + filename;
-                    mixerGroup = musicMixer;
-                    break;
-                case "voice":
-                    typePath = "file:///" + dir + "/Voice/" + filename;
-                    mixerGroup = voiceMixer;
-                    break;
-                default:
-                    Debug.Log("audio", type + " is not an option, or you spelled it wrong");
-                    typePath = "path is invalid";
-                    mixerGroup = null;
-                    break;
-            }
-        }else{
-            dir = Application.streamingAssetsPath + "/Audio";                   //Untested
-
-            switch (type.ToLower())
-            {
-                case "ambience":
-                    typePath = "file:///" + dir + "/ambience/" + filename;
-                    mixerGroup = ambienceMixer;
-                    break;
-                case "effect":
-                    typePath = "file:///" + dir + "/Effects/" + filename;
-                    mixerGroup = effectMixer;
-                    break;
-                case "music":
-                    typePath = "file:///" + dir + "/Music/" + filename;
-                    mixerGroup = musicMixer;
-                    break;
-                case "voice":
-                    typePath = "file:///" + dir + "/Voice/" + filename;
-                    mixerGroup = voiceMixer;
-                    break;
-                default:
-                    Debug.Log("audio", type + "is not an option, or you spelled it wrong");
-                    typePath = "path is invalid";
-                    mixerGroup = null;
-                    break;
-            }
-        }
-		//if its already loaded
-		if(priorityAudio.ContainsKey(name)) {
-			Debug.Log("audio", "LoadAudio: " + name + " is already on the priority list, finishing loading");
-			finishedLoading(priorityAudio[name], mixerGroup, target, name, loadType);
-		} else {
-
-			//build and log path based on filename
-			Debug.Log("audio", "LoadAudio: file path created: " + typePath);
-
-			var www = new WWW(typePath);
-			yield return www;               //now we wait
-
-			if(string.IsNullOrEmpty(www.error)) {
-				//we have now finished loading the file
-				//if you do use an asset bundle, you just handle it a bit differently here
-				AudioClip clip = www.audioClip;
-				Debug.Log("audio", "LoadAudio: " + name + " Audio clip loaded from file, " + mixerGroup + " is the mixer group");
-				
-				//finished loading -- fire callback
-				name = Path.GetFileNameWithoutExtension(typePath);
-				if(loadType == "priority")
-					priorityAudio.Add(name, clip);
-				else
-					finishedLoading(clip, mixerGroup, target, name, loadType);
-			} else {
-				//bail out!
-				Debug.Error("audio", "LoadAudio: WWW Error: " + www.error);
+			switch(type.ToLower()) {
+				case "ambiance":
+					//print("file:///" + Application.dataPath + "/Audio/ambiant2.ogg");
+					//_www = new WWW("file:///" + Application.dataPath + "/Audio/ambiant2.ogg");
+					//tempSound = _www.GetAudioClip(false, false);
+					
+					
+					//path = path + "/Ambiance/" + name;
+					//_www = new WWW("http://upload.wikimedia.org/wikipedia/commons/c/c8/Example.ogg");		//clears check in wait for request
+					//print(Path.GetFileName("file:///" + path));
+					StartCoroutine(waitForRequest(_www));
+					//print(path);
+					//tempSound = AudioClip.Create(path, )					//Still broken
+					//tempSound = Resources.Load(path) as AudioClip;	//maybe works?
+					tempSound = _www.GetAudioClip(false, false);
+					break;
+				//case "effect":
+				//	//effectDict.Add(name, priority);
+				//	break;
+				//case "music":
+				//	//musicDict.Add(name, priority);
+				//	break;
+				//case "voice":
+				//	//voiceDict.Add(name, priority);
+				//	break;
+				default:
+					Debug.Log("audio", type + "is not an option, or you spelled it wrong");
+					tempSound = null;
+					break;
 			}
 		}
-    }
 
-    //!callback function, builds audio source once a clip is loaded
-    void finishedLoading(AudioClip clip, AudioMixer mixerGroup, GameObject go, string name, string loadType){
+		Debug.Log("audio", tempSound.name);
+		return tempSound;
+	}
 
-		AudioSource source = go.AddComponent<AudioSource>();
+	public bool playMe(GameObject target, string type, string name){
+		AudioClip sound;
+		AudioSource speaker; //= gameObject.AddComponent<AudioSource>();
 
-        AudioMixerGroup[] groupArray = mixerGroup.FindMatchingGroups(name);
-        Debug.Log("audio", "FinishedLoading: group array length is " + groupArray.Length);
-
-        if (groupArray.Length == 1){
-            source.outputAudioMixerGroup = groupArray[0];           //how i set the output for the source's mixergroup
-            source.clip = clip;
-			
-			source.Play();
-			//Add to active audio dictionary
-			activeAudio.Add(name, source);
-
-			Debug.Log("audio", "FinishedLoading: source name is " + name + " and has been added to active audio");
-			Debug.Log("audio", "FinishedLoading: clip length is " + source.clip.length);
-            
-			//start a new coroutine to wait for DESTRUCTION TIME
-			StartCoroutine(reclaimSource(source, name, loadType));
-		}else if (groupArray.Length > 1){
-			Debug.Warning("audio", "FinishedLoading: more than 1 mixer group exists for the sound " + name);
-        }else{
-			Debug.Warning("audio", "FinishedLoading: No mixer group exists for sound " + name);
-        }
-    }
-
-	//!deletes the audio source when its no longer needed
-    IEnumerator reclaimSource(AudioSource source, string name, string loadType)
-    {
-		yield return new WaitForSeconds(0.9f);
-		//wait until finished playing
-		while((source.time > 0.0f)) {
-			if(source.time < 0.1f) {
-				Debug.Log("audio", name + "ReclaimSource:  has finished playing");
-				break;
-			}
-			yield return null;
-		}
-
-        //stop tracking the source
-        activeAudio.Remove(name);
-
-        //destroy the source
-        if(loadType != "priority")
-			Destroy(source);
-    }
-	
-	//!checks to see if the target's audio is currently playing
-	bool playingCurrently(GameObject target) {
-		if(!target.GetComponent<AudioSource>())
+		sound = loadSound(type, name);
+		if(sound == null) {
+			Debug.Warning("audio", "there was a problem loading " + name);
 			return false;
-		else
-			return true;
-	}
-    #endregion	//play functions
+		} else {
+			//sound = loadSound(type, name);
+			print(sound.name);
+			speaker = target.AddComponent<AudioSource>();
+			//speaker.outputAudioMixerGroup = masterMixer.FindMatchingGroups("AmbianceMixer");
 
-	#region stop functions
-	//!Stops the target object's audio
-    void stopMe(GameObject target){
-        target.GetComponent<AudioSource>().Stop();
-		Debug.Log("audio", target.name + " has stopped");
-    }
 
-	//!stops all active playing sound
-	void stopAll() {
-		foreach(string entry in activeAudio.Keys)
-			activeAudio[entry].Stop();
-		Debug.Log("audio", "All active audio stopped");
-	}
-	#endregion	//stop functions
-
-	#region Pause/unpause files Function
-	//!Pause single target's audio
-	void pauseMe(GameObject target) {
-		target.GetComponent<AudioSource>().Pause();
-		Debug.Log("audio", target.name + "'s audio is paused");
-	}
-
-	//!Pause all audio of a type
-	void pauseGroup(string type){
-		Dictionary<string, bool> tempDict = getDictionary(type);
-
-		foreach(string name in activeAudio.Keys) {
-			if(tempDict.ContainsKey(name + ".ogg")) {
-				activeAudio[name].Pause();
-				Debug.Log("audio", name + " from group " + type +" is paused");
-			} else
-				Debug.Log("audio", name + " from group " + type + " is not paused");
+			//while(!sound.LoadAudioData()) {									//possible infinite loop
+				Debug.Warning("audio", "there was a problem loading sound object");
+				
+			//}
+			speaker.clip = sound;
 		}
-		Debug.Log("audio","all of " + type + " group is paused");
-    }
-
-	//!Pause all active audio
-	void pauseAll() {
-		foreach(string entry in activeAudio.Keys)
-			activeAudio[entry].Pause();
-		Debug.Log("audio", "All active audio paused");
+		
+		return true;
 	}
 
+	IEnumerator waitForRequest(WWW www) {
+		yield return www;
 
-	//!Pause single target's audio
-	void unpauseMe(GameObject target) {
-		target.GetComponent<AudioSource>().UnPause();
-		Debug.Log("audio", target.name + "'s audio has been unpaused");
+		// check for errors
+		if(www.error == null) {
+			Debug.Log("audio","WWW Ok!: " + www.text);
+		} else {
+			Debug.Log("audio", "WWW Error: " + www.error);
+		}   
 	}
 
-	//!Pause all audio of a type
-	void unpauseGroup(string type) {
-		Dictionary<string, bool> tempDict = getDictionary(type);
+	//IEnumerator waitForLoad(AudioClip sound) {
+	//	yield return sound;
+	//	if(sound.LoadAudioData())
+			
+	//}
+	#endregion
 
-		foreach(string name in activeAudio.Keys) {
-			if(tempDict.ContainsKey(name + ".ogg")) {
-				activeAudio[name].UnPause();
-				Debug.Log("audio", name + " from group " + type + " has been unpaused");
-			}
-		}
-		Debug.Log("audio", "all of " + type + " group is paused");
-	}
-
-	//!Pause all active audio
-	void unpauseAll() {
-		foreach(string entry in activeAudio.Keys)
-			activeAudio[entry].UnPause();
-		Debug.Log("audio", "All active audio has been unpaused");
-	}
-	#endregion	//pause/unpause
 
 	#region Sound volume
 	[EventVisible]
 	//!Change volume for groups in MasterMixer, handles volume levels of 1-100 converts to dB level for mixer
 	public void changeVol(string name, float level){
-		level = level - 80f;	//done so that vol at 50% will actually be 50% of total volume
+		level = level - 80f;
 
 		switch(name.ToLower()){
 			case "master":
 				masterMixer.SetFloat ("MasterVol", level);
 				break;
-			case "ambience":
-				masterMixer.SetFloat ("MaxambienceVol", level);
+			case "ambiance":
+				masterMixer.SetFloat ("MaxAmbianceVol", level);
 				break;
 			case "effect":
 				masterMixer.SetFloat ("MaxEffectVol", level);
@@ -617,20 +301,21 @@ public class AudioManager : MonoBehaviour {
 				break;
 			case "reset":
 				masterMixer.ClearFloat ("MasterVol");
-				masterMixer.ClearFloat ("MaxambienceVol");
+				masterMixer.ClearFloat ("MaxAmbianceVol");
 				masterMixer.ClearFloat ("MaxEffectVol");
 				masterMixer.ClearFloat ("MaxMusicVol");
 				masterMixer.ClearFloat ("MaxVoiceVol");
-				editorVol = 60f;
+				tempvol = 60f;
 				break;
 			default:
 				Debug.Log("audio", name + "is not an option, or you spelled it wrong");
 				break;
 		}
+
 	}
 
 	[EventVisible]
-	//!Returns the current volume levels in MasterMixer, returns 300f if requested volume is wrong
+	//!Check the current volume levels in MasterMixer
 	public float seeVol(string name){
 		float level = 100f;
 		switch(name.ToLower()) {
@@ -638,8 +323,8 @@ public class AudioManager : MonoBehaviour {
 				masterMixer.GetFloat ("MasterVol", out level);
 				level = level + 80f;
 				return level;
-			case "ambience":
-				masterMixer.GetFloat ("MaxambienceVol", out level);
+			case "ambiance":
+				masterMixer.GetFloat ("MaxAmbianceVol", out level);
 				level = level + 80f;
 				return level;
 			case "effect":
@@ -658,9 +343,30 @@ public class AudioManager : MonoBehaviour {
 				Debug.Log("audio", name + "is not an option, or you spelled it wrong");
 				return 300f;
 		}
+
 	}
-	#endregion	//sound volume
-}	//end of audio manager
+	
+	//public void setObjectVolume(string objectName, float objectLvl){
+		//needs work
+	//}
+
+
+	#endregion
+
+	#region playFunct
+	//set up each type of sound play functions
+
+	//generic idea for sending and playing an audio on object
+	//AudioManager.playMe(this, type, "fire");
+	//bool playMe(monobehavior mono, string name){
+	//sound = Mono.gameObject.addComponent<AudioSource>;
+	//as.clip;
+	//}
+
+	#endregion
+
+
+}		//end of audio manager
 
 
 
@@ -669,7 +375,8 @@ public class AudioManager : MonoBehaviour {
  *	Master Volumes
  *		public functions: changeVol, seeVol
  *		handles volume level 1-100, converts to dB level of mixer 
- *	Loading files, All play functions, All pause/unpause functions
+ * 
+ * 
  * 
  * json sound list - DONE
  *	json file: filename, type of sound, priority always load or on use load
@@ -678,7 +385,6 @@ public class AudioManager : MonoBehaviour {
  *	look at checkpointManager.cs & AchievementManager.cs
  *	http://wiki.unity3d.com/index.php/SimpleJSON
  *	ALL TYPE HAS BEEN SET TO LOWERCASE AND INPUT HAS BEEN CONVERTED VIA ToLower()
- * 
  * 
  * 
  * Audio should come from streaming Assets
@@ -693,7 +399,6 @@ public class AudioManager : MonoBehaviour {
  *		http://docs.unity3d.com/ScriptReference/AssetBundle.html
  *		http://answers.unity3d.com/questions/416895/wwwloadfromcacheordownload-and-audioclip-with-thre.html
  *		http://answers.unity3d.com/questions/7653/dynamic-asset-loading.html
- *		https://unity3d.com/learn/tutorials/modules/intermediate/live-training-archive/unity5-asset-bundles *******
  * 
  * check sounds are on list and ready to load
  *   make sure file paths are correct either in JSON or hardcoded
@@ -705,23 +410,22 @@ public class AudioManager : MonoBehaviour {
  * 
  * 
  * play functions
- *	void play sound - done
+ *	void play sound
  *	void pause sound
- *	bool is playing - done
- *	void stop playing - done
- *	
+ *	bool is playing
+ *	void stop playing
+ *	void set loop sound
  *	
  *   pause all, group sounds
  * 
- *  play on player, if given no object play on player - done
- *  play on object, if given object play on object - done
+ *  play on player, if given no object play on player
+ *  play on object, if given object play on object
  *  
  * local object sound script should call sound manager
- * sound manager should create audio source & delete when done playing - done
+ * local script should create audio source & delete when done playing
  * 
  * After clip load & play, attach to dictionary for visual output of sounds playing with time left in clip.
- *	coroutein - keep checking to update time, if finished send call to delete audio source
- *	http://docs.unity3d.com/ScriptReference/AudioSource-time.html
+ * 
  * 
  * Not by tuesday
  *  Custom sound inspector window
@@ -730,8 +434,5 @@ public class AudioManager : MonoBehaviour {
  *     display list of active sounds
  *     print as text/cant interract
  *     total time & time left of each
- * 
- *	when object is loaded prep its sound for creation
- *		possible use sound effects
  * 
 */

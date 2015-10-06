@@ -33,7 +33,7 @@ public class GameHUD : MonoBehaviour {
 	public GameObject[] hudAbilityIcons;			//!<Array of hud icons, set in inspector
 	public bool abilitiesUp = false;
 	public GameObject[] abilityWheelIcons;
-	Animator abilityWheelAnchorAnim;
+
 
 	List<GameObject> phoneAbilitiesAvailible;		//!<List containing hud phone abilties
 	GameObject mapCam;								//!<Camera used for minimap
@@ -49,12 +49,19 @@ public class GameHUD : MonoBehaviour {
 
 	[ReadOnly]public int curAbility = 1;
 
-	public bool skillsOpen = false;
-	bool canSpin = false;
 	GameObject skillWheel;
 	GameObject closeMapButton;
 	GameObject phoneButtons;
 	GameObject mapElements;
+
+	//The global variables affiliated with the ability wheel
+	GameObject abilityScroller;
+	GameObject abilityWheelAnchor;
+	GameObject skillWheelView;
+	bool skillsOpen = false;
+	bool skillsMoving = false;
+	bool canSpin = false; 
+
 	GameObject compassCameraPoint;					//!<Point at camera location used to calculate objective positions
 	GameObject compass;
 	GameObject slider;
@@ -76,7 +83,6 @@ public class GameHUD : MonoBehaviour {
 
 		mainHUDCanvas = GameObject.Find("mainHUD");
 		skillWheel = GameObject.Find("abilityWheel");
-		abilityWheelAnchorAnim = GameObject.Find("AbilityWheelAnchor").GetComponent<Animator>();
 		worldMapCanvas = GameObject.Find("worldMapCanvas");
 		gameMap = GameObject.Find("mapBG");
 		player = GameObject.Find("_Player");
@@ -114,6 +120,11 @@ public class GameHUD : MonoBehaviour {
 		dialogueTitleText = GameObject.Find("speechPanelNameText");
 		dialogueBox.SetActive(false);
 
+		//Ability Wheel Variables
+		abilityScroller = GameObject.Find ("AbilityWheel");
+		skillWheelView = GameObject.Find ("abilityWheelView");
+		abilityWheelAnchor = GameObject.Find ("AbilityWheelAnchor");
+
 
 		phoneButtons = GameObject.Find("PhoneButtons");
 		mapElements = GameObject.Find("MapElements");
@@ -144,14 +155,17 @@ public class GameHUD : MonoBehaviour {
 		//!Set the compass indicator
 		setCompassValue(calculateObjectiveAngle(testObjective));
 
+		//scrollwheel popping in
+		moveAbilities();
+
 		//Testing
-		if(InputManager.input.ScrollTarget() != 0 && canSpin) {
+	/*	if(InputManager.input.ScrollTarget() != 0 && canSpin) {
 			if(InputManager.input.ScrollTarget() > 0)
 				StartCoroutine(rotateSkillDown());
 			else
 				StartCoroutine(rotateSkillUp());
 		}
-
+*/
 	}
 
 	//!Call this to update objective tet at top of the screen
@@ -318,7 +332,6 @@ public class GameHUD : MonoBehaviour {
 			abilityWheelIcons[curAbility].GetComponent<RectTransform>().localScale /= 1.5f;
 			skillWheel.SetActive(false);
 			curAbility = 4;
-			abilityWheelAnchorAnim.SetBool("slideIn", false);
 			canSpin = false;
 		}
 		phoneButtons.SetActive(false);
@@ -336,6 +349,38 @@ public class GameHUD : MonoBehaviour {
 
 	}
 
+	public void showSkills()
+	{
+		if(!skillsMoving) {
+			if(!skillsOpen) {
+				skillsOpen = true;
+				skillsMoving = true;
+			} else {
+				skillsOpen = false;
+				skillsMoving = true;
+			}
+		}
+	}
+
+	public void moveAbilities() {
+		if(skillsMoving)
+		{
+			RectTransform abs = abilityWheelAnchor.GetComponent<RectTransform>();
+			float movespeed = Time.deltaTime * 0.5f;
+			if(skillsOpen && abs.position.y <  abilityScroller.transform.position.y + 133)
+			{
+				abs.Translate(Vector3.up * movespeed, abilityScroller.transform);
+			}
+			if(!skillsOpen && abs.position.y > abilityScroller.transform.position.y)
+			{
+				abs.Translate(Vector3.down * movespeed, abilityScroller.transform);
+			}
+			else {skillsMoving = false; }
+		}
+	}
+
+
+/*
 	public void showSkills() {
 		if(!skillsOpen) {
 			skillsOpen = true;
@@ -392,6 +437,7 @@ public class GameHUD : MonoBehaviour {
 
 		canSpin = true;
 	}
+*/
 
 	public void ShowDialogueBox() {
 		dialogueBox.SetActive(true);
