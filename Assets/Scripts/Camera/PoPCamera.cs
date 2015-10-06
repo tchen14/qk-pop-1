@@ -322,7 +322,7 @@ public sealed class PoPCamera : Camera_2
 
 	// Returns current gameobject or null if none is targetted
 	public GameObject CurrentTarget() {
-		if(targetedObjects != null)
+		if(targetedObjects != null && targetedObjects.Count > 0)
 			return targetedObjects[targetindex];
 		else {
 			Debug.Warning("camera", "No current object targetted");
