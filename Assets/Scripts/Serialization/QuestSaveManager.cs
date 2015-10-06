@@ -10,9 +10,9 @@ public class QuestSaveManager : SaveManager {
 	QuestManager _questManager;
 	Quest _quest;
 
-	public void SaveQuests() {
-		_questManager = (QuestManager)FindObjectOfType (typeof(QuestManager));
-		List<Quest> currQuests = _questManager.CurrentQuests ();
+	public void SaveQuests(List<Quest> currQuests) {
+		/*_questManager = (QuestManager)FindObjectOfType (typeof(QuestManager));
+		List<Quest> currQuests = _questManager.CurrentQuests ();*/
 
 		if (currQuests == null || currQuests.Count == 0) {
 			return;
@@ -23,6 +23,14 @@ public class QuestSaveManager : SaveManager {
 		int count = 0;
 		foreach (Quest q in currQuests) {
 			questJSONNode["Quests"][count] = q.GetID().ToString();
+			for(int i = 0; i < q.GetGoal().Count(); i++) {
+				if(q.GetGoal()[i].GetProgress() != null) {
+					questJSONNode["Quests"][count][i] = q.GetGoal()[i].GetProgress().ToString();
+				}
+				else {
+					questJSONNode["Quests"][count][i] = "null";
+				}
+			}
 			count++;
 		}
 
@@ -55,7 +63,6 @@ public class QuestSaveManager : SaveManager {
 		} else {
 			return false;
 		}
-		//Debug.Log ("Something bad happened in CompletedQuest in QuestSaveManager");
 		return true;
 	}
 
@@ -65,7 +72,14 @@ public class QuestSaveManager : SaveManager {
 		JSONNode loadedQuests = JSONClass.Parse(PlayerPrefs.GetString("PlayerQuests"));
 
 		for (int i = 0; i < loadedQuests["Quests"].Count; i++) {
-			Quest newQuest = _quest.AddQuest(loadedQuests["Quests"][i].AsInt);
+
+			int[] progress = new int[loadedQuests["Quests"][i].Count];
+
+			for(int j = 0; j < loadedQuests["Quests"][i].Count; j++) {
+				progress[j] = loadedQuests["Quests"][i][j].AsInt;
+			}
+
+			Quest newQuest = _quest.AddQuestFromSave(loadedQuests["Quests"][i].AsInt, progress);
 			quests.Add(newQuest);
 		}
 

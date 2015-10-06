@@ -18,6 +18,12 @@ public class Goal {
 		goalProgressNeeded = progressNeeded;
 	}
 
+	public Goal(string name, int progressNeeded, int progressCompleted) {
+		goalName = name;
+		goalProgress = progressCompleted;
+		goalProgressNeeded = progressNeeded;
+	}
+
 	public void Complete() {
 		completed = true;
 		return;
@@ -31,9 +37,13 @@ public class Goal {
 		return goalName;
 	}
 
+	public int GetProgress() {
+		return goalProgress;
+	}
+
 	public void Progress() {
 		if (goalProgress == null) {
-			Debug.Log("No progress available on goal!");
+			Debug.Log("No progress available on goal! Use Complete on this goal!");
 			return;
 		}
 

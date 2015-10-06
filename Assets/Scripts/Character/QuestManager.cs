@@ -16,13 +16,20 @@ public class QuestManager : MonoBehaviour {
 		_questSaveManager = (QuestSaveManager)FindObjectOfType (typeof(QuestSaveManager));
 	}
 
-	void LoadQuests(List<Quest> loadedQuests) {
-		currentQuests = loadedQuests;
+	[EventVisibleAttribute]
+	public void LoadQuests() {
+		currentQuests = _questSaveManager.LoadQuests();
 		Debug.Log (currentQuests.Count + " quests loaded!");
-
 		return;
 	}
 
+	[EventVisibleAttribute]
+	public void SaveQuests() {
+		_questSaveManager.SaveQuests (currentQuests);
+		Debug.Log ("Quests saved!");
+		return;
+	}
+	
 	public List<Quest> CurrentQuests() {
 		return currentQuests;
 	}
@@ -35,8 +42,6 @@ public class QuestManager : MonoBehaviour {
 			Debug.Log("No quests in List");
 			return;
 		}
-
-
 
 		for (int count = currentQuests.Count - 1; count > -1; count--) {
 			if(currentQuests[count].IsCompleted() == true) {
