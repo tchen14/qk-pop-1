@@ -11,39 +11,42 @@ using Debug = FFP.Debug;
 [EventVisible]
 public class AIMainTrimmed : MonoBehaviour {
 
-	//Variables Editable
+    //Variables Editable
 
-	public int 					hp 					= 100;						//!<Health of the NPC
-	public float 				sightDistance 		= 45;						//!<The distance the NPC is capable of seeing
-	public float 				sightAngle			= 45;						//!<The max angle of the cone of vision
-	public float 				speed 				= 4;						//!<Casual Speed of the NPC
-	public float		 		runSpeed 			= 6;						//!<Scared, Charging, Aggressive Speed of the NPC*
-	public string[]		 		seekTag 			= {"Player"};				//!<The enemy Tag of this NPC
-	public float 				attackDistance		= 3;						//!<The distance the NPC stands away from the target and attacks*
-	public float 				aggressionLimit		= 100;						//!<The aggression level of the attacker
-    public float                suspicionLimit      = 150;						//!<The suspicon level of the attacker
-	public GameObject 			startPoint 			= null;						//!<Sets the first navPoint, defaults to stationary
-	public string				panicPoints			= "PanicPoints";			//!<The object name of the vector keeper of related panic points for the AI
-	public bool 				aggressive 			= false;					//!<If the NPC will attack the player
-    public GameObject           PlayerLastPos       = null;                     //visual representation of where the AI last remembers seeing the player before they went of LoS
-    public bool                 searching           = false;                    //if the AI is currently looking for the player at its shadow
-    public bool                 checking            = false; 
+    public int hp = 100;                                //!<Health of the NPC
+    public float sightDistance = 45;                    //!<The distance the NPC is capable of seeing
+    public float sightAngle = 45;                       //!<The max angle of the cone of vision
+    public float speed = 4;                             //!<Casual Speed of the NPC
+    public float runSpeed = 6;                          //!<Scared, Charging, Aggressive Speed of the NPC*
+    public string[] seekTag = { "Player" };             //!<The enemy Tag of this NPC
+    public float attackDistance = 3;                    //!<The distance the NPC stands away from the target and attacks*
+    public float aggressionLimit = 100;			        //!<The aggression level of the attacker
+    public float suspicionLimit = 150;                  //!<The suspicon level of the attacker
+    public GameObject startPoint = null;                //!<Sets the first navPoint, defaults to stationary
+    public GameObject endPoint = null;                  //!<Sets the last navPoint of the AI where they will stop.
+    public string panicPoints = "PanicPoints";          //!<The object name of the vector keeper of related panic points for the AI
+    public bool aggressive = false;					    //!<If the NPC will attack the player
+    public GameObject PlayerLastPos = null;             //visual representation of where the AI last remembers seeing the player before they went of LoS
+    public bool searching = false;                      //if the AI is currently looking for the player at its shadow
+    public bool checking = false;
 
 
-	//Variables Controllers
-	
-	public bool 		        seesTarget 			= false;					//!<If the Player has been spotted
+    //Variables Controllers
+
+    [ReadOnly]public bool 		seesTarget 			= false;					//!<If the Player has been spotted
 	[ReadOnly]public GameObject target				= null;						//!<The transform of the player
     [ReadOnly]public GameObject temptarget          = null;                     //!Temp target for the shadowPlayer
-    public bool 		        attacking 			= false;					//!<If the AI is attacking
+    [ReadOnly]public bool 		attacking 			= false;					//!<If the AI is attacking
 	[ReadOnly]public bool 		panic 				= false;					//!<If the AI is panicking
-	[ReadOnly]public Vector3 	panicTarget			= new Vector3 (0, 0, 0);	//!<Target of AI panic
-	[ReadOnly]public float 		aggressionLevel 	= 0;						//!<The current awareness of the NPC to the Player
-    [ReadOnly]public float      suspicionLevel      = 0;						//!<The current suspicion of the NPC to the Player	
+    [ReadOnly]public int        CheckpointCount     = 0;                        //! Int for tracking the checkpoint the AI is on
+    public Vector3 	            panicTarget			= new Vector3 (0, 0, 0);	//!<Target of AI panic
+    public float 		        aggressionLevel 	= 0;						//!<The current awareness of the NPC to the Player
+    public float                suspicionLevel      = 0;						//!<The current suspicion of the NPC to the Player	
     public bool                 suspicious          = false;					//!<If the AI is suspicous
     public bool                 alert               = false;					//!<If the AI is alert
     public bool                 unconsious          = false;                    //!<If the AI is unconsious
     public bool                 dazed               = false;                    //!<If the AI is dazed
+
 
 
 
@@ -192,7 +195,7 @@ public class AIMainTrimmed : MonoBehaviour {
         #endregion
 
         #region path
-        if (Vector3.Distance(transform.position, navPoint) < 10)
+        if ((Vector3.Distance(transform.position, navPoint) < 10) && (target == null))
         {
            nextCheckpoint();
         }
@@ -408,17 +411,30 @@ public class AIMainTrimmed : MonoBehaviour {
 
     public void nextCheckpoint()
     {
-        /*check the checkpointArray
-        for every object in the array check if the that object is the target
-            if that object is the current target set the next object as the target
-
-        for(array.length
-
+        /*
+        first checkpoint in array is now the navpoint
+        count++
+        if count = checkpoint arrray length then set navpoit to end
         */
-
-            for (int nofChecpoints = 0; nofChecpoints < checkpointsArray.Length; nofChecpoints++)
+        if (CheckpointCount <= checkpointsArray.Length)
         {
-            f (Vector3.Distance(transform.position, navPoint) < 10)
+            ChangeNavPoint(checkpointsArray[CheckpointCount].name, checkpointsArray[CheckpointCount].transform.position);
+            CheckpointCount++;
         }
+        else 
+        {
+            if (endPoint == null)
+            {
+                CheckpointCount = 0;
+                ChangeNavPoint(checkpointsArray[CheckpointCount].name, checkpointsArray[CheckpointCount].transform.position);
+                CheckpointCount++;
+            }
+            else
+            {
+                ChangeNavPoint(endPoint.name, endPoint.transform.position);
+            }
+        }
+       
+
     }
 }
