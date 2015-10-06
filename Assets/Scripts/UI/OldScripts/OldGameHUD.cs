@@ -10,10 +10,10 @@ using Debug = FFP.Debug;
  * ----------------------------------------------------------------------------
  */
 [EventVisible("UI")]
-public class GameHUD : MonoBehaviour {
+public class OldGameHUD : MonoBehaviour {
 	#region singletonEnforcement
-	private static GameHUD instance;
-	public static GameHUD Instance {
+	private static OldGameHUD instance;
+	public static OldGameHUD Instance {
 		get {
 			return instance;
 		}
@@ -51,6 +51,7 @@ public class GameHUD : MonoBehaviour {
 
 	[ReadOnly]public int curAbility = 1;
 
+	GameObject skillWheel;
 	GameObject closeMapButton;
 	GameObject phoneButtons;
 	GameObject mapElements;
@@ -84,6 +85,7 @@ public class GameHUD : MonoBehaviour {
 		#endregion
 
 		mainHUDCanvas = GameObject.Find("mainHUD");
+		skillWheel = GameObject.Find("abilityWheel");
 		worldMapCanvas = GameObject.Find("worldMapCanvas");
 		gameMap = GameObject.Find("mapBG");
 		player = GameObject.Find("_Player");
@@ -93,6 +95,7 @@ public class GameHUD : MonoBehaviour {
 		
 		//!Turn on UI stuff
 		worldMapCanvas.SetActive(true);
+		skillWheel.SetActive(false);
 
 		//!Fill mapLabels array
 		mapLabels = GameObject.FindGameObjectsWithTag("worldMapLabel");
@@ -120,7 +123,7 @@ public class GameHUD : MonoBehaviour {
 		dialogueTitleText = GameObject.Find("speechPanelNameText");
 		dialogueBox.SetActive(false);
 
-		//!Set Ability Wheel references
+		//Ability Wheel Variables
 		abilityScroller = GameObject.Find ("AbilityWheel");
 		skillWheelView = GameObject.Find ("abilityWheelView");
 		abilityWheelAnchor = GameObject.Find ("AbilityWheelAnchor");
@@ -147,7 +150,8 @@ public class GameHUD : MonoBehaviour {
 	void Start() {
 		//Place the ability buttons in the Phone Menu
 		//SpawnHudAbilityIcons ();
-		}
+		skillWheel.GetComponent<Animator>().speed = 0;
+	}
 
 	void Update() {
 		//!This is for testing, call update map from player movements
@@ -332,6 +336,7 @@ public class GameHUD : MonoBehaviour {
 			showSkills();
 			//Debug.Log("skills closed");
 			abilityWheelIcons[curAbility].GetComponent<RectTransform>().localScale /= 1.5f;
+			skillWheel.SetActive(false);
 			curAbility = 4;
 			canSpin = false;
 		}
@@ -352,7 +357,6 @@ public class GameHUD : MonoBehaviour {
 
 	}
 
-	//everything related to showing the skill wheel
 	public void showSkills()
 	{
 		if(!skillsMoving) {
@@ -371,10 +375,9 @@ public class GameHUD : MonoBehaviour {
 		}
 	}
 
-	//This is the function that causes the ability wheel to move into position
 	public IEnumerator moveAbilities() {
 			RectTransform abs = abilityWheelAnchor.GetComponent<RectTransform>();
-			float movespeed = 5; //this is the speed the wheel travels to the designated locations
+			float movespeed = 5;
 			if(skillsOpen)
 			{	
 				skillWheelCursor.SetActive (true);
@@ -516,6 +519,14 @@ public class GameHUD : MonoBehaviour {
 	}
 
 	/*
+	public void showPauseMenu () {
+		pauseMenu.SetActive (true);
+	}
+
+	public void hidePauseMenu () {
+		pauseMenu.SetActive (false);
+	}
+
 	public void loadScene(string s) {
 		Application.LoadLevel(s);
 	}*/
