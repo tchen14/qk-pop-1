@@ -29,13 +29,13 @@ public sealed class Quinc : MonoBehaviour
 	private float pushRate = 0.5f;
 	public float pushDistance = 5.0f;
 	public float pushModifier = 50.0f;
-	private float nextPush = 0.0f;
+	private float nextPush = 1.0f;
 	private int pushRange = 20;
 
 	private float pullRate = 0.5f;
 	public float pullDistance = 5.0f;
 	public float pullModifier = 50.0f;
-	private float nextPull = 0.0f;
+	private float nextPull = 1.0f;
 	private int pullRange = 20;
 
 	private float cutRate = 0.5f;		//cut recharge rate
@@ -65,6 +65,8 @@ public sealed class Quinc : MonoBehaviour
 	private int blastRadius = 10;		//size of blast
 
 	public float smoothing = 1f;
+
+	public IEnumerator coMoveSlowly = null;
 
 	//! These variables are temporary for testing, can be removed when implementing Targeting into code
 	public GameObject pushPullTarget;
@@ -297,7 +299,13 @@ public sealed class Quinc : MonoBehaviour
 						print("Blast error: " + blastStatus);
 					}
 
-				}//END if(activeAbility == 0... else if(activeAblilit == 7
+				}
+				else if((activeAbility < 0) || (activeAbility > 7))
+				{
+
+					print("activeAbility int from GameHUD.Instance.curAbility out of range: " + activeAbility);
+
+				}//END if(activeAbility == 0... else if((activeAbility < 0)...
 
 			}//END if(InputManager.input.isActionPressed())
 
@@ -344,10 +352,11 @@ public sealed class Quinc : MonoBehaviour
 		Vector3 pushDirection = pushTarget.transform.position - transform.position;
 		pushDirection.Normalize();
 		Vector3 targetPosition = (pushDirection * pushDistance) + pushTarget.transform.position;
-		StartCoroutine(MoveSlowly(pushTarget.gameObject, targetPosition, pushDirection));
+		coMoveSlowly = MoveSlowly(pushTarget.gameObject, targetPosition, pushDirection);
+		StartCoroutine(coMoveSlowly);
 		status = "Push Successful";
 		return true;
-	}
+	}//END 
 
 	//! Function to be called when pulling an object, pulling at intervals (think Ocarina of time)
 	bool Pull(ref string status, GameObject pullTarget)
@@ -381,11 +390,13 @@ public sealed class Quinc : MonoBehaviour
 		Vector3 pullDirection = transform.position - pullTarget.transform.position;
 		pullDirection.Normalize();
 		Vector3 targetPosition = (pullDirection * pullDistance) + pullTarget.transform.position;
-		StartCoroutine(MoveSlowly(pullTarget.gameObject, targetPosition, pullDirection));
+
+		coMoveSlowly = MoveSlowly(pullTarget.gameObject, targetPosition, pullDirection);
+		StartCoroutine(coMoveSlowly);
 		status = "Pull Successful";
 		return true;
 
-	}
+	}//END bool Pull(ref string status, GameObject pullTarget)
 
 	//! Function to be called when cutting rope
 	bool Cut(ref string status, GameObject cutTarget)
@@ -423,7 +434,7 @@ public sealed class Quinc : MonoBehaviour
 		status = "Cut Successful";
 		return true;
 
-	}
+	}//END bool Cut(ref string status, GameObject cutTarget)
 
 	//! Function that activates SoundThrow app on Quinc phone that distracts enemies
 	bool SoundThrow(ref string status, GameObject soundThrowTarget)
@@ -461,7 +472,7 @@ public sealed class Quinc : MonoBehaviour
 		// Untarget GameObject?
 		status = "SoundThrow Successful";
 		return true;
-	}
+	}//END bool SoundThrow(ref string status, GameObject soundThrowTarget)
 
 	//! Function called when activating Stun App on Quinc phone. Only works against enemies.
 	bool Stun(ref string status, GameObject stunTarget)
@@ -498,7 +509,8 @@ public sealed class Quinc : MonoBehaviour
 		//Untarget Enemy?
 		status = "Stun Successful";
 		return true;
-	}
+
+	}//END bool Stun(ref string status, GameObject stunTarget)
 
 	bool Heat(ref string status, GameObject heatTarget)
 	{
@@ -552,7 +564,7 @@ public sealed class Quinc : MonoBehaviour
 		status = "Cold Successful";
 		return true;
 
-	}
+	}//END bool Cold(ref string status, GameObject coldTarget)
 
 	bool Blast(ref string status, GameObject blastTarget)
 	{
@@ -585,20 +597,29 @@ public sealed class Quinc : MonoBehaviour
 		status = "Blast Successful";
 		return true;
 
-	}
+	}//END bool Blast(ref string status, GameObject blastTarget)
 
-	IEnumerator MoveSlowly(GameObject targetObject, Vector3 targetPosition, Vector3 direction)
+	public IEnumerator MoveSlowly(GameObject targetObject, Vector3 targetPosition, Vector3 direction)
 	{
 		print("Target Position In CoRoutine: " + targetPosition);
 
+		int testCount = 0;
+
 		while(Vector3.Distance(targetObject.transform.position, targetPosition) > 2.0f)
 		{
+			print("MoveSlowly Lerping " + ++testCount);
+			targetObject.GetComponent<Crate>().hasMoved = true;
 			targetObject.transform.position = Vector3.Lerp(targetObject.transform.position, targetPosition, smoothing * Time.deltaTime);
-			yield return null;
+			if(targetObject.GetComponent<Crate>().isSnapping)
+			{
+				//StopCoroutine(coMoveSlowly);
+				yield break;
+			}
+			
 		}
 		yield return null;
 
 		print("Target Reached");
-	}
+	}//END IEnumerator MoveSlowly(GameObject targetObject, Vector3 targetPosition, Vector3 direction)
 
 }
