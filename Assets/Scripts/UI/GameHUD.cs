@@ -9,6 +9,12 @@ using Debug = FFP.Debug;
  * these functions are designed to be called from whatever script needs to update them.
  * ----------------------------------------------------------------------------
  */
+[System.Serializable]
+public class AbilityButton{
+	public string name;
+	public Sprite icon;
+}
+
 [EventVisible("UI")]
 public class GameHUD : MonoBehaviour {
 	#region singletonEnforcement
@@ -47,7 +53,7 @@ public class GameHUD : MonoBehaviour {
 	GameObject middleAbilityIcon;					//!<Phone ability icon references
 	GameObject rightAbilityIcon;
 	GameObject leftAbilityIcon;
-	GameObject[] abilityButtons;
+	public GameObject[] abilityButtons;
 
 	[ReadOnly]public int curAbility = 1;
 
@@ -61,7 +67,9 @@ public class GameHUD : MonoBehaviour {
 	GameObject skillWheelView;
 	GameObject skillWheelCursor;
 	bool skillsOpen = false;
-	public bool skillsMoving = false;
+	bool skillsMoving = false;
+
+	int maxcurAbility;
 	bool canSpin = false; 
 
 	GameObject compassCameraPoint;					//!<Point at camera location used to calculate objective positions
@@ -103,6 +111,7 @@ public class GameHUD : MonoBehaviour {
 
 		//!Set mapcam reference
 		mapCam = GameObject.Find("mapCam");
+
 		//!Set compassCameraPoint reference
 		compassCameraPoint = GameObject.Find("compassCameraPoint");
 		compass = GameObject.Find("compassSlider");
@@ -137,9 +146,11 @@ public class GameHUD : MonoBehaviour {
 		tempAbList.Add("Push");
 		tempAbList.Add("Pull");
 		tempAbList.Add("Shock");
+		tempAbList.Add ("Sound");
 
 		//Initialize phone abilities list
 		phoneAbilitiesAvailible = new List<GameObject>();
+		maxcurAbility = abilityButtons.Length - 1;
 
 		fillAbilityList(tempAbList);
 	}
@@ -160,6 +171,11 @@ public class GameHUD : MonoBehaviour {
 		if(skillsMoving)
 			StartCoroutine(moveAbilities());
 
+		if (Input.GetKeyDown (KeyCode.DownArrow) && canSpin)
+			StartCoroutine (rotateSkills_down());
+		if (Input.GetKeyUp (KeyCode.UpArrow) && canSpin)
+			StartCoroutine (rotateSkills_up());
+
 		//Testing
 	/*	if(InputManager.input.ScrollTarget() != 0 && canSpin) {
 			if(InputManager.input.ScrollTarget() > 0)
@@ -169,6 +185,9 @@ public class GameHUD : MonoBehaviour {
 		}
 */
 	}
+
+
+
 
 	//!Call this to update objective tet at top of the screen
 	[EventVisible]
@@ -186,6 +205,8 @@ public class GameHUD : MonoBehaviour {
 		}
 	}
 
+
+	//These are the functions regarding the Compass
 	public void setCompassValue(float newValue) {
 
 		//!Calculates distances between "the player and the objective" and "the camera and the objective"
@@ -358,22 +379,24 @@ public class GameHUD : MonoBehaviour {
 		if(!skillsMoving) {
 			RectTransform abv = skillWheelView.GetComponent<RectTransform> ();
 			if(!skillsOpen) {
-				abv.offsetMax = new Vector2(abv.offsetMax.x, abv.offsetMax.y + 133);
-				abv.offsetMin = new Vector2(abv.offsetMin.x, abv.offsetMin.y - 133);
+				abv.offsetMax = new Vector2(abv.offsetMax.x, abv.offsetMax.y + 550);
+				abv.offsetMin = new Vector2(abv.offsetMin.x, abv.offsetMin.y - 550);
 				skillsOpen = true;
 				skillsMoving = true;
+				canSpin = true;
 			} else {
-				abv.offsetMax = new Vector2(abv.offsetMax.x, abv.offsetMax.y - 133);
-				abv.offsetMin = new Vector2(abv.offsetMin.x, abv.offsetMin.y + 133);
+				abv.offsetMax = new Vector2(abv.offsetMax.x, abv.offsetMax.y - 550);
+				abv.offsetMin = new Vector2(abv.offsetMin.x, abv.offsetMin.y + 550);
 				skillsOpen = false;
 				skillsMoving = true;
+				canSpin = false;
 			}
 		}
 	}
 
 	//This is the function that causes the ability wheel to move into position
 	public IEnumerator moveAbilities() {
-			RectTransform abs = abilityWheelAnchor.GetComponent<RectTransform>();
+			RectTransform abs = abilityWheelAnchor.GetComponent<RectTransform> ();
 			float movespeed = 5; //this is the speed the wheel travels to the designated locations
 			if(skillsOpen)
 			{	
@@ -390,6 +413,20 @@ public class GameHUD : MonoBehaviour {
 				
 			}
 			skillsMoving = false;
+	}
+
+	public IEnumerator rotateSkills_down()
+	{
+		RectTransform buttonpanel = GameObject.Find ("abbuttonpanel").GetComponent<RectTransform> ();
+		buttonpanel.Translate (Vector3.down * 2, abilityScroller.transform);
+		yield return new WaitForSeconds(1.0f);
+	}
+
+	public IEnumerator rotateSkills_up()
+	{
+		RectTransform buttonpanel = GameObject.Find ("abbuttonpanel").GetComponent<RectTransform> ();
+		buttonpanel.Translate (Vector3.up * 2, abilityScroller.transform);
+		yield return new WaitForSeconds(1.0f);
 	}
 
 
@@ -470,26 +507,6 @@ public class GameHUD : MonoBehaviour {
 	[EventVisible]
 	public void HideDialogueBoxText(string name, string dialogue) {
 		dialogueBox.SetActive(false);
-	}
-
-	public void skillCut() {
-
-	}
-
-	public void skillSound() {
-
-	}
-
-	public void skillPull() {
-
-	}
-
-	public void skillPush() {
-
-	}
-
-	public void skillStun() {
-
 	}
 
 	public void ChangeInputToUI(bool change = true) {
