@@ -1,6 +1,10 @@
 fileFormatVersion: 2
 guid: 37b833ebe2f9864408853a179f01b19e
+<<<<<<< .merge_file_a04656
 timeCreated: 1444166811
+=======
+timeCreated: 1444168719
+>>>>>>> .merge_file_a05284
 licenseType: Free
 NativeFormatImporter:
   userData: 

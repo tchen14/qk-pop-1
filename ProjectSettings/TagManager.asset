@@ -3,17 +3,7 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags:
-  - Level
-  - Checkpoint
-  - Heaven
-  - Navigation
-  - PlayerAction
-  - worldMapLabel
-  - abilityButton
-  - menuButton
-  - menuBack
-  - AI
+  tags: []
   layers:
   - Default
   - TransparentFX
@@ -23,7 +13,7 @@ TagManager:
   - UI
   - 
   - 
-  - Identifiers
+  - 
   - 
   - 
   - 
