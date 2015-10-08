@@ -8,4 +8,8 @@ public class Checkpoint : MonoBehaviour {
     void OnDrawGizmos() {
         Gizmos.DrawIcon (transform.position, "checkpointGizmo.png");
     }
+
+	void getPosition(){
+		return transform.position;
+	}
 }
