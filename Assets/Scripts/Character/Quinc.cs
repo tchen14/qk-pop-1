@@ -26,13 +26,13 @@ public sealed class Quinc : MonoBehaviour
 
 	//this class is a cluster fuck and needs to be organized
 #pragma warning disable 0414
-	private float pushRate = 0.5f;
+	private float pushRate = 1.0f;
 	public float pushDistance = 5.0f;
 	public float pushModifier = 50.0f;
 	private float nextPush = 1.0f;
 	private int pushRange = 20;
 
-	private float pullRate = 0.5f;
+	private float pullRate = 1.0f;
 	public float pullDistance = 5.0f;
 	public float pullModifier = 50.0f;
 	private float nextPull = 1.0f;
@@ -603,23 +603,28 @@ public sealed class Quinc : MonoBehaviour
 	{
 		print("Target Position In CoRoutine: " + targetPosition);
 
+		print("coMoveSlowly = " + coMoveSlowly);
+
 		int testCount = 0;
 
 		while(Vector3.Distance(targetObject.transform.position, targetPosition) > 2.0f)
 		{
+
 			print("MoveSlowly Lerping " + ++testCount);
-			targetObject.GetComponent<Crate>().hasMoved = true;
+	//		targetObject.GetComponent<Crate>().hasMoved = true;
 			targetObject.transform.position = Vector3.Lerp(targetObject.transform.position, targetPosition, smoothing * Time.deltaTime);
-			if(targetObject.GetComponent<Crate>().isSnapping)
-			{
+//			if(targetObject.GetComponent<Crate>().isSnapping)
+//			{
 				//StopCoroutine(coMoveSlowly);
-				yield break;
-			}
-			
+				//yield break;
+//			}
+			targetObject.GetComponent<Crate>().hasMoved = true;
+			yield return null;
 		}
-		yield return null;
 
 		print("Target Reached");
+
+		yield return null;
 	}//END IEnumerator MoveSlowly(GameObject targetObject, Vector3 targetPosition, Vector3 direction)
 
 }

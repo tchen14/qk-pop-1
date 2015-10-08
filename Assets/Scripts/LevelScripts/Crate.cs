@@ -41,6 +41,7 @@ public class Crate : Item
 			{
 
 				isSnapping = true;
+				StopCoroutine("MoveSlowly");
 				StartCoroutine(SnapBack());
 
 			}
@@ -61,14 +62,23 @@ public class Crate : Item
 	IEnumerator SnapBack()
 	{
 
-		
-		//StopCoroutine(Quinc.Instance.coMoveSlowly);
+//		if(Quinc.Instance.coMoveSlowly != null)
+//		{
+
+//			StopCoroutine(Quinc.Instance.coMoveSlowly);
+//			StopCoroutine("MoveSlowly");
+
+//		}
 		while(!transform.position.Equals(startPosition))
 		{
 
-			print("SnapBack Lerping");
-			transform.position = Vector3.Lerp(transform.position, startPosition, Time.deltaTime);
-			//yield return null;
+//			if(Quinc.Instance.coMoveSlowly == null)
+//			{
+				print("SnapBack Lerping");
+				transform.position = Vector3.Lerp(transform.position, startPosition, Time.deltaTime);
+				//yield return null;
+//			}
+			yield return null;
 		}
 
 		isSnapping = false;
