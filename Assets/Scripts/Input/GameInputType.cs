@@ -8,6 +8,7 @@ using Debug = FFP.Debug;
 public class GameInputType : InputType {
 
 	// TO_DO set variables from json file; for mappable keys
+	protected Dictionary<string, string> keyButtons = new Dictionary<string, string>();
 	protected string forward = "w";
 	protected string backward = "s";
 	protected string left = "a";
@@ -30,6 +31,7 @@ public class GameInputType : InputType {
 	protected string pause = "escape";
 	//_______________________________
 	//Controller input list
+	protected Dictionary<string, string> controllerButtons = new Dictionary<string, string> ();
 	protected string controllerHor = "Xbox L Hor";
 	protected string controllerVert = "Xbox L Vert";
 	protected string controllerRightHor = "Xbox R Hor";
@@ -52,10 +54,20 @@ public class GameInputType : InputType {
 
 
 	void Start(){
-		if(!loadListFromFile(StringManager.INPUTKEYS)) {
-			Debug.Log("input", "JSON file did not load");
-		} else
-			Debug.Log("input", "JSON file loaded");
+		InitInputs ();
+
+		if (!loadListFromFile (StringManager.INPUTKEYS)) {
+			Debug.Log ("input", "JSON file did not load");
+			//return false;
+		} else {
+			Debug.Log ("input", "JSON file loaded");
+			//return true;
+		}
+	}
+
+	bool InitInputs()
+	{
+		return true;
 	}
 
 	public override float CameraVerticalAxis() {
@@ -199,7 +211,7 @@ public class GameInputType : InputType {
 
 	//Save keyboard controls
 	public override void SaveInput(){
-		Dictionary<string, string> inputs = new Dictionary<string, string>();
+		Dictionary<string, string> inputs = new Dictionary<string, string> ();
 		inputs.Add ("forward", forward);
 		inputs.Add ("backward", backward);
 		inputs.Add ("left", left);
@@ -258,12 +270,28 @@ public class GameInputType : InputType {
 	}
 
 	private bool loadListFromJson(string json, string platform){
-		JSONNode inputs = JSON.Parse (json);
+		JSONClass inputs = JSON.Parse (json) as JSONClass;
 		if(inputs == null) {
 			Debug.Log("input", "Json file is empty");
 			return false;
 		}
-		JSONNode cont = inputs [platform];
+		JSONClass cont = inputs["Keyboard"] as JSONClass;
+		for(int i = 0; i < cont.Count; i++) {
+			keyButtons.Add (cont.Key(i), cont[i].Value);
+			Debug.Log ("input", cont.Key(i));
+		}
+		/*if (platform != "WindowsPlayer") {
+			JSONNode cont = inputs ["Controller"] [platform];
+			foreach (JSONNode button in cont) {
+				keyButtons.Add (button.ToString (), button.Value);
+			}
+		} else {
+			JSONNode cont = inputs["Keyboard"];
+			foreach (JSONNode button in cont) {
+				keyButtons.Add (button.ToString (), button.Value);
+			}
+			cont = inputs["Controller"]["XBoxOne"];
+		}*/
 
 		/*If game is running on the PS4
 		if (Application.platform == RuntimePlatform.PS4) {
