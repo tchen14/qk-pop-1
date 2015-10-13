@@ -19,24 +19,31 @@ public class QuestSaveManager : SaveManager {
 
 		int count = 0;
 		foreach (Quest q in currQuests) {
-			questJSONNode["Quests"][count] = q.GetID().ToString();
-			for(int i = 0; i < q.GetGoal().Count(); i++) {
-				if(q.GetGoal()[i].GetProgress() > -1) {
-					questJSONNode["Quests"][count][-1] = q.GetGoal()[i].GetProgress().ToString();
-					Debug.Log("added progress, progress =" + q.GetGoal()[i].GetProgress().ToString());
-				}
-				else {
-					questJSONNode["Quests"][count][-1] = "null";
-					Debug.Log("did not add progress");
-
-				}
-			}
+			questJSONNode["Quests"] = GenerateProgressJSON(q);
 			count++;
 		}
 
+		Debug.Log(questJSONNode.ToString ());
 		PlayerPrefs.SetString ("PlayerQuests", questJSONNode.ToString ());
 	}
 
+	JSONClass GenerateProgressJSON(Quest q) {
+		JSONClass progress = new JSONClass ();
+
+		for(int i = 0; i < q.GetGoal().Count(); i++) {
+			if(q.GetGoal()[i].GetProgress() > -1) {
+				progress[q.GetID().ToString()][-1].AsInt = q.GetGoal()[i].GetProgress();
+				Debug.Log("added progress, progress = " + q.GetGoal()[i].GetProgress().ToString());
+			}
+			else {
+				progress[q.GetID().ToString()][-1] = "null";
+				Debug.Log("did not add progress");
+				
+			}
+		}
+		return progress;
+	}
+	
 	public void SaveCompletedQuest(Quest questToSave) {
 		if (PlayerPrefs.HasKey ("CompletedQuests") == true) {
 			JSONNode completedQuests = JSONClass.Parse(PlayerPrefs.GetString("CompletedQuests"));

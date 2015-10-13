@@ -50,6 +50,7 @@ public class Goal {
 		goalProgress++;
 
 		if (goalProgress >= goalProgressNeeded) {
+			Debug.Log("Goal Complete");
 			completed = true;
 		}
 
