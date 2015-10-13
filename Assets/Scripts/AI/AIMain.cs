@@ -11,6 +11,8 @@ using Debug = FFP.Debug;
 [EventVisible]
 public class AIMain : MonoBehaviour {
 
+	//Editor variables
+	public int current_preset = 0;
 	//Variables Editable
 
 	public int 					hp 					= 100;						//!<Health of the NPC
