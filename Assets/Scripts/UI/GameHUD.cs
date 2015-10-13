@@ -166,26 +166,14 @@ public class GameHUD : MonoBehaviour {
 
 		//!Set the compass indicator
 		setCompassValue(calculateObjectiveAngle(testObjective));
-
-		//scrollwheel popping in
-		if(skillsMoving)
-			StartCoroutine(moveAbilities());
-
-		if (Input.GetKeyDown (KeyCode.DownArrow) && canSpin)
-			StartCoroutine (rotateSkills_down());
-		if (Input.GetKeyUp (KeyCode.UpArrow) && canSpin)
-			StartCoroutine (rotateSkills_up());
-
-		//Testing
-	/*	if(InputManager.input.ScrollTarget() != 0 && canSpin) {
-			if(InputManager.input.ScrollTarget() > 0)
-				StartCoroutine(rotateSkillDown());
-			else
-				StartCoroutine(rotateSkillUp());
-		}
-*/
+		
 	}
 
+	void LateUpdate()
+	{
+		if(skillsMoving)
+			StartCoroutine(moveAbilities());
+	}
 
 
 
@@ -379,16 +367,16 @@ public class GameHUD : MonoBehaviour {
 		if(!skillsMoving) {
 			RectTransform abv = skillWheelView.GetComponent<RectTransform> ();
 			if(!skillsOpen) {
-				abv.offsetMax = new Vector2(abv.offsetMax.x, abv.offsetMax.y + 550);
-				abv.offsetMin = new Vector2(abv.offsetMin.x, abv.offsetMin.y - 550);
-				skillsOpen = true;
+				abv.offsetMax = new Vector2(abv.offsetMax.x, abv.offsetMax.y + 140);
+				abv.offsetMin = new Vector2(abv.offsetMin.x, abv.offsetMin.y - 140);
 				skillsMoving = true;
+				skillsOpen = true;
 				canSpin = true;
 			} else {
-				abv.offsetMax = new Vector2(abv.offsetMax.x, abv.offsetMax.y - 550);
-				abv.offsetMin = new Vector2(abv.offsetMin.x, abv.offsetMin.y + 550);
-				skillsOpen = false;
+				abv.offsetMax = new Vector2(abv.offsetMax.x, abv.offsetMax.y - 140);
+				abv.offsetMin = new Vector2(abv.offsetMin.x, abv.offsetMin.y + 140);
 				skillsMoving = true;
+				skillsOpen = false;
 				canSpin = false;
 			}
 		}
@@ -415,79 +403,13 @@ public class GameHUD : MonoBehaviour {
 			skillsMoving = false;
 	}
 
-	public IEnumerator rotateSkills_down()
+	public void Rotate_skills()
 	{
-		RectTransform buttonpanel = GameObject.Find ("abbuttonpanel").GetComponent<RectTransform> ();
-		buttonpanel.Translate (Vector3.down * 2, abilityScroller.transform);
-		yield return new WaitForSeconds(1.0f);
-	}
 
-	public IEnumerator rotateSkills_up()
-	{
-		RectTransform buttonpanel = GameObject.Find ("abbuttonpanel").GetComponent<RectTransform> ();
-		buttonpanel.Translate (Vector3.up * 2, abilityScroller.transform);
-		yield return new WaitForSeconds(1.0f);
 	}
 
 
-/*
-	public void showSkills() {
-		if(!skillsOpen) {
-			skillsOpen = true;
-			skillWheel.SetActive(true);
-			abilityWheelIcons[4].GetComponent<RectTransform>().localScale *= 1.5f;
-			abilityWheelAnchorAnim.SetBool("slideIn", true);
-			canSpin = true;
-			InputManager.changeSkills = true;
-		} else {
-			skillsOpen = false;
-			abilityWheelIcons[curAbility].GetComponent<RectTransform>().localScale /= 1.5f;
-			skillWheel.SetActive(false);
-			curAbility = 4;
-			abilityWheelAnchorAnim.SetBool("slideIn", false);
-			canSpin = false;
-			InputManager.changeSkills = false;
-		}
-	}
 
-	public IEnumerator rotateSkillDown() {
-		canSpin = false;
-		skillWheel.GetComponent<Animator>().speed = 1;
-		yield return new WaitForSeconds(0.49f);
-		skillWheel.GetComponent<Animator>().speed = 0;
-
-		curAbility++;
-		if(curAbility > 7) {
-			curAbility = 0;
-			abilityWheelIcons[7].GetComponent<RectTransform>().localScale /= 1.5f;
-		} else {
-			abilityWheelIcons[curAbility - 1].GetComponent<RectTransform>().localScale /= 1.5f;
-		}
-
-		abilityWheelIcons[curAbility].GetComponent<RectTransform>().localScale *= 1.5f;
-
-		canSpin = true;
-	}
-
-	public IEnumerator rotateSkillUp() {
-		canSpin = false;
-		skillWheel.GetComponent<Animator>().speed = -1;
-		yield return new WaitForSeconds(0.49f);
-		skillWheel.GetComponent<Animator>().speed = 0;
-
-		curAbility--;
-		if(curAbility < 0) {
-			curAbility = 7;
-			abilityWheelIcons[0].GetComponent<RectTransform>().localScale /= 1.5f;
-		} else {
-			abilityWheelIcons[curAbility + 1].GetComponent<RectTransform>().localScale /= 1.5f;
-		}
-
-		abilityWheelIcons[curAbility].GetComponent<RectTransform>().localScale *= 1.5f;
-
-		canSpin = true;
-	}
-*/
 
 	public void ShowDialogueBox() {
 		dialogueBox.SetActive(true);
