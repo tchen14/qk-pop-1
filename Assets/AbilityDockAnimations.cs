@@ -12,10 +12,15 @@ public class AbilityDockAnimations : MonoBehaviour {
 	public float[] targetPosY;
 	public float[] startPosY;
 
+	public float waitTimeCoro;
+
 	Image[] abilityDocImages;
 	int numAbilities;
 	int selectedAbility;
 	bool rotating;
+	Vector3[] startPos = new Vector3[5];
+	Vector3[] targetPos = new Vector3[5];
+
 
 	void Start () {
 		numAbilities = position.Length;
@@ -45,15 +50,15 @@ public class AbilityDockAnimations : MonoBehaviour {
 			if (Input.GetKeyDown (KeyCode.DownArrow)) {
 				newPosUp ();
 				//rotateDown ();
-				//StartCoroutine(rotateCoroUp());
-				rotate();
+				StartCoroutine(rotateCoro());
+				//rotate();
 				//rotating = true;
 			}
 			if (Input.GetKeyDown (KeyCode.UpArrow)) {
 				newPosDown ();
 				//rotateUp ();
-				//StartCoroutine(rotateCoroDown());
-				rotate();
+				StartCoroutine(rotateCoro());
+				//rotate();
 				//rotating = true;
 			}
 		}
@@ -69,6 +74,8 @@ public class AbilityDockAnimations : MonoBehaviour {
 			startPosY[position[i]] = getPos(i);
 			position[i] = modulo(position[i] - 1, 5);
 			targetPosY[position[i]] = getPos(i);
+			startPos[i] = new Vector3(abilities [i].transform.position.x, startPosY[position[i]], 0);
+			targetPos[i] = new Vector3(abilities [i].transform.position.x, targetPosY[position[i]], 0);
 		}
 	}
 	
@@ -77,38 +84,23 @@ public class AbilityDockAnimations : MonoBehaviour {
 			startPosY[position[i]] = getPos(i);
 			position[i] = modulo(position[i] + 1, 5);
 			targetPosY[position[i]] = getPos(i);
+			startPos[i] = new Vector3(abilities [i].transform.position.x, startPosY[position[i]], 0);
+			targetPos[i] = new Vector3(abilities [i].transform.position.x, targetPosY[position[i]], 0);
 		}
 	}
 
-	IEnumerator rotateCoroUp(){
+	IEnumerator rotateCoro(){
 
 			for (int i = 0; i < numAbilities; i++) {
+				
 				//abilities [i].transform.position = Vector3.Lerp (new Vector3 (abilities [i].transform.position.x, startPosY [i], 0), new Vector3 (abilities [i].transform.position.x, targetPosY [i], 0), lerpTime * Time.deltaTime);
-			//abilities[i].transform.Translate(0, 80, 0);
-			if(position[i] == 0){
-				abilities[i].rectTransform.Translate(0,-320,0);
-			}
-			else{
-				abilities[i].rectTransform.Translate(0,80,0);
-			}
-			//yield return new WaitForSeconds(0.24f);
-			yield return null;
+				abilities [i].transform.position = Vector3.Lerp(startPos[i], targetPos[i], lerpTime);
+				//abilities[i].transform.Translate(0, 80, 0);
+				yield return null;
+				//yield return new WaitForSeconds(waitTimeCoro);
 		}
-	}
-
-	IEnumerator rotateCoroDown(){
-		
-		for (int i = 0; i < numAbilities; i++) {
-			//abilities [i].transform.position = Vector3.Lerp (new Vector3 (abilities [i].transform.position.x, startPosY [i], 0), new Vector3 (abilities [i].transform.position.x, targetPosY [i], 0), lerpTime * Time.deltaTime);
-			//abilities[i].transform.Translate(0, 80, 0);
-			if(position[i] == 4){
-				abilities[i].rectTransform.Translate(0,320,0);
-			}
-			else{
-				abilities[i].rectTransform.Translate(0,-80,0);
-			}
-			yield return null;// new WaitForSeconds(0.24f);
-		}
+		//yield return null;
+		//yield return new WaitForSeconds(waitTimeCoro);
 	}
 
 	void rotateUp(){
