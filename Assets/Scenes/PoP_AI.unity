@@ -140,15 +140,24 @@ MonoBehaviour:
   - Player
   attackDistance: 3
   aggressionLimit: 100
+  suspicionLimit: 150
   startPoint: {fileID: 162979087}
   panicPoints: PanicPoints
   aggression: 1
+  PlayerLastPos: {fileID: 124038, guid: 0d28b2f5363aefa4bad5ad57d5f00fc8, type: 2}
+  Searching: 0
+  checking: 0
   seesTarget: 0
   target: {fileID: 0}
   attacking: 0
   panic: 0
   panicTarget: {x: 0, y: 0, z: 0}
   aggressionLevel: 0
+  suspicionLevel: 0
+  suspicious: 0
+  alert: 0
+  unconsious: 0
+  dazed: 0
   navCheck: 
   navPoint: {x: 0, y: 0, z: 0}
 --- !u!54 &1136891
@@ -196,7 +205,7 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 9a92bb79f5c5beb4ca2c2390023bf844, type: 2}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_UseLightProbes: 1
@@ -575,15 +584,24 @@ MonoBehaviour:
   - Player
   attackDistance: 3
   aggressionLimit: 100
+  suspicionLimit: 150
   startPoint: {fileID: 162979087}
   panicPoints: PanicPoints
   aggression: 0
+  PlayerLastPos: {fileID: 0}
+  Searching: 0
+  checking: 0
   seesTarget: 0
   target: {fileID: 0}
   attacking: 0
   panic: 0
   panicTarget: {x: 0, y: 0, z: 0}
   aggressionLevel: 0
+  suspicionLevel: 0
+  suspicious: 0
+  alert: 0
+  unconsious: 0
+  dazed: 0
   navCheck: 
   navPoint: {x: 0, y: 0, z: 0}
 --- !u!54 &57177288
@@ -846,6 +864,7 @@ Transform:
   - {fileID: 790557518}
   - {fileID: 1826634067}
   - {fileID: 999932285}
+  - {fileID: 1431602432}
   - {fileID: 1433929363}
   - {fileID: 861910164}
   m_Father: {fileID: 0}
@@ -910,7 +929,7 @@ GameObject:
   - 54: {fileID: 87453825}
   - 114: {fileID: 87453824}
   - 65: {fileID: 87453830}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: _Player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -933,6 +952,7 @@ MonoBehaviour:
   currentClimbingSpeed: 0
   actionAvaiable: 0
   actionForward: 1
+  actionComponent: {fileID: 0}
   isRunning: 0
   isCrouched: 0
   cameraTransform: {fileID: 349475306}
@@ -1663,15 +1683,24 @@ MonoBehaviour:
   - Player
   attackDistance: 3
   aggressionLimit: 100
+  suspicionLimit: 150
   startPoint: {fileID: 861910163}
   panicPoints: PanicPoints
   aggression: 0
+  PlayerLastPos: {fileID: 0}
+  Searching: 0
+  checking: 0
   seesTarget: 0
   target: {fileID: 0}
   attacking: 0
   panic: 0
   panicTarget: {x: 0, y: 0, z: 0}
   aggressionLevel: 0
+  suspicionLevel: 0
+  suspicious: 0
+  alert: 0
+  unconsious: 0
+  dazed: 0
   navCheck: 
   navPoint: {x: 0, y: 0, z: 0}
 --- !u!54 &153280571
@@ -2284,15 +2313,24 @@ MonoBehaviour:
   - Player
   attackDistance: 3
   aggressionLimit: 100
+  suspicionLimit: 150
   startPoint: {fileID: 999932284}
   panicPoints: PanicPoints
   aggression: 0
+  PlayerLastPos: {fileID: 0}
+  Searching: 0
+  checking: 0
   seesTarget: 0
   target: {fileID: 0}
   attacking: 0
   panic: 0
   panicTarget: {x: 0, y: 0, z: 0}
   aggressionLevel: 0
+  suspicionLevel: 0
+  suspicious: 0
+  alert: 0
+  unconsious: 0
+  dazed: 0
   navCheck: 
   navPoint: {x: 0, y: 0, z: 0}
 --- !u!54 &226852438
@@ -2504,15 +2542,24 @@ MonoBehaviour:
   - Player
   attackDistance: 3
   aggressionLimit: 100
+  suspicionLimit: 150
   startPoint: {fileID: 676408912}
   panicPoints: PanicPoints
   aggression: 1
+  PlayerLastPos: {fileID: 124038, guid: 0d28b2f5363aefa4bad5ad57d5f00fc8, type: 2}
+  Searching: 0
+  checking: 0
   seesTarget: 0
   target: {fileID: 0}
   attacking: 0
   panic: 0
   panicTarget: {x: 0, y: 0, z: 0}
   aggressionLevel: 0
+  suspicionLevel: 0
+  suspicious: 0
+  alert: 0
+  unconsious: 0
+  dazed: 0
   navCheck: 
   navPoint: {x: 0, y: 0, z: 0}
 --- !u!54 &235396204
@@ -2560,7 +2607,7 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 9a92bb79f5c5beb4ca2c2390023bf844, type: 2}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_UseLightProbes: 1
@@ -3085,15 +3132,24 @@ MonoBehaviour:
   - Player
   attackDistance: 3
   aggressionLimit: 100
+  suspicionLimit: 150
   startPoint: {fileID: 1693536194}
   panicPoints: PanicPoints
   aggression: 1
+  PlayerLastPos: {fileID: 124038, guid: 0d28b2f5363aefa4bad5ad57d5f00fc8, type: 2}
+  Searching: 0
+  checking: 0
   seesTarget: 0
   target: {fileID: 0}
   attacking: 0
   panic: 0
   panicTarget: {x: 0, y: 0, z: 0}
   aggressionLevel: 0
+  suspicionLevel: 0
+  suspicious: 0
+  alert: 0
+  unconsious: 0
+  dazed: 0
   navCheck: 
   navPoint: {x: 0, y: 0, z: 0}
 --- !u!54 &294359752
@@ -3141,7 +3197,7 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 9a92bb79f5c5beb4ca2c2390023bf844, type: 2}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_UseLightProbes: 1
@@ -3608,15 +3664,24 @@ MonoBehaviour:
   - Player
   attackDistance: 3
   aggressionLimit: 100
+  suspicionLimit: 150
   startPoint: {fileID: 790557517}
   panicPoints: PanicPoints
   aggression: 0
+  PlayerLastPos: {fileID: 0}
+  Searching: 0
+  checking: 0
   seesTarget: 0
   target: {fileID: 0}
   attacking: 0
   panic: 0
   panicTarget: {x: 0, y: 0, z: 0}
   aggressionLevel: 0
+  suspicionLevel: 0
+  suspicious: 0
+  alert: 0
+  unconsious: 0
+  dazed: 0
   navCheck: 
   navPoint: {x: 0, y: 0, z: 0}
 --- !u!54 &318684784
@@ -3751,15 +3816,24 @@ MonoBehaviour:
   - Player
   attackDistance: 3
   aggressionLimit: 100
+  suspicionLimit: 150
   startPoint: {fileID: 790557517}
   panicPoints: PanicPoints
   aggression: 0
+  PlayerLastPos: {fileID: 0}
+  Searching: 0
+  checking: 0
   seesTarget: 0
   target: {fileID: 0}
   attacking: 0
   panic: 0
   panicTarget: {x: 0, y: 0, z: 0}
   aggressionLevel: 0
+  suspicionLevel: 0
+  suspicious: 0
+  alert: 0
+  unconsious: 0
+  dazed: 0
   navCheck: 
   navPoint: {x: 0, y: 0, z: 0}
 --- !u!54 &340643571
@@ -4119,7 +4193,7 @@ GameObject:
   - 124: {fileID: 349475303}
   - 81: {fileID: 349475302}
   - 114: {fileID: 349475307}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: _Main Camera
   m_TagString: MainCamera
   m_Icon: {fileID: 0}
@@ -4179,6 +4253,7 @@ Camera:
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: .0219999999
+  m_StereoMirrorMode: 0
 --- !u!4 &349475306
 Transform:
   m_ObjectHideFlags: 0
@@ -4211,16 +4286,15 @@ MonoBehaviour:
   yMouseSensitivity: 5
   mouseWheelSensitivity: 5
   cameraLatency: .200000003
+  rotateSmooth: .200000003
   yMinLimit: -30
   yMaxLimit: 80
   occlusionDistanceMove: .100000001
   inTargetLock: 0
+  inEvent: 0
   targetLookAt: {x: 0, y: 0, z: 0}
   desiredPosition: {x: 0, y: 0, z: 0}
-  distanceSmooth: .0299999993
   eventTrigger: {fileID: 0}
-  inEvent: 0
-  maxTimeSinceMouseMoved: 2
   targetingRange: 40
   screenTargetArea: 20
   targetindex: 0
@@ -4854,15 +4928,24 @@ MonoBehaviour:
   - Player
   attackDistance: 3
   aggressionLimit: 100
+  suspicionLimit: 150
   startPoint: {fileID: 162979087}
   panicPoints: PanicPoints
   aggression: 0
+  PlayerLastPos: {fileID: 0}
+  Searching: 0
+  checking: 0
   seesTarget: 0
   target: {fileID: 0}
   attacking: 0
   panic: 0
   panicTarget: {x: 0, y: 0, z: 0}
   aggressionLevel: 0
+  suspicionLevel: 0
+  suspicious: 0
+  alert: 0
+  unconsious: 0
+  dazed: 0
   navCheck: 
   navPoint: {x: 0, y: 0, z: 0}
 --- !u!54 &393802998
@@ -4997,15 +5080,24 @@ MonoBehaviour:
   - Player
   attackDistance: 3
   aggressionLimit: 100
+  suspicionLimit: 150
   startPoint: {fileID: 1826634066}
   panicPoints: PanicPoints
   aggression: 0
+  PlayerLastPos: {fileID: 0}
+  Searching: 0
+  checking: 0
   seesTarget: 0
   target: {fileID: 0}
   attacking: 0
   panic: 0
   panicTarget: {x: 0, y: 0, z: 0}
   aggressionLevel: 0
+  suspicionLevel: 0
+  suspicious: 0
+  alert: 0
+  unconsious: 0
+  dazed: 0
   navCheck: 
   navPoint: {x: 0, y: 0, z: 0}
 --- !u!54 &397374679
@@ -5274,15 +5366,24 @@ MonoBehaviour:
   - Player
   attackDistance: 3
   aggressionLimit: 100
+  suspicionLimit: 150
   startPoint: {fileID: 1841230705}
   panicPoints: PanicPoints
   aggression: 0
+  PlayerLastPos: {fileID: 0}
+  Searching: 0
+  checking: 0
   seesTarget: 0
   target: {fileID: 0}
   attacking: 0
   panic: 0
   panicTarget: {x: 0, y: 0, z: 0}
   aggressionLevel: 0
+  suspicionLevel: 0
+  suspicious: 0
+  alert: 0
+  unconsious: 0
+  dazed: 0
   navCheck: 
   navPoint: {x: 0, y: 0, z: 0}
 --- !u!54 &420992789
@@ -5815,6 +5916,79 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 448903115}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &449443348
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 449443352}
+  - 33: {fileID: 449443351}
+  - 65: {fileID: 449443350}
+  - 23: {fileID: 449443349}
+  m_Layer: 9
+  m_Name: Hay
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!23 &449443349
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 449443348}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_Materials:
+  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  m_SubsetIndices: 
+  m_StaticBatchRoot: {fileID: 0}
+  m_UseLightProbes: 1
+  m_ReflectionProbeUsage: 1
+  m_ProbeAnchor: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_PreserveUVs: 1
+  m_ImportantGI: 0
+  m_AutoUVMaxDistance: .5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingOrder: 0
+--- !u!65 &449443350
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 449443348}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!33 &449443351
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 449443348}
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!4 &449443352
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 449443348}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 7.55999994, y: 1.25, z: 27.9300003}
+  m_LocalScale: {x: 2.5, y: 2.5, z: 2.5}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 10
 --- !u!1 &449775295
 GameObject:
   m_ObjectHideFlags: 0
@@ -6087,15 +6261,24 @@ MonoBehaviour:
   - Player
   attackDistance: 3
   aggressionLimit: 100
+  suspicionLimit: 150
   startPoint: {fileID: 1826634066}
   panicPoints: PanicPoints
   aggression: 0
+  PlayerLastPos: {fileID: 0}
+  Searching: 0
+  checking: 0
   seesTarget: 0
   target: {fileID: 0}
   attacking: 0
   panic: 0
   panicTarget: {x: 0, y: 0, z: 0}
   aggressionLevel: 0
+  suspicionLevel: 0
+  suspicious: 0
+  alert: 0
+  unconsious: 0
+  dazed: 0
   navCheck: 
   navPoint: {x: 0, y: 0, z: 0}
 --- !u!54 &457894289
@@ -6449,15 +6632,24 @@ MonoBehaviour:
   - Player
   attackDistance: 3
   aggressionLimit: 100
+  suspicionLimit: 150
   startPoint: {fileID: 676408912}
   panicPoints: PanicPoints
   aggression: 0
+  PlayerLastPos: {fileID: 0}
+  Searching: 0
+  checking: 0
   seesTarget: 0
   target: {fileID: 0}
   attacking: 0
   panic: 0
   panicTarget: {x: 0, y: 0, z: 0}
   aggressionLevel: 0
+  suspicionLevel: 0
+  suspicious: 0
+  alert: 0
+  unconsious: 0
+  dazed: 0
   navCheck: 
   navPoint: {x: 0, y: 0, z: 0}
 --- !u!54 &492125927
@@ -7809,15 +8001,24 @@ MonoBehaviour:
   - Player
   attackDistance: 3
   aggressionLimit: 100
+  suspicionLimit: 150
   startPoint: {fileID: 1554267659}
   panicPoints: PanicPoints
   aggression: 0
+  PlayerLastPos: {fileID: 0}
+  Searching: 0
+  checking: 0
   seesTarget: 0
   target: {fileID: 0}
   attacking: 0
   panic: 0
   panicTarget: {x: 0, y: 0, z: 0}
   aggressionLevel: 0
+  suspicionLevel: 0
+  suspicious: 0
+  alert: 0
+  unconsious: 0
+  dazed: 0
   navCheck: 
   navPoint: {x: 0, y: 0, z: 0}
 --- !u!54 &585179318
@@ -7952,15 +8153,24 @@ MonoBehaviour:
   - Player
   attackDistance: 3
   aggressionLimit: 100
+  suspicionLimit: 150
   startPoint: {fileID: 735367763}
   panicPoints: PanicPoints
   aggression: 0
+  PlayerLastPos: {fileID: 0}
+  Searching: 0
+  checking: 0
   seesTarget: 0
   target: {fileID: 0}
   attacking: 0
   panic: 0
   panicTarget: {x: 0, y: 0, z: 0}
   aggressionLevel: 0
+  suspicionLevel: 0
+  suspicious: 0
+  alert: 0
+  unconsious: 0
+  dazed: 0
   navCheck: 
   navPoint: {x: 0, y: 0, z: 0}
 --- !u!54 &588275211
@@ -8513,6 +8723,10 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 624708168}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!4 &631137591 stripped
+Transform:
+  m_PrefabParentObject: {fileID: 400000, guid: ef08997b03d110c4d8747b6f9e0b3954, type: 3}
+  m_PrefabInternal: {fileID: 1450165128}
 --- !u!1001 &631732898
 Prefab:
   m_ObjectHideFlags: 0
@@ -8978,15 +9192,24 @@ MonoBehaviour:
   - Player
   attackDistance: 3
   aggressionLimit: 100
+  suspicionLimit: 150
   startPoint: {fileID: 1433929362}
   panicPoints: PanicPoints
   aggression: 0
+  PlayerLastPos: {fileID: 0}
+  Searching: 0
+  checking: 0
   seesTarget: 0
   target: {fileID: 0}
   attacking: 0
   panic: 0
   panicTarget: {x: 0, y: 0, z: 0}
   aggressionLevel: 0
+  suspicionLevel: 0
+  suspicious: 0
+  alert: 0
+  unconsious: 0
+  dazed: 0
   navCheck: 
   navPoint: {x: 0, y: 0, z: 0}
 --- !u!54 &660224487
@@ -9812,15 +10035,24 @@ MonoBehaviour:
   - Player
   attackDistance: 3
   aggressionLimit: 100
+  suspicionLimit: 150
   startPoint: {fileID: 999932284}
   panicPoints: PanicPoints
   aggression: 0
+  PlayerLastPos: {fileID: 0}
+  Searching: 0
+  checking: 0
   seesTarget: 0
   target: {fileID: 0}
   attacking: 0
   panic: 0
   panicTarget: {x: 0, y: 0, z: 0}
   aggressionLevel: 0
+  suspicionLevel: 0
+  suspicious: 0
+  alert: 0
+  unconsious: 0
+  dazed: 0
   navCheck: 
   navPoint: {x: 0, y: 0, z: 0}
 --- !u!54 &716915920
@@ -10713,15 +10945,24 @@ MonoBehaviour:
   - Player
   attackDistance: 3
   aggressionLimit: 100
+  suspicionLimit: 150
   startPoint: {fileID: 861910163}
   panicPoints: PanicPoints
   aggression: 1
+  PlayerLastPos: {fileID: 124038, guid: 0d28b2f5363aefa4bad5ad57d5f00fc8, type: 2}
+  Searching: 0
+  checking: 0
   seesTarget: 0
   target: {fileID: 0}
   attacking: 0
   panic: 0
   panicTarget: {x: 0, y: 0, z: 0}
   aggressionLevel: 0
+  suspicionLevel: 0
+  suspicious: 0
+  alert: 0
+  unconsious: 0
+  dazed: 0
   navCheck: 
   navPoint: {x: 0, y: 0, z: 0}
 --- !u!54 &755461957
@@ -10856,15 +11097,24 @@ MonoBehaviour:
   - Player
   attackDistance: 3
   aggressionLimit: 100
+  suspicionLimit: 150
   startPoint: {fileID: 790557517}
   panicPoints: PanicPoints
   aggression: 0
+  PlayerLastPos: {fileID: 0}
+  Searching: 0
+  checking: 0
   seesTarget: 0
   target: {fileID: 0}
   attacking: 0
   panic: 0
   panicTarget: {x: 0, y: 0, z: 0}
   aggressionLevel: 0
+  suspicionLevel: 0
+  suspicious: 0
+  alert: 0
+  unconsious: 0
+  dazed: 0
   navCheck: 
   navPoint: {x: 0, y: 0, z: 0}
 --- !u!54 &765983033
@@ -11380,15 +11630,24 @@ MonoBehaviour:
   - Player
   attackDistance: 3
   aggressionLimit: 100
+  suspicionLimit: 150
   startPoint: {fileID: 1693536194}
   panicPoints: PanicPoints
   aggression: 0
+  PlayerLastPos: {fileID: 0}
+  Searching: 0
+  checking: 0
   seesTarget: 0
   target: {fileID: 0}
   attacking: 0
   panic: 0
   panicTarget: {x: 0, y: 0, z: 0}
   aggressionLevel: 0
+  suspicionLevel: 0
+  suspicious: 0
+  alert: 0
+  unconsious: 0
+  dazed: 0
   navCheck: 
   navPoint: {x: 0, y: 0, z: 0}
 --- !u!54 &792251889
@@ -12184,15 +12443,24 @@ MonoBehaviour:
   - Player
   attackDistance: 3
   aggressionLimit: 100
+  suspicionLimit: 150
   startPoint: {fileID: 1433929362}
   panicPoints: PanicPoints
   aggression: 0
+  PlayerLastPos: {fileID: 0}
+  Searching: 0
+  checking: 0
   seesTarget: 0
   target: {fileID: 0}
   attacking: 0
   panic: 0
   panicTarget: {x: 0, y: 0, z: 0}
   aggressionLevel: 0
+  suspicionLevel: 0
+  suspicious: 0
+  alert: 0
+  unconsious: 0
+  dazed: 0
   navCheck: 
   navPoint: {x: 0, y: 0, z: 0}
 --- !u!54 &840718601
@@ -12288,7 +12556,7 @@ GameObject:
   - 4: {fileID: 848903460}
   - 33: {fileID: 848903459}
   - 23: {fileID: 848903457}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Sphere
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -12455,7 +12723,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 83372618}
-  m_RootOrder: 11
+  m_RootOrder: 12
 --- !u!114 &861910165
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13248,9 +13516,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   conditions:
-  - e_categoryString: Object Script
-    e_categoryIndex: 3
-    e_classString: AIMain
+  - e_categoryString: System
+    e_categoryIndex: 0
+    e_classString: Choose A Condition
     e_classIndex: 0
     e_fieldString: seesTarget
     e_fieldIndex: 0
@@ -13309,8 +13577,8 @@ MonoBehaviour:
     - Different Than
     compareString: Is True
     compareIndex: 0
-    color: {r: 0, g: .579999983, b: .689999998, a: .449999988}
-    editorHeight: 130
+    color: {r: 0, g: .579999983, b: .689999998, a: .25}
+    editorHeight: 20
   actions:
   - e_categoryString: System
     e_categoryIndex: 0
@@ -13708,7 +13976,7 @@ GameObject:
   - 4: {fileID: 976438581}
   - 33: {fileID: 976438580}
   - 23: {fileID: 976438578}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14528,15 +14796,24 @@ MonoBehaviour:
   - Player
   attackDistance: 3
   aggressionLimit: 100
+  suspicionLimit: 150
   startPoint: {fileID: 999932284}
   panicPoints: PanicPoints
   aggression: 0
+  PlayerLastPos: {fileID: 0}
+  Searching: 0
+  checking: 0
   seesTarget: 0
   target: {fileID: 0}
   attacking: 0
   panic: 0
   panicTarget: {x: 0, y: 0, z: 0}
   aggressionLevel: 0
+  suspicionLevel: 0
+  suspicious: 0
+  alert: 0
+  unconsious: 0
+  dazed: 0
   navCheck: 
   navPoint: {x: 0, y: 0, z: 0}
 --- !u!54 &1022181781
@@ -15456,15 +15733,24 @@ MonoBehaviour:
   - Player
   attackDistance: 3
   aggressionLimit: 100
+  suspicionLimit: 150
   startPoint: {fileID: 1826634066}
   panicPoints: PanicPoints
   aggression: 0
+  PlayerLastPos: {fileID: 0}
+  Searching: 0
+  checking: 0
   seesTarget: 0
   target: {fileID: 0}
   attacking: 0
   panic: 0
   panicTarget: {x: 0, y: 0, z: 0}
   aggressionLevel: 0
+  suspicionLevel: 0
+  suspicious: 0
+  alert: 0
+  unconsious: 0
+  dazed: 0
   navCheck: 
   navPoint: {x: 0, y: 0, z: 0}
 --- !u!54 &1104142583
@@ -16308,15 +16594,24 @@ MonoBehaviour:
   - Player
   attackDistance: 3
   aggressionLimit: 100
+  suspicionLimit: 150
   startPoint: {fileID: 1433929362}
   panicPoints: PanicPoints
   aggression: 1
+  PlayerLastPos: {fileID: 124038, guid: 0d28b2f5363aefa4bad5ad57d5f00fc8, type: 2}
+  Searching: 0
+  checking: 0
   seesTarget: 0
   target: {fileID: 0}
   attacking: 0
   panic: 0
   panicTarget: {x: 0, y: 0, z: 0}
   aggressionLevel: 0
+  suspicionLevel: 0
+  suspicious: 0
+  alert: 0
+  unconsious: 0
+  dazed: 0
   navCheck: 
   navPoint: {x: 0, y: 0, z: 0}
 --- !u!54 &1187303373
@@ -16364,7 +16659,7 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 9a92bb79f5c5beb4ca2c2390023bf844, type: 2}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_UseLightProbes: 1
@@ -16553,15 +16848,24 @@ MonoBehaviour:
   - Player
   attackDistance: 3
   aggressionLimit: 100
+  suspicionLimit: 150
   startPoint: {fileID: 1841230705}
   panicPoints: PanicPoints
   aggression: 0
+  PlayerLastPos: {fileID: 0}
+  Searching: 0
+  checking: 0
   seesTarget: 0
   target: {fileID: 0}
   attacking: 0
   panic: 0
   panicTarget: {x: 0, y: 0, z: 0}
   aggressionLevel: 0
+  suspicionLevel: 0
+  suspicious: 0
+  alert: 0
+  unconsious: 0
+  dazed: 0
   navCheck: 
   navPoint: {x: 0, y: 0, z: 0}
 --- !u!54 &1204250368
@@ -17878,15 +18182,24 @@ MonoBehaviour:
   - Player
   attackDistance: 3
   aggressionLimit: 100
+  suspicionLimit: 150
   startPoint: {fileID: 735367763}
   panicPoints: PanicPoints
   aggression: 0
+  PlayerLastPos: {fileID: 0}
+  Searching: 0
+  checking: 0
   seesTarget: 0
   target: {fileID: 0}
   attacking: 0
   panic: 0
   panicTarget: {x: 0, y: 0, z: 0}
   aggressionLevel: 0
+  suspicionLevel: 0
+  suspicious: 0
+  alert: 0
+  unconsious: 0
+  dazed: 0
   navCheck: 
   navPoint: {x: 0, y: 0, z: 0}
 --- !u!54 &1297193508
@@ -18171,15 +18484,24 @@ MonoBehaviour:
   - Player
   attackDistance: 3
   aggressionLimit: 100
+  suspicionLimit: 150
   startPoint: {fileID: 676408912}
   panicPoints: PanicPoints
   aggression: 0
+  PlayerLastPos: {fileID: 0}
+  Searching: 0
+  checking: 0
   seesTarget: 0
   target: {fileID: 0}
   attacking: 0
   panic: 0
   panicTarget: {x: 0, y: 0, z: 0}
   aggressionLevel: 0
+  suspicionLevel: 0
+  suspicious: 0
+  alert: 0
+  unconsious: 0
+  dazed: 0
   navCheck: 
   navPoint: {x: 0, y: 0, z: 0}
 --- !u!54 &1342736022
@@ -18314,15 +18636,24 @@ MonoBehaviour:
   - Player
   attackDistance: 3
   aggressionLimit: 100
+  suspicionLimit: 150
   startPoint: {fileID: 735367763}
   panicPoints: PanicPoints
   aggression: 0
+  PlayerLastPos: {fileID: 0}
+  Searching: 0
+  checking: 0
   seesTarget: 0
   target: {fileID: 0}
   attacking: 0
   panic: 0
   panicTarget: {x: 0, y: 0, z: 0}
   aggressionLevel: 0
+  suspicionLevel: 0
+  suspicious: 0
+  alert: 0
+  unconsious: 0
+  dazed: 0
   navCheck: 
   navPoint: {x: 0, y: 0, z: 0}
 --- !u!54 &1344440639
@@ -18457,15 +18788,24 @@ MonoBehaviour:
   - Player
   attackDistance: 3
   aggressionLimit: 100
+  suspicionLimit: 150
   startPoint: {fileID: 735367763}
   panicPoints: PanicPoints
   aggression: 1
+  PlayerLastPos: {fileID: 124038, guid: 0d28b2f5363aefa4bad5ad57d5f00fc8, type: 2}
+  Searching: 0
+  checking: 0
   seesTarget: 0
   target: {fileID: 0}
   attacking: 0
   panic: 0
   panicTarget: {x: 0, y: 0, z: 0}
   aggressionLevel: 0
+  suspicionLevel: 0
+  suspicious: 0
+  alert: 0
+  unconsious: 0
+  dazed: 0
   navCheck: 
   navPoint: {x: 0, y: 0, z: 0}
 --- !u!54 &1353697253
@@ -18513,7 +18853,7 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 9a92bb79f5c5beb4ca2c2390023bf844, type: 2}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_UseLightProbes: 1
@@ -18980,15 +19320,24 @@ MonoBehaviour:
   - Player
   attackDistance: 3
   aggressionLimit: 100
+  suspicionLimit: 150
   startPoint: {fileID: 861910163}
   panicPoints: PanicPoints
   aggression: 0
+  PlayerLastPos: {fileID: 0}
+  Searching: 0
+  checking: 0
   seesTarget: 0
   target: {fileID: 0}
   attacking: 0
   panic: 0
   panicTarget: {x: 0, y: 0, z: 0}
   aggressionLevel: 0
+  suspicionLevel: 0
+  suspicious: 0
+  alert: 0
+  unconsious: 0
+  dazed: 0
   navCheck: 
   navPoint: {x: 0, y: 0, z: 0}
 --- !u!54 &1392531055
@@ -19147,6 +19496,93 @@ MeshFilter:
 Transform:
   m_PrefabParentObject: {fileID: 400000, guid: 3e020da3fb441b342b570b5d16e0502f, type: 2}
   m_PrefabInternal: {fileID: 1036364663}
+--- !u!1 &1431602431
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 1431602432}
+  - 33: {fileID: 1431602436}
+  - 135: {fileID: 1431602435}
+  - 23: {fileID: 1431602434}
+  - 114: {fileID: 1431602433}
+  m_Layer: 0
+  m_Name: CheckPoint A 13
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1431602432
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1431602431}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 15.6999998, y: -1.20000005, z: -315.899994}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 83372618}
+  m_RootOrder: 10
+--- !u!114 &1431602433
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1431602431}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6ebf7240dc0afad47afadf1fea82c3cd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nextTarget: {fileID: 861910163}
+  randomTarget: 1
+--- !u!23 &1431602434
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1431602431}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_Materials:
+  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  m_SubsetIndices: 
+  m_StaticBatchRoot: {fileID: 0}
+  m_UseLightProbes: 1
+  m_ReflectionProbeUsage: 1
+  m_ProbeAnchor: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_PreserveUVs: 1
+  m_ImportantGI: 0
+  m_AutoUVMaxDistance: .5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingOrder: 0
+--- !u!135 &1431602435
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1431602431}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: .5
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!33 &1431602436
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1431602431}
+  m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!1 &1433929362
 GameObject:
   m_ObjectHideFlags: 0
@@ -19177,7 +19613,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 83372618}
-  m_RootOrder: 10
+  m_RootOrder: 11
 --- !u!114 &1433929364
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -19307,6 +19743,68 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1445282353}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1001 &1450165128
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 1779144471}
+    m_Modifications:
+    - target: {fileID: 400000, guid: ef08997b03d110c4d8747b6f9e0b3954, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: .200000003
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: ef08997b03d110c4d8747b6f9e0b3954, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -.899999976
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: ef08997b03d110c4d8747b6f9e0b3954, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -.767629981
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: ef08997b03d110c4d8747b6f9e0b3954, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: ef08997b03d110c4d8747b6f9e0b3954, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: ef08997b03d110c4d8747b6f9e0b3954, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: ef08997b03d110c4d8747b6f9e0b3954, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: -1.62920685e-07
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: ef08997b03d110c4d8747b6f9e0b3954, type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: ef08997b03d110c4d8747b6f9e0b3954, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 2.34922862
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: ef08997b03d110c4d8747b6f9e0b3954, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 4.07753181
+      objectReference: {fileID: 0}
+    - target: {fileID: 400004, guid: ef08997b03d110c4d8747b6f9e0b3954, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: .270000011
+      objectReference: {fileID: 0}
+    - target: {fileID: 400004, guid: ef08997b03d110c4d8747b6f9e0b3954, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: ef08997b03d110c4d8747b6f9e0b3954, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: ef08997b03d110c4d8747b6f9e0b3954, type: 3}
+  m_IsPrefabParent: 0
 --- !u!1 &1455027375
 GameObject:
   m_ObjectHideFlags: 0
@@ -19360,15 +19858,24 @@ MonoBehaviour:
   - Player
   attackDistance: 3
   aggressionLimit: 100
+  suspicionLimit: 150
   startPoint: {fileID: 861910163}
   panicPoints: PanicPoints
   aggression: 0
+  PlayerLastPos: {fileID: 0}
+  Searching: 0
+  checking: 0
   seesTarget: 0
   target: {fileID: 0}
   attacking: 0
   panic: 0
   panicTarget: {x: 0, y: 0, z: 0}
   aggressionLevel: 0
+  suspicionLevel: 0
+  suspicious: 0
+  alert: 0
+  unconsious: 0
+  dazed: 0
   navCheck: 
   navPoint: {x: 0, y: 0, z: 0}
 --- !u!54 &1455027378
@@ -20117,15 +20624,24 @@ MonoBehaviour:
   - Player
   attackDistance: 3
   aggressionLimit: 100
+  suspicionLimit: 150
   startPoint: {fileID: 1554267659}
   panicPoints: PanicPoints
   aggression: 0
+  PlayerLastPos: {fileID: 0}
+  Searching: 0
+  checking: 0
   seesTarget: 0
   target: {fileID: 0}
   attacking: 0
   panic: 0
   panicTarget: {x: 0, y: 0, z: 0}
   aggressionLevel: 0
+  suspicionLevel: 0
+  suspicious: 0
+  alert: 0
+  unconsious: 0
+  dazed: 0
   navCheck: 
   navPoint: {x: 0, y: 0, z: 0}
 --- !u!54 &1531207810
@@ -21205,15 +21721,24 @@ MonoBehaviour:
   - Player
   attackDistance: 3
   aggressionLimit: 100
+  suspicionLimit: 150
   startPoint: {fileID: 1841230705}
   panicPoints: PanicPoints
   aggression: 1
+  PlayerLastPos: {fileID: 124038, guid: 0d28b2f5363aefa4bad5ad57d5f00fc8, type: 2}
+  Searching: 0
+  checking: 0
   seesTarget: 0
   target: {fileID: 0}
   attacking: 0
   panic: 0
   panicTarget: {x: 0, y: 0, z: 0}
   aggressionLevel: 0
+  suspicionLevel: 0
+  suspicious: 0
+  alert: 0
+  unconsious: 0
+  dazed: 0
   navCheck: 
   navPoint: {x: 0, y: 0, z: 0}
 --- !u!54 &1616364602
@@ -21261,7 +21786,7 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 9a92bb79f5c5beb4ca2c2390023bf844, type: 2}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_UseLightProbes: 1
@@ -22055,15 +22580,24 @@ MonoBehaviour:
   - Player
   attackDistance: 3
   aggressionLimit: 100
+  suspicionLimit: 150
   startPoint: {fileID: 1841230705}
   panicPoints: PanicPoints
   aggression: 0
+  PlayerLastPos: {fileID: 0}
+  Searching: 0
+  checking: 0
   seesTarget: 0
   target: {fileID: 0}
   attacking: 0
   panic: 0
   panicTarget: {x: 0, y: 0, z: 0}
   aggressionLevel: 0
+  suspicionLevel: 0
+  suspicious: 0
+  alert: 0
+  unconsious: 0
+  dazed: 0
   navCheck: 
   navPoint: {x: 0, y: 0, z: 0}
 --- !u!54 &1655657093
@@ -22785,15 +23319,24 @@ MonoBehaviour:
   - Player
   attackDistance: 3
   aggressionLimit: 100
+  suspicionLimit: 150
   startPoint: {fileID: 908199300}
   panicPoints: PanicPoints
   aggression: 0
+  PlayerLastPos: {fileID: 0}
+  Searching: 0
+  checking: 0
   seesTarget: 0
   target: {fileID: 0}
   attacking: 0
   panic: 0
   panicTarget: {x: 0, y: 0, z: 0}
   aggressionLevel: 0
+  suspicionLevel: 0
+  suspicious: 0
+  alert: 0
+  unconsious: 0
+  dazed: 0
   navCheck: 
   navPoint: {x: 0, y: 0, z: 0}
 --- !u!54 &1722999878
@@ -22928,15 +23471,24 @@ MonoBehaviour:
   - Player
   attackDistance: 3
   aggressionLimit: 100
+  suspicionLimit: 150
   startPoint: {fileID: 1554267659}
   panicPoints: PanicPoints
   aggression: 0
+  PlayerLastPos: {fileID: 0}
+  Searching: 0
+  checking: 0
   seesTarget: 0
   target: {fileID: 0}
   attacking: 0
   panic: 0
   panicTarget: {x: 0, y: 0, z: 0}
   aggressionLevel: 0
+  suspicionLevel: 0
+  suspicious: 0
+  alert: 0
+  unconsious: 0
+  dazed: 0
   navCheck: 
   navPoint: {x: 0, y: 0, z: 0}
 --- !u!54 &1729448435
@@ -23409,15 +23961,24 @@ MonoBehaviour:
   - Player
   attackDistance: 3
   aggressionLimit: 100
+  suspicionLimit: 150
   startPoint: {fileID: 1693536194}
   panicPoints: PanicPoints
   aggression: 0
+  PlayerLastPos: {fileID: 0}
+  Searching: 0
+  checking: 0
   seesTarget: 0
   target: {fileID: 0}
   attacking: 0
   panic: 0
   panicTarget: {x: 0, y: 0, z: 0}
   aggressionLevel: 0
+  suspicionLevel: 0
+  suspicious: 0
+  alert: 0
+  unconsious: 0
+  dazed: 0
   navCheck: 
   navPoint: {x: 0, y: 0, z: 0}
 --- !u!54 &1741067415
@@ -23764,10 +24325,11 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1779144470}
-  m_LocalRotation: {x: 0, y: -.0506672747, z: 0, w: .998715639}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -19.4228592, y: -.0316234827, z: 270.416046}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 631137591}
   m_Father: {fileID: 939675481}
   m_RootOrder: 9
 --- !u!114 &1779144472
@@ -23778,27 +24340,36 @@ MonoBehaviour:
   m_GameObject: {fileID: 1779144470}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b40baaf327f0e4e02b17f6fa651b25bb, type: 3}
+  m_Script: {fileID: 11500000, guid: 748cd4d222092df48a2b8072558dd908, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   hp: 100
-  sightDistance: 20
-  sightAngle: 35
+  sightDistance: 45
+  sightAngle: 45
   speed: 5
   runSpeed: 8
   seekTag:
   - Player
   attackDistance: 3
   aggressionLimit: 100
+  suspicionLimit: 150
   startPoint: {fileID: 790557517}
   panicPoints: PanicPoints
-  aggression: 1
+  aggressive: 1
+  PlayerLastPos: {fileID: 0}
+  Searching: 0
+  checking: 0
   seesTarget: 0
   target: {fileID: 0}
   attacking: 0
   panic: 0
   panicTarget: {x: 0, y: 0, z: 0}
   aggressionLevel: 0
+  suspicionLevel: 0
+  suspicious: 0
+  alert: 0
+  unconsious: 0
+  dazed: 0
   navCheck: 
   navPoint: {x: 0, y: 0, z: 0}
 --- !u!54 &1779144473
@@ -23846,7 +24417,7 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 9a92bb79f5c5beb4ca2c2390023bf844, type: 2}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_UseLightProbes: 1
@@ -25244,15 +25815,24 @@ MonoBehaviour:
   - Player
   attackDistance: 3
   aggressionLimit: 100
+  suspicionLimit: 150
   startPoint: {fileID: 676408912}
   panicPoints: PanicPoints
   aggression: 0
+  PlayerLastPos: {fileID: 0}
+  Searching: 0
+  checking: 0
   seesTarget: 0
   target: {fileID: 0}
   attacking: 0
   panic: 0
   panicTarget: {x: 0, y: 0, z: 0}
   aggressionLevel: 0
+  suspicionLevel: 0
+  suspicious: 0
+  alert: 0
+  unconsious: 0
+  dazed: 0
   navCheck: 
   navPoint: {x: 0, y: 0, z: 0}
 --- !u!54 &1910730033
@@ -25679,15 +26259,24 @@ MonoBehaviour:
   - Player
   attackDistance: 3
   aggressionLimit: 100
+  suspicionLimit: 150
   startPoint: {fileID: 1433929362}
   panicPoints: PanicPoints
   aggression: 0
+  PlayerLastPos: {fileID: 0}
+  Searching: 0
+  checking: 0
   seesTarget: 0
   target: {fileID: 0}
   attacking: 0
   panic: 0
   panicTarget: {x: 0, y: 0, z: 0}
   aggressionLevel: 0
+  suspicionLevel: 0
+  suspicious: 0
+  alert: 0
+  unconsious: 0
+  dazed: 0
   navCheck: 
   navPoint: {x: 0, y: 0, z: 0}
 --- !u!54 &1966784278
@@ -26114,15 +26703,24 @@ MonoBehaviour:
   - Player
   attackDistance: 3
   aggressionLimit: 100
+  suspicionLimit: 150
   startPoint: {fileID: 1693536194}
   panicPoints: PanicPoints
   aggression: 0
+  PlayerLastPos: {fileID: 0}
+  Searching: 0
+  checking: 0
   seesTarget: 0
   target: {fileID: 0}
   attacking: 0
   panic: 0
   panicTarget: {x: 0, y: 0, z: 0}
   aggressionLevel: 0
+  suspicionLevel: 0
+  suspicious: 0
+  alert: 0
+  unconsious: 0
+  dazed: 0
   navCheck: 
   navPoint: {x: 0, y: 0, z: 0}
 --- !u!54 &1999267720
@@ -26257,15 +26855,24 @@ MonoBehaviour:
   - Player
   attackDistance: 3
   aggressionLimit: 100
+  suspicionLimit: 150
   startPoint: {fileID: 1554267659}
   panicPoints: PanicPoints
   aggression: 1
+  PlayerLastPos: {fileID: 124038, guid: 0d28b2f5363aefa4bad5ad57d5f00fc8, type: 2}
+  Searching: 0
+  checking: 0
   seesTarget: 0
   target: {fileID: 0}
   attacking: 0
   panic: 0
   panicTarget: {x: 0, y: 0, z: 0}
   aggressionLevel: 0
+  suspicionLevel: 0
+  suspicious: 0
+  alert: 0
+  unconsious: 0
+  dazed: 0
   navCheck: 
   navPoint: {x: 0, y: 0, z: 0}
 --- !u!54 &2004635026
@@ -28168,15 +28775,24 @@ MonoBehaviour:
   - Player
   attackDistance: 3
   aggressionLimit: 100
+  suspicionLimit: 150
   startPoint: {fileID: 908199300}
   panicPoints: PanicPoints
   aggression: 1
+  PlayerLastPos: {fileID: 124038, guid: 0d28b2f5363aefa4bad5ad57d5f00fc8, type: 2}
+  Searching: 0
+  checking: 0
   seesTarget: 0
   target: {fileID: 0}
   attacking: 0
   panic: 0
   panicTarget: {x: 0, y: 0, z: 0}
   aggressionLevel: 0
+  suspicionLevel: 0
+  suspicious: 0
+  alert: 0
+  unconsious: 0
+  dazed: 0
   navCheck: 
   navPoint: {x: 0, y: 0, z: 0}
 --- !u!54 &2115792602
@@ -28224,7 +28840,7 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 9a92bb79f5c5beb4ca2c2390023bf844, type: 2}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_UseLightProbes: 1
@@ -28323,15 +28939,24 @@ MonoBehaviour:
   - Player
   attackDistance: 3
   aggressionLimit: 100
+  suspicionLimit: 150
   startPoint: {fileID: 908199300}
   panicPoints: PanicPoints
   aggression: 0
+  PlayerLastPos: {fileID: 0}
+  Searching: 0
+  checking: 0
   seesTarget: 0
   target: {fileID: 0}
   attacking: 0
   panic: 0
   panicTarget: {x: 0, y: 0, z: 0}
   aggressionLevel: 0
+  suspicionLevel: 0
+  suspicious: 0
+  alert: 0
+  unconsious: 0
+  dazed: 0
   navCheck: 
   navPoint: {x: 0, y: 0, z: 0}
 --- !u!54 &2123465048
@@ -28539,15 +29164,24 @@ MonoBehaviour:
   - Player
   attackDistance: 3
   aggressionLimit: 100
+  suspicionLimit: 150
   startPoint: {fileID: 162979087}
   panicPoints: PanicPoints
   aggression: 0
+  PlayerLastPos: {fileID: 0}
+  Searching: 0
+  checking: 0
   seesTarget: 0
   target: {fileID: 0}
   attacking: 0
   panic: 0
   panicTarget: {x: 0, y: 0, z: 0}
   aggressionLevel: 0
+  suspicionLevel: 0
+  suspicious: 0
+  alert: 0
+  unconsious: 0
+  dazed: 0
   navCheck: 
   navPoint: {x: 0, y: 0, z: 0}
 --- !u!54 &2131049814
@@ -28799,7 +29433,7 @@ GameObject:
   - 4: {fileID: 2136427110}
   - 33: {fileID: 2136427109}
   - 23: {fileID: 2136427107}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Sphere
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -28989,15 +29623,24 @@ MonoBehaviour:
   - Player
   attackDistance: 3
   aggressionLimit: 100
+  suspicionLimit: 150
   startPoint: {fileID: 908199300}
   panicPoints: PanicPoints
   aggression: 0
+  PlayerLastPos: {fileID: 0}
+  Searching: 0
+  checking: 0
   seesTarget: 0
   target: {fileID: 0}
   attacking: 0
   panic: 0
   panicTarget: {x: 0, y: 0, z: 0}
   aggressionLevel: 0
+  suspicionLevel: 0
+  suspicious: 0
+  alert: 0
+  unconsious: 0
+  dazed: 0
   navCheck: 
   navPoint: {x: 0, y: 0, z: 0}
 --- !u!54 &2142727065
