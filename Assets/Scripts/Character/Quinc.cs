@@ -84,6 +84,8 @@ public sealed class Quinc : MonoBehaviour
 
 	public int testAbility = 0;
 
+	public bool pushPullLerp = false;
+
 
 	void FixedUpdate()
 	{
@@ -607,6 +609,9 @@ public sealed class Quinc : MonoBehaviour
 
 		int testCount = 0;
 
+		//set flag to delay crate snapback
+		pushPullLerp = true;
+
 		while(Vector3.Distance(targetObject.transform.position, targetPosition) > 2.0f)
 		{
 
@@ -622,9 +627,18 @@ public sealed class Quinc : MonoBehaviour
 			yield return null;
 		}
 
+		//reset flag to allow crate snapback
+		pushPullLerp = false;
 		print("Target Reached");
 
 		yield return null;
 	}//END IEnumerator MoveSlowly(GameObject targetObject, Vector3 targetPosition, Vector3 direction)
 
+	public void stopCo(string croutine)
+	{
+
+		StopCoroutine(croutine);
+		print("stopped moveslowly");
+
+	}
 }

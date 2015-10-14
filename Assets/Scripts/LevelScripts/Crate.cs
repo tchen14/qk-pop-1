@@ -36,18 +36,18 @@ public class Crate : Item
 		{
 
 			moveDist = Vector3.Distance(startPosition, transform.position);
-			//if crate is out of pushPullRadius from startPostion, return to startPosition
-			if(moveDist > pushPullRadius)
+			//if crate is out of pushPullRadius from startPostion, and isn't currently moving return to startPosition
+			if((moveDist > pushPullRadius) && (Quinc.Instance.pushPullLerp == false))
 			{
 
 				isSnapping = true;
-				StopCoroutine("MoveSlowly");
-				StartCoroutine(SnapBack());
-
+//				StopCoroutine("MoveSlowly");
+//				StartCoroutine(SnapBack());
+				hasMoved = false;
 			}
 
 			//reset hasMoved
-			hasMoved = false;
+//			hasMoved = false;
 
 		}
 	
@@ -62,26 +62,33 @@ public class Crate : Item
 	IEnumerator SnapBack()
 	{
 
-//		if(Quinc.Instance.coMoveSlowly != null)
-//		{
+		if(Quinc.Instance.coMoveSlowly != null)
+		{
 
 //			StopCoroutine(Quinc.Instance.coMoveSlowly);
 //			StopCoroutine("MoveSlowly");
+			Quinc.Instance.stopCo("MoveSlowly");
+		}
 
-//		}
 		while(!transform.position.Equals(startPosition))
 		{
 
 //			if(Quinc.Instance.coMoveSlowly == null)
 //			{
+			//while(Vector3.Distance(transform.position, startPosition) > 0.01f)
+			while(moveDist > 0.1f)
+			{ 
 				print("SnapBack Lerping");
 				transform.position = Vector3.Lerp(transform.position, startPosition, Time.deltaTime);
+				moveDist = Vector3.Distance(transform.position, startPosition);
 				//yield return null;
-//			}
+			}
+			hasMoved = false;
+			isSnapping = false;
 			yield return null;
 		}
 
-		isSnapping = false;
+//		isSnapping = false;
 		yield return null;
 	}
 
