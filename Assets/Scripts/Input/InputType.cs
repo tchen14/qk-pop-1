@@ -16,10 +16,11 @@ public abstract class InputType : MonoBehaviour {
 	public virtual float CameraHorizontalAxis() {
 		return 0;
 	}
-	public virtual int MoveVerticalAxis() {
+	public virtual float MoveVerticalAxis() {
 		return 0;
 	}
-	public virtual int MoveHorizontalAxis() {
+    public virtual float MoveHorizontalAxis()
+    {
 		return 0;
 	}
 	public virtual bool isCrouched() {

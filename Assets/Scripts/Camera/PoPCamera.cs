@@ -55,8 +55,9 @@ public sealed class PoPCamera : Camera_2
 	void Start()
 	{
 		if (!target) {
-			if(GameObject.FindObjectOfType<PoPCharacterController>()){
-				target = (Transform)GameObject.FindObjectOfType<PoPCharacterController>().transform;
+            if (GameObject.FindObjectOfType<QK_Controller>())
+            {
+                target = (Transform)GameObject.FindObjectOfType<QK_Controller>().transform;
 				player = target;
                 _curState = CameraState.Normal;
 			}else{
@@ -322,7 +323,7 @@ public sealed class PoPCamera : Camera_2
 
 	// Returns current gameobject or null if none is targetted
 	public GameObject CurrentTarget() {
-		if(targetedObjects != null)
+		if(targetedObjects != null && targetedObjects.Count > 0)
 			return targetedObjects[targetindex];
 		else {
 			Debug.Warning("camera", "No current object targetted");
