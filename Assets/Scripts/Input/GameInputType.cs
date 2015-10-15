@@ -75,32 +75,28 @@ public class GameInputType : InputType {
 		return 0;
 	}
 
-	public override int MoveVerticalAxis() {
+	public override float MoveVerticalAxis() {
 		if(Input.GetKey(GetInputOrFail(keyButtons, "forward")) && Input.GetKey(GetInputOrFail(keyButtons, "backward")))
 			return 0;
 		else if(Input.GetKey(GetInputOrFail(keyButtons, "forward"))) {
 			return 1;
 		} else if(Input.GetKey(GetInputOrFail(keyButtons, "backward")))
 			return -1;
-		else if(Input.GetAxis(GetInputOrFail(controllerButtons, "controllerVert")) > 0) {
-			return 1;
-		} else if(Input.GetAxis(GetInputOrFail(controllerButtons, "controllerVert")) < 0) {
-			return -1;
-		}
+		else if(Input.GetAxis(GetInputOrFail(controllerButtons, "controllerVert")) != 0) {
+            return Input.GetAxis(GetInputOrFail(controllerButtons, "controllerVert"));
+		} 
 		return 0;
 	}
-	public override int MoveHorizontalAxis() {
+	public override float MoveHorizontalAxis() {
 		if(Input.GetKey(GetInputOrFail(keyButtons, "left")) && Input.GetKey(GetInputOrFail(keyButtons, "right")))
 			return 0;
 		else if(Input.GetKey(GetInputOrFail(keyButtons, "right")))
 			return 1;
 		else if(Input.GetKey(GetInputOrFail(keyButtons, "left")))
 			return -1;
-		else if(Input.GetAxis(GetInputOrFail(controllerButtons, "controllerHor")) > 0) {
-			return 1;
-		} else if(Input.GetAxis(GetInputOrFail(controllerButtons, "controllerHor")) < 0) {
-			return -1;
-		}
+		else if(Input.GetAxis(GetInputOrFail(controllerButtons, "controllerHor")) != 0) {
+            return Input.GetAxis(GetInputOrFail(controllerButtons, "controllerHor"));
+		} 
 		return 0;
 	}
 	

@@ -31,12 +31,14 @@ public class QK_Controller : MonoBehaviour {
 		QK_Character_Movement.Instance.VerticalVelocity = QK_Character_Movement.Instance.moveVector.y;
 		QK_Character_Movement.Instance.moveVector = Vector3.zero;
 
-		if (Input.GetAxis ("Vertical") > deadZone || Input.GetAxis ("Vertical") < deadZone) {
-			QK_Character_Movement.Instance.moveVector += new Vector3 (0, 0, Input.GetAxis("Vertical"));
+        if (InputManager.input.MoveVerticalAxis() > deadZone || InputManager.input.MoveVerticalAxis() < deadZone)
+        {
+            QK_Character_Movement.Instance.moveVector += new Vector3(0, 0, InputManager.input.MoveVerticalAxis());
 		}
 
-		if (Input.GetAxis ("Horizontal") > deadZone || Input.GetAxis ("Horizontal") < deadZone) {
-			QK_Character_Movement.Instance.moveVector += new Vector3 (Input.GetAxis("Horizontal"), 0 , 0);
+        if (InputManager.input.MoveHorizontalAxis() > deadZone || InputManager.input.MoveHorizontalAxis() < deadZone)
+        {
+            QK_Character_Movement.Instance.moveVector += new Vector3(InputManager.input.MoveHorizontalAxis(), 0, 0);
 		}
 	}
 
