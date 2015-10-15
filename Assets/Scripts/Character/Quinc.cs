@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using Debug = FFP.Debug;
 
 public class Quinc : MonoBehaviour {
-	//this class is a cluster fuck and needs to be organized
+	//this class needs to be organized
 #pragma warning disable 0414
 	private float pushRate = 0.5f;
 	public float pushDistance = 5.0f;
@@ -38,34 +38,29 @@ public class Quinc : MonoBehaviour {
 
 	public static int activeAbility = 0;
 
+    PoPCamera popCamera;
 
+    void Start()
+    {
+        popCamera = GameObject.Find("/_Cameras and Lights/_Main Camera").GetComponent<PoPCamera>();
+    }
 
 
 	void FixedUpdate() {
-		if(GameHUD.Instance.curAbility != activeAbility)
-			activeAbility = GameHUD.Instance.curAbility;
-		//Get the list of targeted objects and the index if in camera target mode
-		//inTargetLock = PoPCamera.instance.inTargetLock;
-		if(inTargetLock) {
-			acquiredTargets = PoPCamera.instance.targetedObjects;
-			currentTargetedObjectIndex = PoPCamera.instance.targetindex;
-		}
+        GameObject currentTarget = popCamera.CurrentTarget();
 
-		//if there targted objects in the list allow actions on them
-		if(acquiredTargets.Count != 0 && inTargetLock) {
-			//if (Input.GetKeyDown(KeyCode.Alpha1) && Time.time > nextPush)
-			if(InputManager.input.isActionPressed() && activeAbility == 0 && Time.time > nextPush) {
+		if(currentTarget) {
+            string status = "";
+
+			if(Input.GetKeyDown(KeyCode.R) && Time.time > nextPush) {
 				nextPush = Time.time + pushRate;
-				//pushPullTarget = GameObject.Find("Crate"); //!> Reference Targeting Script to get current Target
-				pushPullTarget = acquiredTargets[currentTargetedObjectIndex];
+                Push(ref status, currentTarget);
 			}
-				//else if (Input.GetKeyDown(KeyCode.Alpha2) && Time.time > nextPull)
-			else if(InputManager.input.isActionPressed() && activeAbility == 1 && Time.time > nextPull) {
+            else if (Input.GetKeyDown(KeyCode.F) && Time.time > nextPull)
+            {
 				nextPull = Time.time + pullRate;
-				//pushPullTarget = GameObject.Find("Crate"); //!> Reference Targeting Script to get current Target
-				pushPullTarget = acquiredTargets[currentTargetedObjectIndex];
-			}
-				//else if (Input.GetKeyDown(KeyCode.Alpha3))
+                Pull(ref status, currentTarget);
+            }
 			else if(InputManager.input.isActionPressed() && activeAbility == 2 && Input.GetKeyDown(KeyCode.I)) {
 				//cutTarget = GameObject.Find("Rope"); //!> Reference Targeting Script to get current Target
 				cutTarget = acquiredTargets[currentTargetedObjectIndex];
@@ -107,7 +102,8 @@ public class Quinc : MonoBehaviour {
 			status = "No Target Selected";
 			return false;
 		}
-		if(!pushPullTarget.GetComponent<Item>().pushCompatible) {
+        if (!pushTarget.GetComponent<Item>().pushCompatible)
+        {
 			status = "Not Compatible";
 			return false;
 		}
