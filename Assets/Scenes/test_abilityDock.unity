@@ -413,7 +413,7 @@ MonoBehaviour:
   - {fileID: 453211969}
   - {fileID: 1019708822}
   - {fileID: 1863086494}
-  lerpTime: 1000
+  lerpTime: 35
   targetPosY:
   - 0
   - 0
