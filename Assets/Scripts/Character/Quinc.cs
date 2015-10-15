@@ -356,10 +356,21 @@ public sealed class Quinc : MonoBehaviour
 		Vector3 pushDirection = pushTarget.transform.position - transform.position;
 		pushDirection.Normalize();
 		Vector3 targetPosition = (pushDirection * pushDistance) + pushTarget.transform.position;
-		coMoveSlowly = MoveSlowly(pushTarget.gameObject, targetPosition, pushDirection);
-		StartCoroutine(coMoveSlowly);
-		status = "Push Successful";
-		return true;
+
+//		if(pushTarget.GetComponent<Crate>().SnapBack() != null)
+//		{
+			coMoveSlowly = MoveSlowly(pushTarget.gameObject, targetPosition, pushDirection);
+			StartCoroutine(coMoveSlowly);
+			status = "Push Successful";
+			return true;
+/*		}
+		else
+		{
+			status = "Push interrupted by SnapBack";
+			return false;
+		}
+*/
+
 	}//END 
 
 	//! Function to be called when pulling an object, pulling at intervals (think Ocarina of time)
@@ -395,11 +406,19 @@ public sealed class Quinc : MonoBehaviour
 		pullDirection.Normalize();
 		Vector3 targetPosition = (pullDirection * pullDistance) + pullTarget.transform.position;
 
-		coMoveSlowly = MoveSlowly(pullTarget.gameObject, targetPosition, pullDirection);
-		StartCoroutine(coMoveSlowly);
-		status = "Pull Successful";
-		return true;
-
+//		if(pullTarget.GetComponent<Crate>().SnapBack() != null)
+//		{
+			coMoveSlowly = MoveSlowly(pullTarget.gameObject, targetPosition, pullDirection);
+			StartCoroutine(coMoveSlowly);
+			status = "Pull Successful";
+			return true;
+/*		}
+		else
+		{
+			status = "Pull interrupted by SnapBack";
+			return false;
+		}
+*/
 	}//END bool Pull(ref string status, GameObject pullTarget)
 
 	//! Function to be called when cutting rope
@@ -492,10 +511,10 @@ public sealed class Quinc : MonoBehaviour
 				AIMain ai = col.gameObject.GetComponent<AIMain>();
 
 				//check for valid enemy state
-				if((ai.aggressionLevel < ai.aggressionLimit) && (ai.dazed == false))
+//AI			if((ai.aggressionLevel < ai.aggressionLimit) && (ai.dazed == false))
 				{
 
-					ai.NoiseHeard(soundLocation);
+//AI				ai.NoiseHeard(soundLocation);
 
 				}//END if((ai.aggressionLimit < 100f) && (ai.dazed == false))
 
@@ -539,16 +558,16 @@ public sealed class Quinc : MonoBehaviour
 		}
 
 
-		if((stunTarget.GetComponent<Enemy>() != null) && (stunTarget.GetComponent<AIMain> != null))
+		if((stunTarget.GetComponent<Enemy>() != null) && (stunTarget.GetComponent<AIMain>() != null))
 		{
 
 			//save some typing
 			AIMain ai = stunTarget.GetComponent<AIMain>();
 
-			if((ai.dazed == false) && (ai.suspicionLevel < aiSuspicionLimit))
+//AI		if((ai.dazed == false) && (ai.suspicionLevel < aiSuspicionLimit))
 			{
 
-				ai.Dazed(stunTime);
+//AI				ai.Dazed(stunTime);
 
 			}//END if((ai.dazed == false) && (ai.suspicionLevel < aiSuspicionLimit))
 
@@ -649,6 +668,8 @@ public sealed class Quinc : MonoBehaviour
 
 	}//END bool Blast(ref string status, GameObject blastTarget)
 
+//-------------------------------------------------------------------------------------------------------
+
 	public IEnumerator MoveSlowly(GameObject targetObject, Vector3 targetPosition, Vector3 direction)
 	{
 		print("Target Position In CoRoutine: " + targetPosition);
@@ -661,7 +682,7 @@ public sealed class Quinc : MonoBehaviour
 		pushPullLerp = true;
 
 
-		while(Vector3.Distance(targetObject.transform.position, targetPosition) > 2.0f)
+		while(Vector3.Distance(targetObject.transform.position, targetPosition) > 2.0f)// && (targetObject.GetComponent<Crate>().SnapBack() == null))
 		{
 
 //TESTING - FOR LEVEL DESIGN REMOVE FOR FINAL BUILD
@@ -669,13 +690,8 @@ public sealed class Quinc : MonoBehaviour
 //END TESTING
 
 			print("MoveSlowly Lerping " + ++testCount);
-	//		targetObject.GetComponent<Crate>().hasMoved = true;
+
 			targetObject.transform.position = Vector3.Lerp(targetObject.transform.position, targetPosition, smoothing * Time.deltaTime);
-//			if(targetObject.GetComponent<Crate>().isSnapping)
-//			{
-				//StopCoroutine(coMoveSlowly);
-				//yield break;
-//			}
 			targetObject.GetComponent<Crate>().hasMoved = true;
 			yield return null;
 		}

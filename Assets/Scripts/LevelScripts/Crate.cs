@@ -12,6 +12,7 @@ public class Crate : Item
 	public float moveDist;				//distance moved by the crate
 	public bool hasMoved;				//flag to track if crate has been moved by Quinc 
 	public bool isSnapping;
+	Color originalColor;
 
 	// Use this for initialization
 	void Start ()
@@ -24,6 +25,7 @@ public class Crate : Item
 		moveDist = 0f;
 		hasMoved = false;
 		isSnapping = false;
+		originalColor = GetComponent<Renderer>().material.color;
 
 	}
 	
@@ -32,7 +34,7 @@ public class Crate : Item
 	{
 		
 		//if crate has moved, check the distance from startPosition
-		if(hasMoved == true)
+/*		if(hasMoved == true)
 		{
 
 			moveDist = Vector3.Distance(startPosition, transform.position);
@@ -41,7 +43,7 @@ public class Crate : Item
 			{
 
 				isSnapping = true;
-//				StopCoroutine("MoveSlowly");
+//				Quinc.Instance.stopCo("MoveSlowly");
 //				StartCoroutine(SnapBack());
 				hasMoved = false;
 			}
@@ -50,7 +52,7 @@ public class Crate : Item
 //			hasMoved = false;
 
 		}
-	
+*/	
 	}
 
 	public void PlayPushSound()
@@ -59,14 +61,12 @@ public class Crate : Item
 		return;
 	}
 
-	IEnumerator SnapBack()
+	public IEnumerator SnapBack()
 	{
 
 		if(Quinc.Instance.coMoveSlowly != null)
 		{
 
-//			StopCoroutine(Quinc.Instance.coMoveSlowly);
-//			StopCoroutine("MoveSlowly");
 			Quinc.Instance.stopCo("MoveSlowly");
 		}
 
@@ -77,8 +77,7 @@ public class Crate : Item
 			GetComponent<Renderer>().material.color = Color.yellow;
 //END TESTING
 
-//			if(Quinc.Instance.coMoveSlowly == null)
-//			{
+
 			//while(Vector3.Distance(transform.position, startPosition) > 0.01f)
 			while(moveDist > 0.1f)
 			{ 
@@ -92,7 +91,6 @@ public class Crate : Item
 			GetComponent<Renderer>().material.color = Color.blue;
 //END TESTING
 
-		//	Renderer.material.color = Color.blue;
 			hasMoved = false;
 			isSnapping = false;
 			yield return null;
