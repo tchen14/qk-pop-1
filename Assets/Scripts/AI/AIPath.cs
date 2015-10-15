@@ -6,10 +6,6 @@ public class AIPath : MonoBehaviour {
 
 	public List<GameObject> checkpoints;
 	private GameObject instance = Resources.Load("checkpoint") as GameObject;
-	
-	void Start() {
-
-	}
 
 	public void addCheckpoint(GameObject new_point)
 	{
