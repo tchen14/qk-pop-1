@@ -73,6 +73,10 @@ public class Crate : Item
 		while(!transform.position.Equals(startPosition))
 		{
 
+//TESTING - FOR LEVEL DESIGN REMOVE FOR FINAL BUILD
+			GetComponent<Renderer>().material.color = Color.yellow;
+//END TESTING
+
 //			if(Quinc.Instance.coMoveSlowly == null)
 //			{
 			//while(Vector3.Distance(transform.position, startPosition) > 0.01f)
@@ -83,6 +87,12 @@ public class Crate : Item
 				moveDist = Vector3.Distance(transform.position, startPosition);
 				//yield return null;
 			}
+
+//TESTING - FOR LEVEL DESIGN REMOVE FOR FINAL BUILD
+			GetComponent<Renderer>().material.color = Color.blue;
+//END TESTING
+
+		//	Renderer.material.color = Color.blue;
 			hasMoved = false;
 			isSnapping = false;
 			yield return null;

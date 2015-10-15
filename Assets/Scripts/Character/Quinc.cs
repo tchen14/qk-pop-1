@@ -45,10 +45,12 @@ public sealed class Quinc : MonoBehaviour
 	private float soundRate = 0.5f;		//sound throw recharge rate
 	private int soundThrowRange = 20;
 	private float nextSound = 1.0f;		//timer for sound throw
+	private float soundRange = 20f;		//maximum distance between soundthrow location and enemy for it to have an effect
 
 	private float stunRate = 0.5f;		//stun recharge rate
-	private int stunRange = 20;
+	private int stunRange = 2;
 	private float nextStun = 1.0f;		//timer for stun recharge
+	private float stunTime = 20f;		//duration of stun effect
 
 	private float heatRate = 0.5f;		//heat recharge rate
 	private int heatRange = 20;
@@ -469,7 +471,37 @@ public sealed class Quinc : MonoBehaviour
 
 		// Possibly allow player to select sound, or each object will have it's own sound attached to it
 		// Call SoundThrow function in Well script, which will play sound and animation
-		soundThrowTarget.GetComponent<Well>().SoundThrow();
+		if(soundThrowTarget.GetComponent<Well>() != null)
+		{
+			soundThrowTarget.GetComponent<Well>().SoundThrow();
+		}
+
+		Vector3 soundLocation = soundThrowTarget.transform.position;
+
+		//get all objects within range of soundthrow
+		Collider[] inSphere = Physics.OverlapSphere(soundLocation, soundRange);
+
+		foreach(Collider col in inSphere)
+		{
+
+			//check for enemy
+			if((col.gameObject.GetComponent<Enemy>() != null) && (col.gameObject.GetComponent<AIMain>() != null))
+			{
+
+				//save some typing
+				AIMain ai = col.gameObject.GetComponent<AIMain>();
+
+				//check for valid enemy state
+				if((ai.aggressionLevel < ai.aggressionLimit) && (ai.dazed == false))
+				{
+
+					ai.NoiseHeard(soundLocation);
+
+				}//END if((ai.aggressionLimit < 100f) && (ai.dazed == false))
+
+			}//END if(col.gameObject.GetComponent<Enemy>() != null)
+
+		}//END foreach(Collider col in inSphere)
 
 		// Untarget GameObject?
 		status = "SoundThrow Successful";
@@ -505,6 +537,22 @@ public sealed class Quinc : MonoBehaviour
 			status = "Not In Range";
 			return false;
 		}
+
+
+		if((stunTarget.GetComponent<Enemy>() != null) && (stunTarget.GetComponent<AIMain> != null))
+		{
+
+			//save some typing
+			AIMain ai = stunTarget.GetComponent<AIMain>();
+
+			if((ai.dazed == false) && (ai.suspicionLevel < aiSuspicionLimit))
+			{
+
+				ai.Dazed(stunTime);
+
+			}//END if((ai.dazed == false) && (ai.suspicionLevel < aiSuspicionLimit))
+
+		}//END if(stunTarget.GetComponent<Enemy>() != null)
 
 		stunTarget.GetComponent<Enemy>().Stun();
 
@@ -612,8 +660,13 @@ public sealed class Quinc : MonoBehaviour
 		//set flag to delay crate snapback
 		pushPullLerp = true;
 
+
 		while(Vector3.Distance(targetObject.transform.position, targetPosition) > 2.0f)
 		{
+
+//TESTING - FOR LEVEL DESIGN REMOVE FOR FINAL BUILD
+			targetObject.GetComponent<Renderer>().material.color = Color.yellow;
+//END TESTING
 
 			print("MoveSlowly Lerping " + ++testCount);
 	//		targetObject.GetComponent<Crate>().hasMoved = true;
@@ -630,6 +683,10 @@ public sealed class Quinc : MonoBehaviour
 		//reset flag to allow crate snapback
 		pushPullLerp = false;
 		print("Target Reached");
+
+//TESTING - FOR LEVEL DESIGN REMOVE FOR FINAL BUILD
+		targetObject.GetComponent<Renderer>().material.color = Color.blue;
+//END TESTING
 
 		yield return null;
 	}//END IEnumerator MoveSlowly(GameObject targetObject, Vector3 targetPosition, Vector3 direction)

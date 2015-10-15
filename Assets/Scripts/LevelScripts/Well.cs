@@ -6,6 +6,7 @@ using Debug=FFP.Debug;
 [EventVisible]
 public class Well : Item
 {
+
 	// Use this for initialization
 	void Start ()
 	{
@@ -21,7 +22,17 @@ public class Well : Item
 	
 	public void SoundThrow()
 	{
+
+//TESTING - FOR LEVEL DESIGN REMOVE FOR FINAL BUILD
+		GetComponent<Renderer>().material.color = Color.yellow;
+//TESTING
+
 		//Play sound and animation associated with soundThrow for Well
+
+//TESTING - FOR LEVEL DESIGN REMOVE FOR FINAL BUILD
+		GetComponent<Renderer>().material.color = Color.blue;
+//END TESTING
+
 		return;
 	}
 }

@@ -8,11 +8,13 @@ public class Enemy : Item
 	public const float stunPeriod = 10.0f;
 	public float curStunTimer = 0.0f;
 	public bool stunState = false;
+	Color regColor;
 
 	void Start ()
 	{
 		itemName = "Enemy";
 		stunCompatible = true;
+		regColor = GetComponent<Renderer>().material.color;
 	}
 	
 	// Update is called once per frame
@@ -37,6 +39,11 @@ public class Enemy : Item
 		Vector3 tempAngles = transform.eulerAngles;
 		tempAngles.x = 90.0f;
 		transform.eulerAngles = tempAngles;
+
+//TESTING - FOR LEVEL DESIGN REMOVE FOR FINAL BUILD
+		GetComponent<Renderer>().material.color = regColor;
+//END TESTING
+
 		return;
 	}
 }
