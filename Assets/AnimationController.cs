@@ -22,7 +22,7 @@ public class AnimationController : MonoBehaviour {
         movement = InputManager.input.MoveVerticalAxis();
         //w and s buttons
         Debug.Log(movement);
-        if ((Input.GetAxis("Vertical") > 0.5f) && (Input.GetAxis("Vertical") < -0.5f))
+        if ((Input.GetAxis("Vertical") > 0.5f) || (Input.GetAxis("Vertical") < -0.5f))
         {
             running = true;
         }
