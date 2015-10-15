@@ -435,9 +435,9 @@ public class GameHUD : MonoBehaviour {
 
 	public void ChangeInputToUI(bool change = true) {
 		if(change)
-			InputManager.instance.ChangeInputType("UIInputType");
+			InputManager.ChangeInputType(InputManager.Inputs.UI);
 		else
-			InputManager.instance.ChangeInputType("GameInputType");
+			InputManager.ChangeInputType(InputManager.Inputs.Game);
 	}
 	
 	public void showPauseMenu () {
