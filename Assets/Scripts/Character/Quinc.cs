@@ -511,10 +511,10 @@ public sealed class Quinc : MonoBehaviour
 				AIMain ai = col.gameObject.GetComponent<AIMain>();
 
 				//check for valid enemy state
-//AI			if((ai.aggressionLevel < ai.aggressionLimit) && (ai.dazed == false))
+			if((ai.aggressionLevel < ai.aggressionLimit) && (ai.dazed == false))
 				{
 
-//AI				ai.NoiseHeard(soundLocation);
+//				ai.NoiseHeard(soundLocation);
 
 				}//END if((ai.aggressionLimit < 100f) && (ai.dazed == false))
 
@@ -564,10 +564,11 @@ public sealed class Quinc : MonoBehaviour
 			//save some typing
 			AIMain ai = stunTarget.GetComponent<AIMain>();
 
-//AI		if((ai.dazed == false) && (ai.suspicionLevel < aiSuspicionLimit))
+		if((ai.dazed == false) && (ai.suspicionLevel < ai.suspicionLimit))
 			{
 
-//AI				ai.Dazed(stunTime);
+//				ai.azed(stunTime);
+				ai.dazed = true;
 
 			}//END if((ai.dazed == false) && (ai.suspicionLevel < aiSuspicionLimit))
 
