@@ -49,7 +49,7 @@ public class GameHUD : MonoBehaviour {
 
 	[ReadOnly]public int curAbility = 1;
 
-	bool skillsOpen = false;
+	public bool skillsOpen = false;
 	bool canSpin = false;
 	GameObject skillWheel;
 	GameObject closeMapButton;
@@ -80,7 +80,7 @@ public class GameHUD : MonoBehaviour {
 		worldMapCanvas = GameObject.Find("worldMapCanvas");
 		gameMap = GameObject.Find("mapBG");
 		player = GameObject.Find("_Player");
-		testObjective = GameObject.Find("testObjectiveCanvas");
+		testObjective = GameObject.Find("TestObjective");
 		pauseMenu = GameObject.Find ("pauseMenu");
 		pauseMenu.SetActive (false);
 		
@@ -435,9 +435,9 @@ public class GameHUD : MonoBehaviour {
 
 	public void ChangeInputToUI(bool change = true) {
 		if(change)
-			InputManager.instance.ChangeInputType("UIInputType");
+			InputManager.ChangeInputType(InputManager.Inputs.UI);
 		else
-			InputManager.instance.ChangeInputType("GameInputType");
+			InputManager.ChangeInputType(InputManager.Inputs.Game);
 	}
 	
 	public void showPauseMenu () {
