@@ -14,7 +14,7 @@ using Debug = FFP.Debug;
 [RequireComponent(typeof(CheckTargets))]
 public sealed class PoPCamera : Camera_2
 {
-	public static PoPCamera _instance;
+	private static PoPCamera _instance;
 
 	// Ensures PoPCamera is in the scene when attempting to access it
 	public static PoPCamera instance
@@ -74,6 +74,12 @@ public sealed class PoPCamera : Camera_2
 		Reset();
 	}
 
+	/*
+	 * This Update functions serves decide whether we should be targeting or
+	 * not and which specific target in the group (if there is a group) to be
+	 * locked on. Since these functions query input we get a better result by
+	 * having it in vanilla Update instead of Fixed Update.
+	 */
 	void Update() 
 	{
         switch (_curState)
@@ -92,18 +98,21 @@ public sealed class PoPCamera : Camera_2
                 }
                 else
                 {
-                    targetindex += InputManager.input.CameraScrollTarget();
-                    targetindex = targetindex < 0 ? targetedObjects.Count - 1 :
-                        Mathf.Abs(targetindex % targetedObjects.Count);
+					if(!GameHUD.Instance.skillsOpen && targetedObjects.Count != 0) 
+					{
+						targetindex += InputManager.input.CameraScrollTarget();
+						targetindex = targetindex < 0 ? targetedObjects.Count - 1 :
+							Mathf.Abs(targetindex % targetedObjects.Count);
+					}
                 }
                 break;
         }
 	}
 
 	/*
-	 * The bulk of PoP's 3rd person camera controllers implementation
-	 * Determines whether camera should be in an event, behind player, or in targeting mode
-	 * Tracks mouse and player position at the end of the frame for use during frame
+	 * The bulk of PoP's 3rd person camera controllers implementation.
+	 * Determines whether camera should be in an event, behind player, or in targeting mode.
+	 * Tracks mouse and player position at the end of the frame for use during frame.
 	 */
 	void FixedUpdate()
 	{
@@ -216,11 +225,11 @@ public sealed class PoPCamera : Camera_2
 		// Takes mouse input if mouse is moving and increments camera rotation dependent variables
 		// If mouse has been inactive for specified time period camera will become a followcam once player moves
 		if(_curState == CameraState.Normal) {
-			mouseX += Input.GetAxis("Mouse X") * xMouseSensitivity;
-			mouseY -= Input.GetAxis("Mouse Y") * yMouseSensitivity;
+			mouseX += InputManager.input.CameraHorizontalAxis() * xMouseSensitivity;
+			mouseY -= InputManager.input.CameraVerticalAxis() * yMouseSensitivity;
 		} else {
-			curRotateX += Input.GetAxis("Mouse X") * xMouseSensitivity;
-			mouseY -= Input.GetAxis("Mouse Y") * yMouseSensitivity;
+			curRotateX += InputManager.input.CameraHorizontalAxis() * xMouseSensitivity;
+			mouseY -= InputManager.input.CameraVerticalAxis() * yMouseSensitivity;
 			ClampAngle(curRotateX, curRotateX - 10f, curRotateX + 10f);
 			Mathf.Clamp(mouseY, mouseY + 5f, mouseY - 5f);
 		}
@@ -233,15 +242,15 @@ public sealed class PoPCamera : Camera_2
 
 		// Get MouseWheel for zoom
 		// If compensating for occlusion don't clamp distance
-		if(Input.GetAxis("Mouse ScrollWheel")< deadzone || Input.GetAxis("Mouse ScrollWheel") > deadzone)
+		if((InputManager.input.ScrollTarget() < deadzone || InputManager.input.ScrollTarget() > deadzone) && !GameHUD.Instance.skillsOpen)
 		{
-			desiredDistance = distance - Input.GetAxis("Mouse ScrollWheel") * mouseWheelSensitivity;
+			desiredDistance = distance - InputManager.input.ScrollTarget() * mouseWheelSensitivity;
 
 			if(!occluded)
 				desiredDistance = Mathf.Clamp(desiredDistance, distanceMin, distanceMax);
 
-			if(Input.GetAxis("Mouse ScrollWheel") != 0)
-				preOccludedDistance = Mathf.Clamp(distance - Input.GetAxis("Mouse ScrollWheel") * mouseWheelSensitivity, 
+			if(InputManager.input.ScrollTarget() != 0)
+				preOccludedDistance = Mathf.Clamp(distance - InputManager.input.ScrollTarget() * mouseWheelSensitivity, 
 				                                  distanceMin, distanceMax);
 		}
 	}

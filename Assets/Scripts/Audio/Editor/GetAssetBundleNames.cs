@@ -7,6 +7,6 @@ public class GetAssetBundleNames {
 	static void GetNames() {
 		var names = AssetDatabase.GetAllAssetBundleNames();
 		foreach(var name in names)
-			Debug.Log("AssetBundle: " + name);
+			Debug.Log("audio" + name);
 	}
 }
