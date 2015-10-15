@@ -598,7 +598,7 @@ public class AudioManager : MonoBehaviour {
 	//!Change volume for groups in MasterMixer, handles volume levels of 1-100 converts to dB level for mixer
 	public void changeVol(string name, float level){
 		level = level - 80f;	//done so that vol at 50% will actually be 50% of total volume
-
+        return;
 		switch(name.ToLower()){
 			case "master":
 				masterMixer.SetFloat ("MasterVol", level);
