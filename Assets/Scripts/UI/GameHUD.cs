@@ -66,6 +66,7 @@ public class GameHUD : MonoBehaviour {
 	GameObject abilityWheelAnchor;
 	GameObject skillWheelView;
 	GameObject skillWheelCursor;
+	RectTransform skillWheelBounds;
 	bool skillsOpen = false;
 	bool skillsMoving = false;
 
@@ -133,7 +134,9 @@ public class GameHUD : MonoBehaviour {
 		abilityScroller = GameObject.Find ("AbilityWheel");
 		skillWheelView = GameObject.Find ("abilityWheelView");
 		abilityWheelAnchor = GameObject.Find ("AbilityWheelAnchor");
-		skillWheelCursor = GameObject.Find ("AbilityWheelCursor");
+		skillWheelCursor = GameObject.Find("AbilityWheelCursor");
+		GameObject sWheelTmp = GameObject.Find ("abBounds");
+		skillWheelBounds = sWheelTmp.GetComponent<RectTransform>();
 		skillWheelCursor.SetActive (false);
 
 
@@ -166,13 +169,16 @@ public class GameHUD : MonoBehaviour {
 
 		//!Set the compass indicator
 		setCompassValue(calculateObjectiveAngle(testObjective));
-		
+
+		if (Input.GetKey ("tab"))
+			showSkills();
+		else
+			hideSkills();
 	}
 
 	void LateUpdate()
 	{
-		if(skillsMoving)
-			StartCoroutine(moveAbilities());
+		moveAbilities();
 	}
 
 
@@ -361,55 +367,85 @@ public class GameHUD : MonoBehaviour {
 
 	}
 
-	//everything related to showing the skill wheel
+	/***********************************************************************
+	 *------<These are the functions Involving the the ability wheel>------*
+	 **********************************************************************/
 	public void showSkills()
 	{
-		if(!skillsMoving) {
+		if (!skillsMoving && !skillsOpen) 
+		{
 			RectTransform abv = skillWheelView.GetComponent<RectTransform> ();
-			if(!skillsOpen) {
-				abv.offsetMax = new Vector2(abv.offsetMax.x, abv.offsetMax.y + 140);
-				abv.offsetMin = new Vector2(abv.offsetMin.x, abv.offsetMin.y - 140);
-				skillsMoving = true;
-				skillsOpen = true;
-				canSpin = true;
-			} else {
-				abv.offsetMax = new Vector2(abv.offsetMax.x, abv.offsetMax.y - 140);
-				abv.offsetMin = new Vector2(abv.offsetMin.x, abv.offsetMin.y + 140);
-				skillsMoving = true;
-				skillsOpen = false;
-				canSpin = false;
-			}
+			skillsOpen = true;
+			/*abv.offsetMax = new Vector2 (abv.offsetMax.x, abv.offsetMax.y + 140);
+			abv.offsetMin = new Vector2 (abv.offsetMin.x, abv.offsetMin.y - 140);*/
+			skillsMoving = true;
+			canSpin = true;
+		}
+
+	}
+
+	public void hideSkills()
+	{
+		if(!skillsMoving && skillsOpen)
+		{
+			RectTransform abv = skillWheelView.GetComponent<RectTransform> ();
+			/*abv.offsetMax = new Vector2(abv.offsetMax.x, abv.offsetMax.y - 140);
+			abv.offsetMin = new Vector2(abv.offsetMin.x, abv.offsetMin.y + 140);*/
+			skillsMoving = true;
+			canSpin = false;
+			skillsOpen = false;
 		}
 	}
 
 	//This is the function that causes the ability wheel to move into position
-	public IEnumerator moveAbilities() {
-			RectTransform abs = abilityWheelAnchor.GetComponent<RectTransform> ();
-			float movespeed = 5; //this is the speed the wheel travels to the designated locations
-			if(skillsOpen)
-			{	
-				skillWheelCursor.SetActive (true);
-				abs.Translate(Vector3.up * movespeed, abilityScroller.transform);
-				yield return new WaitForSeconds(0.49f);
-				
-			}
-			else
-			{
-				skillWheelCursor.SetActive (false);
-				abs.Translate(Vector3.down * movespeed, abilityScroller.transform);
-				yield return new WaitForSeconds(0.49f);
-				
-			}
-			skillsMoving = false;
-	}
-
-	public void Rotate_skills()
+	void moveAbilities() 
 	{
+		RectTransform abs = abilityWheelAnchor.GetComponent<RectTransform> ();
+		RectTransform abv = skillWheelView.GetComponent<RectTransform> ();
+		float movespeed = Time.deltaTime * 250; //this is the speed the wheel travels to the designated locations
+		if(skillsOpen)
+		{	
+			skillWheelCursor.SetActive (true);
+			abv.offsetMax = new Vector2(abv.offsetMax.x, Mathf.MoveTowards(abv.offsetMax.y, 200.0f, movespeed*2));
+			abv.offsetMin = new Vector2(abv.offsetMin.x, Mathf.MoveTowards(abv.offsetMin.y, -200.0f, movespeed*2));
+			abs.localPosition = new Vector2(abs.localPosition.x, Mathf.MoveTowards(abs.localPosition.y, skillWheelBounds.offsetMax.y, movespeed));
+		}
+		else
+		{
+			skillWheelCursor.SetActive (false);
+			abv.offsetMax = new Vector2(abv.offsetMax.x, Mathf.MoveTowards(abv.offsetMax.y, 23.0f, movespeed*2));
+			abv.offsetMin = new Vector2(abv.offsetMin.x, Mathf.MoveTowards(abv.offsetMin.y, -23.0f, movespeed*2));
+			abs.localPosition = new Vector2(abs.localPosition.x, Mathf.MoveTowards(abs.localPosition.y, skillWheelBounds.offsetMin.y, movespeed));
+		}
+		skillsMoving = false;
 
 	}
 
+	public void Rotate_skills_up()
+	{
+		GameObject abtemp = abilityButtons[0];
+		int ab_amount = abilityButtons.Length - 1;
+		int ab_mid_i = ab_amount / 2;
 
+		for (int i = 0; i < ab_amount; i++)
+				abilityButtons[i] = abilityButtons[i+1];
+		abilityButtons[ab_amount] = abtemp;
 
+	}
+
+	public void Rotate_skills_down()
+	{
+		GameObject abtemp = abilityButtons[0];
+		int ab_amount = abilityButtons.Length - 1;
+
+		for (int i = ab_amount; i > 0; i++)
+			abilityButtons[i] = abilityButtons[i+1];
+		abilityButtons[0] = abtemp;
+	}
+
+	/***********************************************************************
+	 *-------<These are the functions Involving the dialogue>--------------*
+	 **********************************************************************/
 
 	public void ShowDialogueBox() {
 		dialogueBox.SetActive(true);
