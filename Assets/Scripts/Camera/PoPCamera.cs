@@ -152,8 +152,13 @@ public sealed class PoPCamera : Camera_2
             /*** Normal Camera Behavior ***/
             case CameraState.Normal:
                 targetLookAt = player.position;
-
-                HandleMouseInput();
+				
+				#if UNITY_EDITOR
+				if(!Input.GetKey(KeyCode.LeftShift))
+                	HandleMouseInput();
+				#else
+				HandleMouseInput();
+				#endif
 
                 var count = 0;
 
@@ -266,25 +271,8 @@ public sealed class PoPCamera : Camera_2
 			Mathf.Clamp(mouseY, mouseY + 5f, mouseY - 5f);
 		}
 
-		if(Input.GetKey(KeyCode.LeftShift) && Input.GetKey(KeyCode.BackQuote))
-			mouseX = target.eulerAngles.y;
-		
 		//Limit Y-axis input
 		mouseY = ClampAngle(mouseY, yMinLimit, yMaxLimit);
-
-		// Get MouseWheel for zoom
-		// If compensating for occlusion don't clamp distance
-		if((InputManager.input.ScrollTarget() < deadzone || InputManager.input.ScrollTarget() > deadzone) && !GameHUD.Instance.skillsOpen)
-		{
-			desiredDistance = distance - InputManager.input.ScrollTarget() * mouseWheelSensitivity;
-
-			if(!occluded)
-				desiredDistance = Mathf.Clamp(desiredDistance, distanceMin, distanceMax);
-
-			if(InputManager.input.ScrollTarget() != 0)
-				preOccludedDistance = Mathf.Clamp(distance - InputManager.input.ScrollTarget() * mouseWheelSensitivity, 
-				                                  distanceMin, distanceMax);
-		}
 	}
 
 	#region Targeting

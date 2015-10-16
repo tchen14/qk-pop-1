@@ -36,7 +36,6 @@ public class GameInputType : InputType {
 			Debug.Log ("input", e.Message);
 			return null;
 		}
-
 	}
 
 	string GetKey(Dictionary<string, string> type, string input)
