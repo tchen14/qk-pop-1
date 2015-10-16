@@ -39,13 +39,24 @@ public sealed class PoPCamera : Camera_2
 	
 	private float curRotateX = 0f;
 
+	///\ingroup Layers
+	///@{ Set our layers for different objs in the scene
+	private int noOcclusionLayer = 8;
+	private int playerLayer = 9;
+	private int noTartedOccludionLayer = 10;
+	private int IgnoreRaycastLayer = 2;
+	/// Initialize our actual 32bit layermasks
+	public int PlayerLM = 1;
+	public int NoOcclusionLM = 1;
+	///@}
+
 	private bool occluded = false;						//!< Used to check if camera is compensating for occlusion
 	[ReadOnly] public float targetingRange = 40f;		//!< Range allowed to target objects
 	[ReadOnly] public float screenTargetArea = 20f;		//!< Area of screen object can be targeted
 	[HideInInspector] public int targetindex = 0;	    //!< Index in list of target objects to look at
     private float targetResetTimer = 0f;				//!< Timeframe camera resets after losing track of target
-	public List<GameObject> targetedObjects;			//!< List of objects player is targeting
-	public List<GameObject> allTargetables;				//!< Master List of all available targets in scene
+	private List<GameObject> targetedObjects = new List<GameObject>();	//!< List of objects player is targeting
+	private List<GameObject> allTargetables = new List<GameObject>();	//!< Master List of all available targets in scene
 
 	void Awake()
 	{
@@ -72,11 +83,19 @@ public sealed class PoPCamera : Camera_2
 		Go.defaultUpdateType = GoUpdateType.FixedUpdate;
 		distance = Mathf.Clamp(distance, distanceMin, distanceMax);
 		cameraLatency = Mathf.Clamp (cameraLatency, 0.05f, 1f);
+		// Bit Shift our layermasks
+		PlayerLM = 1 << playerLayer | 1 << IgnoreRaycastLayer;
+		NoOcclusionLM = 1 << noOcclusionLayer | 
+			1 << noTartedOccludionLayer |
+			1 << IgnoreRaycastLayer;
+		// Inverse both masks
+		PlayerLM = ~PlayerLM;
+		NoOcclusionLM = ~NoOcclusionLM;
 		Reset();
 	}
 
 	/*
-	 * This Update functions serves decide whether we should be targeting or
+	 * This Update functions serves to decide whether we should be targeting or
 	 * not and which specific target in the group (if there is a group) to be
 	 * locked on. Since these functions query input we get a better result by
 	 * having it in vanilla Update instead of Fixed Update.
@@ -118,7 +137,7 @@ public sealed class PoPCamera : Camera_2
 	void FixedUpdate()
 	{
         #if UNITY_EDITOR
-        /** Swap material color of targeted objects to debug targetting **/
+        /** Swap material color of targeted objects to debug targeting **/
         if (Debug.IsKeyActive("camera"))
         {
             foreach (GameObject go in allTargetables)
@@ -152,7 +171,12 @@ public sealed class PoPCamera : Camera_2
             case CameraState.TargetLock:
                 if (targetedObjects.Count == 0f)
                 {
+					// Attempt to get targets, if no targets found break out
                     targetedObjects = AcquireTarget();
+					if(targetedObjects.Count == 0) {
+						_curState = CameraState.TargetReset;
+						break;
+					}
                 }
 
                 RaycastHit hit;
@@ -189,8 +213,15 @@ public sealed class PoPCamera : Camera_2
             /*** Reset Targeting ***/
             case CameraState.TargetReset:
                 TargetReset();
-                break;
-            /***********************/
+				CalculateDesiredPosition();
+				UpdatePosition();
+				Quaternion rotation = Quaternion.LookRotation(targetLookAt - transform.position);
+				if (transform.rotation == rotation)
+				{
+					_curState = CameraState.Normal;
+				}
+				break;
+			/***********************/
 
             /*** Camera Event ***/
             case CameraState.CamEvent:
@@ -256,7 +287,7 @@ public sealed class PoPCamera : Camera_2
 		}
 	}
 
-	#region Targetting
+	#region Targeting
     // Offsets camera position slightly to the right of the player during targeting, focuses target
 	void TargetLockCamera(int i)
 	{
@@ -321,14 +352,24 @@ public sealed class PoPCamera : Camera_2
         return targets;
 	}
 
-	// Returns current gameobject or null if none is targetted
+	// Returns current gameobject or null if none is targeted
 	public GameObject CurrentTarget() {
 		if(targetedObjects != null && targetedObjects.Count > 0)
 			return targetedObjects[targetindex];
 		else {
-			Debug.Warning("camera", "No current object targetted");
+			Debug.Warning("camera", "No current object targeted");
 			return null;
 		}
+	}
+
+	public List<GameObject> GetAllTargets()
+	{
+		return allTargetables;
+	}
+
+	public void AddTargetable(GameObject obj)
+	{
+		allTargetables.Add (obj);
 	}
 	#endregion
 
@@ -374,18 +415,18 @@ public sealed class PoPCamera : Camera_2
 
 		ClipPlanePoints PlanePoints = NearClipPlane (to);
 
-		if (Physics.Linecast (from, PlanePoints.UpperLeft, out HitInfo) && HitInfo.collider.gameObject.name != "_Player")
+		if (Physics.Linecast (from, PlanePoints.UpperLeft, out HitInfo, NoOcclusionLM) && HitInfo.collider.gameObject.name != "_Player")
 			NearDistance = HitInfo.distance;
-		if (Physics.Linecast (from, PlanePoints.LowerLeft, out HitInfo) && HitInfo.collider.gameObject.name != "_Player")
+		if (Physics.Linecast (from, PlanePoints.LowerLeft, out HitInfo, NoOcclusionLM) && HitInfo.collider.gameObject.name != "_Player")
 			if(HitInfo.distance < NearDistance || NearDistance == -1)
 				NearDistance = HitInfo.distance;
-		if (Physics.Linecast (from, PlanePoints.UpperRight, out HitInfo) && HitInfo.collider.gameObject.name != "_Player")
+		if (Physics.Linecast (from, PlanePoints.UpperRight, out HitInfo, NoOcclusionLM) && HitInfo.collider.gameObject.name != "_Player")
 			if(HitInfo.distance < NearDistance || NearDistance == -1)
 				NearDistance = HitInfo.distance;
-		if (Physics.Linecast (from, PlanePoints.LowerRight, out HitInfo) && HitInfo.collider.gameObject.name != "_Player")
+		if (Physics.Linecast (from, PlanePoints.LowerRight, out HitInfo, NoOcclusionLM) && HitInfo.collider.gameObject.name != "_Player")
 			if(HitInfo.distance < NearDistance || NearDistance == -1)
 				NearDistance = HitInfo.distance;
-		if (Physics.Linecast (from, to + transform.forward * -GetComponent<Camera>().nearClipPlane, out HitInfo) && HitInfo.collider.gameObject.name != "_Player")
+		if (Physics.Linecast (from, to + transform.forward * -GetComponent<Camera>().nearClipPlane, out HitInfo, NoOcclusionLM) && HitInfo.collider.gameObject.name != "_Player")
 			if(HitInfo.distance < NearDistance || NearDistance == -1)
 				NearDistance = HitInfo.distance;
 
@@ -482,13 +523,6 @@ public sealed class PoPCamera : Camera_2
         targetedObjects.TrimExcess();
         targetindex = 0;
         targetLookAt = player.position;
-        CalculateDesiredPosition();
-        UpdatePosition();
-        Quaternion rotation = Quaternion.LookRotation(targetLookAt - transform.position);
-        if (transform.rotation == rotation)
-        {
-            _curState = CameraState.Normal;
-        }
     }
 
 	// Clamps a given angle to 360, then clamps that to min/max 

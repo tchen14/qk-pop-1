@@ -1,12 +1,14 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 using Debug = FFP.Debug;
 
 public class CheckTargets : MonoBehaviour {
 
 	void Update()
 	{
-		foreach(GameObject go in PoPCamera.instance.allTargetables) {
+		List<GameObject> targets = PoPCamera.instance.GetAllTargets ();
+		foreach(GameObject go in targets) {
 			Targetable target = go.GetComponent<Targetable>();
 
 			if(target.time <= 0f) {
@@ -27,7 +29,9 @@ public class CheckTargets : MonoBehaviour {
 			if(go.GetComponent<Renderer>().IsVisibleFrom(Camera.main))
 			{
 				RaycastHit hit;
-				Physics.Raycast(PoPCamera.instance.transform.position, (go.transform.position - PoPCamera.instance.transform.position), out hit);
+				Physics.Raycast(PoPCamera.instance.transform.position, 
+				                (go.transform.position - PoPCamera.instance.transform.position), 
+				                out hit, Mathf.Infinity, PoPCamera.instance.PlayerLM);
 				
 				if(hit.collider.name == go.GetComponent<Collider>().name)
 				{
