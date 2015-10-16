@@ -48,7 +48,6 @@ public sealed class PoPCamera : Camera_2
 	/// Initialize our actual 32bit layermasks
 	public int PlayerLM = 1;
 	public int NoOcclusionLM = 1;
-	public int NoTargetOcclusionLM = 1;
 	///@}
 
 	private bool occluded = false;						//!< Used to check if camera is compensating for occlusion
@@ -56,8 +55,8 @@ public sealed class PoPCamera : Camera_2
 	[ReadOnly] public float screenTargetArea = 20f;		//!< Area of screen object can be targeted
 	[HideInInspector] public int targetindex = 0;	    //!< Index in list of target objects to look at
     private float targetResetTimer = 0f;				//!< Timeframe camera resets after losing track of target
-	public List<GameObject> targetedObjects;			//!< List of objects player is targeting
-	public List<GameObject> allTargetables;				//!< Master List of all available targets in scene
+	private List<GameObject> targetedObjects = new List<GameObject>();	//!< List of objects player is targeting
+	private List<GameObject> allTargetables = new List<GameObject>();	//!< Master List of all available targets in scene
 
 	void Awake()
 	{
@@ -172,7 +171,12 @@ public sealed class PoPCamera : Camera_2
             case CameraState.TargetLock:
                 if (targetedObjects.Count == 0f)
                 {
+					// Attempt to get targets, if no targets found break out
                     targetedObjects = AcquireTarget();
+					if(targetedObjects.Count == 0) {
+						_curState = CameraState.TargetReset;
+						break;
+					}
                 }
 
                 RaycastHit hit;
@@ -209,8 +213,15 @@ public sealed class PoPCamera : Camera_2
             /*** Reset Targeting ***/
             case CameraState.TargetReset:
                 TargetReset();
-                break;
-            /***********************/
+				CalculateDesiredPosition();
+				UpdatePosition();
+				Quaternion rotation = Quaternion.LookRotation(targetLookAt - transform.position);
+				if (transform.rotation == rotation)
+				{
+					_curState = CameraState.Normal;
+				}
+				break;
+			/***********************/
 
             /*** Camera Event ***/
             case CameraState.CamEvent:
@@ -349,6 +360,16 @@ public sealed class PoPCamera : Camera_2
 			Debug.Warning("camera", "No current object targeted");
 			return null;
 		}
+	}
+
+	public List<GameObject> GetAllTargets()
+	{
+		return allTargetables;
+	}
+
+	public void AddTargetable(GameObject obj)
+	{
+		allTargetables.Add (obj);
 	}
 	#endregion
 
@@ -502,13 +523,6 @@ public sealed class PoPCamera : Camera_2
         targetedObjects.TrimExcess();
         targetindex = 0;
         targetLookAt = player.position;
-        CalculateDesiredPosition();
-        UpdatePosition();
-        Quaternion rotation = Quaternion.LookRotation(targetLookAt - transform.position);
-        if (transform.rotation == rotation)
-        {
-            _curState = CameraState.Normal;
-        }
     }
 
 	// Clamps a given angle to 360, then clamps that to min/max 

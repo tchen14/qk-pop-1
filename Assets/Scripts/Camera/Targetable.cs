@@ -17,7 +17,7 @@ public class Targetable : MonoBehaviour {
 
 	void Start()
 	{
-		PoPCamera.instance.allTargetables.Add (gameObject);
+		PoPCamera.instance.AddTargetable (this.gameObject);
 
 		if(gameObject.GetComponent<Crate>()) {
 			range = 50f;

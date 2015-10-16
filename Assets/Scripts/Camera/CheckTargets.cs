@@ -1,12 +1,14 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 using Debug = FFP.Debug;
 
 public class CheckTargets : MonoBehaviour {
 
 	void Update()
 	{
-		foreach(GameObject go in PoPCamera.instance.allTargetables) {
+		List<GameObject> targets = PoPCamera.instance.GetAllTargets ();
+		foreach(GameObject go in targets) {
 			Targetable target = go.GetComponent<Targetable>();
 
 			if(target.time <= 0f) {
