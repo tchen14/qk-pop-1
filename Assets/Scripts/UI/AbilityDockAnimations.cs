@@ -26,6 +26,9 @@ public class AbilityDockAnimations : MonoBehaviour {
 		for(int i = 0; i < numAbilities; i++){
 			position[i] = i;
 		}
+        newPosUp();
+        rotate();
+
 		selectedAbility = position [2];
 	}
 	
