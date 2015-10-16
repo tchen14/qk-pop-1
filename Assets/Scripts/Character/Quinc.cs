@@ -698,7 +698,7 @@ public sealed class Quinc : MonoBehaviour
 			targetObject.GetComponent<Renderer>().material.color = Color.yellow;
 //END TESTING
 
-			print("MoveSlowly Lerping " + ++testCount);
+			//print("MoveSlowly Lerping " + ++testCount);
 
 			targetObject.transform.position = Vector3.Lerp(targetObject.transform.position, targetPosition, smoothing * Time.deltaTime);
 			targetObject.GetComponent<Crate>().hasMoved = true;
