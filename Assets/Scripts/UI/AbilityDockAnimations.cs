@@ -42,14 +42,15 @@ public class AbilityDockAnimations : MonoBehaviour {
 			selectedAbility = position [2];
 		}
 		if (Input.GetKey(KeyCode.Tab)) {
-			if (Input.GetKeyDown (KeyCode.DownArrow)) {
+            if (Input.GetKeyDown(KeyCode.UpArrow))
+            {
 				newPosUp ();
 				//rotateDown ();
 				//StartCoroutine(rotateCoroUp());
 				rotate();
 				//rotating = true;
 			}
-			if (Input.GetKeyDown (KeyCode.UpArrow)) {
+			if (Input.GetKeyDown (KeyCode.DownArrow)) {
 				newPosDown ();
 				//rotateUp ();
 				//StartCoroutine(rotateCoroDown());

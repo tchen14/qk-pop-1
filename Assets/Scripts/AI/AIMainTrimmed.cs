@@ -33,54 +33,52 @@ public class AIMainTrimmed : MonoBehaviour {
 
     //Variables Controllers
 
-    [ReadOnly]public bool 		seesTarget 			= false;					//!<If the Player has been spotted
-	[ReadOnly]public GameObject target				= null;						//!<The transform of the player
-    [ReadOnly]public GameObject temptarget          = null;                     //!Temp target for the shadowPlayer
-    [ReadOnly]public bool 		attacking 			= false;					//!<If the AI is attacking
-	[ReadOnly]public bool 		panic 				= false;					//!<If the AI is panicking
-    [ReadOnly]public int        CheckpointCount     = 0;                        //! Int for tracking the checkpoint the AI is on
-    public Vector3 	            panicTarget			= new Vector3 (0, 0, 0);	//!<Target of AI panic
-    public float 		        aggressionLevel 	= 0;						//!<The current awareness of the NPC to the Player
-    public float                suspicionLevel      = 0;						//!<The current suspicion of the NPC to the Player	
-    public bool                 suspicious          = false;					//!<If the AI is suspicous
-    public bool                 alert               = false;					//!<If the AI is alert
-    public bool                 unconsious          = false;                    //!<If the AI is unconsious
-    public bool                 dazed               = false;                    //!<If the AI is dazed
+    [ReadOnly]public bool seesTarget = false;                   //!<If the Player has been spotted
+    [ReadOnly]public GameObject target = null;						//!<The transform of the player
+    [ReadOnly]public GameObject temptarget = null;                     //!Temp target for the shadowPlayer
+    [ReadOnly]public bool attacking = false;                    //!<If the AI is attacking
+    [ReadOnly]public bool panic = false;					//!<If the AI is panicking
+    [ReadOnly]public int CheckpointCount = 0;                        //! Int for tracking the checkpoint the AI is on
+    public Vector3 panicTarget = new Vector3(0, 0, 0);	//!<Target of AI panic
+    public float aggressionLevel = 0;						//!<The current awareness of the NPC to the Player
+    public float suspicionLevel = 0;						//!<The current suspicion of the NPC to the Player	
+    public bool suspicious = false;					//!<If the AI is suspicous
+    public bool alert = false;					//!<If the AI is alert
+    public bool unconsious = false;                    //!<If the AI is unconsious
+    public bool dazed = false;                    //!<If the AI is dazed
+    public bool noiseHeard = false;                   //! bool to set the enemy as distracted for sound throw.
 
 
 
 
-	//Movement variables
+    //Movement variables
 
-	private NavMeshAgent 		mesh 				= null;						//!<Contains the component to use the navmesh
-    public GameObject[]         checkpointsArray;                               //!Array to hold all the checkpoints for the AI to move to
-	[ReadOnly]public string		navCheck			= null;						//!<The name of the current checkpoint
-	[ReadOnly]public Vector3 	navPoint			= new Vector3 (0, 0, 0);	//!<Contains the point to move in the navmesh
+    private NavMeshAgent mesh = null;						//!<Contains the component to use the navmesh
+    public GameObject[] checkpointsArray;                               //!Array to hold all the checkpoints for the AI to move to
+    [ReadOnly]public string navCheck = null;                        //!<The name of the current checkpoint
+    [ReadOnly]public Vector3 navPoint = new Vector3(0, 0, 0);	//!<Contains the point to move in the navmesh
+    public List<Vector3> AiCheckpoints;
 
+    //Sight variables
 
-	//Sight variables
+    private RaycastHit hit;                                         //!<Takes information from RayCast
+    private GameObject[] viableTargets;                                 //!<All the available targets for the AI
 
-	private RaycastHit 			hit;											//!<Takes information from RayCast
-	private GameObject[] 		viableTargets;									//!<All the available targets for the AI
-
-	void Start() 
-	{
+    void Start()
+    {
         gameObject.GetComponent<Renderer>().material.color = Color.magenta;
         if (aggressionLevel >= aggressionLimit)
-            GetComponent<Rigidbody> ().isKinematic = true;
+            GetComponent<Rigidbody>().isKinematic = true;
         mesh = GetComponent<NavMeshAgent>();
         #region StartMoving
-        if (startPoint != null)
-			ChangeNavPoint(startPoint.name,startPoint.transform.position);	
-		else
-			ChangeNavPoint(this.name,this.transform.position);
-		SetSpeed(speed);
+        ChangeNavPoint(this.name, this.transform.position);
+        SetSpeed(speed);
         #endregion
     }
 
 
-    
-	void FixedUpdate ()
+
+    void FixedUpdate()
     {
         #region state 
         if (hp > 0)
@@ -95,7 +93,7 @@ public class AIMainTrimmed : MonoBehaviour {
                     {
                         if (target.name == "shadowPlayer(Clone)")
                         {
-                            Destroy(target);
+                            InvestigatePlayerPos(10f);
                         }
                         target = null;
                     }
@@ -118,9 +116,9 @@ public class AIMainTrimmed : MonoBehaviour {
         {
             Pause();
         }
-        
+
         if (panic == true)
-        {      
+        {
             if (aggressive == true)
             {
                 panic = false;
@@ -175,8 +173,8 @@ public class AIMainTrimmed : MonoBehaviour {
                 StartCoroutine("Decrementaggression");
             }
         }
-        
-        
+
+
         if (suspicious == true && attacking == true)
         {
             gameObject.GetComponent<Renderer>().material.color = Color.red;
@@ -195,17 +193,17 @@ public class AIMainTrimmed : MonoBehaviour {
         #endregion
 
         #region path
-        if ((Vector3.Distance(transform.position, navPoint) < 10) && (target == null))
+        if ((Vector3.Distance(transform.position, navPoint) < 3) && (target == null))
         {
-           nextCheckpoint();
+            nextCheckpoint();
         }
         #endregion
     }
 
-    public IEnumerator EndAttack() 
-	{
-        yield return new WaitForSeconds (1);
-		attacking = false;
+    public IEnumerator EndAttack()
+    {
+        yield return new WaitForSeconds(1);
+        attacking = false;
     }
 
     public IEnumerator Decrementaggression()
@@ -216,11 +214,11 @@ public class AIMainTrimmed : MonoBehaviour {
             aggressionLevel -= 1;
         }
         if (aggressionLevel == 0)
-            {
-                searching = false;
-                attacking = false;
-                ChangeNavPoint(startPoint.name, startPoint.transform.position);
-            }
+        {
+            searching = false;
+            attacking = false;
+            ChangeNavPoint(checkpointsArray[CheckpointCount].name, checkpointsArray[CheckpointCount].transform.position);
+        }
     }
 
     public IEnumerator Decrementsuspicion()
@@ -238,52 +236,37 @@ public class AIMainTrimmed : MonoBehaviour {
     }
 
     #region dazed
+    public IEnumerator Dazed(float dazeTime)
+    {
+        dazed = true;
+        Pause();
+        yield return new WaitForSeconds(dazeTime);
+        dazed = false;
+        Resume();
 
-    //turn off line of sight (assuming visible LoS is a feature)
-    //after x number of seconds
-    //stop being dazed (animation)
-    //start search sequence
-    //turn left and right to look around
-    //after set amount of time set its target to its last target
-    //set dazed to false
+    }
 
 
     #endregion
 
     #region distracted
 
-    //if noiseHeard = true (triggered either here through send message or in the throw script)
-    //if enemymy does not see player
-    //store last target
-    //set location of noise from noise throw
-    // if current location = target location
-    //start search sequence
-
-    /*if (noiseHeard == true)
+    public void NoiseHeard(GameObject soundPos)
     {
-        if (seesTarget = false)
+        if (seesTarget == false)
         {
-            navPoint = (location fed from noise throw);
-            mesh.SetDestination(navPoint);
-            if (transform.position == navPoint)
+            ChangeNavPoint(soundPos.name, soundPos.transform.position);
+            if ((Vector3.Distance(transform.position, navPoint) < 10) && (target == null))
             {
-                Investigate();
+                InvestigateSound(5f);
             }
         }
-        else
-        {
-
-        }
     }
-    else
-    {
-    }
-    */
 
     #endregion
 
     #region Move functions
-    public void ChangeNavPoint(string N,Vector3 T)
+    public void ChangeNavPoint(string N, Vector3 T)
     {
         navCheck = N;
         navPoint = T;
@@ -310,15 +293,15 @@ public class AIMainTrimmed : MonoBehaviour {
     }
     public void GetTargets()
     {
-        List<GameObject> viableTargets = new List<GameObject> ();
-        for(int enemyType = 0; enemyType < seekTag.Length; enemyType++)
+        List<GameObject> viableTargets = new List<GameObject>();
+        for (int enemyType = 0; enemyType < seekTag.Length; enemyType++)
         {
             GameObject[] targets = GameObject.FindGameObjectsWithTag(seekTag[enemyType]);
-            for(int searchEnemyType = 0;searchEnemyType < targets.Length; searchEnemyType++)
-            viableTargets.Add(targets[searchEnemyType]);
+            for (int searchEnemyType = 0; searchEnemyType < targets.Length; searchEnemyType++)
+                viableTargets.Add(targets[searchEnemyType]);
         }
 
-        if(viableTargets.Count != 0)
+        if (viableTargets.Count != 0)
         {
             //check for and if need be.
             for (int searchTargets = 0; searchTargets < viableTargets.Count; searchTargets++)
@@ -337,7 +320,7 @@ public class AIMainTrimmed : MonoBehaviour {
                                     CheckForTargets();
 
 
- 
+
                                 }
                                 target = hit.collider.gameObject;
                                 searching = false;
@@ -371,13 +354,13 @@ public class AIMainTrimmed : MonoBehaviour {
     #endregion
 
     #region health
-    public int hurt (int damage) 
+    public int hurt(int damage)
     {
         int HP = hp;
         HP -= damage;
         return HP;
     }
-    public int heal (int health) 
+    public int heal(int health)
     {
         int HP = hp;
         HP += health;
@@ -400,41 +383,71 @@ public class AIMainTrimmed : MonoBehaviour {
     }
     #endregion
 
-    public void Investigate()
+    public IEnumerator InvestigateSound(float lookTime)
     {
-        
-        //play animation
-        //after animation ChangeNavPoint(startPoint.name, startPoint.transform.position);
-        //set noiseHeard to false
-        //Searching = false;
+        yield return new WaitForSeconds(lookTime);
+        ChangeNavPoint(checkpointsArray[CheckpointCount].name, checkpointsArray[CheckpointCount].transform.position);
+
+    }
+
+    public IEnumerator InvestigatePlayerPos(float lookTime)
+    {
+        yield return new WaitForSeconds(lookTime);
+        ChangeNavPoint(checkpointsArray[CheckpointCount].name, checkpointsArray[CheckpointCount].transform.position);
+
     }
 
     public void nextCheckpoint()
+
     {
-        /*
-        first checkpoint in array is now the navpoint
-        count++
-        if count = checkpoint arrray length then set navpoit to end
-        */
-        if (CheckpointCount <= checkpointsArray.Length)
+        print(CheckpointCount);
+
+
+        if (CheckpointCount < checkpointsArray.Length)
         {
             ChangeNavPoint(checkpointsArray[CheckpointCount].name, checkpointsArray[CheckpointCount].transform.position);
             CheckpointCount++;
+
         }
-        else 
+        else
         {
             if (endPoint == null)
             {
                 CheckpointCount = 0;
                 ChangeNavPoint(checkpointsArray[CheckpointCount].name, checkpointsArray[CheckpointCount].transform.position);
                 CheckpointCount++;
+                Debug.Log("AI", "restarting");
             }
             else
             {
                 ChangeNavPoint(endPoint.name, endPoint.transform.position);
+                Debug.Log("AI", "going to end point");
             }
         }
-       
+
 
     }
+
+    /*
+    {
+        if (CheckpointCount < checkpointsArray.Length)
+        {
+            string CheckpointCountString = CheckpointCount.ToString();
+            ChangeNavPoint(CheckpointCountString, AiCheckpoints[CheckpointCount]);
+            CheckpointCount++;
+        }
+        else
+        {
+            
+            check if its looping or back and forth
+            if looping
+                CheckpointCOunt = 0;
+                ChangeNavPoint(CheckpointCountString, AiCheckpoints[CheckpointCount]);
+                CheckpointCount++;
+            if back and forth
+                checkpointcount--
+            
+        }
+    }
+*/
 }
