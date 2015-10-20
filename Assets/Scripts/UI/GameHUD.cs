@@ -28,8 +28,6 @@ public class GameHUD : MonoBehaviour {
 	GameObject gameMap;						//!<The map iamge on a plane
 	GameObject player;						//!<reference to player
 	GameObject pauseMenu;
-
-	public PauseMenu accessManager;
 	
 	public int numOfAbilities;						//!<temporary int for number of abilities in game
 	public GameObject[] hudAbilityIcons;			//!<Array of hud icons, set in inspector
@@ -82,7 +80,7 @@ public class GameHUD : MonoBehaviour {
 		worldMapCanvas = GameObject.Find("worldMapCanvas");
 		gameMap = GameObject.Find("mapBG");
 		player = GameObject.Find("_Player");
-		testObjective = GameObject.Find("testObjectiveCanvas");
+		testObjective = GameObject.Find("TestObjective");
 		pauseMenu = GameObject.Find ("pauseMenu");
 		pauseMenu.SetActive (false);
 		
@@ -139,7 +137,7 @@ public class GameHUD : MonoBehaviour {
 		skillWheel.GetComponent<Animator>().speed = 0;
 	}
 
-	void FixedUpdate() {
+	void Update() {
 		//!This is for testing, call update map from player movements
 		rotateMapObjects();
 
@@ -153,7 +151,6 @@ public class GameHUD : MonoBehaviour {
 			else
 				StartCoroutine(rotateSkillUp());
 		}
-		
 
 	}
 
@@ -436,41 +433,19 @@ public class GameHUD : MonoBehaviour {
 
 	}
 
-	public void ChangeInputToUI(bool change = true) {/*
+	public void ChangeInputToUI(bool change = true) {
 		if(change)
-		InputManager.instance.ChangeInputType("UIInputType");
+			InputManager.ChangeInputType(InputManager.Inputs.UI);
 		else
-			InputManager.instance.ChangeInputType("GameInputType");*/
+			InputManager.ChangeInputType(InputManager.Inputs.Game);
 	}
-
-    public void PauseNoMenu() {
-        accessManager.setPause();
-        
-    }
-
-    public void timeNormal() {
-        accessManager.setTimeNormal();
-    }
-
-    public void timeManipulate(float speed) {
-        //speed = 2.0f;
-        if(speed > 0 && speed < 1.75) {
-            accessManager.manipulateTime(speed);
-        } 
-        else {
-            System.Console.WriteLine("Error value of Speed GameHUD :: timeManipulate(float speed)");
-        }
-        
-     }
-
+	
 	public void showPauseMenu () {
 		pauseMenu.SetActive (true);
-		
 	}
 
 	public void hidePauseMenu () {
 		pauseMenu.SetActive (false);
-		accessManager.unPauseGameBtt();
 	}
 
 	public void loadScene(string s) {
