@@ -650,13 +650,7 @@ public class JSONClass : JSONNode, IEnumerable {
 		string key = m_Dict.ElementAt (aIndex).Key;
 		return key;
 	}
-	public ArrayList GetKeys() // The method is named "GetKeys()"
-	{
-		ArrayList arrayOfStrings = new ArrayList(); // declares new array
-		foreach (KeyValuePair<string, JSONNode> N in m_Dict) // for each key/values
-			arrayOfStrings.Add(N.Key); // I add only the keys
-		return arrayOfStrings; // And then I get them all :D
-	}
+
     public override JSONNode this [int aIndex] {
         get {
             if (aIndex < 0 || aIndex >= m_Dict.Count)
