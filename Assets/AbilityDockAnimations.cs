@@ -1,29 +1,27 @@
 ﻿using UnityEngine;
 using System.Collections;
-//using System.Collections.Generic;
 using UnityEngine.UI;
 
 public class AbilityDockAnimations : MonoBehaviour {
 
 	public int[] position;
 	public Image[] abilities;
-	public float lerpTime;
+	public float timeTakenDuringLerp = 0.3f;
 
-	public float[] targetPosY;
-	public float[] startPosY;
-
-	public float waitTimeCoro;
-
+	float xPosition;
+	float timeStartedLerping;
 	Image[] abilityDocImages;
 	int numAbilities;
 	int selectedAbility;
 	bool rotating;
+	bool canGetInput;
 	Vector3[] startPos = new Vector3[5];
 	Vector3[] targetPos = new Vector3[5];
 
 
 	void Start () {
 		numAbilities = position.Length;
+		canGetInput = true;
 		abilityDocImages = this.gameObject.GetComponentsInChildren<Image>();
 		foreach(Image icon in abilityDocImages){
 			icon.enabled = false;
@@ -32,6 +30,7 @@ public class AbilityDockAnimations : MonoBehaviour {
 			position[i] = i;
 		}
 		selectedAbility = position [2];
+		xPosition = abilities [0].transform.position.x;
 	}
 	
 	void Update () {
@@ -46,108 +45,80 @@ public class AbilityDockAnimations : MonoBehaviour {
 			}
 			selectedAbility = position [2];
 		}
-		if (Input.GetKey(KeyCode.Tab)) {
+		if (Input.GetKey(KeyCode.Tab) && canGetInput) {
 			if (Input.GetKeyDown (KeyCode.DownArrow)) {
-				newPosUp ();
-				//rotateDown ();
-				StartCoroutine(rotateCoro());
-				//rotate();
-				rotating = true;
+				newPos (true);
+				startLerping();
 			}
 			if (Input.GetKeyDown (KeyCode.UpArrow)) {
-				newPosDown ();
-				//rotateUp ();
-				StartCoroutine(rotateCoro());
-				//rotate();
-				rotating = true;
+				newPos (false);
+				startLerping();
 			}
-		}
-		/*if (rotating) {
-			for (int i = 0; i < numAbilities; i++) {
-				abilities [i].transform.position = Vector3.Lerp (new Vector3 (abilities [i].transform.position.x, startPosY [i], 0), new Vector3 (abilities [i].transform.position.x, targetPosY [i], 0), lerpTime * Time.deltaTime);
-			}
-		}*/
-	}
-	
-	void newPosDown(){
-		for(int i = 0; i < position.Length; i++){
-			startPosY[i] = getPos(i);
-			position[i] = modulo(position[i] - 1, 5);
-			targetPosY[i] = getPos(i);
-			startPos[i] = new Vector3(abilities [i].transform.position.x, startPosY[position[i]], 0);
-			targetPos[i] = new Vector3(abilities [i].transform.position.x, targetPosY[position[i]], 0);
-		}
-	}
-	
-	void newPosUp(){
-		for(int i = 0; i < position.Length; i++){
-			startPosY[i] = getPos(i);
-			position[i] = modulo(position[i] + 1, 5);
-			targetPosY[i] = getPos(i);
-			startPos[i] = new Vector3(abilities [i].transform.position.x, startPosY[position[i]], 0);
-			targetPos[i] = new Vector3(abilities [i].transform.position.x, targetPosY[position[i]], 0);
 		}
 	}
 
-	IEnumerator rotateCoro(){
-		Debug.Log("Coro Started");
-		while(rotating){
-			Debug.Log("While Loop");
-			for (int i = 0; i < numAbilities; i++) {
+	void FixedUpdate(){
+		if (rotating) {
 
-				//abilities [i].transform.position = Vector3.Lerp (new Vector3 (abilities [i].transform.position.x, startPosY [i], 0), new Vector3 (abilities [i].transform.position.x, targetPosY [i], 0), lerpTime * Time.deltaTime);
-				print ("Ability :" + abilities[i].name + " From Y: " + startPos[i].y.ToString() + " To Y: " + targetPos[i].y.ToString());
-				abilities [i].transform.position = Vector3.Lerp(startPos[i], targetPos[i], lerpTime*Time.deltaTime);
-				//abilities[i].transform.Translate(0, 80, 0);
-				//yield return null;
-				//yield return new WaitForSeconds(waitTimeCoro);
-		
+			float timeSinceStarted = Time.time - timeStartedLerping;
+			float percentageComplete = timeSinceStarted / timeTakenDuringLerp;
+
+			for (int i = 0; i < numAbilities; i++) {
+				abilities [i].transform.position = Vector3.Lerp(abilities[i].transform.position, targetPos[i], percentageComplete);
 			}
-			Debug.Log("Out of for loop");
-			if(abilities[abilities.Length - 1].transform.position == targetPos[abilities.Length - 1]){
-				Debug.Log("ITS the TARGET pos");
+
+			if(percentageComplete >= .35f){
+				canGetInput = true;
+			}
+
+			if(percentageComplete >= 1f){
 				rotating = false;
 			}
-			yield return null;
-			//yield return new WaitForSeconds(waitTimeCoro);
-			Debug.Log("Returned to IENUMERATOR");
 		}
-
-		//yield return null;
-		//yield return new WaitForSeconds(waitTimeCoro);
 	}
 
-	void rotateUp(){
-		for (int i = 0; i < numAbilities; i++) {
-			if(position[i] == 4){
-				abilities[i].rectTransform.Translate(0,320,0);
+	void startLerping(){
+		rotating = true;
+		canGetInput = false;
+		timeStartedLerping = Time.time;
+	}
+
+	void newPos(bool isUp){
+
+		if (!isUp) {
+			for (int i = 0; i < position.Length; i++) {
+				abilities [i].transform.SetSiblingIndex (position [i] + 2);
+			}
+		}
+		for (int i = 0; i < position.Length; i++) {
+			startPos[i] = new Vector3(xPosition, getPos (position[i]),0);
+			if(isUp){
+				position[i] = modulo(position[i] + 1, 5);
 			}
 			else{
-				abilities[i].rectTransform.Translate(0,-80,0);
+				position[i] = modulo(position[i] - 1, 5);
+			}
+			targetPos[i] = new Vector3(xPosition, getPos (position[i]), 0);
+		}
+		if (isUp) {
+			for (int i = 0; i < position.Length; i++) {
+				abilities [i].transform.SetSiblingIndex (position [i] + 2);
 			}
 		}
 	}
 
-	void rotateDown(){
-		for (int i = 0; i < numAbilities; i++) {
-			if (position [i] == 0) {
-				abilities [i].rectTransform.Translate (0, -320, 0);
-			} else {
-				abilities [i].rectTransform.Translate (0, 80, 0);
-			}
-		}
-	}
-
-	void rotate(){
-		for (int i = 0; i < numAbilities; i++) {
-			abilities [i].transform.position = new Vector3 (abilities [i].transform.position.x, targetPosY [i], 0);
-		}
-	}
-
+	/* Helper function that returns the modulo. This correctly calculates negative numbers as the % oeprator does not by itsself
+	 */
 	int modulo(int a, int b){
 		return (a%b + b)%b;
 	}
 
+	/* Helper function that returns the Y value for the next position. 
+	 * 
+	 * This only works with 5 abilities!
+	 * 
+	 * If you want it to work with more or less abilities, a function that dynamically generates the next y position will be needed.
+	 */
 	float getPos(int i){
 		switch(i){
 		case 0:

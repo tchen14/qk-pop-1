@@ -413,20 +413,7 @@ MonoBehaviour:
   - {fileID: 453211969}
   - {fileID: 1019708822}
   - {fileID: 1863086494}
-  lerpTime: 35
-  targetPosY:
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  startPosY:
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  waitTimeCoro: .49000001
+  timeTakenDuringLerp: .349999994
 --- !u!1 &638549848
 GameObject:
   m_ObjectHideFlags: 0
