@@ -15,7 +15,7 @@ public struct AI_Data
 	private float aggressionLimit_;
 	private string panicPoints_;
 	private bool aggression_;
-	
+
 	public AI_Data(int hp,
 	               float sightDistance,
 	               float sightAngle,
@@ -38,7 +38,7 @@ public struct AI_Data
 		panicPoints_ = panicPoints;
 		aggression_ = aggression;
 	}
-	
+
 	public void loadData(AIMain target)
 	{
 		target.hp = hp_;
@@ -55,20 +55,20 @@ public struct AI_Data
 
 [CustomEditor(typeof(AIMain), true)]
 public class AIEditor : Editor {
-	
+
 	AIMain ai_target;
 	AnimBool show_data;
 	string[] ai_types = new string[]{"Villager", "Guard", "Commander"};
-	
+
 	AI_Data[] ai_data = new AI_Data[]{
 		new AI_Data(100, 20, 35, 5, 8, new string[]{"Player"}, 3, 100, "PanicPoints", false),
 		new AI_Data(200, 40, 35, 7, 12, new string[]{"Player"}, 5, 100, "PanicPoints", false),
 		new AI_Data(300, 60, 35, 12, 16, new string[]{"Player"}, 7, 100, "PanicPoints", false)};
-	
+
 	int ai_types_index = 0;
 	int current_selection = 0;
 	int current_preset = 0;
-	
+
 	void OnEnable()
 	{
 		ai_target = (AIMain)target;
@@ -76,18 +76,18 @@ public class AIEditor : Editor {
 		show_data = new AnimBool(false);
 		show_data.valueChanged.AddListener(Repaint);
 	}
-	
+
 	override public void OnInspectorGUI()
 	{
 		EditorGUI.BeginChangeCheck();
-		
+
 		EditorGUILayout.BeginVertical();
 		ai_types_index = EditorGUILayout.Popup ("AI Type:", ai_types_index, ai_types);
-		
+
 		EditorGUILayout.EndVertical();
-		
+
 		show_data.target = EditorGUILayout.Toggle ("Show Data", show_data.target);
-		
+
 		if (EditorGUILayout.BeginFadeGroup (show_data.faded))
 		{
 			EditorGUILayout.LabelField("Health: ",ai_target.hp.ToString() );
@@ -102,7 +102,7 @@ public class AIEditor : Editor {
 			EditorGUILayout.LabelField("Aggression: ",ai_target.aggression.ToString() );
 		}
 		EditorGUILayout.EndFadeGroup();
-		
+
 		if (current_selection != ai_types_index)
 		{
 			loadAI();
@@ -110,12 +110,12 @@ public class AIEditor : Editor {
 			ai_target.current_preset = ai_types_index;
 		}
 	}
-	
+
 	private void loadAI()
 	{
 		ai_data[ai_types_index].loadData(ai_target);
 	}
-	
+
 	private string print_array(string[] arr){
 		string result = "";
 		foreach(string s in arr){
