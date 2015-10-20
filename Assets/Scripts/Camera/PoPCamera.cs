@@ -55,6 +55,7 @@ public sealed class PoPCamera : Camera_2
 	[ReadOnly] public float screenTargetArea = 20f;		//!< Area of screen object can be targeted
 	[HideInInspector] public int targetindex = 0;	    //!< Index in list of target objects to look at
     private float targetResetTimer = 0f;				//!< Timeframe camera resets after losing track of target
+	private float resetBreakCounter = 0f;				//!< Breaks out of target reset if goes too long
 	private List<GameObject> targetedObjects = new List<GameObject>();	//!< List of objects player is targeting
 	private List<GameObject> allTargetables = new List<GameObject>();	//!< Master List of all available targets in scene
 
@@ -221,10 +222,11 @@ public sealed class PoPCamera : Camera_2
 				CalculateDesiredPosition();
 				UpdatePosition();
 				Quaternion rotation = Quaternion.LookRotation(targetLookAt - transform.position);
-				if (transform.rotation == rotation)
+				if (transform.rotation == rotation || resetBreakCounter > 25f)
 				{
 					_curState = CameraState.Normal;
 				}
+				resetBreakCounter++;
 				break;
 			/***********************/
 
