@@ -74,21 +74,28 @@ public class QuestSaveManager : SaveManager {
 	}
 
 	public List<Quest> LoadQuests() {
-		_quest = new Quest (null, null, null, -1, null);
-		List<Quest> quests = new List<Quest>();
-		JSONNode loadedQuests = JSONClass.Parse(PlayerPrefs.GetString("PlayerQuests"));
 
-		for (int i = 0; i < loadedQuests["Quests"].Count; i++) {
+		if (PlayerPrefs.HasKey("PlayerQuests")) {
 
-			int[] progress = new int[loadedQuests["Quests"][i].Count];
+			_quest = new Quest (null, null, null, -1, null);
+			List<Quest> quests = new List<Quest> ();
+			JSONNode loadedQuests = JSONClass.Parse (PlayerPrefs.GetString ("PlayerQuests"));
 
-			for(int j = 0; j < loadedQuests["Quests"][i].Count; j++) {
-				progress[j] = loadedQuests["Quests"][i][j].AsInt;
+			for (int i = 0; i < loadedQuests["Quests"].Count; i++) {
+
+				int[] progress = new int[loadedQuests ["Quests"] [i].Count];
+
+				for (int j = 0; j < loadedQuests["Quests"][i].Count; j++) {
+					progress [j] = loadedQuests ["Quests"] [i] [j].AsInt;
+				}
+
+				Quest newQuest = _quest.AddQuestFromSave (loadedQuests ["Quests"] [i].AsInt, progress);
+				quests.Add (newQuest);
 			}
+			return quests;
 
-			Quest newQuest = _quest.AddQuestFromSave(loadedQuests["Quests"][i].AsInt, progress);
-			quests.Add(newQuest);
 		}
-		return quests;
+
+		return null;
 	}
 }

@@ -9,7 +9,7 @@ using System.Linq;
  *  Data such as player inventory will be stored here
  */
 
-
+[EventVisibleAttribute]
 public class PlayerSaveManager : SaveManager {
 
 	#region singletonEnforcement
@@ -31,6 +31,31 @@ public class PlayerSaveManager : SaveManager {
 		}
 	}
 	#endregion
+
+	[EventVisibleAttribute]
+	public void SavePlayerLocation() {
+
+		JSONClass playerLocation = new JSONClass ();
+		GameObject player = GameObject.FindGameObjectWithTag ("Player");
+
+		playerLocation["Coordinates"][-1] = player.transform.position.x.ToString();
+		playerLocation["Coordinates"][-1] = player.transform.position.y.ToString();
+		playerLocation["Coordinates"][-1] = player.transform.position.z.ToString();
+
+		PlayerPrefs.SetString ("SaveLocation", playerLocation.ToString());
+		return;
+	}
+
+	[EventVisibleAttribute]
+	public void LoadPlayerLocation() {
+		if (PlayerPrefs.HasKey("SaveLocation")) {
+			GameObject player = GameObject.FindGameObjectWithTag ("Player");
+			JSONNode loadedPlayerPosition = JSONClass.Parse(PlayerPrefs.GetString("SaveLocation"));
+
+			player.transform.position = new Vector3(loadedPlayerPosition["Coordinates"][0].AsFloat, loadedPlayerPosition["Coordinates"][1].AsFloat, loadedPlayerPosition["Coordinates"][2].AsFloat);
+		}
+		return;
+	}
 
 	//! Saves player data as json string to PlayerPrefs \todo pseudo code -> code
 	public void SavePlayerInventory(List <InventoryItem> inputInventory)
@@ -64,6 +89,7 @@ public class PlayerSaveManager : SaveManager {
 	
 		//save the inventory to the playerprefs
 		PlayerPrefs.SetString("PlayerInventory", inventoryJsonNode.ToString());
+		Debug.Log ("Inventory saved!");
 	}
 	
 	//! Loads player data as json string to PlayerPrefs \todo pseudo code -> code

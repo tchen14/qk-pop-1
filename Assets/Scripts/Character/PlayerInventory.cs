@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 
+[EventVisibleAttribute]
 public class PlayerInventory : MonoBehaviour
 {
     private static PlayerInventory _instance;
@@ -92,6 +93,7 @@ public class PlayerInventory : MonoBehaviour
     }
 
     //! Load Inventory with saved state
+	[EventVisibleAttribute]
     public void LoadInventory()
     {
         inventory.Clear();
@@ -99,6 +101,7 @@ public class PlayerInventory : MonoBehaviour
     }
 
     //! Function that returns the current state of player inventory to PlayerSaveManager
+	[EventVisibleAttribute]
 	public void SaveInventory()
 	{
        PlayerSaveManager.Instance.SavePlayerInventory(inventory);

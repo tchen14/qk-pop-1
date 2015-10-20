@@ -18,7 +18,11 @@ public class QuestManager : MonoBehaviour {
 
 	[EventVisibleAttribute]
 	public void LoadQuests() {
-		currentQuests = _questSaveManager.LoadQuests();
+
+		List<Quest> newQuestList = _questSaveManager.LoadQuests();
+		if (newQuestList != null) {
+			currentQuests = newQuestList;
+		}
 		Debug.Log (currentQuests.Count + " quests loaded!");
 		return;
 	}
