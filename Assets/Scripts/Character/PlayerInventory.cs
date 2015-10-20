@@ -98,16 +98,6 @@ public class PlayerInventory : MonoBehaviour
         inventory = PlayerSaveManager.Instance.LoadPlayerInventory();
     }
 
-	void Update() {
-		if (Input.GetKeyDown (KeyCode.J)) {
-			LoadInventory();
-		}
-		if (Input.GetKeyDown (KeyCode.L)) {
-			AddItem(new InventoryItem("Junk", 1, "This is junk!", 5, 1, 1));
-			SaveInventory();
-		}
-	}
-
     //! Function that returns the current state of player inventory to PlayerSaveManager
 	public void SaveInventory()
 	{
