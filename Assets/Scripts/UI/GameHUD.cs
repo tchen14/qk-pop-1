@@ -30,7 +30,7 @@ public class GameHUD : MonoBehaviour {
 	GameObject pauseMenu;
 	
 	public int numOfAbilities;						//!<temporary int for number of abilities in game
-	public GameObject[] hudAbilityIcons;			//!<Array of hud icons, set in inspector
+	public List<GameObject> hudAbilityIcons = new List<GameObject>();		//!<Array of hud icons, set in inspector
 	public bool abilitiesUp = false;
 	public GameObject[] abilityWheelIcons;
 	Animator abilityWheelAnchorAnim;
