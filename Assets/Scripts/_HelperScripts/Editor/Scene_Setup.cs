@@ -2,6 +2,17 @@
 using UnityEditor;
 using System.Collections;
 
+/*
+ * What still needs to be in the scene:
+ * 	- mainHUD (prefab)
+ *  - ability wheel (prefab?)
+ *  - ability wheel enchor (prefab?)
+ *  - worldMapCanvas (prefab?)
+ *  - mapBG ?
+ *  - testObjectiveCanvas ?
+ *  - pauseMenu ?
+ */
+
 public class Scene_Setup : EditorWindow {
 
 	[MenuItem("Custom Tools/Setup Scene")]
@@ -19,6 +30,7 @@ public class Scene_Setup : EditorWindow {
 			go = new GameObject();
 			go.AddComponent<ObjectManager>();
 			go.name = "_ObjectManager";
+			objManager = GameObject.Find ("_ObjectManager");
 			ObjectManager.AddSavedObject(go.transform);
 		}
 
@@ -26,14 +38,17 @@ public class Scene_Setup : EditorWindow {
 			go = new GameObject();
 			go.AddComponent<MasterSceneManager>();
 			go.name = "_MasterSceneManager";
+			masterManager = GameObject.Find ("_MasterSceneManager");
+			MasterSceneManager manager = masterManager.GetComponent<MasterSceneManager>();
 			ObjectManager.AddSavedObject(go.transform);
-			MasterSceneManager.Instance.InitScenesDictionary();
+			manager.InitScenesDictionary();
 		}
-		
+
 		if (inputManager == null) {
 			go = new GameObject();
 			go.AddComponent<InputManager>();
 			go.name = "_InputManager";
+			inputManager = GameObject.Find ("_InputManager");
 			ObjectManager.AddSavedObject(go.transform);
 		}
 
@@ -41,6 +56,7 @@ public class Scene_Setup : EditorWindow {
 			go = new GameObject();
 			go.AddComponent<AudioManager>();
 			go.name = "_AudioManager";
+			audioManager = GameObject.Find ("_AudioManager");
 			ObjectManager.AddSavedObject(go.transform);
 		}
 
@@ -48,6 +64,7 @@ public class Scene_Setup : EditorWindow {
 			Object prefab = AssetDatabase.LoadAssetAtPath("Assets/Prefabs/_Player.prefab", typeof(GameObject));
 			go = Instantiate(prefab, Vector3.zero, Quaternion.identity) as GameObject;
 			go.name = "_Player";
+			player = GameObject.Find ("_Player");
 			ObjectManager.AddSavedObject(go.transform);
 		}
 
@@ -59,6 +76,7 @@ public class Scene_Setup : EditorWindow {
 			popc.target = player.transform;
 			go.AddComponent<GameHUD>();
 			go.name = "_Main Camera";
+			camera = GameObject.Find("_Main Camera");
 			ObjectManager.AddSavedObject(go.transform);
 		}
 	}
