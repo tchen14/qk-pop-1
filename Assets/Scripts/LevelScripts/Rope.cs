@@ -23,8 +23,18 @@ public class Rope : Item
 	//! Disables collider, enables gravity, marks Rope untargettable
 	public void Cut()
 	{
-		transform.GetComponent<Collider>().enabled = false;
+
+//TESTING - FOR LEVEL DESIGN REMOVE FOR FINAL BUILD
+		GetComponent<Renderer>().material.color = Color.yellow;
+//END TESTING
+
+	//	transform.GetComponent<Collider>().enabled = false;
 		GetComponent<Rigidbody>().useGravity = true;
 		// Function to make this object untargettable
+
+//TESTING - FOR LEVEL DESIGN REMOVE FOR FINAL BUILD
+		GetComponent<Renderer>().material.color = Color.blue;
+//END TESTING
+
 	}
 }

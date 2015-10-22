@@ -347,6 +347,15 @@ MonoBehaviour:
   pullDistance: 5
   pullModifier: 50
   smoothing: 1
+  pushPullTarget: {fileID: 0}
+  cutTarget: {fileID: 0}
+  soundThrowTarget: {fileID: 0}
+  stunTarget: {fileID: 0}
+  heatColdTarget: {fileID: 0}
+  blastTarget: {fileID: 0}
+  testAbility: 0
+  pushPullLerp: 0
+  abilitySelector: {fileID: 0}
 --- !u!143 &14344496
 CharacterController:
   m_ObjectHideFlags: 1

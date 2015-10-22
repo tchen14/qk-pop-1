@@ -28,6 +28,7 @@ public class GameHUD : MonoBehaviour {
 	GameObject gameMap;						//!<The map iamge on a plane
 	GameObject player;						//!<reference to player
 	GameObject pauseMenu;
+	GameObject questBox;
 	
 	public int numOfAbilities;						//!<temporary int for number of abilities in game
 	public GameObject[] hudAbilityIcons;			//!<Array of hud icons, set in inspector
@@ -83,6 +84,7 @@ public class GameHUD : MonoBehaviour {
 		testObjective = GameObject.Find("TestObjective");
 		pauseMenu = GameObject.Find ("pauseMenu");
 		pauseMenu.SetActive (false);
+		questBox = GameObject.Find ("questBox");
 		
 		//!Turn on UI stuff
 		worldMapCanvas.SetActive(true);
