@@ -61,7 +61,7 @@ public class GameHUD : MonoBehaviour {
 	GameObject leftArrow;
 	GameObject rightArrow;
 
-	GameObject testObjective;
+	public GameObject testObjective;
 
 	void Awake() {
 		#region singletonEnforcement
@@ -80,7 +80,6 @@ public class GameHUD : MonoBehaviour {
 		worldMapCanvas = GameObject.Find("worldMapCanvas");
 		gameMap = GameObject.Find("mapBG");
 		player = GameObject.Find("_Player");
-		testObjective = GameObject.Find("TestObjective");
 		pauseMenu = GameObject.Find ("pauseMenu");
 		pauseMenu.SetActive (false);
 		
@@ -98,7 +97,7 @@ public class GameHUD : MonoBehaviour {
 		//!Set mapcam reference
 		mapCam = GameObject.Find("mapCam");
 		//!Set compassCameraPoint reference
-		compassCameraPoint = GameObject.Find("compassCameraPoint");
+		compassCameraPoint = GameObject.Find("_Main Camera");
 		compass = GameObject.Find("compassSlider");
 		slider = compass.transform.FindChild ("Handle Slide Area").gameObject;
 		slider.SetActive (false);
@@ -222,6 +221,7 @@ public class GameHUD : MonoBehaviour {
 
 
 		//!create vector3 from player to objective and normalize it
+
 		pointToObjective = objective.gameObject.transform.position - compassCameraPoint.transform.position;
 		pointToObjective.Normalize();
 

@@ -2,11 +2,6 @@
 using UnityEditor;
 using System.Collections;
 
-/*
- * What still needs to be in the scene:
- * abilitydock
- */
-
 public class Scene_Setup : EditorWindow {
 
 	[MenuItem("Custom Tools/Setup Scene")]
@@ -85,12 +80,15 @@ public class Scene_Setup : EditorWindow {
 
 		if (camera == null) {
 			go = new GameObject();
+			GameObject old = GameObject.Find("Main Camera");
+			DestroyImmediate(old);
 			go.AddComponent<Camera>();
 			go.AddComponent<PoPCamera>();
 			PoPCamera popc = go.GetComponent<PoPCamera>();
 			popc.target = player.transform;
 			go.AddComponent<GameHUD>();
 			go.name = "_Main Camera";
+			go.tag = "MainCamera";
 			camera = GameObject.Find("_Main Camera");
 			GameHUD hud = go.GetComponent<GameHUD>();
 
