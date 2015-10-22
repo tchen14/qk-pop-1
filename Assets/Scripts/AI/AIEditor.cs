@@ -53,7 +53,7 @@ public struct AI_Data
 	}
 }
 
-[CustomEditor(typeof(AIMain), true)]
+[CustomEditor(typeof(AIMainTrimmed), true)]
 public class AIEditor : Editor {
 
 	AIMain ai_target;

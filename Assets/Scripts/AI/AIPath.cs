@@ -5,6 +5,12 @@ using System.Collections.Generic;
 public class AIPath : MonoBehaviour {
 
 	public List<GameObject> checkpoints;
+	public int[] types = {0, 1, 2};
+
+	// temporary
+	public int PathType = 0;
+	public int NofLoops = 0;
+
 	private GameObject instance = Resources.Load("checkpoint") as GameObject;
 
 	public void addCheckpoint(GameObject new_point)

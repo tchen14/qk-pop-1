@@ -422,17 +422,18 @@ public class AIMainTrimmed : MonoBehaviour
         {
             
             Path = Pathways[PathwayCount];
-            AINavPoints CheckpointScript = Path.GetComponent<AINavPoints>();
+            //AINavPoints CheckpointScript = Path.GetComponent<AINavPoints>();
+			AIPath CheckpointScript = Path.GetComponent<AIPath>();
 
             switch (CheckpointScript.PathType)
             { 
                 
                 case 0:
-                    if (CheckpointCount <= CheckpointScript.AiCheckpoints.Count - 1)
+                    if (CheckpointCount <= CheckpointScript.getPoints().Count - 1)
                     {
                         string CheckpointCountString = CheckpointCount.ToString();
-                        ChangeNavPoint(CheckpointCountString, CheckpointScript.AiCheckpoints[CheckpointCount]);
-                        if (CheckpointCount != CheckpointScript.AiCheckpoints.Count)
+						ChangeNavPoint(CheckpointCountString, CheckpointScript.getPoints()[CheckpointCount]);
+					if (CheckpointCount != CheckpointScript.getPoints().Count)
                         {
                             CheckpointCount++;
                         }
@@ -454,11 +455,11 @@ public class AIMainTrimmed : MonoBehaviour
                 case 1:
                     if (LoopCount <= CheckpointScript.NofLoops)
                     {
-                        if (CheckpointCount <= CheckpointScript.AiCheckpoints.Count - 1)
+					if (CheckpointCount <= CheckpointScript.getPoints().Count - 1)
                         {
                             string CheckpointCountString = CheckpointCount.ToString();
-                            ChangeNavPoint(CheckpointCountString, CheckpointScript.AiCheckpoints[CheckpointCount]);
-                            if (CheckpointCount != CheckpointScript.AiCheckpoints.Count)
+							ChangeNavPoint(CheckpointCountString, CheckpointScript.getPoints()[CheckpointCount]);
+						if (CheckpointCount != CheckpointScript.getPoints().Count)
                             {
                                 CheckpointCount++;
                             }
@@ -480,11 +481,11 @@ public class AIMainTrimmed : MonoBehaviour
                 case 2:
                     if (LoopCount <= CheckpointScript.NofLoops)
                     {
-                        if ((CheckpointCount < CheckpointScript.AiCheckpoints.Count) && (back == false))
+					if ((CheckpointCount < CheckpointScript.getPoints().Count) && (back == false))
                         {
                             string CheckpointCountString = CheckpointCount.ToString();
-                            ChangeNavPoint(CheckpointCountString, CheckpointScript.AiCheckpoints[CheckpointCount]);
-                            if (CheckpointCount != CheckpointScript.AiCheckpoints.Count)
+							ChangeNavPoint(CheckpointCountString, CheckpointScript.getPoints()[CheckpointCount]);
+						if (CheckpointCount != CheckpointScript.getPoints().Count)
                             {
                                 CheckpointCount++;
                             }
@@ -497,7 +498,7 @@ public class AIMainTrimmed : MonoBehaviour
                                 back = true;
                                 CheckpointCount--;
                                 string CheckpointCountString = CheckpointCount.ToString();
-                                ChangeNavPoint(CheckpointCountString, CheckpointScript.AiCheckpoints[CheckpointCount]);
+								ChangeNavPoint(CheckpointCountString, CheckpointScript.getPoints()[CheckpointCount]);
 
                             }
                             else
