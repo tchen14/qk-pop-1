@@ -67,8 +67,10 @@ public class GameHUD : MonoBehaviour {
 	GameObject skillWheelView;
 	GameObject skillWheelCursor;
 	RectTransform skillWheelBounds;
+	public float [] ablocy = {0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f}; // the variable that stores the location data of the ability buttons
 	bool skillsOpen = false;
 	bool skillsMoving = false;
+	bool skillsRotating = false;
 
 	int maxcurAbility;
 	bool canSpin = false; 
@@ -108,8 +110,6 @@ public class GameHUD : MonoBehaviour {
 		closeMapButton = GameObject.Find("CloseMapButton");
 		closeMapButton.SetActive(false);
 
-		abilityButtons = GameObject.FindGameObjectsWithTag("abilityButton");
-
 		//!Set mapcam reference
 		mapCam = GameObject.Find("mapCam");
 
@@ -136,6 +136,9 @@ public class GameHUD : MonoBehaviour {
 		abilityWheelAnchor = GameObject.Find ("AbilityWheelAnchor");
 		skillWheelCursor = GameObject.Find("AbilityWheelCursor");
 		GameObject sWheelTmp = GameObject.Find ("abBounds");
+
+		updateAbilityIcons ();
+
 		skillWheelBounds = sWheelTmp.GetComponent<RectTransform>();
 		skillWheelCursor.SetActive (false);
 
@@ -165,15 +168,30 @@ public class GameHUD : MonoBehaviour {
 
 	void Update() {
 		//!This is for testing, call update map from player movements
-		rotateMapObjects();
+		rotateMapObjects ();
 
 		//!Set the compass indicator
-		setCompassValue(calculateObjectiveAngle(testObjective));
+		setCompassValue (calculateObjectiveAngle (testObjective));
+		if (!skillsRotating) 
+		{
+			if (Input.GetKey ("tab"))
+				showSkills ();
+			else
+				hideSkills ();
+		}
 
-		if (Input.GetKey ("tab"))
-			showSkills();
-		else
-			hideSkills();
+		if (skillsOpen && !skillsRotating) {
+			if (Input.GetKeyDown ("up")) 
+			{
+				skillsRotating = true;
+				StartCoroutine (Rotate_skills_up ());
+			} 
+			else if (Input.GetKeyDown ("down")) 
+			{
+				skillsRotating = true;
+				StartCoroutine (Rotate_skills_down ());
+			}
+		}
 	}
 
 	void LateUpdate()
@@ -376,8 +394,6 @@ public class GameHUD : MonoBehaviour {
 		{
 			RectTransform abv = skillWheelView.GetComponent<RectTransform> ();
 			skillsOpen = true;
-			/*abv.offsetMax = new Vector2 (abv.offsetMax.x, abv.offsetMax.y + 140);
-			abv.offsetMin = new Vector2 (abv.offsetMin.x, abv.offsetMin.y - 140);*/
 			skillsMoving = true;
 			canSpin = true;
 		}
@@ -389,8 +405,6 @@ public class GameHUD : MonoBehaviour {
 		if(!skillsMoving && skillsOpen)
 		{
 			RectTransform abv = skillWheelView.GetComponent<RectTransform> ();
-			/*abv.offsetMax = new Vector2(abv.offsetMax.x, abv.offsetMax.y - 140);
-			abv.offsetMin = new Vector2(abv.offsetMin.x, abv.offsetMin.y + 140);*/
 			skillsMoving = true;
 			canSpin = false;
 			skillsOpen = false;
@@ -406,8 +420,8 @@ public class GameHUD : MonoBehaviour {
 		if(skillsOpen)
 		{	
 			skillWheelCursor.SetActive (true);
-			abv.offsetMax = new Vector2(abv.offsetMax.x, Mathf.MoveTowards(abv.offsetMax.y, 200.0f, movespeed*2));
-			abv.offsetMin = new Vector2(abv.offsetMin.x, Mathf.MoveTowards(abv.offsetMin.y, -200.0f, movespeed*2));
+			abv.offsetMax = new Vector2(abv.offsetMax.x, Mathf.MoveTowards(abv.offsetMax.y, 160.0f, movespeed*2));
+			abv.offsetMin = new Vector2(abv.offsetMin.x, Mathf.MoveTowards(abv.offsetMin.y, -160.0f, movespeed*2));
 			abs.localPosition = new Vector2(abs.localPosition.x, Mathf.MoveTowards(abs.localPosition.y, skillWheelBounds.offsetMax.y, movespeed));
 		}
 		else
@@ -421,26 +435,69 @@ public class GameHUD : MonoBehaviour {
 
 	}
 
-	public void Rotate_skills_up()
+	void updateAbilityIcons()
 	{
-		GameObject abtemp = abilityButtons[0];
-		int ab_amount = abilityButtons.Length - 1;
-		int ab_mid_i = ab_amount / 2;
-
-		for (int i = 0; i < ab_amount; i++)
-				abilityButtons[i] = abilityButtons[i+1];
-		abilityButtons[ab_amount] = abtemp;
-
+		for(int i = 0; i < abilityButtons.Length; i++)
+		{
+			RectTransform tmp = abilityButtons[i].GetComponent<RectTransform>();
+			ablocy[i] = tmp.localPosition.y;
+		}
+		Image abbotim = abilityButtons[6].GetComponent<Image>();
+		abbotim = abilityButtons [1].GetComponent<Image> ();
+		Image abtopim = abilityButtons[0].GetComponent<Image>();
+		abtopim = abilityButtons [5].GetComponent<Image> ();
 	}
 
-	public void Rotate_skills_down()
+	public IEnumerator Rotate_skills_up()
+	{
+		GameObject abtemp = abilityButtons[1];
+		int ab_amount = abilityButtons.Length - 1;
+
+		for (int i = abilityButtons.Length; i < 1; i--) 
+		{
+			RectTransform tmp = abilityButtons[i].GetComponent<RectTransform>();
+			tmp.localPosition = new Vector2(tmp.localPosition.x, Mathf.MoveTowards(tmp.localPosition.y, ablocy[i-1], Time.deltaTime *250));
+		}
+
+		yield return new WaitForSeconds(2);
+
+		RectTransform topImage = abilityButtons[1].GetComponent<RectTransform>();
+		RectTransform abBottom = abilityButtons[6].GetComponent<RectTransform>();
+		topImage.localPosition = abBottom.localPosition;
+		abBottom.localPosition = new Vector2 (abBottom.localPosition.x, ablocy [6]);
+
+		updateAbilityIcons ();
+		for (int i = 1; i < ab_amount - 2; i++)
+				abilityButtons[i] = abilityButtons[i+1];
+		abilityButtons[ab_amount - 1] = abtemp;
+
+		skillsRotating = false;
+	}
+
+	public IEnumerator Rotate_skills_down()
 	{
 		GameObject abtemp = abilityButtons[0];
 		int ab_amount = abilityButtons.Length - 1;
 
-		for (int i = ab_amount; i > 0; i++)
-			abilityButtons[i] = abilityButtons[i+1];
-		abilityButtons[0] = abtemp;
+		for (int i = abilityButtons.Length; i < 1; i--) 
+		{
+			RectTransform tmp = abilityButtons[i].GetComponent<RectTransform>();
+			tmp.localPosition = new Vector2(tmp.localPosition.x, Mathf.MoveTowards(tmp.localPosition.y, ablocy[i+1], Time.deltaTime *250));
+		}
+
+		yield return new WaitForSeconds(2);
+
+		RectTransform botImage = abilityButtons[5].GetComponent<RectTransform>();
+		RectTransform abtop = abilityButtons[0].GetComponent<RectTransform>();
+		botImage.localPosition = abtop.localPosition;
+		abtop.localPosition = new Vector2 (abtop.localPosition.x, ablocy [0]);
+
+		updateAbilityIcons ();
+		for (int i = ab_amount - 1 ; i > 2; i--)
+			abilityButtons[i] = abilityButtons[i-1];
+		abilityButtons[1] = abtemp;
+
+		skillsRotating = false;
 	}
 
 	/***********************************************************************
