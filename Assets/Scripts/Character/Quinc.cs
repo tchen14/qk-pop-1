@@ -90,10 +90,8 @@ public sealed class Quinc : MonoBehaviour
 
     public AbilityDockAnimations abilitySelector;
 
-
 	void FixedUpdate()
 	{
-
         activeAbility = abilitySelector.getSelectedAbility();
 
 /*COMMENTED OUT FOR TESTING, REMOVE COMMENTING FOR BUILD
