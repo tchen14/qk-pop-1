@@ -133,6 +133,10 @@ public class GameHUD : MonoBehaviour {
 	}
 
 	public void setCompassValue(float newValue) {
+        if (testObjective == null)
+        {
+            return;
+        }
 
 		//!Calculates distances between "the player and the objective" and "the camera and the objective"
 		float distanceBetweenCamAndObj = Vector3.Distance (compassCameraPoint.transform.position, testObjective.transform.position);
