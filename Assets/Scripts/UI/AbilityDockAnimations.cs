@@ -49,13 +49,13 @@ public class AbilityDockAnimations : MonoBehaviour {
 		}
 		else if (Input.GetKey(KeyCode.Tab) && canGetInput) {
 			//Ability dock is open
-			if (Input.GetKeyDown (KeyCode.DownArrow)) {
+			if (Input.GetKeyDown (KeyCode.UpArrow)) {
 				selectedAbility = modulo(selectedAbility + 1, 5);
 				newPos (true);
 				rotating = true;
 				startLerping();
 			}
-			if (Input.GetKeyDown (KeyCode.UpArrow)) {
+			if (Input.GetKeyDown (KeyCode.DownArrow)) {
 				selectedAbility = modulo(selectedAbility - 1, 5);
 				newPos (false);
 				rotating = true;

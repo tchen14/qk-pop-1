@@ -457,7 +457,7 @@ public sealed class Quinc : MonoBehaviour
 		}
 
 
-		cutTarget.GetComponent<Rope>().Cut();
+		cutTarget.GetComponent<Item>().Cut();
 
 		// Untarget Cuttable Object?
 		status = "Cut Successful";
@@ -496,9 +496,9 @@ public sealed class Quinc : MonoBehaviour
 
 		// Possibly allow player to select sound, or each object will have it's own sound attached to it
 		// Call SoundThrow function in Well script, which will play sound and animation
-		if(soundThrowTarget.GetComponent<Well>() != null)
+		if(soundThrowTarget.GetComponent<Item>().soundThrowCompatible)
 		{
-			soundThrowTarget.GetComponent<Well>().SoundThrow();
+			soundThrowTarget.GetComponent<Item>().SoundThrow();
 		}
 
 		Vector3 soundLocation = soundThrowTarget.transform.position;
@@ -510,7 +510,7 @@ public sealed class Quinc : MonoBehaviour
 		{
 
 			//check for enemy
-			if((col.gameObject.GetComponent<Enemy>() != null) && (col.gameObject.GetComponent<AIMain>() != null))
+			if((col.gameObject.GetComponent<Item>().soundThrowAffected) && (col.gameObject.GetComponent<AIMain>() != null))
 			{
 
 				//save some typing
@@ -564,23 +564,23 @@ public sealed class Quinc : MonoBehaviour
 		}
 
 
-		if((stunTarget.GetComponent<Enemy>() != null) && (stunTarget.GetComponent<AIMain>() != null))
+		if((stunTarget.GetComponent<Item>().stunCompatible) && (stunTarget.GetComponent<AIMain>() != null))
 		{
 
 			//save some typing
 			AIMain ai = stunTarget.GetComponent<AIMain>();
 
-		if((ai.dazed == false) && (ai.suspicionLevel < ai.suspicionLimit))
+			if((ai.dazed == false) && (ai.suspicionLevel < ai.suspicionLimit))
 			{
 
-//				ai.azed(stunTime);
+//				ai.dazed(stunTime);
 				ai.dazed = true;
 
 			}//END if((ai.dazed == false) && (ai.suspicionLevel < aiSuspicionLimit))
 
 		}//END if(stunTarget.GetComponent<Enemy>() != null)
 
-		stunTarget.GetComponent<Enemy>().Stun();
+		stunTarget.GetComponent<Item>().Stun();
 
 		//Untarget Enemy?
 		status = "Stun Successful";
@@ -699,7 +699,7 @@ public sealed class Quinc : MonoBehaviour
 			//print("MoveSlowly Lerping " + ++testCount);
 
 			targetObject.transform.position = Vector3.Lerp(targetObject.transform.position, targetPosition, smoothing * Time.deltaTime);
-			targetObject.GetComponent<Crate>().hasMoved = true;
+			targetObject.GetComponent<Item>().hasMoved = true;
 			yield return null;
 		}
 
@@ -718,7 +718,7 @@ public sealed class Quinc : MonoBehaviour
 	{
 
 		StopCoroutine(croutine);
-		print("stopped moveslowly");
+		print("Quinc stopped coroutine " + croutine);
 
 	}
 }
