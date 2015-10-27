@@ -14,9 +14,9 @@ public class Quest {
 	string objective;
 	Goal[] goal;
 	int progress = 0;
-	int currTimer = 0;
 	int duration;
-	bool timer;
+	bool timer = false;
+	bool failed = false;
 
 	public Quest(string n, string d, string o, int i, Goal[] newGoals ) {
 		name = n;
@@ -33,6 +33,7 @@ public class Quest {
 		duration = t;
 		iden = i;
 		goal = newGoals;
+		timer = true;
 	}
 
 	public Quest AddQuest(int id) {
@@ -182,5 +183,22 @@ public class Quest {
 
 	public Goal[] GetGoal() {
 		return goal;
+	}
+
+	public bool HasTimer() {
+		return timer;
+	}
+
+	public int GetTimerLength() {
+		return duration;
+	}
+
+	public void Fail() {
+		failed = true;
+		return;
+	}
+
+	public bool IsFailed() {
+		return failed;
 	}
 }
