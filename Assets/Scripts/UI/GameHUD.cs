@@ -137,7 +137,7 @@ public class GameHUD : MonoBehaviour {
 		skillWheelCursor = GameObject.Find("AbilityWheelCursor");
 		GameObject sWheelTmp = GameObject.Find ("abBounds");
 
-		updateAbilityIcons ();
+		settingUpAbilityWheel ();
 
 		skillWheelBounds = sWheelTmp.GetComponent<RectTransform>();
 		skillWheelCursor.SetActive (false);
@@ -172,30 +172,24 @@ public class GameHUD : MonoBehaviour {
 
 		//!Set the compass indicator
 		setCompassValue (calculateObjectiveAngle (testObjective));
-		if (!skillsRotating) 
-		{
-			if (Input.GetKey ("tab"))
-				showSkills ();
-			else
-				hideSkills ();
-		}
+		
+		if (Input.GetKey ("tab"))
+			showSkills ();
+		else
+			hideSkills ();
 
 		if (skillsOpen && !skillsRotating) {
-			if (Input.GetKeyDown ("up")) 
-			{
-				skillsRotating = true;
-				StartCoroutine (Rotate_skills_up ());
-			} 
-			else if (Input.GetKeyDown ("down")) 
-			{
-				skillsRotating = true;
-				StartCoroutine (Rotate_skills_down ());
+			if (Input.GetKeyDown ("up")) {
+				StartCoroutine(Rotate_skills_up ());
+			} else if (Input.GetKeyDown ("down")) {
+				StartCoroutine(Rotate_skills_down ());
 			}
 		}
+		if (Input.GetKeyDown ("escape"))
+			PauseGame ();
 	}
 
-	void LateUpdate()
-	{
+	void LateUpdate(){
 		moveAbilities();
 	}
 
@@ -432,70 +426,85 @@ public class GameHUD : MonoBehaviour {
 			abs.localPosition = new Vector2(abs.localPosition.x, Mathf.MoveTowards(abs.localPosition.y, skillWheelBounds.offsetMin.y, movespeed));
 		}
 		skillsMoving = false;
+	}
 
+	void settingUpAbilityWheel()
+	{
+		for (int i = 0; i < abilityButtons.Length; i++) {
+			RectTransform tmp = abilityButtons [i].GetComponent<RectTransform> ();
+			ablocy [i] = tmp.localPosition.y;
+		}
+		updateAbilityIcons();
 	}
 
 	void updateAbilityIcons()
 	{
-		for(int i = 0; i < abilityButtons.Length; i++)
-		{
-			RectTransform tmp = abilityButtons[i].GetComponent<RectTransform>();
-			ablocy[i] = tmp.localPosition.y;
-		}
-		Image abbotim = abilityButtons[6].GetComponent<Image>();
-		abbotim = abilityButtons [1].GetComponent<Image> ();
-		Image abtopim = abilityButtons[0].GetComponent<Image>();
-		abtopim = abilityButtons [5].GetComponent<Image> ();
+		GameObject abbotim = Instantiate(abilityButtons[5]);
+		abbotim.transform.SetParent (GameObject.Find ("content Panel").transform, false);
+		abbotim.transform.localPosition = new Vector2 (0.0f,ablocy[0]);
+		Destroy (abilityButtons [0], 0.0f);
+		abilityButtons [0] = abbotim;
+
+		GameObject abtop = Instantiate(abilityButtons[1]);
+		abtop.transform.SetParent (GameObject.Find ("content Panel").transform, false);
+		abtop.transform.localPosition = new Vector2 (0.0f,ablocy[6]);
+		Destroy (abilityButtons [6], 0.0f);
+		abilityButtons [6] = abtop;
 	}
 
 	public IEnumerator Rotate_skills_up()
 	{
+		skillsRotating = true;
 		GameObject abtemp = abilityButtons[1];
 		int ab_amount = abilityButtons.Length - 1;
 
-		for (int i = abilityButtons.Length; i < 1; i--) 
+		for (int i = ab_amount; i >=1; i--) 
 		{
 			RectTransform tmp = abilityButtons[i].GetComponent<RectTransform>();
-			tmp.localPosition = new Vector2(tmp.localPosition.x, Mathf.MoveTowards(tmp.localPosition.y, ablocy[i-1], Time.deltaTime *250));
+			tmp.localPosition = new Vector2(tmp.localPosition.x, Mathf.MoveTowards(tmp.localPosition.y, ablocy[i-1], 100));
 		}
 
-		yield return new WaitForSeconds(2);
+		yield return new WaitForSeconds(0.2f);
 
 		RectTransform topImage = abilityButtons[1].GetComponent<RectTransform>();
 		RectTransform abBottom = abilityButtons[6].GetComponent<RectTransform>();
 		topImage.localPosition = abBottom.localPosition;
 		abBottom.localPosition = new Vector2 (abBottom.localPosition.x, ablocy [6]);
 
-		updateAbilityIcons ();
-		for (int i = 1; i < ab_amount - 2; i++)
+		for (int i = 1; i < ab_amount - 1; i++)
 				abilityButtons[i] = abilityButtons[i+1];
 		abilityButtons[ab_amount - 1] = abtemp;
 
+		yield return new WaitForSeconds(0.1f);
+
+		updateAbilityIcons ();
+		
 		skillsRotating = false;
 	}
 
 	public IEnumerator Rotate_skills_down()
 	{
-		GameObject abtemp = abilityButtons[0];
+		skillsRotating = true;
+		GameObject abtemp = abilityButtons[5];
 		int ab_amount = abilityButtons.Length - 1;
 
-		for (int i = abilityButtons.Length; i < 1; i--) 
+		for (int i = 0; i < ab_amount; i++) 
 		{
 			RectTransform tmp = abilityButtons[i].GetComponent<RectTransform>();
-			tmp.localPosition = new Vector2(tmp.localPosition.x, Mathf.MoveTowards(tmp.localPosition.y, ablocy[i+1], Time.deltaTime *250));
+			tmp.localPosition = new Vector2(tmp.localPosition.x, Mathf.MoveTowards(tmp.localPosition.y, ablocy[i+1], 100));
 		}
-
-		yield return new WaitForSeconds(2);
 
 		RectTransform botImage = abilityButtons[5].GetComponent<RectTransform>();
 		RectTransform abtop = abilityButtons[0].GetComponent<RectTransform>();
 		botImage.localPosition = abtop.localPosition;
 		abtop.localPosition = new Vector2 (abtop.localPosition.x, ablocy [0]);
 
-		updateAbilityIcons ();
-		for (int i = ab_amount - 1 ; i > 2; i--)
+		for (int i = ab_amount - 1; i > 1; i--)
 			abilityButtons[i] = abilityButtons[i-1];
 		abilityButtons[1] = abtemp;
+
+		yield return new WaitForSeconds(0.1f);
+		updateAbilityIcons ();
 
 		skillsRotating = false;
 	}
