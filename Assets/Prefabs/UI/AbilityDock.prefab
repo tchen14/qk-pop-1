@@ -142,7 +142,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 224: {fileID: 22405856}
-  - 114: {fileID: 11428602}
+  - 114: {fileID: 11417518}
   m_Layer: 5
   m_Name: AbilityDock
   m_TagString: Untagged
@@ -167,6 +167,26 @@ Transform:
   - {fileID: 22444162}
   m_Father: {fileID: 22405856}
   m_RootOrder: 2
+--- !u!114 &11417518
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 174426}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6dc0e39ba18fa0844be87a8e309e744d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  abilities:
+  - {fileID: 11444880}
+  - {fileID: 11432986}
+  - {fileID: 11464582}
+  - {fileID: 11484526}
+  - {fileID: 11481832}
+  timeTakenDuringLerp: .349999994
+  selectionBeam: {fileID: 11440318}
+  highligtedIcon: {fileID: 11422444}
 --- !u!114 &11422444
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -188,26 +208,6 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
---- !u!114 &11428602
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 174426}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f77c77765e5e8714f909917a2afa2500, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  abilities:
-  - {fileID: 11444880}
-  - {fileID: 11432986}
-  - {fileID: 11464582}
-  - {fileID: 11484526}
-  - {fileID: 11481832}
-  timeTakenDuringLerp: .349999994
-  selectionBeam: {fileID: 11440318}
-  highligtedIcon: {fileID: 11422444}
 --- !u!114 &11432986
 MonoBehaviour:
   m_ObjectHideFlags: 1

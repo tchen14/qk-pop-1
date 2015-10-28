@@ -2,7 +2,7 @@
 using System.Collections;
 using UnityEngine.UI;
 
-public class AbilityDockAnimations : MonoBehaviour {
+public class AbilityDockController : MonoBehaviour {
 	
 	public Image[] abilities;
 	public float timeTakenDuringLerp = 0.35f;
