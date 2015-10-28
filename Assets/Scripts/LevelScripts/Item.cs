@@ -4,7 +4,8 @@ using System.Collections;
 [RequireComponent (typeof (Collider))]
 [RequireComponent(typeof (Targetable))]
 [System.Serializable]
-public abstract class Item : MonoBehaviour
+//public abstract class Item : MonoBehaviour
+public class Item : MonoBehaviour
 {
 
     public string itemName = "";
@@ -41,7 +42,7 @@ public abstract class Item : MonoBehaviour
 	public bool isSnapping;				//flag tracking if crate is currently snapping back
 	Color originalColor;				//store the original color of the object while executing quinc functions
 	float colorMax;						//maximum length of time the gameObject can remain a color other than the orginal color
-	float colorTime;					//the last time that the gameObject color was changed
+	public float colorTime;					//the last time that the gameObject color was changed
 
 	//Rope variables
 
@@ -158,6 +159,8 @@ public abstract class Item : MonoBehaviour
 	void Update()
 	{
 
+
+//TESTING - FOR LEVEL DESIGN REMOVE FOR FINAL BUILD
 		//check if the color has been changed and how long
 		if((GetComponent<Renderer>().material.color != originalColor) && ((Time.time - colorTime) > colorMax))
 		{
@@ -166,6 +169,7 @@ public abstract class Item : MonoBehaviour
 			GetComponent<Renderer>().material.color = originalColor;
 
 		}
+//END TESTING
 
 		//check for movement and if object can be pushed or pulled
 		if(hasMoved && !isSnapping && (pushCompatible || pullCompatible))
@@ -179,7 +183,7 @@ public abstract class Item : MonoBehaviour
 			{
 
 				//stop the coroutine that is moving the object
-				Quinc.Instance.stopCo("MoveSlowly");
+	//			Quinc.Instance.stopCo("MoveSlowly");
 				//move the object back to the starting position
 				SnapBack();
 
@@ -215,6 +219,10 @@ public abstract class Item : MonoBehaviour
 			//check for stun to have worn off
 			if(curStunTimer > stunPeriod)
 			{
+
+//TESTING - FOR LEVEL DESIGN REMOVE FOR FINAL BUILD
+				GetComponent<Renderer>().material.color = originalColor;
+//END TESTING
 				stunState = false;
 			}
 
@@ -370,7 +378,7 @@ public abstract class Item : MonoBehaviour
 		transform.eulerAngles = tempAngles;
 
 //TESTING - FOR LEVEL DESIGN REMOVE FOR FINAL BUILD
-		GetComponent<Renderer>().material.color = originalColor;
+		GetComponent<Renderer>().material.color = Color.blue;
 		colorTime = Time.time;
 //END TESTING
 
