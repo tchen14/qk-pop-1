@@ -70,6 +70,8 @@ public class AIMainTrimmed : MonoBehaviour
     public List<Vector3> AiCheckpoints;
     public List<GameObject> Pathways;
 	public List<int> PathType;
+	public List<int> nofLoops;
+	public List<bool> infinite;
     private bool looping;
     private int LoopCount = 1;
     private bool BacknForth;
@@ -458,7 +460,7 @@ public class AIMainTrimmed : MonoBehaviour
                     break;
 
                 case 1:
-                    if (LoopCount <= CheckpointScript.NofLoops)
+                    if (LoopCount <= nofLoops[PathwayCount])
                     {
 					if (CheckpointCount <= CheckpointScript.getPoints().Count - 1)
                         {
@@ -472,7 +474,10 @@ public class AIMainTrimmed : MonoBehaviour
                         else
                         {
                             CheckpointCount = 0;
-                            LoopCount++;
+
+							if(!infinite[PathwayCount]){
+                        	    LoopCount++;
+							}
                         }
                     }
                     else
@@ -484,7 +489,7 @@ public class AIMainTrimmed : MonoBehaviour
                     break;
 
                 case 2:
-                    if (LoopCount <= CheckpointScript.NofLoops)
+				if (LoopCount <= nofLoops[PathwayCount])
                     {
 					if ((CheckpointCount < CheckpointScript.getPoints().Count) && (back == false))
                         {
@@ -509,7 +514,10 @@ public class AIMainTrimmed : MonoBehaviour
                             else
                             {
                                 back = false;
-                                LoopCount++;
+
+								if(!infinite[PathwayCount]){
+									LoopCount++;
+								}
                             }
                         }
                     }
