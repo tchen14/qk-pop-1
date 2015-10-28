@@ -1,14 +1,30 @@
 ﻿using UnityEngine;
 using System.Collections;
+using Debug = FFP.Debug;
 
 public class QK_Character_Movement : MonoBehaviour {
 
-	public static QK_Character_Movement Instance;
+	private static QK_Character_Movement _instance;
+	public static QK_Character_Movement Instance 
+	{
+		get { return _instance ?? (_instance = GameObject.FindObjectOfType<QK_Character_Movement> ()); }
+	}
 
-	public float moveSpeed = 10f;
+	public enum CharacterState {Idle, Move, Turn, Sprint, Crouch, Climb, Normal}
+	private CharacterState _moveState;
+	private CharacterState _stateModifier;
+
+	public static CharacterController CharacterController;
+
+	private float runSpeed = 5f;
+	private float sprintSpeed = 8f;
+	//public float backwardSpeed = 3f;
+	//public float strafingSpeed = 6f;
 	public float jumpSpeed = 6f;
-	public float gravity = 21f;
+	public float slideSpeed = 10f;
+	public float gravity = 30f;
 	public float terminalVelocity = 20f;
+	public float turnRate = 3f;
 
 	public Vector3 moveVector { get; set; }
 	public float VerticalVelocity { get; set; }
@@ -17,44 +33,119 @@ public class QK_Character_Movement : MonoBehaviour {
 	public float slideTheshold = 0.6f;
 	public float MaxControllableSlideMagnitude = 0.4f;
 	private Vector3 slideDirection;
+	private Quaternion targetAngle = Quaternion.identity;
+	private PoPCamera cam;
 
 	// Use this for initialization
-	void Awake () {
-		Instance = this;
+	void Start () 
+	{
+		CharacterController = GetComponent ("CharacterController") as CharacterController;
+		if(PoPCamera.instance != null)
+			cam = PoPCamera.instance;
 	}
-	
+
+	void FixedUpdate()
+	{
+		if (cam == null)
+			return;
+		
+		HandleActionInput ();
+		
+		UpdateMotor ();
+	}
+
 	// Update is called once per frame
-	public void UpdateMotor () {
-		SnapAlignCharacterWithCamera ();
+	public void UpdateMotor () 
+	{
+		//SnapAlignCharacterWithCamera ();
 		ProcessMotion ();
+
+		/*if (InputManager.input.MoveVerticalAxis() > 0) {
+			targetAngle = Quaternion.Euler(transform.eulerAngles.x, 
+			                               cam.transform.eulerAngles.y,
+			                               transform.eulerAngles.z);
+			transform.rotation = Quaternion.Slerp (transform.rotation, targetAngle, turnRate * Time.deltaTime);
+		}
+		if (InputManager.input.MoveVerticalAxis() < 0) {
+			targetAngle = Quaternion.Euler(transform.eulerAngles.x, 
+			                               cam.transform.eulerAngles.y - 180,
+			                               transform.eulerAngles.z);
+			transform.rotation = Quaternion.Slerp (transform.rotation, targetAngle, turnRate * Time.deltaTime);
+		}
+		if (InputManager.input.MoveHorizontalAxis() > 0) {
+			targetAngle = Quaternion.Euler(transform.eulerAngles.x, 
+			                               cam.transform.eulerAngles.y + 90f,
+			                               transform.eulerAngles.z);
+			transform.rotation = Quaternion.Slerp (transform.rotation, targetAngle, turnRate * Time.deltaTime);
+		}
+		if (InputManager.input.MoveHorizontalAxis() < 0) {
+			targetAngle = Quaternion.Euler(transform.eulerAngles.x, 
+			                               cam.transform.eulerAngles.y - 90f,
+			                               transform.eulerAngles.z);
+			transform.rotation = Quaternion.Slerp (transform.rotation, targetAngle, turnRate * Time.deltaTime);
+		}*/
+
 	}
 
-	void ProcessMotion(){
+	void ProcessMotion()
+	{
 		//Transform move into World Space
-		moveVector = transform.TransformDirection (moveVector);
+		//moveVector = transform.TransformDirection (moveVector);
+		float inputHor = InputManager.input.MoveHorizontalAxis ();
+		float inputVert = InputManager.input.MoveVerticalAxis ();
+		Vector3 inputDir = new Vector3(inputHor, 0f, inputVert) - Vector3.zero;
+		Vector3 inputVector = new Vector3 (transform.position.x + inputHor, 0f, transform.position.z + inputVert);
+		Vector3 rotateVector = Vector3.Normalize (transform.position + inputDir);
 
-		//Normalize move if Magnitude > 1
+		if (inputHor != 0f || inputVert != 0) {
+			if (Vector3.Angle (rotateVector, transform.forward) < 15f)
+				_moveState = CharacterState.Move;
+			else
+				_moveState = CharacterState.Turn;
+		} else {
+			_moveState = CharacterState.Idle;
+		}
+
+		switch (_moveState) 
+		{
+			case CharacterState.Move:
+				//Multiply move by MoveSpeed
+				moveVector = new Vector3(inputHor, 0f, inputVert);
+				moveVector = transform.TransformDirection(moveVector);
+				moveVector *= runSpeed;
+				moveVector = new Vector3(moveVector.x, VerticalVelocity, moveVector.z);
+				
+				// Rotate Character
+				RotateCharacter(rotateVector);
+				// Apply Slide
+				ApplySlide ();
+			
+				//Apply Gravity
+				ApplyGravity ();
+
+				QK_Character_Movement.CharacterController.Move (moveVector * Time.deltaTime);
+			break;
+
+			case CharacterState.Turn:
+				RotateCharacter(rotateVector);
+				break;
+		}
+
+		/*Normalize move if Magnitude > 1
 		if (moveVector.magnitude > 1) {
 			moveVector = Vector3.Normalize (moveVector);
-		}
+		}*/
 
 		//Apply Sliding if applicable
 		ApplySlide ();
 
-		//Multiply move by MoveSpeed
-		moveVector *= moveSpeed;
-
-		// Reapply Vertical Velocity to MoveVector.y
-		moveVector = new Vector3 (moveVector.x, VerticalVelocity, moveVector.z);
 
 		//Apply Gravity
 		ApplyGravity ();
-
-		//Move Quincy in World Space
-		QK_Controller.CharacterController.Move (moveVector * Time.deltaTime);
 	}
 
-	void ApplyGravity () {
+	void ApplyGravity () 
+	{
 		if (moveVector.y > -terminalVelocity) {
 			moveVector = new Vector3(moveVector.x, moveVector.y - gravity * Time.deltaTime, moveVector.z);
 		}
@@ -64,8 +155,9 @@ public class QK_Character_Movement : MonoBehaviour {
 		}
 	}
 
-	void ApplySlide (){
-		if (!QK_Controller.CharacterController.isGrounded)
+	void ApplySlide ()
+	{
+		if (!QK_Character_Movement.CharacterController.isGrounded)
 			return;
 
 		slideDirection = Vector3.zero;
@@ -85,18 +177,54 @@ public class QK_Character_Movement : MonoBehaviour {
 			moveVector = slideDirection;
 		}
 	}
+	
+	void HandleActionInput () 
+	{
+		if (InputManager.input.isJumping()) {
+			Jump ();
+			return;
+		}
 
-	public void Jump() {
-		if (QK_Controller.CharacterController.isGrounded)
-			VerticalVelocity = jumpSpeed;
-	}
-
-	void SnapAlignCharacterWithCamera () {
-		if (moveVector.x != 0 || moveVector.z != 0) {
-			transform.rotation = Quaternion.Euler(transform.eulerAngles.x, 
-			                                      Camera.main.transform.eulerAngles.y,
-			                                      transform.eulerAngles.z);
+		if (InputManager.input.isSprinting ()) {
+			_stateModifier = CharacterState.Sprint;
+		} else if (InputManager.input.isCrouched ()) {
+			_stateModifier = CharacterState.Crouch;
+		} else {
+			_stateModifier = CharacterState.Normal;
 		}
 	}
 
+	public void Jump() 
+	{
+		if (QK_Character_Movement.CharacterController.isGrounded)
+			VerticalVelocity = jumpSpeed;
+	}
+	
+	float MoveSpeed() 
+	{
+		float moveSpeed = 0f;
+
+		if (slideDirection.magnitude > 0)
+			moveSpeed = slideSpeed;
+
+		return moveSpeed;
+	}
+
+	void RotateCharacter(Vector3 toRotate)
+	{
+		Quaternion newRotation = Quaternion.LookRotation (toRotate, Vector3.up);
+		transform.rotation = Quaternion.Slerp (transform.rotation, newRotation, turnRate * Time.deltaTime);
+	}
+		
+	void OnDrawGizmosSelected()
+	{
+		float inputHor = InputManager.input.MoveHorizontalAxis ();
+		float inputVert = InputManager.input.MoveVerticalAxis ();
+		Vector3 inputVector = new Vector3 (transform.position.x + inputHor, 0f, transform.position.z + inputVert);
+		Vector3 rotateVector = Vector3.Normalize (inputVector - transform.position);
+
+		Gizmos.DrawSphere (inputVector, 0.1f);
+		Gizmos.DrawRay (transform.position, rotateVector);
+		Gizmos.DrawRay (transform.position, transform.forward);
+	}
 }
