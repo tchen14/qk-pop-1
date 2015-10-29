@@ -22,9 +22,11 @@ public class AnimationController : MonoBehaviour {
 		//If the player moves vertically, assign the integer value from the input to the movement parameter from the animation controller
 		if(InputManager.input.MoveVerticalAxis() != 0) {
 			movement = (int)InputManager.input.MoveVerticalAxis();
+			turnRight = 0;
 		//If the player moves horizontally, assign the integer value from the input to the turnRight parameter from the animation controller
 		} else if(InputManager.input.MoveHorizontalAxis() != 0) {
 			turnRight = (int)InputManager.input.MoveHorizontalAxis();
+			movement = -1;
 		} else {
 		//If the player don't move vertically or horizontally, the parameter will be set to zero so no 'movement' animation will occur
 			movement = 0;
