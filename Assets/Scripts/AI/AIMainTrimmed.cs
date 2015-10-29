@@ -108,7 +108,7 @@ public class AIMainTrimmed : MonoBehaviour
             if (dazed == false)
             {
                 mesh.SetDestination(navPoint);
-                print(navPoint);
+                //print(navPoint);
                 #region attack
                 if (target != null)
                 {
