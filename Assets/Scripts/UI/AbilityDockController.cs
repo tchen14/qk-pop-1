@@ -51,12 +51,12 @@ public class AbilityDockController : MonoBehaviour {
 		}
 		else if (Input.GetKey(KeyCode.Tab) && canGetInput) {	//Ability dock is open
 			if (Input.GetKeyDown (KeyCode.DownArrow)) {			//Scroll the icons down
-				newPos (true);
+				newPos (false);
 				rotating = true;
 				startLerping();
 			}
 			if (Input.GetKeyDown (KeyCode.UpArrow)) {			//Scroll the icons up
-				newPos (false);
+				newPos (true);
 				rotating = true;
 				startLerping();
 			}
@@ -134,17 +134,17 @@ public class AbilityDockController : MonoBehaviour {
 	}
 
 	/* Helper function that gets the target position for where the ability icon will travel next.
-	 * It takes in a boolean that should be true when the down arrow is pressed and false when the up arrow is.
+	 * It takes in a boolean that should be true when the up arrow is pressed and false when the down arrow is.
 	 * The "position" array helps figure out where the ability should travel next.
 	 * The if statements before and after the for loop change the order of the abilities so they do not cross over each other when moving.
 	 * When an ability needs to travel from the top to the bottom or vice-versa it is set to the back so it travels behind all other icons.
 	 */
-	void newPos(bool isDown){
-		if (isDown) {
+	void newPos(bool isUp){
+		if (isUp) {
 			abilities[position[0]].transform.SetSiblingIndex (0);
 		}
 		for (int i = 0; i < position.Length; i++) {
-			if(!isDown){
+			if(!isUp){
 				position[i] = modulo(position[i] - 1, 5);
 			}
 			else{
@@ -152,7 +152,7 @@ public class AbilityDockController : MonoBehaviour {
 			}
 		}
 		targetPosition ();
-		if (!isDown) {
+		if (!isUp) {
 			abilities[position[0]].transform.SetSiblingIndex (0);
 		}
 	}
