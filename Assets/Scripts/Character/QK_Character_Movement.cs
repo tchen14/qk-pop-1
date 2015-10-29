@@ -91,17 +91,21 @@ public class QK_Character_Movement : MonoBehaviour {
 	{
 		//Transform move into World Space
 		//moveVector = transform.TransformDirection (moveVector);
-		float inputHor = InputManager.input.MoveHorizontalAxis ();
-		float inputVert = InputManager.input.MoveVerticalAxis ();
-		Vector3 inputDir = new Vector3(inputHor, 0f, inputVert) - Vector3.zero;
-		Vector3 inputVector = new Vector3 (transform.position.x + inputHor, 0f, transform.position.z + inputVert);
-		Vector3 rotateVector = Vector3.Normalize (transform.position + inputDir);
+        float inputHor = InputManager.input.MoveHorizontalAxis();
+        float inputVert = InputManager.input.MoveVerticalAxis();
+        Vector3 forward = transform.position + cam.transform.forward;
+        forward = new Vector3(forward.x, 0f, forward.z);
+        forward = Vector3.Normalize(forward - transform.position);
+        Vector3 right = new Vector3(forward.z, 0f, -forward.x);
+
+        Vector3 moveDir = (inputHor * right) + (inputVert * forward);
 
 		if (inputHor != 0f || inputVert != 0) {
-			if (Vector3.Angle (rotateVector, transform.forward) < 15f)
+			/*if (Vector3.Angle (transform.forward, moveDir) <= 45f)
 				_moveState = CharacterState.Move;
 			else
-				_moveState = CharacterState.Turn;
+				_moveState = CharacterState.Turn;*/
+            _moveState = CharacterState.Move;
 		} else {
 			_moveState = CharacterState.Idle;
 		}
@@ -110,38 +114,25 @@ public class QK_Character_Movement : MonoBehaviour {
 		{
 			case CharacterState.Move:
 				//Multiply move by MoveSpeed
-				moveVector = new Vector3(inputHor, 0f, inputVert);
-				moveVector = transform.TransformDirection(moveVector);
-				moveVector *= runSpeed;
-				moveVector = new Vector3(moveVector.x, VerticalVelocity, moveVector.z);
+				moveVector = moveDir * runSpeed;
 				
 				// Rotate Character
-				RotateCharacter(rotateVector);
-				// Apply Slide
-				ApplySlide ();
-			
-				//Apply Gravity
-				ApplyGravity ();
-
-				QK_Character_Movement.CharacterController.Move (moveVector * Time.deltaTime);
+				RotateCharacter(moveDir);
 			break;
 
 			case CharacterState.Turn:
-				RotateCharacter(rotateVector);
+				RotateCharacter(moveDir);
 				break;
 		}
 
-		/*Normalize move if Magnitude > 1
-		if (moveVector.magnitude > 1) {
-			moveVector = Vector3.Normalize (moveVector);
-		}*/
+        // Apply Slide
+        ApplySlide();
 
-		//Apply Sliding if applicable
-		ApplySlide ();
+        //Apply Gravity
+        ApplyGravity();
 
-
-		//Apply Gravity
-		ApplyGravity ();
+        moveVector = new Vector3(moveVector.x, VerticalVelocity, moveVector.z);
+        QK_Character_Movement.CharacterController.Move(moveVector * Time.deltaTime);
 	}
 
 	void ApplyGravity () 
@@ -220,11 +211,15 @@ public class QK_Character_Movement : MonoBehaviour {
 	{
 		float inputHor = InputManager.input.MoveHorizontalAxis ();
 		float inputVert = InputManager.input.MoveVerticalAxis ();
-		Vector3 inputVector = new Vector3 (transform.position.x + inputHor, 0f, transform.position.z + inputVert);
-		Vector3 rotateVector = Vector3.Normalize (inputVector - transform.position);
+        Vector3 forward = transform.position + cam.transform.forward;
+        forward = new Vector3(forward.x, 0f, forward.z);
+        forward = Vector3.Normalize(forward - transform.position);
+        Vector3 right = new Vector3(forward.z, 0f, -forward.x);
 
-		Gizmos.DrawSphere (inputVector, 0.1f);
-		Gizmos.DrawRay (transform.position, rotateVector);
-		Gizmos.DrawRay (transform.position, transform.forward);
+        Vector3 moveDir = (inputHor * right) + (inputVert * forward);
+        Gizmos.DrawSphere(transform.position + moveDir, 0.1f);
+        Gizmos.DrawRay(transform.position, moveDir);
+        Gizmos.DrawRay(transform.position, forward);
+        Gizmos.DrawRay(transform.position, right);
 	}
 }

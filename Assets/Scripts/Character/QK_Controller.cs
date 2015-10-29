@@ -52,7 +52,7 @@ public class QK_Controller : MonoBehaviour {
 			}
 		}
 
-		QK_Animator.Instance.DetermineCurrentMoveDirection ();
+		//QK_Animator.Instance.DetermineCurrentMoveDirection ();
 	}
 
 	void HandleActionInput () {
