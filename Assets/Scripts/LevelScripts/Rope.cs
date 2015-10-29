@@ -4,13 +4,14 @@ using Debug=FFP.Debug;
 
 [RequireComponent(typeof(Targetable))]
 [EventVisible]
-public class Rope : Item
+//public class Rope : Item
+public class Rope : MonoBehaviour
 {
 	// Use this for initialization
 	void Start ()
 	{
-		itemName = "Rope";
-		cutCompatible = true;
+//		itemName = "Rope";
+//		cutCompatible = true;
 		
 	}
 	
