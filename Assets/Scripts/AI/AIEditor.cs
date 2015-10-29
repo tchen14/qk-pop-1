@@ -68,8 +68,8 @@ public class AIEditor : Editor {
 
 	AI_Data[] ai_data = new AI_Data[]{
 		new AI_Data(100, 20, 35, 5, 8, new string[]{"Player"}, 3, 100, "PanicPoints", false),
-		new AI_Data(200, 40, 35, 7, 12, new string[]{"Player"}, 5, 100, "PanicPoints", false),
-		new AI_Data(300, 60, 35, 12, 16, new string[]{"Player"}, 7, 100, "PanicPoints", false)};
+		new AI_Data(200, 40, 35, 7, 12, new string[]{"Player"}, 5, 100, "PanicPoints", true),
+		new AI_Data(300, 60, 35, 10, 16, new string[]{"Player"}, 7, 100, "PanicPoints", true)};
 
 	int ai_types_index = 0;
 	int current_selection = 0;
@@ -113,13 +113,17 @@ public class AIEditor : Editor {
 
 			if(i < ai_target.Pathways.Count){
 				GUILayout.Label("Loop Type:", GUILayout.MaxWidth(80));
-				ai_target.PathType[i] = EditorGUILayout.Popup (ai_target.PathType[i], path_types, GUILayout.MaxWidth(100));
-				GUILayout.Label("infinite?", GUILayout.MaxWidth(50));
-				ai_target.infinite[i] = EditorGUILayout.Toggle(ai_target.infinite[i], GUILayout.MaxWidth(20));
-				GUILayout.Label("number of loops", GUILayout.MaxWidth(90));
-				ai_target.nofLoops[i] = EditorGUILayout.IntField(ai_target.nofLoops[i], GUILayout.MaxWidth(30));
+				ai_target.PathType[i] = EditorGUILayout.Popup (ai_target.PathType[i], path_types, GUILayout.MaxWidth(60));
+				if(ai_target.PathType[i] != 0){
+					GUILayout.Label("infinite?", GUILayout.MaxWidth(50));
+					ai_target.infinite[i] = EditorGUILayout.Toggle(ai_target.infinite[i], GUILayout.MaxWidth(20));
+					if(ai_target.infinite[i] == true)GUI.enabled = false;
+					GUILayout.Label("number of loops", GUILayout.MaxWidth(90));
+					ai_target.nofLoops[i] = EditorGUILayout.IntField(ai_target.nofLoops[i], GUILayout.MaxWidth(30));
+					GUI.enabled = true;
+				}
 			}
-			if(GUILayout.Button("Remove Path")){
+			if(GUILayout.Button("Remove Path", GUILayout.MaxWidth(90))){
 				ai_target.Pathways.RemoveAt(i);
 				ai_target.PathType.RemoveAt(i);
 				ai_target.infinite.RemoveAt(i);
