@@ -16,11 +16,15 @@ public class QK_Character_Movement : MonoBehaviour {
 
 	public static CharacterController CharacterController;
 
-	private float runSpeed = 5f;
+	private float curSpeed = 0f;
+	private float acceleration = 0.5f;
+	private float runSpeed = 3f;
 	private float sprintSpeed = 8f;
+
 	//public float backwardSpeed = 3f;
 	//public float strafingSpeed = 6f;
 	public float jumpSpeed = 6f;
+	public float fallSpeed = 0.5f;
 	public float slideSpeed = 10f;
 	public float gravity = 30f;
 	public float terminalVelocity = 20f;
@@ -94,17 +98,13 @@ public class QK_Character_Movement : MonoBehaviour {
         float inputHor = InputManager.input.MoveHorizontalAxis();
         float inputVert = InputManager.input.MoveVerticalAxis();
         Vector3 forward = transform.position + cam.transform.forward;
-        forward = new Vector3(forward.x, 0f, forward.z);
+        forward = new Vector3(forward.x, transform.position.y, forward.z);
         forward = Vector3.Normalize(forward - transform.position);
         Vector3 right = new Vector3(forward.z, 0f, -forward.x);
 
         Vector3 moveDir = (inputHor * right) + (inputVert * forward);
 
 		if (inputHor != 0f || inputVert != 0) {
-			/*if (Vector3.Angle (transform.forward, moveDir) <= 45f)
-				_moveState = CharacterState.Move;
-			else
-				_moveState = CharacterState.Turn;*/
             _moveState = CharacterState.Move;
 		} else {
 			_moveState = CharacterState.Idle;
@@ -114,7 +114,13 @@ public class QK_Character_Movement : MonoBehaviour {
 		{
 			case CharacterState.Move:
 				//Multiply move by MoveSpeed
-				moveVector = moveDir * runSpeed;
+				curSpeed += acceleration * moveDir.magnitude;
+				if(_stateModifier == CharacterState.Sprint)
+					curSpeed = Mathf.Clamp(curSpeed, 0, sprintSpeed);
+				else
+					curSpeed = Mathf.Clamp(curSpeed, 0, runSpeed);
+				
+				moveVector = moveDir * curSpeed;
 				
 				// Rotate Character
 				RotateCharacter(moveDir);
@@ -138,11 +144,11 @@ public class QK_Character_Movement : MonoBehaviour {
 	void ApplyGravity () 
 	{
 		if (moveVector.y > -terminalVelocity) {
-			moveVector = new Vector3(moveVector.x, moveVector.y - gravity * Time.deltaTime, moveVector.z);
+			VerticalVelocity -= gravity * Time.deltaTime;
 		}
 
 		if (QK_Controller.CharacterController.isGrounded && moveVector.y < -1) {
-			moveVector = new Vector3 (moveVector.x, -1, moveVector.z);
+			VerticalVelocity = 0;
 		}
 	}
 
@@ -155,7 +161,7 @@ public class QK_Character_Movement : MonoBehaviour {
 
 		RaycastHit hitInfo;
 
-		if (Physics.Raycast (transform.position + Vector3.up, Vector3.down, out hitInfo)) {
+		if (Physics.Raycast (transform.position + Vector3.up, Vector3.down, out hitInfo, cam.PlayerLM)) {
 			if (hitInfo.normal.y < slideTheshold) {
 				slideDirection = new Vector3(hitInfo.normal.x, -hitInfo.normal.y, hitInfo.normal.z);
 			}
@@ -209,17 +215,19 @@ public class QK_Character_Movement : MonoBehaviour {
 		
 	void OnDrawGizmosSelected()
 	{
-		float inputHor = InputManager.input.MoveHorizontalAxis ();
-		float inputVert = InputManager.input.MoveVerticalAxis ();
-        Vector3 forward = transform.position + cam.transform.forward;
-        forward = new Vector3(forward.x, 0f, forward.z);
-        forward = Vector3.Normalize(forward - transform.position);
-        Vector3 right = new Vector3(forward.z, 0f, -forward.x);
+		if (cam) {
+			float inputHor = InputManager.input.MoveHorizontalAxis ();
+			float inputVert = InputManager.input.MoveVerticalAxis ();
+			Vector3 forward = transform.position + cam.transform.forward;
+			forward = new Vector3 (forward.x, transform.position.y, forward.z);
+			forward = Vector3.Normalize (forward - transform.position);
+			Vector3 right = new Vector3 (forward.z, 0f, -forward.x);
 
-        Vector3 moveDir = (inputHor * right) + (inputVert * forward);
-        Gizmos.DrawSphere(transform.position + moveDir, 0.1f);
-        Gizmos.DrawRay(transform.position, moveDir);
-        Gizmos.DrawRay(transform.position, forward);
-        Gizmos.DrawRay(transform.position, right);
+			Vector3 moveDir = (inputHor * right) + (inputVert * forward);
+			Gizmos.DrawSphere (transform.position + moveDir, 0.1f);
+			Gizmos.DrawRay (transform.position, moveDir);
+			Gizmos.DrawRay (transform.position, forward);
+			Gizmos.DrawRay (transform.position, right);
+		}
 	}
 }
