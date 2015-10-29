@@ -51,8 +51,9 @@ public class QuestManager : MonoBehaviour {
 
 			if(currentQuests[count].IsFailed() == true) {
 				Debug.Log(currentQuests[count].GetName() + " quest has failed and removed from List!");
-				EventListener.ActivateById(currentQuests[count].GetID().ToString(), true);
+				string iden = currentQuests[count].GetID().ToString();
 				currentQuests.RemoveAt(count);
+				EventListener.ActivateById(iden, false);
 				continue;
 			}
 
