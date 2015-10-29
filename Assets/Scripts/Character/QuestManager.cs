@@ -114,6 +114,13 @@ public class QuestManager : MonoBehaviour {
 			return;
 		}
 
+		foreach (Quest q in currentQuests) {
+			if(q.GetID() == newQuest.GetID()) {
+				Debug.Log("Trying to get quest player already has.");
+				return;
+			}
+		}
+
 		currentQuests.Add (newQuest);
 		Debug.Log ("Added quest!");
 
