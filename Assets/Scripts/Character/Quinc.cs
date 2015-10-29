@@ -320,7 +320,8 @@ public sealed class Quinc : MonoBehaviour
 	}//END void FixedUpdate()
 
 	//! Function to be called when pushing a box or other heavy object, pushing at intervals (think Ocarina of time)
-	bool Push(ref string status, GameObject pushTarget) {
+	bool Push(ref string status, GameObject pushTarget)
+	{
 		/*
 		Check if Object is Push Compatible
 		Else return "Object not Compatible"
@@ -359,10 +360,13 @@ public sealed class Quinc : MonoBehaviour
 		pushDirection.Normalize();
 		Vector3 targetPosition = (pushDirection * pushDistance) + pushTarget.transform.position;
 
+		pushTarget.GetComponent<Item>().pushPull(targetPosition, pushDirection);
+
 //		if(pushTarget.GetComponent<Crate>().SnapBack() != null)
 //		{
-			coMoveSlowly = MoveSlowly(pushTarget.gameObject, targetPosition, pushDirection);
-			StartCoroutine(coMoveSlowly);
+//			coMoveSlowly = MoveSlowly(pushTarget.gameObject, targetPosition, pushDirection);
+//			StartCoroutine(coMoveSlowly);
+
 			status = "Push Successful";
 			return true;
 /*		}
@@ -373,7 +377,7 @@ public sealed class Quinc : MonoBehaviour
 		}
 */
 
-	}//END 
+	}//END bool Push(ref string status, GameObject pushTarget)
 
 	//! Function to be called when pulling an object, pulling at intervals (think Ocarina of time)
 	bool Pull(ref string status, GameObject pullTarget)
@@ -408,11 +412,13 @@ public sealed class Quinc : MonoBehaviour
 		pullDirection.Normalize();
 		Vector3 targetPosition = (pullDirection * pullDistance) + pullTarget.transform.position;
 
+
+		pullTarget.GetComponent<Item>().pushPull(targetPosition, pullDirection);
+
 //		if(pullTarget.GetComponent<Crate>().SnapBack() != null)
 //		{
-			coMoveSlowly = MoveSlowly(pullTarget.gameObject, targetPosition, pullDirection);
-			StartCoroutine(coMoveSlowly);
-			status = "Pull Successful";
+//			coMoveSlowly = MoveSlowly(pullTarget.gameObject, targetPosition, pullDirection);
+//			StartCoroutine(coMoveSlowly);
 			return true;
 /*		}
 		else
@@ -677,6 +683,7 @@ public sealed class Quinc : MonoBehaviour
 
 //-------------------------------------------------------------------------------------------------------
 
+/*
 	public IEnumerator MoveSlowly(GameObject targetObject, Vector3 targetPosition, Vector3 direction)
 	{
 		print("Target Position In CoRoutine: " + targetPosition);
@@ -716,6 +723,10 @@ public sealed class Quinc : MonoBehaviour
 
 		yield return null;
 	}//END IEnumerator MoveSlowly(GameObject targetObject, Vector3 targetPosition, Vector3 direction)
+
+
+	*/
+//-------------------------------------------------------------------------------------------------------
 
 	public void stopCo(string croutine)
 	{

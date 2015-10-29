@@ -42,7 +42,14 @@ public class Item : MonoBehaviour
 	public bool isSnapping;				//flag tracking if crate is currently snapping back
 	Color originalColor;				//store the original color of the object while executing quinc functions
 	float colorMax;						//maximum length of time the gameObject can remain a color other than the orginal color
-	public float colorTime;					//the last time that the gameObject color was changed
+	public float colorTime;				//the last time that the gameObject color was changed
+
+
+	//MoveSlowly variables
+	public float smoothing = 1f;			//lerp smoothing rate
+	bool pushPullLerp;						//flag to delay crate snapback
+	bool killCo = false;					//flag to kill the coroutine
+
 
 	//Rope variables
 
@@ -182,10 +189,14 @@ public class Item : MonoBehaviour
 			if(moveDist > pushPullRadius)
 			{
 
+//TESTING - FOR LEVEL DESIGN REMOVE FOR FINAL BUILD
+				print("calling SnapBack()");
+//END TESTING
+
 				//stop the coroutine that is moving the object
 	//			Quinc.Instance.stopCo("MoveSlowly");
 				//move the object back to the starting position
-				SnapBack();
+				StartCoroutine(SnapBack());
 
 			}
 		}
@@ -240,8 +251,75 @@ public class Item : MonoBehaviour
 		return;
 	}
 
+
+
+	public void pushPull(Vector3 location, Vector3 direction)
+	{
+
+		print("pushPull called");
+
+		if((moveDist < pushPullRadius) && (isSnapping == false))
+		{
+			print("calling moveSlowly");
+			StartCoroutine(MoveSlowly(location, direction));
+			print("MoveSlowly called");
+		}
+
+	}
+
+
+	//-------------------------------------------------------------------------------------------------------
+
+	public IEnumerator MoveSlowly(Vector3 targetPosition, Vector3 direction)
+	{
+		print("Target Position In CoRoutine: " + transform.position);
+
+
+		int testCount = 0;
+
+		//set flag to delay crate snapback
+		pushPullLerp = true;
+
+
+		while(Vector3.Distance(transform.position, targetPosition) > 2.0f && (killCo == false))// && (targetObject.GetComponent<Crate>().SnapBack() == null))
+		{
+
+			//TESTING - FOR LEVEL DESIGN REMOVE FOR FINAL BUILD
+			GetComponent<Renderer>().material.color = Color.yellow;
+			colorTime = Time.time;
+			//END TESTING
+
+			print("MoveSlowly Lerping " + ++testCount);
+
+			transform.position = Vector3.Lerp(transform.position, targetPosition, smoothing * Time.deltaTime);
+			hasMoved = true;
+			yield return null;
+		}
+
+		//reset flag to allow crate snapback
+		pushPullLerp = false;
+		print("Target Reached");
+		killCo = false;
+
+		//TESTING - FOR LEVEL DESIGN REMOVE FOR FINAL BUILD
+		GetComponent<Renderer>().material.color = Color.blue;
+		colorTime = Time.time;
+
+		//END TESTING
+
+		yield return null;
+	}//END IEnumerator MoveSlowly(GameObject targetObject, Vector3 targetPosition, Vector3 direction)
+
+	//-------------------------------------------------------------------------------------------------------
+
+
+
 	public IEnumerator SnapBack()
 	{
+
+//TESTING - FOR LEVEL DESIGN REMOVE FOR FINAL BUILD
+		print("SnapBack() called");
+//END TESTING
 
 		if(Quinc.Instance.coMoveSlowly != null)
 		{
@@ -275,13 +353,14 @@ public class Item : MonoBehaviour
 			colorTime = Time.time;
 //END TESTING
 
-			hasMoved = false;
-			isSnapping = false;
+//			hasMoved = false;
+//			isSnapping = false;
 			yield return null;
 
 		}
 
-//		isSnapping = false;
+		hasMoved = false;
+		isSnapping = false;
 		yield return null;
 
 	}//end public IEnumerator SnapBack()
