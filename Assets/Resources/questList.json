@@ -6,10 +6,9 @@
 			"Test Objective",
 			[ 
 				"Goal1",
-				"Goal2":
-					[
-						10
-					]
+				{
+				"Goal2" : 10
+				}
 			]
 		],
 	"Test ID with Timer":	
@@ -30,10 +29,9 @@
 			"Objective",
 			[ 
 				"Goal1",
-				"Goal2":
-					[
-						3
-					]
+				{
+				"Goal2" : 10
+				}
 			]
 		]
 }

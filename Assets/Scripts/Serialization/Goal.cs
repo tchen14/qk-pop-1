@@ -25,7 +25,13 @@ public class Goal {
 	}
 
 	public void Complete() {
+
+		if (goalProgress != -1) {
+			goalProgress = goalProgressNeeded;
+		}
 		completed = true;
+
+		Debug.Log ("Goal Completed");
 		return;
 	}
 
@@ -42,13 +48,13 @@ public class Goal {
 	}
 
 	public void Progress() {
-		if (goalProgress == null) {
+		if (goalProgress == -1) {
 			Debug.Log("No progress available on goal! Use Complete on this goal!");
 			return;
 		}
 
 		goalProgress++;
-
+		Debug.Log (goalProgress + "/" + goalProgressNeeded + " on goal progress");
 		if (goalProgress >= goalProgressNeeded) {
 			Debug.Log("Goal Complete");
 			completed = true;

@@ -48,6 +48,13 @@ public class QuestManager : MonoBehaviour {
 		}
 
 		for (int count = currentQuests.Count - 1; count > -1; count--) {
+
+			if(currentQuests[count].IsFailed() == true) {
+				Debug.Log(currentQuests[count].GetName() + " quest has failed and removed from List!");
+				currentQuests.RemoveAt(count);
+				continue;
+			}
+
 			if(currentQuests[count].IsCompleted() == true) {
 				Debug.Log (currentQuests[count].GetName() + " quest is completed and removed from List!");
 				_questSaveManager.SaveCompletedQuest(currentQuests[count]);
@@ -107,6 +114,25 @@ public class QuestManager : MonoBehaviour {
 
 		currentQuests.Add (newQuest);
 		Debug.Log ("Added quest!");
+	
+		if (newQuest.HasTimer () == true) {
+
+			StartCoroutine("StartTimer", newQuest);
+		}
+
 		return;
+	}
+
+	IEnumerator StartTimer(Quest q) {
+		Debug.Log ("Starting timer for " + q.GetTimerLength() + " seconds.");
+
+		yield return new WaitForSeconds ((float)q.GetTimerLength());
+
+		if (q.IsCompleted () == false) {
+			q.Fail();
+			UpdateQuests();
+		} else {
+			UpdateQuests();
+		}
 	}
 }

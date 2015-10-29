@@ -64,7 +64,7 @@ public class PlayerSaveManager : SaveManager {
 		List <InventoryItem> inventorySave = new List <InventoryItem>();
 		inventorySave = inputInventory;
 	
-		//if the inventory list is empty retuen
+		//if the inventory list is empty return
 		if(inventorySave == null)
 		{
 			return;
@@ -103,7 +103,6 @@ public class PlayerSaveManager : SaveManager {
 		{
 			return inventoryLoad;
 		}
-
 
 		//obtain the inventory string from the playerprefs and fill the list of inventory items
 		JSONNode loadedPlayerInventory = JSONClass.Parse(PlayerPrefs.GetString("PlayerInventory"));

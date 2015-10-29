@@ -14,9 +14,9 @@ public class Quest {
 	string objective;
 	Goal[] goal;
 	int progress = 0;
-	int currTimer = 0;
 	int duration;
-	bool timer;
+	bool timer = false;
+	bool failed = false;
 
 	public Quest(string n, string d, string o, int i, Goal[] newGoals ) {
 		name = n;
@@ -33,6 +33,7 @@ public class Quest {
 		duration = t;
 		iden = i;
 		goal = newGoals;
+		timer = true;
 	}
 
 	public Quest AddQuest(int id) {
@@ -45,6 +46,8 @@ public class Quest {
 		if (quests [id.ToString()].Count == 4) {
 
 			Goal[] newGoals = new Goal[quests[id.ToString ()][3].Count];
+			//Debug.Log("There are " + quests[id.ToString ()][3].Count + " goals");
+
 
 			for(int i = 0; i < quests[id.ToString ()][3].Count; i++) {
 
@@ -53,7 +56,8 @@ public class Quest {
 					newGoals[i] = newGoal;
 				}
 				else {
-					Goal newGoal = new Goal(quests[id.ToString ()][3][i], quests[id.ToString ()][3][0].AsInt);
+					Goal newGoal = new Goal(quests[id.ToString ()][3][i], quests[id.ToString ()][3][i][0].AsInt);
+					Debug.Log(quests[id.ToString ()][3][i].Keys);
 					newGoals[i] = newGoal;
 				}
 			}
@@ -71,6 +75,7 @@ public class Quest {
 			Quest newQuest = new Quest(quests[id.ToString ()][0], quests[id.ToString ()][1], quests[id.ToString ()][2], quests[id.ToString ()][3].AsInt, id, newGoals);
 			return newQuest;
 		}
+		Debug.Log ("Not the right amount of parameters in questList.json for Quest ID:" + id);
 		return null;
 	}
 
@@ -94,7 +99,7 @@ public class Quest {
 					newGoals[i] = newGoal;
 				}
 				else {
-					Goal newGoal = new Goal(quests[id.ToString ()][3][i], quests[id.ToString ()][3][0].AsInt, progress[i]);
+					Goal newGoal = new Goal(quests[id.ToString ()][3][i], quests[id.ToString ()][3][i][0].AsInt, progress[i]);
 					newGoals[i] = newGoal;
 				}
 			}
@@ -178,5 +183,22 @@ public class Quest {
 
 	public Goal[] GetGoal() {
 		return goal;
+	}
+
+	public bool HasTimer() {
+		return timer;
+	}
+
+	public int GetTimerLength() {
+		return duration;
+	}
+
+	public void Fail() {
+		failed = true;
+		return;
+	}
+
+	public bool IsFailed() {
+		return failed;
 	}
 }
