@@ -17,15 +17,14 @@ public class QK_Character_Movement : MonoBehaviour {
 	public static CharacterController CharacterController;
 
 	private float curSpeed = 0f;
-	private float acceleration = 0.5f;
-	private float runSpeed = 3f;
+	private float acceleration = 1f;
+	private float runSpeed = 5f;
 	private float sprintSpeed = 8f;
 
 	//public float backwardSpeed = 3f;
 	//public float strafingSpeed = 6f;
-	public float jumpSpeed = 6f;
-	public float fallSpeed = 0.5f;
-	public float slideSpeed = 10f;
+	public float jumpSpeed = 10f;
+	public float slideSpeed = 8f;
 	public float gravity = 30f;
 	public float terminalVelocity = 20f;
 	public float turnRate = 3f;
@@ -64,31 +63,6 @@ public class QK_Character_Movement : MonoBehaviour {
 		//SnapAlignCharacterWithCamera ();
 		ProcessMotion ();
 
-		/*if (InputManager.input.MoveVerticalAxis() > 0) {
-			targetAngle = Quaternion.Euler(transform.eulerAngles.x, 
-			                               cam.transform.eulerAngles.y,
-			                               transform.eulerAngles.z);
-			transform.rotation = Quaternion.Slerp (transform.rotation, targetAngle, turnRate * Time.deltaTime);
-		}
-		if (InputManager.input.MoveVerticalAxis() < 0) {
-			targetAngle = Quaternion.Euler(transform.eulerAngles.x, 
-			                               cam.transform.eulerAngles.y - 180,
-			                               transform.eulerAngles.z);
-			transform.rotation = Quaternion.Slerp (transform.rotation, targetAngle, turnRate * Time.deltaTime);
-		}
-		if (InputManager.input.MoveHorizontalAxis() > 0) {
-			targetAngle = Quaternion.Euler(transform.eulerAngles.x, 
-			                               cam.transform.eulerAngles.y + 90f,
-			                               transform.eulerAngles.z);
-			transform.rotation = Quaternion.Slerp (transform.rotation, targetAngle, turnRate * Time.deltaTime);
-		}
-		if (InputManager.input.MoveHorizontalAxis() < 0) {
-			targetAngle = Quaternion.Euler(transform.eulerAngles.x, 
-			                               cam.transform.eulerAngles.y - 90f,
-			                               transform.eulerAngles.z);
-			transform.rotation = Quaternion.Slerp (transform.rotation, targetAngle, turnRate * Time.deltaTime);
-		}*/
-
 	}
 
 	void ProcessMotion()
@@ -110,26 +84,18 @@ public class QK_Character_Movement : MonoBehaviour {
 			_moveState = CharacterState.Idle;
 		}
 
-		switch (_moveState) 
-		{
-			case CharacterState.Move:
-				//Multiply move by MoveSpeed
-				curSpeed += acceleration * moveDir.magnitude;
-				if(_stateModifier == CharacterState.Sprint)
-					curSpeed = Mathf.Clamp(curSpeed, 0, sprintSpeed);
-				else
-					curSpeed = Mathf.Clamp(curSpeed, 0, runSpeed);
-				
-				moveVector = moveDir * curSpeed;
-				
-				// Rotate Character
-				RotateCharacter(moveDir);
-			break;
-
-			case CharacterState.Turn:
-				RotateCharacter(moveDir);
-				break;
-		}
+		//Multiply move by MoveSpeed
+		curSpeed += acceleration * moveDir.magnitude;
+		if(_stateModifier == CharacterState.Sprint)
+			curSpeed = Mathf.Clamp(curSpeed, 0, sprintSpeed);
+		else
+			curSpeed = Mathf.Clamp(curSpeed, 0, runSpeed);
+		
+		moveVector = moveDir * curSpeed;
+		
+		// Rotate Character
+		if(_curState == CharacterState.Move)
+			RotateCharacter(moveDir);
 
         // Apply Slide
         ApplySlide();
@@ -143,11 +109,12 @@ public class QK_Character_Movement : MonoBehaviour {
 
 	void ApplyGravity () 
 	{
+		Debug.Log ("player", ""+CharacterController.isGrounded);
 		if (moveVector.y > -terminalVelocity) {
 			VerticalVelocity -= gravity * Time.deltaTime;
 		}
 
-		if (QK_Controller.CharacterController.isGrounded && moveVector.y < -1) {
+		if (CharacterController.isGrounded && moveVector.y < -1) {
 			VerticalVelocity = 0;
 		}
 	}
