@@ -449,75 +449,75 @@ public class AIMain : MonoBehaviour
                     }
                     break;
                 //Loop number of times across the points
-                case 1:
-                    if (LoopCount <= CheckpointScript.NofLoops | CheckpointScript.infinite == true)
-                    {
-                        if (CheckpointCount <= CheckpointScript.AiCheckpoints.Count - 1)
-                        {
-                            string CheckpointCountString = CheckpointCount.ToString();
-                            ChangeNavPoint(CheckpointCountString, CheckpointScript.AiCheckpoints[CheckpointCount]);
-                            if (CheckpointCount != CheckpointScript.AiCheckpoints.Count)
-                            {
-                                CheckpointCount++;
-                            }
-                        }
-                        else
-                        {
-                            CheckpointCount = 0;
-                            if (CheckpointScript.infinite == false)
-                            {
-                                LoopCount++;
-                            }
-                        }
-                    }
-                    else
-                    {
-                        PathwayCount++;
-                        CheckpointCount = 0;
-                        LoopCount = 1;
-                    }
-                    break;
-                //Go back and forth a number of times across the points 
-                case 2:
-                    if (LoopCount <= CheckpointScript.NofLoops | CheckpointScript.infinite == true)
-                    {
-                        if ((CheckpointCount < CheckpointScript.AiCheckpoints.Count) && (back == false))
-                        {
-                            string CheckpointCountString = CheckpointCount.ToString();
-                            ChangeNavPoint(CheckpointCountString, CheckpointScript.AiCheckpoints[CheckpointCount]);
-                            if (CheckpointCount != CheckpointScript.AiCheckpoints.Count)
-                            {
-                                CheckpointCount++;
-                            }
-                            print(CheckpointCount);
-                        }
-                        else
-                        {
-                            if (CheckpointCount > 0)
-                            {
-                                back = true;
-                                CheckpointCount--;
-                                string CheckpointCountString = CheckpointCount.ToString();
-                                ChangeNavPoint(CheckpointCountString, CheckpointScript.AiCheckpoints[CheckpointCount]);
+                //case 1:
+                //    if (LoopCount <= CheckpointScript.NofLoops | CheckpointScript.infinite == true)
+                //    {
+                //        if (CheckpointCount <= CheckpointScript.AiCheckpoints.Count - 1)
+                //        {
+                //            string CheckpointCountString = CheckpointCount.ToString();
+                //            ChangeNavPoint(CheckpointCountString, CheckpointScript.AiCheckpoints[CheckpointCount]);
+                //            if (CheckpointCount != CheckpointScript.AiCheckpoints.Count)
+                //            {
+                //                CheckpointCount++;
+                //            }
+                //        }
+                //        else
+                //        {
+                //            CheckpointCount = 0;
+                //            if (CheckpointScript.infinite == false)
+                //            {
+                //                LoopCount++;
+                //            }
+                //        }
+                //    }
+                //    else
+                //    {
+                //        PathwayCount++;
+                //        CheckpointCount = 0;
+                //        LoopCount = 1;
+                //    }
+                //    break;
+                ////Go back and forth a number of times across the points 
+                //case 2:
+                //    if (LoopCount <= CheckpointScript.NofLoops | CheckpointScript.infinite == true)
+                //    {
+                //        if ((CheckpointCount < CheckpointScript.AiCheckpoints.Count) && (back == false))
+                //        {
+                //            string CheckpointCountString = CheckpointCount.ToString();
+                //            ChangeNavPoint(CheckpointCountString, CheckpointScript.AiCheckpoints[CheckpointCount]);
+                //            if (CheckpointCount != CheckpointScript.AiCheckpoints.Count)
+                //            {
+                //                CheckpointCount++;
+                //            }
+                //            print(CheckpointCount);
+                //        }
+                //        else
+                //        {
+                //            if (CheckpointCount > 0)
+                //            {
+                //                back = true;
+                //                CheckpointCount--;
+                //                string CheckpointCountString = CheckpointCount.ToString();
+                //                ChangeNavPoint(CheckpointCountString, CheckpointScript.AiCheckpoints[CheckpointCount]);
 
-                            }
-                            else
-                            {
-                                back = false;
-                                if (CheckpointScript.infinite == false)
-                                {
-                                    LoopCount++;
-                                }
-                            }
-                        }
-                    }
-                    else
-                    {
-                        PathwayCount++;
-                        CheckpointCount = 0;
-                        LoopCount = 1;
-                    }
-                    break;
+                //            }
+                //            else
+                //            {
+                //                back = false;
+                //                if (CheckpointScript.infinite == false)
+                //                {
+                //                    LoopCount++;
+                //                }
+                //            }
+                //        }
+                //    }
+                //    else
+                //    {
+                //        PathwayCount++;
+                //        CheckpointCount = 0;
+                //        LoopCount = 1;
+                //    }
+                //    break;
 
             }
         }
