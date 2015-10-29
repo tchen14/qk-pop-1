@@ -63,7 +63,7 @@ public class EventHalf {
 
     public void SetParameters() {
         System.Type[] paramType = new System.Type[] { typeof(void) };
-		MonoBehaviour.print (e_categoryString);
+		//MonoBehaviour.print (e_categoryString);
 
         if (e_categoryString == "Static Script") {
             if (EventLibrary.staticClasses[e_classString].GetMethod(e_fieldString) != null) {

@@ -1,7 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
-using Debug = FFP.Debug;
 
 [RequireComponent(typeof(NavMeshAgent))]	//Automaticly Make a navMeshAgent on this game object when this script is applied
 [RequireComponent(typeof(Rigidbody))]
@@ -11,21 +10,23 @@ using Debug = FFP.Debug;
 [EventVisible]
 public class AIMainTrimmed : MonoBehaviour
 {
+	//Editor variables
+	public int current_preset = 0;
 
     //Variables Editable
 
-    private int hp = 100;                                //!<Health of the NPC
-    private float sightDistance = 45;                    //!<The distance the NPC is capable of seeing
-    private float sightAngle = 45;                       //!<The max angle of the cone of vision
-    private float speed = 4;                             //!<Casual Speed of the NPC
-    private float runSpeed = 6;                          //!<Scared, Charging, Aggressive Speed of the NPC*
-    private string[] seekTag = { "Player" };             //!<The enemy Tag of this NPC
-    private float attackDistance = 3;                    //!<The distance the NPC stands away from the target and attacks*
+    public int hp = 100;                                //!<Health of the NPC
+	public float sightDistance = 45;                    //!<The distance the NPC is capable of seeing
+	public float sightAngle = 45;                       //!<The max angle of the cone of vision
+	public float speed = 4;                             //!<Casual Speed of the NPC
+	public float runSpeed = 6;                          //!<Scared, Charging, Aggressive Speed of the NPC*
+	public string[] seekTag = { "Player" };             //!<The enemy Tag of this NPC
+	public float attackDistance = 3;                    //!<The distance the NPC stands away from the target and attacks*
     public float aggressionLimit = 100;			        //!<The aggression level of the attacker
     public float suspicionLimit = 150;                  //!<The suspicon level of the attacker
     private GameObject startPoint = null;                //!<Sets the first navPoint, defaults to stationary
     private GameObject endPoint = null;                  //!<Sets the last navPoint of the AI where they will stop.
-    private string panicPoints = "PanicPoints";          //!<The object name of the vector keeper of related panic points for the AI
+	public string panicPoints = "PanicPoints";          //!<The object name of the vector keeper of related panic points for the AI
     public bool aggressive = false;					    //!<If the NPC will attack the player
     private GameObject PlayerLastPos = null;             //visual representation of where the AI last remembers seeing the player before they went of LoS
     private bool searching = false;                      //if the AI is currently looking for the player at its shadow
@@ -67,7 +68,10 @@ public class AIMainTrimmed : MonoBehaviour
     [ReadOnly]
     public Vector3 navPoint = new Vector3(0, 0, 0);   //!<Contains the point to move in the navmesh
     public List<Vector3> AiCheckpoints;
-    public GameObject[] Pathways;
+    public List<GameObject> Pathways;
+	public List<int> PathType;
+	public List<int> nofLoops;
+	public List<bool> infinite;
     private bool looping;
     private int LoopCount = 1;
     private bool BacknForth;
@@ -214,6 +218,7 @@ public class AIMainTrimmed : MonoBehaviour
         #region path
         if ((Vector3.Distance(transform.position, navPoint) < 3) && (target == null))
         {
+			Debug.Log ("arrived.");
             nextCheckpoint();
         }
         #endregion
@@ -287,6 +292,7 @@ public class AIMainTrimmed : MonoBehaviour
     #region Move functions
     public void ChangeNavPoint(string N, Vector3 T)
     {
+		Debug.Log ("Changing to:" + T.ToString());
         navCheck = N;
         navPoint = T;
     }
@@ -418,28 +424,30 @@ public class AIMainTrimmed : MonoBehaviour
     {
         
         #region LoopPath
-        if (PathwayCount <= Pathways.Length - 1)
+        if (PathwayCount <= Pathways.Count - 1)
         {
-            
+			Debug.Log ("next chackpoint");
             Path = Pathways[PathwayCount];
-            AINavPoints CheckpointScript = Path.GetComponent<AINavPoints>();
+            //AINavPoints CheckpointScript = Path.GetComponent<AINavPoints>();
+			AIPath CheckpointScript = Path.GetComponent<AIPath>();
+			Debug.Log(PathType[PathwayCount]);
 
-            switch (CheckpointScript.PathType)
+            switch (PathType[PathwayCount])
             { 
                 
                 case 0:
-                    if (CheckpointCount <= CheckpointScript.AiCheckpoints.Count - 1)
+                    if (CheckpointCount <= CheckpointScript.getPoints().Count - 1)
                     {
                         string CheckpointCountString = CheckpointCount.ToString();
-                        ChangeNavPoint(CheckpointCountString, CheckpointScript.AiCheckpoints[CheckpointCount]);
-                        if (CheckpointCount != CheckpointScript.AiCheckpoints.Count)
+						ChangeNavPoint(CheckpointCountString, CheckpointScript.getPoints()[CheckpointCount]);
+					if (CheckpointCount != CheckpointScript.getPoints().Count)
                         {
                             CheckpointCount++;
                         }
                     }
                     else
                     {
-                        if (PathwayCount != Pathways.Length - 1)
+                        if (PathwayCount != Pathways.Count - 1)
                         {
                             PathwayCount++;
                             CheckpointCount = 0;
@@ -452,13 +460,13 @@ public class AIMainTrimmed : MonoBehaviour
                     break;
 
                 case 1:
-                    if (LoopCount <= CheckpointScript.NofLoops)
+                    if (LoopCount <= nofLoops[PathwayCount])
                     {
-                        if (CheckpointCount <= CheckpointScript.AiCheckpoints.Count - 1)
+					if (CheckpointCount <= CheckpointScript.getPoints().Count - 1)
                         {
                             string CheckpointCountString = CheckpointCount.ToString();
-                            ChangeNavPoint(CheckpointCountString, CheckpointScript.AiCheckpoints[CheckpointCount]);
-                            if (CheckpointCount != CheckpointScript.AiCheckpoints.Count)
+							ChangeNavPoint(CheckpointCountString, CheckpointScript.getPoints()[CheckpointCount]);
+						if (CheckpointCount != CheckpointScript.getPoints().Count)
                             {
                                 CheckpointCount++;
                             }
@@ -466,7 +474,10 @@ public class AIMainTrimmed : MonoBehaviour
                         else
                         {
                             CheckpointCount = 0;
-                            LoopCount++;
+
+							if(!infinite[PathwayCount]){
+                        	    LoopCount++;
+							}
                         }
                     }
                     else
@@ -478,13 +489,13 @@ public class AIMainTrimmed : MonoBehaviour
                     break;
 
                 case 2:
-                    if (LoopCount <= CheckpointScript.NofLoops)
+				if (LoopCount <= nofLoops[PathwayCount])
                     {
-                        if ((CheckpointCount < CheckpointScript.AiCheckpoints.Count) && (back == false))
+					if ((CheckpointCount < CheckpointScript.getPoints().Count) && (back == false))
                         {
                             string CheckpointCountString = CheckpointCount.ToString();
-                            ChangeNavPoint(CheckpointCountString, CheckpointScript.AiCheckpoints[CheckpointCount]);
-                            if (CheckpointCount != CheckpointScript.AiCheckpoints.Count)
+							ChangeNavPoint(CheckpointCountString, CheckpointScript.getPoints()[CheckpointCount]);
+						if (CheckpointCount != CheckpointScript.getPoints().Count)
                             {
                                 CheckpointCount++;
                             }
@@ -497,13 +508,16 @@ public class AIMainTrimmed : MonoBehaviour
                                 back = true;
                                 CheckpointCount--;
                                 string CheckpointCountString = CheckpointCount.ToString();
-                                ChangeNavPoint(CheckpointCountString, CheckpointScript.AiCheckpoints[CheckpointCount]);
+								ChangeNavPoint(CheckpointCountString, CheckpointScript.getPoints()[CheckpointCount]);
 
                             }
                             else
                             {
                                 back = false;
-                                LoopCount++;
+
+								if(!infinite[PathwayCount]){
+									LoopCount++;
+								}
                             }
                         }
                     }
