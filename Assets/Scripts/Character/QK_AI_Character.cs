@@ -18,7 +18,7 @@ public class QK_AI_Character : MonoBehaviour {
 	}
 	
 	// Update is called once per frame
-	void FixedUpdate () {
+	void Update () {
 		if (target != null) {
 			if ((target.position - targetPos).magnitude > targetTolerance) {
 				targetPos = target.position;
