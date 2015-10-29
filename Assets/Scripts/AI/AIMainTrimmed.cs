@@ -1,7 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
-using Debug = FFP.Debug;
 
 [RequireComponent(typeof(NavMeshAgent))]	//Automaticly Make a navMeshAgent on this game object when this script is applied
 [RequireComponent(typeof(Rigidbody))]
@@ -9,78 +8,99 @@ using Debug = FFP.Debug;
  *	This code is the main ai controller. The class is segmented into the following regions: attack, movement, state, sight, and health
  */
 [EventVisible]
-public class AIMainTrimmed : MonoBehaviour {
+public class AIMainTrimmed : MonoBehaviour
+{
+	//Editor variables
+	public int current_preset = 0;
 
     //Variables Editable
 
     public int hp = 100;                                //!<Health of the NPC
-    public float sightDistance = 45;                    //!<The distance the NPC is capable of seeing
-    public float sightAngle = 45;                       //!<The max angle of the cone of vision
-    public float speed = 4;                             //!<Casual Speed of the NPC
-    public float runSpeed = 6;                          //!<Scared, Charging, Aggressive Speed of the NPC*
-    public string[] seekTag = { "Player" };             //!<The enemy Tag of this NPC
-    public float attackDistance = 3;                    //!<The distance the NPC stands away from the target and attacks*
+	public float sightDistance = 45;                    //!<The distance the NPC is capable of seeing
+	public float sightAngle = 45;                       //!<The max angle of the cone of vision
+	public float speed = 4;                             //!<Casual Speed of the NPC
+	public float runSpeed = 6;                          //!<Scared, Charging, Aggressive Speed of the NPC*
+	public string[] seekTag = { "Player" };             //!<The enemy Tag of this NPC
+	public float attackDistance = 3;                    //!<The distance the NPC stands away from the target and attacks*
     public float aggressionLimit = 100;			        //!<The aggression level of the attacker
     public float suspicionLimit = 150;                  //!<The suspicon level of the attacker
-    public GameObject startPoint = null;                //!<Sets the first navPoint, defaults to stationary
-    public GameObject endPoint = null;                  //!<Sets the last navPoint of the AI where they will stop.
-    public string panicPoints = "PanicPoints";          //!<The object name of the vector keeper of related panic points for the AI
+    private GameObject startPoint = null;                //!<Sets the first navPoint, defaults to stationary
+    private GameObject endPoint = null;                  //!<Sets the last navPoint of the AI where they will stop.
+	public string panicPoints = "PanicPoints";          //!<The object name of the vector keeper of related panic points for the AI
     public bool aggressive = false;					    //!<If the NPC will attack the player
-    public GameObject PlayerLastPos = null;             //visual representation of where the AI last remembers seeing the player before they went of LoS
-    public bool searching = false;                      //if the AI is currently looking for the player at its shadow
-    public bool checking = false;
+    private GameObject PlayerLastPos = null;             //visual representation of where the AI last remembers seeing the player before they went of LoS
+    private bool searching = false;                      //if the AI is currently looking for the player at its shadow
+    private bool checking = false;
 
 
     //Variables Controllers
 
-    [ReadOnly]public bool 		seesTarget 			= false;					//!<If the Player has been spotted
-	[ReadOnly]public GameObject target				= null;						//!<The transform of the player
-    [ReadOnly]public GameObject temptarget          = null;                     //!Temp target for the shadowPlayer
-    [ReadOnly]public bool 		attacking 			= false;					//!<If the AI is attacking
-	[ReadOnly]public bool 		panic 				= false;					//!<If the AI is panicking
-    [ReadOnly]public int        CheckpointCount     = 0;                        //! Int for tracking the checkpoint the AI is on
-    public Vector3 	            panicTarget			= new Vector3 (0, 0, 0);	//!<Target of AI panic
-    public float 		        aggressionLevel 	= 0;						//!<The current awareness of the NPC to the Player
-    public float                suspicionLevel      = 0;						//!<The current suspicion of the NPC to the Player	
-    public bool                 suspicious          = false;					//!<If the AI is suspicous
-    public bool                 alert               = false;					//!<If the AI is alert
-    public bool                 unconsious          = false;                    //!<If the AI is unconsious
-    public bool                 dazed               = false;                    //!<If the AI is dazed
+    [ReadOnly]
+    public bool seesTarget = false;                   //!<If the Player has been spotted
+    [ReadOnly]
+    public GameObject target = null;						//!<The transform of the player
+    [ReadOnly]
+    public GameObject temptarget = null;                     //!Temp target for the shadowPlayer
+    [ReadOnly]
+    public bool attacking = false;                    //!<If the AI is attacking
+    [ReadOnly]
+    public bool panic = false;					//!<If the AI is panicking
+    [ReadOnly]
+    public int CheckpointCount = 0;                        //! Int for tracking the checkpoint the AI is on
+    private Vector3 panicTarget = new Vector3(0, 0, 0);	//!<Target of AI panic
+    private float aggressionLevel = 0;						//!<The current awareness of the NPC to the Player
+    private float suspicionLevel = 0;						//!<The current suspicion of the NPC to the Player	
+    private bool suspicious = false;					//!<If the AI is suspicous
+    public bool alert = false;					//!<If the AI is alert
+    private bool unconsious = false;                    //!<If the AI is unconsious
+    public bool dazed = false;                    //!<If the AI is dazed
+    public bool noiseHeard = false;                   //! bool to set the enemy as distracted for sound throw.
 
 
 
 
-	//Movement variables
+    //Movement variables
 
-	private NavMeshAgent 		mesh 				= null;						//!<Contains the component to use the navmesh
-    public GameObject[]         checkpointsArray;                               //!Array to hold all the checkpoints for the AI to move to
-	[ReadOnly]public string		navCheck			= null;						//!<The name of the current checkpoint
-	[ReadOnly]public Vector3 	navPoint			= new Vector3 (0, 0, 0);	//!<Contains the point to move in the navmesh
+    private NavMeshAgent mesh = null;						//!<Contains the component to use the navmesh
+    public GameObject[] checkpointsArray;                               //!Array to hold all the checkpoints for the AI to move to
+    [ReadOnly]
+    public string navCheck = null;                        //!<The name of the current checkpoint
+    [ReadOnly]
+    public Vector3 navPoint = new Vector3(0, 0, 0);   //!<Contains the point to move in the navmesh
+    public List<Vector3> AiCheckpoints;
+    public List<GameObject> Pathways;
+	public List<int> PathType;
+	public List<int> nofLoops;
+	public List<bool> infinite;
+    private bool looping;
+    private int LoopCount = 1;
+    private bool BacknForth;
+    private bool back = false;
+    public int PathwayListLength;
+    public int AiCheckpointsLength;
+    public GameObject Path;
+    public int PathwayCount = 0;
 
+    //Sight variables
 
-	//Sight variables
+    private RaycastHit hit;                                         //!<Takes information from RayCast
+    private GameObject[] viableTargets;                                 //!<All the available targets for the AI
 
-	private RaycastHit 			hit;											//!<Takes information from RayCast
-	private GameObject[] 		viableTargets;									//!<All the available targets for the AI
-
-	void Start() 
-	{
+    void Start()
+    {
         gameObject.GetComponent<Renderer>().material.color = Color.magenta;
         if (aggressionLevel >= aggressionLimit)
-            GetComponent<Rigidbody> ().isKinematic = true;
+            GetComponent<Rigidbody>().isKinematic = true;
         mesh = GetComponent<NavMeshAgent>();
         #region StartMoving
-        if (startPoint != null)
-			ChangeNavPoint(startPoint.name,startPoint.transform.position);	
-		else
-			ChangeNavPoint(this.name,this.transform.position);
-		SetSpeed(speed);
+        ChangeNavPoint(this.name, this.transform.position);
+        SetSpeed(speed);
         #endregion
     }
 
 
-    
-	void FixedUpdate ()
+
+    void FixedUpdate()
     {
         #region state 
         if (hp > 0)
@@ -88,6 +108,7 @@ public class AIMainTrimmed : MonoBehaviour {
             if (dazed == false)
             {
                 mesh.SetDestination(navPoint);
+                //print(navPoint);
                 #region attack
                 if (target != null)
                 {
@@ -95,7 +116,7 @@ public class AIMainTrimmed : MonoBehaviour {
                     {
                         if (target.name == "shadowPlayer(Clone)")
                         {
-                            Destroy(target);
+                            InvestigatePlayerPos(10f);
                         }
                         target = null;
                     }
@@ -118,9 +139,9 @@ public class AIMainTrimmed : MonoBehaviour {
         {
             Pause();
         }
-        
+
         if (panic == true)
-        {      
+        {
             if (aggressive == true)
             {
                 panic = false;
@@ -175,8 +196,8 @@ public class AIMainTrimmed : MonoBehaviour {
                 StartCoroutine("Decrementaggression");
             }
         }
-        
-        
+
+
         if (suspicious == true && attacking == true)
         {
             gameObject.GetComponent<Renderer>().material.color = Color.red;
@@ -195,17 +216,18 @@ public class AIMainTrimmed : MonoBehaviour {
         #endregion
 
         #region path
-        if ((Vector3.Distance(transform.position, navPoint) < 10) && (target == null))
+        if ((Vector3.Distance(transform.position, navPoint) < 3) && (target == null))
         {
-           nextCheckpoint();
+			Debug.Log ("arrived.");
+            nextCheckpoint();
         }
         #endregion
     }
 
-    public IEnumerator EndAttack() 
-	{
-        yield return new WaitForSeconds (1);
-		attacking = false;
+    public IEnumerator EndAttack()
+    {
+        yield return new WaitForSeconds(1);
+        attacking = false;
     }
 
     public IEnumerator Decrementaggression()
@@ -216,11 +238,11 @@ public class AIMainTrimmed : MonoBehaviour {
             aggressionLevel -= 1;
         }
         if (aggressionLevel == 0)
-            {
-                searching = false;
-                attacking = false;
-                ChangeNavPoint(startPoint.name, startPoint.transform.position);
-            }
+        {
+            searching = false;
+            attacking = false;
+            ChangeNavPoint(checkpointsArray[CheckpointCount].name, checkpointsArray[CheckpointCount].transform.position);
+        }
     }
 
     public IEnumerator Decrementsuspicion()
@@ -238,53 +260,39 @@ public class AIMainTrimmed : MonoBehaviour {
     }
 
     #region dazed
+    public IEnumerator Dazed(float dazeTime)
+    {
+        dazed = true;
+        Pause();
+        yield return new WaitForSeconds(dazeTime);
+        dazed = false;
+        Resume();
 
-    //turn off line of sight (assuming visible LoS is a feature)
-    //after x number of seconds
-    //stop being dazed (animation)
-    //start search sequence
-    //turn left and right to look around
-    //after set amount of time set its target to its last target
-    //set dazed to false
+    }
 
 
     #endregion
 
     #region distracted
 
-    //if noiseHeard = true (triggered either here through send message or in the throw script)
-    //if enemymy does not see player
-    //store last target
-    //set location of noise from noise throw
-    // if current location = target location
-    //start search sequence
-
-    /*if (noiseHeard == true)
+    public void NoiseHeard(GameObject soundPos)
     {
-        if (seesTarget = false)
+        if (seesTarget == false)
         {
-            navPoint = (location fed from noise throw);
-            mesh.SetDestination(navPoint);
-            if (transform.position == navPoint)
+            ChangeNavPoint(soundPos.name, soundPos.transform.position);
+            if ((Vector3.Distance(transform.position, navPoint) < 10) && (target == null))
             {
-                Investigate();
+                InvestigateSound(5f);
             }
         }
-        else
-        {
-
-        }
     }
-    else
-    {
-    }
-    */
 
     #endregion
 
     #region Move functions
-    public void ChangeNavPoint(string N,Vector3 T)
+    public void ChangeNavPoint(string N, Vector3 T)
     {
+		Debug.Log ("Changing to:" + T.ToString());
         navCheck = N;
         navPoint = T;
     }
@@ -310,15 +318,15 @@ public class AIMainTrimmed : MonoBehaviour {
     }
     public void GetTargets()
     {
-        List<GameObject> viableTargets = new List<GameObject> ();
-        for(int enemyType = 0; enemyType < seekTag.Length; enemyType++)
+        List<GameObject> viableTargets = new List<GameObject>();
+        for (int enemyType = 0; enemyType < seekTag.Length; enemyType++)
         {
             GameObject[] targets = GameObject.FindGameObjectsWithTag(seekTag[enemyType]);
-            for(int searchEnemyType = 0;searchEnemyType < targets.Length; searchEnemyType++)
-            viableTargets.Add(targets[searchEnemyType]);
+            for (int searchEnemyType = 0; searchEnemyType < targets.Length; searchEnemyType++)
+                viableTargets.Add(targets[searchEnemyType]);
         }
 
-        if(viableTargets.Count != 0)
+        if (viableTargets.Count != 0)
         {
             //check for and if need be.
             for (int searchTargets = 0; searchTargets < viableTargets.Count; searchTargets++)
@@ -335,9 +343,6 @@ public class AIMainTrimmed : MonoBehaviour {
                                 {
                                     Destroy(target);
                                     CheckForTargets();
-
-
- 
                                 }
                                 target = hit.collider.gameObject;
                                 searching = false;
@@ -371,13 +376,13 @@ public class AIMainTrimmed : MonoBehaviour {
     #endregion
 
     #region health
-    public int hurt (int damage) 
+    public int hurt(int damage)
     {
         int HP = hp;
         HP -= damage;
         return HP;
     }
-    public int heal (int health) 
+    public int heal(int health)
     {
         int HP = hp;
         HP += health;
@@ -400,41 +405,136 @@ public class AIMainTrimmed : MonoBehaviour {
     }
     #endregion
 
-    public void Investigate()
+    public IEnumerator InvestigateSound(float lookTime)
     {
-        
-        //play animation
-        //after animation ChangeNavPoint(startPoint.name, startPoint.transform.position);
-        //set noiseHeard to false
-        //Searching = false;
+        yield return new WaitForSeconds(lookTime);
+        ChangeNavPoint(checkpointsArray[CheckpointCount].name, checkpointsArray[CheckpointCount].transform.position);
+
+    }
+
+    public IEnumerator InvestigatePlayerPos(float lookTime)
+    {
+        yield return new WaitForSeconds(lookTime);
+        ChangeNavPoint(checkpointsArray[CheckpointCount].name, checkpointsArray[CheckpointCount].transform.position);
+
     }
 
     public void nextCheckpoint()
-    {
-        /*
-        first checkpoint in array is now the navpoint
-        count++
-        if count = checkpoint arrray length then set navpoit to end
-        */
-        if (CheckpointCount <= checkpointsArray.Length)
-        {
-            ChangeNavPoint(checkpointsArray[CheckpointCount].name, checkpointsArray[CheckpointCount].transform.position);
-            CheckpointCount++;
-        }
-        else 
-        {
-            if (endPoint == null)
-            {
-                CheckpointCount = 0;
-                ChangeNavPoint(checkpointsArray[CheckpointCount].name, checkpointsArray[CheckpointCount].transform.position);
-                CheckpointCount++;
-            }
-            else
-            {
-                ChangeNavPoint(endPoint.name, endPoint.transform.position);
-            }
-        }
-       
 
+    {
+        
+        #region LoopPath
+        if (PathwayCount <= Pathways.Count - 1)
+        {
+			Debug.Log ("next chackpoint");
+            Path = Pathways[PathwayCount];
+            //AINavPoints CheckpointScript = Path.GetComponent<AINavPoints>();
+			AIPath CheckpointScript = Path.GetComponent<AIPath>();
+			Debug.Log(PathType[PathwayCount]);
+
+            switch (PathType[PathwayCount])
+            { 
+                
+                case 0:
+                    if (CheckpointCount <= CheckpointScript.getPoints().Count - 1)
+                    {
+                        string CheckpointCountString = CheckpointCount.ToString();
+						ChangeNavPoint(CheckpointCountString, CheckpointScript.getPoints()[CheckpointCount]);
+					if (CheckpointCount != CheckpointScript.getPoints().Count)
+                        {
+                            CheckpointCount++;
+                        }
+                    }
+                    else
+                    {
+                        if (PathwayCount != Pathways.Count - 1)
+                        {
+                            PathwayCount++;
+                            CheckpointCount = 0;
+                        }
+                        else
+                        {
+                            return;
+                        }
+                    }
+                    break;
+
+                case 1:
+                    if (LoopCount <= nofLoops[PathwayCount])
+                    {
+					if (CheckpointCount <= CheckpointScript.getPoints().Count - 1)
+                        {
+                            string CheckpointCountString = CheckpointCount.ToString();
+							ChangeNavPoint(CheckpointCountString, CheckpointScript.getPoints()[CheckpointCount]);
+						if (CheckpointCount != CheckpointScript.getPoints().Count)
+                            {
+                                CheckpointCount++;
+                            }
+                        }
+                        else
+                        {
+                            CheckpointCount = 0;
+
+							if(!infinite[PathwayCount]){
+                        	    LoopCount++;
+							}
+                        }
+                    }
+                    else
+                    {
+                        PathwayCount++;
+                        CheckpointCount = 0;
+                        LoopCount = 1;
+                    }
+                    break;
+
+                case 2:
+				if (LoopCount <= nofLoops[PathwayCount])
+                    {
+					if ((CheckpointCount < CheckpointScript.getPoints().Count) && (back == false))
+                        {
+                            string CheckpointCountString = CheckpointCount.ToString();
+							ChangeNavPoint(CheckpointCountString, CheckpointScript.getPoints()[CheckpointCount]);
+						if (CheckpointCount != CheckpointScript.getPoints().Count)
+                            {
+                                CheckpointCount++;
+                            }
+                            print(CheckpointCount);
+                        }
+                        else
+                        {
+                            if (CheckpointCount > 0)
+                            {
+                                back = true;
+                                CheckpointCount--;
+                                string CheckpointCountString = CheckpointCount.ToString();
+								ChangeNavPoint(CheckpointCountString, CheckpointScript.getPoints()[CheckpointCount]);
+
+                            }
+                            else
+                            {
+                                back = false;
+
+								if(!infinite[PathwayCount]){
+									LoopCount++;
+								}
+                            }
+                        }
+                    }
+                    else
+                    {
+                        PathwayCount++;
+                        CheckpointCount = 0;
+                        LoopCount = 1;
+                    }
+                    break;
+
+            }
+        }
+        else
+        {
+            
+        }
     }
+    #endregion
 }
