@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEditor;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEditor.AnimatedValues;
 
 public struct AI_Data
@@ -14,7 +15,8 @@ public struct AI_Data
 	private float attackDistance_;
 	private float aggressionLimit_;
 	private string panicPoints_;
-	private bool aggressive_;
+	private bool aggression_;
+	private List<GameObject> paths;
 
 	public AI_Data(int hp,
 	               float sightDistance,
@@ -25,7 +27,7 @@ public struct AI_Data
 	               float attackDistance,
 	               float aggressionLimit,
 	               string panicPoints,
-	               bool aggressive)
+	               bool aggression)
 	{
 		hp_ = hp;
 		sightDistance_ = sightDistance;
@@ -36,10 +38,11 @@ public struct AI_Data
 		attackDistance_ = attackDistance;
 		aggressionLimit_ = aggressionLimit;
 		panicPoints_ = panicPoints;
-		aggressive_ = aggressive;
+		aggression_ = aggression;
+		paths = new List<GameObject> ();
 	}
 
-	public void loadData(AIMain target)
+	public void loadData(AIMainTrimmed target)
 	{
 		target.hp = hp_;
 		target.sightDistance = sightDistance_;
@@ -48,16 +51,20 @@ public struct AI_Data
 		target.runSpeed = runSpeed_;
 		target.seekTag = seekTag_;
 		target.aggressionLimit = aggressionLimit_;
-		target.aggressive = aggressive_;
+		target.panicPoints = panicPoints_;
+		target.aggressive = aggression_;
 	}
 }
 
-[CustomEditor(typeof(AIMain), true)]
+[CustomEditor(typeof(AIMainTrimmed), true)]
 public class AIEditor : Editor {
 
-	AIMain ai_target;
+	private List<GameObject> paths;
+
+	AIMainTrimmed ai_target;
 	AnimBool show_data;
 	string[] ai_types = new string[]{"Villager", "Guard", "Commander"};
+	string[] path_types = new string[]{"one way", "loop around", "back and forth"};
 
 	AI_Data[] ai_data = new AI_Data[]{
 		new AI_Data(100, 20, 35, 5, 8, new string[]{"Player"}, 3, 100, "PanicPoints", false),
@@ -68,24 +75,64 @@ public class AIEditor : Editor {
 	int current_selection = 0;
 	int current_preset = 0;
 
+
 	void OnEnable()
 	{
-		ai_target = (AIMain)target;
+		ai_target = (AIMainTrimmed)target;
 		ai_types_index = ai_target.current_preset;
 		show_data = new AnimBool(false);
 		show_data.valueChanged.AddListener(Repaint);
+		paths = ai_target.Pathways;
 	}
 
 	override public void OnInspectorGUI()
 	{
 		EditorGUI.BeginChangeCheck();
-
 		EditorGUILayout.BeginVertical();
-		ai_types_index = EditorGUILayout.Popup ("AI Type:", ai_types_index, ai_types);
 
+		EditorGUILayout.BeginHorizontal ();
+		GUILayout.Label("AI Type:", GUILayout.MaxWidth(60));
+		ai_types_index = EditorGUILayout.Popup (ai_types_index, ai_types, GUILayout.MaxWidth(200));
+		EditorGUILayout.EndHorizontal ();
+
+		EditorGUILayout.BeginHorizontal();
+		if(GUILayout.Button("Add Path", GUILayout.MaxWidth(100))){
+			ai_target.Pathways.Add(null);
+			ai_target.PathType.Add(0);
+			ai_target.infinite.Add(false);
+			ai_target.nofLoops.Add(1);
+		}
+		EditorGUILayout.EndHorizontal();
+		EditorGUILayout.Separator ();
+
+		for (int i=0; i < ai_target.Pathways.Count; i++) {
+			EditorGUILayout.BeginHorizontal();
+			if(i < ai_target.Pathways.Count){
+				ai_target.Pathways[i] = EditorGUILayout.ObjectField (ai_target.Pathways[i], typeof(GameObject), true, GUILayout.Width(80)) as GameObject; 
+			}
+
+			if(i < ai_target.Pathways.Count){
+				GUILayout.Label("Loop Type:", GUILayout.MaxWidth(80));
+				ai_target.PathType[i] = EditorGUILayout.Popup (ai_target.PathType[i], path_types, GUILayout.MaxWidth(100));
+				GUILayout.Label("infinite?", GUILayout.MaxWidth(50));
+				ai_target.infinite[i] = EditorGUILayout.Toggle(ai_target.infinite[i], GUILayout.MaxWidth(20));
+				GUILayout.Label("number of loops", GUILayout.MaxWidth(90));
+				ai_target.nofLoops[i] = EditorGUILayout.IntField(ai_target.nofLoops[i], GUILayout.MaxWidth(30));
+			}
+			if(GUILayout.Button("Remove Path")){
+				ai_target.Pathways.RemoveAt(i);
+				ai_target.PathType.RemoveAt(i);
+				ai_target.infinite.RemoveAt(i);
+				ai_target.nofLoops.RemoveAt(i);
+			}
+			EditorGUILayout.EndHorizontal();
+		}
 		EditorGUILayout.EndVertical();
 
-		show_data.target = EditorGUILayout.Toggle ("Show Data", show_data.target);
+		EditorGUILayout.BeginHorizontal();
+		GUILayout.Label("Show Data:", GUILayout.MaxWidth(70));
+		show_data.target = EditorGUILayout.Toggle (show_data.target);
+		EditorGUILayout.EndHorizontal ();
 
 		if (EditorGUILayout.BeginFadeGroup (show_data.faded))
 		{
@@ -97,7 +144,8 @@ public class AIEditor : Editor {
 			EditorGUILayout.LabelField("Targets: ",print_array(ai_target.seekTag));
 			EditorGUILayout.LabelField("Attack Distance: ",ai_target.attackDistance.ToString() );
 			EditorGUILayout.LabelField("Aggression Limit: ",ai_target.aggressionLimit.ToString() );
-			EditorGUILayout.LabelField("aggressive: ", ai_target.aggressive.ToString() );
+			EditorGUILayout.LabelField("Panic Points: ",ai_target.panicPoints );
+			EditorGUILayout.LabelField("Aggressive: ",ai_target.aggressive.ToString() );
 		}
 		EditorGUILayout.EndFadeGroup();
 

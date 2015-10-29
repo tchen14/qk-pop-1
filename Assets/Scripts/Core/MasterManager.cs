@@ -7,8 +7,8 @@ using Debug = FFP.Debug;
 //! Master manager of the game. This manager manages all other (significant) managers.
 public static class MasterManager {
 	
-	[RuntimeInitializeOnLoadMethod]
-	static void OnApplicationStart() {
+	//[RuntimeInitializeOnLoadMethod]
+	/*static void OnApplicationStart() {
 		//Debug.Log("core", "OnApplicationStart");
 		//todo: set MasterSceneManager to have the defaul input type
 		//todo: set InputManager to have the defaul input type
@@ -36,23 +36,23 @@ public static class MasterManager {
 		go.name = "_AudioManager";
 		ObjectManager.AddSavedObject(go.transform);
 		
-		/*go = new GameObject();
+		go = new GameObject();
 		go.AddComponent<AchievementManager>();
 		go.name = "_AchievementManager";
-		ObjectManager.AddSavedObject(go.transform);*/
+		ObjectManager.AddSavedObject(go.transform);
 		
-		ApplyGameSettings();
+		//ApplyGameSettings();
 		
 		#if BUILD
 		MasterSceneManager.Instance.QuickLoadLevel (StringManager.FIRSTSCENE);
 		#else
-		ObjectManager.LoadTopObjects();
-		#endif
-	}
+		//ObjectManager.LoadTopObjects();
+		#endif*/
+	//}
 	
-	private static void ApplyGameSettings() {
+	/*private static void ApplyGameSettings() {
 		Cursor.lockState = CursorLockMode.Confined;
 	}
 	
-	public static bool cursorVisible = false;
+	public static bool cursorVisible = false;*/
 }
