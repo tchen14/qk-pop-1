@@ -178,13 +178,18 @@ public class GameHUD : MonoBehaviour {
 		else
 			hideSkills ();
 
-		if (skillsOpen && !skillsRotating) {
-			if (Input.GetKeyDown ("up")) {
-				StartCoroutine(Rotate_skills_up ());
-			} else if (Input.GetKeyDown ("down")) {
-				StartCoroutine(Rotate_skills_down ());
+		if (skillsOpen && !skillsRotating) 
+		{
+			if (Input.GetKeyDown ("up")) 
+			{
+				StartCoroutine(Rotate_skills_up());
+			} 
+			else if (Input.GetKeyDown ("down")) 
+			{
+				StartCoroutine(Rotate_skills_down());
 			}
 		}
+
 		if (Input.GetKeyDown ("escape"))
 			PauseGame ();
 	}
@@ -386,31 +391,30 @@ public class GameHUD : MonoBehaviour {
 	{
 		if (!skillsMoving && !skillsOpen) 
 		{
-			RectTransform abv = skillWheelView.GetComponent<RectTransform> ();
 			skillsOpen = true;
 			skillsMoving = true;
 			canSpin = true;
 		}
 
 	}
-
+	
 	public void hideSkills()
 	{
 		if(!skillsMoving && skillsOpen)
 		{
-			RectTransform abv = skillWheelView.GetComponent<RectTransform> ();
 			skillsMoving = true;
 			canSpin = false;
 			skillsOpen = false;
 		}
 	}
 
-	//This is the function that causes the ability wheel to move into position
+	//This is the function that causes the ability wheel to move into position, centered in middle of screen
 	void moveAbilities() 
 	{
 		RectTransform abs = abilityWheelAnchor.GetComponent<RectTransform> ();
 		RectTransform abv = skillWheelView.GetComponent<RectTransform> ();
 		float movespeed = Time.deltaTime * 250; //this is the speed the wheel travels to the designated locations
+
 		if(skillsOpen)
 		{	
 			skillWheelCursor.SetActive (true);
@@ -428,6 +432,7 @@ public class GameHUD : MonoBehaviour {
 		skillsMoving = false;
 	}
 
+	//this gets the location of each button y coordinate and stores them in an array to determine where the icons go to next during the rotation function
 	void settingUpAbilityWheel()
 	{
 		for (int i = 0; i < abilityButtons.Length; i++) {
@@ -437,6 +442,7 @@ public class GameHUD : MonoBehaviour {
 		updateAbilityIcons();
 	}
 
+	//this updates the outside dummy ability icons to look like the icons on the opposing sides of the array
 	void updateAbilityIcons()
 	{
 		GameObject abbotim = Instantiate(abilityButtons[5]);
@@ -452,19 +458,19 @@ public class GameHUD : MonoBehaviour {
 		abilityButtons [6] = abtop;
 	}
 
-	public IEnumerator Rotate_skills_up()
+	//this is the function that rotates the icons up in the GUI and updates the ability icon array accordingly
+	IEnumerator Rotate_skills_up()
 	{
 		skillsRotating = true;
 		GameObject abtemp = abilityButtons[1];
 		int ab_amount = abilityButtons.Length - 1;
-
-		for (int i = ab_amount; i >=1; i--) 
-		{
-			RectTransform tmp = abilityButtons[i].GetComponent<RectTransform>();
-			tmp.localPosition = new Vector2(tmp.localPosition.x, Mathf.MoveTowards(tmp.localPosition.y, ablocy[i-1], 100));
+		
+		for (int i = ab_amount; i >=1; i--) {
+			RectTransform tmp = abilityButtons [i].GetComponent<RectTransform> ();
+			tmp.localPosition = new Vector2 (tmp.localPosition.x, Mathf.MoveTowards (tmp.localPosition.y, ablocy [i - 1],	250.0f));
 		}
 
-		yield return new WaitForSeconds(0.2f);
+		yield return new WaitForSeconds (0.1f);
 
 		RectTransform topImage = abilityButtons[1].GetComponent<RectTransform>();
 		RectTransform abBottom = abilityButtons[6].GetComponent<RectTransform>();
@@ -475,35 +481,35 @@ public class GameHUD : MonoBehaviour {
 				abilityButtons[i] = abilityButtons[i+1];
 		abilityButtons[ab_amount - 1] = abtemp;
 
-		yield return new WaitForSeconds(0.1f);
-
 		updateAbilityIcons ();
-		
+
 		skillsRotating = false;
 	}
 
-	public IEnumerator Rotate_skills_down()
+	//this is the function that rotates the icons down in GUI and updates the ability icon array accordingly
+	IEnumerator Rotate_skills_down()
 	{
 		skillsRotating = true;
 		GameObject abtemp = abilityButtons[5];
 		int ab_amount = abilityButtons.Length - 1;
+		
+			for (int i = 0; i < ab_amount; i++) {
+				RectTransform tmp = abilityButtons [i].GetComponent<RectTransform> ();
+				tmp.localPosition = new Vector2 (tmp.localPosition.x, Mathf.MoveTowards (tmp.localPosition.y, ablocy [i + 1], 250.0f));
+			}
+			RectTransform testloc = abilityButtons[1].GetComponent<RectTransform>();
 
-		for (int i = 0; i < ab_amount; i++) 
-		{
-			RectTransform tmp = abilityButtons[i].GetComponent<RectTransform>();
-			tmp.localPosition = new Vector2(tmp.localPosition.x, Mathf.MoveTowards(tmp.localPosition.y, ablocy[i+1], 100));
-		}
+		yield return new WaitForSeconds (0.1f);
 
 		RectTransform botImage = abilityButtons[5].GetComponent<RectTransform>();
 		RectTransform abtop = abilityButtons[0].GetComponent<RectTransform>();
 		botImage.localPosition = abtop.localPosition;
 		abtop.localPosition = new Vector2 (abtop.localPosition.x, ablocy [0]);
-
+		
 		for (int i = ab_amount - 1; i > 1; i--)
 			abilityButtons[i] = abilityButtons[i-1];
 		abilityButtons[1] = abtemp;
-
-		yield return new WaitForSeconds(0.1f);
+		
 		updateAbilityIcons ();
 
 		skillsRotating = false;
