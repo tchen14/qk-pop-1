@@ -23,7 +23,7 @@ public sealed class InputManager : MonoBehaviour
 
 	private Dictionary<Inputs, InputType> inputs = new Dictionary<Inputs, InputType>();
 
-	void Awake() {
+	void Start() {
 		inputs.Add(Inputs.UI, this.gameObject.AddComponent<UIInputType>());
 		inputs.Add(Inputs.Game, this.gameObject.AddComponent<GameInputType>());
 		inputs.Add(Inputs.Keyboard, this.gameObject.AddComponent<KeyboardInputType>());
