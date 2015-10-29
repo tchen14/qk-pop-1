@@ -104,8 +104,8 @@ public class PopEvent : MonoBehaviour {
         }
     }
 
-    public void MakeActive(bool active) {
-        if (active == true && executeOnce == true && hasExecuted == true) { return; }
+    public void MakeActive(bool active, bool force = false) {
+        if (active == true && executeOnce == true && hasExecuted == true && force == false) { return; }
         isActive = active;
     }
 }

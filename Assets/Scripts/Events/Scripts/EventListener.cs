@@ -355,13 +355,13 @@ public static class EventListener
         return false;
     }
 
-    private static void ActivateById(string id, bool active)
+    private static void ActivateById(string id, bool active, bool force = false)
     {
         for (int i = 0; i < eventList.Count; i++)
         {
             if (eventList[i].uniqueId == id)
             {
-                eventList[i].MakeActive(active);
+                eventList[i].MakeActive(active, force);
             }
         }
     }
