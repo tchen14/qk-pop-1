@@ -70,6 +70,8 @@ public sealed class Quinc : MonoBehaviour
 
 	public IEnumerator coMoveSlowly = null;
 
+	bool killCo = false;
+
 	//! These variables are temporary for testing, can be removed when implementing Targeting into code
 	public GameObject pushPullTarget;
 	public GameObject cutTarget;
@@ -505,19 +507,23 @@ public sealed class Quinc : MonoBehaviour
 
 		//get all objects within range of soundthrow
 		Collider[] inSphere = Physics.OverlapSphere(soundLocation, soundRange);
-
+		
 		foreach(Collider col in inSphere)
 		{
 
 			//check for enemy
-			if((col.gameObject.GetComponent<Item>().soundThrowAffected) && (col.gameObject.GetComponent<AIMain>() != null))
+			if((col.gameObject.GetComponent<Item>() != null) && (col.gameObject.GetComponent<Item>().soundThrowAffected) && (col.gameObject.GetComponent<AIMain>() != null))
 			{
+
+//TESTING
+				print("Object within range of soundthrow: " + col.gameObject.name);
+//END TESTING
 
 				//save some typing
 				AIMain ai = col.gameObject.GetComponent<AIMain>();
 
 				//check for valid enemy state
-			if((ai.aggressionLevel < ai.aggressionLimit) && (ai.dazed == false))
+				if((ai.aggressionLevel < ai.aggressionLimit) && (ai.dazed == false))
 				{
 
 //				ai.NoiseHeard(soundLocation);
@@ -688,13 +694,14 @@ public sealed class Quinc : MonoBehaviour
 		//set flag to delay crate snapback
 		pushPullLerp = true;
 
-
-		while(Vector3.Distance(targetObject.transform.position, targetPosition) > 2.0f)// && (targetObject.GetComponent<Crate>().SnapBack() == null))
+		
+		while(Vector3.Distance(targetObject.transform.position, targetPosition) > 2.0f && (killCo == false))// && (targetObject.GetComponent<Crate>().SnapBack() == null))
 		{
 
-//TESTING - FOR LEVEL DESIGN REMOVE FOR FINAL BUILD
+			//TESTING - FOR LEVEL DESIGN REMOVE FOR FINAL BUILD
 			targetObject.GetComponent<Renderer>().material.color = Color.yellow;
-//END TESTING
+			targetObject.GetComponent<Item>().colorTime = Time.time;
+			//END TESTING
 
 			//print("MoveSlowly Lerping " + ++testCount);
 
@@ -702,13 +709,15 @@ public sealed class Quinc : MonoBehaviour
 			targetObject.GetComponent<Item>().hasMoved = true;
 			yield return null;
 		}
-
+		
 		//reset flag to allow crate snapback
 		pushPullLerp = false;
 		print("Target Reached");
+		killCo = false;
 
 //TESTING - FOR LEVEL DESIGN REMOVE FOR FINAL BUILD
 		targetObject.GetComponent<Renderer>().material.color = Color.blue;
+		targetObject.GetComponent<Item>().colorTime = Time.time;
 //END TESTING
 
 		yield return null;
@@ -717,6 +726,7 @@ public sealed class Quinc : MonoBehaviour
 	public void stopCo(string croutine)
 	{
 
+		killCo = true;
 		StopCoroutine(croutine);
 		print("Quinc stopped coroutine " + croutine);
 
