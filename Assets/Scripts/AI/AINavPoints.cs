@@ -21,8 +21,6 @@ public class AINavPoints : MonoBehaviour {
 */
 
     public List<Vector3> AiCheckpoints;
-    public int PathType;
-    public int NofLoops;
 
 
 

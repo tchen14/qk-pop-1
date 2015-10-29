@@ -14,7 +14,7 @@ public struct AI_Data
 	private float attackDistance_;
 	private float aggressionLimit_;
 	private string panicPoints_;
-	private bool aggression_;
+	private bool aggressive_;
 
 	public AI_Data(int hp,
 	               float sightDistance,
@@ -25,7 +25,7 @@ public struct AI_Data
 	               float attackDistance,
 	               float aggressionLimit,
 	               string panicPoints,
-	               bool aggression)
+	               bool aggressive)
 	{
 		hp_ = hp;
 		sightDistance_ = sightDistance;
@@ -36,7 +36,7 @@ public struct AI_Data
 		attackDistance_ = attackDistance;
 		aggressionLimit_ = aggressionLimit;
 		panicPoints_ = panicPoints;
-		aggression_ = aggression;
+		aggressive_ = aggressive;
 	}
 
 	public void loadData(AIMain target)
@@ -48,8 +48,7 @@ public struct AI_Data
 		target.runSpeed = runSpeed_;
 		target.seekTag = seekTag_;
 		target.aggressionLimit = aggressionLimit_;
-		target.panicPoints = panicPoints_;
-		target.aggression = aggression_;
+		target.aggressive = aggressive_;
 	}
 }
 
@@ -98,8 +97,7 @@ public class AIEditor : Editor {
 			EditorGUILayout.LabelField("Targets: ",print_array(ai_target.seekTag));
 			EditorGUILayout.LabelField("Attack Distance: ",ai_target.attackDistance.ToString() );
 			EditorGUILayout.LabelField("Aggression Limit: ",ai_target.aggressionLimit.ToString() );
-			EditorGUILayout.LabelField("Panic Points: ",ai_target.panicPoints );
-			EditorGUILayout.LabelField("Aggression: ",ai_target.aggression.ToString() );
+			EditorGUILayout.LabelField("aggressive: ", ai_target.aggressive.ToString() );
 		}
 		EditorGUILayout.EndFadeGroup();
 
