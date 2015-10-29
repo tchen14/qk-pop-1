@@ -51,6 +51,7 @@ public class QuestManager : MonoBehaviour {
 
 			if(currentQuests[count].IsFailed() == true) {
 				Debug.Log(currentQuests[count].GetName() + " quest has failed and removed from List!");
+				EventListener.ActivateById(currentQuests[count].GetID().ToString(), true);
 				currentQuests.RemoveAt(count);
 				continue;
 			}
@@ -114,6 +115,8 @@ public class QuestManager : MonoBehaviour {
 
 		currentQuests.Add (newQuest);
 		Debug.Log ("Added quest!");
+
+		EventListener.ActivateById (newQuest.GetID ().ToString (), true);
 	
 		if (newQuest.HasTimer () == true) {
 

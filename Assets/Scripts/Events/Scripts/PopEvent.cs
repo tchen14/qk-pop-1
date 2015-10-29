@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -74,13 +74,15 @@ public class PopEvent : MonoBehaviour {
 
     void OnTriggerEnter(Collider other) {
         if (isActive == false) { return; }
-        if (other.gameObject.GetComponent<PoPCharacterController>()) {
+        if (other.gameObject.GetComponent<QK_Controller>())
+        {
             EventListener.SlowUpdate(this);
         }
     }
     void OnTriggerExit(Collider other) {
         if (isActive == false) { return; }
-        if (other.gameObject.GetComponent<PoPCharacterController>()) {
+        if (other.gameObject.GetComponent<QK_Controller>())
+        {
             EventListener.SlowUpdate(this);
         }
     }
@@ -102,8 +104,8 @@ public class PopEvent : MonoBehaviour {
         }
     }
 
-    public void MakeActive(bool active) {
-        if (active == true && executeOnce == true && hasExecuted == true) { return; }
+    public void MakeActive(bool active, bool force = false) {
+        if (active == true && executeOnce == true && hasExecuted == true && force == false) { return; }
         isActive = active;
     }
 }
