@@ -11,12 +11,7 @@ public class AIPath : MonoBehaviour {
 	public int PathType = 0;
 	public int NofLoops = 0;
 
-	private GameObject instance;
-
-    void Awake()
-    {
-        instance = Resources.Load("checkpoint") as GameObject;
-    }
+	private GameObject instance = Resources.Load("checkpoint") as GameObject;
 
 	public void addCheckpoint(GameObject new_point)
 	{

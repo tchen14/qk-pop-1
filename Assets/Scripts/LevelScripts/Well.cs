@@ -4,15 +4,14 @@ using Debug=FFP.Debug;
 
 [RequireComponent(typeof(Targetable))]
 [EventVisible]
-//public class Well : Item
-	public class Well : MonoBehaviour
+public class Well : Item
 {
 
 	// Use this for initialization
 	void Start ()
 	{
-//		itemName = "Well";
-//		soundThrowCompatible = true;
+		itemName = "Well";
+		soundThrowCompatible = true;
 	}
 	
 	// Update is called once per frame

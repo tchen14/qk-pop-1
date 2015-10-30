@@ -3,8 +3,7 @@ using System.Collections;
 using Debug=FFP.Debug;
 
 [EventVisible]
-//public class Enemy : Item
-public class Enemy : MonoBehaviour
+public class Enemy : Item
 {
 	public const float stunPeriod = 10.0f;
 	public float curStunTimer = 0.0f;
@@ -13,8 +12,8 @@ public class Enemy : MonoBehaviour
 
 	void Start ()
 	{
-//		itemName = "Enemy";
-//		stunCompatible = true;
+		itemName = "Enemy";
+		stunCompatible = true;
 		regColor = GetComponent<Renderer>().material.color;
 	}
 	

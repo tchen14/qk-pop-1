@@ -28,17 +28,30 @@ public class GameHUD : MonoBehaviour {
 	GameObject gameMap;						//!<The map iamge on a plane
 	GameObject player;						//!<reference to player
 	GameObject pauseMenu;
-
-	public PauseMenu accessManager;
 	
+	public int numOfAbilities;						//!<temporary int for number of abilities in game
+	public List<GameObject> hudAbilityIcons = new List<GameObject>();		//!<Array of hud icons, set in inspector
+	public bool abilitiesUp = false;
+	public GameObject[] abilityWheelIcons;
+	Animator abilityWheelAnchorAnim;
+
+	List<GameObject> phoneAbilitiesAvailible;		//!<List containing hud phone abilties
 	GameObject mapCam;								//!<Camera used for minimap
 	static GameObject objectiveText;						//!<Objective Text UI element
 	static GameObject dialogueBox, dialogueText, dialogueTitleText;
 
 	GameObject[] mapLabels;							//!<Array of text taht appears on minimap
 
+	GameObject middleAbilityIcon;					//!<Phone ability icon references
+	GameObject rightAbilityIcon;
+	GameObject leftAbilityIcon;
+	GameObject[] abilityButtons;
+
+	[ReadOnly]public int curAbility = 1;
+
 	public bool skillsOpen = false;
 	bool canSpin = false;
+	GameObject skillWheel;
 	GameObject closeMapButton;
 	GameObject phoneButtons;
 	GameObject mapElements;
@@ -48,7 +61,7 @@ public class GameHUD : MonoBehaviour {
 	GameObject leftArrow;
 	GameObject rightArrow;
 
-	GameObject testObjective;
+	public GameObject testObjective;
 
 	void Awake() {
 		#region singletonEnforcement
@@ -62,25 +75,29 @@ public class GameHUD : MonoBehaviour {
 		#endregion
 
 		mainHUDCanvas = GameObject.Find("mainHUD");
+		skillWheel = GameObject.Find("abilityWheel");
+		abilityWheelAnchorAnim = GameObject.Find("AbilityWheelAnchor").GetComponent<Animator>();
 		worldMapCanvas = GameObject.Find("worldMapCanvas");
 		gameMap = GameObject.Find("mapBG");
 		player = GameObject.Find("_Player");
-		testObjective = GameObject.Find("TestObjective");
 		pauseMenu = GameObject.Find ("pauseMenu");
 		pauseMenu.SetActive (false);
 		
 		//!Turn on UI stuff
 		worldMapCanvas.SetActive(true);
+		skillWheel.SetActive(false);
 
 		//!Fill mapLabels array
 		mapLabels = GameObject.FindGameObjectsWithTag("worldMapLabel");
 		closeMapButton = GameObject.Find("CloseMapButton");
 		closeMapButton.SetActive(false);
 
+		abilityButtons = GameObject.FindGameObjectsWithTag("abilityButton");
+
 		//!Set mapcam reference
 		mapCam = GameObject.Find("mapCam");
 		//!Set compassCameraPoint reference
-		compassCameraPoint = GameObject.Find("compassCameraPoint");
+		compassCameraPoint = GameObject.Find("_Main Camera");
 		compass = GameObject.Find("compassSlider");
 		slider = compass.transform.FindChild ("Handle Slide Area").gameObject;
 		slider.SetActive (false);
@@ -101,19 +118,39 @@ public class GameHUD : MonoBehaviour {
 		mapElements = GameObject.Find("MapElements");
 		mapElements.SetActive(false);
 
+		//Testing for filling ability list
+		List<string> tempAbList = new List<string>();
+		tempAbList.Add("Push");
+		tempAbList.Add("Pull");
+		tempAbList.Add("Shock");
+
+		//Initialize phone abilities list
+		phoneAbilitiesAvailible = new List<GameObject>();
+
+		fillAbilityList(tempAbList);
 	}
 
 	void Start() {
 		//Place the ability buttons in the Phone Menu
 		//SpawnHudAbilityIcons ();
+		skillWheel.GetComponent<Animator>().speed = 0;
 	}
 
-	void FixedUpdate() {
+	void Update() {
 		//!This is for testing, call update map from player movements
 		rotateMapObjects();
 
 		//!Set the compass indicator
 		setCompassValue(calculateObjectiveAngle(testObjective));
+
+		//Testing
+		if(InputManager.input.ScrollTarget() != 0 && canSpin) {
+			if(InputManager.input.ScrollTarget() > 0)
+				StartCoroutine(rotateSkillDown());
+			else
+				StartCoroutine(rotateSkillUp());
+		}
+
 	}
 
 	//!Call this to update objective tet at top of the screen
@@ -133,10 +170,6 @@ public class GameHUD : MonoBehaviour {
 	}
 
 	public void setCompassValue(float newValue) {
-        if (testObjective == null)
-        {
-            return;
-        }
 
 		//!Calculates distances between "the player and the objective" and "the camera and the objective"
 		float distanceBetweenCamAndObj = Vector3.Distance (compassCameraPoint.transform.position, testObjective.transform.position);
@@ -179,10 +212,6 @@ public class GameHUD : MonoBehaviour {
 	}
 
 	public float calculateObjectiveAngle(GameObject objective) {
-        if (objective == null)
-        {
-            return 0;
-        }
 		Vector3 pointToObjective;
 		Vector3 pointStraightFromCam;
 
@@ -192,6 +221,7 @@ public class GameHUD : MonoBehaviour {
 
 
 		//!create vector3 from player to objective and normalize it
+
 		pointToObjective = objective.gameObject.transform.position - compassCameraPoint.transform.position;
 		pointToObjective.Normalize();
 
@@ -213,9 +243,84 @@ public class GameHUD : MonoBehaviour {
 		}
 	}
 
+	//fills HUD ability list
+	void fillAbilityList(List<string> abilities) {
+		//Add the proper ability to the phone wheel
+		foreach(string curAbility in abilities) {
+			switch(curAbility) {
+
+				case "Push":
+					phoneAbilitiesAvailible.Add(hudAbilityIcons[0]);
+					break;
+
+				case "Pull":
+					phoneAbilitiesAvailible.Add(hudAbilityIcons[1]);
+					break;
+
+				case "Shock":
+					phoneAbilitiesAvailible.Add(hudAbilityIcons[2]);
+					break;
+			}
+		}
+	}
+
+	//Display the HUD icons in the phone menu
+	public void SpawnHudAbilityIcons() {
+		if(!abilitiesUp) {
+			abilitiesUp = true;
+			GameObject spawnPoint = GameObject.Find("abilitySelectPivot");
+
+			//Calculate size of buttons based on screen size (HUD Canvas Size)
+			middleAbilityIcon = Instantiate(phoneAbilitiesAvailible[0], spawnPoint.transform.position, Quaternion.identity) as GameObject;
+			RectTransform middleRect = middleAbilityIcon.GetComponent<RectTransform>();
+
+			Vector2 newMainDmiensions = new Vector2(Screen.height / 4, Screen.height / 4);
+
+			middleRect.sizeDelta = newMainDmiensions;
+
+			middleAbilityIcon.transform.SetParent(spawnPoint.transform);
+
+			//spawn ability on the right if there is at least 2 elements in the array
+			if(phoneAbilitiesAvailible.Count > 1) {
+				Vector3 newPos = spawnPoint.transform.position;
+
+				newPos.x += Screen.width / 24;
+				newPos.y -= Screen.height / 8;
+				rightAbilityIcon = Instantiate(phoneAbilitiesAvailible[1], newPos, Quaternion.identity) as GameObject;
+				rightAbilityIcon.GetComponent<RectTransform>().sizeDelta = new Vector2(Screen.height / 6, Screen.height / 6);
+
+
+				rightAbilityIcon.transform.SetParent(spawnPoint.transform);
+			}
+
+			//spawn ability on the left if there is at least 3 elements in the array
+			if(phoneAbilitiesAvailible.Count > 2) {
+				Vector3 newPos = spawnPoint.transform.position;
+
+				newPos.x += Screen.width / 24;
+				newPos.y += Screen.height / 8;
+				leftAbilityIcon = Instantiate(phoneAbilitiesAvailible[phoneAbilitiesAvailible.Count - 1], newPos, Quaternion.identity) as GameObject;
+				leftAbilityIcon.GetComponent<RectTransform>().sizeDelta = new Vector2(Screen.height / 6, Screen.height / 6);
+
+				leftAbilityIcon.transform.SetParent(spawnPoint.transform);
+			}
+		} else {
+			Destroy(middleAbilityIcon); Destroy(rightAbilityIcon); Destroy(leftAbilityIcon);
+			abilitiesUp = false;
+		}
+	}
 
 	//Shows map on phone and roates and resizes phone to screen
 	public void showMap() {
+		if (skillsOpen) {
+			skillsOpen = false;
+			//Debug.Log("skills closed");
+			abilityWheelIcons[curAbility].GetComponent<RectTransform>().localScale /= 1.5f;
+			skillWheel.SetActive(false);
+			curAbility = 4;
+			abilityWheelAnchorAnim.SetBool("slideIn", false);
+			canSpin = false;
+		}
 		phoneButtons.SetActive(false);
 		mapElements.SetActive(true);
 		closeMapButton.SetActive(true);
@@ -229,6 +334,63 @@ public class GameHUD : MonoBehaviour {
 		closeMapButton.SetActive(false);
 		GameObject.Find("PhoneMenu").GetComponent<Animator>().SetBool("mapActive", false);
 
+	}
+
+	public void showSkills() {
+		if(!skillsOpen) {
+			skillsOpen = true;
+			skillWheel.SetActive(true);
+			abilityWheelIcons[4].GetComponent<RectTransform>().localScale *= 1.5f;
+			abilityWheelAnchorAnim.SetBool("slideIn", true);
+			canSpin = true;
+			InputManager.changeSkills = true;
+		} else {
+			skillsOpen = false;
+			abilityWheelIcons[curAbility].GetComponent<RectTransform>().localScale /= 1.5f;
+			skillWheel.SetActive(false);
+			curAbility = 4;
+			abilityWheelAnchorAnim.SetBool("slideIn", false);
+			canSpin = false;
+			InputManager.changeSkills = false;
+		}
+	}
+
+	public IEnumerator rotateSkillDown() {
+		canSpin = false;
+		skillWheel.GetComponent<Animator>().speed = 1;
+		yield return new WaitForSeconds(0.49f);
+		skillWheel.GetComponent<Animator>().speed = 0;
+
+		curAbility++;
+		if(curAbility > 7) {
+			curAbility = 0;
+			abilityWheelIcons[7].GetComponent<RectTransform>().localScale /= 1.5f;
+		} else {
+			abilityWheelIcons[curAbility - 1].GetComponent<RectTransform>().localScale /= 1.5f;
+		}
+
+		abilityWheelIcons[curAbility].GetComponent<RectTransform>().localScale *= 1.5f;
+
+		canSpin = true;
+	}
+
+	public IEnumerator rotateSkillUp() {
+		canSpin = false;
+		skillWheel.GetComponent<Animator>().speed = -1;
+		yield return new WaitForSeconds(0.49f);
+		skillWheel.GetComponent<Animator>().speed = 0;
+
+		curAbility--;
+		if(curAbility < 0) {
+			curAbility = 7;
+			abilityWheelIcons[0].GetComponent<RectTransform>().localScale /= 1.5f;
+		} else {
+			abilityWheelIcons[curAbility + 1].GetComponent<RectTransform>().localScale /= 1.5f;
+		}
+
+		abilityWheelIcons[curAbility].GetComponent<RectTransform>().localScale *= 1.5f;
+
+		canSpin = true;
 	}
 
 	public void ShowDialogueBox() {
@@ -251,41 +413,39 @@ public class GameHUD : MonoBehaviour {
 		dialogueBox.SetActive(false);
 	}
 
-	public void ChangeInputToUI(bool change = true) {/*
-		if(change)
-		InputManager.instance.ChangeInputType("UIInputType");
-		else
-			InputManager.instance.ChangeInputType("GameInputType");*/
+	public void skillCut() {
+
 	}
 
-    public void PauseNoMenu() {
-        accessManager.setPause();
-        
-    }
+	public void skillSound() {
 
-    public void timeNormal() {
-        accessManager.setTimeNormal();
-    }
+	}
 
-    public void timeManipulate(float speed) {
-        //speed = 2.0f;
-        if(speed > 0 && speed < 1.75) {
-            accessManager.manipulateTime(speed);
-        } 
-        else {
-            System.Console.WriteLine("Error value of Speed GameHUD :: timeManipulate(float speed)");
-        }
-        
-     }
+	public void skillPull() {
 
+	}
+
+	public void skillPush() {
+
+	}
+
+	public void skillStun() {
+
+	}
+
+	public void ChangeInputToUI(bool change = true) {
+		if(change)
+			InputManager.ChangeInputType(InputManager.Inputs.UI);
+		else
+			InputManager.ChangeInputType(InputManager.Inputs.Game);
+	}
+	
 	public void showPauseMenu () {
 		pauseMenu.SetActive (true);
-		
 	}
 
 	public void hidePauseMenu () {
 		pauseMenu.SetActive (false);
-		accessManager.unPauseGameBtt();
 	}
 
 	public void loadScene(string s) {

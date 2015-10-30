@@ -68,8 +68,8 @@ public class AIEditor : Editor {
 
 	AI_Data[] ai_data = new AI_Data[]{
 		new AI_Data(100, 20, 35, 5, 8, new string[]{"Player"}, 3, 100, "PanicPoints", false),
-		new AI_Data(200, 40, 35, 7, 12, new string[]{"Player"}, 5, 100, "PanicPoints", false),
-		new AI_Data(300, 60, 35, 12, 16, new string[]{"Player"}, 7, 100, "PanicPoints", false)};
+		new AI_Data(200, 40, 35, 7, 12, new string[]{"Player"}, 5, 100, "PanicPoints", true),
+		new AI_Data(300, 60, 35, 12, 16, new string[]{"Player"}, 7, 100, "PanicPoints", true)};
 
 	int ai_types_index = 0;
 	int current_selection = 0;

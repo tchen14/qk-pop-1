@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 
 [RequireComponent(typeof(NavMeshAgent))]	//Automaticly Make a navMeshAgent on this game object when this script is applied
 [RequireComponent(typeof(Rigidbody))]
@@ -27,7 +28,7 @@ public class AIMainTrimmed : MonoBehaviour
     private GameObject startPoint = null;                //!<Sets the first navPoint, defaults to stationary
     private GameObject endPoint = null;                  //!<Sets the last navPoint of the AI where they will stop.
 	public string panicPoints = "PanicPoints";          //!<The object name of the vector keeper of related panic points for the AI
-    public bool aggressive = false;					    //!<If the NPC will attack the player
+    public bool aggressive = true;					    //!<If the NPC will attack the player
     private GameObject PlayerLastPos = null;             //visual representation of where the AI last remembers seeing the player before they went of LoS
     private bool searching = false;                      //if the AI is currently looking for the player at its shadow
     private bool checking = false;
@@ -88,7 +89,7 @@ public class AIMainTrimmed : MonoBehaviour
 
     void Start()
     {
-        gameObject.GetComponent<Renderer>().material.color = Color.magenta;
+        PlayerLastPos = AssetDatabase.LoadAssetAtPath("Assets/Prefabs/shadowPlayer.prefab", typeof(GameObject)) as GameObject;
         if (aggressionLevel >= aggressionLimit)
             GetComponent<Rigidbody>().isKinematic = true;
         mesh = GetComponent<NavMeshAgent>();
@@ -108,7 +109,6 @@ public class AIMainTrimmed : MonoBehaviour
             if (dazed == false)
             {
                 mesh.SetDestination(navPoint);
-                //print(navPoint);
                 #region attack
                 if (target != null)
                 {
@@ -206,6 +206,7 @@ public class AIMainTrimmed : MonoBehaviour
         {
             if (suspicious == true)
             {
+                
                 gameObject.GetComponent<Renderer>().material.color = Color.yellow;
             }
             else
@@ -218,7 +219,6 @@ public class AIMainTrimmed : MonoBehaviour
         #region path
         if ((Vector3.Distance(transform.position, navPoint) < 3) && (target == null))
         {
-			Debug.Log ("arrived.");
             nextCheckpoint();
         }
         #endregion
@@ -237,11 +237,14 @@ public class AIMainTrimmed : MonoBehaviour
         {
             aggressionLevel -= 1;
         }
-        if (aggressionLevel == 0)
+        if (aggressionLevel <= 0)
         {
             searching = false;
             attacking = false;
-            ChangeNavPoint(checkpointsArray[CheckpointCount].name, checkpointsArray[CheckpointCount].transform.position);
+            Path = Pathways[PathwayCount];
+            AIPath CheckpointScript = Path.GetComponent<AIPath>();
+            string CheckpointCountString = CheckpointCount.ToString();
+            ChangeNavPoint(CheckpointCountString, CheckpointScript.getPoints()[CheckpointCount]);
         }
     }
 
@@ -292,7 +295,6 @@ public class AIMainTrimmed : MonoBehaviour
     #region Move functions
     public void ChangeNavPoint(string N, Vector3 T)
     {
-		Debug.Log ("Changing to:" + T.ToString());
         navCheck = N;
         navPoint = T;
     }
@@ -408,14 +410,20 @@ public class AIMainTrimmed : MonoBehaviour
     public IEnumerator InvestigateSound(float lookTime)
     {
         yield return new WaitForSeconds(lookTime);
-        ChangeNavPoint(checkpointsArray[CheckpointCount].name, checkpointsArray[CheckpointCount].transform.position);
+        Path = Pathways[PathwayCount];
+        AIPath CheckpointScript = Path.GetComponent<AIPath>();
+        string CheckpointCountString = CheckpointCount.ToString();
+        ChangeNavPoint(CheckpointCountString, CheckpointScript.getPoints()[CheckpointCount]);
 
     }
 
     public IEnumerator InvestigatePlayerPos(float lookTime)
     {
         yield return new WaitForSeconds(lookTime);
-        ChangeNavPoint(checkpointsArray[CheckpointCount].name, checkpointsArray[CheckpointCount].transform.position);
+        Path = Pathways[PathwayCount];
+        AIPath CheckpointScript = Path.GetComponent<AIPath>();
+        string CheckpointCountString = CheckpointCount.ToString();
+        ChangeNavPoint(CheckpointCountString, CheckpointScript.getPoints()[CheckpointCount]);
 
     }
 
@@ -426,17 +434,14 @@ public class AIMainTrimmed : MonoBehaviour
         #region LoopPath
         if (PathwayCount <= Pathways.Count - 1)
         {
-			Debug.Log ("next chackpoint");
             Path = Pathways[PathwayCount];
-            //AINavPoints CheckpointScript = Path.GetComponent<AINavPoints>();
 			AIPath CheckpointScript = Path.GetComponent<AIPath>();
-			Debug.Log(PathType[PathwayCount]);
 
             switch (PathType[PathwayCount])
             { 
                 
                 case 0:
-                    if (CheckpointCount <= CheckpointScript.getPoints().Count - 1)
+                    if (CheckpointCount < CheckpointScript.getPoints().Count)
                     {
                         string CheckpointCountString = CheckpointCount.ToString();
 						ChangeNavPoint(CheckpointCountString, CheckpointScript.getPoints()[CheckpointCount]);
@@ -462,7 +467,7 @@ public class AIMainTrimmed : MonoBehaviour
                 case 1:
                     if (LoopCount <= nofLoops[PathwayCount])
                     {
-					if (CheckpointCount <= CheckpointScript.getPoints().Count - 1)
+					if (CheckpointCount < CheckpointScript.getPoints().Count)
                         {
                             string CheckpointCountString = CheckpointCount.ToString();
 							ChangeNavPoint(CheckpointCountString, CheckpointScript.getPoints()[CheckpointCount]);
@@ -499,7 +504,6 @@ public class AIMainTrimmed : MonoBehaviour
                             {
                                 CheckpointCount++;
                             }
-                            print(CheckpointCount);
                         }
                         else
                         {

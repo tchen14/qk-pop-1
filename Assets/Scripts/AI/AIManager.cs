@@ -33,7 +33,7 @@ public class AIManager : MonoBehaviour {
 	{
 		for (int i = 0; i < AI_children_length; i++) 
 		{
-			AI_children[i].GetComponent<AIMain>().aggressive = true;
+			AI_children[i].GetComponent<AIMain>().aggression = true;
 		}
 	}
 	//AI become immediatly aggressive and will hunt and attack the player
@@ -41,7 +41,7 @@ public class AIManager : MonoBehaviour {
 	{
 		for (int i = 0; i < AI_children_length; i++) 
 		{
-			AI_children[i].GetComponent<AIMain>().aggressive = true;
+			AI_children[i].GetComponent<AIMain>().aggression = true;
 			AI_children[i].GetComponent<AIMain>().aggressionLevel = AI_children[i].GetComponent<AIMain>().aggressionLimit;
 			AI_children[i].GetComponent<AIMain>().seesTarget = true;
 		}
@@ -52,6 +52,14 @@ public class AIManager : MonoBehaviour {
 		for (int i = 0; i < AI_children_length; i++) 
 		{
 			Destroy(AI_children[i]);
+		}
+	}
+	//AI are told to return to their start points
+	void Return()
+	{
+		for (int i = 0; i < AI_children_length; i++) 
+		{
+			AI_children[i].GetComponent<AIMain>().ChangeNavPoint("Start Path",GetComponent<AIMain>().startPoint.transform.position); 
 		}
 	}
 		
