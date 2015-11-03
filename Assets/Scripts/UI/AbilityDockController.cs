@@ -2,7 +2,7 @@
 using System.Collections;
 using UnityEngine.UI;
 
-public class AbilityDockAnimations : MonoBehaviour {
+public class AbilityDockController : MonoBehaviour {
 	
 	public Image[] abilities;
 	public float timeTakenDuringLerp = 0.35f;
@@ -12,7 +12,6 @@ public class AbilityDockAnimations : MonoBehaviour {
 	int[] position;
 	float xPosition;
 	float timeStartedLerping;
-	Image[] abilityDocImages;
 	int numAbilities;
 	int selectedAbility;
 	bool rotating;
@@ -29,47 +28,46 @@ public class AbilityDockAnimations : MonoBehaviour {
 		closing = false;
 		selectionBeam.rectTransform.sizeDelta = new Vector2 (0, 0);
 		selectionBeam.transform.position = new Vector3 (selectionBeam.transform.position.x, 55, 0);
-		abilityDocImages = this.gameObject.GetComponentsInChildren<Image>();
 		position = new int[abilities.Length];
 		numAbilities = position.Length;
 		for(int i = 0; i < numAbilities; i++){
 			position[i] = i;
 		}
-		selectedAbility = 2;
+		hideIcons ();
 		xPosition = abilities [0].transform.position.x;
+
+		setSelectedAbility (1); 								//Sets the default ability to "Push"
+
+		abilities[selectedAbility].transform.SetAsLastSibling();
 	}
 	
 	void Update () {
-		if (Input.GetKeyDown (KeyCode.Tab)) {
-			//Open ability dock
-			currentPosition();
+		if (Input.GetKeyDown (KeyCode.Tab)) {					//Open ability dock
+			targetPosition();
 			opening = true;
 			closing = false;
+			showIcons();
 			startLerping();
 		}
-		else if (Input.GetKey(KeyCode.Tab) && canGetInput) {
-			//Ability dock is open
-			if (Input.GetKeyDown (KeyCode.UpArrow)) {
-				selectedAbility = modulo(selectedAbility + 1, 5);
-				newPos (true);
-				rotating = true;
-				startLerping();
-			}
-			if (Input.GetKeyDown (KeyCode.DownArrow)) {
-				selectedAbility = modulo(selectedAbility - 1, 5);
+		else if (Input.GetKey(KeyCode.Tab) && canGetInput) {	//Ability dock is open
+			if (Input.GetKeyDown (KeyCode.DownArrow)) {			//Scroll the icons down
 				newPos (false);
 				rotating = true;
 				startLerping();
 			}
+			if (Input.GetKeyDown (KeyCode.UpArrow)) {			//Scroll the icons up
+				newPos (true);
+				rotating = true;
+				startLerping();
+			}
 		}
-		else if (Input.GetKeyUp (KeyCode.Tab)) {
-			//Close ability dock
-			abilities[selectedAbility].transform.SetAsLastSibling();
+		else if (Input.GetKeyUp (KeyCode.Tab)) {				//Close ability dock
 			closedPosition();
 			closing = true;
 			opening = false;
+			selectedAbility = position [2];
+			abilities[selectedAbility].transform.SetAsLastSibling();
 			startLerping();
-			
 		}
 	}
 
@@ -96,6 +94,9 @@ public class AbilityDockAnimations : MonoBehaviour {
 			 * This did not look good at all.
 			 */
 			if(percentageComplete >= .35f){
+				if(closing){
+					hideIcons();
+				}
 				canGetInput = true;
 			}
 			if(percentageComplete >= 1f){
@@ -106,52 +107,75 @@ public class AbilityDockAnimations : MonoBehaviour {
 		}
 	}
 
+	/* This function sets a few basic values to help with lerping the icons
+	 */
 	void startLerping(){
 		canGetInput = false;
 		timeStartedLerping = Time.time;
 	}
 
-	/*Helper function that gets the target position for where the ability icon will travel next.
-	 * It takes in a boolean that should be true when the down arrow is pressed and false when the up arrow is.
+	/* This function disables all of the icons that are not the icon of the "Selected Ability"
+	 * Some of the icons are semi-transparent so they are all turned off when the ability dock is closed to avoid overlapping
+	 */
+	void hideIcons(){
+		for (int i = 0; i < abilities.Length; i++) {
+			if(i != selectedAbility){
+				abilities[i].enabled = false;
+			}
+		}
+	}
+
+	/* This function turns all the icons back on when the ability dock is opening
+	 */
+	void showIcons(){
+		for (int i = 0; i < abilities.Length; i++) {
+			abilities[i].enabled = true;
+		}
+	}
+
+	/* Helper function that gets the target position for where the ability icon will travel next.
+	 * It takes in a boolean that should be true when the up arrow is pressed and false when the down arrow is.
 	 * The "position" array helps figure out where the ability should travel next.
 	 * The if statements before and after the for loop change the order of the abilities so they do not cross over each other when moving.
 	 * When an ability needs to travel from the top to the bottom or vice-versa it is set to the back so it travels behind all other icons.
 	 */
-	void newPos(bool isDown){
-		if (isDown) {
-			for (int i = 0; i < position.Length; i++) {
-				abilities [i].transform.SetSiblingIndex (position [i] + 2);
-			}
+	void newPos(bool isUp){
+		if (isUp) {
+			abilities[position[0]].transform.SetSiblingIndex (0);
 		}
 		for (int i = 0; i < position.Length; i++) {
-			if(isDown){
+			if(!isUp){
 				position[i] = modulo(position[i] - 1, 5);
 			}
 			else{
 				position[i] = modulo(position[i] + 1, 5);
 			}
-			targetPos[i] = new Vector3(xPosition, getPos (position[i]), 0);
 		}
-		if (!isDown) {
-			for (int i = 0; i < position.Length; i++) {
-				abilities [i].transform.SetSiblingIndex (position [i] + 2);
-			}
+		targetPosition ();
+		if (!isUp) {
+			abilities[position[0]].transform.SetSiblingIndex (0);
 		}
 	}
 
-	void currentPosition(){
+	/* This function sets the target position for each of the icons.
+	 * Function is called once when opening the dock and once each time the user scrolls up or down in the selector.
+	 */
+	void targetPosition(){
 		for (int i = 0; i < position.Length; i++) {
-			targetPos [i] = new Vector3 (xPosition, getPos (position [i]), 0);
+			targetPos [i] = new Vector3 (xPosition, getPos (position [4-i]), 0);
 		}
 	}
 
+	/* This function sets the target position of each of the icons to the location of the lowest icon.
+	 * When lerping the icons to this position, the dock closes.
+	 */
 	void closedPosition(){
 		for (int i = 0; i < position.Length; i++) {
-			targetPos [i] = new Vector3 (xPosition, getPos (0), 0);
+			targetPos [i] = new Vector3 (xPosition, getPos (4), 0);
 		}
 	}
 
-	/* Helper function that returns the modulo. This correctly calculates negative numbers as the % oeprator does not by itsself
+	/* Helper function that returns the modulo. This correctly calculates negative numbers as the % oeprator does not by itsself.
 	 */
 	int modulo(int a, int b){
 		return (a%b + b)%b;
@@ -166,28 +190,46 @@ public class AbilityDockAnimations : MonoBehaviour {
 	float getPos(int i){
 		switch(i){
 		case 0:
-			return 55;
+			return 375;
 		case 1:
-			return 135;
+			return 295;
 		case 2:
 			return 215;
 		case 3:
-			return 295;
+			return 135;
 		case 4:
-			return 375;
+			return 55;
 		default:
 			return 0;
 		}
 	}
 
 	/* This function returns an integer that corresponds to the ability that is selected
-	 * 0 is Cut
-	 * 1 is Sound Throw
-	 * 2 is Taze
-	 * 3 is Push
-	 * 4 is Pull
+	 * 0 is Pull
+	 * 1 is Push
+	 * 2 is Taze	
+	 * 3 is Sound Throw
+	 * 4 is Cut
 	 */
 	public int getSelectedAbility(){
 		return selectedAbility;
+	}
+
+	/* This public function allows a developer to set a default ability if they wanted to for a certain mission or level.
+	 * The function takes in an integer that equips the ability in correspondence with the values below.
+	 * 0 is Pull
+	 * 1 is Push
+	 * 2 is Taze
+	 * 3 is Sound Throw
+	 * 4 is Cut
+	 */
+	public void setSelectedAbility(int abilityIndex){
+		for (int i = 0; i < position.Length; i++) {
+			int pos = modulo(i + 2, 5);
+			position[pos] = modulo(abilityIndex + i, 5);
+		}
+		selectedAbility = abilityIndex;
+		abilities[selectedAbility].enabled = true;
+		hideIcons();
 	}
 }
