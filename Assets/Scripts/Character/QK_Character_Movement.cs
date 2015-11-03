@@ -18,8 +18,8 @@ public class QK_Character_Movement : MonoBehaviour {
 
 	private float curSpeed = 0f;
 	private float acceleration = 1f;
-	private float runSpeed = 5f;
-	private float sprintSpeed = 8f;
+	private float runSpeed = 10f;
+	private float sprintSpeed = 14f;
 
 	//public float backwardSpeed = 3f;
 	//public float strafingSpeed = 6f;
@@ -27,9 +27,10 @@ public class QK_Character_Movement : MonoBehaviour {
 	public float slideSpeed = 8f;
 	public float gravity = 30f;
 	public float terminalVelocity = 20f;
-	public float turnRate = 3f;
+	public float turnRate = 5f;
 
 	public Vector3 moveVector { get; set; }
+    private Vector3 moveDir { get; set; }
 	public float VerticalVelocity { get; set; }
 
 	// This is for Slide if implemented
@@ -76,16 +77,19 @@ public class QK_Character_Movement : MonoBehaviour {
         forward = Vector3.Normalize(forward - transform.position);
         Vector3 right = new Vector3(forward.z, 0f, -forward.x);
 
-        Vector3 moveDir = (inputHor * right) + (inputVert * forward);
-
 		if (inputHor != 0f || inputVert != 0) {
             _moveState = CharacterState.Move;
+            moveDir = Vector3.Normalize((inputHor * right) + (inputVert * forward));
 		} else {
 			_moveState = CharacterState.Idle;
 		}
 
 		//Multiply move by MoveSpeed
-		curSpeed += acceleration * moveDir.magnitude;
+        if (_moveState == CharacterState.Move)
+            curSpeed += acceleration;
+        else
+            curSpeed -= acceleration;
+
 		if(_stateModifier == CharacterState.Sprint)
 			curSpeed = Mathf.Clamp(curSpeed, 0, sprintSpeed);
 		else
@@ -94,7 +98,7 @@ public class QK_Character_Movement : MonoBehaviour {
 		moveVector = moveDir * curSpeed;
 		
 		// Rotate Character
-		if(_curState == CharacterState.Move)
+		if(_moveState == CharacterState.Move)
 			RotateCharacter(moveDir);
 
         // Apply Slide
@@ -109,12 +113,11 @@ public class QK_Character_Movement : MonoBehaviour {
 
 	void ApplyGravity () 
 	{
-		Debug.Log ("player", ""+CharacterController.isGrounded);
-		if (moveVector.y > -terminalVelocity) {
+        if (moveVector.y > -terminalVelocity) {
 			VerticalVelocity -= gravity * Time.deltaTime;
 		}
 
-		if (CharacterController.isGrounded && moveVector.y < -1) {
+		if (CharacterController.isGrounded && moveVector.y <= -1) {
 			VerticalVelocity = 0;
 		}
 	}
