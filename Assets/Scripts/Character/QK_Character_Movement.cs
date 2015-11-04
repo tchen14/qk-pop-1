@@ -11,15 +11,16 @@ public class QK_Character_Movement : MonoBehaviour {
 	}
 
 	public enum CharacterState {Idle, Move, Turn, Sprint, Crouch, Climb, Normal}
-	private CharacterState _moveState;
-	private CharacterState _stateModifier;
+	public CharacterState _moveState;
+	public CharacterState _stateModifier;
 
 	public static CharacterController CharacterController;
 
-	private float curSpeed = 0f;
+	public float curSpeed = 0f;
 	private float acceleration = 1f;
-	private float runSpeed = 10f;
+	public float runSpeed = 10f;
 	private float sprintSpeed = 14f;
+	private float crouchSpeed = 7f;
 
 	//public float backwardSpeed = 3f;
 	//public float strafingSpeed = 6f;
@@ -90,10 +91,12 @@ public class QK_Character_Movement : MonoBehaviour {
         else
             curSpeed -= acceleration;
 
-		if(_stateModifier == CharacterState.Sprint)
-			curSpeed = Mathf.Clamp(curSpeed, 0, sprintSpeed);
+		if (_stateModifier == CharacterState.Sprint)
+			curSpeed = Mathf.Clamp (curSpeed, 0f, sprintSpeed);
+		else if (_stateModifier == CharacterState.Crouch)
+			curSpeed = Mathf.Clamp (curSpeed, 0f, crouchSpeed);
 		else
-			curSpeed = Mathf.Clamp(curSpeed, 0, runSpeed);
+			curSpeed = Mathf.Clamp(curSpeed, 0f, runSpeed);
 		
 		moveVector = moveDir * curSpeed;
 		
@@ -166,16 +169,6 @@ public class QK_Character_Movement : MonoBehaviour {
 		if (QK_Character_Movement.CharacterController.isGrounded)
 			VerticalVelocity = jumpSpeed;
 	}
-	
-	float MoveSpeed() 
-	{
-		float moveSpeed = 0f;
-
-		if (slideDirection.magnitude > 0)
-			moveSpeed = slideSpeed;
-
-		return moveSpeed;
-	}
 
 	void RotateCharacter(Vector3 toRotate)
 	{
@@ -185,7 +178,7 @@ public class QK_Character_Movement : MonoBehaviour {
 		
 	void OnDrawGizmosSelected()
 	{
-		if (cam) {
+		if (cam && Debug.IsKeyActive("player")) {
 			float inputHor = InputManager.input.MoveHorizontalAxis ();
 			float inputVert = InputManager.input.MoveVerticalAxis ();
 			Vector3 forward = transform.position + cam.transform.forward;
