@@ -646,6 +646,11 @@ public class JSONClass : JSONNode, IEnumerable {
                 m_Dict.Add (aKey, value);
         }
     }
+	public string Key(int aIndex) {
+		string key = m_Dict.ElementAt (aIndex).Key;
+		return key;
+	}
+
     public override JSONNode this [int aIndex] {
         get {
             if (aIndex < 0 || aIndex >= m_Dict.Count)
