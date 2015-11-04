@@ -11,26 +11,27 @@ public class QK_Character_Movement : MonoBehaviour {
 	}
 
 	public enum CharacterState {Idle, Move, Turn, Sprint, Crouch, Climb, Normal}
-	private CharacterState _moveState;
-	private CharacterState _stateModifier;
+	public CharacterState _moveState;
+	public CharacterState _stateModifier;
 
 	public static CharacterController CharacterController;
 
-	private float curSpeed = 0f;
-	private float acceleration = 0.5f;
-	private float runSpeed = 3f;
-	private float sprintSpeed = 8f;
+	public float curSpeed = 0f;
+	private float acceleration = 1f;
+	public float runSpeed = 10f;
+	private float sprintSpeed = 14f;
+	private float crouchSpeed = 7f;
 
 	//public float backwardSpeed = 3f;
 	//public float strafingSpeed = 6f;
-	public float jumpSpeed = 6f;
-	public float fallSpeed = 0.5f;
-	public float slideSpeed = 10f;
+	public float jumpSpeed = 10f;
+	public float slideSpeed = 8f;
 	public float gravity = 30f;
 	public float terminalVelocity = 20f;
-	public float turnRate = 3f;
+	public float turnRate = 5f;
 
 	public Vector3 moveVector { get; set; }
+    private Vector3 moveDir { get; set; }
 	public float VerticalVelocity { get; set; }
 
 	// This is for Slide if implemented
@@ -64,31 +65,6 @@ public class QK_Character_Movement : MonoBehaviour {
 		//SnapAlignCharacterWithCamera ();
 		ProcessMotion ();
 
-		/*if (InputManager.input.MoveVerticalAxis() > 0) {
-			targetAngle = Quaternion.Euler(transform.eulerAngles.x, 
-			                               cam.transform.eulerAngles.y,
-			                               transform.eulerAngles.z);
-			transform.rotation = Quaternion.Slerp (transform.rotation, targetAngle, turnRate * Time.deltaTime);
-		}
-		if (InputManager.input.MoveVerticalAxis() < 0) {
-			targetAngle = Quaternion.Euler(transform.eulerAngles.x, 
-			                               cam.transform.eulerAngles.y - 180,
-			                               transform.eulerAngles.z);
-			transform.rotation = Quaternion.Slerp (transform.rotation, targetAngle, turnRate * Time.deltaTime);
-		}
-		if (InputManager.input.MoveHorizontalAxis() > 0) {
-			targetAngle = Quaternion.Euler(transform.eulerAngles.x, 
-			                               cam.transform.eulerAngles.y + 90f,
-			                               transform.eulerAngles.z);
-			transform.rotation = Quaternion.Slerp (transform.rotation, targetAngle, turnRate * Time.deltaTime);
-		}
-		if (InputManager.input.MoveHorizontalAxis() < 0) {
-			targetAngle = Quaternion.Euler(transform.eulerAngles.x, 
-			                               cam.transform.eulerAngles.y - 90f,
-			                               transform.eulerAngles.z);
-			transform.rotation = Quaternion.Slerp (transform.rotation, targetAngle, turnRate * Time.deltaTime);
-		}*/
-
 	}
 
 	void ProcessMotion()
@@ -102,34 +78,31 @@ public class QK_Character_Movement : MonoBehaviour {
         forward = Vector3.Normalize(forward - transform.position);
         Vector3 right = new Vector3(forward.z, 0f, -forward.x);
 
-        Vector3 moveDir = (inputHor * right) + (inputVert * forward);
-
 		if (inputHor != 0f || inputVert != 0) {
             _moveState = CharacterState.Move;
+            moveDir = Vector3.Normalize((inputHor * right) + (inputVert * forward));
 		} else {
 			_moveState = CharacterState.Idle;
 		}
 
-		switch (_moveState) 
-		{
-			case CharacterState.Move:
-				//Multiply move by MoveSpeed
-				curSpeed += acceleration * moveDir.magnitude;
-				if(_stateModifier == CharacterState.Sprint)
-					curSpeed = Mathf.Clamp(curSpeed, 0, sprintSpeed);
-				else
-					curSpeed = Mathf.Clamp(curSpeed, 0, runSpeed);
-				
-				moveVector = moveDir * curSpeed;
-				
-				// Rotate Character
-				RotateCharacter(moveDir);
-			break;
+		//Multiply move by MoveSpeed
+        if (_moveState == CharacterState.Move)
+            curSpeed += acceleration;
+        else
+            curSpeed -= acceleration;
 
-			case CharacterState.Turn:
-				RotateCharacter(moveDir);
-				break;
-		}
+		if (_stateModifier == CharacterState.Sprint)
+			curSpeed = Mathf.Clamp (curSpeed, 0f, sprintSpeed);
+		else if (_stateModifier == CharacterState.Crouch)
+			curSpeed = Mathf.Clamp (curSpeed, 0f, crouchSpeed);
+		else
+			curSpeed = Mathf.Clamp(curSpeed, 0f, runSpeed);
+		
+		moveVector = moveDir * curSpeed;
+		
+		// Rotate Character
+		if(_moveState == CharacterState.Move)
+			RotateCharacter(moveDir);
 
         // Apply Slide
         ApplySlide();
@@ -143,11 +116,11 @@ public class QK_Character_Movement : MonoBehaviour {
 
 	void ApplyGravity () 
 	{
-		if (moveVector.y > -terminalVelocity) {
+        if (moveVector.y > -terminalVelocity) {
 			VerticalVelocity -= gravity * Time.deltaTime;
 		}
 
-		if (QK_Controller.CharacterController.isGrounded && moveVector.y < -1) {
+		if (CharacterController.isGrounded && moveVector.y <= -1) {
 			VerticalVelocity = 0;
 		}
 	}
@@ -196,16 +169,6 @@ public class QK_Character_Movement : MonoBehaviour {
 		if (QK_Character_Movement.CharacterController.isGrounded)
 			VerticalVelocity = jumpSpeed;
 	}
-	
-	float MoveSpeed() 
-	{
-		float moveSpeed = 0f;
-
-		if (slideDirection.magnitude > 0)
-			moveSpeed = slideSpeed;
-
-		return moveSpeed;
-	}
 
 	void RotateCharacter(Vector3 toRotate)
 	{
@@ -215,7 +178,7 @@ public class QK_Character_Movement : MonoBehaviour {
 		
 	void OnDrawGizmosSelected()
 	{
-		if (cam) {
+		if (cam && Debug.IsKeyActive("player")) {
 			float inputHor = InputManager.input.MoveHorizontalAxis ();
 			float inputVert = InputManager.input.MoveVerticalAxis ();
 			Vector3 forward = transform.position + cam.transform.forward;
