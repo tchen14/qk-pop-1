@@ -110,13 +110,34 @@ public sealed class Quinc : MonoBehaviour
 	
 
 		//if there are targeted objects in the list, allow actions on them
-		if(PoPCamera.State == PoPCamera.CameraState.TargetLock) //&& inTargetLock)
+		if(PoPCamera.State == PoPCamera.CameraState.TargetLock)
 		{
 
 			if(InputManager.input.isActionPressed())
 			{
-				//if (Input.GetKeyDown(KeyCode.Alpha1) && Time.time > nextPush)
-				if(activeAbility == 0 && Time.time > nextPush)
+				if(activeAbility == 0 && Time.time > nextPull)
+				{
+					nextPull = Time.time + pullRate;
+
+					//get current target
+					pushPullTarget = PoPCamera.instance.CurrentTarget();
+					//pull object
+					//push success/error string
+					string pullStatus = "trying to pull";
+					//pass status string by reference and target game object to pull
+					if(Pull(ref pullStatus, pushPullTarget))
+					{
+						//output success message
+						print("Pull status: " + pullStatus);
+					}
+					else
+					{
+						//output error message
+						print("Pull error: " + pullStatus);
+					}//END if(Pull(ref pullStatus, pushPullTarget))
+
+				}
+				else if(activeAbility == 1 && Time.time > nextPush)
 				{
 					nextPush = Time.time + pushRate;
 					//pushPullTarget = GameObject.Find("Crate"); //!> Reference Targeting Script to get current Target
@@ -140,82 +161,8 @@ public sealed class Quinc : MonoBehaviour
 					}//END if(Push(ref pushStatus, pushPullTarget))
 
 				}
-				//else if (Input.GetKeyDown(KeyCode.Alpha2) && Time.time > nextPull)
-				else if(activeAbility == 1 && Time.time > nextPull)
+				else if(activeAbility == 2 && (Time.time > nextStun))
 				{
-					nextPull = Time.time + pullRate;
-					//pushPullTarget = GameObject.Find("Crate"); //!> Reference Targeting Script to get current Target
-
-					//get current target
-					pushPullTarget = PoPCamera.instance.CurrentTarget();
-					//pull object
-					//push success/error string
-					string pullStatus = "trying to pull";
-					//pass status string by reference and target game object to pull
-					if(Pull(ref pullStatus, pushPullTarget))
-					{
-						//output success message
-						print("Pull status: " + pullStatus);
-					}
-					else
-					{
-						//output error message
-						print("Pull error: " + pullStatus);
-					}//END if(Pull(ref pullStatus, pushPullTarget))
-
-				}
-				//else if (Input.GetKeyDown(KeyCode.Alpha3))
-				else if(activeAbility == 2 && (Time.time > nextCut))// && Input.GetKeyDown(KeyCode.I))
-				{
-					//cutTarget = GameObject.Find("Rope"); //!> Reference Targeting Script to get current Target
-
-					nextCut = Time.time + cutRate;
-
-					cutTarget = PoPCamera.instance.CurrentTarget();
-
-					//cut object
-					//cut success/error string
-					string cutStatus = "trying to cut";
-
-					//pass status by reference and target game object to cut
-					if(Cut(ref cutStatus, cutTarget))
-					{
-						//output success message
-						print("Cut status: " + cutStatus);
-					}
-					else
-					{
-						//output error message
-						print("Cut error: " + cutStatus);
-					}
-
-				}
-				//else if(Input.GetKeyDown(KeyCode.Alpha4))
-				else if(activeAbility == 3 && (Time.time > nextSound))// && Input.GetKeyDown(KeyCode.O))
-				{
-
-					nextSound = Time.time + soundRate;
-
-					string soundStatus = "";
-					//soundThrowTarget = GameObject.Find("Well"); //!> Reference Targeting Script to get current Target
-
-
-					soundThrowTarget = PoPCamera.instance.CurrentTarget();
-
-					if(SoundThrow(ref soundStatus, soundThrowTarget))
-					{
-						print("Sound Status: " + soundStatus);
-					}
-					else
-					{
-						print("Sound Error: " + soundStatus);
-					}//END if(SoundThrow(ref soundStatus, soundThrowTarget))
-
-				}
-				//else if(Input.GetKeyDown(KeyCode.Alpha5))
-				else if(activeAbility == 4 && (Time.time > nextStun))// && Input.GetKeyDown(KeyCode.P))
-				{
-					//stunTarget = GameObject.Find("Enemy"); //!> Reference Targeting Script to get current Target
 
 					nextStun = Time.time + stunRate;
 
@@ -237,6 +184,49 @@ public sealed class Quinc : MonoBehaviour
 						//output error message
 						print("Stun error: " + stunStatus);
 					}//END if(Cut(ref stunStatus, stunTarget))
+
+				}
+				else if(activeAbility == 3 && (Time.time > nextSound))
+				{
+
+					nextSound = Time.time + soundRate;
+
+					string soundStatus = "";
+
+					soundThrowTarget = PoPCamera.instance.CurrentTarget();
+
+					if(SoundThrow(ref soundStatus, soundThrowTarget))
+					{
+						print("Sound Status: " + soundStatus);
+					}
+					else
+					{
+						print("Sound Error: " + soundStatus);
+					}//END if(SoundThrow(ref soundStatus, soundThrowTarget))
+
+				}
+				else if(activeAbility == 4 && (Time.time > nextCut))
+				{
+					
+					nextCut = Time.time + cutRate;
+
+					cutTarget = PoPCamera.instance.CurrentTarget();
+
+					//cut object
+					//cut success/error string
+					string cutStatus = "trying to cut";
+
+					//pass status by reference and target game object to cut
+					if(Cut(ref cutStatus, cutTarget))
+					{
+						//output success message
+						print("Cut status: " + cutStatus);
+					}
+					else
+					{
+						//output error message
+						print("Cut error: " + cutStatus);
+					}
 
 				}
 				else if(activeAbility == 5 && (Time.time > nextHeat))
@@ -362,20 +352,9 @@ public sealed class Quinc : MonoBehaviour
 
 		pushTarget.GetComponent<Item>().pushPull(targetPosition, pushDirection);
 
-//		if(pushTarget.GetComponent<Crate>().SnapBack() != null)
-//		{
-//			coMoveSlowly = MoveSlowly(pushTarget.gameObject, targetPosition, pushDirection);
-//			StartCoroutine(coMoveSlowly);
-
 			status = "Push Successful";
 			return true;
-/*		}
-		else
-		{
-			status = "Push interrupted by SnapBack";
-			return false;
-		}
-*/
+
 
 	}//END bool Push(ref string status, GameObject pushTarget)
 
@@ -415,18 +394,8 @@ public sealed class Quinc : MonoBehaviour
 
 		pullTarget.GetComponent<Item>().pushPull(targetPosition, pullDirection);
 
-//		if(pullTarget.GetComponent<Crate>().SnapBack() != null)
-//		{
-//			coMoveSlowly = MoveSlowly(pullTarget.gameObject, targetPosition, pullDirection);
-//			StartCoroutine(coMoveSlowly);
-			return true;
-/*		}
-		else
-		{
-			status = "Pull interrupted by SnapBack";
-			return false;
-		}
-*/
+		return true;
+
 	}//END bool Pull(ref string status, GameObject pullTarget)
 
 	//! Function to be called when cutting rope
@@ -728,12 +697,4 @@ public sealed class Quinc : MonoBehaviour
 	*/
 //-------------------------------------------------------------------------------------------------------
 
-	public void stopCo(string croutine)
-	{
-
-		killCo = true;
-		StopCoroutine(croutine);
-		print("Quinc stopped coroutine " + croutine);
-
-	}
 }

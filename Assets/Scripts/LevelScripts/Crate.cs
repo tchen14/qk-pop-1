@@ -68,7 +68,7 @@ using System.Collections;
 		if(Quinc.Instance.coMoveSlowly != null)
 		{
 
-			Quinc.Instance.stopCo("MoveSlowly");
+//			Quinc.Instance.stopCo("MoveSlowly");
 		}
 
 		while(!transform.position.Equals(startPosition))

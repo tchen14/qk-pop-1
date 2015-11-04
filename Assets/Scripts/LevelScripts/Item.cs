@@ -175,7 +175,7 @@ public class Item : MonoBehaviour
 			//change the gameObject back to its original color
 			GetComponent<Renderer>().material.color = originalColor;
 
-		}
+		}//END if((GetComponent<Renderer>().material.color != originalColor) && ((Time.time - colorTime) > colorMax))
 //END TESTING
 
 		//check for movement and if object can be pushed or pulled
@@ -198,28 +198,9 @@ public class Item : MonoBehaviour
 				//move the object back to the starting position
 				StartCoroutine(SnapBack());
 
-			}
-		}
-		//if crate has moved, check the distance from startPosition
-		/*		if(hasMoved == true)
-				{
+			}//END if(moveDist > pushPullRadius)
 
-					moveDist = Vector3.Distance(startPosition, transform.position);
-					//if crate is out of pushPullRadius from startPostion, and isn't currently moving return to startPosition
-					if((moveDist > pushPullRadius) && (Quinc.Instance.pushPullLerp == false))
-					{
-
-						isSnapping = true;
-		//				Quinc.Instance.stopCo("MoveSlowly");
-		//				StartCoroutine(SnapBack());
-						hasMoved = false;
-					}
-
-					//reset hasMoved
-		//			hasMoved = false;
-
-				}
-		*/
+		}//END if(hasMoved && !isSnapping && (pushCompatible || pullCompatible))
 		
 		//if an enemy  is stunned
 		if(stunCompatible && stunState)
@@ -235,9 +216,9 @@ public class Item : MonoBehaviour
 				GetComponent<Renderer>().material.color = originalColor;
 //END TESTING
 				stunState = false;
-			}
+			}//END if(curStunTimer > stunPeriod)
 
-		}
+		}//END if(stunCompatible && stunState)
 
 	}//END void Update()
 
@@ -249,7 +230,7 @@ public class Item : MonoBehaviour
 	{
 		//Play push sound associated with crates
 		return;
-	}
+	}//END public void PlayPushSound()
 
 
 
@@ -263,9 +244,9 @@ public class Item : MonoBehaviour
 			print("calling moveSlowly");
 			StartCoroutine(MoveSlowly(location, direction));
 			print("MoveSlowly called");
-		}
+		}//END if((moveDist < pushPullRadius) && (isSnapping == false))
 
-	}
+	}//END public void pushPull(Vector3 location, Vector3 direction)
 
 
 	//-------------------------------------------------------------------------------------------------------
@@ -281,7 +262,8 @@ public class Item : MonoBehaviour
 		pushPullLerp = true;
 
 
-		while(Vector3.Distance(transform.position, targetPosition) > 2.0f && (killCo == false))// && (targetObject.GetComponent<Crate>().SnapBack() == null))
+//		while(Vector3.Distance(transform.position, targetPosition) > 2.0f && (killCo == false))// && (targetObject.GetComponent<Crate>().SnapBack() == null))
+		while(Vector3.Distance(transform.position, targetPosition) > 2.0f && (isSnapping == false))
 		{
 
 			//TESTING - FOR LEVEL DESIGN REMOVE FOR FINAL BUILD
@@ -296,23 +278,23 @@ public class Item : MonoBehaviour
 			yield return null;
 		}
 
+//TESTING - FOR LEVEL DESIGN REMOVE FOR FINAL BUILD
+		//only change color to blue if loop ended normally
+		if(!isSnapping)
+		{
+			GetComponent<Renderer>().material.color = Color.blue;
+			colorTime = Time.time;
+			print("Target Reached");
+		}
+//END TESTING
+
 		//reset flag to allow crate snapback
 		pushPullLerp = false;
-		print("Target Reached");
 		killCo = false;
 
-		//TESTING - FOR LEVEL DESIGN REMOVE FOR FINAL BUILD
-		GetComponent<Renderer>().material.color = Color.blue;
-		colorTime = Time.time;
-
-		//END TESTING
-
-		yield return null;
 	}//END IEnumerator MoveSlowly(GameObject targetObject, Vector3 targetPosition, Vector3 direction)
 
 	//-------------------------------------------------------------------------------------------------------
-
-
 
 	public IEnumerator SnapBack()
 	{
@@ -321,47 +303,38 @@ public class Item : MonoBehaviour
 		print("SnapBack() called");
 //END TESTING
 
-		if(Quinc.Instance.coMoveSlowly != null)
-		{
+		isSnapping = true;
 
-			Quinc.Instance.stopCo("MoveSlowly");
-
-		}
-
-		while(!transform.position.Equals(startPosition))
-		{
 
 //TESTING - FOR LEVEL DESIGN REMOVE FOR FINAL BUILD
 			GetComponent<Renderer>().material.color = Color.yellow;
 			colorTime = Time.time;
 //END TESTING
-
+		while(pushPullLerp)
+		{
+			//pause here while move slowly stops working
+			yield return null;
+		}
 
 			//while(Vector3.Distance(transform.position, startPosition) > 0.01f)
-			while(moveDist > 0.1f)
-			{
+		while(moveDist > 0.1f)
+		{
 
-				print("SnapBack Lerping");
-				transform.position = Vector3.Lerp(transform.position, startPosition, Time.deltaTime);
-				moveDist = Vector3.Distance(transform.position, startPosition);
-				//yield return null;
+			print("SnapBack Lerping");
+			transform.position = Vector3.Lerp(transform.position, startPosition, smoothing * Time.deltaTime);
+			moveDist = Vector3.Distance(transform.position, startPosition);
+			yield return null;
 
-			}
+		}
 
 //TESTING - FOR LEVEL DESIGN REMOVE FOR FINAL BUILD
 			GetComponent<Renderer>().material.color = Color.blue;
 			colorTime = Time.time;
 //END TESTING
 
-//			hasMoved = false;
-//			isSnapping = false;
-			yield return null;
-
-		}
-
 		hasMoved = false;
 		isSnapping = false;
-		yield return null;
+
 
 	}//end public IEnumerator SnapBack()
 
