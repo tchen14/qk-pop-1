@@ -49,7 +49,7 @@ public class QuestManager : MonoBehaviour {
 	[EventVisibleAttribute]
 	public void UpdateQuests() {
 
-		Debug.Log ("Checking Quests for Completion!");
+		//Debug.Log ("Checking Quests for Completion!");
 		if (currentQuests.Count == 0) {
 			Debug.Log("No quests in List");
 			return;
@@ -151,7 +151,7 @@ public class QuestManager : MonoBehaviour {
 		if (_questSaveManager.CompletedQuest (prerequisite) == true) {
 
 			if (_questSaveManager.CompletedQuest (questID) == true) {
-				Debug.Log ("Quest has already been completed. Delete in PlayerPrefs probably");
+				Debug.Log ("Quest " + questID + " has already been completed. Delete in PlayerPrefs probably");
 				return;
 			}
 			
