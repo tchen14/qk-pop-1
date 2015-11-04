@@ -4,6 +4,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEditor.AnimatedValues;
 
+/*
+ * AI Data:
+ * Structure that holds all of the varaibles data that the AI uses.
+ * It is used to quickly create a archetype of behaviors that can
+ * be put into a list.
+ */
+
 public struct AI_Data
 {
 	private int hp_;
@@ -55,6 +62,13 @@ public struct AI_Data
 		target.aggressive = aggression_;
 	}
 }
+
+/*
+ * AI Editor:
+ * Editor script for the AI class. It allows to quickly swap AI behaviors
+ * without the need of individually changing public variables. It also handles
+ * path behaviors.
+ */
 
 [CustomEditor(typeof(AIMainTrimmed), true)]
 public class AIEditor : Editor {
