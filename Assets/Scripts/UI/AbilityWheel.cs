@@ -31,6 +31,10 @@ public class AbilityWheel : MonoBehaviour {
 		GameObject sWheelTmp = GameObject.Find ("abBounds");
 		skillWheelBounds = sWheelTmp.GetComponent<RectTransform>();
 		sWheelTmp = GameObject.Find ("AbilityWheel");
+		RectTransform tmprect = sWheelTmp.GetComponent<RectTransform> ();
+
+		setupabilityWheelLocation (tmprect,sWheelTmp );
+
 		abilityWheelAnchor = GameObject.Find ("AbilityWheelAnchor");
 		abscroller = abilityWheelAnchor.GetComponent<RectTransform>();
 		sWheelTmp = GameObject.Find ("abilityWheelView");
@@ -45,6 +49,15 @@ public class AbilityWheel : MonoBehaviour {
 	/***********************************************************************
 	 *------<These are the functions Involving the the ability wheel>------*
 	 **********************************************************************/
+
+	void setupabilityWheelLocation(RectTransform tmp, GameObject gotmp){
+		GameObject tmpHUD = GameObject.Find ("mainHUD");
+		if (gotmp.transform.parent != tmpHUD.transform)
+			gotmp.transform.SetParent(tmpHUD.transform);
+
+		tmp.localPosition = new Vector3(-123.3f, -65.0f, 0.0f);
+
+	}
 
 	public int getSelectedAbility()
 	{		/*0 is Cut
