@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 
+[EventVisibleAttribute]
 public class PlayerInventory : MonoBehaviour
 {
     private static PlayerInventory _instance;
@@ -47,6 +48,7 @@ public class PlayerInventory : MonoBehaviour
         if (index == -1) // Item not found
         {
             inventory.Add(item);
+			Debug.Log(item.GetItemName() + " has been added!");
             return true;
         }
         else
@@ -91,16 +93,17 @@ public class PlayerInventory : MonoBehaviour
     }
 
     //! Load Inventory with saved state
+	[EventVisibleAttribute]
     public void LoadInventory()
     {
         inventory.Clear();
-       // inventory = PlayerSaveManager.Instance.LoadPlayerInventory();
+        inventory = PlayerSaveManager.Instance.LoadPlayerInventory();
     }
 
-
     //! Function that returns the current state of player inventory to PlayerSaveManager
+	[EventVisibleAttribute]
 	public void SaveInventory()
 	{
-       // PlayerSaveManager.Instance.SavePlayerInventory(inventory);
+       PlayerSaveManager.Instance.SavePlayerInventory(inventory);
 	}
 }

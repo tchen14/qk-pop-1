@@ -9,12 +9,6 @@ using Debug = FFP.Debug;
  * these functions are designed to be called from whatever script needs to update them.
  * ----------------------------------------------------------------------------
  */
-[System.Serializable]
-public class AbilityButton{
-	public string name;
-	public Sprite icon;
-}
-
 [EventVisible("UI")]
 public class GameHUD : MonoBehaviour {
 	#region singletonEnforcement
@@ -34,47 +28,24 @@ public class GameHUD : MonoBehaviour {
 	GameObject gameMap;						//!<The map iamge on a plane
 	GameObject player;						//!<reference to player
 	GameObject pauseMenu;
+
+	public PauseMenu accessManager;
 	
-	public int numOfAbilities;						//!<temporary int for number of abilities in game
-	public GameObject[] hudAbilityIcons;			//!<Array of hud icons, set in inspector
-	public bool abilitiesUp = false;
-	public GameObject[] abilityWheelIcons;
-
-	public bool gamePaused = false;
-
-
-	List<GameObject> phoneAbilitiesAvailible;		//!<List containing hud phone abilties
 	GameObject mapCam;								//!<Camera used for minimap
 	static GameObject objectiveText;						//!<Objective Text UI element
 	static GameObject dialogueBox, dialogueText, dialogueTitleText;
 
 	GameObject[] mapLabels;							//!<Array of text taht appears on minimap
 
-	GameObject middleAbilityIcon;					//!<Phone ability icon references
-	GameObject rightAbilityIcon;
-	GameObject leftAbilityIcon;
-	public GameObject[] abilityButtons;
+	public bool skillsOpen = false;
+	bool canSpin = false;
 
-	[ReadOnly]public int curAbility = 1;
+	GameObject abilityWheel;
+	AbilityWheel abwheelRef;
 
 	GameObject closeMapButton;
 	GameObject phoneButtons;
 	GameObject mapElements;
-
-	//The global variables affiliated with the ability wheel
-	GameObject abilityScroller;
-	GameObject abilityWheelAnchor;
-	GameObject skillWheelView;
-	GameObject skillWheelCursor;
-	RectTransform skillWheelBounds;
-	public float [] ablocy = {0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f}; // the variable that stores the location data of the ability buttons
-	bool skillsOpen = false;
-	bool skillsMoving = false;
-	bool skillsRotating = false;
-
-	int maxcurAbility;
-	bool canSpin = false; 
-
 	GameObject compassCameraPoint;					//!<Point at camera location used to calculate objective positions
 	GameObject compass;
 	GameObject slider;
@@ -98,7 +69,7 @@ public class GameHUD : MonoBehaviour {
 		worldMapCanvas = GameObject.Find("worldMapCanvas");
 		gameMap = GameObject.Find("mapBG");
 		player = GameObject.Find("_Player");
-		testObjective = GameObject.Find("testObjectiveCanvas");
+		testObjective = GameObject.Find("TestObjective");
 		pauseMenu = GameObject.Find ("pauseMenu");
 		pauseMenu.SetActive (false);
 		
@@ -112,7 +83,6 @@ public class GameHUD : MonoBehaviour {
 
 		//!Set mapcam reference
 		mapCam = GameObject.Find("mapCam");
-
 		//!Set compassCameraPoint reference
 		compassCameraPoint = GameObject.Find("compassCameraPoint");
 		compass = GameObject.Find("compassSlider");
@@ -123,6 +93,10 @@ public class GameHUD : MonoBehaviour {
 		rightArrow = compass.transform.FindChild ("rightArrow").gameObject;
 		rightArrow.SetActive (false);
 
+		//!ability wheel configuration
+		abilityWheel = GameObject.Find ("AbilityWheel");
+		abwheelRef = abilityWheel.GetComponent<AbilityWheel> ();//this is where the components for the ability wheel functionality are stored
+
 		//!Set objective text reference
 		objectiveText = GameObject.Find("objectiveText");
 		dialogueBox = GameObject.Find("SpeechBubble");
@@ -130,75 +104,52 @@ public class GameHUD : MonoBehaviour {
 		dialogueTitleText = GameObject.Find("speechPanelNameText");
 		dialogueBox.SetActive(false);
 
-		//!Set Ability Wheel references
-		abilityScroller = GameObject.Find ("AbilityWheel");
-		skillWheelView = GameObject.Find ("abilityWheelView");
-		abilityWheelAnchor = GameObject.Find ("AbilityWheelAnchor");
-		skillWheelCursor = GameObject.Find("AbilityWheelCursor");
-		GameObject sWheelTmp = GameObject.Find ("abBounds");
-
-		settingUpAbilityWheel ();
-
-		skillWheelBounds = sWheelTmp.GetComponent<RectTransform>();
-		skillWheelCursor.SetActive (false);
-
 
 		phoneButtons = GameObject.Find("PhoneButtons");
 		mapElements = GameObject.Find("MapElements");
 		mapElements.SetActive(false);
 
-		//Testing for filling ability list
-		List<string> tempAbList = new List<string>();
-		tempAbList.Add("Push");
-		tempAbList.Add("Pull");
-		tempAbList.Add("Shock");
-		tempAbList.Add ("Sound");
-
-		//Initialize phone abilities list
-		phoneAbilitiesAvailible = new List<GameObject>();
-		maxcurAbility = abilityButtons.Length - 1;
-
-		fillAbilityList(tempAbList);
 	}
 
 	void Start() {
 		//Place the ability buttons in the Phone Menu
 		//SpawnHudAbilityIcons ();
+	}
+
+	void Update()
+	{
+		if (InputManager.input.isAbilityEquip ()) {
+			abwheelRef.showSkills ();
+			skillsOpen = true;
+		} else {
+			abwheelRef.hideSkills ();
+			skillsOpen = false;
 		}
-
-	void Update() {
-		//!This is for testing, call update map from player movements
-		rotateMapObjects ();
-
-		//!Set the compass indicator
-		setCompassValue (calculateObjectiveAngle (testObjective));
 		
-		if (Input.GetKey ("tab"))
-			showSkills ();
-		else
-			hideSkills ();
-
-		if (skillsOpen && !skillsRotating) 
+		if (abwheelRef.skillsOpen && !abwheelRef.skillsRotating) 
 		{
-			if (Input.GetKeyDown ("up")) 
+			if (InputManager.input.isAbilityRotate() == 1) 
 			{
-				StartCoroutine(Rotate_skills_up());
+				StartCoroutine(abwheelRef.Rotate_skills_up());
 			} 
-			else if (Input.GetKeyDown ("down")) 
+			else if (InputManager.input.isAbilityRotate() == -1) 
 			{
-				StartCoroutine(Rotate_skills_down());
+				StartCoroutine(abwheelRef.Rotate_skills_down());
 			}
 		}
+	}
 
-		if (Input.GetKeyDown ("escape"))
-			PauseGame ();
+	void FixedUpdate() {
+		//!This is for testing, call update map from player movements
+		rotateMapObjects();
+
+		//!Set the compass indicator
+		setCompassValue(calculateObjectiveAngle(testObjective));
 	}
 
 	void LateUpdate(){
-		moveAbilities();
+		abwheelRef.moveAbilities();
 	}
-
-
 
 	//!Call this to update objective tet at top of the screen
 	[EventVisible]
@@ -216,9 +167,11 @@ public class GameHUD : MonoBehaviour {
 		}
 	}
 
-
-	//These are the functions regarding the Compass
 	public void setCompassValue(float newValue) {
+        if (testObjective == null)
+        {
+            return;
+        }
 
 		//!Calculates distances between "the player and the objective" and "the camera and the objective"
 		float distanceBetweenCamAndObj = Vector3.Distance (compassCameraPoint.transform.position, testObjective.transform.position);
@@ -261,6 +214,10 @@ public class GameHUD : MonoBehaviour {
 	}
 
 	public float calculateObjectiveAngle(GameObject objective) {
+        if (objective == null)
+        {
+            return 0;
+        }
 		Vector3 pointToObjective;
 		Vector3 pointStraightFromCam;
 
@@ -291,86 +248,12 @@ public class GameHUD : MonoBehaviour {
 		}
 	}
 
-	//fills HUD ability list
-	void fillAbilityList(List<string> abilities) {
-		//Add the proper ability to the phone wheel
-		foreach(string curAbility in abilities) {
-			switch(curAbility) {
-
-				case "Push":
-					phoneAbilitiesAvailible.Add(hudAbilityIcons[0]);
-					break;
-
-				case "Pull":
-					phoneAbilitiesAvailible.Add(hudAbilityIcons[1]);
-					break;
-
-				case "Shock":
-					phoneAbilitiesAvailible.Add(hudAbilityIcons[2]);
-					break;
-			}
-		}
-	}
-
-	//Display the HUD icons in the phone menu
-	public void SpawnHudAbilityIcons() {
-		if(!abilitiesUp) {
-			abilitiesUp = true;
-			GameObject spawnPoint = GameObject.Find("abilitySelectPivot");
-
-			//Calculate size of buttons based on screen size (HUD Canvas Size)
-			middleAbilityIcon = Instantiate(phoneAbilitiesAvailible[0], spawnPoint.transform.position, Quaternion.identity) as GameObject;
-			RectTransform middleRect = middleAbilityIcon.GetComponent<RectTransform>();
-
-			Vector2 newMainDmiensions = new Vector2(Screen.height / 4, Screen.height / 4);
-
-			middleRect.sizeDelta = newMainDmiensions;
-
-			middleAbilityIcon.transform.SetParent(spawnPoint.transform);
-
-			//spawn ability on the right if there is at least 2 elements in the array
-			if(phoneAbilitiesAvailible.Count > 1) {
-				Vector3 newPos = spawnPoint.transform.position;
-
-				newPos.x += Screen.width / 24;
-				newPos.y -= Screen.height / 8;
-				rightAbilityIcon = Instantiate(phoneAbilitiesAvailible[1], newPos, Quaternion.identity) as GameObject;
-				rightAbilityIcon.GetComponent<RectTransform>().sizeDelta = new Vector2(Screen.height / 6, Screen.height / 6);
-
-
-				rightAbilityIcon.transform.SetParent(spawnPoint.transform);
-			}
-
-			//spawn ability on the left if there is at least 3 elements in the array
-			if(phoneAbilitiesAvailible.Count > 2) {
-				Vector3 newPos = spawnPoint.transform.position;
-
-				newPos.x += Screen.width / 24;
-				newPos.y += Screen.height / 8;
-				leftAbilityIcon = Instantiate(phoneAbilitiesAvailible[phoneAbilitiesAvailible.Count - 1], newPos, Quaternion.identity) as GameObject;
-				leftAbilityIcon.GetComponent<RectTransform>().sizeDelta = new Vector2(Screen.height / 6, Screen.height / 6);
-
-				leftAbilityIcon.transform.SetParent(spawnPoint.transform);
-			}
-		} else {
-			Destroy(middleAbilityIcon); Destroy(rightAbilityIcon); Destroy(leftAbilityIcon);
-			abilitiesUp = false;
-		}
-	}
 
 	//Shows map on phone and roates and resizes phone to screen
 	public void showMap() {
-		if (skillsOpen) {
-			showSkills();
-			//Debug.Log("skills closed");
-			abilityWheelIcons[curAbility].GetComponent<RectTransform>().localScale /= 1.5f;
-			curAbility = 4;
-			canSpin = false;
-		}
 		phoneButtons.SetActive(false);
 		mapElements.SetActive(true);
 		closeMapButton.SetActive(true);
-		abilityWheelAnchor.SetActive (false);
 		GameObject.Find("PhoneMenu").GetComponent<Animator>().SetBool("mapActive", true);
 	}
 
@@ -380,144 +263,8 @@ public class GameHUD : MonoBehaviour {
 		phoneButtons.SetActive(true);
 		closeMapButton.SetActive(false);
 		GameObject.Find("PhoneMenu").GetComponent<Animator>().SetBool("mapActive", false);
-		abilityWheelAnchor.SetActive (true);
 
 	}
-
-	/***********************************************************************
-	 *------<These are the functions Involving the the ability wheel>------*
-	 **********************************************************************/
-	public void showSkills()
-	{
-		if (!skillsMoving && !skillsOpen) 
-		{
-			skillsOpen = true;
-			skillsMoving = true;
-			canSpin = true;
-		}
-
-	}
-	
-	public void hideSkills()
-	{
-		if(!skillsMoving && skillsOpen)
-		{
-			skillsMoving = true;
-			canSpin = false;
-			skillsOpen = false;
-		}
-	}
-
-	//This is the function that causes the ability wheel to move into position, centered in middle of screen
-	void moveAbilities() 
-	{
-		RectTransform abs = abilityWheelAnchor.GetComponent<RectTransform> ();
-		RectTransform abv = skillWheelView.GetComponent<RectTransform> ();
-		float movespeed = Time.deltaTime * 250; //this is the speed the wheel travels to the designated locations
-
-		if(skillsOpen)
-		{	
-			skillWheelCursor.SetActive (true);
-			abv.offsetMax = new Vector2(abv.offsetMax.x, Mathf.MoveTowards(abv.offsetMax.y, 160.0f, movespeed*2));
-			abv.offsetMin = new Vector2(abv.offsetMin.x, Mathf.MoveTowards(abv.offsetMin.y, -160.0f, movespeed*2));
-			abs.localPosition = new Vector2(abs.localPosition.x, Mathf.MoveTowards(abs.localPosition.y, skillWheelBounds.offsetMax.y, movespeed));
-		}
-		else
-		{
-			skillWheelCursor.SetActive (false);
-			abv.offsetMax = new Vector2(abv.offsetMax.x, Mathf.MoveTowards(abv.offsetMax.y, 23.0f, movespeed*2));
-			abv.offsetMin = new Vector2(abv.offsetMin.x, Mathf.MoveTowards(abv.offsetMin.y, -23.0f, movespeed*2));
-			abs.localPosition = new Vector2(abs.localPosition.x, Mathf.MoveTowards(abs.localPosition.y, skillWheelBounds.offsetMin.y, movespeed));
-		}
-		skillsMoving = false;
-	}
-
-	//this gets the location of each button y coordinate and stores them in an array to determine where the icons go to next during the rotation function
-	void settingUpAbilityWheel()
-	{
-		for (int i = 0; i < abilityButtons.Length; i++) {
-			RectTransform tmp = abilityButtons [i].GetComponent<RectTransform> ();
-			ablocy [i] = tmp.localPosition.y;
-		}
-		updateAbilityIcons();
-	}
-
-	//this updates the outside dummy ability icons to look like the icons on the opposing sides of the array
-	void updateAbilityIcons()
-	{
-		GameObject abbotim = Instantiate(abilityButtons[5]);
-		abbotim.transform.SetParent (GameObject.Find ("content Panel").transform, false);
-		abbotim.transform.localPosition = new Vector2 (0.0f,ablocy[0]);
-		Destroy (abilityButtons [0], 0.0f);
-		abilityButtons [0] = abbotim;
-
-		GameObject abtop = Instantiate(abilityButtons[1]);
-		abtop.transform.SetParent (GameObject.Find ("content Panel").transform, false);
-		abtop.transform.localPosition = new Vector2 (0.0f,ablocy[6]);
-		Destroy (abilityButtons [6], 0.0f);
-		abilityButtons [6] = abtop;
-	}
-
-	//this is the function that rotates the icons up in the GUI and updates the ability icon array accordingly
-	IEnumerator Rotate_skills_up()
-	{
-		skillsRotating = true;
-		GameObject abtemp = abilityButtons[1];
-		int ab_amount = abilityButtons.Length - 1;
-		
-		for (int i = ab_amount; i >=1; i--) {
-			RectTransform tmp = abilityButtons [i].GetComponent<RectTransform> ();
-			tmp.localPosition = new Vector2 (tmp.localPosition.x, Mathf.MoveTowards (tmp.localPosition.y, ablocy [i - 1],	250.0f));
-		}
-
-		yield return new WaitForSeconds (0.1f);
-
-		RectTransform topImage = abilityButtons[1].GetComponent<RectTransform>();
-		RectTransform abBottom = abilityButtons[6].GetComponent<RectTransform>();
-		topImage.localPosition = abBottom.localPosition;
-		abBottom.localPosition = new Vector2 (abBottom.localPosition.x, ablocy [6]);
-
-		for (int i = 1; i < ab_amount - 1; i++)
-				abilityButtons[i] = abilityButtons[i+1];
-		abilityButtons[ab_amount - 1] = abtemp;
-
-		updateAbilityIcons ();
-
-		skillsRotating = false;
-	}
-
-	//this is the function that rotates the icons down in GUI and updates the ability icon array accordingly
-	IEnumerator Rotate_skills_down()
-	{
-		skillsRotating = true;
-		GameObject abtemp = abilityButtons[5];
-		int ab_amount = abilityButtons.Length - 1;
-		
-			for (int i = 0; i < ab_amount; i++) {
-				RectTransform tmp = abilityButtons [i].GetComponent<RectTransform> ();
-				tmp.localPosition = new Vector2 (tmp.localPosition.x, Mathf.MoveTowards (tmp.localPosition.y, ablocy [i + 1], 250.0f));
-			}
-			RectTransform testloc = abilityButtons[1].GetComponent<RectTransform>();
-
-		yield return new WaitForSeconds (0.1f);
-
-		RectTransform botImage = abilityButtons[5].GetComponent<RectTransform>();
-		RectTransform abtop = abilityButtons[0].GetComponent<RectTransform>();
-		botImage.localPosition = abtop.localPosition;
-		abtop.localPosition = new Vector2 (abtop.localPosition.x, ablocy [0]);
-		
-		for (int i = ab_amount - 1; i > 1; i--)
-			abilityButtons[i] = abilityButtons[i-1];
-		abilityButtons[1] = abtemp;
-		
-		updateAbilityIcons ();
-
-		skillsRotating = false;
-	}
-
-	/***********************************************************************
-	 *-------<These are the functions Involving the dialogue>--------------*
-	 **********************************************************************/
 
 	public void ShowDialogueBox() {
 		dialogueBox.SetActive(true);
@@ -539,33 +286,46 @@ public class GameHUD : MonoBehaviour {
 		dialogueBox.SetActive(false);
 	}
 
-	public void ChangeInputToUI(bool change = true) {
+	public void ChangeInputToUI(bool change = true) {/*
 		if(change)
-			InputManager.instance.ChangeInputType("UIInputType");
+		InputManager.instance.ChangeInputType("UIInputType");
 		else
-			InputManager.instance.ChangeInputType("GameInputType");
+			InputManager.instance.ChangeInputType("GameInputType");*/
 	}
 
+    public void PauseNoMenu() {
+        accessManager.setPause();
+        
+    }
 
-	public void PauseGame()
-	{
-		if (!gamePaused) {
-			pauseMenu.SetActive(true);
-			Time.timeScale = 0;
-			gamePaused = true;
-		}
-		else {
-			pauseMenu.SetActive(false);
-			Time.timeScale = 1;
-			gamePaused = false;
-		}
+    public void timeNormal() {
+        accessManager.setTimeNormal();
+    }
 
+    public void timeManipulate(float speed) {
+        //speed = 2.0f;
+        if(speed > 0 && speed < 1.75) {
+            accessManager.manipulateTime(speed);
+        } 
+        else {
+            System.Console.WriteLine("Error value of Speed GameHUD :: timeManipulate(float speed)");
+        }
+        
+     }
+
+	public void showPauseMenu () {
+		pauseMenu.SetActive (true);
+		
 	}
 
-	/*
+	public void hidePauseMenu () {
+		pauseMenu.SetActive (false);
+		accessManager.unPauseGameBtt();
+	}
+
 	public void loadScene(string s) {
 		Application.LoadLevel(s);
-	}*/
+	}
 
 	public void quitGame () {
 		Application.Quit ();

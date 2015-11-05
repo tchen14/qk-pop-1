@@ -3,44 +3,60 @@ using System.Collections;
 using System.Collections.Generic;
 using Debug = FFP.Debug;
 
+//! 3rd person camera controller.
 /*!
- * Child Class of Parent Camera_2 for Patriots of the Past,
- * Inherits initial camera settings from Camera_2,
- * Uses mouse input to orbit camera in a 3D space and mouse wheel for zoom, input works with joysticks
- * Camera follows character if no mouse input is detected
+ * Child Class of Parent Camera_2 for Patriots of the Past.
+ * Inherits initial camera settings from Camera_2.
+ * Uses mouse input to orbit camera in a 3D space and mouse wheel for zoom, input works with joysticks.
+ * Camera follows character if no mouse input is detected.
  * Includes methods to handle player occlusion and object/environment clipping
  */
-
 [RequireComponent(typeof(CheckTargets))]
 public sealed class PoPCamera : Camera_2
 {
-	public static PoPCamera _instance;
+	private static PoPCamera _instance;
 
 	// Ensures PoPCamera is in the scene when attempting to access it
 	public static PoPCamera instance
 	{
-		get
-		{
-			return _instance ?? (_instance = GameObject.FindObjectOfType<PoPCamera>());
-		}
+		get { return _instance ?? (_instance = GameObject.FindObjectOfType<PoPCamera>()); }
 	}
+
+    public static CameraState State
+    {
+        get { return _curState; }
+        set { _curState = value; }
+    }
 
 	/// Tracks mouse position between frames
 	private Vector3 mousePosition;
 
-	/// Hidden reference for local camera events
+	///\ingroup Event Members
+	///@{ Hidden references for local camera events
 	[HideInInspector] public PoPCameraEvent eventTrigger;
 	[HideInInspector] public GoSpline eventPath;
+	///@}
 	
 	private float curRotateX = 0f;
+
+	///\ingroup Layers
+	///@{ Set our layers for different objs in the scene
+	private int noOcclusionLayer = 8;
+	private int playerLayer = 9;
+	private int noTartedOccludionLayer = 10;
+	private int IgnoreRaycastLayer = 2;
+	/// Initialize our actual 32bit layermasks
+	public int PlayerLM = 1;
+	public int NoOcclusionLM = 1;
+	///@}
 
 	private bool occluded = false;						//!< Used to check if camera is compensating for occlusion
 	[ReadOnly] public float targetingRange = 40f;		//!< Range allowed to target objects
 	[ReadOnly] public float screenTargetArea = 20f;		//!< Area of screen object can be targeted
 	[HideInInspector] public int targetindex = 0;	    //!< Index in list of target objects to look at
     private float targetResetTimer = 0f;				//!< Timeframe camera resets after losing track of target
-	public List<GameObject> targetedObjects;			//!< List of objects player is targeting
-	public List<GameObject> allTargetables;				//!< Master List of all available targets in scene
+	private List<GameObject> targetedObjects = new List<GameObject>();	//!< List of objects player is targeting
+	private List<GameObject> allTargetables = new List<GameObject>();	//!< Master List of all available targets in scene
 
 	void Awake()
 	{
@@ -50,9 +66,11 @@ public sealed class PoPCamera : Camera_2
 	void Start()
 	{
 		if (!target) {
-			if(GameObject.FindObjectOfType<PoPCharacterController>()){
-				target = (Transform)GameObject.FindObjectOfType<PoPCharacterController>().transform;
+            if (GameObject.FindObjectOfType<QK_Controller>())
+            {
+                target = (Transform)GameObject.FindObjectOfType<QK_Controller>().transform;
 				player = target;
+                _curState = CameraState.Normal;
 			}else{
 				Debug.Error ("camera","Cannot find this.target. Please connect the GameObject to the component using the inspector.");
 				target = transform;
@@ -65,116 +83,164 @@ public sealed class PoPCamera : Camera_2
 		Go.defaultUpdateType = GoUpdateType.FixedUpdate;
 		distance = Mathf.Clamp(distance, distanceMin, distanceMax);
 		cameraLatency = Mathf.Clamp (cameraLatency, 0.05f, 1f);
+		// Bit Shift our layermasks
+		PlayerLM = 1 << playerLayer | 1 << IgnoreRaycastLayer;
+		NoOcclusionLM = 1 << noOcclusionLayer | 
+			1 << noTartedOccludionLayer |
+			1 << IgnoreRaycastLayer;
+		// Inverse both masks
+		PlayerLM = ~PlayerLM;
+		NoOcclusionLM = ~NoOcclusionLM;
 		Reset();
 	}
 
+	/*
+	 * This Update functions serves to decide whether we should be targeting or
+	 * not and which specific target in the group (if there is a group) to be
+	 * locked on. Since these functions query input we get a better result by
+	 * having it in vanilla Update instead of Fixed Update.
+	 */
 	void Update() 
 	{
-		if(inTargetLock && Input.GetMouseButtonDown(1)) {
-			inTargetLock = false;
-			targetReset = true;
-		} else if(!inTargetLock && Input.GetMouseButtonDown(1) && AcquireTarget().Count != 0f) {
-			inTargetLock = true;
-		}
+        switch (_curState)
+        {
+            case CameraState.Normal:
+                if (InputManager.input.isTargetPressed() && AcquireTarget().Count != 0f)
+                {
+                    _curState = CameraState.TargetLock;
+                }
+                break;
 
-		if(inTargetLock && Input.GetAxis("Mouse ScrollWheel") > 0f) {
-			if(targetindex <= 0)
-				targetindex = targetedObjects.Count - 1;
-			else
-				targetindex--;
-		}
-
-		if(inTargetLock && Input.GetAxis("Mouse ScrollWheel") < 0f) {
-			if(targetindex == targetedObjects.Count - 1)
-				targetindex = 0;
-			else
-				targetindex++;
-		}
-
+            case CameraState.TargetLock:
+                if (InputManager.input.isTargetPressed())
+                {
+                    _curState = CameraState.TargetReset;
+                }
+                else
+                {
+					if(!GameHUD.Instance.skillsOpen && targetedObjects.Count != 0) 
+					{
+						targetindex += InputManager.input.CameraScrollTarget();
+						targetindex = targetindex < 0 ? targetedObjects.Count - 1 :
+							Mathf.Abs(targetindex % targetedObjects.Count);
+					}
+                }
+                break;
+        }
 	}
 
-	/*!
-	 * The bulk of PoP's 3rd person camera controllers implementation
-	 * Determines whether camera should be in an event, behind player, or in targeting mode
-	 * Tracks mouse and player position at the end of the frame for use during frame
+	/*
+	 * The bulk of PoP's 3rd person camera controllers implementation.
+	 * Determines whether camera should be in an event, behind player, or in targeting mode.
+	 * Tracks mouse and player position at the end of the frame for use during frame.
 	 */
 	void FixedUpdate()
 	{
-		if(!inTargetLock) {
-			targetedObjects.Clear();
-			targetedObjects.TrimExcess();
-			targetindex = 0;
-		}
+        #if UNITY_EDITOR
+        /** Swap material color of targeted objects to debug targeting **/
+        if (Debug.IsKeyActive("camera"))
+        {
+            foreach (GameObject go in allTargetables)
+            {
+                go.GetComponent<Renderer>().material.SetColor("_Color", Color.red);
+            }
+        }
+        #endif
 
-		#if UNITY_EDITOR
-		/** Swap material color of targeted objects to debug targetting **/
-		if(Debug.IsKeyActive("camera")) {
-			foreach(GameObject go in allTargetables) {
-				go.GetComponent<Renderer>().material.SetColor("_Color", Color.red);
-			}
-		}
-		#endif
-
-		if(inEvent) {
-
-			eventTrigger.Event ();
-
-		} else if(targetReset) {
+        switch (_curState)
+        {
+            /*** Normal Camera Behavior ***/
+            case CameraState.Normal:
+                targetLookAt = player.position;
 				
-			targetLookAt = player.position;
-			CalculateDesiredPosition();
-			UpdatePosition();
-			Quaternion rotation = Quaternion.LookRotation(targetLookAt - transform.position);
-			if(transform.rotation == rotation) {
-				targetReset = false;
-			}
+				#if UNITY_EDITOR
+				if(!Input.GetKey(KeyCode.LeftShift))
+                	HandleMouseInput();
+				#else
+				HandleMouseInput();
+				#endif
 
-		} else if(inTargetLock && (AcquireTarget().Count != 0f || targetedObjects.Count != 0)) {
-           
-			if (targetedObjects.Count == 0f) {
-                targetedObjects = AcquireTarget();
-            }
+                var count = 0;
 
-            RaycastHit hit;
-            Physics.Raycast(transform.position, (targetedObjects[targetindex].transform.position - transform.position), out hit);
-            if (hit.collider.name != targetedObjects[targetindex].GetComponent<Collider>().name) {
-                targetResetTimer -= Time.deltaTime;
-            } else {
-                targetResetTimer = 3f;
-            }
+                do
+                {
+                    CalculateDesiredPosition();
+                    count++;
+                } while (CheckifOccluded(count));
 
-			TargetLockCamera(targetindex);
+                UpdatePosition();
+                break;
+            /****************************/
 
-			#if UNITY_EDITOR
-			/** Color target green for debug purposes **/
-			if(Debug.IsKeyActive("camera"))
-				targetedObjects[targetindex].GetComponent<Renderer>().material.color = Color.green;
-			#endif
+            /*** Target Lock Behavior ***/
+            case CameraState.TargetLock:
+                if (targetedObjects.Count == 0f)
+                {
+					// Attempt to get targets, if no targets found break out
+                    targetedObjects = AcquireTarget();
+					if(targetedObjects.Count == 0) {
+						_curState = CameraState.TargetReset;
+						break;
+					}
+                }
 
-			if(targetResetTimer <= 0f) {
-				Reset();
-				targetReset = true;
-			} else 
-				UpdatePosition ();
+                RaycastHit hit;
+                Physics.Raycast(transform.position, (targetedObjects[targetindex].transform.position - transform.position), out hit);
+                if (hit.collider.name != targetedObjects[targetindex].GetComponent<Collider>().name)
+                {
+                    targetResetTimer -= Time.deltaTime;
+                }
+                else
+                {
+                    targetResetTimer = 3f;
+                }
 
-		} else {
+                TargetLockCamera(targetindex);
 
-			targetReset = false;
-			inTargetLock = false;
-			targetLookAt = player.position;
-			
-			HandleMouseInput (false);
-			
-			var count = 0;
-			
-			do {
-				CalculateDesiredPosition ();
-				count++;
-			} while(CheckifOccluded(count, false));
-			
-			UpdatePosition ();
-		}
+                if (targetResetTimer <= 0f)
+                {
+                    _curState = CameraState.TargetReset;
+                }
+                else
+                {
+                    UpdatePosition();
+                }
 
+                #if UNITY_EDITOR
+                /** Color target green for debug purposes **/
+                if (Debug.IsKeyActive("camera"))
+                    targetedObjects[targetindex].GetComponent<Renderer>().material.color = Color.green;
+                #endif
+
+                break;
+            /***********************/
+
+            /*** Reset Targeting ***/
+            case CameraState.TargetReset:
+                TargetReset();
+				CalculateDesiredPosition();
+				UpdatePosition();
+				Quaternion rotation = Quaternion.LookRotation(targetLookAt - transform.position);
+				if (transform.rotation == rotation)
+				{
+					_curState = CameraState.Normal;
+				}
+				break;
+			/***********************/
+
+            /*** Camera Event ***/
+            case CameraState.CamEvent:
+                eventTrigger.Event();
+                break;
+            /********************/
+
+            /*** Paused State ***/
+            case CameraState.Pause:
+                UpdatePosition();
+                break;
+            /********************/
+        }
+        
 		mousePosition = Input.mousePosition;
 	}
 
@@ -189,46 +255,27 @@ public sealed class PoPCamera : Camera_2
 	}
 
 	// Handle all player mouse input and prepare for camera position calculation
-	void HandleMouseInput(bool targetting)
+	void HandleMouseInput()
 	{
 		var deadzone = 0.01f;
 
 		// Takes mouse input if mouse is moving and increments camera rotation dependent variables
 		// If mouse has been inactive for specified time period camera will become a followcam once player moves
-		if(mousePosition != Input.mousePosition)
-		{
-			if(!targetting) {
-				mouseX += Input.GetAxis("Mouse X") * xMouseSensitivity;
-				mouseY -= Input.GetAxis("Mouse Y") * yMouseSensitivity;
-			} else {
-				curRotateX += Input.GetAxis("Mouse X") * xMouseSensitivity;
-				mouseY -= Input.GetAxis("Mouse Y") * yMouseSensitivity;
-				ClampAngle(curRotateX, curRotateX - 10f, curRotateX + 10f);
-				Mathf.Clamp(mouseY, mouseY + 5f, mouseY - 5f);
-			}
+		if(_curState == CameraState.Normal) {
+			mouseX += InputManager.input.CameraHorizontalAxis() * xMouseSensitivity;
+			mouseY -= InputManager.input.CameraVerticalAxis() * yMouseSensitivity;
+		} else {
+			curRotateX += InputManager.input.CameraHorizontalAxis() * xMouseSensitivity;
+			mouseY -= InputManager.input.CameraVerticalAxis() * yMouseSensitivity;
+			ClampAngle(curRotateX, curRotateX - 10f, curRotateX + 10f);
+			Mathf.Clamp(mouseY, mouseY + 5f, mouseY - 5f);
 		}
-		if(Input.GetKey(KeyCode.LeftShift) && Input.GetKey(KeyCode.BackQuote))
-			mouseX = target.eulerAngles.y;
-		
+
 		//Limit Y-axis input
 		mouseY = ClampAngle(mouseY, yMinLimit, yMaxLimit);
-
-		// Get MouseWheel for zoom
-		// If compensating for occlusion don't clamp distance
-		if(Input.GetAxis("Mouse ScrollWheel")< deadzone || Input.GetAxis("Mouse ScrollWheel") > deadzone)
-		{
-			desiredDistance = distance - Input.GetAxis("Mouse ScrollWheel") * mouseWheelSensitivity;
-
-			if(!occluded)
-				desiredDistance = Mathf.Clamp(desiredDistance, distanceMin, distanceMax);
-
-			if(Input.GetAxis("Mouse ScrollWheel") != 0)
-				preOccludedDistance = Mathf.Clamp(distance - Input.GetAxis("Mouse ScrollWheel") * mouseWheelSensitivity, 
-				                                  distanceMin, distanceMax);
-		}
 	}
 
-	#region Targetting
+	#region Targeting
     // Offsets camera position slightly to the right of the player during targeting, focuses target
 	void TargetLockCamera(int i)
 	{
@@ -257,12 +304,17 @@ public sealed class PoPCamera : Camera_2
 		do {
 			CalculateDesiredPosition(mouseY, curRotateX);
 			count++;
-		} while(CheckifOccluded(count, true));
+		} while(CheckifOccluded(count));
 
-		inTargetLock = true;
+        _curState = CameraState.TargetLock;
 	}
 
-	// Finds closest targetable object from list and returns it
+	//! Finds objects available to be targeted. Returns a list with the GameObjects
+	//! that are available to be targeted. **NOTE** this function only returns a list
+	//! of objects in range, it doesn't actually make the camera target objects.
+	/*! 
+	 * \return the list of objects. Use List.Any() to check if any objects were returned 
+	 */
 	public static List<GameObject> AcquireTarget() 
 	{
 		List<GameObject> targets = new List<GameObject>();
@@ -287,17 +339,37 @@ public sealed class PoPCamera : Camera_2
 
         return targets;
 	}
+
+	// Returns current gameobject or null if none is targeted
+	public GameObject CurrentTarget() {
+		if(targetedObjects != null && targetedObjects.Count > 0)
+			return targetedObjects[targetindex];
+		else {
+			Debug.Warning("camera", "No current object targeted");
+			return null;
+		}
+	}
+
+	public List<GameObject> GetAllTargets()
+	{
+		return allTargetables;
+	}
+
+	public void AddTargetable(GameObject obj)
+	{
+		allTargetables.Add (obj);
+	}
 	#endregion
 
 	#region Occlusion Checking
 	/// Checks if the target can see each point in the cameras near clipping plane
 	/// If it can target is not occluded, if not target is occluded
-	bool CheckifOccluded(int count, bool targetting)
+	bool CheckifOccluded(int count)
 	{
 		var isOccluded = false;
 		var nearestDistance = 0f;
 
-		if(targetting == false) {
+		if(_curState == CameraState.TargetLock) {
 			nearestDistance = CheckCameraPoints(target.position, desiredPosition);
 		} else {
 			nearestDistance = CheckCameraPoints(target.position, desiredPosition);
@@ -307,7 +379,7 @@ public sealed class PoPCamera : Camera_2
 				if(count < 10) {
 					isOccluded = occluded = true;
 					distance -= occlusionDistanceMove;
-					if(targetting)
+					if(_curState == CameraState.TargetLock)
 						curRotateX += 0.01f;
 
 					if(distance < 0.25f)
@@ -331,18 +403,18 @@ public sealed class PoPCamera : Camera_2
 
 		ClipPlanePoints PlanePoints = NearClipPlane (to);
 
-		if (Physics.Linecast (from, PlanePoints.UpperLeft, out HitInfo) && HitInfo.collider.gameObject.name != "_Player")
+		if (Physics.Linecast (from, PlanePoints.UpperLeft, out HitInfo, NoOcclusionLM) && HitInfo.collider.gameObject.name != "_Player")
 			NearDistance = HitInfo.distance;
-		if (Physics.Linecast (from, PlanePoints.LowerLeft, out HitInfo) && HitInfo.collider.gameObject.name != "_Player")
+		if (Physics.Linecast (from, PlanePoints.LowerLeft, out HitInfo, NoOcclusionLM) && HitInfo.collider.gameObject.name != "_Player")
 			if(HitInfo.distance < NearDistance || NearDistance == -1)
 				NearDistance = HitInfo.distance;
-		if (Physics.Linecast (from, PlanePoints.UpperRight, out HitInfo) && HitInfo.collider.gameObject.name != "_Player")
+		if (Physics.Linecast (from, PlanePoints.UpperRight, out HitInfo, NoOcclusionLM) && HitInfo.collider.gameObject.name != "_Player")
 			if(HitInfo.distance < NearDistance || NearDistance == -1)
 				NearDistance = HitInfo.distance;
-		if (Physics.Linecast (from, PlanePoints.LowerRight, out HitInfo) && HitInfo.collider.gameObject.name != "_Player")
+		if (Physics.Linecast (from, PlanePoints.LowerRight, out HitInfo, NoOcclusionLM) && HitInfo.collider.gameObject.name != "_Player")
 			if(HitInfo.distance < NearDistance || NearDistance == -1)
 				NearDistance = HitInfo.distance;
-		if (Physics.Linecast (from, to + transform.forward * -GetComponent<Camera>().nearClipPlane, out HitInfo) && HitInfo.collider.gameObject.name != "_Player")
+		if (Physics.Linecast (from, to + transform.forward * -GetComponent<Camera>().nearClipPlane, out HitInfo, NoOcclusionLM) && HitInfo.collider.gameObject.name != "_Player")
 			if(HitInfo.distance < NearDistance || NearDistance == -1)
 				NearDistance = HitInfo.distance;
 
@@ -350,12 +422,12 @@ public sealed class PoPCamera : Camera_2
 	}
 
 	 // Resets camera position to preoccluded position
-	 public override void ResetOccludedDistance()
+	 protected override void ResetOccludedDistance()
 	 {
 		 Vector3 pos;
 		 if(desiredDistance < preOccludedDistance)
 		 {
-			 if(inTargetLock)
+			 if(_curState == CameraState.TargetLock)
 				pos = CalculatePosition(mouseY, curRotateX, preOccludedDistance);
 			 else
 				pos = CalculatePosition(mouseY, mouseX, preOccludedDistance);
@@ -424,15 +496,22 @@ public sealed class PoPCamera : Camera_2
 		distance = 5f;
 		desiredDistance = distance;
 		preOccludedDistance = desiredDistance;
-		inEvent = false;
-		inTargetLock = false;
 		if (targetedObjects.Count > 0) {
 			targetedObjects.Clear ();
 			targetedObjects.TrimExcess ();
 		}
         targetResetTimer = 3f;
-		targetReset = false;
+		_curState = CameraState.Normal;
 	}
+
+    // Used to smoothly transition camera back to player after targeting
+    private void TargetReset()
+    {
+        targetedObjects.Clear();
+        targetedObjects.TrimExcess();
+        targetindex = 0;
+        targetLookAt = player.position;
+    }
 
 	// Clamps a given angle to 360, then clamps that to min/max 
 	public static float ClampAngle(float angle, float min, float max)
