@@ -8,7 +8,7 @@ using System.Collections;
 public class Item : MonoBehaviour
 {
 
-    public string itemName = "";
+    public string itemType;
     [EventVisible("Pushed X Times")]
     public int pushCounter;
     [EventVisible("Pulled X Times")]
