@@ -1,0 +1,25 @@
+var class_input_type =
+[
+    [ "AbilityPressed", "class_input_type.html#a984a250677cd3974c0aa00c565e74dd1", null ],
+    [ "CameraHorizontalAxis", "class_input_type.html#a28c5c34a15195666c9998019f5df12c0", null ],
+    [ "CameraScrollTarget", "class_input_type.html#ae51d7e0020047e39521afedaa07dfc28", null ],
+    [ "CameraVerticalAxis", "class_input_type.html#a0a6c72a8ef0e983e6dd94f664dd8ca1a", null ],
+    [ "GetKey", "class_input_type.html#a2d35b534528a84192f5f268bc57b3d78", null ],
+    [ "InputString", "class_input_type.html#ac97f16dbf30422c3a0c51e3f66b3496d", null ],
+    [ "isAbilityEquip", "class_input_type.html#a308af9b008dc5d2e032dae5fdd291d97", null ],
+    [ "isActionPressed", "class_input_type.html#a4ed00c403c943325da113666d3288a18", null ],
+    [ "isCameraResetPressed", "class_input_type.html#af318f7907ae753a0be5f554443c1273f", null ],
+    [ "isCompass", "class_input_type.html#ab2a3675ca92e9f87073002cd53cb8c2c", null ],
+    [ "isCrouched", "class_input_type.html#a4bd6e4a6b992c47dcb78ab6056fd4a77", null ],
+    [ "isJournal", "class_input_type.html#ab7a841cbbf09a1f69bc4fd5b799bce2a", null ],
+    [ "isJumping", "class_input_type.html#a8d8c79455427cce9f463f08460b6dfce", null ],
+    [ "isNotifications", "class_input_type.html#a5bc5a59b7901021bd849ba2bbacc1be7", null ],
+    [ "isSprinting", "class_input_type.html#a1eb322a394ab283764b9106f2e2f25ad", null ],
+    [ "isStart", "class_input_type.html#a9e7b58a657b0fb8e9c957bab678c51f7", null ],
+    [ "isTargetPressed", "class_input_type.html#ab8b21d11107783cd0a5b4fa8566e8a53", null ],
+    [ "LoadInput", "class_input_type.html#a8e577e0d7d0f3680b5f2304ff1cb6ef9", null ],
+    [ "MoveHorizontalAxis", "class_input_type.html#a9cea3ae89a5ca3729b35c38b6b9f671f", null ],
+    [ "MoveVerticalAxis", "class_input_type.html#ac03e4051b514393b9c5a31b0c73ce3e9", null ],
+    [ "SaveInput", "class_input_type.html#ad87abe3125fae1719a823710fe85f99b", null ],
+    [ "ScrollTarget", "class_input_type.html#ade874c09c487a7480a0cbd26686e77b2", null ]
+];
