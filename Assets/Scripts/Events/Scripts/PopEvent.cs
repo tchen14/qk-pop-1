@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -81,7 +81,11 @@ public class PopEvent : MonoBehaviour {
     }
     void OnTriggerExit(Collider other) {
         if (isActive == false) { return; }
+<<<<<<< HEAD
         if (other.gameObject.GetComponent<QK_Controller>())
+=======
+		if (other.gameObject.GetComponent<QK_Controller>())
+>>>>>>> 324ab3edf6682d86b3322262f6e6102a33e4937e
         {
             EventListener.SlowUpdate(this);
         }

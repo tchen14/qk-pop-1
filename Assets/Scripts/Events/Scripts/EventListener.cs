@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 using Debug = FFP.Debug;
@@ -143,6 +143,7 @@ public static class EventListener
                 else if (condition.e_fieldType == null)
                 {
                     condition.e_fieldType = condition.e_MonoBehaviour.GetType().GetField(condition.e_fieldString).FieldType;
+<<<<<<< HEAD
 
                     if (condition.e_fieldType == typeof(System.Int32))
                     {
@@ -190,6 +191,55 @@ public static class EventListener
                             {
                                 testsPassed++;
                             }
+=======
+                }
+
+                if (condition.e_fieldType == typeof(System.Int32))
+                {
+                    int intValue = (int)condition.e_MonoBehaviour.GetType().GetField(condition.e_fieldString).GetValue(condition.e_MonoBehaviour);
+                    if (Compare(intValue, condition.p_int[0], condition.compareString))
+                    {
+                        testsPassed++;
+                    }
+                }
+                else if (condition.e_fieldType == typeof(System.String))
+                {
+                    string stringValue = (string)condition.e_MonoBehaviour.GetType().GetField(condition.e_fieldString).GetValue(condition.e_MonoBehaviour);
+                    if (Compare(stringValue, condition.p_string[0], condition.compareString))
+                    {
+                        testsPassed++;
+                    }
+                }
+                else if (condition.e_fieldType == typeof(System.Single))
+                {
+                    float floatValue = (float)condition.e_MonoBehaviour.GetType().GetField(condition.e_fieldString).GetValue(condition.e_MonoBehaviour);
+                    if (Compare(floatValue, condition.p_float[0], condition.compareString))
+                    {
+                        testsPassed++;
+                    }
+                }
+                else if (condition.e_fieldType == typeof(System.Boolean))
+                {
+                    bool boolValue = (bool)condition.e_MonoBehaviour.GetType().GetField(condition.e_fieldString).GetValue(condition.e_MonoBehaviour);
+                    bool conditionBool = true;
+                    if (condition.compareString == "Is False")
+                    {
+                        conditionBool = false;
+                    }
+                    if (boolValue == conditionBool)
+                    {
+                        testsPassed++;
+                    }
+                }
+                else if (condition.e_fieldType == typeof(Dictionary<string, int>))
+                {
+                    Dictionary<string, int> dictionaryValue = (Dictionary<string, int>)condition.e_MonoBehaviour.GetType().GetField(condition.e_fieldString).GetValue(condition.e_MonoBehaviour);
+                    if (dictionaryValue.ContainsKey(condition.p_string[0]))
+                    {
+                        if (Compare(dictionaryValue[condition.p_string[0]], condition.p_int[0], condition.compareString))
+                        {
+                            testsPassed++;
+>>>>>>> 324ab3edf6682d86b3322262f6e6102a33e4937e
                         }
                     }
                 }
@@ -355,7 +405,11 @@ public static class EventListener
         return false;
     }
 
+<<<<<<< HEAD
     private static void ActivateById(string id, bool active, bool force = false)
+=======
+    public static void ActivateById(string id, bool active, bool force = false)
+>>>>>>> 324ab3edf6682d86b3322262f6e6102a33e4937e
     {
         for (int i = 0; i < eventList.Count; i++)
         {
