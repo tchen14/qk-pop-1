@@ -17,6 +17,7 @@ public struct AI_Data
 	private string panicPoints_;
 	private bool aggression_;
 	private List<GameObject> paths;
+    private float suspicion_;
 
 	public AI_Data(int hp,
 	               float sightDistance,
@@ -27,7 +28,8 @@ public struct AI_Data
 	               float attackDistance,
 	               float aggressionLimit,
 	               string panicPoints,
-	               bool aggression)
+	               bool aggression,
+                   float suspicionLimit)
 	{
 		hp_ = hp;
 		sightDistance_ = sightDistance;
@@ -40,6 +42,7 @@ public struct AI_Data
 		panicPoints_ = panicPoints;
 		aggression_ = aggression;
 		paths = new List<GameObject> ();
+        suspicion_ = suspicionLimit;
 	}
 
 	public void loadData(AIMainTrimmed target)
@@ -53,6 +56,7 @@ public struct AI_Data
 		target.aggressionLimit = aggressionLimit_;
 		target.panicPoints = panicPoints_;
 		target.aggressive = aggression_;
+        target.suspicionLimit = suspicion_;
 	}
 }
 
@@ -67,9 +71,9 @@ public class AIEditor : Editor {
 	string[] path_types = new string[]{"one way", "loop around", "back and forth"};
 
 	AI_Data[] ai_data = new AI_Data[]{
-		new AI_Data(100, 20, 35, 5, 8, new string[]{"Player"}, 3, 100, "PanicPoints", false),
-		new AI_Data(200, 40, 35, 7, 12, new string[]{"Player"}, 5, 100, "PanicPoints", true),
-		new AI_Data(300, 60, 35, 12, 16, new string[]{"Player"}, 7, 100, "PanicPoints", true)};
+		new AI_Data(100, 20, 35, 5, 8, new string[]{"Player"}, 3, 10, "PanicPoints", false, 10),
+		new AI_Data(200, 40, 35, 6, 12, new string[]{"Player"}, 5, 10, "PanicPoints", true, 10),
+		new AI_Data(300, 60, 35, 7, 16, new string[]{"Player"}, 7, 10, "PanicPoints", true, 10)};
 
 	int ai_types_index = 0;
 	int current_selection = 0;
