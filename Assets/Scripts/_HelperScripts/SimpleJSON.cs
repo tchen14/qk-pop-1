@@ -548,6 +548,8 @@ public class JSONNode {
         stream.Position = 0;
         return LoadFromStream (stream);
     }
+
+	public virtual IEnumerable<string> Keys { get { yield break; } }
 } // End of JSONNode
 
 public class JSONArray : JSONNode, IEnumerable {
@@ -644,6 +646,11 @@ public class JSONClass : JSONNode, IEnumerable {
                 m_Dict.Add (aKey, value);
         }
     }
+	public string Key(int aIndex) {
+		string key = m_Dict.ElementAt (aIndex).Key;
+		return key;
+	}
+
     public override JSONNode this [int aIndex] {
         get {
             if (aIndex < 0 || aIndex >= m_Dict.Count)
@@ -680,6 +687,14 @@ public class JSONClass : JSONNode, IEnumerable {
         m_Dict.Remove (aKey);
         return tmp;
     }
+	public ArrayList GetKeys()
+	{
+		ArrayList arrayOfKeys = new ArrayList();
+		foreach (KeyValuePair<string, JSONNode> i in m_Dict) {
+				arrayOfKeys.Add(i.Key);
+		}
+		return arrayOfKeys;
+	}
     public override JSONNode Remove (int aIndex) {
         if (aIndex < 0 || aIndex >= m_Dict.Count)
             return null;
@@ -737,6 +752,15 @@ public class JSONClass : JSONNode, IEnumerable {
             m_Dict [K].Serialize (aWriter);
         }
     }
+
+	public override IEnumerable<string> Keys
+	{
+		get 
+		{
+			foreach(var key in m_Dict.Keys)
+				yield return key;
+		}
+	}
 } // End of JSONClass
 
 public class JSONData : JSONNode {

@@ -7,8 +7,8 @@ using System.Collections;
 //public abstract class Item : MonoBehaviour
 public class Item : MonoBehaviour
 {
-
     public string itemType;
+	public int itemIndex;
     [EventVisible("Pushed X Times")]
     public int pushCounter;
     [EventVisible("Pulled X Times")]
@@ -62,13 +62,6 @@ public class Item : MonoBehaviour
 	public bool stunState;
 	public bool soundThrowAffected;
 
-    public enum ItemType
-    {
-      //! Need list of item types
-      Consumable,
-      Quest,
-      Sellable
-    }
 
     //!Player gathers X number of this item, (kill all enemies in area, use other item script to auto drop item into play inventory)
     protected virtual void GatherObjective (int count)
@@ -87,10 +80,7 @@ public class Item : MonoBehaviour
 	{
 		return;
 	}
-
-//END ORIGINAL ITEM CODE
-//---------------------------------------------------------------------------
-//START OF INTEGRATION WITH INDIVIDUAL ITEMS
+	
 
 	void Start()
 	{
@@ -98,70 +88,10 @@ public class Item : MonoBehaviour
 		colorTime = Time.time;
 		colorMax = 10f;
 
-		if(gameObject.name == "Crate")
-		{
+		//TESTING - FOR LEVEL DESIGN REMOVE FOR FINAL BUILD
+		originalColor = GetComponent<Renderer>().material.color;
 
-			itemName = "Crate";
-			pushCompatible = true;
-			pullCompatible = true;
-			startPosition = transform.position;
-			moveDist = 0f;
-			hasMoved = false;
-			isSnapping = false;
-
-//TESTING - FOR LEVEL DESIGN REMOVE FOR FINAL BUILD
-			originalColor = GetComponent<Renderer>().material.color;
-//END TESTING
-
-		}
-		else if(gameObject.name == "Rope")
-		{
-
-			itemName = "Rope";
-			cutCompatible = true;
-
-//TESTING - FOR LEVEL DESIGN REMOVE FOR FINAL BUILD
-			originalColor = GetComponent<Renderer>().material.color;
-//END TESTING
-
-		}
-		else if(gameObject.name == "Well")
-		{
-
-			itemName = "Well";
-			soundThrowCompatible = true;
-
-//TESTING - FOR LEVEL DESIGN REMOVE FOR FINAL BUILD
-			originalColor = GetComponent<Renderer>().material.color;
-//END TESTING
-
-		}
-		else if(gameObject.name == "Enemy")
-		{
-
-			itemName = "Enemy";
-			stunCompatible = true;
-			curStunTimer = 0.0f;
-			stunState = false;
-			soundThrowAffected = true;
-
-//TESTING - FOR LEVEL DESIGN REMOVE FOR FINAL BUILD
-			originalColor = GetComponent<Renderer>().material.color;
-//END TESTING
-
-		}
-		else
-		{
-
-			print("Item gameObject unknown object");
-
-		}
-
-	}//END void Start()
-
-//END SETUP
-//---------------------------------------------------------------------------
-//START UPDATE
+	}
 
 	void Update()
 	{

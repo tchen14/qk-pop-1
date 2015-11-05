@@ -63,18 +63,9 @@ public class EventHalf {
 
     public void SetParameters() {
         System.Type[] paramType = new System.Type[] { typeof(void) };
+		MonoBehaviour.print (e_categoryString);
 
-        if (e_categoryString == "Object Script" && e_MonoBehaviour != null) {
-            System.Reflection.ParameterInfo[] par = e_MonoBehaviour.GetType().GetMethod(e_fieldString).GetParameters();
-            if (par.Length > 0) {
-                paramType = new System.Type[par.Length];
-            }
-
-            for (int i = 0; i < par.Length; i++) {
-                paramType[i] = par[i].ParameterType;
-            }
-        }
-        else if (e_categoryString == "Static Script") {
+        if (e_categoryString == "Static Script") {
             if (EventLibrary.staticClasses[e_classString].GetMethod(e_fieldString) != null) {
                 System.Reflection.ParameterInfo[] par = EventLibrary.staticClasses[e_classString].GetMethod(e_fieldString).GetParameters();
                 if (par.Length > 0) {
@@ -86,6 +77,16 @@ public class EventHalf {
                 }
             }
         }
+		else if (e_MonoBehaviour != null) {
+			System.Reflection.ParameterInfo[] par = e_MonoBehaviour.GetType().GetMethod(e_fieldString).GetParameters();
+			if (par.Length > 0) {
+				paramType = new System.Type[par.Length];
+			}
+			
+			for (int i = 0; i < par.Length; i++) {
+				paramType[i] = par[i].ParameterType;
+			}
+		}
 
         args = SetParameters(paramType);
         if (args.Length > 5) {

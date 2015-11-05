@@ -17,7 +17,7 @@ public class Targetable : MonoBehaviour {
 
 	void Start()
 	{
-		PoPCamera.instance.allTargetables.Add (gameObject);
+		PoPCamera.instance.AddTargetable (this.gameObject);
 
 		if(gameObject.GetComponent<Crate>()) {
 			range = 50f;
@@ -34,37 +34,4 @@ public class Targetable : MonoBehaviour {
 		} else
 			range = PoPCamera.instance.targetingRange;
 	}
-
-/* 	void Update () 
-	{
-		if(time <= 0f)
-		{
-			if(!checkCameraVisibility())
-				time = Vector3.Distance (this.transform.position, cam.target.position) / 100f;
-		}
-		else
-			time -= Time.deltaTime;
-	}
-
-	public bool checkCameraVisibility()
-	{
-		isTargetable = false;
-
-		if (Vector3.Distance (this.transform.position, cam.target.position) <= cam.targetingRange)
-		{
-			if(GetComponent<Renderer>().IsVisibleFrom(Camera.main))
-			{
-				RaycastHit hit;
-				if(Physics.Raycast(cam.transform.position, (this.transform.position - cam.transform.position), out hit))
-				{
-					if(hit.collider.name == GetComponent<Collider>().name)
-					{
-						isTargetable = true;
-					}
-				}
-			}
-		}
-		
-		return isTargetable;
-	}
- */}
+}

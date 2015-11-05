@@ -90,11 +90,11 @@ public sealed class Quinc : MonoBehaviour
 
 	public bool pushPullLerp = false;
 
+    public AbilityDockController abilitySelector;
 
 	void FixedUpdate()
 	{
-
-		activeAbility = testAbility;
+        activeAbility = abilitySelector.getSelectedAbility();
 
 /*COMMENTED OUT FOR TESTING, REMOVE COMMENTING FOR BUILD
 		//check current ability with active ability
@@ -107,15 +107,26 @@ public sealed class Quinc : MonoBehaviour
 		//Get the list of targeted objects and the index if in camera target mode
 
 		//check camera state for targets
-	
 
+        /* 
+         * 0 is Cut
+         * 1 is Sound Throw
+         * 2 is Taze
+         * 3 is Push
+         * 4 is Pull
+         */
 		//if there are targeted objects in the list, allow actions on them
 		if(PoPCamera.State == PoPCamera.CameraState.TargetLock)
 		{
 
-			if(InputManager.input.isActionPressed())
+			if(Input.GetKeyDown(KeyCode.Q))
 			{
+<<<<<<< HEAD
 				if(activeAbility == 0 && Time.time > nextPull)
+=======
+				//if (Input.GetKeyDown(KeyCode.Alpha1) && Time.time > nextPush)
+				if(activeAbility == 3 && Time.time > nextPush)
+>>>>>>> 05d8170134be1f69e14ee494f7676f34c830a746
 				{
 					nextPull = Time.time + pullRate;
 
@@ -137,7 +148,12 @@ public sealed class Quinc : MonoBehaviour
 					}//END if(Pull(ref pullStatus, pushPullTarget))
 
 				}
+<<<<<<< HEAD
 				else if(activeAbility == 1 && Time.time > nextPush)
+=======
+				//else if (Input.GetKeyDown(KeyCode.Alpha2) && Time.time > nextPull)
+				else if(activeAbility == 4 && Time.time > nextPull)
+>>>>>>> 05d8170134be1f69e14ee494f7676f34c830a746
 				{
 					nextPush = Time.time + pushRate;
 					//pushPullTarget = GameObject.Find("Crate"); //!> Reference Targeting Script to get current Target
@@ -161,7 +177,12 @@ public sealed class Quinc : MonoBehaviour
 					}//END if(Push(ref pushStatus, pushPullTarget))
 
 				}
+<<<<<<< HEAD
 				else if(activeAbility == 2 && (Time.time > nextStun))
+=======
+				//else if (Input.GetKeyDown(KeyCode.Alpha3))
+				else if(activeAbility == 0 && (Time.time > nextCut))// && Input.GetKeyDown(KeyCode.I))
+>>>>>>> 05d8170134be1f69e14ee494f7676f34c830a746
 				{
 
 					nextStun = Time.time + stunRate;
@@ -186,7 +207,12 @@ public sealed class Quinc : MonoBehaviour
 					}//END if(Cut(ref stunStatus, stunTarget))
 
 				}
+<<<<<<< HEAD
 				else if(activeAbility == 3 && (Time.time > nextSound))
+=======
+				//else if(Input.GetKeyDown(KeyCode.Alpha4))
+				else if(activeAbility == 1 && (Time.time > nextSound))// && Input.GetKeyDown(KeyCode.O))
+>>>>>>> 05d8170134be1f69e14ee494f7676f34c830a746
 				{
 
 					nextSound = Time.time + soundRate;
@@ -205,7 +231,12 @@ public sealed class Quinc : MonoBehaviour
 					}//END if(SoundThrow(ref soundStatus, soundThrowTarget))
 
 				}
+<<<<<<< HEAD
 				else if(activeAbility == 4 && (Time.time > nextCut))
+=======
+				//else if(Input.GetKeyDown(KeyCode.Alpha5))
+				else if(activeAbility == 2 && (Time.time > nextStun))// && Input.GetKeyDown(KeyCode.P))
+>>>>>>> 05d8170134be1f69e14ee494f7676f34c830a746
 				{
 					
 					nextCut = Time.time + cutRate;
@@ -673,7 +704,7 @@ public sealed class Quinc : MonoBehaviour
 			targetObject.GetComponent<Item>().colorTime = Time.time;
 			//END TESTING
 
-			print("MoveSlowly Lerping " + ++testCount);
+			//print("MoveSlowly Lerping " + ++testCount);
 
 			targetObject.transform.position = Vector3.Lerp(targetObject.transform.position, targetPosition, smoothing * Time.deltaTime);
 			targetObject.GetComponent<Item>().hasMoved = true;

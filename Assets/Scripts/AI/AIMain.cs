@@ -4,418 +4,527 @@ using System.Collections.Generic;
 using Debug = FFP.Debug;
 
 [RequireComponent(typeof(NavMeshAgent))]	//Automaticly Make a navMeshAgent on this game object when this script is applied
-[RequireComponent(typeof(Rigidbody))]
+[RequireComponent(typeof(Rigidbody))]       //Attaches a rigid body to the object
 /*! 
- *	This code is the main ai controller. The class is segmented into the following regions: attack, movement, state, sight, and health
+    This code is the main ai controller. The class is segmented into the following regions: attack, movement, state, sight, and health
+
+    The only things you need to worry about are the public variables.
+
+
+
+
  */
 [EventVisible]
-public class AIMain : MonoBehaviour {
+public class AIMain : MonoBehaviour
+{
+    public int current_preset = 0;
 
-	//Editor variables
-	public int current_preset = 0;
-	//Variables Editable
+    //Variables Editable
 
-	public int 					hp 					= 100;						//!<Health of the NPC
-	public float 				sightDistance 		= 45;						//!<The distance the NPC is capable of seeing
-	public float 				sightAngle			= 45;						//!<The max angle of the cone of vision
-	public float 				speed 				= 5;						//!<Casual Speed of the NPC
-	public float		 		runSpeed 			= 8;						//!<Scared, Charging, Aggressive Speed of the NPC*
-	public string[]		 		seekTag 			= {"Player"};				//!<The enemy Tag of this NPC
-	public float 				attackDistance		= 3;						//!<The distance the NPC stands away from the target and attacks*
-	public float 				aggressionLimit		= 100;						//!<The aggression level of the attacker
-    public float                suspicionLimit      = 150;						//!<The suspicon level of the attacker
-	public GameObject 			startPoint 			= null;						//!<Sets the first navPoint, defaults to stationary
-	public string				panicPoints			= "PanicPoints";			//!<The object name of the vector keeper of related panic points for the AI
-	public bool 				aggression 			= false;					//!<If the NPC will attack the player
-    public GameObject           PlayerLastPos       = null;                     //visual representation of where the AI last remembers seeing the player before they went of LoS
-    public bool                 Searching           = false;                    //if the AI is currently looking for the player at its shadow
-    public bool                 checking            = false; 
+    [ReadOnly]public int hp = 100;                               //!<Health of the NPC
+    public float sightDistance = 45;                   //!<The distance the NPC is capable of seeing
+    [ReadOnly]public float sightAngle = 45;                      //!<The max angle of the cone of vision
+    [ReadOnly]public float speed = 4;                            //!<Casual Speed of the NPC
+    [ReadOnly]public float runSpeed = 6;                         //!<Scared, Charging, Aggressive Speed of the NPC*
+    [ReadOnly]public string[] seekTag = { "Player" };            //!<The enemy Tag of this NPC
+    public float attackDistance = 3;                   //!<The distance the NPC stands away from the target and attacks*
+    private GameObject PlayerLastPos = null;            //visual representation of where the AI last remembers seeing the player before they went of LoS
+    private bool searching = false;                     //if the AI is currently looking for the player at its shadow
+    public bool aggressive = false;					    //!<If the NPC will attack the player (True means the AI is an enemy false means its a normal NPC)
+    public float aggressionLimit = 100;			        //!<The aggression level of the attacker (Changes how long it takes for the enemy to get aggressive)
+    public float suspicionLimit = 150;                  //!<The suspicon level of the attacker (changes how long it akes for the enemey to get suspicous) 
 
 
-	//Variables Controllers
-	
-	public bool 		        seesTarget 			= false;					//!<If the Player has been spotted
-	[ReadOnly]public GameObject target				= null;						//!<The transform of the player
-	public bool 		        attacking 			= false;					//!<If the AI is attacking
-	[ReadOnly]public bool 		panic 				= false;					//!<If the AI is panicking
-	[ReadOnly]public Vector3 	panicTarget			= new Vector3 (0, 0, 0);	//!<Target of AI panic
-	[ReadOnly]public float 		aggressionLevel 	= 0;						//!<The current awareness of the NPC to the Player
-    [ReadOnly]public float      suspicionLevel      = 0;						//!<The current suspicion of the NPC to the Player	
-    public bool                 suspicious          = false;					//!<If the AI is suspicous
-    public bool                 alert               = false;					//!<If the AI is alert
-    public bool                 unconsious          = false;                    //!<If the AI is unconsious
-    public bool                 dazed               = false;                    //!<If the AI is dazed
 
-	//Movement variables
+    //Variables Controllers
 
-	private NavMeshAgent 		mesh 				= null;						//!<Contains the component to use the navmesh
-	[ReadOnly]public string		navCheck			= null;						//!<The name of the current checkpoint
-	[ReadOnly]public Vector3 	navPoint			= new Vector3 (0, 0, 0);	//!<Contains the point to move in the navmesh
+    [ReadOnly]public bool seesTarget = false;           //!<If the Player has been spotted
+    [ReadOnly]public GameObject target = null;			//!<The transform of the player
+    [ReadOnly]public GameObject temptarget = null;      //!Temp target for the shadowPlayer
+    [ReadOnly]public bool attacking = false;            //!<If the AI is attacking
+    [ReadOnly]public bool panic = false;				//!<If the AI is panicking
+    [ReadOnly]public int CheckpointCount = 0;           //! Int for tracking the checkpoint the AI is on
+    [ReadOnly]public Vector3 panicTarget = new Vector3(0, 0, 0);	//!<Target of AI panic
+    [ReadOnly]public float aggressionLevel = 0;                 //!<The current awareness of the NPC to the Player
+    [ReadOnly]public float suspicionLevel = 0;					//!<The current suspicion of the NPC to the Player	
+    [ReadOnly]public bool suspicious = false;					//!<If the AI is suspicous
 
-	//Sight variables
+    public bool alert = false;					        //!<If the AI is alert (change this to set the AI to chase the player as soon as it sees the player. False uses the suspicious/aggression method)
+    public bool dazed = false;                          //!<If the AI is dazed (do not change, changed automatically in function call)
 
-	private RaycastHit 			hit;											//!<Takes information from RayCast
-	private GameObject[] 		viableTargets;									//!<All the available targets for the AI
 
-	//! Unity Start function
-	void Start() 
-	{
-		GetComponent<Rigidbody> ().isKinematic = true;
-		#region movement
-			//The AI will find the navMesh of the level and position itself on the navMesh
-			mesh = GetComponent<NavMeshAgent>();	//Get personal nav controller from GameObject(Gameobject will automaticly have navMesh applied from this script)
-			if(startPoint != null)
-				ChangeNavPoint(startPoint.name,startPoint.transform.position);	//Set the current target point, the starting destination the AI will go to
-			else
-				ChangeNavPoint(this.name,this.transform.position);	//set the current target point to current posistion
-			SetSpeed(speed);						//Set the speed that the AI will move at to normal speed
-		#endregion
 
-		#region state
-			//GetComponent<AIMain>().panicTarget = GameObject.Find(panicPoints).GetComponent<PanicTargets>().GetPanickPoint();	//Get personal refuge point 
-		#endregion
+
+    //Movement variables
+
+    [ReadOnly]public string navCheck = null;                    //!<The name of the current checkpoint
+    [ReadOnly]public Vector3 navPoint = new Vector3(0, 0, 0);   //!<Contains the point to move in the navmesh
+    private NavMeshAgent mesh = null;                           //!<Contains the component to use the navmesh
+    [ReadOnly]public bool looping;                                       //!<bool to check for infinite loops on a path
+    [ReadOnly]public int LoopCount = 1;                                  //!<loop counter for keeping track of the number of loops
+    [ReadOnly] public bool back = false;                                  //!<Check for the AI to come back the way it came
+    private bool pathing = true;                                //!<Check for if the AI is currently on its path or looking for something
+    private int PathwayCount = 0;                                //!<Int to keep track of the current pathway
+
+    public GameObject[] Pathways;                               //!<Array that holds the Paths for the AI. Set the size to the number of paths and put in each path, in order!
+    public int[] PathType;                                      //!<Sets the type of path for the AI to use
+    public GameObject Path;                                     //!<The current path the AI is on. Do not manually change this
+
+    //Sight variables
+
+    private RaycastHit hit;                                     //!<Takes information from RayCast
+    private GameObject[] viableTargets;                         //!<All the available targets for the AI
+
+    //Runs upon this object being created
+    void Start()
+    {
+        if (aggressionLevel >= aggressionLimit)
+            GetComponent<Rigidbody>().isKinematic =  true;
+        mesh = GetComponent<NavMeshAgent>();
+        #region StartMoving
+        ChangeNavPoint(this.name, this.transform.position);
+        SetSpeed(speed);
+        #endregion
     }
 
-    //! Unity Update function
-    void Update() 
-	{ 
-        //will this satisfy a knockedout condition?
-		if (hp > 0)
-        {
-            if (dazed == false) //if the enemey's hp is above 0 and not dazed it will perform its normal routine
-            {
 
+    //Happens every update
+    void FixedUpdate()
+    {
+        //sets the state of the AI
+        #region state 
+        if (hp > 0)
+        {
+            if (dazed == false)
+            {
+                mesh.SetDestination(navPoint);
+                //attacks the current target meaning the player is in range of the AI and can be caught. Used for starting a gameover/restart at last checkpoint
                 #region attack
-                //If the AI does not have an active target then there is nothing to attack
                 if (target != null)
                 {
-                    
-                    //If the AI is within range to attack then activate the Attack Funtionality
                     if (attackDistance >= Vector3.Distance(transform.position, target.transform.position))
                     {
-                        attacking = true;   //begin the attack timer
-                                            /*
-                            * This is where the function for attacking is called. It is currently unclear as to whether the player will be reset or damaged,
-                            * If this code will be an external, internal, or written function here, and if the game will check for checkpoints from this
-                            * location in the script
-                            */
-                                            //Debug.Log("ai","ATTACK!");
-                                            /*
-                        */
-                        target = null;      //reset target to make the AI search for the player again
+                        //if the current target is the shadowPlayer (players last know position) Go to that position
+                        if (target.name == "shadowPlayer(Clone)")
+                        {
+                            InvestigatePlayerPos(10f);
+                        }
+                        target = null;
+                        //restart from last checkpoint
                     }
                 }
                 #endregion
 
-                #region movement
-                //continue walking to the current location, reseting the nav grid to insure other AI, the player, or movable objects have not become obsticals
-                mesh.SetDestination(navPoint);
-                #endregion
-
+                //check for all viable targets
                 #region sight
-                //If the AI is willing to fight but has not found an enemy begin the coroutine to find a viable target
-                //modified this so it will keep checking as long as AI is aggressive. Allows for checks to see if the player can be seen
-                if (aggression == true)
+                if (aggressive == true)
                 {
                     StartCoroutine("CheckForTargets");
                 }
                 #endregion
-
-                
             }
-            else // if the enemy's hp is above 0 and dazed it will perform this
+            else
             {
 
             }
-
-		}
-
-        else //if the enemies hp is 0 or below it will perform this
+        }
+        else
         {
             Pause();
-            //Log.M ("ai","DEAD");
         }
-	}
 
-
-    //! Unity FixedUpdate function
-	void FixedUpdate ()
-    {
-        #region state
-        //If the AI is currently scared
+        //Has the AI move to a place if they are panicing (no use currently remains of last programmer)
         if (panic == true)
         {
-            //If the AI is willing to fight then it cannot be scared, reset fear
-            if (aggression == true)
+            if (aggressive == true)
             {
                 panic = false;
             }
-            //If the AI is scared find the panicTarget and run to that location
             else
             {
+                pathing = false;
                 ChangeNavPoint("panic", panicTarget);
                 SetSpeed(runSpeed);
             }
         }
-        //If the AI has a target already and is willing to fight and is not currently attacking the target
-        if (aggression == true && seesTarget == true && attacking == false)
-        {
-            //Debug.Log("ai", aggressionLevel.ToString());
-            //If the AI is aware of its target set the navPoint to the target
-            if (aggressionLevel >= aggressionLimit)
-                ChangeNavPoint(target.name, target.transform.position);
-            //If the AI is not yet aware of its target increase its awarness
-            else
-                aggressionLevel += 1;
-        }
-        //If the AI is not aware of a target,  not aggressive, or is attacking, decrease its aggression levels
-        else
-        {
 
-            //So long as the AI is aggressive, this cannot go below 0, decrement agressionLevel
-            if (aggressionLevel > 0)
+        //if the AI is an enemye (aggressive) and it can see the target start bulding up suspicion level
+        if (aggressive == true && seesTarget == true)
+        {
+            //if the Enemy is set to alert, it wil automatically chase the player upon seeing them
+            if (alert == true)
             {
-                if (checking == false && Searching == false)
+                aggressionLevel = aggressionLimit;
+            }
+            else
+            {
+                // if suspicion level is at the limit then set the enemy to suspicious of player and start building aggression
+                if (suspicionLevel >= suspicionLimit)
                 {
-                    LastKnowLoc(target.transform.position);
-                    
+                    suspicious = true;
+                    //if aggression is at the limit have the AI start chasing the player
+                    if (aggressionLevel >= aggressionLimit)
+                    {
+                        attacking = true;
+                        pathing = false;
+                        ChangeNavPoint(target.name, target.transform.position);
+                        SetSpeed(runSpeed);
+                    }
+                    //lower aggression level if the player isnt seen
+                    else
+                    {
+                        aggressionLevel += 1;
+                    }
                 }
-                aggressionLevel -= 1;
-                //Debug.Log("ai", aggressionLevel.ToString());
-                //If the AI's agression level hits 0 it will go back to its origial destiation set on start
-                if (aggressionLevel == 0)
+                //lower the suspicion level if the player is not seen
+                else
                 {
-                    ChangeNavPoint(startPoint.name, startPoint.transform.position);
+                    suspicionLevel += 1;
                 }
             }
         }
+        else
+        {
+            // if the player is not seen but the AI was chasing the player. (when the player escapes the enemy line of sight) create a shadow of the player and have the AI investigate it.
+            if (attacking == true && searching == false)
+            {
+                target = (GameObject)Instantiate(PlayerLastPos, target.transform.position, Quaternion.identity);
+                searching = true;
+            }
+            if (suspicionLevel > 0)
+            {
+                StartCoroutine("Decrementsuspicion");
+            }
+            if (aggressionLevel > 0)
+            {
+                StartCoroutine("Decrementaggression");
+            }
+        }
+
+        #region path
+        if ((Vector3.Distance(transform.position, navPoint) < 3) && (target == null) && (pathing == true))
+        {
+            nextCheckpoint();
+        }
+        #endregion
         #endregion
     }
 
-    #region attack
-    //! Wait time between attacks???
-    public IEnumerator EndAttack() 
-	{
-        yield return new WaitForSeconds (1);
-		attacking = false;
+    //Lower the aggression level if the player is not seen.
+    public IEnumerator Decrementaggression()
+    {
+        yield return new WaitForSeconds(3f);
+        if (aggressionLevel > 0)
+        {
+            aggressionLevel -= 1;
+        }
+        if (aggressionLevel == 0)
+        {
+            searching = false;
+            attacking = false;
+            string CheckpointCountString = CheckpointCount.ToString();
+            AINavPoints CheckpointScript = Path.GetComponent<AINavPoints>();
+            ChangeNavPoint(CheckpointCountString, CheckpointScript.AiCheckpoints[CheckpointCount]);
+            pathing = true;
+        }
+    }
+
+    //Lower the suspicion level if the player is not seen
+    public IEnumerator Decrementsuspicion()
+    {
+        yield return new WaitForSeconds(3f);
+        if (suspicionLevel > 0)
+        {
+            suspicionLevel -= 1;
+
+        }
+        if (suspicionLevel == 0)
+        {
+            suspicious = false;
+        }
+    }
+
+    //make the AI dazed for a set amount of time. done by calling Dazed(float);
+    #region dazed
+    public IEnumerator Dazed(float dazeTime)
+    {
+        pathing = false;
+        dazed = true;
+        Pause();
+        yield return new WaitForSeconds(dazeTime);
+        dazed = false;
+        Resume();
+        pathing = true;
+
     }
     #endregion
 
-    #region dazed
-
-    //turn off line of sight (assuming visible LoS is a feature)
-    //after x number of seconds
-    //stop being dazed (animation)
-    //start search sequence
-    //turn left and right to look around
-    //after set amount of time set its target to its last target
-    //set dazed to false
-
-
-    #endregion
-
+    //Distracts the AI. called with NoiseHeard(GameObject);
     #region distracted
 
-    //if noiseHeard = true (triggered either here through send message or in the throw script)
-    //if enemymy does not see player
-    //store last target
-    //set location of noise from noise throw
-    // if current location = target location
-    //start search sequence
-
-    /*if (noiseHeard == true)
+    public void NoiseHeard(GameObject soundPos)
     {
-        if (seesTarget = false)
+        if (seesTarget == false)
         {
-            navPoint = (location fed from noise throw);
-            mesh.SetDestination(navPoint);
-            if (transform.position == navPoint)
+            pathing = false;
+            ChangeNavPoint(soundPos.name, soundPos.transform.position);
+            if ((Vector3.Distance(transform.position, navPoint) < 10) && (target == null))
             {
-                Investigate();
+                InvestigateSound(5f);
             }
         }
-        else
-        {
-
-        }
     }
-    else
-    {
-    }
-    */
 
     #endregion
 
-#region movement
-    //!<Sets a new destination for the AI
-public void ChangeNavPoint(string N,Vector3 T)
-{
-navCheck = N;
-navPoint = T;
-}
-//!<Sets the AI's Speed on the navMesh
-public void SetSpeed(float Spd)
-{
-mesh.speed = Spd;
-}
-//!<Stops the AI from moving on the mesh
-public void Pause()
-{
-//Log.M ("ai", "W");
-mesh.Stop();
-}
-//!<Resumes the AI on its current path
-public void Resume()
-{
-mesh.Resume();
-}
-#endregion
+    //Functions for moving the AI to a specific point. ChangeNavPoint(String, Vector3);
+    #region Move functions
+    public void ChangeNavPoint(string N, Vector3 T)
+    {
+        navCheck = N;
+        navPoint = T;
+    }
+    //Sets the speed of the AI. Default walking speed
+    public void SetSpeed(float Spd)
+    {
+        mesh.speed = Spd;
+    }
+    //Stops the AI on its path
+    public void Pause()
+    {
+        mesh.Stop();
+    }
+    //Resumes the AI on its path
+    public void Resume()
+    {
+        mesh.Resume();
+    }
+    #endregion
 
-#region sight
-//called every tenth of a second to look for a new target
-public IEnumerator CheckForTargets()
-{
-yield return new WaitForSeconds(.1f);
-GetTargets();
-}
+    //Functions for creating the AI's cone of vision
 
-//!<Sends Raycast and sets up AI_Main
-public void GetTargets()
-{
-//Create a dynamic type array to add all targets into an array
-List<GameObject> viableTargets = new List<GameObject> ();
+    //Function call for Getting targets.
+    #region Sight Functions
+    public IEnumerator CheckForTargets()
+    {
+        yield return new WaitForSeconds(.1f);
+        GetTargets();
+    }
 
+    //Gets all targets wih the tag "Player" and stores them in an array
+    public void GetTargets()
+    {
+        List<GameObject> viableTargets = new List<GameObject>();
+        for (int enemyType = 0; enemyType < seekTag.Length; enemyType++)
+        {
+            GameObject[] targets = GameObject.FindGameObjectsWithTag(seekTag[enemyType]);
+            for (int searchEnemyType = 0; searchEnemyType < targets.Length; searchEnemyType++)
+                viableTargets.Add(targets[searchEnemyType]);
+        }
 
-//Gathers all enemy targets by tags and adds them to the end of the array
-for(int enemyType = 0; enemyType < seekTag.Length; enemyType++)
-{
-    GameObject[] targets = GameObject.FindGameObjectsWithTag(seekTag[enemyType]);
-    for(int searchEnemyType = 0;searchEnemyType < targets.Length; searchEnemyType++)
-         viableTargets.Add(targets[searchEnemyType]);
-}
-//sets our dynamic array to a static array for easy use		GameObject[] viableTargets = (GameObject[])checkingTargets.ToArray (typeof(GameObject));
-
-if(viableTargets.Count != 0)
-{
-    for(int searchTargets = 0; searchTargets < viableTargets.Count; searchTargets++)
-    {          
-        //If the target is within the field of view of the AI continue
-        if (Vector3.Angle(viableTargets[searchTargets].transform.position-transform.position,transform.forward)< sightAngle)
-        {  
-            //If the target is within the sight distance of the AI continue
-            if(Vector3.Distance(transform.position,viableTargets[searchTargets].transform.position) < sightDistance)
+        if (viableTargets.Count != 0)
+        {
+            //Sets the cone of vision for the AI. sets the angle, distance, checks if the target is not behind an object, checks if the raycast returns the player or something else. Finally sets the player as target if everything else passes
+            for (int searchTargets = 0; searchTargets < viableTargets.Count; searchTargets++)
             {
-                
-                //If the target is within Line of Sight continue
-                if(Physics.Raycast(transform.position,viableTargets[searchTargets].transform.position-transform.position,out hit))
+                if (Vector3.Angle(viableTargets[searchTargets].transform.position - transform.position, transform.forward) < sightAngle)
                 {
-                    //If sight is true continue
-                    if(hit.collider.tag == viableTargets[searchTargets].tag)
+                    if (Vector3.Distance(transform.position, viableTargets[searchTargets].transform.position) < sightDistance)
                     {
-                        //Set this as the target
-                        target = hit.collider.gameObject;
-                        seesTarget = true;
+                        if (Physics.Raycast(transform.position, viableTargets[searchTargets].transform.position - transform.position, out hit))
+                        {
+                            if (hit.collider.tag == viableTargets[searchTargets].tag)
+                            {
+                                target = hit.collider.gameObject;
+                                if (target != null && target.name == "shadowPlayer(Clone)")
+                                {
+                                    Destroy(target);
+                                    CheckForTargets();
+                                }
+                                
+                                searching = false;
+                                seesTarget = true;
+                            }
+                            else
+                            {
+                                seesTarget = false;
+                            }
+                        }
+                        else
+                        {
+                            seesTarget = false;
+                        }
                     }
                     else
                     {
                         seesTarget = false;
-                        //Log.M ("ai", "OUT OF SIGHT");
                     }
                 }
-            }
-            else
-            {
-                seesTarget = false;
-                //Log.M ("ai", "OUT OF DISTANCE");
+                else
+                {
+                    seesTarget = false;
+                }
             }
         }
         else
         {
-            seesTarget = false;
-            //Log.M ("ai", "out of angles");
         }
     }
-}
-else
-{
-    //Debug.Log("ai","No available Targets");
-}
-}
-#endregion
+    #endregion
 
-#region health
-//!<Removes from the Health of the AI
-public int hurt (int damage) 
-{
-int HP = hp;
-HP -= damage;
-return HP;
-}
-//!<Adds to the health of the AI
-public int heal (int health) 
-{
-int HP = hp;
-HP += health;
-return HP;
-}
-#endregion
-
-#region recover
-//AI waits ten seconds before recovering from it's dazed status
-
-
-public IEnumerator statusRecover()
-{
-yield return new WaitForSeconds(10.0f);
-dazeRecover();
-}
-
-//Enemy starts recovering AI from dazed state
-public void dazeRecover()
-{
-//dazed == false
-//whatever actions need to be performed after recovery
-//ie. high suspicion level, aggressive, look around? contine patrol?
-}
-#endregion
-
-    public void LastKnowLoc(Vector3 LastPos)
+    //Function for the damaging the AI (not sure if being used. remains of laster programmer)
+    #region health
+    public int hurt(int damage)
     {
-    //triggers upon the player moving out of sight of the enemy
-    //spawn an unmoving transparent version of the player at the players location
-    //enemys target is set to that
-    //upon reaching that spot the enemy runs search sequence
-
-        
-       
-        checking = true;
-        Instantiate(PlayerLastPos, target.transform.position, Quaternion.identity);
-        Collider[] hitColliders = Physics.OverlapSphere(target.transform.position, .1f);
-        int counter = 0;
-        while (target.name != "shadowPlayer")
-        {
-
-            target = hitColliders[counter].gameObject;
-        }
-        Searching = true;
-        
-        
-        ChangeNavPoint(target.name, target.transform.position);
-        if (transform.position == navPoint)
-        {
-            Searching = false;
-            checking = false;
-            Investigate();
-        }
-        
+        int HP = hp;
+        HP -= damage;
+        return HP;
     }
-
-    public void Investigate()
+    //Function for the healing the AI (not sure if being used. remains of laster programmer)
+    public int heal(int health)
     {
-        Debug.Log("ai","works");
-        //play animation
-        //after animation ChangeNavPoint(startPoint.name, startPoint.transform.position);
-        //set noiseHeard to false
-        //Searching = false;
+        int HP = hp;
+        HP += health;
+        return HP;
     }
+    #endregion
+
+    //Funtion for Investigating the sound. Needs a float that specifys how long the AI looks for
+    public IEnumerator InvestigateSound(float lookTime)
+    {
+        yield return new WaitForSeconds(lookTime);
+        string CheckpointCountString = CheckpointCount.ToString();
+        AINavPoints CheckpointScript = Path.GetComponent<AINavPoints>();
+        ChangeNavPoint(CheckpointCountString, CheckpointScript.AiCheckpoints[CheckpointCount]);
+        pathing = true;
+
+    }
+
+    //Function for Investigating the players last position needs a float to specify how long.
+    public IEnumerator InvestigatePlayerPos(float lookTime)
+    {
+        yield return new WaitForSeconds(lookTime);
+        string CheckpointCountString = CheckpointCount.ToString();
+        AINavPoints CheckpointScript = Path.GetComponent<AINavPoints>();
+        ChangeNavPoint(CheckpointCountString, CheckpointScript.AiCheckpoints[CheckpointCount]);
+        pathing = true;
+
+    }
+
+    //Function for moving the AI to the next checkpoint in their path scripts
+    public void nextCheckpoint()
+    {
+        #region LoopPath
+        if (PathwayCount <= Pathways.Length - 1)
+        {
+            
+            Path = Pathways[PathwayCount];
+            AINavPoints CheckpointScript = Path.GetComponent<AINavPoints>();
+
+            //check for the type of path 
+            switch (PathType[PathwayCount])
+            { 
+                //To Point
+                case 0:
+                    if (CheckpointCount <= CheckpointScript.AiCheckpoints.Count - 1)
+                    {
+                        string CheckpointCountString = CheckpointCount.ToString();
+                        ChangeNavPoint(CheckpointCountString, CheckpointScript.AiCheckpoints[CheckpointCount]);
+                        if (CheckpointCount != CheckpointScript.AiCheckpoints.Count)
+                        {
+                            CheckpointCount++;
+                        }
+                    }
+                    else
+                    {
+                        if (PathwayCount != Pathways.Length - 1)
+                        {
+                            PathwayCount++;
+                            CheckpointCount = 0;
+                        }
+                        else
+                        {
+                            return;
+                        }
+                    }
+                    break;
+                //Loop number of times across the points
+                //case 1:
+                //    if (LoopCount <= CheckpointScript.NofLoops | CheckpointScript.infinite == true)
+                //    {
+                //        if (CheckpointCount <= CheckpointScript.AiCheckpoints.Count - 1)
+                //        {
+                //            string CheckpointCountString = CheckpointCount.ToString();
+                //            ChangeNavPoint(CheckpointCountString, CheckpointScript.AiCheckpoints[CheckpointCount]);
+                //            if (CheckpointCount != CheckpointScript.AiCheckpoints.Count)
+                //            {
+                //                CheckpointCount++;
+                //            }
+                //        }
+                //        else
+                //        {
+                //            CheckpointCount = 0;
+                //            if (CheckpointScript.infinite == false)
+                //            {
+                //                LoopCount++;
+                //            }
+                //        }
+                //    }
+                //    else
+                //    {
+                //        PathwayCount++;
+                //        CheckpointCount = 0;
+                //        LoopCount = 1;
+                //    }
+                //    break;
+                ////Go back and forth a number of times across the points 
+                //case 2:
+                //    if (LoopCount <= CheckpointScript.NofLoops | CheckpointScript.infinite == true)
+                //    {
+                //        if ((CheckpointCount < CheckpointScript.AiCheckpoints.Count) && (back == false))
+                //        {
+                //            string CheckpointCountString = CheckpointCount.ToString();
+                //            ChangeNavPoint(CheckpointCountString, CheckpointScript.AiCheckpoints[CheckpointCount]);
+                //            if (CheckpointCount != CheckpointScript.AiCheckpoints.Count)
+                //            {
+                //                CheckpointCount++;
+                //            }
+                //            print(CheckpointCount);
+                //        }
+                //        else
+                //        {
+                //            if (CheckpointCount > 0)
+                //            {
+                //                back = true;
+                //                CheckpointCount--;
+                //                string CheckpointCountString = CheckpointCount.ToString();
+                //                ChangeNavPoint(CheckpointCountString, CheckpointScript.AiCheckpoints[CheckpointCount]);
+
+                //            }
+                //            else
+                //            {
+                //                back = false;
+                //                if (CheckpointScript.infinite == false)
+                //                {
+                //                    LoopCount++;
+                //                }
+                //            }
+                //        }
+                //    }
+                //    else
+                //    {
+                //        PathwayCount++;
+                //        CheckpointCount = 0;
+                //        LoopCount = 1;
+                //    }
+                //    break;
+
+            }
+        }
+        else
+        {
+            
+        }
+    }
+    #endregion
 }
