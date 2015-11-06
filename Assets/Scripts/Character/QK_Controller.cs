@@ -21,14 +21,12 @@ public class QK_Controller : MonoBehaviour {
 		GetLocomotionInput ();
 
 		HandleActionInput ();
-
-		QK_Character_Movement.Instance.UpdateMotor ();
 	}
 
 	void GetLocomotionInput() {
 		var deadZone = 0.1f;
 
-		QK_Character_Movement.Instance.VerticalVelocity = QK_Character_Movement.Instance.moveVector.y;
+		QK_Character_Movement.Instance.verticalVelocity = QK_Character_Movement.Instance.moveVector.y;
 		QK_Character_Movement.Instance.moveVector = Vector3.zero;
 
         if (InputManager.input.MoveVerticalAxis() > deadZone || InputManager.input.MoveVerticalAxis() < deadZone)

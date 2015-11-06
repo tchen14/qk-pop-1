@@ -19,7 +19,16 @@ public sealed class PoPCamera : Camera_2
 	// Ensures PoPCamera is in the scene when attempting to access it
 	public static PoPCamera instance
 	{
-		get { return _instance ?? (_instance = GameObject.FindObjectOfType<PoPCamera>()); }
+		get 
+		{ 
+			_instance = _instance ?? (_instance = GameObject.FindObjectOfType<PoPCamera>()); 
+			if(_instance == null) {
+				Debug.Warning ("camera", "PoPCamera is not in scene but a script is attempting to reference it.");
+				return null;
+			} else {
+				return _instance;
+			}
+		}
 	}
 
     public static CameraState State
@@ -66,9 +75,9 @@ public sealed class PoPCamera : Camera_2
 	void Start()
 	{
 		if (!target) {
-            if (GameObject.FindObjectOfType<QK_Controller>())
+            if (GameObject.FindObjectOfType<QK_Character_Movement>())
             {
-                target = (Transform)GameObject.FindObjectOfType<QK_Controller>().transform;
+                target = (Transform)GameObject.FindObjectOfType<QK_Character_Movement>().transform;
 				player = target;
                 _curState = CameraState.Normal;
 			}else{
