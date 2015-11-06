@@ -33,9 +33,9 @@ public sealed class CheckpointManager : MonoBehaviour {
 		// If in the editor (so testing, not a build), delete all the checkpoint crap that would normally not be in a build
 		#if UNITY_EDITOR
 		Checkpoint[] objs = GameObject.FindObjectsOfType<Checkpoint>();
-		foreach(Checkpoint go in objs)
-			Destroy(go.gameObject);
-		Destroy(GameObject.Find("_Checkpoints"));
+//		foreach(Checkpoint go in objs)
+//			Destroy(go.gameObject);
+//		Destroy(GameObject.Find("_Checkpoints"));
 		#endif
 	}
 	
@@ -51,7 +51,7 @@ public sealed class CheckpointManager : MonoBehaviour {
 		
 		//Find the closest node
 		List<Vector3> checkpoint = checkpointTree.Search(pos);
-		
+
 		//
 		//todo: detemine which checkpoints we are accessible
 		//
