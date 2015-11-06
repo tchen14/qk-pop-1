@@ -7,44 +7,55 @@ public class QK_Character_Movement : MonoBehaviour {
 	private static QK_Character_Movement _instance;
 	public static QK_Character_Movement Instance 
 	{
-		get { return _instance ?? (_instance = GameObject.FindObjectOfType<QK_Character_Movement> ()); }
+		get 
+		{ 
+			return _instance ?? (_instance = GameObject.FindObjectOfType<QK_Character_Movement> ()); }
 	}
 
-	public enum CharacterState {Idle, Move, Turn, Sprint, Crouch, Climb, Normal}
+	public enum CharacterState {Idle, Move, Pivot, Sprint, Crouch, Climb, Normal}
+	[ReadOnlyAttribute]
 	public CharacterState _moveState;
+	[ReadOnlyAttribute]
 	public CharacterState _stateModifier;
 
-	public static CharacterController CharacterController;
+	public static CharacterController charCont;
 
+	[ReadOnlyAttribute]
 	public float curSpeed = 0f;
-	private float acceleration = 1f;
-	public float runSpeed = 10f;
-	private float sprintSpeed = 14f;
-	private float crouchSpeed = 7f;
+	private float acceleration = 0.7f;
+	[ReadOnlyAttribute]
+	public float runSpeed = 8f;
+	private float sprintSpeed = 11f;
+	private float crouchSpeed = 5f;
+	[ReadOnlyAttribute]
+	public float jumpSpeed = 8f;
+	private float slideSpeed = 8f;
+	private float gravity = 38f;
+	[ReadOnlyAttribute]
+	public float verticalVelocity = 0f;
+	private float terminalVelocity = 20f;
+	private float turnRate = 5f;
 
-	//public float backwardSpeed = 3f;
-	//public float strafingSpeed = 6f;
-	public float jumpSpeed = 10f;
-	public float slideSpeed = 8f;
-	public float gravity = 30f;
-	public float terminalVelocity = 20f;
-	public float turnRate = 5f;
+	public Vector3 moveVector = Vector3.zero;
+	private Vector3 desiredMoveVector = Vector3.zero;
+    private Vector3 inputDirection { get; set; }
 
-	public Vector3 moveVector { get; set; }
-    private Vector3 moveDir { get; set; }
-	public float VerticalVelocity { get; set; }
 
 	// This is for Slide if implemented
-	public float slideTheshold = 0.6f;
-	public float MaxControllableSlideMagnitude = 0.4f;
+	private float slideTheshold = 0.6f;
+	private float MaxControllableSlideMagnitude = 0.4f;
 	private Vector3 slideDirection;
 	private Quaternion targetAngle = Quaternion.identity;
 	private PoPCamera cam;
 
+	//Testing vectors
+	Vector3 testDir1 = Vector3.right - Vector3.zero;
+	Vector3 testDir2 = new Vector3(-1f, 0f, -1f) - Vector3.zero;
+
 	// Use this for initialization
 	void Start () 
 	{
-		CharacterController = GetComponent ("CharacterController") as CharacterController;
+		charCont = GetComponent ("CharacterController") as CharacterController;
 		if(PoPCamera.instance != null)
 			cam = PoPCamera.instance;
 	}
@@ -53,81 +64,87 @@ public class QK_Character_Movement : MonoBehaviour {
 	{
 		if (cam == null)
 			return;
-		
+
+		ApplyGravity ();
+
 		HandleActionInput ();
-		
-		UpdateMotor ();
-	}
 
-	// Update is called once per frame
-	public void UpdateMotor () 
-	{
-		//SnapAlignCharacterWithCamera ();
+		CalculateMovementDirection ();
+
 		ProcessMotion ();
-
 	}
 
 	void ProcessMotion()
 	{
-		//Transform move into World Space
-		//moveVector = transform.TransformDirection (moveVector);
-        float inputHor = InputManager.input.MoveHorizontalAxis();
-        float inputVert = InputManager.input.MoveVerticalAxis();
-        Vector3 forward = transform.position + cam.transform.forward;
-        forward = new Vector3(forward.x, transform.position.y, forward.z);
-        forward = Vector3.Normalize(forward - transform.position);
-        Vector3 right = new Vector3(forward.z, 0f, -forward.x);
+		//Multiply move by MoveSpeed
+		if (_moveState == CharacterState.Move) {
+			curSpeed += acceleration;
+		} else {
+			curSpeed -= acceleration;
+		}
+
+		if (_stateModifier == CharacterState.Sprint) {
+			curSpeed = Mathf.Clamp (curSpeed, 0f, sprintSpeed);
+		} else if (_stateModifier == CharacterState.Crouch) {
+			curSpeed = Mathf.Clamp (curSpeed, 0f, crouchSpeed);
+		} else {
+			curSpeed = Mathf.Clamp (curSpeed, 0f, runSpeed);
+		}
+		
+		// Apply Slide
+		ApplySlide ();
+
+		moveVector = desiredMoveVector * curSpeed;
+		moveVector = new Vector3 (moveVector.x, verticalVelocity, moveVector.z);
+
+		// Rotate Character
+		if (_moveState == CharacterState.Move) {
+			RotateCharacter (inputDirection);
+			QK_Character_Movement.charCont.Move (moveVector * Time.deltaTime);
+		} else if (_moveState == CharacterState.Pivot) {
+			RotateCharacter (inputDirection);
+		} else if (_moveState == CharacterState.Idle) {
+			QK_Character_Movement.charCont.Move (moveVector * Time.deltaTime);
+		}
+	}
+
+	void CalculateMovementDirection ()
+	{
+		float inputHor = InputManager.input.MoveHorizontalAxis();
+		float inputVert = InputManager.input.MoveVerticalAxis();
+		Vector3 forward = transform.position + cam.transform.forward;
+		forward = new Vector3(forward.x, transform.position.y, forward.z);
+		forward = Vector3.Normalize(forward - transform.position);
+		Vector3 right = new Vector3(forward.z, 0f, -forward.x);
+		
+		inputDirection = (inputHor * right) + (inputVert * forward);
+		desiredMoveVector = Vector3.Lerp (transform.forward, inputDirection, 0.5f);
 
 		if (inputHor != 0f || inputVert != 0) {
-            _moveState = CharacterState.Move;
-            moveDir = Vector3.Normalize((inputHor * right) + (inputVert * forward));
+			if(Vector3.Angle(transform.forward, inputDirection) >= 90f) {
+				_moveState = CharacterState.Pivot;
+			} else {
+				_moveState = CharacterState.Move;
+			}
 		} else {
 			_moveState = CharacterState.Idle;
 		}
-
-		//Multiply move by MoveSpeed
-        if (_moveState == CharacterState.Move)
-            curSpeed += acceleration;
-        else
-            curSpeed -= acceleration;
-
-		if (_stateModifier == CharacterState.Sprint)
-			curSpeed = Mathf.Clamp (curSpeed, 0f, sprintSpeed);
-		else if (_stateModifier == CharacterState.Crouch)
-			curSpeed = Mathf.Clamp (curSpeed, 0f, crouchSpeed);
-		else
-			curSpeed = Mathf.Clamp(curSpeed, 0f, runSpeed);
-		
-		moveVector = moveDir * curSpeed;
-		
-		// Rotate Character
-		if(_moveState == CharacterState.Move)
-			RotateCharacter(moveDir);
-
-        // Apply Slide
-        ApplySlide();
-
-        //Apply Gravity
-        ApplyGravity();
-
-        moveVector = new Vector3(moveVector.x, VerticalVelocity, moveVector.z);
-        QK_Character_Movement.CharacterController.Move(moveVector * Time.deltaTime);
 	}
 
 	void ApplyGravity () 
 	{
-        if (moveVector.y > -terminalVelocity) {
-			VerticalVelocity -= gravity * Time.deltaTime;
+        if (!charCont.isGrounded && moveVector.y > -terminalVelocity) {
+			verticalVelocity -= gravity * Time.deltaTime;
 		}
 
-		if (CharacterController.isGrounded && moveVector.y <= -1) {
-			VerticalVelocity = 0;
+		if (charCont.isGrounded) {
+			verticalVelocity = 0f;
 		}
 	}
 
 	void ApplySlide ()
 	{
-		if (!QK_Character_Movement.CharacterController.isGrounded)
+		if (!QK_Character_Movement.charCont.isGrounded)
 			return;
 
 		slideDirection = Vector3.zero;
@@ -166,8 +183,8 @@ public class QK_Character_Movement : MonoBehaviour {
 
 	public void Jump() 
 	{
-		if (QK_Character_Movement.CharacterController.isGrounded)
-			VerticalVelocity = jumpSpeed;
+		if (QK_Character_Movement.charCont.isGrounded)
+			verticalVelocity = jumpSpeed;
 	}
 
 	void RotateCharacter(Vector3 toRotate)
@@ -178,7 +195,7 @@ public class QK_Character_Movement : MonoBehaviour {
 		
 	void OnDrawGizmosSelected()
 	{
-		if (cam && Debug.IsKeyActive("player")) {
+		if (cam) {
 			float inputHor = InputManager.input.MoveHorizontalAxis ();
 			float inputVert = InputManager.input.MoveVerticalAxis ();
 			Vector3 forward = transform.position + cam.transform.forward;
@@ -187,10 +204,13 @@ public class QK_Character_Movement : MonoBehaviour {
 			Vector3 right = new Vector3 (forward.z, 0f, -forward.x);
 
 			Vector3 moveDir = (inputHor * right) + (inputVert * forward);
+
+			Vector3 testMoveVect = Vector3.Lerp(transform.forward, moveDir, 0.5f);
 			Gizmos.DrawSphere (transform.position + moveDir, 0.1f);
+			Gizmos.DrawRay (transform.position, testMoveVect);
 			Gizmos.DrawRay (transform.position, moveDir);
-			Gizmos.DrawRay (transform.position, forward);
-			Gizmos.DrawRay (transform.position, right);
+			//Gizmos.DrawRay (transform.position, forward);
+			//Gizmos.DrawRay (transform.position, right);
 		}
 	}
 }
