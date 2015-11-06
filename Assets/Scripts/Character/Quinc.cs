@@ -84,7 +84,7 @@ public sealed class Quinc : MonoBehaviour
 
 	bool inTargetLock = false;
 
-	public static int activeAbility = 0;
+	public int activeAbility = 0;
 
 	public int testAbility = 0;
 
@@ -94,7 +94,7 @@ public sealed class Quinc : MonoBehaviour
 
 	void FixedUpdate()
 	{
-        activeAbility = abilitySelector.getSelectedAbility();
+		activeAbility = abilitySelector.getSelectedAbility();
 
 /*COMMENTED OUT FOR TESTING, REMOVE COMMENTING FOR BUILD
 		//check current ability with active ability
@@ -121,12 +121,8 @@ public sealed class Quinc : MonoBehaviour
 
 			if(Input.GetKeyDown(KeyCode.Q))
 			{
-<<<<<<< HEAD
-				if(activeAbility == 0 && Time.time > nextPull)
-=======
 				//if (Input.GetKeyDown(KeyCode.Alpha1) && Time.time > nextPush)
 				if(activeAbility == 3 && Time.time > nextPush)
->>>>>>> 05d8170134be1f69e14ee494f7676f34c830a746
 				{
 					nextPull = Time.time + pullRate;
 
@@ -148,12 +144,8 @@ public sealed class Quinc : MonoBehaviour
 					}//END if(Pull(ref pullStatus, pushPullTarget))
 
 				}
-<<<<<<< HEAD
-				else if(activeAbility == 1 && Time.time > nextPush)
-=======
 				//else if (Input.GetKeyDown(KeyCode.Alpha2) && Time.time > nextPull)
 				else if(activeAbility == 4 && Time.time > nextPull)
->>>>>>> 05d8170134be1f69e14ee494f7676f34c830a746
 				{
 					nextPush = Time.time + pushRate;
 					//pushPullTarget = GameObject.Find("Crate"); //!> Reference Targeting Script to get current Target
@@ -177,12 +169,8 @@ public sealed class Quinc : MonoBehaviour
 					}//END if(Push(ref pushStatus, pushPullTarget))
 
 				}
-<<<<<<< HEAD
-				else if(activeAbility == 2 && (Time.time > nextStun))
-=======
 				//else if (Input.GetKeyDown(KeyCode.Alpha3))
 				else if(activeAbility == 0 && (Time.time > nextCut))// && Input.GetKeyDown(KeyCode.I))
->>>>>>> 05d8170134be1f69e14ee494f7676f34c830a746
 				{
 
 					nextStun = Time.time + stunRate;
@@ -207,12 +195,8 @@ public sealed class Quinc : MonoBehaviour
 					}//END if(Cut(ref stunStatus, stunTarget))
 
 				}
-<<<<<<< HEAD
-				else if(activeAbility == 3 && (Time.time > nextSound))
-=======
 				//else if(Input.GetKeyDown(KeyCode.Alpha4))
 				else if(activeAbility == 1 && (Time.time > nextSound))// && Input.GetKeyDown(KeyCode.O))
->>>>>>> 05d8170134be1f69e14ee494f7676f34c830a746
 				{
 
 					nextSound = Time.time + soundRate;
@@ -231,12 +215,8 @@ public sealed class Quinc : MonoBehaviour
 					}//END if(SoundThrow(ref soundStatus, soundThrowTarget))
 
 				}
-<<<<<<< HEAD
-				else if(activeAbility == 4 && (Time.time > nextCut))
-=======
 				//else if(Input.GetKeyDown(KeyCode.Alpha5))
 				else if(activeAbility == 2 && (Time.time > nextStun))// && Input.GetKeyDown(KeyCode.P))
->>>>>>> 05d8170134be1f69e14ee494f7676f34c830a746
 				{
 					
 					nextCut = Time.time + cutRate;
