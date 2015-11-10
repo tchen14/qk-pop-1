@@ -135,6 +135,7 @@ public class AIMainTrimmed : MonoBehaviour
                         if (target.name == "_Player")
                         {
                             Time.timeScale = 0;
+                            Debug.Log("Player was caught by enemy");
                         }
                         target = null;
                     }
@@ -160,23 +161,25 @@ public class AIMainTrimmed : MonoBehaviour
                         //if the AI is not alert it will build suspicion up to it's limit then build aggression to its limit before chasing the player down.
                         else
                         {
-                            Debug.Log(suspicionLevel);
                             if (suspicionLevel >= suspicionLimit)
                             {
                                 suspicious = true;
                                 //if the AI reaches max aggression it will start chasing the player, defined as target for the AI. Also set the speed of the AI to it's run speeed
                                 if (aggressionLevel >= aggressionLimit)
                                 {
-                                    attacking = true;
-                                    ChangeNavPoint(target.name, target.transform.position);
-                                    SetSpeed(runSpeed);
+                                    if (attacking == false)
+                                    {
+                                        attacking = true;
+                                        ChangeNavPoint(target.name, target.transform.position);
+                                        SetSpeed(runSpeed);
+                                    }
                                 }
                                 else
                                 {
                                     //the AI sees the player and has max suspicion, its now getting aggressive
                                     if (IncrementaggressionRunning == false)
                                     {
-                                   
+
                                         Incrementaggression();
                                         IncrementaggressionRunning = true;
                                     }
