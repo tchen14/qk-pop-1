@@ -54,9 +54,6 @@
 		"journal": "j",
 		"qAbility1": "q",
 		"cycleTarget": "Mouse ScrollWheel",
-		"pause": "esc",
-		"arrowUp": "up",
-		"arrowDown": "down"
-		
+		"pause": "esc"
 	}
 }

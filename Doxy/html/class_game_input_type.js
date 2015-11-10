@@ -1,0 +1,28 @@
+var class_game_input_type =
+[
+    [ "AbilityPressed", "class_game_input_type.html#ade2204bbe3e0bfd62c3b7ccd03e97858", null ],
+    [ "CameraHorizontalAxis", "class_game_input_type.html#a233d327af32ddbbf4903b03c12287185", null ],
+    [ "CameraScrollTarget", "class_game_input_type.html#a244ceb42bb560a79b7cd34488f9e764b", null ],
+    [ "CameraVerticalAxis", "class_game_input_type.html#abef7337d15c477a34c09bea9b5b63935", null ],
+    [ "isAbilityEquip", "class_game_input_type.html#a322c407e0dbe40d21ca162359a5fc1a9", null ],
+    [ "isActionPressed", "class_game_input_type.html#a1b98fa66ad81d36890da89d330f4a4be", null ],
+    [ "isCameraResetPressed", "class_game_input_type.html#adb804c20cb81c27c3963793513e9a4e2", null ],
+    [ "isCompass", "class_game_input_type.html#ae70b5acde1f928afd71d4fcef6ec8dac", null ],
+    [ "isCrouched", "class_game_input_type.html#abf43357f7eaa7bd9cf0a4bb65d2ad5d8", null ],
+    [ "isJournal", "class_game_input_type.html#a88ab15f621bc46105a1c3f41ede49ebf", null ],
+    [ "isJumping", "class_game_input_type.html#a980dbd80d7116e753acdf1de52cfc142", null ],
+    [ "isNotifications", "class_game_input_type.html#a24a5c5b68649b049d46f752d4e05a919", null ],
+    [ "isSprinting", "class_game_input_type.html#acd1169f03f68df9af3c27d2fa67df7e0", null ],
+    [ "isTargetPressed", "class_game_input_type.html#a2fd12b84e7726424f5d93b109ffc73ac", null ],
+    [ "LoadInput", "class_game_input_type.html#a274050893e05f2c201b4101cb6393ae7", null ],
+    [ "MoveHorizontalAxis", "class_game_input_type.html#a0061d05b63d7b77d5f56a2c6ddaa78aa", null ],
+    [ "MoveVerticalAxis", "class_game_input_type.html#a6bdcced0741ba921c9fa40a4c0981b40", null ],
+    [ "SaveInput", "class_game_input_type.html#a3a3b187f3dc09e27ffee2026721d2b33", null ],
+    [ "ScrollTarget", "class_game_input_type.html#a717c5e748da480fab5579d22e1460993", null ],
+    [ "controllerButtons", "class_game_input_type.html#aab42c48c401e03d107a568b169e562e6", null ],
+    [ "keyButtons", "class_game_input_type.html#a2928e8b2f9c3f373292d275469c089e0", null ],
+    [ "dPadDown", "class_game_input_type.html#a92310a5b3dee849eb690100546ea2c80", null ],
+    [ "dPadLeft", "class_game_input_type.html#a468a978812b7a62539bab00cc2f8dd92", null ],
+    [ "dPadRight", "class_game_input_type.html#ae6a0e78199233a17509304f04fe7acf8", null ],
+    [ "dPadUp", "class_game_input_type.html#a9aa7d8f00dd7076bddf53d2e9f5ee06e", null ]
+];

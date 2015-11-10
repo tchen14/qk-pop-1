@@ -16,8 +16,7 @@ public class Scene_Setup : EditorWindow {
 		// player
 		GameObject player = GameObject.Find ("_Player");
 		GameObject camera = GameObject.Find("_Main Camera");
-		//GameObject abilitydockanim = GameObject.Find ("AbilityDock");
-		GameObject abilityWheelanim = GameObject.Find ("AbilityWheel");
+		GameObject abilitydockanim = GameObject.Find ("AbilityDock");
 		// UI
 		GameObject ui = GameObject.Find("UI");
 
@@ -76,13 +75,11 @@ public class Scene_Setup : EditorWindow {
 			ui = go;
 		}
 
-		if(abilityWheelanim == null){
-			//Object prefab = AssetDatabase.LoadAssetAtPath("Assets/Prefabs/UI/AbilityDock.prefab", typeof(GameObject));
-			Object prefab = AssetDatabase.LoadAssetAtPath("Assets/Prefabs/UI/AbilityWheel.prefab", typeof(GameObject));
+		if(abilitydockanim == null){
+			Object prefab = AssetDatabase.LoadAssetAtPath("Assets/Prefabs/UI/AbilityDock.prefab", typeof(GameObject));
 			go = Instantiate(prefab, Vector3.zero, Quaternion.identity) as GameObject;
-			//go.name = "AbilityDock";
-			go.name = "AbilityWheel";
-			abilityWheelanim = go;
+			go.name = "AbilityDock";
+			abilitydockanim = go;
 		}
 
 		if (player == null) {
@@ -91,8 +88,7 @@ public class Scene_Setup : EditorWindow {
 			go.name = "_Player";
 			player = go;
 			Quinc quinc = go.GetComponent<Quinc>();
-            //quinc.abilitySelector = abilitydockanim.GetComponent<AbilityDockController>();
-			quinc.abilitySelector = abilityWheelanim.GetComponent<AbilityWheel>();
+            quinc.abilitySelector = abilitydockanim.GetComponent<AbilityDockController>();
 			ObjectManager.AddSavedObject(go.transform);
 		}
 

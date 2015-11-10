@@ -47,9 +47,6 @@ public abstract class InputType : MonoBehaviour {
 	public virtual bool isAbilityEquip() {
 		return false;
 	}
-	public virtual int isAbilityRotate(){
-		return 0;
-	}
 	public virtual bool isNotifications() {
 		return false;
 	}

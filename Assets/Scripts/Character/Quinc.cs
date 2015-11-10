@@ -90,8 +90,7 @@ public sealed class Quinc : MonoBehaviour
 
 	public bool pushPullLerp = false;
 
-    //public AbilityDockController abilitySelector;
-	public AbilityWheel abilitySelector;
+    public AbilityDockController abilitySelector;
 
 	void FixedUpdate()
 	{

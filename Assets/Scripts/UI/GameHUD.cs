@@ -39,10 +39,6 @@ public class GameHUD : MonoBehaviour {
 
 	public bool skillsOpen = false;
 	bool canSpin = false;
-
-	GameObject abilityWheel;
-	AbilityWheel abwheelRef;
-
 	GameObject closeMapButton;
 	GameObject phoneButtons;
 	GameObject mapElements;
@@ -93,10 +89,6 @@ public class GameHUD : MonoBehaviour {
 		rightArrow = compass.transform.FindChild ("rightArrow").gameObject;
 		rightArrow.SetActive (false);
 
-		//!ability wheel configuration
-		abilityWheel = GameObject.Find ("AbilityWheel");
-		abwheelRef = abilityWheel.GetComponent<AbilityWheel> ();//this is where the components for the ability wheel functionality are stored
-
 		//!Set objective text reference
 		objectiveText = GameObject.Find("objectiveText");
 		dialogueBox = GameObject.Find("SpeechBubble");
@@ -116,39 +108,12 @@ public class GameHUD : MonoBehaviour {
 		//SpawnHudAbilityIcons ();
 	}
 
-	void Update()
-	{
-		if (InputManager.input.isAbilityEquip ()) {
-			abwheelRef.showSkills ();
-			skillsOpen = true;
-		} else {
-			abwheelRef.hideSkills ();
-			skillsOpen = false;
-		}
-		
-		if (abwheelRef.skillsOpen && !abwheelRef.skillsRotating) 
-		{
-			if (InputManager.input.isAbilityRotate() == 1) 
-			{
-				StartCoroutine(abwheelRef.Rotate_skills_up());
-			} 
-			else if (InputManager.input.isAbilityRotate() == -1) 
-			{
-				StartCoroutine(abwheelRef.Rotate_skills_down());
-			}
-		}
-	}
-
 	void FixedUpdate() {
 		//!This is for testing, call update map from player movements
 		rotateMapObjects();
 
 		//!Set the compass indicator
 		setCompassValue(calculateObjectiveAngle(testObjective));
-	}
-
-	void LateUpdate(){
-		abwheelRef.moveAbilities();
 	}
 
 	//!Call this to update objective tet at top of the screen

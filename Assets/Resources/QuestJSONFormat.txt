@@ -6,10 +6,9 @@
 			"Test Objective",
 			[ 
 				"Goal1",
-				"Goal2":
-					[
-						10
-					]
+				{
+				"Goal2": 10
+				}
 			]
 		],
 }

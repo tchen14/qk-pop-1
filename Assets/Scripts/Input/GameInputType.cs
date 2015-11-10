@@ -148,15 +148,6 @@ public class GameInputType : InputType {
 		} 
 		return Input.GetKey(GetInputOrFail(keyButtons, "abilityEquip"));
 	}
-	public override int isAbilityRotate(){ //Added this to assist in the ability rotate button 
-		if(dPadUp || Input.GetKey(GetInputOrFail(keyButtons, "arrowUp"))){
-			return 1;
-		}
-		else if(dPadDown || Input.GetKey(GetInputOrFail(keyButtons, "arrowDown"))){
-			return -1;
-		}
-		return 0;
-	}
 	public override bool isNotifications(){
 		if(dPadDown) {
 		return true;
