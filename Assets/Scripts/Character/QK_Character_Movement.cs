@@ -36,7 +36,7 @@ public class QK_Character_Movement : MonoBehaviour {
 	private float terminalVelocity = 20f;
 	private float turnRate = 5f;
 
-	public Vector3 moveVector = Vector3.zero;
+	private Vector3 moveVector = Vector3.zero;
 	private Vector3 desiredMoveVector = Vector3.zero;
     private Vector3 inputDirection { get; set; }
 
@@ -48,16 +48,11 @@ public class QK_Character_Movement : MonoBehaviour {
 	private Quaternion targetAngle = Quaternion.identity;
 	private PoPCamera cam;
 
-	//Testing vectors
-	Vector3 testDir1 = Vector3.right - Vector3.zero;
-	Vector3 testDir2 = new Vector3(-1f, 0f, -1f) - Vector3.zero;
-
 	// Use this for initialization
 	void Start () 
 	{
 		charCont = GetComponent ("CharacterController") as CharacterController;
-		if(PoPCamera.instance != null)
-			cam = PoPCamera.instance;
+		cam = PoPCamera.instance;
 	}
 
 	void FixedUpdate()
@@ -90,6 +85,8 @@ public class QK_Character_Movement : MonoBehaviour {
 		} else {
 			curSpeed = Mathf.Clamp (curSpeed, 0f, runSpeed);
 		}
+
+        curSpeed *= desiredMoveVector.magnitude;
 		
 		// Apply Slide
 		ApplySlide ();
@@ -98,14 +95,23 @@ public class QK_Character_Movement : MonoBehaviour {
 		moveVector = new Vector3 (moveVector.x, verticalVelocity, moveVector.z);
 
 		// Rotate Character
-		if (_moveState == CharacterState.Move) {
+		/*if (_moveState == CharacterState.Move) 
+        {
 			RotateCharacter (inputDirection);
 			QK_Character_Movement.charCont.Move (moveVector * Time.deltaTime);
-		} else if (_moveState == CharacterState.Pivot) {
+		} 
+        else if (_moveState == CharacterState.Pivot && moveVector.y == 0) 
+        {
 			RotateCharacter (inputDirection);
-		} else if (_moveState == CharacterState.Idle) {
-			QK_Character_Movement.charCont.Move (moveVector * Time.deltaTime);
 		}
+        /*else if (_moveState == CharacterState.Idle) 
+        {
+			QK_Character_Movement.charCont.Move (moveVector * Time.deltaTime);
+		}*/
+        if(_moveState != CharacterState.Idle)
+            RotateCharacter(inputDirection);
+
+        charCont.Move(moveVector * Time.deltaTime);
 	}
 
 	void CalculateMovementDirection ()
@@ -120,13 +126,31 @@ public class QK_Character_Movement : MonoBehaviour {
 		inputDirection = (inputHor * right) + (inputVert * forward);
 		desiredMoveVector = Vector3.Lerp (transform.forward, inputDirection, 0.5f);
 
-		if (inputHor != 0f || inputVert != 0) {
-			if(Vector3.Angle(transform.forward, inputDirection) >= 90f) {
-				_moveState = CharacterState.Pivot;
-			} else {
-				_moveState = CharacterState.Move;
-			}
-		} else {
+		if (inputHor != 0f || inputVert != 0) 
+        {
+            if (_moveState == CharacterState.Idle)
+            {
+                _moveState = CharacterState.Pivot;
+            }
+            else if (_moveState == CharacterState.Pivot)
+            {
+                if (Vector3.Dot(Vector3.Normalize(transform.forward), Vector3.Normalize(inputDirection)) >= 0.9)
+                    _moveState = CharacterState.Move;
+                else
+                    _moveState = CharacterState.Pivot;
+            }
+            else
+            {
+                if (Vector3.Angle(Vector3.Normalize(transform.forward), Vector3.Normalize(inputDirection)) >= 90f)
+                {
+                    _moveState = CharacterState.Pivot;
+                } else {
+                    _moveState = CharacterState.Move;
+                }
+            }
+		} 
+        else 
+        {
 			_moveState = CharacterState.Idle;
 		}
 	}
