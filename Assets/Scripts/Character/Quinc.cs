@@ -13,7 +13,16 @@ public enum quincy_ability{
 	Cool,
 	Blast
 };
-
+/*! \brief Quincy:
+ *         This class is used to store the Quincy abilities stats
+ *         and verify that the ability is ready to fire.
+ * 
+ *  The stats includes the cooldown timers and strength of each abilities.
+ *  This class only gather the target item from the camera, waits for the action key press
+ *  and checks if the ability is ready to fire, if it is, it calls the appropriate function
+ *  in the target's Item class. 
+ *  The behavior of each abilities is in the Item class.
+ * */
 public sealed class Quinc : MonoBehaviour
 {
 //	/*
@@ -36,67 +45,43 @@ public sealed class Quinc : MonoBehaviour
 //END singleton code
 	
 #pragma warning disable 0414
-	private float pushRate = 1.0f;
-	public float pushDistance = 5.0f;
-	public float pushModifier = 50.0f;
-	private float nextPush = 1.0f;
-	private int pushRange = 20;
+	private float pushRate = 1.0f;   //!< Push ability cooldown time.
+	public float pushDistance = 5.0f;   //!< Push ability force.
+	private float nextPush = 1.0f;   //!< When Push ability will be ready.
 
 	private float pullRate = 1.0f;
 	public float pullDistance = 5.0f;
-	public float pullModifier = 50.0f;
 	private float nextPull = 1.0f;
-	private int pullRange = 20;
 
-	private float cutRate = 0.5f;		//cut recharge rate
+	private float cutRate = 0.5f;		//!< cut recharge rate
 	private int cutRange = 20;
-	private float nextCut = 1.0f;		//timer for next cut
+	private float nextCut = 1.0f;		//!< timer for next cut
 
-	private float soundRate = 0.5f;		//sound throw recharge rate
+	private float soundRate = 0.5f;		//!< sound throw recharge rate
 	private int soundThrowRange = 20;
-	private float nextSound = 1.0f;		//timer for sound throw
-	private float soundRange = 20f;		//maximum distance between soundthrow location and enemy for it to have an effect
+	private float nextSound = 1.0f;		//!< timer for sound throw
+	private float soundRange = 20f;		//!< maximum distance between soundthrow location and enemy for it to have an effect
 
-	private float stunRate = 0.5f;		//stun recharge rate
+	private float stunRate = 0.5f;		//!< stun recharge rate
 	private int stunRange = 2;
-	private float nextStun = 1.0f;		//timer for stun recharge
-	private float stunTime = 20f;		//duration of stun effect
+	private float nextStun = 1.0f;		//!< timer for stun recharge
+	private float stunTime = 20f;		//!< duration of stun effect
 
-	private float heatRate = 0.5f;		//heat recharge rate
+	private float heatRate = 0.5f;		//!< heat recharge rate
 	private int heatRange = 20;
-	private float nextHeat = 1.0f;		//timer for heat ability
+	private float nextHeat = 1.0f;		//!< timer for heat ability
 
-	private float coldRate = 0.5f;		//freezing recharge rate
+	private float coldRate = 0.5f;		//!< freezing recharge rate
 	private int coldRange = 20;
-	private float nextCold = 1.0f;		//timer for cold ability
+	private float nextCold = 1.0f;		//!< timer for cold ability
 
-	private float blastRate = 0.5f;		//smoke/light blast recharge rate
-	private int blastRange = 20;		//maximum distance from player to trigger blast
-	private float nextBlast = 1.0f;		//timer for smoke/light blast
+	private float blastRate = 0.5f;		//!< smoke/light blast recharge rate
+	private int blastRange = 20;		//!< maximum distance from player to trigger blast
+	private float nextBlast = 1.0f;		//!< timer for smoke/light blast
 
-	private int blastRadius = 10;		//size of blast
-
-	public float smoothing = 1f;
-
-	public IEnumerator coMoveSlowly = null;
-
-	bool killCo = false;
-
-	//! These variables are temporary for testing, can be removed when implementing Targeting into code
-	public GameObject pushPullTarget;
-	public GameObject cutTarget;
-	public GameObject soundThrowTarget;
-	public GameObject stunTarget;
-	public GameObject heatColdTarget;
-	public GameObject blastTarget;
-
-	List <GameObject> acquiredTargets = new List<GameObject> ();
+	private int blastRadius = 10;		//!< size of blast
 
 	public quincy_ability activeAbility;
-
-	bool inTargetLock = false;
-
-	public bool pushPullLerp = false;
 
 	public AbilityDockController abilitySelector;
 
@@ -113,6 +98,11 @@ public sealed class Quinc : MonoBehaviour
 		}
 	}
 
+	/*!
+	 * This will call the apropriate behavior function in the Item class of an object.
+	 * @param ability The ability type for wich it will call the apropriate function in Item.
+	 * @param newTarget Optional parameter if you wish to use this function on an object that is not the camera target.
+	 */
 	void try_ability(quincy_ability ability, GameObject newTarget = null){
 
 		if (ability_ready (ability)) {
@@ -157,6 +147,10 @@ public sealed class Quinc : MonoBehaviour
 		}
 	}
 
+	/*!
+	 * Checks if the given ability is ready to be used, and if it is, resets the cooldown.
+	 * @param ability The ability that is checked.
+	 */
 	bool ability_ready(quincy_ability ability){
 
 		switch (ability) {

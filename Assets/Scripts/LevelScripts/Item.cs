@@ -32,15 +32,12 @@ public class Item : MonoBehaviour
 	public bool pullCompatible = false;
 	public bool cutCompatible = false;
 	public bool soundThrowCompatible = false;
-	public float soundThrowRadius = 25f;
-	public bool stunCompatible = false; //!> Might not need this for items
-
+	public bool stunCompatible = false;
 	public bool heatCompatible = false;
 	public bool coldCompatible = false;
 	public bool blastCompatible = false;
-
-
-
+	public float soundThrowRadius = 25f;
+	
 	//Crate variables
 	public Vector3 startPosition;		//starting location of the crate
 	public float pushPullRadius = 25f;	//maximum movement radius before crate snaps back to startPosition
@@ -50,18 +47,7 @@ public class Item : MonoBehaviour
 	Color originalColor;				//store the original color of the object while executing quinc functions
 	float colorMax;						//maximum length of time the gameObject can remain a color other than the orginal color
 	public float colorTime;				//the last time that the gameObject color was changed
-
-
-	//MoveSlowly variables
-	public float smoothing = 1f;			//lerp smoothing rate
-	bool pushPullLerp;						//flag to delay crate snapback
-	bool killCo = false;					//flag to kill the coroutine
-
-
-	//Rope variables
-
-
-	//Well variables
+	
 
 	//Enemy variables
 	public const float stunPeriod = 10.0f;
@@ -87,199 +73,322 @@ public class Item : MonoBehaviour
 	{
 		return;
 	}
-	
 
-	void Start()
-	{
-
-		colorTime = Time.time;
-		colorMax = 10f;
-
-		//TESTING - FOR LEVEL DESIGN REMOVE FOR FINAL BUILD
-		originalColor = GetComponent<Renderer>().material.color;
-
-	}
-
-	void Update()
-	{
-
-
-//TESTING - FOR LEVEL DESIGN REMOVE FOR FINAL BUILD
-		//check if the color has been changed and how long
-		if((GetComponent<Renderer>().material.color != originalColor) && ((Time.time - colorTime) > colorMax))
-		{
-
-			//change the gameObject back to its original color
-			GetComponent<Renderer>().material.color = originalColor;
-
-		}//END if((GetComponent<Renderer>().material.color != originalColor) && ((Time.time - colorTime) > colorMax))
-//END TESTING
-
-		//check for movement and if object can be pushed or pulled
-		if(hasMoved && !isSnapping && (pushCompatible || pullCompatible))
-		{
-
-			//get the total distance from object's start position
-			moveDist = Vector3.Distance(startPosition, transform.position);
-
-			//if the distance from the starting position is greater than the maximum allowed distance
-			if(moveDist > pushPullRadius)
-			{
-
-//TESTING - FOR LEVEL DESIGN REMOVE FOR FINAL BUILD
-				print("calling SnapBack()");
-//END TESTING
-
-				//stop the coroutine that is moving the object
-	//			Quinc.Instance.stopCo("MoveSlowly");
-				//move the object back to the starting position
-				StartCoroutine(SnapBack());
-
-			}//END if(moveDist > pushPullRadius)
-
-		}//END if(hasMoved && !isSnapping && (pushCompatible || pullCompatible))
-		
-		//if an enemy  is stunned
-		if(stunCompatible && stunState)
-		{
-
-			//update the total time stunned
-			curStunTimer += Time.deltaTime;
-			//check for stun to have worn off
-			if(curStunTimer > stunPeriod)
-			{
-
-//TESTING - FOR LEVEL DESIGN REMOVE FOR FINAL BUILD
-				GetComponent<Renderer>().material.color = originalColor;
-//END TESTING
-				stunState = false;
-			}//END if(curStunTimer > stunPeriod)
-
-		}//END if(stunCompatible && stunState)
-
-	}//END void Update()
-
-//END UPDATE
-//---------------------------------------------------------------------------
-//START CRATE FUNCTIONS
-
-	public void pushPull(Vector3 location, Vector3 direction)
-	{
-
-		print("pushPull called");
-
-		if((moveDist < pushPullRadius) && (isSnapping == false))
-		{
-			print("calling moveSlowly");
-			StartCoroutine(MoveSlowly(location, direction));
-			print("MoveSlowly called");
-		}//END if((moveDist < pushPullRadius) && (isSnapping == false))
-
-	}//END public void pushPull(Vector3 location, Vector3 direction)
-
-
-	//-------------------------------------------------------------------------------------------------------
-
-	public IEnumerator MoveSlowly(Vector3 targetPosition, Vector3 direction)
-	{
-		print("Target Position In CoRoutine: " + transform.position);
-
-
-		int testCount = 0;
-
-		//set flag to delay crate snapback
-		pushPullLerp = true;
-
-
-//		while(Vector3.Distance(transform.position, targetPosition) > 2.0f && (killCo == false))// && (targetObject.GetComponent<Crate>().SnapBack() == null))
-		while(Vector3.Distance(transform.position, targetPosition) > 2.0f && (isSnapping == false))
-		{
-
-			//TESTING - FOR LEVEL DESIGN REMOVE FOR FINAL BUILD
-			GetComponent<Renderer>().material.color = Color.yellow;
-			colorTime = Time.time;
-			//END TESTING
-
-			print("MoveSlowly Lerping " + ++testCount);
-
-			transform.position = Vector3.Lerp(transform.position, targetPosition, smoothing * Time.deltaTime);
-			hasMoved = true;
-			yield return null;
-		}
-
-//TESTING - FOR LEVEL DESIGN REMOVE FOR FINAL BUILD
-		//only change color to blue if loop ended normally
-		if(!isSnapping)
-		{
-			GetComponent<Renderer>().material.color = Color.blue;
-			colorTime = Time.time;
-			print("Target Reached");
-		}
-//END TESTING
-
-		//reset flag to allow crate snapback
-		pushPullLerp = false;
-		killCo = false;
-
-	}//END IEnumerator MoveSlowly(GameObject targetObject, Vector3 targetPosition, Vector3 direction)
-
-	//-------------------------------------------------------------------------------------------------------
-
-	public IEnumerator SnapBack()
-	{
-
-//TESTING - FOR LEVEL DESIGN REMOVE FOR FINAL BUILD
-		print("SnapBack() called");
-//END TESTING
-
-		isSnapping = true;
-
-
-//TESTING - FOR LEVEL DESIGN REMOVE FOR FINAL BUILD
-			GetComponent<Renderer>().material.color = Color.yellow;
-			colorTime = Time.time;
-//END TESTING
-		while(pushPullLerp)
-		{
-			//pause here while move slowly stops working
-			yield return null;
-		}
-
-			//while(Vector3.Distance(transform.position, startPosition) > 0.01f)
-		while(moveDist > 0.1f)
-		{
-
-			print("SnapBack Lerping");
-			transform.position = Vector3.Lerp(transform.position, startPosition, smoothing * Time.deltaTime);
-			moveDist = Vector3.Distance(transform.position, startPosition);
-			yield return null;
-
-		}
-
-//TESTING - FOR LEVEL DESIGN REMOVE FOR FINAL BUILD
-			GetComponent<Renderer>().material.color = Color.blue;
-			colorTime = Time.time;
-//END TESTING
-
-		hasMoved = false;
-		isSnapping = false;
-	}
-
-	//! Plays animation and sound for enemy being stunned
 	public void Stun(float time)
 	{
 		switch (itemType) {
 		case item_type.Crate:
+			if(stunCompatible){
+				// --insert behavior here--
+			}
+			else {
+				NoEffect();
+			}
 			break;
 
 		case item_type.Rope:
+			if(stunCompatible){
+				// --insert behavior here--
+			}
+			else {
+				NoEffect();
+			}
 			break;
 
 		case item_type.Well:
+			if(stunCompatible){
+				// --insert behavior here--
+			}
+			else {
+				NoEffect();
+			}
 			break;
 
 		case item_type.Enemy:
 			StartCoroutine (_Stun (time));
+			break;
+		}
+	}
+
+	public void Cut(){
+		switch (itemType) {
+		case item_type.Crate:
+			if(cutCompatible){
+				print("Crate was destroyed by cut.");
+				Destroy(this);
+			}
+			else {
+				NoEffect();
+			}
+			break;
+			
+		case item_type.Rope:
+			if(cutCompatible){
+				print("Rope was cut.");
+			}
+			else {
+				NoEffect();
+			}
+			break;
+			
+		case item_type.Well:
+			if(cutCompatible){
+				// --insert behavior here--
+			}
+			else {
+				NoEffect();
+			}
+			break;
+			
+		case item_type.Enemy:
+			if(cutCompatible){
+				// --insert behavior here--
+			}
+			else {
+				NoEffect();
+			}
+			break;
+			break;
+		}
+		cutCompatible = false;
+	}
+
+	public void SoundThrow(){
+		switch (itemType) {
+		case item_type.Crate:
+			if(soundThrowCompatible){
+				// --insert behavior here--
+			}
+			else {
+				NoEffect();
+			}
+			break;
+			
+		case item_type.Rope:
+			if(soundThrowCompatible){
+				// --insert behavior here--
+			}
+			else {
+				NoEffect();
+			}
+			break;
+			
+		case item_type.Well:
+			if(soundThrowCompatible){
+				// --insert behavior here--
+			}
+			else {
+				NoEffect();
+			}
+			break;
+			
+		case item_type.Enemy:
+			if(soundThrowCompatible){
+				// --insert behavior here--
+			}
+			else {
+				NoEffect();
+			}
+			break;
+		}
+	}
+
+	public void Push(){
+		switch (itemType) {
+		case item_type.Crate:
+			if(pushCompatible){
+				// --insert behavior here--
+			}
+			else {
+				NoEffect();
+			}
+			break;
+			
+		case item_type.Rope:
+			if(pushCompatible){
+				// --insert behavior here--
+			}
+			else {
+				NoEffect();
+			}
+			break;
+			
+		case item_type.Well:
+			if(pushCompatible){
+				// --insert behavior here--
+			}
+			else {
+				NoEffect();
+			}
+			break;
+			
+		case item_type.Enemy:
+			if(pushCompatible){
+				// --insert behavior here--
+			}
+			else {
+				NoEffect();
+			}
+			break;
+		}
+	}
+
+	public void Pull(){
+		switch (itemType) {
+		case item_type.Crate:
+			if(pullCompatible){
+				// --insert behavior here--
+			}
+			else {
+				NoEffect();
+			}
+			break;
+			
+		case item_type.Rope:
+			if(pullCompatible){
+				// --insert behavior here--
+			}
+			else {
+				NoEffect();
+			}
+			break;
+			
+		case item_type.Well:
+			if(pullCompatible){
+				// --insert behavior here--
+			}
+			else {
+				NoEffect();
+			}
+			break;
+			
+		case item_type.Enemy:
+			if(pullCompatible){
+				// --insert behavior here--
+			}
+			else {
+				NoEffect();
+			}
+			break;
+		}
+	}
+
+	public void Heat(){
+		switch (itemType) {
+		case item_type.Crate:
+			if(heatCompatible){
+				// --insert behavior here--
+			}
+			else {
+				NoEffect();
+			}
+			break;
+			
+		case item_type.Rope:
+			if(heatCompatible){
+				// --insert behavior here--
+			}
+			else {
+				NoEffect();
+			}
+			break;
+			
+		case item_type.Well:
+			if(heatCompatible){
+				// --insert behavior here--
+			}
+			else {
+				NoEffect();
+			}
+			break;
+			
+		case item_type.Enemy:
+			if(heatCompatible){
+				// --insert behavior here--
+			}
+			else {
+				NoEffect();
+			}
+			break;
+		}
+	}
+
+	public void Cool(){
+		switch (itemType) {
+		case item_type.Crate:
+			if(coldCompatible){
+				// --insert behavior here--
+			}
+			else {
+				NoEffect();
+			}
+			break;
+			
+		case item_type.Rope:
+			if(coldCompatible){
+				// --insert behavior here--
+			}
+			else {
+				NoEffect();
+			}
+			break;
+			
+		case item_type.Well:
+			if(coldCompatible){
+				// --insert behavior here--
+			}
+			else {
+				NoEffect();
+			}
+			break;
+			
+		case item_type.Enemy:
+			if(coldCompatible){
+				// --insert behavior here--
+			}
+			else {
+				NoEffect();
+			}
+			break;
+		}
+	}
+
+	public void Blast(){
+		switch (itemType) {
+		case item_type.Crate:
+			if(blastCompatible){
+				// --insert behavior here--
+			}
+			else {
+				NoEffect();
+			}
+			break;
+			
+		case item_type.Rope:
+			if(blastCompatible){
+				// --insert behavior here--
+			}
+			else {
+				NoEffect();
+			}
+			break;
+			
+		case item_type.Well:
+			if(blastCompatible){
+				// --insert behavior here--
+			}
+			else {
+				NoEffect();
+			}
+			break;
+			
+		case item_type.Enemy:
+			if(blastCompatible){
+				// --insert behavior here--
+			}
+			else {
+				NoEffect();
+			}
 			break;
 		}
 	}
@@ -292,42 +401,13 @@ public class Item : MonoBehaviour
 		tempAngles.x = 90.0f;
 		transform.eulerAngles = tempAngles;
 	}
-
+	
 	private void end_stun(){
 		stunState = false;
 		Vector3 tempAngles = transform.eulerAngles;
 		tempAngles.x = 0.0f;
 		transform.eulerAngles = tempAngles;
 		StopCoroutine ("_Stun");
-	}
-
-	public void Cut(){
-		print ("Item was cut!");
-		cutCompatible = false;
-	}
-
-	public void SoundThrow(){
-		print ("Item is emitting sounds!");
-	}
-
-	public void Push(){
-		print ("Item was pushed!");
-	}
-
-	public void Pull(){
-		print ("Item was pulled!");
-	}
-
-	public void Heat(){
-		print ("Item is being heat up!");
-	}
-
-	public void Cool(){
-		print ("Item is frozen!");
-	}
-
-	public void Blast(){
-		print ("Item is blasted!");
 	}
 
 	IEnumerator _Stun(float time){
@@ -337,7 +417,7 @@ public class Item : MonoBehaviour
 	}
 
 	private void NoEffect(){
-
+		print("This object is not affected by this ability.");
 	}
 }
 
