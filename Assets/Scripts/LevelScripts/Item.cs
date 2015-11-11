@@ -1,13 +1,20 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+public enum item_type {
+	Crate,
+	Rope,
+	Well,
+	Enemy
+};
+
 [RequireComponent (typeof (Collider))]
 [RequireComponent(typeof (Targetable))]
 [System.Serializable]
 //public abstract class Item : MonoBehaviour
 public class Item : MonoBehaviour
 {
-    public string itemType;
+    public item_type itemType;
 	public int itemIndex;
     [EventVisible("Pushed X Times")]
     public int pushCounter;
@@ -156,14 +163,6 @@ public class Item : MonoBehaviour
 //---------------------------------------------------------------------------
 //START CRATE FUNCTIONS
 
-	public void PlayPushSound()
-	{
-		//Play push sound associated with crates
-		return;
-	}//END public void PlayPushSound()
-
-
-
 	public void pushPull(Vector3 location, Vector3 direction)
 	{
 
@@ -264,108 +263,84 @@ public class Item : MonoBehaviour
 
 		hasMoved = false;
 		isSnapping = false;
-
-
-	}//end public IEnumerator SnapBack()
-
-
-//left over from first semester
-	[EventVisible("temp")]
-	public int temp = 0;
-
-	[EventVisible("test")]
-	public void TestCrateFunction()
-	{
-		Debug.Log("TestCrateFunction");
 	}
-//END left over from first semester
-
-//END CRATE
-//---------------------------------------------------------------------------
-//START ROPE FUNCTIONS
-
-	//! Disables collider, enables gravity, marks Rope untargettable
-	public void Cut()
-	{
-		if(cutCompatible == true)
-		{
-
-//TESTING - FOR LEVEL DESIGN REMOVE FOR FINAL BUILD
-			GetComponent<Renderer>().material.color = Color.yellow;
-			colorTime = Time.time;
-//END TESTING
-
-			//	transform.GetComponent<Collider>().enabled = false;
-			GetComponent<Rigidbody>().useGravity = true;
-			// Function to make this object untargettable
-
-//TESTING - FOR LEVEL DESIGN REMOVE FOR FINAL BUILD
-			GetComponent<Renderer>().material.color = Color.blue;
-			colorTime = Time.time;
-//END TESTING
-
-		}
-		else
-		{
-
-			print("Item not cut compatible");
-
-		}
-	}//END public void Cut()
-
-//END ROPE
-//---------------------------------------------------------------------------
-//START WELL FUNCTIONS
-
-	public void SoundThrow()
-	{
-
-		if(soundThrowCompatible == true)
-		{
-
-//TESTING - FOR LEVEL DESIGN REMOVE FOR FINAL BUILD
-			GetComponent<Renderer>().material.color = Color.yellow;
-			colorTime = Time.time;
-//END TESTING
-
-			//Play sound and animation associated with soundThrow for Well
-
-//TESTING - FOR LEVEL DESIGN REMOVE FOR FINAL BUILD
-			GetComponent<Renderer>().material.color = Color.blue;
-			colorTime = Time.time;
-//END TESTING
-
-		}
-		else
-		{
-
-			print("Item not sound throw compatible");
-
-		}
-
-	}//END public void SoundThrow()
-
-//END WELL
-//---------------------------------------------------------------------------
-//START ENEMY FUNCTIONS
 
 	//! Plays animation and sound for enemy being stunned
-	public void Stun()
+	public void Stun(float time)
 	{
+		switch (itemType) {
+		case item_type.Crate:
+			break;
+
+		case item_type.Rope:
+			break;
+
+		case item_type.Well:
+			break;
+
+		case item_type.Enemy:
+			StartCoroutine (_Stun (time));
+			break;
+		}
+	}
+
+	private void start_stun(){
 		stunState = true;
 		// Play Animation and Sound for enemy being stunned
 		// Laying Enemy sideways for now
 		Vector3 tempAngles = transform.eulerAngles;
 		tempAngles.x = 90.0f;
 		transform.eulerAngles = tempAngles;
-
-//TESTING - FOR LEVEL DESIGN REMOVE FOR FINAL BUILD
-		GetComponent<Renderer>().material.color = Color.blue;
-		colorTime = Time.time;
-//END TESTING
-
-		return;
 	}
 
+	private void end_stun(){
+		stunState = false;
+		Vector3 tempAngles = transform.eulerAngles;
+		tempAngles.x = 0.0f;
+		transform.eulerAngles = tempAngles;
+		StopCoroutine ("_Stun");
+	}
 
-}//END public abstract class Item : MonoBehaviour
+	public void Cut(){
+		print ("Item was cut!");
+		cutCompatible = false;
+	}
+
+	public void SoundThrow(){
+		print ("Item is emitting sounds!");
+	}
+
+	public void Push(){
+		print ("Item was pushed!");
+	}
+
+	public void Pull(){
+		print ("Item was pulled!");
+	}
+
+	public void Heat(){
+		print ("Item is being heat up!");
+	}
+
+	public void Cool(){
+		print ("Item is frozen!");
+	}
+
+	public void Blast(){
+		print ("Item is blasted!");
+	}
+
+	IEnumerator _Stun(float time){
+		start_stun ();
+		yield return new WaitForSeconds(time);
+		end_stun ();
+	}
+
+	private void NoEffect(){
+
+	}
+}
+
+
+
+

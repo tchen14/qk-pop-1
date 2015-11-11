@@ -85,7 +85,7 @@ public class Item_Editor : Editor {
 		EditorGUILayout.EndVertical();
 
 		if (selection_changed (selection.item_type)) {
-			script_target.itemType = item_types [item_types_index];
+			script_target.itemType = (item_type)item_types_index;
 			script_target.itemIndex = item_types_index;
 
 			switch(item_types [item_types_index]){
