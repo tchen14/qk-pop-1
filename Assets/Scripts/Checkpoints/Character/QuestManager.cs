@@ -5,12 +5,21 @@ using System.Collections.Generic;
 [EventVisibleAttribute]
 public class QuestManager : MonoBehaviour {
 
-	List <Quest> currentQuests;
+	public List <Quest> currentQuests;
 	Quest _quest;
 	QuestSaveManager _questSaveManager;
 	public int questCount;
+	GameObject questManagerUI;
+	QuestManagerUIController qmUI;
 
 	void Start() {
+		questManagerUI = GameObject.Find("QuestManager");
+		if (questManagerUI) {
+			qmUI = questManagerUI.GetComponent<QuestManagerUIController>();
+		}
+		else {
+			Debug.LogError("QuestManager script attached to the player could not find the 'QuestManager' UI object!");
+		}
 		_quest = new Quest (null, null, null, -1, null);
 		currentQuests = new List<Quest> ();
 		_questSaveManager = (QuestSaveManager)FindObjectOfType (typeof(QuestSaveManager));
