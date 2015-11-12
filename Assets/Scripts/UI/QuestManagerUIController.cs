@@ -24,7 +24,7 @@ public class QuestManagerUIController : MonoBehaviour {
 		//questContainer = this.transform.Find ("Quests").gameObject;
 		if (!questContainer) {
 			Debug.LogError("QuestManagerUI Script attached to 'QuestManager' object could not find a child GameObject called 'Quests' the prefab connection could be broken.");
-		} 
+		}
 		questButton = questUI.transform.FindChild ("Button").gameObject.GetComponent<Button> ();
 		buttonHeight = questButton.GetComponent<RectTransform> ().sizeDelta.y;
 		showQuests ();
@@ -48,6 +48,7 @@ public class QuestManagerUIController : MonoBehaviour {
 		Debug.Log ("Reorganizing Quests");
 		float qcHeight = questContainer.GetComponent<RectTransform> ().sizeDelta.y; 
 		qcHeight = (qm.questCount * (buttonHeight + spacing)) - spacing;
+		Debug.Log(qcHeight.ToString());
 		float qcPos = questContainer.GetComponent<RectTransform> ().position.y;
 		qcPos = 0 - (questContainer.GetComponent<RectTransform> ().sizeDelta.y / 2);
 		for (int i = 0; i < qm.questCount; i++) {
