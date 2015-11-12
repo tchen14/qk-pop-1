@@ -14,7 +14,16 @@ public enum item_type {
 //public abstract class Item : MonoBehaviour
 public class Item : MonoBehaviour
 {
+	enum push_type {
+		Free,
+		TwoAxis,
+		FourAxis,
+		HeightAxis,
+		Anim
+	};
+
     public item_type itemType;
+	private push_type current_push_type = push_type.FourAxis;
 	public int itemIndex;
     [EventVisible("Pushed X Times")]
     public int pushCounter;
@@ -115,7 +124,6 @@ public class Item : MonoBehaviour
 		case item_type.Crate:
 			if(cutCompatible){
 				print("Crate was destroyed by cut.");
-				Destroy(this);
 			}
 			else {
 				NoEffect();
@@ -150,7 +158,7 @@ public class Item : MonoBehaviour
 			break;
 			break;
 		}
-		cutCompatible = false;
+		//cutCompatible = false;
 	}
 
 	public void SoundThrow(){
@@ -193,11 +201,11 @@ public class Item : MonoBehaviour
 		}
 	}
 
-	public void Push(){
+	public void Push(Vector3 player_position, float push_force){
 		switch (itemType) {
-		case item_type.Crate:
+		case item_type.Crate:	
 			if(pushCompatible){
-				// --insert behavior here--
+				crate_push(player_position, push_force, current_push_type);
 			}
 			else {
 				NoEffect();
@@ -414,6 +422,39 @@ public class Item : MonoBehaviour
 		start_stun ();
 		yield return new WaitForSeconds(time);
 		end_stun ();
+	}
+
+	private void crate_push(Vector3 player_pos, float magnitude, push_type type){
+		Vector3 heading = new Vector3(0.0f, 0.0f, 0.0f);
+		float angle = 0.0f;
+
+		switch (type) {
+		case push_type.Free:
+			heading = gameObject.transform.position - player_pos;
+			break;
+		case push_type.TwoAxis:
+			heading = gameObject.transform.position - player_pos;
+			angle = Vector3.Angle(heading, Vector3.forward);
+
+			break;
+		case push_type.FourAxis:
+			heading = gameObject.transform.position - player_pos;
+			Vector3 pos = gameObject.transform.position;
+			angle = Vector3.Angle(heading, Vector3.forward);
+			print (angle);
+			if(angle > 0.0f && angle <= 45.0f) heading = Vector3.forward;
+			else if(angle > 135.0f && angle <= 180.0f) heading = Vector3.back;
+			else if(angle > 45.0f && angle <= 135.0f && pos.x > player_pos.x) heading = Vector3.right;
+			else if(angle > 45.0f && angle <= 135.0f && pos.x < player_pos.x) heading = Vector3.left;
+			break;
+		}
+
+		heading.y = 0.0f;
+		float distance = heading.magnitude;
+		Vector3 direction = heading / distance;
+
+		Rigidbody rb = gameObject.GetComponent<Rigidbody> ();
+		rb.AddForce(direction * (magnitude * 100));
 	}
 
 	private void NoEffect(){

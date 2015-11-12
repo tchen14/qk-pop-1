@@ -64,12 +64,7 @@ using System.Collections;
 
 	public IEnumerator SnapBack()
 	{
-
-		if(Quinc.Instance.coMoveSlowly != null)
-		{
-
-//			Quinc.Instance.stopCo("MoveSlowly");
-		}
+		
 
 		while(!transform.position.Equals(startPosition))
 		{

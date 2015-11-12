@@ -81,20 +81,16 @@ public sealed class Quinc : MonoBehaviour
 
 	private int blastRadius = 10;		//!< size of blast
 
-	public quincy_ability activeAbility;
+	public quincy_ability activeAbility = quincy_ability.Push;
 
 	public AbilityDockController abilitySelector;
 
 	void FixedUpdate()
 	{
-		activeAbility = (quincy_ability)abilitySelector.getSelectedAbility();
-		if(PoPCamera.State == PoPCamera.CameraState.TargetLock)
+		//activeAbility = (quincy_ability)abilitySelector.getSelectedAbility();
+		if(InputManager.input.AbilityPressed() && PoPCamera.State == PoPCamera.CameraState.TargetLock)
 		{
-			if(InputManager.input.AbilityPressed())
-			{
 				try_ability(activeAbility);
-
-			}
 		}
 	}
 
@@ -124,7 +120,7 @@ public sealed class Quinc : MonoBehaviour
 					break;
 
 				case quincy_ability.Push:
-					script.Push();
+					script.Push(gameObject.transform.position, pushDistance);
 					break;
 
 				case quincy_ability.Pull:
