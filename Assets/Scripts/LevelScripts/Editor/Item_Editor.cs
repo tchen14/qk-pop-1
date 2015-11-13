@@ -73,6 +73,9 @@ public class Item_Editor : Editor {
 		}
 
 		script_target.pushCompatible = EditorGUILayout.Toggle ("Can be pushed", script_target.pushCompatible);
+		if (script_target.pushCompatible) {
+			script_target.current_push_type = (Item.push_type)EditorGUILayout.EnumPopup(script_target.current_push_type);
+		}
 		script_target.pullCompatible = EditorGUILayout.Toggle ("Can be pulled", script_target.pullCompatible);
 		script_target.cutCompatible = EditorGUILayout.Toggle ("Can be cut", script_target.cutCompatible);
 		script_target.soundThrowCompatible = EditorGUILayout.Toggle ("Can be soundthrowed", script_target.soundThrowCompatible);

@@ -14,7 +14,7 @@ public enum item_type {
 //public abstract class Item : MonoBehaviour
 public class Item : MonoBehaviour
 {
-	enum push_type {
+	public enum push_type {
 		Free,
 		TwoAxis,
 		FourAxis,
@@ -23,7 +23,8 @@ public class Item : MonoBehaviour
 	};
 
     public item_type itemType;
-	private push_type current_push_type = push_type.HeightAxis;
+	public push_type current_push_type;
+	private Vector3 push_forward_direction = Vector3.forward;
 	public int itemIndex;
     [EventVisible("Pushed X Times")]
     public int pushCounter;
@@ -205,7 +206,7 @@ public class Item : MonoBehaviour
 		switch (itemType) {
 		case item_type.Crate:	
 			if(pushCompatible){
-				crate_push(player_position, push_force, current_push_type);
+				crate_pushPull(player_position, push_force, current_push_type, false);
 			}
 			else {
 				NoEffect();
@@ -241,11 +242,11 @@ public class Item : MonoBehaviour
 		}
 	}
 
-	public void Pull(){
+	public void Pull(Vector3 player_position, float push_force){
 		switch (itemType) {
 		case item_type.Crate:
 			if(pullCompatible){
-				// --insert behavior here--
+				crate_pushPull(player_position, push_force, current_push_type, true);
 			}
 			else {
 				NoEffect();
@@ -424,7 +425,7 @@ public class Item : MonoBehaviour
 		end_stun ();
 	}
 
-	private void crate_push(Vector3 player_pos, float magnitude, push_type type){
+	private void crate_pushPull(Vector3 player_pos, float magnitude, push_type type, bool pull){
 		Vector3 heading = new Vector3(0.0f, 0.0f, 0.0f);
 		float angle = 0.0f;
 		Vector3 pos = Vector3.zero;
@@ -436,8 +437,9 @@ public class Item : MonoBehaviour
 		case push_type.TwoAxis:
 			heading = gameObject.transform.position - player_pos;
 			angle = Vector3.Angle(heading, Vector3.forward);
-			if(angle > 0.0f && angle <= 45.0f) heading = Vector3.forward;
-			else if(angle > 135.0f && angle <= 180.0f) heading = Vector3.back;
+			if(angle > 0.0f && angle <= 90.0f) heading = push_forward_direction;	
+			else if(angle > 90.0f && angle <= 180.0f) heading = -push_forward_direction;
+			else heading = Vector3.zero;
 			break;
 		case push_type.FourAxis:
 			heading = gameObject.transform.position - player_pos;
@@ -467,6 +469,8 @@ public class Item : MonoBehaviour
 		heading.y = 0.0f;
 		float distance = heading.magnitude;
 		Vector3 direction = heading / distance;
+
+		if (pull) direction *= -1;
 
 		Rigidbody rb = gameObject.GetComponent<Rigidbody> ();
 		rb.AddForce(direction * (magnitude * 100));

@@ -124,7 +124,7 @@ public sealed class Quinc : MonoBehaviour
 					break;
 
 				case quincy_ability.Pull:
-					script.Pull();
+					script.Pull(gameObject.transform.position, pushDistance);
 					break;
 
 				case quincy_ability.Heat:
