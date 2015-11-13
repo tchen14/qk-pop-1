@@ -314,10 +314,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9adf9987abc77654a96fb0c6bf45d79b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 8
+  _moveState: 0
+  _stateModifier: 0
+  curSpeed: 0
+  runSpeed: 10
   jumpSpeed: 9
+  slideSpeed: 8
   gravity: 25
   terminalVelocity: 50
+  turnRate: 5
   slideTheshold: .600000024
   MaxControllableSlideMagnitude: .400000006
 --- !u!114 &11458004
@@ -353,7 +358,7 @@ MonoBehaviour:
   stunTarget: {fileID: 0}
   heatColdTarget: {fileID: 0}
   blastTarget: {fileID: 0}
-  testAbility: 0
+  activeAbility: 0
   pushPullLerp: 0
   abilitySelector: {fileID: 0}
 --- !u!143 &14344496
@@ -383,6 +388,10 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: m_TagString
       value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
