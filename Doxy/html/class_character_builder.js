@@ -1,0 +1,27 @@
+var class_character_builder =
+[
+    [ "BuildLists", "class_character_builder.html#a443116fadd4f27c1f4d9213987d67bf4", null ],
+    [ "DisplayHair", "class_character_builder.html#ac96bcbc9dd71d296081a7b452a6a85d5", null ],
+    [ "DisplayHat", "class_character_builder.html#a8803c2661ae3eee19ebe76da14495913", null ],
+    [ "DisplayHead", "class_character_builder.html#a5be78a4b0e40562e30f93d845d442ac0", null ],
+    [ "DisplayLeg", "class_character_builder.html#aac7db67ef8fb03627c5552c216d92e07", null ],
+    [ "DisplayPant", "class_character_builder.html#ab6211d469cc1a3d080b598cd39df8ba6", null ],
+    [ "DisplayShirt", "class_character_builder.html#a8b47fe7c08ddfdc4c8a74f950939a061", null ],
+    [ "DisplayShoe", "class_character_builder.html#af8bb2c9c01fd0d7501e72f375b94e7e7", null ],
+    [ "DisplayTorso", "class_character_builder.html#a1c8017f360f703520fd7be52efadd342", null ],
+    [ "LoadCharacterModelsFromJson", "class_character_builder.html#a61c4560b2240a772317813d807561981", null ],
+    [ "SaveCharacter", "class_character_builder.html#a5ba8dd4ff6a3d670b55ac3d90fda60e3", null ],
+    [ "SwitchGender", "class_character_builder.html#a8849ef48f0c9dd231df564debf6b975c", null ],
+    [ "SwitchHair", "class_character_builder.html#a233c3a7a608520e24228644030237d90", null ],
+    [ "SwitchHat", "class_character_builder.html#af0dea5f3604602b10547307c59fd0123", null ],
+    [ "SwitchHead", "class_character_builder.html#ae602123b75cf3c156800fbbcbe432048", null ],
+    [ "SwitchLeg", "class_character_builder.html#ada5bc5b6e57ce5fc8e3f0a477c235280", null ],
+    [ "SwitchPant", "class_character_builder.html#a52afb4dc98b945152812d36bd7a9862b", null ],
+    [ "SwitchShirt", "class_character_builder.html#a519359b3d30a4c53671bf01b1547bcaa", null ],
+    [ "SwitchShoe", "class_character_builder.html#ad3b48708ac88cff024255313c603073f", null ],
+    [ "SwitchTorso", "class_character_builder.html#a8135e5ced1665806bc11940aa0b3720f", null ],
+    [ "currentHeadObject", "class_character_builder.html#a545309a089485e70356b398548f89fb7", null ],
+    [ "gamePlaying", "class_character_builder.html#a44cde40cfb666dc14ef5eb479144ad22", null ],
+    [ "isFemale", "class_character_builder.html#a70cf8efd714b0ab3248e104b8d510fde", null ],
+    [ "isMale", "class_character_builder.html#ae42070236d3ec76ddcb737ef81930ec8", null ]
+];
