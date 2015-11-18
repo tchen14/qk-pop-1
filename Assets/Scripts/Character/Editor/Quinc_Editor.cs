@@ -32,6 +32,10 @@ public class Quinc_Editor : Editor {
 			GUILayout.Label("Force:", GUILayout.MaxWidth(80));
 			quinc_target.pushDistance = EditorGUILayout.Slider(quinc_target.pushDistance, 0.0f, 50.0f);
 			EditorGUILayout.EndHorizontal();
+			EditorGUILayout.BeginHorizontal();
+			GUILayout.Label("Range:", GUILayout.MaxWidth(80));
+			quinc_target.pushRange = EditorGUILayout.Slider(quinc_target.pushRange, 0.0f, 50.0f);
+			EditorGUILayout.EndHorizontal();
 			break;
 
 		case quincy_ability.Pull:
@@ -42,6 +46,9 @@ public class Quinc_Editor : Editor {
 			EditorGUILayout.BeginHorizontal();
 			GUILayout.Label("Force:", GUILayout.MaxWidth(80));
 			quinc_target.pullDistance = EditorGUILayout.Slider(quinc_target.pullDistance, 0.0f, 50.0f);
+			EditorGUILayout.EndHorizontal();
+			GUILayout.Label("Range:", GUILayout.MaxWidth(80));
+			quinc_target.pullRange = EditorGUILayout.Slider(quinc_target.pullRange, 0.0f, 50.0f);
 			EditorGUILayout.EndHorizontal();
 			break;
 

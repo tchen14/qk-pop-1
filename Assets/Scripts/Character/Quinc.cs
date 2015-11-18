@@ -47,10 +47,12 @@ public sealed class Quinc : MonoBehaviour
 #pragma warning disable 0414
 	public float pushRate = 1.0f;   //!< Push ability cooldown time.
 	public float pushDistance = 5.0f;   //!< Push ability force.
+	public float pushRange = 10.0f;
 	private float nextPush = 1.0f;   //!< When Push ability will be ready.
 
 	public float pullRate = 1.0f;
 	public float pullDistance = 5.0f;
+	public float pullRange = 10.0f;
 	private float nextPull = 1.0f;
 
 	public float cutRate = 0.5f;		//!< cut recharge rate
@@ -119,11 +121,11 @@ public sealed class Quinc : MonoBehaviour
 					break;
 
 				case quincy_ability.Push:
-					script.Push(gameObject.transform.position, pushDistance);
+					script.Push(gameObject.transform.position, pushDistance, pushRange);
 					break;
 
 				case quincy_ability.Pull:
-					script.Pull(gameObject.transform.position, pushDistance);
+					script.Pull(gameObject.transform.position, pushDistance, pullRange);
 					break;
 
 				case quincy_ability.Heat:
