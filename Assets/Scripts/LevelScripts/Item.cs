@@ -84,6 +84,10 @@ public class Item : MonoBehaviour
 		return;
 	}
 
+	void Start(){
+		startPosition = gameObject.transform.position;
+	}
+
 	public void Stun(float time)
 	{
 		switch (itemType) {
@@ -206,7 +210,9 @@ public class Item : MonoBehaviour
 		switch (itemType) {
 		case item_type.Crate:	
 			if(pushCompatible){
-				crate_pushPull(player_position, push_force, current_push_type, false);
+				if(!checkForSnapBack()){
+					crate_pushPull(player_position, push_force, current_push_type, false);
+				}
 			}
 			else {
 				NoEffect();
@@ -286,7 +292,7 @@ public class Item : MonoBehaviour
 		switch (itemType) {
 		case item_type.Crate:
 			if(heatCompatible){
-				// --insert behavior here--
+				heat();
 			}
 			else {
 				NoEffect();
@@ -419,10 +425,25 @@ public class Item : MonoBehaviour
 		StopCoroutine ("_Stun");
 	}
 
+	private void heat(){
+		StartCoroutine (start_heat(3.0f));
+	}
+
 	IEnumerator _Stun(float time){
 		start_stun ();
 		yield return new WaitForSeconds(time);
 		end_stun ();
+	}
+
+	IEnumerator start_heat(float time){
+		float elapsed = 0.0f;
+		Color from = Color.black;
+		Color to = Color.red;
+		while (elapsed <= time) {
+			gameObject.GetComponent<Renderer>().material.SetColor("_EmissionColor", Color.Lerp(from, to, elapsed / time));
+			elapsed += Time.deltaTime;
+			yield return new WaitForEndOfFrame();
+		}
 	}
 
 	private void crate_pushPull(Vector3 player_pos, float magnitude, push_type type, bool pull){
@@ -464,6 +485,8 @@ public class Item : MonoBehaviour
 			else if(angle > 135.0f && angle <= 180.0f) heading = Vector3.back;
 			else heading = Vector3.zero;
 			break;
+		case push_type.Anim:
+			break;
 		}
 
 		heading.y = 0.0f;
@@ -474,6 +497,17 @@ public class Item : MonoBehaviour
 
 		Rigidbody rb = gameObject.GetComponent<Rigidbody> ();
 		rb.AddForce(direction * (magnitude * 100));
+	}
+
+	private bool checkForSnapBack(){
+		Vector3 currentPosition = gameObject.transform.position;
+		if (Vector3.Distance (currentPosition, startPosition) >= pushPullRadius) {
+			Rigidbody rb = gameObject.GetComponent<Rigidbody>();
+			rb.velocity = Vector3.zero;
+			gameObject.transform.position = startPosition;
+			return true;
+		}
+		return false;
 	}
 
 	private void NoEffect(){

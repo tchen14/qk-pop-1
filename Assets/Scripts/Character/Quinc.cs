@@ -45,34 +45,33 @@ public sealed class Quinc : MonoBehaviour
 //END singleton code
 	
 #pragma warning disable 0414
-	private float pushRate = 1.0f;   //!< Push ability cooldown time.
+	public float pushRate = 1.0f;   //!< Push ability cooldown time.
 	public float pushDistance = 5.0f;   //!< Push ability force.
 	private float nextPush = 1.0f;   //!< When Push ability will be ready.
 
-	private float pullRate = 1.0f;
+	public float pullRate = 1.0f;
 	public float pullDistance = 5.0f;
 	private float nextPull = 1.0f;
 
-	private float cutRate = 0.5f;		//!< cut recharge rate
-	private int cutRange = 20;
+	public float cutRate = 0.5f;		//!< cut recharge rate
+	public float cutRange = 20.0f;
 	private float nextCut = 1.0f;		//!< timer for next cut
 
-	private float soundRate = 0.5f;		//!< sound throw recharge rate
-	private int soundThrowRange = 20;
+	public float soundRate = 0.5f;		//!< sound throw recharge rate
 	private float nextSound = 1.0f;		//!< timer for sound throw
-	private float soundRange = 20f;		//!< maximum distance between soundthrow location and enemy for it to have an effect
+	public float soundRange = 20.0f;		//!< maximum distance between soundthrow location and enemy for it to have an effect
 
-	private float stunRate = 0.5f;		//!< stun recharge rate
-	private int stunRange = 2;
+	public float stunRate = 0.5f;		//!< stun recharge rate
+	public float stunRange = 2.0f;
 	private float nextStun = 1.0f;		//!< timer for stun recharge
-	private float stunTime = 20f;		//!< duration of stun effect
+	public float stunTime = 20f;		//!< duration of stun effect
 
-	private float heatRate = 0.5f;		//!< heat recharge rate
-	private int heatRange = 20;
+	public float heatRate = 0.5f;		//!< heat recharge rate
+	public float heatRange = 20;
 	private float nextHeat = 1.0f;		//!< timer for heat ability
 
-	private float coldRate = 0.5f;		//!< freezing recharge rate
-	private int coldRange = 20;
+	public float coldRate = 0.5f;		//!< freezing recharge rate
+	public float coldRange = 20;
 	private float nextCold = 1.0f;		//!< timer for cold ability
 
 	private float blastRate = 0.5f;		//!< smoke/light blast recharge rate
