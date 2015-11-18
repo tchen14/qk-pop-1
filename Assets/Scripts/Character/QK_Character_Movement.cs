@@ -72,7 +72,17 @@ public class QK_Character_Movement : MonoBehaviour {
 
 		DetermineCharacterState ();
 
-		ProcessStandardMotion ();
+		switch (_stateModifier) 
+		{
+			case CharacterState.Ladder:
+				ClimbLadder();
+				break;
+
+			default:
+					ProcessStandardMotion();
+				break;
+			
+		}
 	}
 
 	void ProcessStandardMotion()
@@ -99,26 +109,10 @@ public class QK_Character_Movement : MonoBehaviour {
 
 		Vector3 curMoveVect = new Vector3(moveVector.x * curSpeed, verticalVelocity, moveVector.z * curSpeed);
 
-		/*/ Rotate Character
-		if (_moveState == CharacterState.Move) 
-        {
-			RotateCharacter (inputDirection);
-		}
-		else if (_moveState == CharacterState.Pivot) 
-        {
-			RotateCharacter (inputDirection);
-			curMoveVect = new Vector3(curMoveVect.x, verticalVelocity, curMoveVect.z);
-		}*/
-
 		if (_moveState != CharacterState.Idle)
 			RotateCharacter (inputDirection);
 
 		charCont.Move (curMoveVect * Time.deltaTime);
-
-        /*if(_moveState != CharacterState.Idle)
-            RotateCharacter(inputDirection);*/
-
-        //charCont.Move(curMoveVect * Time.deltaTime);
 	}
 
 	void CalculateMovementDirection ()
@@ -198,39 +192,49 @@ public class QK_Character_Movement : MonoBehaviour {
 	
 	void DetermineCharacterState () 
 	{
-		if (InputManager.input.isActionPressed ()) 
+		if(!IsInActionState())
 		{
-			iObject = GetActionObject();
-
-			if(iObject != null)
+			if (InputManager.input.isActionPressed ()) 
 			{
-				if(iObject.Type == Interactable.ObjectType.Ladder)
-					_stateModifier = CharacterState.Ladder;
-				else if(iObject.Type == Interactable.ObjectType.Sidle)
-					_stateModifier = CharacterState.Sidle;
-				else if(iObject.Type == Interactable.ObjectType.Door)
-					_stateModifier = CharacterState.Wait;
-				else {
-					Debug.Warning("player", "No player action for type "+iObject.Type);
-					_stateModifier = CharacterState.Normal;
-				}
+				iObject = GetActionObject();
 
-				// We have an action to do, break out
+				if(iObject != null)
+				{
+					if(iObject.Type == Interactable.ObjectType.Ladder)
+					{
+						_stateModifier = CharacterState.Ladder;
+					}
+					else if(iObject.Type == Interactable.ObjectType.Sidle)
+					{
+						_stateModifier = CharacterState.Sidle;
+					}
+					else if(iObject.Type == Interactable.ObjectType.Door)
+					{
+						_stateModifier = CharacterState.Wait;
+					}
+					else 
+					{
+						Debug.Warning("player", "No player action for type "+iObject.Type);
+						_stateModifier = CharacterState.Normal;
+					}
+
+					// We have an action to do, break out
+					return;
+				}
+			}
+
+			if (InputManager.input.isJumping()) {
+				Jump ();
 				return;
 			}
-		}
 
-		if (InputManager.input.isJumping()) {
-			Jump ();
-			return;
-		}
-
-		if (InputManager.input.isSprinting ()) {
-			_stateModifier = CharacterState.Sprint;
-		} else if (InputManager.input.isCrouched ()) {
-			_stateModifier = CharacterState.Crouch;
-		} else {
-			_stateModifier = CharacterState.Normal;
+			if (InputManager.input.isSprinting ()) {
+				_stateModifier = CharacterState.Sprint;
+			} else if (InputManager.input.isCrouched ()) {
+				_stateModifier = CharacterState.Crouch;
+			} else {
+				_stateModifier = CharacterState.Normal;
+			}
 		}
 	}
 
@@ -277,10 +281,69 @@ public class QK_Character_Movement : MonoBehaviour {
 			return null;
 	}
 
-	public void Jump() 
+	void Jump() 
 	{
 		if (charCont.isGrounded)
 			verticalVelocity = jumpSpeed;
+	}
+
+	void ClimbLadder()
+	{
+		if (iObject == null || iObject.Type != Interactable.ObjectType.Ladder)
+		{
+			// For some reason we're trying to climb something thats not a ladder
+			_stateModifier = CharacterState.Normal;
+			return;
+		}
+
+		// Snap to ladder
+		if(transform.position != iObject.ladderStart)
+		{
+			transform.position = Vector3.Lerp(transform.position, iObject.ladderStart, Time.deltaTime);
+		}
+
+		Vector3 bottom = iObject.ladderStart;
+		Vector3 top = iObject.ladderEnd;
+		Vector3 climbDir = top - bottom;
+
+		if(InputManager.input.MoveVerticalAxis() > 0)
+		{
+			// Move up the Ladder
+			if(transform.position == top)
+			{
+				// At the top, dismount
+			}
+			else
+			{
+				//Move Character in climbDir by step
+			}
+		}
+		else if(InputManager.input.MoveVerticalAxis() < 0)
+		{
+			// Move down the ladder
+			if(transform.position == bottom)
+			{
+				// We're at the bottom, dismount
+			}
+			else
+			{
+				// Move characters position in negative climbDir by some step
+			}
+		}
+	}
+
+	bool IsInActionState()
+	{
+		if (_stateModifier == CharacterState.Ladder ||
+			_stateModifier == CharacterState.Sidle ||
+			_stateModifier == CharacterState.Hang) 
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
 	}
 
 	void RotateCharacter(Vector3 toRotate)
@@ -303,6 +366,7 @@ public class QK_Character_Movement : MonoBehaviour {
 
 			Vector3 testMoveVect = Vector3.Lerp(moveVector, moveDir, 0.2f);
 			testMoveVect = new Vector3(testMoveVect.x, 0f, testMoveVect.z);
+			Gizmos.DrawSphere (transform.position, 1f);
 			/*Gizmos.DrawSphere (transform.position + moveDir, 0.1f);
 			Gizmos.DrawRay (transform.position, testMoveVect);
 			Gizmos.DrawRay (transform.position, moveVector);*/
