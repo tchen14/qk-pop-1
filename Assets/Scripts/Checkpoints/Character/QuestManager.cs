@@ -123,7 +123,7 @@ public class QuestManager : MonoBehaviour {
 
 		currentQuests.Add (newQuest);
 		Debug.Log ("Added quest!");
-	
+
 		if (newQuest.HasTimer () == true) {
 
 			StartCoroutine("StartTimer", newQuest);

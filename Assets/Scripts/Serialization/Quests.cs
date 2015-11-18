@@ -141,6 +141,10 @@ public class Quest {
 		return name;
 	}
 
+	public string GetDescription() {
+		return description;
+	}
+
 	public bool IsCompleted() {
 		bool allCompleted = true;
 		foreach (Goal g in goal) {
