@@ -15,6 +15,7 @@ public class DialogueManager : MonoBehaviour {
 	GameObject _goodBackground;
 	GameObject _badBackground;
 	GameObject _dialogueText;
+	GameObject _continueButton;
 
 	// Use this for initialization
 	void Awake () {
@@ -31,6 +32,7 @@ public class DialogueManager : MonoBehaviour {
 		_goodBackground = _dialogueGO.transform.FindChild ("GoodBackground").gameObject;
 		_badBackground = _dialogueGO.transform.FindChild ("BadBackground").gameObject;
 		_dialogueText = _dialogueGO.transform.FindChild ("DialogueText").gameObject;
+		_continueButton = _dialogueGO.transform.FindChild ("ContinueButton").gameObject;
 	}
 	
 	private void onStarted() {
@@ -48,7 +50,11 @@ public class DialogueManager : MonoBehaviour {
 		_dialogueText.GetComponent<Text> ().text = data.text;
 		_choices = data.choices;
 	}
-	
+
+	private void SetText() {
+		_dialogueText.GetComponent<Text>().text = _text;
+	}
+
 	void OnGUI() {
 		if (!_showing) {
 			if(_dialogueGO.activeInHierarchy == true) {
@@ -64,17 +70,19 @@ public class DialogueManager : MonoBehaviour {
 		if (isGood) {
 			if (_goodBackground.activeInHierarchy == false) {
 				_goodBackground.SetActive (true);
+				//SetText();
 			}
 		} else {
 			if (_badBackground.activeInHierarchy == false) {
 				_badBackground.SetActive (true);
+				//SetText();
 			}
 		}
 
 
 
-		if (_choices == null && _choices.Length > 0) {
-			//DrawContinueButton
+		if (_choices == null || _choices.Length < 1) {
+			ShowContinueButton();
 		} else {
 			for(int i = 0; i < _choices.Length; i++) {
 				//DrawChoices
@@ -84,8 +92,30 @@ public class DialogueManager : MonoBehaviour {
 		
 	}
 
+	private void ShowContinueButton() {
+		_continueButton.GetComponent<Image> ().enabled = true;
+		_continueButton.GetComponent<Button> ().enabled = true;
+		_continueButton.transform.FindChild ("Text").GetComponent<Text> ().enabled = true;
+	}
+
+	public void ClickedContinueButton() {
+		Dialoguer.ContinueDialogue ();
+		//SetText();
+	}
+
+	private void HideContinueButton() {
+		_continueButton.GetComponent<Image> ().enabled = false;
+		_continueButton.GetComponent<Button> ().enabled = false;
+		_continueButton.transform.FindChild ("Text").GetComponent<Text> ().enabled = false;
+	}
+
 	[EventVisibleAttribute]
 	public void Speak(int npcID, int index) {
+
+		if (_showing) {
+			return;
+		}
+
 		JSONNode npcDialogue = RetrieveDialogueFromJSON();
 
 		if (npcDialogue [npcID.ToString ()] == null) {
@@ -98,9 +128,11 @@ public class DialogueManager : MonoBehaviour {
 			return;
 		}
 
-		if (npcDialogue [npcID.ToString ()] [-1] == "Good") {
+		//Debug.Log (npcDialogue [npcID.ToString ()] [npcDialogue [npcID.ToString ()].Count - 1].ToString());
+
+		if (npcDialogue [npcID.ToString ()] [npcDialogue [npcID.ToString ()].Count - 1].ToString().Contains("Good")) {
 			isGood = true;
-		} else if (npcDialogue [npcID.ToString ()] [-1] == "Bad") {
+		} else if (npcDialogue [npcID.ToString ()][npcDialogue [npcID.ToString ()].Count - 1].ToString().Contains("Bad")) {
 			isGood = false;
 		} else {
 			Debug.Log("NPC ID: " + npcID + " is neither 'Good' or 'Bad', check last index in dialogue list json file");
