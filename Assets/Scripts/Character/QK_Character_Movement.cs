@@ -13,7 +13,7 @@ public class QK_Character_Movement : MonoBehaviour {
 		}
 	}
 
-	public enum CharacterState {Idle, Move, Pivot, Sprint, Crouch, Hang, Ladder, Sidle, Normal}
+	public enum CharacterState {Idle, Move, Pivot, Sprint, Crouch, Hang, Ladder, Sidle, Wait, Normal}
 	public CharacterState _moveState { get; private set; }
 	public CharacterState _stateModifier { get; private set; }
 
@@ -38,8 +38,9 @@ public class QK_Character_Movement : MonoBehaviour {
 	private Vector3 moveVector = Vector3.zero;
 	private Vector3 desiredMoveVector = Vector3.zero;
     private Vector3 inputDirection { get; set; }
-
 	private Vector3 groundNormal = Vector3.zero;
+
+	private Interactable iObject;
 
 	// This is for Slide if implemented
 	private float slideTheshold = 0.6f;
@@ -53,6 +54,8 @@ public class QK_Character_Movement : MonoBehaviour {
 	{
 		charCont = this.GetComponent<CharacterController>();
 		cam = PoPCamera.instance;
+		_moveState = CharacterState.Idle;
+		_stateModifier = CharacterState.Normal;
 
 		// Set CharacterController Defaults
 		charCont.slopeLimit = 30f;
@@ -197,27 +200,23 @@ public class QK_Character_Movement : MonoBehaviour {
 	{
 		if (InputManager.input.isActionPressed ()) 
 		{
-			GameObject actionableObj = null;
-			RaycastHit[] hit = Physics.SphereCastAll(transform.position + charCont.center, 2f, Vector3.forward, 10);
-			if(hit.Length > 0)
+			iObject = GetActionObject();
+
+			if(iObject != null)
 			{
-				if(hit.Length > 1)
-				{
-					foreach(RaycastHit obj in hit)
-					{
-						if(obj.collider.gameObject.GetComponent<Interactable>())
-						{
-							if(actionableObj == null)
-								actionableObj = obj.collider.gameObject;
-							else if(Vector3.Distance(actionableObj.transform.position, transform.position) < 
-									Vector3.Distance(obj.collider.transform.position, transform.position))
-							{
-								actionableObj = obj.collider.gameObject;
-							}
-							Debug.Log("player", ""+actionableObj.name);
-						}
-					}
+				if(iObject.Type == Interactable.ObjectType.Ladder)
+					_stateModifier = CharacterState.Ladder;
+				else if(iObject.Type == Interactable.ObjectType.Sidle)
+					_stateModifier = CharacterState.Sidle;
+				else if(iObject.Type == Interactable.ObjectType.Door)
+					_stateModifier = CharacterState.Wait;
+				else {
+					Debug.Warning("player", "No player action for type "+iObject.Type);
+					_stateModifier = CharacterState.Normal;
 				}
+
+				// We have an action to do, break out
+				return;
 			}
 		}
 
@@ -233,6 +232,49 @@ public class QK_Character_Movement : MonoBehaviour {
 		} else {
 			_stateModifier = CharacterState.Normal;
 		}
+	}
+
+	Interactable GetActionObject()
+	{
+		GameObject actionableObj = null;
+		RaycastHit[] hit = Physics.SphereCastAll(transform.position + charCont.center, 1f, Vector3.forward, 10);
+		if(hit.Length > 0)
+		{
+			foreach(RaycastHit obj in hit)
+			{
+				if(obj.collider.gameObject.GetComponent<Interactable>())
+				{
+					if(actionableObj == null)
+						actionableObj = obj.collider.gameObject;
+					else 
+					{
+						Vector3 toActionObj = actionableObj.transform.position - transform.position;
+						toActionObj = new Vector3(toActionObj.x, 0f, toActionObj.z);
+						Vector3 toNewObj = obj.collider.transform.position - transform.position;
+						toNewObj = new Vector3(toNewObj.x, 0f, toNewObj.z);
+						
+						if(Vector3.Angle(toActionObj, transform.forward) < 45f && 
+						   Vector3.Angle(toNewObj, transform.forward) < 45f)
+						{
+							if(Vector3.Distance(actionableObj.transform.position, transform.position) >
+							   Vector3.Distance(obj.transform.position, transform.position))
+							{
+								actionableObj = obj.collider.gameObject;
+							}
+						}
+						else if(Vector3.Angle(toNewObj, transform.forward) <
+						        Vector3.Angle(toActionObj, transform.forward))
+						{
+							actionableObj = obj.collider.gameObject;
+						}
+					}
+				}
+			}
+		}
+		if (actionableObj != null)
+			return actionableObj.GetComponent<Interactable> ();
+		else
+			return null;
 	}
 
 	public void Jump() 
