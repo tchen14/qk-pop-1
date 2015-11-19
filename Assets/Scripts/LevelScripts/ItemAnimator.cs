@@ -35,10 +35,12 @@ public class ItemAnimator : MonoBehaviour {
 	float currentLerpTime;
 	float lerpTime = 1f;
 
-
 	void Awake() {
 		start_moving = false;
 		end_movement = false;
+
+
+		updateKeyframes ();//!<see the function for notes on what this does
 
 		//the two public gameobjects are important to the script, so they are needed
 		if (!start_state) {
@@ -67,13 +69,11 @@ public class ItemAnimator : MonoBehaviour {
 
 	void Update () 
 	{
-        //if (Input.GetKeyDown ("w"))
-        //    set_in_motion ();
-
 		if (!error_flagged && start_moving && !end_movement)
 		{	
 			move_object();
 		}
+		
 	}
 
 	//!this is the function to call when you want to animate the object at that instance
@@ -99,5 +99,19 @@ public class ItemAnimator : MonoBehaviour {
 		
 		if (cur_transform.position == end_position)
 			end_movement = true;
+	}
+
+	//depending on the duration the user inputs, the key ratio needs to be updated, so this does just that
+	void updateKeyframes()
+	{
+		Keyframe[] ks;
+		ks = new Keyframe[speed_curve.length];
+
+		for(int i = 0; i < ks.Length; i++)
+		{
+			Keyframe tmp = speed_curve[i];
+			ks[i] = new Keyframe(tmp.time * duration, tmp.value, tmp.inTangent/duration, tmp.outTangent/duration);
+		}
+		speed_curve = new AnimationCurve(ks);
 	}
 }
