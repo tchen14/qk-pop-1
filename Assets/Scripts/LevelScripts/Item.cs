@@ -22,6 +22,7 @@ public class Item : MonoBehaviour
 		Anim
 	};
 
+	public bool is_targeted = false;
     public item_type itemType;
 	public push_type current_push_type;
 	private Vector3 push_forward_direction = Vector3.forward;
@@ -86,6 +87,14 @@ public class Item : MonoBehaviour
 
 	void Start(){
 		startPosition = gameObject.transform.position;
+	}
+
+	void Update(){
+		if (is_targeted) {
+			float x = gameObject.transform.position.x;
+			float y = gameObject.transform.position.y;
+			gameObject.GetComponent<Rigidbody>().AddForce(new Vector3(0.0f, 17.0f, 0.0f));
+		}
 	}
 
 	public void Stun(float time)
@@ -513,6 +522,10 @@ public class Item : MonoBehaviour
 			return true;
 		}
 		return false;
+	}
+
+	public void toggle_targeted(){
+		is_targeted = !is_targeted;
 	}
 
 	private void NoEffect(){

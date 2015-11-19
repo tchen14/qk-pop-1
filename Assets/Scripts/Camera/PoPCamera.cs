@@ -114,6 +114,7 @@ public sealed class PoPCamera : Camera_2
             case CameraState.TargetLock:
                 if (InputManager.input.isTargetPressed())
                 {
+					targetedObjects[targetindex].GetComponent<Item>().is_targeted = false;
                     _curState = CameraState.TargetReset;
                 }
                 else
@@ -123,6 +124,7 @@ public sealed class PoPCamera : Camera_2
 						targetindex += InputManager.input.CameraScrollTarget();
 						targetindex = targetindex < 0 ? targetedObjects.Count - 1 :
 							Mathf.Abs(targetindex % targetedObjects.Count);
+						targetedObjects[targetindex].GetComponent<Item>().is_targeted = true;
 					}
                 }
                 break;
