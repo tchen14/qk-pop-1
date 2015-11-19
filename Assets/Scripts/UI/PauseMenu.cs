@@ -20,7 +20,7 @@ public class PauseMenu : MonoBehaviour {
 		}
         if(Input.GetKeyDown(KeyCode.T)) {           // Feature where it allows to slow down time or speed it up
                                                     
-            GHud.timeManipulate(speed);
+            //GHud.timeManipulate(speed);
         }
 
 	}

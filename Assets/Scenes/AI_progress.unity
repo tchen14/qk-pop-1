@@ -3445,26 +3445,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f77c77765e5e8714f909917a2afa2500, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  position: 0000000000000000000000000000000000000000
-  abilities:
-  - {fileID: 107438676}
-  - {fileID: 2036281499}
-  - {fileID: 748290771}
-  - {fileID: 1704499180}
-  - {fileID: 2120856586}
-  lerpTime: 0
-  targetPosY:
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  startPosY:
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
 --- !u!1001 &593137071
 Prefab:
   m_ObjectHideFlags: 0
@@ -3645,29 +3625,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 748cd4d222092df48a2b8072558dd908, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  current_preset: 1
-  hp: 200
-  sightDistance: 40
-  sightAngle: 35
-  speed: 6
-  runSpeed: 12
+  CheckForTargetsRunning: 0
+  seesTarget: 0
   seekTag:
   - Player
-  attackDistance: 3
-  aggressionLimit: 10
-  suspicionLimit: 10
-  panicPoints: PanicPoints
-  aggressive: 1
-  seesTarget: 0
   target: {fileID: 0}
-  temptarget: {fileID: 0}
-  attacking: 0
-  panic: 0
-  CheckpointCount: 0
-  alert: 0
-  dazed: 0
-  noiseHeard: 0
-  checkpointsArray: []
+  sightDistance: 15
+  sightAngle: 15
   navCheck: 
   navPoint: {x: 0, y: 0, z: 0}
   AiCheckpoints: []
@@ -3680,6 +3644,22 @@ MonoBehaviour:
   AiCheckpointsLength: 0
   Path: {fileID: 0}
   PathwayCount: 0
+  CheckpointCount: 0
+  aggressionLimit: 5
+  suspicionLimit: 5
+  IncrementsuspicionRunning: 0
+  IncrementaggressionRunning: 0
+  DecrementaggressionRunning: 0
+  DecrementsuspicionRunning: 0
+  chasing: 0
+  dazed: 0
+  attackDistance: 3
+  hp: 200
+  speed: 6
+  runSpeed: 12
+  panicPoints: PanicPoints
+  enemy: 1
+  current_preset: 1
 --- !u!54 &625511102
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -9013,26 +8993,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f77c77765e5e8714f909917a2afa2500, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  position: 0000000000000000000000000000000000000000
-  abilities:
-  - {fileID: 183148282}
-  - {fileID: 1994886288}
-  - {fileID: 2072437984}
-  - {fileID: 838985947}
-  - {fileID: 1043270411}
-  lerpTime: 0
-  targetPosY:
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  startPosY:
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
 --- !u!1001 &1520835873
 Prefab:
   m_ObjectHideFlags: 0

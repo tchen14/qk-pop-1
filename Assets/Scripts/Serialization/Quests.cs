@@ -57,7 +57,7 @@ public class Quest {
 				}
 				else {
 					Goal newGoal = new Goal(quests[id.ToString ()][3][i], quests[id.ToString ()][3][i][0].AsInt);
-					Debug.Log(quests[id.ToString ()][3][i].Keys);
+					//Debug.Log(quests[id.ToString ()][3][i].Keys);
 					newGoals[i] = newGoal;
 				}
 			}

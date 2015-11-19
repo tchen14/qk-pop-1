@@ -5,7 +5,8 @@ using System.Collections.Generic;
 [EventVisibleAttribute]
 public class QuestManager : MonoBehaviour {
 
-	List <Quest> currentQuests;
+	/*
+    List <Quest> currentQuests;
 	Quest _quest;
 	QuestSaveManager _questSaveManager;
 	public int questCount;
@@ -135,4 +136,5 @@ public class QuestManager : MonoBehaviour {
 			UpdateQuests();
 		}
 	}
+    */
 }

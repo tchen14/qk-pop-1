@@ -3,13 +3,6 @@ using UnityEditor;
 using System.Collections;
 using System.Collections.Generic;
 
-/*
- * AI Path Editor:
- * This is a custom editor script for the AIPath class.
- * It helps editting and viewing the list of nodes that AIPath holds.
- * 
- */
-
 [CustomEditor(typeof(AIPath), true)]
 public class AIPath_Editor : Editor {
 
