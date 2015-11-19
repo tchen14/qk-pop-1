@@ -88,7 +88,7 @@ public class Scene_Setup : EditorWindow {
 			go.name = "_Player";
 			player = go;
 			Quinc quinc = go.GetComponent<Quinc>();
-            quinc.abilitySelector = abilitydockanim.GetComponent<AbilityDockController>();
+            //quinc.abilitySelector = abilitydockanim.GetComponent<AbilityDockController>();
 			ObjectManager.AddSavedObject(go.transform);
 		}
 
