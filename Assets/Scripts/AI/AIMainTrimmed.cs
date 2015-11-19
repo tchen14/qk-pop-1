@@ -156,11 +156,6 @@ public class AIMainTrimmed : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        if (Input.GetKeyDown("space"))
-        {
-            print("space key was pressed");
-            Restart();
-        }
         mesh.SetDestination(navPoint);
         if (CheckForTargetsRunning == false)
         {
@@ -235,11 +230,14 @@ public class AIMainTrimmed : MonoBehaviour
                 {
                     gameObject.GetComponent<Renderer>().material.color = Color.grey;
                     chasing = false;
-                    Path = Pathways[PathwayCount];
-                    AIPath CheckpointScript = Path.GetComponent<AIPath>();
-                    string CheckpointCountString = CheckpointCount.ToString();
-                    ChangeNavPoint(CheckpointCountString, CheckpointScript.getPoints()[CheckpointCount]);
+                    if (Pathways != null && Pathways.Count - 1 >= PathwayCount)
+                    {
 
+                        Path = Pathways[PathwayCount];
+                        AIPath CheckpointScript = Path.GetComponent<AIPath>();
+                        string CheckpointCountString = CheckpointCount.ToString();
+                        ChangeNavPoint(CheckpointCountString, CheckpointScript.getPoints()[CheckpointCount]);
+                    }
                     //return to path
                 }
             }
