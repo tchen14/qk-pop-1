@@ -6,10 +6,13 @@ using UnityEngine.UI;
 [EventVisibleAttribute]
 public class DialogueManager : MonoBehaviour {
 
+	public GUISkin skin;
+
 	private bool _showing = false;
 	private string _text;
 	private string[] _choices;
 	private bool isGood = true;
+	private string _theme;
 
 	GameObject _dialogueGO;
 	GameObject _goodBackground;
@@ -49,6 +52,7 @@ public class DialogueManager : MonoBehaviour {
 		_text = data.text;
 		_dialogueText.GetComponent<Text> ().text = data.text;
 		_choices = data.choices;
+		_theme = data.theme;
 	}
 
 	private void SetText() {
@@ -128,14 +132,12 @@ public class DialogueManager : MonoBehaviour {
 			return;
 		}
 
-		//Debug.Log (npcDialogue [npcID.ToString ()] [npcDialogue [npcID.ToString ()].Count - 1].ToString());
-
-		if (npcDialogue [npcID.ToString ()] [npcDialogue [npcID.ToString ()].Count - 1].ToString().Contains("Good")) {
+		if (_theme == "Good") {
 			isGood = true;
-		} else if (npcDialogue [npcID.ToString ()][npcDialogue [npcID.ToString ()].Count - 1].ToString().Contains("Bad")) {
+		} else if (_theme == "Bad") {
 			isGood = false;
 		} else {
-			Debug.Log("NPC ID: " + npcID + " is neither 'Good' or 'Bad', check last index in dialogue list json file");
+			Debug.Log("Theme is neither 'Good' or 'Bad'. Check Dialogue Tree");
 			return;
 		}
 
