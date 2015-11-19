@@ -17,14 +17,21 @@ public class InteractableEditor : Editor
 		switch (thisObject.Type) 
 		{
 			case Interactable.ObjectType.Ladder:
-				if(thisObject.ladderStart == Vector3.zero && thisObject.ladderEnd == Vector3.zero)
-				{
-					thisObject.ladderStart = thisObject.transform.position;
-					thisObject.ladderEnd = thisObject.transform.position + Vector3.up;
-				}
 
-				thisObject.ladderStart = EditorGUILayout.Vector3Field("Start: ", thisObject.ladderStart);
-				thisObject.ladderEnd = EditorGUILayout.Vector3Field("End: ", thisObject.ladderEnd);
+                // Calculate height of ladder from it's collider
+                float height = thisObject.transform.localScale.y * ((BoxCollider)thisObject.GetComponent<Collider>()).size.y;
+
+                // Get world position of top and bottom of ladder
+                Vector3 top = new Vector3(thisObject.transform.position.x, thisObject.transform.position.y + (height / 2), thisObject.transform.position.z);
+                Vector3 bottom = new Vector3(thisObject.transform.position.x, thisObject.transform.position.y - (height / 2), thisObject.transform.position.z);
+
+                // Move the positions forward a small amount and set them to the ladders variables
+                thisObject.ladderStart = bottom + (thisObject.transform.forward / 2);
+                thisObject.ladderEnd = top + (thisObject.transform.forward / 2);
+
+				EditorGUILayout.Vector3Field("Start: ", thisObject.ladderStart);
+				EditorGUILayout.Vector3Field("End: ", thisObject.ladderEnd);
+
 				break;
 		}
 
@@ -41,11 +48,9 @@ public class InteractableEditor : Editor
 		switch (thisObject.Type) 
 		{
 			case Interactable.ObjectType.Ladder:
-				// Show Position Handles and Labels
+				// Show start and end labels
 				Handles.Label(thisObject.ladderStart, "Start");
-				thisObject.ladderStart = Handles.PositionHandle(thisObject.ladderStart, Quaternion.identity);
 				Handles.Label (thisObject.ladderEnd, "End");
-				thisObject.ladderEnd = Handles.PositionHandle(thisObject.ladderEnd, Quaternion.identity);
 				break;
 		}
 

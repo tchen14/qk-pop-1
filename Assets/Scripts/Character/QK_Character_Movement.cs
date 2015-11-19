@@ -42,6 +42,10 @@ public class QK_Character_Movement : MonoBehaviour {
 
 	private Interactable iObject;
 
+    // Ladder Variables
+    private bool onLadder = false;
+    private Vector3 climbToPosition = Vector3.zero;
+
 	// This is for Slide if implemented
 	private float slideTheshold = 0.6f;
 	private float MaxControllableSlideMagnitude = 0.4f;
@@ -297,14 +301,24 @@ public class QK_Character_Movement : MonoBehaviour {
 		}
 
 		// Snap to ladder
-		if(transform.position != iObject.ladderStart)
+		if(!onLadder)
 		{
-			transform.position = Vector3.Lerp(transform.position, iObject.ladderStart, Time.deltaTime);
+            // Just use an estimated distance check because absolute position checking is inaccurate
+            if (Vector3.Distance(transform.position, iObject.ladderStart) < 0.1f)
+            {
+                onLadder = true;
+            }
+            else
+            {
+                // Ready to begin climbing
+                transform.position = Vector3.Lerp(transform.position, iObject.ladderStart, 2 * Time.deltaTime);
+                climbToPosition = transform.position;
+            }
 		}
 
 		Vector3 bottom = iObject.ladderStart;
 		Vector3 top = iObject.ladderEnd;
-		Vector3 climbDir = top - bottom;
+		Vector3 climbDir = Vector3.Normalize(top - bottom)/5;
 
 		if(InputManager.input.MoveVerticalAxis() > 0)
 		{
@@ -315,7 +329,12 @@ public class QK_Character_Movement : MonoBehaviour {
 			}
 			else
 			{
-				//Move Character in climbDir by step
+				//Move Character in climbDir
+                if (Vector3.Distance(climbToPosition, transform.position) <= 0.15)
+                {
+                    climbToPosition = transform.position + climbDir;
+                    transform.position = Vector3.Lerp(transform.position, transform.position + climbDir, 0.1f);
+                }
 			}
 		}
 		else if(InputManager.input.MoveVerticalAxis() < 0)
