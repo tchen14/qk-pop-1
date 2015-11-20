@@ -45,6 +45,7 @@ public class QK_Character_Movement : MonoBehaviour {
     // Ladder Variables
     private bool onLadder = false;
     private Vector3 climbToPosition = Vector3.zero;
+	private Vector3 ladderDismountPos = Vector3.zero;
 
 	// This is for Slide if implemented
 	private float slideTheshold = 0.6f;
@@ -322,6 +323,14 @@ public class QK_Character_Movement : MonoBehaviour {
 
 		if(Vector3.Distance(climbToPosition, transform.position) > 0.1f)
 		{
+			if(Vector3.Distance(transform.position, top) <= 0.01f) {
+				Dismount("top");
+				return;
+			} else if(Vector3.Distance(transform.position, bottom) <= 0.01f) {
+				Dismount("bottom");
+				return;
+			}
+
 			transform.position = Vector3.Lerp(transform.position, climbToPosition, 0.1f);
 			return;
 		}
@@ -329,29 +338,20 @@ public class QK_Character_Movement : MonoBehaviour {
 		if(InputManager.input.MoveVerticalAxis() > 0)
 		{
 			// Set position to move up
-			if(Vector3.Distance(transform.position, top) <= 0.1f)
-			{
-				
-			}
-			else
-			{
-				climbDir = Vector3.Normalize(top - transform.position);
-			}
+			climbDir = Vector3.Normalize(top - transform.position);
 		}
 		else if(InputManager.input.MoveVerticalAxis() < 0)
 		{
 			// Set position to move down
-			if(Vector3.Distance(transform.position, bottom) <= 0.1f)
-			{
-				return;
-			}
-			else
-			{
-				climbDir = Vector3.Normalize(bottom - transform.position);
-			}
+			climbDir = Vector3.Normalize(bottom - transform.position)/1.5f;
 		}
 
 		climbToPosition = transform.position + climbDir;
+	}
+
+	void Dismount(string side)
+	{
+
 	}
 
 	bool IsInActionState()
