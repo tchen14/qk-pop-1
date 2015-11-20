@@ -43,18 +43,17 @@ public class QuestManagerUIController : MonoBehaviour {
 		questButton = questUI.GetComponent<Button> ();
 		buttonHeight = questButton.GetComponent<RectTransform> ().sizeDelta.y;
 		qm.LoadQuests ();
-		showQuests ();
 	}
 
 	void Update(){
+		//For debugging, remove later.
 		if (Input.GetKeyDown (KeyCode.F5)) {
-			Debug.Log ("Refreshing Quests");
-			reorganizeQuests();
+			showQuests();
 		}
 	}
 
 	public void showQuests(){
-		Debug.Log ("Showing Quests");
+		removeQuestUIobjects ();
 		reorganizeQuests ();
 	}
 
@@ -69,9 +68,8 @@ public class QuestManagerUIController : MonoBehaviour {
 	 */
 	public void reorganizeQuests(){
 
-		//Debug.Log("reorganizing!");
-		Debug.Log (qm.questCount.ToString ());
-
+		moreQuestInfoTitle.text = "";
+		moreQuestInfoDescription.text = "";
 		float qcHeight;
 		qcHeight = (qm.questCount * (buttonHeight + spacing) - spacing);
 		RectTransform containerTransform = questContainer.GetComponent<RectTransform> ();
@@ -82,28 +80,43 @@ public class QuestManagerUIController : MonoBehaviour {
 			newQuestButton.transform.SetParent(questContainer.transform, false);
 			Text newButtonText = newQuestButton.transform.FindChild ("Text").GetComponent<Text>();
 			newButtonText.text = qm.currentQuests[i].GetName();
+			Button qb = newQuestButton.GetComponent<Button>();
+			addListener(qb, i);
+			if (i == 0){
+				qb.Select();
+			}
 		}
 		if (qm.questCount > 0) {
 			moreQuestInfoTitle.text = qm.currentQuests [0].GetName ();
 			Goal[] currQuestGoals = qm.currentQuests[0].GetGoal();
-			string goalText = "\n\n";
+			string goalText = "\n";
+			if(qm.currentQuests[0].HasTimer()){
+				goalText += "Quest Duration: " + qm.currentQuests[0].GetTimerLength() + " Seconds";
+			}
 			for(int i = 0; i < currQuestGoals.Length; i++){
-				goalText += currQuestGoals[i].GetName() + " - " + currQuestGoals[i].GetProgress() + " / " + currQuestGoals[i].GetProgrssNeeded() + "\n";
+				goalText += "\n" + currQuestGoals[i].GetName() + " - " + currQuestGoals[i].GetProgress() + " / " + currQuestGoals[i].GetProgrssNeeded();
 			}
 			moreQuestInfoDescription.text = qm.currentQuests [0].GetDescription () + goalText;
-			Debug.Log ("done reorganizing!");
 		}
-		/*Debug.Log ("Reorganizing Quests");
-		float qcHeight = questContainer.GetComponent<RectTransform> ().sizeDelta.y; 
-		qcHeight = (qm.questCount * (buttonHeight + spacing)) - spacing;
-		Debug.Log(qcHeight.ToString());
-		float qcPos = questContainer.GetComponent<RectTransform> ().position.y;
-		qcPos = 0 - (questContainer.GetComponent<RectTransform> ().sizeDelta.y / 2);
-		for (int i = 0; i < qm.questCount; i++) {
-			Instantiate(questUI, new Vector3(0, i * (buttonHeight + spacing), 0), Quaternion.identity);
-			questUI.transform.SetParent(questContainer.transform, false);
-			questUI.transform.FindChild ("QuestName").GetComponent<Text>().text = qm.currentQuests[i].GetName();
+	}
+
+	void addListener(Button b, int i){
+		b.onClick.AddListener (() => clickButton (i));
+	}
+
+	void clickButton(int iter){
+		moreQuestInfoTitle.text = qm.currentQuests [iter].GetName ();
+		Goal[] currQuestGoals = qm.currentQuests[iter].GetGoal();
+		string goalText = "\n";
+		for(int i = 0; i < currQuestGoals.Length; i++){
+			goalText += "\n" + currQuestGoals[i].GetName() + " - " + currQuestGoals[i].GetProgress() + " / " + currQuestGoals[i].GetProgrssNeeded();
 		}
-		Debug.Log ("Fin");*/
+		moreQuestInfoDescription.text = qm.currentQuests [iter].GetDescription () + goalText;
+	}
+
+	public void removeQuestUIobjects(){
+		foreach (Transform child in questContainer.transform) {
+			GameObject.Destroy(child.gameObject);
+		}
 	}
 }

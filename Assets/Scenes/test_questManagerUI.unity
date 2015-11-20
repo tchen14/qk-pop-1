@@ -1367,7 +1367,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Sprite: {fileID: 21300000, guid: 74e670e0fe2c24841ae93525b3ea1cfc, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 40f76a401ae03824a97f00e942abc444, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1451,7 +1451,7 @@ MonoBehaviour:
     m_HighlightedTrigger: Highlighted
     m_PressedTrigger: Pressed
     m_DisabledTrigger: Disabled
-  m_Interactable: 1
+  m_Interactable: 0
   m_TargetGraphic: {fileID: 1281384329}
   m_HandleRect: {fileID: 1281384328}
   m_Direction: 2
@@ -1841,7 +1841,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Sprite: {fileID: 21300000, guid: 4d39bd3e20de18f45bbd940a02b10e98, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 4f5239bf6af64ed46aa50aa140dfa96c, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1958,7 +1958,7 @@ MonoBehaviour:
     e_fieldIndex: 5
     e_MonoBehaviour: {fileID: 1535534124}
     e_GameObject: {fileID: 1535534123}
-    p_int: 0500000000000000000000000000000000000000
+    p_int: 0300000000000000000000000000000000000000
     p_bool: 0000000000
     p_float:
     - 0
@@ -2362,7 +2362,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Sprite: {fileID: 21300000, guid: 5db3e9419ca1c8f48ac17d11f0bb9937, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 8861aea7ada95214f8dd54dbd9cb0c7a, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -3029,7 +3029,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1535534123}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 6.0999999, y: 0, z: 12.8999996}
+  m_LocalPosition: {x: -5.44000006, y: 0, z: 8.71000004}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 517989493}
@@ -3774,7 +3774,7 @@ MonoBehaviour:
     e_fieldIndex: 5
     e_MonoBehaviour: {fileID: 1535534124}
     e_GameObject: {fileID: 1535534123}
-    p_int: 0300000000000000000000000000000000000000
+    p_int: 0500000000000000000000000000000000000000
     p_bool: 0000000000
     p_float:
     - 0
