@@ -304,51 +304,54 @@ public class QK_Character_Movement : MonoBehaviour {
 		if(!onLadder)
 		{
             // Just use an estimated distance check because absolute position checking is inaccurate
-            if (Vector3.Distance(transform.position, iObject.ladderStart) < 0.1f)
-            {
+            if (Vector3.Distance(transform.position, iObject.ladderStart) < 0.01f) {
+				// Ready to begin climbing
                 onLadder = true;
-            }
-            else
-            {
-                // Ready to begin climbing
+				climbToPosition = iObject.ladderStart;
+            } else {
                 transform.position = Vector3.Lerp(transform.position, iObject.ladderStart, 2 * Time.deltaTime);
-                climbToPosition = transform.position;
+				transform.rotation = Quaternion.Euler(new Vector3(iObject.transform.rotation.x, -(iObject.transform.rotation.y), iObject.transform.rotation.z));
             }
+
+			return;
 		}
 
 		Vector3 bottom = iObject.ladderStart;
 		Vector3 top = iObject.ladderEnd;
-		Vector3 climbDir = Vector3.Normalize(top - bottom)/5;
+		Vector3 climbDir = Vector3.zero;
+
+		if(Vector3.Distance(climbToPosition, transform.position) > 0.1f)
+		{
+			transform.position = Vector3.Lerp(transform.position, climbToPosition, 0.1f);
+			return;
+		}
 
 		if(InputManager.input.MoveVerticalAxis() > 0)
 		{
-			// Move up the Ladder
-			if(transform.position == top)
+			// Set position to move up
+			if(Vector3.Distance(transform.position, top) <= 0.1f)
 			{
-				// At the top, dismount
+				
 			}
 			else
 			{
-				//Move Character in climbDir
-                if (Vector3.Distance(climbToPosition, transform.position) <= 0.15)
-                {
-                    climbToPosition = transform.position + climbDir;
-                    transform.position = Vector3.Lerp(transform.position, transform.position + climbDir, 0.1f);
-                }
+				climbDir = Vector3.Normalize(top - transform.position);
 			}
 		}
 		else if(InputManager.input.MoveVerticalAxis() < 0)
 		{
-			// Move down the ladder
-			if(transform.position == bottom)
+			// Set position to move down
+			if(Vector3.Distance(transform.position, bottom) <= 0.1f)
 			{
-				// We're at the bottom, dismount
+				return;
 			}
 			else
 			{
-				// Move characters position in negative climbDir by some step
+				climbDir = Vector3.Normalize(bottom - transform.position);
 			}
 		}
+
+		climbToPosition = transform.position + climbDir;
 	}
 
 	bool IsInActionState()
