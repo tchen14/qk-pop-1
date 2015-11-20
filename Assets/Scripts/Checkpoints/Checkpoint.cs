@@ -3,15 +3,21 @@ using System.Collections;
 using System.Collections.Generic;
 
 [RequireComponent (typeof (SphereCollider))]
+/*! \class Checkpoint
+ * \brief It's a standard checkpoint.
+ * 
+ * Checkpoint reports to CheckpointManager. A checkpoint will add itself to the list Checkpoint.AllCheckpoints on awake
+ * and enable. It will remove itself from the list when it is disabled. When the player collides with the checkpoint
+ * the checkpoint sets itself to CheckpointManager.LatestWorldCheckpoint. 
+ */
 public class Checkpoint : MonoBehaviour
 {
 //START OLD CODE
     public float minDist = 0.0f; //!<Minimum distance away from the Checkpoint that CheckpointTrigger needs to be
-//<<<<<<< HEAD
+
 	public AIPath path_reference;
-//=======
+
 //END OLD CODE
-//>>>>>>> checkpointTester
 
 	void OnAwake()
 	{
@@ -26,28 +32,30 @@ public class Checkpoint : MonoBehaviour
 	{
         Gizmos.DrawIcon (transform.position, "checkpointGizmo.png");
     }
-//<<<<<<< HEAD
 
 	public Vector3 getPosition(){
 		return transform.position;
 	}
-//=======
 //END OLD CODE
 
-	void OnCollisionEnter(Collision col)
+	void OnTriggerEnter(Collider col)
 	{
 
-		//compare collision collider with player collider
-		if(col.collider.gameObject == QK_Character_Movement.Instance.gameObject)
+		Debug.Log("Checkpoint: collision trigger");
+
+		if(col.gameObject == QK_Character_Movement.Instance.gameObject)
 		{
-
 			//make self the most recently reached checkpoint
-			CheckpointManager.LatestWorldCheckPoint = transform;
+			CheckpointManager.instance.SetLatestWorldCheckpoint(transform);
+//			CheckpointManager.LatestWorldCheckPoint = transform;
 			Debug.Log("Checkpoint: " + gameObject.name + " is LatestWorldCheckpoint");
-
+		}
+		else
+		{
+			Debug.Log("Checkpoint: collision with non player collider");
 		}
 
-	}//END void OnCollisionEnter(Collision col)
+	}//END void OnTriggerEnter(Collider col)
 
 	void OnEnable()
 	{
@@ -61,6 +69,7 @@ public class Checkpoint : MonoBehaviour
 			Debug.Log("Checkpoint: " + gameObject.name + " enabled and added to list AllCheckpoints");
 
 		}
+
 	}//END void OnEnable()
 
 	void OnDisable()
@@ -72,4 +81,4 @@ public class Checkpoint : MonoBehaviour
 
 	}//END void OnDisable()
 
-}
+}//END public class Checkpoint : MonoBehaviour

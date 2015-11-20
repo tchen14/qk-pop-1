@@ -3,11 +3,14 @@ using System.Collections;
 using System.Collections.Generic;
 using Debug = FFP.Debug;
 
-/*
- *	This class oversees all checkpoint related function calls. It should not contain a Unity Update() function.
- *	When the player dies, it should call the respawn function. The function find the (direct) closest node in the tree.
- *	Once the closest node is found, it looks up the node's (navemesh/pathfinding) closest checkpoints.
- *	The closest accessible (area has been discovered/unlocked) checkpoint is used.
+
+/*! \class CheckpointManager
+ * \brief CheckpointManager tracks all enabled checkpoints
+ * 
+ * CheckpointManager keeps a list of all enabled checkpoints. The list is updated by each checkpoint as the checkpoint
+ * is enabled or disabled. It tracks the latest checkpoint reached by the player and the latest checkpoint set by the
+ * event manager (intended for use with quests). CheckpointManager can calculate the nearest checkpoint based on
+ * straight line distance as well as by using pathfinding.
  */
 public sealed class CheckpointManager : MonoBehaviour
 {
@@ -22,9 +25,16 @@ public sealed class CheckpointManager : MonoBehaviour
 //	public NodeTree checkpointTree;
 //END OLD CODE
 
-	public static Transform LatestWorldCheckPoint;							//!the most recently reached checkpoint, set by collision with player
-	public static Transform LatestQuestCheckpoint;							//!<the most recently passed quest checkpoint, set by event manager
-	public static List<Transform> AllCheckpoints = new List<Transform>();	//!<list of all active checkpoints
+	public static Transform LatestWorldCheckpoint;							//!The most recently reached checkpoint, set by collision with player
+	public static Transform LatestQuestCheckpoint;							//!<The most recently passed quest checkpoint, set by event manager
+	public static List<Transform> AllCheckpoints = new List<Transform>();	//!<A list of all active checkpoints, checkpoints update this list on awake, enabled, and disabled
+
+//TESTING
+	public string latestWorldName;
+	public string latestQuestName;
+	public string nearestName;
+	public string nearestByPath;
+//END TESTING
 
 //START OLD CODE
 	void Start(){
@@ -49,26 +59,61 @@ public sealed class CheckpointManager : MonoBehaviour
 	}
 //END OLD CODE
 
-	//!sets LatestQuestCheckpoint
-	/*!takes one argument, the transform of the checkpoint (Transform)*/
+	//!Set variable LatestWorldCheckpoint
+	/*! 
+	 * Sets LatestWorldCheckpoint
+	 * Takes one argument, the transform of the \a checkpoint
+	 * Created for testing purposes.
+	 * 
+	 * \param checkpoint the transform of the checkpoint being set as the latest world checkpoint
+	 */
+	public void SetLatestWorldCheckpoint(Transform checkpoint)
+	{
+
+		LatestWorldCheckpoint = checkpoint;
+		Debug.Log("Checkpoint", checkpoint.gameObject.name + " is the LatestWorldCheckpoint");
+//TESTING
+		latestWorldName = LatestWorldCheckpoint.name;
+//END TESTING
+	}
+
+	//!Set the variable LatestQuestCheckpoint
+	/*! 
+	 * Sets LatestQuestCheckpoint
+	 * Takes one argument, the transform of the \a checkpoint
+	 * Created for testing purposes
+	 * 
+	 * \param checkpoint the transform of the checkpoint being set as the latest quest checkpoint
+	 */
 	public void SetLatestQuestCheckpoint(Transform checkpoint)
 	{
 
 		LatestQuestCheckpoint = checkpoint;
 		Debug.Log("checkpoint",  checkpoint.gameObject.name + " is LatestQuestCheckpoint");
 
+//TESTING
+		latestQuestName = LatestQuestCheckpoint.name;
+//END TESTING
+
 	}//END public void SetLatestQuestCheckpoint(Transform checkpoint)
 
-	//!returns the transform of the nearest checkpoint by straight line distance
-	/*!takes one argument, the position of the player (Vector3)*/
-	public Transform FindNearestCheckpoint(Vector3 player)
+	//!Find the nearest checkpoint by straight line distance
+	/*!
+	 * Returns the nearest checkpoint.
+	 * Takes one argument, the position of the \a player
+	 * 
+	 * \param player Vector3 position of the player
+	 * \return NearestCheckpoint transform of the nearest checkpoint
+	 * \sa NearestCheckpointByPath()
+	 */
+	public Transform NearestCheckpoint(Vector3 player)
 	{
 
 		Transform nearest;		//the nearest checkpoint
 		float nearestDistance;	//the distance to the nearest checkpoint
 		float currentDistance;	//distance to the checkpoint that is currently being tested in the for loop
 
-		//error checking
+		//check for empty list
 		if(ListEmpty())
 		{
 			return null;
@@ -97,24 +142,36 @@ public sealed class CheckpointManager : MonoBehaviour
 
 		}//END for(int i = 1; i < AllCheckpoints.Count; i++)
 
+//TESTING
+		nearestName = nearest.name;
+//END TESTING
 		return nearest;
 	}
 
-	//!returns the nearest checkpoint by distance of shortest path by NavMesh - work in progress
-	/*!takes one argument, the position of the player (Vector3)*/
-	/*!uses code adapted from docs.unity3d.com/ScriptReference/NavMeshPath-corners.html for path length calculation*/
-	/*!may cause performance issues if the number of checkpoints is too large due to NavMesh.CalculatePath called for each checkpoint in the list*/
-	/*!could add distance check to only calculate checkpoints that are near*/
-	public Transform FindNearestCheckpointByPath(Vector3 player)
+	//!Find the nearest checkpoint by navmesh path
+	/*!
+	 * Returns the nearest checkpoint by distance of shortest path by NavMesh
+	 * Takes one argument, the position of the \a player
+	 * Uses code adapted from docs.unity3d.com/ScriptReference/NavMeshPath-corners.html for path length calculation
+	 * May cause performance issues if the number of checkpoints is too large due to NavMesh.CalculatePath called for each checkpoint in the list
+	 * 
+	 * \param player Vector3 position of the player
+	 * \return NearestCheckpointByPath returns the transform of the nearest checkpoint by pathfinding
+	 * \sa NearestCheckpoint()
+	 */
+	public Transform NearestCheckpointByPath(Vector3 player)
 	{
 
-		NavMeshPath path = new NavMeshPath();
+		//could add distance check to only calculate checkpoints that are near
+
+
+		NavMeshPath path = new NavMeshPath();	//path used for distance calculation
 
 		Transform nearest = AllCheckpoints[0];	//the nearest checkpoint
 		float nearestDistance = -1.0f;			//the distance to the nearest checkpoint, set to negative for first array iteration
 		float distanceSum = 0.0f;				//sum of the distances between corners making up the path between the player and the currently tested checkpoint
 
-		//error checking
+		//check for empty list
 		if(ListEmpty())
 		{
 			return null;
@@ -183,6 +240,11 @@ public sealed class CheckpointManager : MonoBehaviour
 		}//END for(int currentCheckpoint = 0; currentCheckpoint < AllCheckpoints.Count; currentCheckpoint++)
 
 		//return the transform of the nearest checkpoint
+
+//TESTING
+		nearestByPath = nearest.name;
+//END TESTING
+
 		return nearest;
 
 	}//END public Transform FindNearestCheckpointByPath(Vector3 player)
@@ -202,5 +264,7 @@ public sealed class CheckpointManager : MonoBehaviour
 		{
 			return false;
 		}
-	}
+
+	}//END bool ListEmpty()
+
 }//END public sealed class CheckpointManager : MonoBehaviour
