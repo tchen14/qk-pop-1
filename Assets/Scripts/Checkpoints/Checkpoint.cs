@@ -41,18 +41,18 @@ public class Checkpoint : MonoBehaviour
 	void OnTriggerEnter(Collider col)
 	{
 
-		Debug.Log("Checkpoint: collision trigger");
+        FFP.Debug.Log("checkpoint", "Checkpoint: collision trigger");
 
 		if(col.gameObject == QK_Character_Movement.Instance.gameObject)
 		{
 			//make self the most recently reached checkpoint
 			CheckpointManager.instance.SetLatestWorldCheckpoint(transform);
-//			CheckpointManager.LatestWorldCheckPoint = transform;
-			Debug.Log("Checkpoint: " + gameObject.name + " is LatestWorldCheckpoint");
+            //			CheckpointManager.LatestWorldCheckPoint = transform;
+            FFP.Debug.Log("checkpoint", "Checkpoint: " + gameObject.name + " is LatestWorldCheckpoint");
 		}
 		else
 		{
-			Debug.Log("Checkpoint: collision with non player collider");
+            FFP.Debug.Log("checkpoint", "Checkpoint: collision with non player collider");
 		}
 
 	}//END void OnTriggerEnter(Collider col)
@@ -66,7 +66,7 @@ public class Checkpoint : MonoBehaviour
 
 			//add to list
 			CheckpointManager.AllCheckpoints.Add(transform);
-			Debug.Log("Checkpoint: " + gameObject.name + " enabled and added to list AllCheckpoints");
+            FFP.Debug.Log("checkpoint", "Checkpoint: " + gameObject.name + " enabled and added to list AllCheckpoints");
 
 		}
 
@@ -77,7 +77,7 @@ public class Checkpoint : MonoBehaviour
 
 		//remove self from list when checkpoint is disabled or destroyed
 		CheckpointManager.AllCheckpoints.Remove(transform);
-		Debug.Log("Checkpoint: " + gameObject.name + " disabled and removed from list AllCheckpoints");
+		FFP.Debug.Log("checkpoint", "Checkpoint: " + gameObject.name + " disabled and removed from list AllCheckpoints");
 
 	}//END void OnDisable()
 
