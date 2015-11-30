@@ -161,7 +161,6 @@ public class Item : MonoBehaviour
 				NoEffect();
 			}
 			break;
-			break;
 		}
 		//cutCompatible = false;
 	}

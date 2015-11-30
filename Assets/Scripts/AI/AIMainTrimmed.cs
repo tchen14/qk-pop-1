@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿#pragma warning disable 414     //Variable assigned and not used: PlayerLastPos, DecrementaggressionRunning
+
+using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;

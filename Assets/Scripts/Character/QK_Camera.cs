@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿#pragma warning disable 414     //Variable assigned and not used: desiredDistance
+
+using UnityEngine;
 using System.Collections;
 
 public class QK_Camera : MonoBehaviour {

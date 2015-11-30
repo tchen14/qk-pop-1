@@ -48,7 +48,7 @@ public class DialogueEditorWindow : EditorWindow {
 	[MenuItem ("Window/Dialoguer/Dialogue Editor", false, 0)]
 	static void Init () {
 		DialogueEditorWindow window = (DialogueEditorWindow)EditorWindow.GetWindow(typeof(DialogueEditorWindow));
-		window.title = "Dialogue Editor";
+		window.titleContent = new GUIContent("Dialogue Editor");
 		window.minSize = new Vector2(1120, 400);
 		window.init();
 	}

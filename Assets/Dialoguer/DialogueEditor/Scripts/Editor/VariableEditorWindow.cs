@@ -15,7 +15,7 @@ public class VariableEditorWindow : EditorWindow {
 	[MenuItem ("Window/Dialoguer/Variables", false, 0)]
 	static void Init () {
 		VariableEditorWindow window = (VariableEditorWindow)EditorWindow.GetWindow(typeof(VariableEditorWindow));
-		window.title = "Variable Editor";
+		window.titleContent = new GUIContent("Variable Editor");
 		window.minSize = new Vector2(300, 400);
 		window.maxSize = new Vector2(300, 9999);
 		window.init();

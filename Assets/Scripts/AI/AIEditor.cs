@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿#pragma warning disable 414     //Variable assigned and not used: attackDistance_, AI_Data.paths, AIEditor.paths, current_preset
+
+using UnityEngine;
 using UnityEditor;
 using System.Collections;
 using System.Collections.Generic;

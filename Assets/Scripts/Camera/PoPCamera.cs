@@ -1,3 +1,6 @@
+#pragma warning disable 168     //Variable assigned and not used: Deadzone
+#pragma warning disable 414     //Variable assigned and not used: mousePosition, occluded
+
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;

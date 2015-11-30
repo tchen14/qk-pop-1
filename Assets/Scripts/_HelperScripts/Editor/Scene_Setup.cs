@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿#pragma warning disable 219     //Variable assigned and not used: quinc, hud
+
+using UnityEngine;
 using UnityEditor;
 using System.Collections;
 

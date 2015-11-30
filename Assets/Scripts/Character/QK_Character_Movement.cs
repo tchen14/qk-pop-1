@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿#pragma warning disable 414     //Variable assigned and not used: slideSpeed, groundNormal, slideTheshold, MaxControllableSlideMagnitude, slideDirection, targetAngle
+
+using UnityEngine;
 using System.Collections;
 using Debug = FFP.Debug;
 

@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿#pragma warning disable 168     //Variable assigned and not used: window
+
+using UnityEngine;
 using UnityEditor;
 using System.Collections;
 using System.Collections.Generic;

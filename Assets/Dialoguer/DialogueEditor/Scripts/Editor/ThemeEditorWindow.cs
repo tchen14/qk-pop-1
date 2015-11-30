@@ -14,7 +14,7 @@ namespace DialoguerEditor{
 		//[MenuItem ("Window/Dialoguer/Themes", false, 0)]
 		static void Init () {
 			ThemeEditorWindow window = (ThemeEditorWindow)EditorWindow.GetWindow(typeof(ThemeEditorWindow));
-			window.title = "Theme Editor";
+			window.titleContent = new GUIContent("Theme Editor");
 			window.minSize = new Vector2(300, 400);
 			window.maxSize = new Vector2(300, 9999); 
 		}
