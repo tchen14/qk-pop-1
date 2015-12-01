@@ -170,7 +170,6 @@ public class Item : MonoBehaviour
 				NoEffect();
 			}
 			break;
-			break;
 		}
 		//cutCompatible = false;
 	}
@@ -500,7 +499,11 @@ public class Item : MonoBehaviour
 			else heading = Vector3.zero;
 			break;
 		case push_type.Anim:
-			break;
+            if (gameObject.transform.parent.gameObject.GetComponent<ItemAnimator>())
+            {
+                gameObject.transform.parent.gameObject.GetComponent<ItemAnimator>().set_in_motion();
+            }
+            return;
 		}
 
 		heading.y = 0.0f;

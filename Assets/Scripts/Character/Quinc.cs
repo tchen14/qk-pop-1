@@ -4,12 +4,12 @@ using System.Collections.Generic;
 using Debug = FFP.Debug;
 
 public enum quincy_ability{
-	Cut,
-	SoundThrow,
-	Stun,
-	Push,
-	Pull,
-	Heat,
+    Pull,
+    Push,
+    Stun,
+    SoundThrow,
+    Cut,
+    Heat,
 	Cool,
 	Blast
 };
@@ -88,7 +88,7 @@ public sealed class Quinc : MonoBehaviour
 
 	void FixedUpdate()
 	{
-		//activeAbility = (quincy_ability)abilitySelector.getSelectedAbility();
+		activeAbility = (quincy_ability)abilitySelector.getSelectedAbility();
 		if(InputManager.input.AbilityPressed() && PoPCamera.State == PoPCamera.CameraState.TargetLock)
 		{
 				try_ability(activeAbility);
@@ -101,7 +101,6 @@ public sealed class Quinc : MonoBehaviour
 	 * @param newTarget Optional parameter if you wish to use this function on an object that is not the camera target.
 	 */
 	void try_ability(quincy_ability ability, GameObject newTarget = null){
-
 		if (ability_ready (ability)) {
 			GameObject target = PoPCamera.instance.CurrentTarget();
 			if(target && target.GetComponent<Item>()){
