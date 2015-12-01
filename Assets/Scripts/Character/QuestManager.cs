@@ -76,6 +76,7 @@ public class QuestManager : MonoBehaviour {
 
 	[EventVisibleAttribute]
 	public void CompleteGoalInQuest(int questID, int goalIndex) {
+		Debug.Log("IN COMPLETE GOAL IN QUEST!");
 		if (currentQuests.Count < 1) {
 			Debug.Log("No quests in List!");
 			return;

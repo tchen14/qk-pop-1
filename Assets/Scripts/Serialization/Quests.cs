@@ -2,7 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using SimpleJSON;
-
+using System;
 
 public class Quest {
 
@@ -38,6 +38,7 @@ public class Quest {
 
 	public Quest AddQuest(int id) {
 		JSONNode quests = RetrieveQuestsFromJSON ();
+		char[] deliminerChars = {'"'};
 
 		if (quests[id.ToString()] == null) {
 			Debug.LogError("Quest ID: " + id + " doesn't exist! Make sure it is added into the JSON file.");
@@ -50,13 +51,14 @@ public class Quest {
 
 
 			for(int i = 0; i < quests[id.ToString ()][3].Count; i++) {
-
 				if(quests[id.ToString ()][3][i][0] == null) {
 					Goal newGoal = new Goal(quests[id.ToString ()][3][i]);
 					newGoals[i] = newGoal;
 				}
 				else {
-					Goal newGoal = new Goal(quests[id.ToString ()][3][i], quests[id.ToString ()][3][i][0].AsInt);
+					string[] goalText = quests[id.ToString()][3][i].ToString().Split(deliminerChars);
+					//Goal newGoal = new Goal(quests[id.ToString ()][3][i], quests[id.ToString ()][3][i][0].AsInt);
+					Goal newGoal = new Goal(goalText[1],  Convert.ToInt32(goalText[3]));
 					Debug.Log(quests[id.ToString ()][3][i].Keys);
 					newGoals[i] = newGoal;
 				}

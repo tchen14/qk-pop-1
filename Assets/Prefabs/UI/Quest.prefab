@@ -59,7 +59,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
-    m_Mode: 3
+    m_Mode: 2
     m_SelectOnUp: {fileID: 0}
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
@@ -73,7 +73,7 @@ MonoBehaviour:
     m_ColorMultiplier: 1
     m_FadeDuration: .100000001
   m_SpriteState:
-    m_HighlightedSprite: {fileID: 21300000, guid: 98e52e2f43e21d94c83624872d87bdf8,
+    m_HighlightedSprite: {fileID: 21300000, guid: 58f22f8b3ec9f56408bd97b9901c549f,
       type: 3}
     m_PressedSprite: {fileID: 0}
     m_DisabledSprite: {fileID: 0}
@@ -139,7 +139,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Sprite: {fileID: 21300000, guid: 8eb9859b4a5faa34c88bf9ca98045964, type: 3}
+  m_Sprite: {fileID: 21300000, guid: f917079fa75bd9844a2924f85dc76a87, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -216,17 +216,21 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: 8eb9859b4a5faa34c88bf9ca98045964,
+      objectReference: {fileID: 21300000, guid: f917079fa75bd9844a2924f85dc76a87,
         type: 3}
     - target: {fileID: 0}
       propertyPath: m_SpriteState.m_HighlightedSprite
       value: 
-      objectReference: {fileID: 21300000, guid: 98e52e2f43e21d94c83624872d87bdf8,
+      objectReference: {fileID: 21300000, guid: 58f22f8b3ec9f56408bd97b9901c549f,
         type: 3}
     - target: {fileID: 0}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 186950}
+    - target: {fileID: 0}
+      propertyPath: m_Navigation.m_Mode
+      value: 2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 186950}
