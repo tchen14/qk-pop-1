@@ -41,9 +41,9 @@ GameObject:
   m_Component:
   - 4: {fileID: 403712}
   - 143: {fileID: 14344496}
+  - 114: {fileID: 11405998}
+  - 114: {fileID: 11458004}
   - 114: {fileID: 11462642}
-  - 114: {fileID: 11456184}
-  - 114: {fileID: 11466246}
   m_Layer: 0
   m_Name: _Player
   m_TagString: Player
@@ -303,7 +303,7 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 186956}
   m_Mesh: {fileID: 10208, guid: 0000000000000000e000000000000000, type: 0}
---- !u!114 &11456184
+--- !u!114 &11405998
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -314,12 +314,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9adf9987abc77654a96fb0c6bf45d79b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 10
-  jumpSpeed: 6
-  gravity: 21
-  terminalVelocity: 20
+  _moveState: 0
+  _stateModifier: 0
+  curSpeed: 0
+  runSpeed: 10
+  jumpSpeed: 9
+  slideSpeed: 8
+  gravity: 25
+  terminalVelocity: 50
+  turnRate: 5
   slideTheshold: .600000024
   MaxControllableSlideMagnitude: .400000006
+--- !u!114 &11458004
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 155992}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 57e34305fd9ef674da4c23001a8427ba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &11462642
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -342,20 +358,9 @@ MonoBehaviour:
   stunTarget: {fileID: 0}
   heatColdTarget: {fileID: 0}
   blastTarget: {fileID: 0}
-  testAbility: 0
+  activeAbility: 0
   pushPullLerp: 0
   abilitySelector: {fileID: 0}
---- !u!114 &11466246
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 155992}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 57e34305fd9ef674da4c23001a8427ba, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!143 &14344496
 CharacterController:
   m_ObjectHideFlags: 1
@@ -383,6 +388,10 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: m_TagString
       value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}

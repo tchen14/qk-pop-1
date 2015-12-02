@@ -34,7 +34,7 @@ namespace FFP {
 		// Add menu named "My Window" to the Window menu
 		[MenuItem("Custom Tools/Debug Log Manager")]
 		static void Init() {
-			EditorWindow.GetWindow(typeof(Debug)).title = "Debug Log";
+			EditorWindow.GetWindow(typeof(Debug)).titleContent = new GUIContent("Debug Log");
 		}
 
 		// This function is called any time the play button is pressed, after the OnDisable function

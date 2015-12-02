@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿#pragma warning disable 219     //Variable assigned and not used: quinc, hud
+
+using UnityEngine;
 using UnityEditor;
 using System.Collections;
 
@@ -11,13 +13,15 @@ public class Scene_Setup : EditorWindow {
 		GameObject objManager = GameObject.Find ("_ObjectManager");
 		GameObject masterManager = GameObject.Find ("_MasterSceneManager");
 		GameObject inputManager = GameObject.Find ("_InputManager");
-		GameObject audioManager = GameObject.Find ("_AudioManager");
+        GameObject audioManager = GameObject.Find("_AudioManager");
+        GameObject hudManager = GameObject.Find("_HUDManager");
 		// player
 		GameObject player = GameObject.Find ("_Player");
 		GameObject camera = GameObject.Find("_Main Camera");
 		GameObject abilitydockanim = GameObject.Find ("AbilityDock");
 		// UI
 		GameObject ui = GameObject.Find("UI");
+
 
 
 		if (objManager == null) {
@@ -53,6 +57,18 @@ public class Scene_Setup : EditorWindow {
 			audioManager = GameObject.Find ("_AudioManager");
 			ObjectManager.AddSavedObject(go.transform);
 		}
+
+        if (hudManager == null)
+        {
+            go = new GameObject();
+            GameHUD gameHud = go.AddComponent<GameHUD>();
+            PauseMenu pauseMenu = go.AddComponent<PauseMenu>();
+            gameHud.accessManager = pauseMenu;
+            pauseMenu.GHud = gameHud;
+            go.name = "_HUDManager";
+            hudManager = GameObject.Find("_HUDManager");
+            ObjectManager.AddSavedObject(go.transform);
+        }
 
 		if(ui == null){
 			Object prefab = AssetDatabase.LoadAssetAtPath("Assets/Prefabs/UI/UI.prefab", typeof (GameObject));
@@ -92,13 +108,13 @@ public class Scene_Setup : EditorWindow {
 			camera = GameObject.Find("_Main Camera");
 			GameHUD hud = go.GetComponent<GameHUD>();
 
-			Object icon_pull = AssetDatabase.LoadAssetAtPath("Assets/Prefabs/UI/HUDIcons/abilityButtonPull.prefab", typeof(GameObject));
-			Object icon_push = AssetDatabase.LoadAssetAtPath("Assets/Prefabs/UI/HUDIcons/abilityButtonPush.prefab", typeof(GameObject));
-			Object icon_shock = AssetDatabase.LoadAssetAtPath("Assets/Prefabs/UI/HUDIcons/abilityButtonShock.prefab", typeof(GameObject));
+            //Object icon_pull = AssetDatabase.LoadAssetAtPath("Assets/Prefabs/UI/HUDIcons/abilityButtonPull.prefab", typeof(GameObject));
+            //Object icon_push = AssetDatabase.LoadAssetAtPath("Assets/Prefabs/UI/HUDIcons/abilityButtonPush.prefab", typeof(GameObject));
+            //Object icon_shock = AssetDatabase.LoadAssetAtPath("Assets/Prefabs/UI/HUDIcons/abilityButtonShock.prefab", typeof(GameObject));
 
-			hud.hudAbilityIcons.Add(Instantiate(icon_pull, Vector3.zero, Quaternion.identity) as GameObject);
-			hud.hudAbilityIcons.Add(Instantiate(icon_push, Vector3.zero, Quaternion.identity) as GameObject);
-			hud.hudAbilityIcons.Add(Instantiate(icon_shock, Vector3.zero, Quaternion.identity) as GameObject);
+            //hud.hudAbilityIcons.Add(Instantiate(icon_pull, Vector3.zero, Quaternion.identity) as GameObject);
+            //hud.hudAbilityIcons.Add(Instantiate(icon_push, Vector3.zero, Quaternion.identity) as GameObject);
+            //hud.hudAbilityIcons.Add(Instantiate(icon_shock, Vector3.zero, Quaternion.identity) as GameObject);
 			ObjectManager.AddSavedObject(go.transform);
 		}
 	}

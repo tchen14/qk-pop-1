@@ -1,10 +1,13 @@
-﻿using UnityEngine;
+﻿#pragma warning disable 414     //Variable assigned and not used: originalColor
+
+using UnityEngine;
 using System.Collections;
 //using Debug=FFP.Debug;
 
 [RequireComponent(typeof(Targetable))]
 [EventVisible]
-public class Crate : Item
+//public class Crate : Item
+	public class Crate : MonoBehaviour
 {
 
 	public Vector3 startPosition;		//starting location of the crate
@@ -18,16 +21,16 @@ public class Crate : Item
 	void Start ()
 	{
 
-		itemName = "Crate";
-		pushCompatible = true;
-		pullCompatible = true;
+//		itemName = "Crate";
+//		pushCompatible = true;
+//		pullCompatible = true;
 		startPosition = transform.position;
 		moveDist = 0f;
 		hasMoved = false;
 		isSnapping = false;
 		originalColor = GetComponent<Renderer>().material.color;
 
-	}
+	}//END void Start()
 	
 	// Update is called once per frame
 	void Update ()
@@ -63,12 +66,7 @@ public class Crate : Item
 
 	public IEnumerator SnapBack()
 	{
-
-		if(Quinc.Instance.coMoveSlowly != null)
-		{
-
-			Quinc.Instance.stopCo("MoveSlowly");
-		}
+		
 
 		while(!transform.position.Equals(startPosition))
 		{
