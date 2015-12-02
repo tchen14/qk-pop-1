@@ -91,9 +91,7 @@ public class Item : MonoBehaviour
 
 	void Update(){
 		if (is_targeted) {
-			float x = gameObject.transform.position.x;
-			float y = gameObject.transform.position.y;
-			gameObject.GetComponent<Rigidbody>().AddForce(new Vector3(0.0f, 17.0f, 0.0f));
+
 		}
 	}
 

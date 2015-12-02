@@ -142,16 +142,43 @@ public class AIEditor : Editor {
 
 		if (EditorGUILayout.BeginFadeGroup (show_data.faded))
 		{
-			EditorGUILayout.LabelField("Health: ",ai_target.hp.ToString() );
-			EditorGUILayout.LabelField("Sight Distance: ",ai_target.sightDistance.ToString() );
-			EditorGUILayout.LabelField("Sight Angle: ",ai_target.sightAngle.ToString() );
-			EditorGUILayout.LabelField("Speed: ",ai_target.speed.ToString() );
-			EditorGUILayout.LabelField("Running Speed: ",ai_target.runSpeed.ToString() );
-			EditorGUILayout.LabelField("Targets: ",print_array(ai_target.seekTag));
-			EditorGUILayout.LabelField("Attack Distance: ",ai_target.attackDistance.ToString() );
-			EditorGUILayout.LabelField("Aggression Limit: ",ai_target.aggressionLimit.ToString() );
-			EditorGUILayout.LabelField("Panic Points: ",ai_target.panicPoints );
-			EditorGUILayout.LabelField("Aggressive: ",ai_target.enemy.ToString() );
+			float label_field_width = 90.0f;
+
+			GUILayout.BeginHorizontal();
+			GUILayout.Label("Health:", GUILayout.MaxWidth(label_field_width));
+			ai_target.hp = EditorGUILayout.FloatField(ai_target.hp);
+			GUILayout.EndHorizontal();
+
+			GUILayout.BeginHorizontal();
+			GUILayout.Label("Sight Distance:", GUILayout.MaxWidth(label_field_width));
+			ai_target.sightDistance = EditorGUILayout.FloatField(ai_target.sightDistance);
+			GUILayout.EndHorizontal();
+
+			GUILayout.BeginHorizontal();
+			GUILayout.Label("Sight Angle:", GUILayout.MaxWidth(label_field_width));
+			ai_target.sightAngle = EditorGUILayout.FloatField(ai_target.sightAngle);
+			GUILayout.EndHorizontal();
+
+			GUILayout.BeginHorizontal();
+			GUILayout.Label("Speed:", GUILayout.MaxWidth(label_field_width));
+			ai_target.speed = EditorGUILayout.FloatField(ai_target.speed);
+			GUILayout.EndHorizontal();
+
+			GUILayout.BeginHorizontal();
+			GUILayout.Label("Running Speed:", GUILayout.MaxWidth(label_field_width));
+			ai_target.runSpeed = EditorGUILayout.FloatField(ai_target.runSpeed);
+			GUILayout.EndHorizontal();
+
+			GUILayout.BeginHorizontal();
+			GUILayout.Label("Attack Distance:", GUILayout.MaxWidth(label_field_width));
+			ai_target.attackDistance = EditorGUILayout.FloatField(ai_target.attackDistance);
+			GUILayout.EndHorizontal();
+
+			GUILayout.BeginHorizontal();
+			GUILayout.Label("Aggression Limit:", GUILayout.MaxWidth(label_field_width));
+			ai_target.aggressionLimit = EditorGUILayout.FloatField(ai_target.aggressionLimit);
+			GUILayout.EndHorizontal();
+
 		}
 		EditorGUILayout.EndFadeGroup();
 
