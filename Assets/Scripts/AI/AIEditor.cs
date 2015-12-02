@@ -8,7 +8,7 @@ public struct AI_Data
 {
 	private int hp_;
 	private float sightDistance_;
-	private float sightAngle_;
+	private float passiveSightAngle_;
 	private float speed_;
 	private float runSpeed_;
 	private string[] seekTag_;
@@ -18,10 +18,11 @@ public struct AI_Data
 	private bool aggression_;
 	private List<GameObject> paths;
     private float suspicion_;
+    private float chasingSightAngle_;
 
 	public AI_Data(int hp,
-	               float sightDistance,
-	               float sightAngle,
+	               float SightDistance,
+	               float passiveSightAngle,
 	               float speed,
 	               float runSpeed,
 	               string[] seekTag,
@@ -29,11 +30,12 @@ public struct AI_Data
 	               float aggressionLimit,
 	               string panicPoints,
 	               bool aggression,
-                   float suspicionLimit)
+                   float suspicionLimit,
+                   float chasingSightAngle)
 	{
 		hp_ = hp;
-		sightDistance_ = sightDistance;
-		sightAngle_ = sightAngle;
+		sightDistance_ = SightDistance;
+		passiveSightAngle_ = passiveSightAngle;
 		speed_ = speed;
 		runSpeed_ = runSpeed;
 		seekTag_ = seekTag;
@@ -43,13 +45,14 @@ public struct AI_Data
 		aggression_ = aggression;
 		paths = new List<GameObject> ();
         suspicion_ = suspicionLimit;
+        chasingSightAngle_ = chasingSightAngle;
 	}
 
 	public void loadData(AIMainTrimmed target)
 	{
 		target.hp = hp_;
 		target.sightDistance = sightDistance_;
-		target.sightAngle = sightAngle_;
+		target.passiveSightAngle = passiveSightAngle_;
 		target.speed = speed_;
 		target.runSpeed = runSpeed_;
 		target.seekTag = seekTag_;
@@ -57,6 +60,7 @@ public struct AI_Data
 		target.panicPoints = panicPoints_;
 		target.enemy = aggression_;
         target.suspicionLimit = suspicion_;
+        target.chasingSightAngle = chasingSightAngle_;
 	}
 }
 
@@ -68,12 +72,12 @@ public class AIEditor : Editor {
 	AIMainTrimmed ai_target;
 	AnimBool show_data;
 	string[] ai_types = new string[]{"Villager", "Guard", "Commander"};
-	string[] path_types = new string[]{"one way", "loop around", "back and forth"};
+	string[] path_types = new string[]{"one way", "loop around", "back and forth", "On Guard"};
 
 	AI_Data[] ai_data = new AI_Data[]{
-		new AI_Data(100, 5, 35, 5, 8, new string[]{"Player"}, 3, 10, "PanicPoints", false, 10),
-		new AI_Data(200, 15, 15, 6, 12, new string[]{"Player"}, 5, 5, "PanicPoints", true, 5),
-		new AI_Data(300, 5, 35, 7, 16, new string[]{"Player"}, 7, 10, "PanicPoints", true, 10)};
+		new AI_Data(100, 5, 35, 5, 8, new string[]{"Player"}, 3, 10, "PanicPoints", false, 10, 70),
+		new AI_Data(200, 15, 35, 6, 12, new string[]{"Player"}, 5, 5, "PanicPoints", true, 5, 70),
+		new AI_Data(300, 5, 35, 7, 16, new string[]{"Player"}, 7, 10, "PanicPoints", true, 10,70)};
 
 	int ai_types_index = 0;
 	int current_selection = 0;
@@ -142,8 +146,9 @@ public class AIEditor : Editor {
 		{
 			EditorGUILayout.LabelField("Health: ",ai_target.hp.ToString() );
 			EditorGUILayout.LabelField("Sight Distance: ",ai_target.sightDistance.ToString() );
-			EditorGUILayout.LabelField("Sight Angle: ",ai_target.sightAngle.ToString() );
-			EditorGUILayout.LabelField("Speed: ",ai_target.speed.ToString() );
+			EditorGUILayout.LabelField("Passive Sight Angle: ",ai_target.passiveSightAngle.ToString() );
+            EditorGUILayout.LabelField("Chasing Sight Angle: ", ai_target.chasingSightAngle.ToString());
+            EditorGUILayout.LabelField("Speed: ",ai_target.speed.ToString() );
 			EditorGUILayout.LabelField("Running Speed: ",ai_target.runSpeed.ToString() );
 			EditorGUILayout.LabelField("Targets: ",print_array(ai_target.seekTag));
 			EditorGUILayout.LabelField("Attack Distance: ",ai_target.attackDistance.ToString() );
