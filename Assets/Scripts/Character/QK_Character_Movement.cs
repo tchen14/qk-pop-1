@@ -8,8 +8,12 @@ public class QK_Character_Movement : MonoBehaviour {
 	public static QK_Character_Movement Instance 
 	{
 		get 
-		{ 
-			return _instance ?? (_instance = GameObject.FindObjectOfType<QK_Character_Movement> ()); 
+		{
+			_instance = _instance ?? (_instance = GameObject.FindObjectOfType<QK_Character_Movement>());
+			if(_instance == null) {
+				Debug.Warning("player", "Character Controller is not in scene but a script is attempting to reference it.");
+			}
+			return _instance;
 		}
 	}
 
@@ -19,19 +23,15 @@ public class QK_Character_Movement : MonoBehaviour {
 
 	public static CharacterController charCont;
 
-	[ReadOnlyAttribute]
-	public float curSpeed = 0f;
+	[ReadOnly] public float curSpeed = 0f;
 	private float acceleration = 0.3f;
-	[ReadOnlyAttribute]
-	public float runSpeed = 8f;
+	[ReadOnly] public float runSpeed = 8f;
 	private float sprintSpeed = 12f;
 	private float crouchSpeed = 4f;
-	[ReadOnlyAttribute]
-	public float jumpSpeed = 8f;
+	[ReadOnly] public float jumpSpeed = 8f;
 	private float slideSpeed = 8f;
 	private float gravity = 30f;
-	[ReadOnlyAttribute]
-	public float verticalVelocity = 0f;
+	[ReadOnly] public float verticalVelocity = 0f;
 	private float terminalVelocity = 20f;
 	private float turnRate = 5f;
 
@@ -44,6 +44,8 @@ public class QK_Character_Movement : MonoBehaviour {
 
     // Ladder Variables
     private bool onLadder = false;
+	private bool dismountTop = false;
+	private bool dismountBottom = false;
     private Vector3 climbToPosition = Vector3.zero;
 	private Vector3 ladderDismountPos = Vector3.zero;
 
@@ -84,7 +86,7 @@ public class QK_Character_Movement : MonoBehaviour {
 				break;
 
 			default:
-					ProcessStandardMotion();
+				ProcessStandardMotion();
 				break;
 			
 		}
@@ -311,7 +313,7 @@ public class QK_Character_Movement : MonoBehaviour {
 				climbToPosition = iObject.ladderStart;
             } else {
                 transform.position = Vector3.Lerp(transform.position, iObject.ladderStart, 2 * Time.deltaTime);
-				transform.rotation = Quaternion.Euler(new Vector3(iObject.transform.rotation.x, -(iObject.transform.rotation.y), iObject.transform.rotation.z));
+				transform.LookAt(transform.position - iObject.transform.forward);
             }
 
 			return;
@@ -321,27 +323,55 @@ public class QK_Character_Movement : MonoBehaviour {
 		Vector3 top = iObject.ladderEnd;
 		Vector3 climbDir = Vector3.zero;
 
+		// Check if we're at top or bottom
+		if(dismountTop)
+		{
+			// Do dismount top
+			transform.position = Vector3.Lerp(transform.position, top + transform.forward / 1.5f, Time.deltaTime * 2);
+
+			if(Vector3.Distance(transform.position, top + transform.forward / 1.5f) <= 0.01f)
+				Reset();
+			return;
+		}
+		else if(dismountBottom) 
+		{
+			// Do dismount bottom
+			transform.position = Vector3.Lerp(transform.position, bottom - transform.forward / 1.5f, Time.deltaTime * 2);
+
+			if(Vector3.Distance(transform.position, bottom - transform.forward / 1.5f) <= 0.01f)
+				Reset();
+			return;
+		}
+
 		if(Vector3.Distance(climbToPosition, transform.position) > 0.1f)
 		{
-			if(Vector3.Distance(transform.position, top) <= 0.01f) {
-				Dismount("top");
-				return;
-			} else if(Vector3.Distance(transform.position, bottom) <= 0.01f) {
-				Dismount("bottom");
-				return;
-			}
-
 			transform.position = Vector3.Lerp(transform.position, climbToPosition, 0.1f);
 			return;
 		}
 
 		if(InputManager.input.MoveVerticalAxis() > 0)
 		{
+			if(Vector3.Distance(transform.position, top) <= 0.5f)
+			{
+				if(Vector3.Distance(transform.position, top) <= 0.01f)
+					dismountTop = true;
+				else
+					transform.position = Vector3.Lerp(transform.position, top, Time.deltaTime * 2);
+				return;
+			}
 			// Set position to move up
-			climbDir = Vector3.Normalize(top - transform.position);
+			climbDir = Vector3.Normalize(top - transform.position)/1.5f;
 		}
 		else if(InputManager.input.MoveVerticalAxis() < 0)
 		{
+			if(Vector3.Distance(transform.position, bottom) <= 0.5f)
+			{
+				if(Vector3.Distance(transform.position, bottom) <= 0.01f)
+					dismountBottom = true;
+				else
+					transform.position = Vector3.Lerp(transform.position, bottom, Time.deltaTime * 2);
+				return;
+			}
 			// Set position to move down
 			climbDir = Vector3.Normalize(bottom - transform.position)/1.5f;
 		}
@@ -349,16 +379,12 @@ public class QK_Character_Movement : MonoBehaviour {
 		climbToPosition = transform.position + climbDir;
 	}
 
-	void Dismount(string side)
-	{
-
-	}
-
 	bool IsInActionState()
 	{
 		if (_stateModifier == CharacterState.Ladder ||
 			_stateModifier == CharacterState.Sidle ||
-			_stateModifier == CharacterState.Hang) 
+			_stateModifier == CharacterState.Hang ||
+			!charCont.isGrounded)
 		{
 			return true;
 		}
@@ -373,11 +399,25 @@ public class QK_Character_Movement : MonoBehaviour {
 		Quaternion newRotation = Quaternion.LookRotation (toRotate, Vector3.up);
 		transform.rotation = Quaternion.Slerp (transform.rotation, newRotation, turnRate * Time.deltaTime);
 	}
+
+	void Reset()
+	{
+		_moveState = CharacterState.Idle;
+		_stateModifier = CharacterState.Idle;
+		moveVector = Vector3.zero;
+
+		iObject = null;
+
+		dismountBottom = false;
+		dismountTop = false;
+		onLadder = false;
+		climbToPosition = Vector3.zero;
+	}
 		
 	void OnDrawGizmosSelected()
 	{
-		if (cam) {
-			float inputHor = InputManager.input.MoveHorizontalAxis ();
+		if(cam && Debug.IsKeyActive("Player")) {
+			/*float inputHor = InputManager.input.MoveHorizontalAxis ();
 			float inputVert = InputManager.input.MoveVerticalAxis ();
 			Vector3 forward = transform.position + cam.transform.forward;
 			forward = new Vector3 (forward.x, transform.position.y, forward.z);
@@ -387,11 +427,7 @@ public class QK_Character_Movement : MonoBehaviour {
 			Vector3 moveDir = Vector3.Normalize((inputHor * right) + (inputVert * forward));
 
 			Vector3 testMoveVect = Vector3.Lerp(moveVector, moveDir, 0.2f);
-			testMoveVect = new Vector3(testMoveVect.x, 0f, testMoveVect.z);
-			Gizmos.DrawSphere (transform.position, 1f);
-			/*Gizmos.DrawSphere (transform.position + moveDir, 0.1f);
-			Gizmos.DrawRay (transform.position, testMoveVect);
-			Gizmos.DrawRay (transform.position, moveVector);*/
+			testMoveVect = new Vector3(testMoveVect.x, 0f, testMoveVect.z);*/
 		}
 	}
 }

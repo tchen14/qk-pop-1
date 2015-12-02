@@ -22,7 +22,7 @@ public class InteractableEditor : Editor
                 float height = thisObject.transform.localScale.y * ((BoxCollider)thisObject.GetComponent<Collider>()).size.y;
 
                 // Get world position of top and bottom of ladder
-                Vector3 top = new Vector3(thisObject.transform.position.x, (thisObject.transform.position.y + (height / 2)) + 0.2f, thisObject.transform.position.z);
+                Vector3 top = new Vector3(thisObject.transform.position.x, (thisObject.transform.position.y + (height / 2)), thisObject.transform.position.z);
                 Vector3 bottom = new Vector3(thisObject.transform.position.x, thisObject.transform.position.y - (height / 2), thisObject.transform.position.z);
 
                 // Move the positions forward a small amount and set them to the ladders variables
