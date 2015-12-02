@@ -9,13 +9,17 @@ public class DialogueManager : MonoBehaviour {
 	private bool _showing = false;
 	private string _text;
 	private string[] _choices;
-	private bool isGood = true;
+	private bool isGood;
+	private string _theme;
+	private string _portrait;
 
 	GameObject _dialogueGO;
 	GameObject _goodBackground;
 	GameObject _badBackground;
 	GameObject _dialogueText;
 	GameObject _continueButton;
+	GameObject _goodPortrait;
+	GameObject _badPortrait;
 
 	// Use this for initialization
 	void Awake () {
@@ -33,6 +37,8 @@ public class DialogueManager : MonoBehaviour {
 		_badBackground = _dialogueGO.transform.FindChild ("BadBackground").gameObject;
 		_dialogueText = _dialogueGO.transform.FindChild ("DialogueText").gameObject;
 		_continueButton = _dialogueGO.transform.FindChild ("ContinueButton").gameObject;
+		_goodPortrait = _dialogueGO.transform.FindChild ("GoodPortrait").gameObject;
+		_badPortrait = _dialogueGO.transform.FindChild ("BadPortrait").gameObject;
 	}
 	
 	private void onStarted() {
@@ -49,6 +55,16 @@ public class DialogueManager : MonoBehaviour {
 		_text = data.text;
 		_dialogueText.GetComponent<Text> ().text = data.text;
 		_choices = data.choices;
+		_theme = data.theme;
+		_portrait = data.portrait;
+
+		if (_theme == "Good") {
+			isGood = true;
+		} else if (_theme == "Bad") {
+			isGood = false;
+		} else {
+			Debug.Log("Theme is neither 'Good' or 'Bad'. Check Dialogue Tree");
+		}
 	}
 
 	private void SetText() {
@@ -61,24 +77,33 @@ public class DialogueManager : MonoBehaviour {
 				_dialogueGO.SetActive(false);
 			}
 			return;
-		} 
-		
+		}
+
+
 		if (_dialogueGO.activeInHierarchy == false) {
 			_dialogueGO.SetActive(true);
 		}
 
 		if (isGood) {
-			if (_goodBackground.activeInHierarchy == false) {
-				_goodBackground.SetActive (true);
-				//SetText();
+			_goodBackground.SetActive (true);
+			_badBackground.SetActive (false);
+
+			if(_portrait != "") {
+				_goodPortrait.SetActive(true);
+			} else {
+				_goodPortrait.SetActive(false);
 			}
+
 		} else {
-			if (_badBackground.activeInHierarchy == false) {
-				_badBackground.SetActive (true);
-				//SetText();
+			_goodBackground.SetActive (false);
+			_badBackground.SetActive (true);
+
+			if(_portrait != "") {
+				_badPortrait.SetActive(true);
+			} else {
+				_badPortrait.SetActive(false);
 			}
 		}
-
 
 
 		if (_choices == null || _choices.Length < 1) {
@@ -88,8 +113,6 @@ public class DialogueManager : MonoBehaviour {
 				//DrawChoices
 			}
 		}
-		
-		
 	}
 
 	private void ShowContinueButton() {
@@ -100,7 +123,6 @@ public class DialogueManager : MonoBehaviour {
 
 	public void ClickedContinueButton() {
 		Dialoguer.ContinueDialogue ();
-		//SetText();
 	}
 
 	private void HideContinueButton() {
@@ -125,17 +147,6 @@ public class DialogueManager : MonoBehaviour {
 
 		if (npcDialogue [npcID.ToString ()] [index] == null) {
 			Debug.Log("Index: " + index + " on NPC ID: " + npcID + " doesn't exist, check dialogue list json file!");
-			return;
-		}
-
-		//Debug.Log (npcDialogue [npcID.ToString ()] [npcDialogue [npcID.ToString ()].Count - 1].ToString());
-
-		if (npcDialogue [npcID.ToString ()] [npcDialogue [npcID.ToString ()].Count - 1].ToString().Contains("Good")) {
-			isGood = true;
-		} else if (npcDialogue [npcID.ToString ()][npcDialogue [npcID.ToString ()].Count - 1].ToString().Contains("Bad")) {
-			isGood = false;
-		} else {
-			Debug.Log("NPC ID: " + npcID + " is neither 'Good' or 'Bad', check last index in dialogue list json file");
 			return;
 		}
 

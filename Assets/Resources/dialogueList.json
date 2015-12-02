@@ -2,7 +2,11 @@
 	"123":
 		[
 			"3",
-			"DialogueTreeIndex2",
-			"Bad"
+			"DialogueTreeIndex2"
+		],
+		
+	"124":
+		[
+			"4"
 		]
 }
