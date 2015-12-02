@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using SimpleJSON;
 using System;
 
-public class Quest {
+public class Quest/*:IComparable<Quest>*/ {
 
 	const string questListFilePath = "/Resources/questList.json";
 
@@ -17,6 +17,9 @@ public class Quest {
 	int duration;
 	bool timer = false;
 	bool failed = false;
+	/*public int CompareTo(Quest other){
+		return IsCompleted ().CompareTo (other.IsCompleted());
+	}*/
 
 	public Quest(string n, string d, string o, int i, Goal[] newGoals ) {
 		name = n;
@@ -145,6 +148,10 @@ public class Quest {
 
 	public string GetDescription() {
 		return description;
+	}
+
+	public string GetObjective(){
+		return objective;
 	}
 
 	public bool IsCompleted() {

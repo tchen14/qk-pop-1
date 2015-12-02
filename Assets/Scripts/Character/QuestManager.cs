@@ -6,6 +6,8 @@ using System.Collections.Generic;
 public class QuestManager : MonoBehaviour {
 
 	public List <Quest> currentQuests;
+	public List <Quest> failedQuests;
+	public List <Quest> completedQuests;
 	Quest _quest;
 	QuestSaveManager _questSaveManager;
 	public int questCount;
@@ -22,6 +24,8 @@ public class QuestManager : MonoBehaviour {
 		}
 		_quest = new Quest (null, null, null, -1, null);
 		currentQuests = new List<Quest> ();
+		failedQuests = new List<Quest> ();
+		completedQuests = new List<Quest> ();
 		_questSaveManager = (QuestSaveManager)FindObjectOfType (typeof(QuestSaveManager));
 	}
 
@@ -59,14 +63,16 @@ public class QuestManager : MonoBehaviour {
 		for (int count = currentQuests.Count - 1; count > -1; count--) {
 
 			if(currentQuests[count].IsFailed() == true) {
-				Debug.Log(currentQuests[count].GetName() + " quest has failed and removed from List!");
+				Debug.Log(currentQuests[count].GetName() + " quest has failed and removed fom Current Quests List and added to Failed Quests List!");
+				failedQuests.Add(currentQuests[count]);
 				currentQuests.RemoveAt(count);
 				continue;
 			}
 
 			if(currentQuests[count].IsCompleted() == true) {
-				Debug.Log (currentQuests[count].GetName() + " quest is completed and removed from List!");
+				Debug.Log (currentQuests[count].GetName() + " quest is completed, removed from Current Quests List and added to Completed Quests List!");
 				_questSaveManager.SaveCompletedQuest(currentQuests[count]);
+				completedQuests.Add(currentQuests[count]);
 				currentQuests.RemoveAt(count);
 			}
 		}
