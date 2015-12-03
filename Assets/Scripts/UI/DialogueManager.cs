@@ -6,6 +6,8 @@ using UnityEngine.UI;
 [EventVisibleAttribute]
 public class DialogueManager : MonoBehaviour {
 
+	private static string portraitPATH = "/DialoguePortraits/";
+
 	private bool _showing = false;
 	private string _text;
 	private string[] _choices;
@@ -20,6 +22,7 @@ public class DialogueManager : MonoBehaviour {
 	GameObject _continueButton;
 	GameObject _goodPortrait;
 	GameObject _badPortrait;
+	GameObject _portraitImage;
 
 	// Use this for initialization
 	void Awake () {
@@ -39,6 +42,7 @@ public class DialogueManager : MonoBehaviour {
 		_continueButton = _dialogueGO.transform.FindChild ("ContinueButton").gameObject;
 		_goodPortrait = _dialogueGO.transform.FindChild ("GoodPortrait").gameObject;
 		_badPortrait = _dialogueGO.transform.FindChild ("BadPortrait").gameObject;
+		_portraitImage = _dialogueGO.transform.FindChild ("PortraitImage").gameObject;
 	}
 	
 	private void onStarted() {
@@ -67,8 +71,8 @@ public class DialogueManager : MonoBehaviour {
 		}
 	}
 
-	private void SetText() {
-		_dialogueText.GetComponent<Text>().text = _text;
+	private void SetPortrait() {
+		_portraitImage.GetComponent<Image> ().sprite = (Sprite)Resources.Load (portraitPATH + _portrait);
 	}
 
 	void OnGUI() {
@@ -90,8 +94,11 @@ public class DialogueManager : MonoBehaviour {
 
 			if(_portrait != "") {
 				_goodPortrait.SetActive(true);
+				_portraitImage.SetActive(true);
+				SetPortrait();
 			} else {
 				_goodPortrait.SetActive(false);
+				_portraitImage.SetActive(false);
 			}
 
 		} else {
@@ -100,8 +107,11 @@ public class DialogueManager : MonoBehaviour {
 
 			if(_portrait != "") {
 				_badPortrait.SetActive(true);
+				_portraitImage.SetActive(true);
+				SetPortrait();
 			} else {
 				_badPortrait.SetActive(false);
+				_portraitImage.SetActive(false);
 			}
 		}
 
