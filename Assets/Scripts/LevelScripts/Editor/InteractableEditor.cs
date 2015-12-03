@@ -26,11 +26,11 @@ public class InteractableEditor : Editor
                 Vector3 bottom = new Vector3(thisObject.transform.position.x, thisObject.transform.position.y - (height / 2), thisObject.transform.position.z);
 
                 // Move the positions forward a small amount and set them to the ladders variables
-                thisObject.ladderStart = bottom + (thisObject.transform.forward / 2);
-                thisObject.ladderEnd = top + (thisObject.transform.forward / 2);
+                thisObject.ladderBottom = bottom + (thisObject.transform.forward / 2);
+                thisObject.ladderTop = top + (thisObject.transform.forward / 2);
 
-				EditorGUILayout.Vector3Field("Start: ", thisObject.ladderStart);
-				EditorGUILayout.Vector3Field("End: ", thisObject.ladderEnd);
+				EditorGUILayout.Vector3Field("Start: ", thisObject.ladderBottom);
+				EditorGUILayout.Vector3Field("End: ", thisObject.ladderTop);
 
 				break;
 		}
@@ -49,8 +49,8 @@ public class InteractableEditor : Editor
 		{
 			case Interactable.ObjectType.Ladder:
 				// Show start and end labels
-				Handles.Label(thisObject.ladderStart, "Start");
-				Handles.Label (thisObject.ladderEnd, "End");
+				Handles.Label(thisObject.ladderBottom, "Start");
+				Handles.Label (thisObject.ladderTop, "End");
 				break;
 		}
 

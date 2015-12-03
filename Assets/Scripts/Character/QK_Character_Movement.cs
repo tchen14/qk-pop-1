@@ -41,6 +41,7 @@ public class QK_Character_Movement : MonoBehaviour {
 	private Vector3 groundNormal = Vector3.zero;
 
 	private Interactable iObject;
+	private GameObject triggeredObj;
 
     // Ladder Variables
     private bool onLadder = false;
@@ -248,12 +249,12 @@ public class QK_Character_Movement : MonoBehaviour {
 	Interactable GetActionObject()
 	{
 		GameObject actionableObj = null;
-		RaycastHit[] hit = Physics.SphereCastAll(transform.position + charCont.center, 1f, Vector3.forward, 10);
+		RaycastHit[] hit = Physics.SphereCastAll(transform.position + charCont.center, 1.5f, Vector3.forward, 10);
 		if(hit.Length > 0)
 		{
 			foreach(RaycastHit obj in hit)
 			{
-				if(obj.collider.gameObject.GetComponent<Interactable>())
+				if(GetComponentInHeirarchy<Interactable>(obj.collider.gameObject))
 				{
 					if(actionableObj == null)
 						actionableObj = obj.collider.gameObject;
@@ -282,9 +283,10 @@ public class QK_Character_Movement : MonoBehaviour {
 				}
 			}
 		}
-		if (actionableObj != null)
-			return actionableObj.GetComponent<Interactable> ();
-		else
+		if(actionableObj != null) {
+			triggeredObj = actionableObj;
+			return GetComponentInHeirarchy<Interactable>(actionableObj);
+		} else
 			return null;
 	}
 
@@ -307,20 +309,20 @@ public class QK_Character_Movement : MonoBehaviour {
 		if(!onLadder)
 		{
             // Just use an estimated distance check because absolute position checking is inaccurate
-            if (Vector3.Distance(transform.position, iObject.ladderStart) < 0.01f) {
+            if (Vector3.Distance(transform.position, triggeredObj.transform.position) < 0.01f) {
 				// Ready to begin climbing
                 onLadder = true;
-				climbToPosition = iObject.ladderStart;
+				climbToPosition = triggeredObj.transform.position;
             } else {
-                transform.position = Vector3.Lerp(transform.position, iObject.ladderStart, 2 * Time.deltaTime);
+                transform.position = Vector3.Lerp(transform.position, triggeredObj.transform.position, 2 * Time.deltaTime);
 				transform.LookAt(transform.position - iObject.transform.forward);
             }
 
 			return;
 		}
 
-		Vector3 bottom = iObject.ladderStart;
-		Vector3 top = iObject.ladderEnd;
+		Vector3 bottom = iObject.ladderBottom;
+		Vector3 top = iObject.ladderTop;
 		Vector3 climbDir = Vector3.zero;
 
 		// Check if we're at top or bottom
@@ -407,16 +409,28 @@ public class QK_Character_Movement : MonoBehaviour {
 		moveVector = Vector3.zero;
 
 		iObject = null;
+		triggeredObj = null;
 
 		dismountBottom = false;
 		dismountTop = false;
 		onLadder = false;
 		climbToPosition = Vector3.zero;
 	}
+
+	public T GetComponentInHeirarchy<T>(GameObject obj) 
+	{
+		if(obj.GetComponent<T>() != null) {
+			return obj.GetComponent<T>();
+		} else if(obj.transform.parent == null) {
+			return default(T);
+		} else {
+			return GetComponentInHeirarchy<T>(obj.transform.parent.gameObject);
+		}
+	}
 		
 	void OnDrawGizmosSelected()
 	{
-		if(cam && Debug.IsKeyActive("Player")) {
+		if(cam && Debug.IsKeyActive("player")) {
 			/*float inputHor = InputManager.input.MoveHorizontalAxis ();
 			float inputVert = InputManager.input.MoveVerticalAxis ();
 			Vector3 forward = transform.position + cam.transform.forward;
@@ -428,6 +442,10 @@ public class QK_Character_Movement : MonoBehaviour {
 
 			Vector3 testMoveVect = Vector3.Lerp(moveVector, moveDir, 0.2f);
 			testMoveVect = new Vector3(testMoveVect.x, 0f, testMoveVect.z);*/
+			if(InputManager.input.isActionPressed()) 
+			{
+				Gizmos.DrawSphere(transform.position + charCont.center, 1.5f);
+			}
 		}
 	}
 }
