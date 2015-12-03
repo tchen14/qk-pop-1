@@ -181,14 +181,14 @@ public class OldSchoolRPGDialogueGUI : MonoBehaviour {
 			drawDialogueBox(dialogueBoxRect);
 		}
 		
-		// Draw name box
+		/*// Draw name box
 		if(_nameText != string.Empty){
 			Rect nameBoxRect = new Rect(dialogueBoxRect.x, dialogueBoxRect.y - 60, 150 * _windowTweenValue, 50 * _windowTweenValue);
 			nameBoxRect.width = Mathf.Clamp(nameBoxRect.width, 32, 2000);
 			nameBoxRect.height = Mathf.Clamp(nameBoxRect.height, 32, 2000);
 			drawDialogueBox(nameBoxRect);
 			drawShadowedText(new Rect(nameBoxRect.x + (15 * _windowTweenValue) - (5 * (1 - _windowTweenValue)), nameBoxRect.y + (5 * _windowTweenValue)  - (10 * (1 - _windowTweenValue)), nameBoxRect.width - (30 * _windowTweenValue), nameBoxRect.height - (5 * _windowTweenValue)), _nameText);
-		}
+		}*/
 		
 		Rect textLabelRect = new Rect(dialogueBoxRect.x + (20 * _windowTweenValue), dialogueBoxRect.y + (10 * _windowTweenValue), dialogueBoxRect.width - (40 * _windowTweenValue), dialogueBoxRect.height - (20 * _windowTweenValue));
 		//_windowCurrentText = "This is a lot of text that I'm using as a test. Lorem ipsum! This is a lot of text that I'm using as a test. Lorem ipsum! This is a lot of text that I'm using as a test. Lorem ipsum!";
@@ -226,10 +226,10 @@ public class OldSchoolRPGDialogueGUI : MonoBehaviour {
 		
 		// Background gradient
 		GUI.color = color;
-		GUI.Box(rect, string.Empty, GUI.skin.GetStyle("box_background"));
+		GUI.Box(rect, string.Empty, GUI.skin.GetStyle("GoodBackground"));
 		GUI.color = GUI.contentColor;
 		
-		// Background diagonal lines
+		/*// Background diagonal lines
 		GUI.color = new Color(0,0,0,0.25f);
 		Rect diagonalLinesRect = new Rect(rect.x + 7, rect.y + 7, rect.width - 14, rect.height - 14);
 		GUI.DrawTextureWithTexCoords(
@@ -237,11 +237,11 @@ public class OldSchoolRPGDialogueGUI : MonoBehaviour {
 			diagonalLines,
 			new Rect(0, 0, diagonalLinesRect.width / diagonalLines.width, diagonalLinesRect.height / diagonalLines.height)
 		);
-		GUI.color = GUI.contentColor;
+		GUI.color = GUI.contentColor;*/
 		
 		// Border
 		GUI.depth = 20;
-		GUI.Box(rect, string.Empty, GUI.skin.GetStyle("box_border"));
+		GUI.Box(rect, string.Empty, GUI.skin.GetStyle("Border"));
 		GUI.depth = 10;
 	}
 	
