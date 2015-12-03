@@ -7,7 +7,7 @@ using System.Collections.Generic;
 public class AIPath : MonoBehaviour {
 
 	public List<GameObject> checkpoints;
-	public int[] types = {0, 1, 2};
+	public int[] types = {0, 1, 2, 3};
 
 	// temporary
 	public int PathType = 0;
