@@ -72,6 +72,7 @@ public class Item_Editor : Editor {
 			GUILayout.Label("Push Pull type:", GUILayout.MaxWidth(125));
 			script_target.current_push_type = (Item.push_type)EditorGUILayout.EnumPopup(script_target.current_push_type);
 			EditorGUILayout.EndHorizontal();
+			script_target.angle_offset = EditorGUILayout.Slider("Push/Pull direction:", script_target.angle_offset, 0.0f, 360.0f);
 		}
 
 		script_target.quincAffected = EditorGUILayout.Toggle ("Quinc Affected", script_target.quincAffected);
