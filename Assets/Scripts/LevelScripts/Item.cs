@@ -104,7 +104,7 @@ public class Item : MonoBehaviour
 	}
 
 	void OnDrawGizmos(){
-
+		drawPushPullDirections (current_push_type);
 	}
 
 	public void Stun(float time)
@@ -500,12 +500,12 @@ public class Item : MonoBehaviour
 			pos = gameObject.transform.position;
 			angle = Vector3.Angle(heading, Vector3.forward);
 			if(angle > 0.0f && angle <= 22.5f) heading = Vector3.forward;
-			else if(angle > 22.5f && angle <= 45.0f && pos.x > player_pos.x) heading = new Vector3(-Mathf.Sin(22.5f), 0.0f, -Mathf.Cos(22.5f));
-			else if(angle > 22.5f && angle <= 45.0f && pos.x < player_pos.x) heading = new Vector3(Mathf.Sin(22.5f), 0.0f, -Mathf.Cos(22.5f));
+			else if(angle > 22.5f && angle <= 45.0f && pos.x > player_pos.x) heading = new Vector3(Mathf.Sin(Mathf.PI / 4), 0.0f, Mathf.Cos(Mathf.PI / 4));
+			else if(angle > 22.5f && angle <= 45.0f && pos.x < player_pos.x) heading = new Vector3(-Mathf.Sin(Mathf.PI / 4), 0.0f, Mathf.Cos(Mathf.PI / 4));
 			else if(angle > 45.0f && angle <= 135.0f && pos.x > player_pos.x) heading = Vector3.right;
 			else if(angle > 45.0f && angle <= 135.0f && pos.x < player_pos.x) heading = Vector3.left;
-			else if(angle > 135.0f && angle <= 157.5f && pos.x > player_pos.x) heading = new Vector3(-Mathf.Sin(22.5f), 0.0f, Mathf.Cos(22.5f));
-			else if(angle > 135.0f && angle <= 157.5f && pos.x < player_pos.x) heading = new Vector3(Mathf.Sin(22.5f), 0.0f, Mathf.Cos(22.5f));
+			else if(angle > 135.0f && angle <= 157.5f && pos.x > player_pos.x) heading = new Vector3(Mathf.Sin(Mathf.PI / 4), 0.0f, -Mathf.Cos(Mathf.PI / 4));
+			else if(angle > 135.0f && angle <= 157.5f && pos.x < player_pos.x) heading = new Vector3(-Mathf.Sin(Mathf.PI / 4), 0.0f, -Mathf.Cos(Mathf.PI / 4));
 			else if(angle > 135.0f && angle <= 180.0f) heading = Vector3.back;
 			else heading = Vector3.zero;
 			break;
@@ -528,7 +528,37 @@ public class Item : MonoBehaviour
 	}
 
 	private void drawPushPullDirections(push_type type){
-
+		Vector3 origin = gameObject.transform.position;
+		float line_length = 5.0f;
+		Gizmos.color = Color.red;
+		switch (type) {
+		case push_type.Free:
+			Vector3 end = new Vector3(0.0f, line_length, 0.0f);
+			Gizmos.DrawLine(origin, origin + end);
+			break;
+		case push_type.TwoAxis:
+			Vector3 end1 = push_forward_direction * line_length;
+			Vector3 end2 = -push_forward_direction * line_length;
+			Gizmos.DrawLine(origin, origin + end1);
+			Gizmos.DrawLine(origin, origin + end2);
+			break;
+		case push_type.FourAxis:
+			Gizmos.DrawLine(origin, origin + Vector3.forward * line_length);
+			Gizmos.DrawLine(origin, origin + Vector3.back * line_length);
+			Gizmos.DrawLine(origin, origin + Vector3.left * line_length);
+			Gizmos.DrawLine(origin, origin + Vector3.right * line_length);
+			break;
+		case push_type.HeightAxis:
+			Gizmos.DrawLine(origin, origin + Vector3.forward * line_length);
+			Gizmos.DrawLine(origin, origin + new Vector3(-Mathf.Sin(Mathf.PI / 4) * line_length, 0.0f, -Mathf.Cos(Mathf.PI / 4) * line_length));
+			Gizmos.DrawLine(origin, origin + new Vector3(Mathf.Sin(Mathf.PI / 4), 0.0f, -Mathf.Cos(Mathf.PI / 4)) * line_length);
+			Gizmos.DrawLine(origin, origin + Vector3.right * line_length);
+			Gizmos.DrawLine(origin, origin + Vector3.left * line_length);	
+			Gizmos.DrawLine(origin, origin + new Vector3(-Mathf.Sin(Mathf.PI / 4), 0.0f, Mathf.Cos(Mathf.PI / 4)) * line_length);
+			Gizmos.DrawLine(origin, origin + new Vector3(Mathf.Sin(Mathf.PI / 4), 0.0f, Mathf.Cos(Mathf.PI / 4)) * line_length);
+			Gizmos.DrawLine(origin, origin + Vector3.back * line_length);
+			break;
+		}
 	}
 
 	private bool checkForSnapBack(){
