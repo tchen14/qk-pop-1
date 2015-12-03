@@ -67,8 +67,6 @@ public struct AI_Data
 [CustomEditor(typeof(AIMainTrimmed), true)]
 public class AIEditor : Editor {
 
-	private List<GameObject> paths;
-
 	AIMainTrimmed ai_target;
 	AnimBool show_data;
 	string[] ai_types = new string[]{"Villager", "Guard", "Commander"};
@@ -81,7 +79,6 @@ public class AIEditor : Editor {
 
 	int ai_types_index = 0;
 	int current_selection = 0;
-	int current_preset = 0;
 
 
 	void OnEnable()
@@ -90,7 +87,6 @@ public class AIEditor : Editor {
 		ai_types_index = ai_target.current_preset;
 		show_data = new AnimBool(false);
 		show_data.valueChanged.AddListener(Repaint);
-		paths = ai_target.Pathways;
 	}
 
 	override public void OnInspectorGUI()

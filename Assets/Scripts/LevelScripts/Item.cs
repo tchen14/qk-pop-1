@@ -90,9 +90,21 @@ public class Item : MonoBehaviour
 	}
 
 	void Update(){
+		checkForSnapBack();
 		if (is_targeted) {
 
 		}
+	}
+
+	void OnGUI(){
+		if (is_targeted) {
+			GUI.color = Color.red;
+			display_effects();
+		}
+	}
+
+	void OnDrawGizmos(){
+
 	}
 
 	public void Stun(float time)
@@ -258,6 +270,7 @@ public class Item : MonoBehaviour
 		switch (itemType) {
 		case item_type.Crate:
 			if(pullCompatible){
+				checkForSnapBack();
 				crate_pushPull(player_position, push_force, current_push_type, push_range, true);
 			}
 			else {
@@ -514,6 +527,10 @@ public class Item : MonoBehaviour
 		rb.AddForce(direction * (magnitude * 100));
 	}
 
+	private void drawPushPullDirections(push_type type){
+
+	}
+
 	private bool checkForSnapBack(){
 		Vector3 currentPosition = gameObject.transform.position;
 		if (Vector3.Distance (currentPosition, startPosition) >= pushPullRadius) {
@@ -529,8 +546,53 @@ public class Item : MonoBehaviour
 		is_targeted = !is_targeted;
 	}
 
+	private void display_effects(){
+		Camera main_camera = Camera.current;
+		if (main_camera && quincAffected) {
+			Vector3 position = main_camera.WorldToScreenPoint (gameObject.transform.position);
+			float start_y = 0.0f;
+			float margin = 5.0f;
+			float message_height = 20.0f;
+
+			if(pushCompatible){
+				GUI.Label (new Rect (position.x, position.y + start_y + margin, 100, 20), "Can be pushed.");
+				start_y += message_height;
+			}
+
+			if(pullCompatible){
+				GUI.Label (new Rect (position.x, position.y + start_y + margin, 100, 20), "Can be pulled.");
+				start_y += message_height;
+			}
+
+			if(cutCompatible){
+				GUI.Label (new Rect (position.x, position.y + start_y + margin, 100, 20), "Can be cut.");
+				start_y += message_height;
+			}
+
+			if(heatCompatible){
+				GUI.Label (new Rect (position.x, position.y + start_y + margin, 100, 20), "Can be heat-up.");
+				start_y += message_height;
+			}
+
+			if(coldCompatible){
+				GUI.Label (new Rect (position.x, position.y + start_y + margin, 100, 20), "Can be frozen.");
+				start_y += message_height;
+			}
+
+			if(stunCompatible){
+				GUI.Label (new Rect (position.x, position.y + start_y + margin, 100, 20), "Can be stunned.");
+				start_y += message_height;
+			}
+
+			if(soundThrowCompatible){
+				GUI.Label (new Rect (position.x, position.y + start_y + margin, 100, 20), "Can be used to cast sound.");
+				start_y += message_height;
+			}
+		}
+	}
+
 	private void NoEffect(){
-		print("This object is not affected by this ability.");
+		print("I'm afraid I can't do that Dave.");
 	}
 }
 
