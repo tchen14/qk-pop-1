@@ -269,11 +269,13 @@ public class QuestManagerUIController : MonoBehaviour {
 				}
 			}
 			else{
-				goalText += currQuestGoals [i].GetProgress () + " / " + currQuestGoals [i].GetProgrssNeeded ();
+                //commented this out due to errors given 
+				// goalText += currQuestGoals [i].GetProgress () + " / " + currQuestGoals [i].GetProgrssNeeded ();
 			}
 		}
-		moreQuestInfoDescription.text = theLists[i][j].GetDescription() + "\n" + theLists[i][j].GetObjective() + goalText;
-		GameObject moreQuestInfoScrollView = moreQuestInfo.transform.FindChild("ScrollView").gameObject;
+        //commented this out due to errors given 
+        //moreQuestInfoDescription.text = theLists[i][j].GetDescription() + "\n" + theLists[i][j].GetObjective() + goalText;
+        GameObject moreQuestInfoScrollView = moreQuestInfo.transform.FindChild("ScrollView").gameObject;
 		
 		/*if (iter < qm.currentQuests.Count) {
 			moreQuestInfoTitle.text = qm.currentQuests [iter].GetName ();

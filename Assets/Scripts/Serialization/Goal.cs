@@ -47,10 +47,6 @@ public class Goal {
 		return goalProgress;
 	}
 
-	public int GetProgrssNeeded(){
-		return goalProgressNeeded;
-	}
-
 	public void Progress() {
 		if (goalProgress == -1) {
 			Debug.Log("No progress available on goal! Use Complete on this goal!");
