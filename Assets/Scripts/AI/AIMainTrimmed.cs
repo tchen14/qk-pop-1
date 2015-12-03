@@ -517,7 +517,6 @@ public class AIMainTrimmed : MonoBehaviour
                     {
                         string CheckpointCountString = CheckpointCount.ToString();
                         ChangeNavPoint(CheckpointCountString, CheckpointScript.getPoints()[CheckpointCount]);
-                        Debug.Log("works");
                     }
                     break;
             }

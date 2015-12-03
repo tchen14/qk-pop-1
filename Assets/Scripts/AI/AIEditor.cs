@@ -71,7 +71,7 @@ public class AIEditor : Editor {
 
 	AIMainTrimmed ai_target;
 	AnimBool show_data;
-	string[] ai_types = new string[]{"Villager", "Guard", "Commander"};
+    string[] ai_types = new string[]{"Villager", "Guard", "Commander"};
 	string[] path_types = new string[]{"one way", "loop around", "back and forth", "On Guard"};
 
 	AI_Data[] ai_data = new AI_Data[]{
