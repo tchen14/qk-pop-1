@@ -1,4 +1,7 @@
-﻿using UnityEngine;
+﻿#pragma warning disable 219     //Variable assigned and not used: top
+#pragma warning disable 414     //Variable assigned and not used: armor, aTarget
+
+using UnityEngine;
 using System.Collections;
 using UnityEditor;
 

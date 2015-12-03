@@ -1,28 +1,24 @@
-﻿using UnityEngine;
+﻿#pragma warning disable 414     //Variable assigned and not used: instance
+
+using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
-
-/*
- * Ai Path:
- * Holds the location and order of each nodes of a path. This is used by the AI.
- * This object is also used to 'draw' paths in the editor.
- * 
- */
 
 public class AIPath : MonoBehaviour {
 
 	public List<GameObject> checkpoints;
-	private GameObject instance;
+	public int[] types = {0, 1, 2, 3};
 
-	// Loads the checkpoint prefab so we can have an icon in the editor.
-    void Awake()
+	// temporary
+	public int PathType = 0;
+	public int NofLoops = 0;
+    private GameObject instance;
+
+
+    public void Awake()
     {
         instance = Resources.Load("checkpoint") as GameObject;
-		if (instance == null) {
-			Debug.LogError("Checkpoint object not found in Ressources.");
-		}
     }
-	
 	public void addCheckpoint(GameObject new_point)
 	{
 		Checkpoint c = new_point.GetComponent<Checkpoint>();
@@ -37,7 +33,6 @@ public class AIPath : MonoBehaviour {
 		checkpoints.Clear();
 	}
 
-	// returns am ordered list of positions, this is used by the AI to navigate to each positions.
 	public List<Vector3> getPoints(){
 		List<Vector3> points = new List<Vector3>();
 
@@ -54,7 +49,6 @@ public class AIPath : MonoBehaviour {
 		return points;
 	}
 
-	// Draws the red line between each nodes to show each nodes that belong to the path and the order.
 	void OnDrawGizmosSelected()
 	{
 		List<Vector3> points = getPoints();
