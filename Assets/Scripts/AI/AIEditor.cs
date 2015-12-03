@@ -91,7 +91,6 @@ public class AIEditor : Editor {
 
 	override public void OnInspectorGUI()
 	{
-		EditorGUI.BeginChangeCheck();
 		EditorGUILayout.BeginVertical();
 
 		EditorGUILayout.BeginHorizontal ();

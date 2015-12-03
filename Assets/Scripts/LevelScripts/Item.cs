@@ -531,6 +531,7 @@ public class Item : MonoBehaviour
 	private void drawPushPullDirections(push_type type){
 		Vector3 origin = gameObject.transform.position;
 		float heading = (angle_offset / 180) * Mathf.PI;
+		float angle = (Mathf.PI / 2) + heading;
 		float line_length = 5.0f;
 		Gizmos.color = Color.red;
 		switch (type) {
@@ -539,19 +540,16 @@ public class Item : MonoBehaviour
 			Gizmos.DrawLine(origin, origin + end);
 			break;
 		case push_type.TwoAxis:
-			Vector3 end1 = push_forward_direction * line_length;
-			Vector3 end2 = -push_forward_direction * line_length;
-			Gizmos.DrawLine(origin, origin + end1);
-			Gizmos.DrawLine(origin, origin + end2);
+			for(int i = 0; i < 2; i++){
+				Gizmos.DrawLine(origin, origin + new Vector3(Mathf.Sin(angle + (Mathf.PI) * i)* line_length, 0.0f, Mathf.Cos(angle + (Mathf.PI) * i) * line_length));
+			}
 			break;
 		case push_type.FourAxis:
-			Gizmos.DrawLine(origin, origin + Vector3.forward * line_length);
-			Gizmos.DrawLine(origin, origin + Vector3.back * line_length);
-			Gizmos.DrawLine(origin, origin + Vector3.left * line_length);
-			Gizmos.DrawLine(origin, origin + Vector3.right * line_length);
+			for(int i = 0; i < 4; i++){
+				Gizmos.DrawLine(origin, origin + new Vector3(Mathf.Sin(angle + (Mathf.PI/2) * i)* line_length, 0.0f, Mathf.Cos(angle + (Mathf.PI/2) * i) * line_length));
+			}
 			break;
-		case push_type.HeightAxis:
-			float angle = (Mathf.PI / 4) + heading;
+		case push_type.HeightAxis:;
 			for(int i = 0; i < 8; i++){
 				Gizmos.DrawLine(origin, origin + new Vector3(Mathf.Sin(angle + (Mathf.PI/4) * i)* line_length, 0.0f, Mathf.Cos(angle + (Mathf.PI/4) * i) * line_length));
 			}
