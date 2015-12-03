@@ -21,6 +21,8 @@ public class MainMenuManager : MonoBehaviour {
 
 	//Checkers
 	string currentMenu;						                //Current menu
+    GameObject currentBttnSelect;                           //CurrentButton Highlighted
+  
 
 	//Canvasies
 	public GameObject mainCanvas;						    //The main menu
@@ -29,6 +31,7 @@ public class MainMenuManager : MonoBehaviour {
 	public GameObject gameplayOpCanvas;						//gameplay options menu
 	public GameObject audioOpCanvas;						//audio options menu
 	public GameObject controlsOpCanvas;						//controls options menu
+    //public GameObject pauseMenu;                            //controls the pause menu
 
 	//Sliders and Toggles
 	public GameObject qualitySlider;						//Slider for video quality
@@ -66,7 +69,7 @@ public class MainMenuManager : MonoBehaviour {
 
 	void Start () {
 
-		cursorPos = cursor.transform.position;
+		//cursorPos = cursor.transform.position;
 		//cursor.SetActive(false);
 
 		//trust me, this is important
@@ -79,10 +82,11 @@ public class MainMenuManager : MonoBehaviour {
 		optionsCanvas.SetActive(false);
 		controlsOpCanvas.SetActive(false);
 		audioOpCanvas.SetActive (false);
+      
 		
-		mainCanvas.SetActive(true);
+		//mainCanvas.SetActive(true);
 
-		currentMenu = "main";
+		//currentMenu = "main";
 
 		InitFirstSettings ();
 
@@ -96,6 +100,8 @@ public class MainMenuManager : MonoBehaviour {
 			//cursor.transform.position = Input.mousePosition;
 		}
 
+       //Disabled the cursor
+/*
 		//Controller cursor control
 		if(Input.GetAxis("Vertical") > 0){
 			if(controllerUsed == false){
@@ -165,7 +171,7 @@ public class MainMenuManager : MonoBehaviour {
 				ExecuteEvents.Execute(lastButtonHovered, pointer, ExecuteEvents.pointerExitHandler);
 				
 			}
-		}
+		}*/
 
 
 
@@ -186,6 +192,7 @@ public class MainMenuManager : MonoBehaviour {
 
 	//Disables main menu, enables options
 	public void GoToOptions () {
+       // pauseMenu.SetActive(false);
 		mainCanvas.SetActive (false);
 		audioOpCanvas.SetActive (false);
 		optionsCanvas.SetActive (true);
@@ -199,6 +206,10 @@ public class MainMenuManager : MonoBehaviour {
 			audioOpCanvas.SetActive (false);
 			controlsOpCanvas.SetActive(false);
 			videoOpCanvas.SetActive(true);
+            
+            currentBttnSelect = GameObject.Find("qualitySlider");
+            GUI.SetNextControlName(currentBttnSelect.transform.name);
+
 
 			UpdateAVideoSliders();
 

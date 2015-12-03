@@ -2,9 +2,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using SimpleJSON;
-using System;
 
-public class Quest/*:IComparable<Quest>*/ {
+
+public class Quest {
 
 	const string questListFilePath = "/Resources/questList.json";
 
@@ -17,9 +17,6 @@ public class Quest/*:IComparable<Quest>*/ {
 	int duration;
 	bool timer = false;
 	bool failed = false;
-	/*public int CompareTo(Quest other){
-		return IsCompleted ().CompareTo (other.IsCompleted());
-	}*/
 
 	public Quest(string n, string d, string o, int i, Goal[] newGoals ) {
 		name = n;
@@ -41,7 +38,6 @@ public class Quest/*:IComparable<Quest>*/ {
 
 	public Quest AddQuest(int id) {
 		JSONNode quests = RetrieveQuestsFromJSON ();
-		char[] deliminerChars = {'"'};
 
 		if (quests[id.ToString()] == null) {
 			Debug.LogError("Quest ID: " + id + " doesn't exist! Make sure it is added into the JSON file.");
@@ -54,14 +50,13 @@ public class Quest/*:IComparable<Quest>*/ {
 
 
 			for(int i = 0; i < quests[id.ToString ()][3].Count; i++) {
+
 				if(quests[id.ToString ()][3][i][0] == null) {
 					Goal newGoal = new Goal(quests[id.ToString ()][3][i]);
 					newGoals[i] = newGoal;
 				}
 				else {
-					string[] goalText = quests[id.ToString()][3][i].ToString().Split(deliminerChars);
-					//Goal newGoal = new Goal(quests[id.ToString ()][3][i], quests[id.ToString ()][3][i][0].AsInt);
-					Goal newGoal = new Goal(goalText[1],  Convert.ToInt32(goalText[3]));
+					Goal newGoal = new Goal(quests[id.ToString ()][3][i], quests[id.ToString ()][3][i][0].AsInt);
 					Debug.Log(quests[id.ToString ()][3][i].Keys);
 					newGoals[i] = newGoal;
 				}
@@ -144,14 +139,6 @@ public class Quest/*:IComparable<Quest>*/ {
 
 	public string GetName() {
 		return name;
-	}
-
-	public string GetDescription() {
-		return description;
-	}
-
-	public string GetObjective(){
-		return objective;
 	}
 
 	public bool IsCompleted() {
