@@ -140,17 +140,15 @@ public class AIEditor : Editor {
 
 		if (EditorGUILayout.BeginFadeGroup (show_data.faded))
 		{
-			EditorGUILayout.LabelField("Health: ",ai_target.hp.ToString() );
-			EditorGUILayout.LabelField("Sight Distance: ",ai_target.sightDistance.ToString() );
-			EditorGUILayout.LabelField("Passive Sight Angle: ",ai_target.passiveSightAngle.ToString() );
-            EditorGUILayout.LabelField("Chasing Sight Angle: ", ai_target.chasingSightAngle.ToString());
-            EditorGUILayout.LabelField("Speed: ",ai_target.speed.ToString() );
-			EditorGUILayout.LabelField("Running Speed: ",ai_target.runSpeed.ToString() );
-			EditorGUILayout.LabelField("Targets: ",print_array(ai_target.seekTag));
-			EditorGUILayout.LabelField("Attack Distance: ",ai_target.attackDistance.ToString() );
-			EditorGUILayout.LabelField("Aggression Limit: ",ai_target.aggressionLimit.ToString() );
-			EditorGUILayout.LabelField("Panic Points: ",ai_target.panicPoints );
-			EditorGUILayout.LabelField("Aggressive: ",ai_target.enemy.ToString() );
+			ai_target.hp = EditorGUILayout.FloatField("Health:", ai_target.hp);
+			ai_target.sightDistance = EditorGUILayout.FloatField("Sight Distance:", ai_target.sightDistance);
+			ai_target.passiveSightAngle = EditorGUILayout.FloatField("Passive Sight Angle:", ai_target.passiveSightAngle);
+			ai_target.chasingSightAngle = EditorGUILayout.FloatField("Chasing Sight Angle:", ai_target.chasingSightAngle);
+			ai_target.speed = EditorGUILayout.FloatField("Speed:", ai_target.speed);
+			ai_target.runSpeed = EditorGUILayout.FloatField("Running Speed:", ai_target.runSpeed);
+			ai_target.attackDistance = EditorGUILayout.FloatField("Attack Distance:", ai_target.attackDistance);
+			ai_target.aggressionLimit = EditorGUILayout.FloatField("Aggression Limit:", ai_target.aggressionLimit);
+			ai_target.enemy = EditorGUILayout.Toggle("Aggressive:", ai_target.enemy);
 		}
 		EditorGUILayout.EndFadeGroup();
 
