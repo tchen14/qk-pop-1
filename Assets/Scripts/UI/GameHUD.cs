@@ -69,7 +69,10 @@ public class GameHUD : MonoBehaviour {
 		gameMap = GameObject.Find("mapBG");
 		player = GameObject.Find("_Player");
 		testObjective = GameObject.Find("TestObjective");
-		//pauseMenu = GameObject.Find ("pauseMenu");
+        if (!pauseMenu)
+        {
+            pauseMenu = GameObject.Find("pauseMenu");
+        }
 		pauseMenu.SetActive (false);
 		
 		//!Turn on UI stuff

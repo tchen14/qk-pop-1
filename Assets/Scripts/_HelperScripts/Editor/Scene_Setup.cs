@@ -21,7 +21,6 @@ public class Scene_Setup : EditorWindow {
 		GameObject ui = GameObject.Find("UI");
 
 
-
 		if (objManager == null) {
 			go = new GameObject();
 			go.AddComponent<ObjectManager>();
@@ -66,20 +65,24 @@ public class Scene_Setup : EditorWindow {
             go.name = "_HUDManager";
             hudManager = GameObject.Find("_HUDManager");
             ObjectManager.AddSavedObject(go.transform);
+            GameHUD hud = go.GetComponent<GameHUD>();
+            hud.pauseMenu = GameObject.Find("pauseMenu");
         }
 
-		if(ui == null){
+        if (ui == null){
 			Object prefab = AssetDatabase.LoadAssetAtPath("Assets/Prefabs/UI/UI.prefab", typeof (GameObject));
 			go = Instantiate(prefab, Vector3.zero, Quaternion.identity) as GameObject;
 			go.name = "UI";
 			ui = go;
 		}
 
-		if(abilitydockanim == null){
+        abilitydockanim = GameObject.Find("AbilityDock");
+        if (abilitydockanim == null){
 			Object prefab = AssetDatabase.LoadAssetAtPath("Assets/Prefabs/UI/AbilityDock.prefab", typeof(GameObject));
 			go = Instantiate(prefab, Vector3.zero, Quaternion.identity) as GameObject;
 			go.name = "AbilityDock";
 			abilitydockanim = go;
+            go.transform.parent = ui.transform;
 		}
 
 		if (player == null) {
@@ -87,6 +90,7 @@ public class Scene_Setup : EditorWindow {
 			go = Instantiate(prefab, Vector3.zero, Quaternion.identity) as GameObject;
 			go.name = "_Player";
 			player = go;
+            go.layer = LayerMask.NameToLayer("Player");
 			Quinc quinc = go.GetComponent<Quinc>();
             quinc.abilitySelector = abilitydockanim.GetComponent<AbilityDockController>();
 			ObjectManager.AddSavedObject(go.transform);
@@ -100,11 +104,9 @@ public class Scene_Setup : EditorWindow {
 			go.AddComponent<PoPCamera>();
 			PoPCamera popc = go.GetComponent<PoPCamera>();
 			popc.target = player.transform;
-			go.AddComponent<GameHUD>();
 			go.name = "_Main Camera";
 			go.tag = "MainCamera";
 			camera = GameObject.Find("_Main Camera");
-			GameHUD hud = go.GetComponent<GameHUD>();
 
             //Object icon_pull = AssetDatabase.LoadAssetAtPath("Assets/Prefabs/UI/HUDIcons/abilityButtonPull.prefab", typeof(GameObject));
             //Object icon_push = AssetDatabase.LoadAssetAtPath("Assets/Prefabs/UI/HUDIcons/abilityButtonPush.prefab", typeof(GameObject));

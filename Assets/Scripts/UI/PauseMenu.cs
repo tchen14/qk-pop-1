@@ -36,11 +36,15 @@ public class PauseMenu : MonoBehaviour {
 	}
 
 
-	public void pauseGame() {                       // Pauses the game and brings up the Pause Menu
-		isPaused = true;
-		Time.timeScale = 0f;
-		GHud.showPauseMenu();
-        Options.mainCanvas.SetActive(false);
+    public void pauseGame()
+    {                       // Pauses the game and brings up the Pause Menu
+        isPaused = true;
+        Time.timeScale = 0f;
+        GHud.showPauseMenu();
+        if (Options != null)
+        {
+            Options.mainCanvas.SetActive(false);
+        }
 	}
 
 	public void unPauseGame() {                     // Unpauses the game and hides menu
