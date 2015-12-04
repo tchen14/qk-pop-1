@@ -33,7 +33,7 @@ public class AnimationController : MonoBehaviour {
 			turnRight = 0;
 		}
 		//When it is supposed to run, 0.5 is a temporary value until finds something better
-		if((InputManager.input.MoveVerticalAxis() > 0.5f) || (InputManager.input.MoveVerticalAxis() < -0.5f)) {
+		if((InputManager.input.MoveVerticalAxis() > 0.5f) || (InputManager.input.MoveVerticalAxis() < -0.5f) || (InputManager.input.MoveHorizontalAxis() > 0.5f) || (InputManager.input.MoveHorizontalAxis() < -0.5f)) {
 			running = true;
 		} else {
 			running = false;
