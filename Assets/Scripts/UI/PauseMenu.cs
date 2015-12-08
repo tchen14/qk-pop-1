@@ -4,13 +4,21 @@ using System.Collections;
 public class PauseMenu : MonoBehaviour {
 	private bool isPaused = false;
 	public GameHUD GHud;
+    public MainMenuManager Options;
     public float speed = 2.0f;
 
-	void Update () {                                // Pause must be on Update() if put on FixedUpdate()                                            
-        //Debug.Log(Time.timeScale);                  // The game will get stuck and will have to reset
+    public GameObject mainHUD;
+    public GameObject UIhud;
 
+    void Update() {                                // Pause must be on Update() if put on FixedUpdate()                                            
+                                                   //Debug.Log(Time.timeScale);                  // The game will get stuck and will have to reset
 
-		if(Input.GetKeyDown(KeyCode.Escape)) {      // This will need to be changed to call inputManager  
+        // if (InputManager.input.isPause){}
+        //  if (InputManager.input.)
+
+    
+
+            if (Input.GetKeyDown(KeyCode.Escape)) {      // This will need to be changed to call inputManager  
 			
 			if(!isPaused) {                         
 				pauseGame();
@@ -18,18 +26,25 @@ public class PauseMenu : MonoBehaviour {
 				unPauseGame();	
 			}
 		}
-        if(Input.GetKeyDown(KeyCode.T)) {           // Feature where it allows to slow down time or speed it up
-                                                    
-            GHud.timeManipulate(speed);
-        }
+
+        if (InputManager.input.isActionPressed()) {
+
+            Debug.Log("Pressing down");
+            
+       }
 
 	}
 
 
-	public void pauseGame() {                       // Pauses the game and brings up the Pause Menu
-		isPaused = true;
-		Time.timeScale = 0f;
-		GHud.showPauseMenu();
+    public void pauseGame()
+    {                       // Pauses the game and brings up the Pause Menu
+        isPaused = true;
+        Time.timeScale = 0f;
+        GHud.showPauseMenu();
+        if (Options != null)
+        {
+            Options.mainCanvas.SetActive(false);
+        }
 	}
 
 	public void unPauseGame() {                     // Unpauses the game and hides menu
@@ -56,5 +71,11 @@ public class PauseMenu : MonoBehaviour {
     public void manipulateTime(float speed) {       // Manipulate time if needed by getting a float and setting it
         Time.timeScale = speed;                     // to Time.timeScale ... Slows down Time or Speeds up Time
     }
-
+    public void openOptions() {
+        
+       // UIhud.SetActive(false);
+        mainHUD.SetActive(true);
+     
+        Options.GoToOptions();
+    }
     }

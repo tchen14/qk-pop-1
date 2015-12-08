@@ -66,6 +66,7 @@ public class QuestManager : MonoBehaviour {
 				Debug.Log(currentQuests[count].GetName() + " quest has failed and removed fom Current Quests List and added to Failed Quests List!");
 				failedQuests.Add(currentQuests[count]);
 				currentQuests.RemoveAt(count);
+				qmUI.showQuests();
 				continue;
 			}
 
@@ -74,6 +75,7 @@ public class QuestManager : MonoBehaviour {
 				_questSaveManager.SaveCompletedQuest(currentQuests[count]);
 				completedQuests.Add(currentQuests[count]);
 				currentQuests.RemoveAt(count);
+				qmUI.showQuests();
 			}
 		}
 

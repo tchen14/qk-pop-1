@@ -23,13 +23,15 @@ public class GameHUD : MonoBehaviour {
 
 #pragma warning disable 0219
 #pragma warning disable 0414
+    GameObject UIhud;
 	GameObject mainHUDCanvas;				//!<The canvas HUD is rendered on
 	GameObject worldMapCanvas;				//!<All the game map elements
 	GameObject gameMap;						//!<The map iamge on a plane
 	GameObject player;						//!<reference to player
-	GameObject pauseMenu;
+	public GameObject pauseMenu;
 
 	public PauseMenu accessManager;
+    public MainMenuManager menuManager;
 	
 	GameObject mapCam;								//!<Camera used for minimap
 	static GameObject objectiveText;						//!<Objective Text UI element
@@ -61,12 +63,16 @@ public class GameHUD : MonoBehaviour {
 		}
 		#endregion
 
+        UIhud = GameObject.Find("_UI");
 		mainHUDCanvas = GameObject.Find("mainHUD");
 		worldMapCanvas = GameObject.Find("worldMapCanvas");
 		gameMap = GameObject.Find("mapBG");
 		player = GameObject.Find("_Player");
 		testObjective = GameObject.Find("TestObjective");
-		pauseMenu = GameObject.Find ("pauseMenu");
+        if (!pauseMenu)
+        {
+            pauseMenu = GameObject.Find("pauseMenu");
+        }
 		pauseMenu.SetActive (false);
 		
 		//!Turn on UI stuff
@@ -296,4 +302,8 @@ public class GameHUD : MonoBehaviour {
 		Application.Quit ();
 	}
 
+    public void openOptions() 
+    {
+        menuManager.GoToOptions();
+    }
 }
