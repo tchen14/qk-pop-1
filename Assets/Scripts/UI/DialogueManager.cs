@@ -6,7 +6,7 @@ using UnityEngine.UI;
 [EventVisibleAttribute]
 public class DialogueManager : MonoBehaviour {
 
-	private static string portraitPATH = "/DialoguePortraits/";
+	private static string portraitPATH = "DialoguePortraits/";
 
 	private bool _showing = false;
 	private string _text;
@@ -62,6 +62,8 @@ public class DialogueManager : MonoBehaviour {
 		_theme = data.theme;
 		_portrait = data.portrait;
 
+		//Debug.Log (data.portrait);
+
 		if (_theme == "Good") {
 			isGood = true;
 		} else if (_theme == "Bad") {
@@ -72,7 +74,12 @@ public class DialogueManager : MonoBehaviour {
 	}
 
 	private void SetPortrait() {
-		_portraitImage.GetComponent<Image> ().sprite = (Sprite)Resources.Load (portraitPATH + _portrait);
+		Sprite tempSprite = Resources.Load<Sprite> (portraitPATH + _portrait);
+		if (tempSprite != null) {
+			_portraitImage.GetComponent<Image> ().sprite = tempSprite;
+		} else {
+			Debug.Log ("Portrait does not exist");
+		}
 	}
 
 	void OnGUI() {
@@ -93,6 +100,7 @@ public class DialogueManager : MonoBehaviour {
 			_badBackground.SetActive (false);
 
 			if(_portrait != "") {
+				_badPortrait.SetActive(false);
 				_goodPortrait.SetActive(true);
 				_portraitImage.SetActive(true);
 				SetPortrait();
@@ -106,6 +114,7 @@ public class DialogueManager : MonoBehaviour {
 			_badBackground.SetActive (true);
 
 			if(_portrait != "") {
+				_goodPortrait.SetActive(false);
 				_badPortrait.SetActive(true);
 				_portraitImage.SetActive(true);
 				SetPortrait();
