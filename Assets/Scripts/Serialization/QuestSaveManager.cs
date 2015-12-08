@@ -47,9 +47,13 @@ public class QuestSaveManager : SaveManager {
 	public void SaveCompletedQuest(Quest questToSave) {
 		if (PlayerPrefs.HasKey ("CompletedQuests") == true) {
 			JSONNode completedQuests = JSONClass.Parse(PlayerPrefs.GetString("CompletedQuests"));
-			completedQuests["CompletedQuests"][completedQuests["CompletedQuests"].Count] = questToSave.GetID().ToString();
-			PlayerPrefs.SetString("CompletedQuests", completedQuests.ToString());
-			return;
+			for(int i = 0; i < completedQuests["CompletedQuest"].Count; i++){
+				if(completedQuests["CompletedQuests"][i] == questToSave.GetID().ToString()){
+					completedQuests["CompletedQuests"][-1] = questToSave.GetID().ToString();
+					PlayerPrefs.SetString("CompletedQuests", completedQuests.ToString());
+					return;
+				}
+			}
 		}
 
 		JSONClass completedQuestJSONNode = new JSONClass ();
