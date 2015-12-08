@@ -469,6 +469,7 @@ public class Item : MonoBehaviour
 	private void crate_pushPull(Vector3 player_pos, float magnitude, push_type type, float push_range, bool pull){
 		Vector3 heading = new Vector3(0.0f, 0.0f, 0.0f);
 		float angle = 0.0f;
+		float offset = (angle_offset / 180) * Mathf.PI;
 		Vector3 pos = Vector3.zero;
 
 		// Checks for range of quinc.
@@ -482,24 +483,24 @@ public class Item : MonoBehaviour
 			break;
 		case push_type.TwoAxis:
 			heading = gameObject.transform.position - player_pos;
-			angle = Vector3.Angle(heading, Vector3.forward);
-			if(angle > 0.0f && angle <= 90.0f) heading = push_forward_direction;	
-			else if(angle > 90.0f && angle <= 180.0f) heading = -push_forward_direction;
+			angle = Vector3.Angle(heading, Vector3.Normalize(Vector3.forward + new Vector3(Mathf.Sin(offset), 0.0f, Mathf.Cos(offset))));
+			if(angle > 0.0f && angle <= 90.0f) heading = new Vector3(Mathf.Sin(offset), 0.0f, Mathf.Cos(offset));
+			else if(angle > 90.0f && angle <= 180.0f) heading = new Vector3(Mathf.Sin(offset + Mathf.PI), 0.0f, Mathf.Cos(offset + Mathf.PI));
 			else heading = Vector3.zero;
 			break;
 		case push_type.FourAxis:
 			heading = gameObject.transform.position - player_pos;
 			pos = gameObject.transform.position;
-			angle = Vector3.Angle(heading, Vector3.forward);
-			if(angle > 0.0f && angle <= 45.0f) heading = Vector3.forward;
-			else if(angle > 135.0f && angle <= 180.0f) heading = Vector3.back;
-			else if(angle > 45.0f && angle <= 135.0f && pos.x > player_pos.x) heading = Vector3.right;
-			else if(angle > 45.0f && angle <= 135.0f && pos.x < player_pos.x) heading = Vector3.left;
+			angle = Vector3.Angle(heading, Vector3.Normalize(Vector3.forward + new Vector3(Mathf.Sin(offset), 0.0f, Mathf.Cos(offset))));
+			if(angle > 0.0f && angle <= 45.0f) heading = new Vector3(Mathf.Sin(offset), 0.0f, Mathf.Cos(offset));
+			else if(angle > 135.0f && angle <= 180.0f) heading = new Vector3(Mathf.Sin(offset + Mathf.PI), 0.0f, Mathf.Cos(offset + Mathf.PI));
+			else if(angle > 45.0f && angle <= 135.0f && pos.x > player_pos.x) heading = new Vector3(Mathf.Sin(offset + Mathf.PI/2), 0.0f, Mathf.Cos(offset + Mathf.PI/2));
+			else if(angle > 45.0f && angle <= 135.0f && pos.x < player_pos.x) heading = new Vector3(Mathf.Sin(offset + (3*Mathf.PI/2)), 0.0f, Mathf.Cos(offset + (3*Mathf.PI/2)));
 			break;
 		case push_type.HeightAxis:
 			heading = gameObject.transform.position - player_pos;
 			pos = gameObject.transform.position;
-			angle = Vector3.Angle(heading, Vector3.forward);
+			angle = Vector3.Angle(heading, Vector3.Normalize(Vector3.forward + new Vector3(Mathf.Sin(offset), 0.0f, Mathf.Cos(offset))));
 			if(angle > 0.0f && angle <= 22.5f) heading = Vector3.forward;
 			else if(angle > 22.5f && angle <= 45.0f && pos.x > player_pos.x) heading = new Vector3(Mathf.Sin(Mathf.PI / 4), 0.0f, Mathf.Cos(Mathf.PI / 4));
 			else if(angle > 22.5f && angle <= 45.0f && pos.x < player_pos.x) heading = new Vector3(-Mathf.Sin(Mathf.PI / 4), 0.0f, Mathf.Cos(Mathf.PI / 4));
@@ -531,7 +532,6 @@ public class Item : MonoBehaviour
 	private void drawPushPullDirections(push_type type){
 		Vector3 origin = gameObject.transform.position;
 		float heading = (angle_offset / 180) * Mathf.PI;
-		float angle = (Mathf.PI / 2) + heading;
 		float line_length = 5.0f;
 		Gizmos.color = Color.red;
 		switch (type) {
@@ -541,17 +541,17 @@ public class Item : MonoBehaviour
 			break;
 		case push_type.TwoAxis:
 			for(int i = 0; i < 2; i++){
-				Gizmos.DrawLine(origin, origin + new Vector3(Mathf.Sin(angle + (Mathf.PI) * i)* line_length, 0.0f, Mathf.Cos(angle + (Mathf.PI) * i) * line_length));
+				Gizmos.DrawLine(origin, origin + new Vector3(Mathf.Sin(heading + (Mathf.PI) * i)* line_length, 0.0f, Mathf.Cos(heading + (Mathf.PI) * i) * line_length));
 			}
 			break;
 		case push_type.FourAxis:
 			for(int i = 0; i < 4; i++){
-				Gizmos.DrawLine(origin, origin + new Vector3(Mathf.Sin(angle + (Mathf.PI/2) * i)* line_length, 0.0f, Mathf.Cos(angle + (Mathf.PI/2) * i) * line_length));
+				Gizmos.DrawLine(origin, origin + new Vector3(Mathf.Sin(heading + (Mathf.PI/2) * i)* line_length, 0.0f, Mathf.Cos(heading + (Mathf.PI/2) * i) * line_length));
 			}
 			break;
 		case push_type.HeightAxis:;
 			for(int i = 0; i < 8; i++){
-				Gizmos.DrawLine(origin, origin + new Vector3(Mathf.Sin(angle + (Mathf.PI/4) * i)* line_length, 0.0f, Mathf.Cos(angle + (Mathf.PI/4) * i) * line_length));
+				Gizmos.DrawLine(origin, origin + new Vector3(Mathf.Sin(heading + (Mathf.PI/4) * i)* line_length, 0.0f, Mathf.Cos(heading + (Mathf.PI/4) * i) * line_length));
 			}
 			break;
 		}
