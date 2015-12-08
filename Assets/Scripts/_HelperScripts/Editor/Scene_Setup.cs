@@ -107,6 +107,11 @@ public class Scene_Setup : EditorWindow {
 			go.name = "_Main Camera";
 			go.tag = "MainCamera";
 			camera = GameObject.Find("_Main Camera");
+            Transform cameraTarget = GameObject.Find("CameraTarget").transform;
+            if (cameraTarget != null)
+            {
+                popc.target = cameraTarget;
+            }
 
             //Object icon_pull = AssetDatabase.LoadAssetAtPath("Assets/Prefabs/UI/HUDIcons/abilityButtonPull.prefab", typeof(GameObject));
             //Object icon_push = AssetDatabase.LoadAssetAtPath("Assets/Prefabs/UI/HUDIcons/abilityButtonPush.prefab", typeof(GameObject));
