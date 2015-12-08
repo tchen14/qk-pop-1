@@ -21,6 +21,10 @@ public class Quinc_Editor : Editor {
 		selected_ability = (quincy_ability)EditorGUILayout.EnumPopup(selected_ability);
 		EditorGUILayout.EndHorizontal();
 
+		EditorGUILayout.BeginHorizontal();
+		quinc_target.abilitySelector = (AbilityDockController)EditorGUILayout.ObjectField(quinc_target.abilitySelector, typeof(AbilityDockController), true);
+		EditorGUILayout.EndHorizontal();
+
 		EditorGUILayout.BeginVertical();
 		switch (selected_ability) {
 		case quincy_ability.Push:
@@ -47,6 +51,7 @@ public class Quinc_Editor : Editor {
 			GUILayout.Label("Force:", GUILayout.MaxWidth(80));
 			quinc_target.pullDistance = EditorGUILayout.Slider(quinc_target.pullDistance, 0.0f, 50.0f);
 			EditorGUILayout.EndHorizontal();
+			EditorGUILayout.BeginHorizontal();
 			GUILayout.Label("Range:", GUILayout.MaxWidth(80));
 			quinc_target.pullRange = EditorGUILayout.Slider(quinc_target.pullRange, 0.0f, 50.0f);
 			EditorGUILayout.EndHorizontal();
