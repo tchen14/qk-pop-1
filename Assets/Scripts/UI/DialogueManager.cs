@@ -43,6 +43,8 @@ public class DialogueManager : MonoBehaviour {
 		_goodPortrait = _dialogueGO.transform.FindChild ("GoodPortrait").gameObject;
 		_badPortrait = _dialogueGO.transform.FindChild ("BadPortrait").gameObject;
 		_portraitImage = _dialogueGO.transform.FindChild ("PortraitImage").gameObject;
+
+		_dialogueGO.SetActive (false);
 	}
 	
 	private void onStarted() {
