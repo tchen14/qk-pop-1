@@ -15,12 +15,12 @@ public class QuestManager : MonoBehaviour {
 	QuestManagerUIController qmUI;
 
 	void Start() {
-		questManagerUI = GameObject.Find("QuestManager");
+		questManagerUI = GameObject.Find("QuestManagerUI");
 		if (questManagerUI) {
 			qmUI = questManagerUI.GetComponent<QuestManagerUIController>();
 		}
 		else {
-			Debug.LogError("QuestManager script attached to the player could not find the 'QuestManager' UI object!");
+			Debug.LogError("QuestManager script attached to the player could not find the 'QuestManagerUI' UI object!");
 		}
 		_quest = new Quest (null, null, null, -1, null);
 		currentQuests = new List<Quest> ();
