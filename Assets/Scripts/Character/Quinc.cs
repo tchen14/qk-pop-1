@@ -112,7 +112,7 @@ public sealed class Quinc : MonoBehaviour
 					break;
 
 				case quincy_ability.SoundThrow:
-					script.SoundThrow();
+					script.SoundThrow(soundRange);
 					break;
 
 				case quincy_ability.Stun:

@@ -185,11 +185,11 @@ public class Item : MonoBehaviour
 		//cutCompatible = false;
 	}
 
-	public void SoundThrow(){
+	public void SoundThrow(float sound_range){
 		switch (itemType) {
 		case item_type.Crate:
 			if(soundThrowCompatible){
-				// --insert behavior here--
+				emmit_sound(sound_range);
 			}
 			else {
 				NoEffect();
@@ -198,7 +198,7 @@ public class Item : MonoBehaviour
 			
 		case item_type.Rope:
 			if(soundThrowCompatible){
-				// --insert behavior here--
+				emmit_sound(sound_range);
 			}
 			else {
 				NoEffect();
@@ -207,7 +207,7 @@ public class Item : MonoBehaviour
 			
 		case item_type.Well:
 			if(soundThrowCompatible){
-				// --insert behavior here--
+				emmit_sound(sound_range);
 			}
 			else {
 				NoEffect();
@@ -613,6 +613,17 @@ public class Item : MonoBehaviour
 			if(soundThrowCompatible){
 				GUI.Label (new Rect (position.x, position.y + start_y + margin, 100, 20), "Can be used to cast sound.");
 				start_y += message_height;
+			}
+		}
+	}
+
+	private void emmit_sound(float radius){
+		Vector3 center = gameObject.transform.position;
+		Collider[] colliders = Physics.OverlapSphere(center, radius);
+		foreach (Collider c in colliders){
+			AIMainTrimmed ai = c.gameObject.GetComponent<AIMainTrimmed>();
+			if(ai != null){
+				ai.NoiseHeard(gameObject);
 			}
 		}
 	}
