@@ -60,6 +60,7 @@ public class Scene_Setup : EditorWindow {
             go = new GameObject();
             GameHUD gameHud = go.AddComponent<GameHUD>();
             PauseMenu pauseMenu = go.AddComponent<PauseMenu>();
+			DialogueManager dialogueManager = go.AddComponent<DialogueManager>();
             gameHud.accessManager = pauseMenu;
             pauseMenu.GHud = gameHud;
             go.name = "_HUDManager";

@@ -35,7 +35,6 @@ public class GameHUD : MonoBehaviour {
 	
 	GameObject mapCam;								//!<Camera used for minimap
 	static GameObject objectiveText;						//!<Objective Text UI element
-	static GameObject dialogueBox, dialogueText, dialogueTitleText;
 
 	GameObject[] mapLabels;							//!<Array of text taht appears on minimap
 
@@ -97,11 +96,6 @@ public class GameHUD : MonoBehaviour {
 
 		//!Set objective text reference
 		objectiveText = GameObject.Find("objectiveText");
-		dialogueBox = GameObject.Find("SpeechBubble");
-		dialogueText = GameObject.Find("speechPanelDialogueText");
-		dialogueTitleText = GameObject.Find("speechPanelNameText");
-		dialogueBox.SetActive(false);
-
 
 		phoneButtons = GameObject.Find("PhoneButtons");
 		mapElements = GameObject.Find("MapElements");
@@ -235,26 +229,6 @@ public class GameHUD : MonoBehaviour {
 		closeMapButton.SetActive(false);
 		GameObject.Find("PhoneMenu").GetComponent<Animator>().SetBool("mapActive", false);
 
-	}
-
-	public void ShowDialogueBox() {
-		dialogueBox.SetActive(true);
-	}
-
-	public void HideDialogueBox() {
-		dialogueBox.SetActive(false);
-	}
-
-	[EventVisible]
-	public void SetDialogueBoxText(string name, string dialogue) {
-		dialogueBox.SetActive(true);
-		dialogueTitleText.GetComponent<Text>().text = name;
-		dialogueText.GetComponent<Text>().text = dialogue;
-	}
-
-	[EventVisible]
-	public void HideDialogueBoxText(string name, string dialogue) {
-		dialogueBox.SetActive(false);
 	}
 
 	public void ChangeInputToUI(bool change = true) {/*
