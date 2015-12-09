@@ -31,7 +31,8 @@ public class DialogueManager : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		Dialoguer.events.onStarted += onStarted;
+
+        Dialoguer.events.onStarted += onStarted;
 		Dialoguer.events.onEnded += onEnded;
 		Dialoguer.events.onTextPhase += onTextPhase;
 
@@ -44,10 +45,12 @@ public class DialogueManager : MonoBehaviour {
 		_badPortrait = _dialogueGO.transform.FindChild ("BadPortrait").gameObject;
 		_portraitImage = _dialogueGO.transform.FindChild ("PortraitImage").gameObject;
 
-		_dialogueGO.SetActive (false);
-	}
-	
-	private void onStarted() {
+        _continueButton.GetComponent<Button>().onClick.AddListener(() => ClickedContinueButton());
+
+        _dialogueGO.SetActive (false);
+    }
+
+    private void onStarted() {
 		_showing = true;
 	}
 	
