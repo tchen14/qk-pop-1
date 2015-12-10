@@ -6,6 +6,8 @@ using UnityEngine.UI;
 [EventVisibleAttribute]
 public class DialogueManager : MonoBehaviour {
 
+	private static string portraitPATH = "DialoguePortraits/";
+
 	private bool _showing = false;
 	private string _text;
 	private string[] _choices;
@@ -20,6 +22,7 @@ public class DialogueManager : MonoBehaviour {
 	GameObject _continueButton;
 	GameObject _goodPortrait;
 	GameObject _badPortrait;
+	GameObject _portraitImage;
 
 	// Use this for initialization
 	void Awake () {
@@ -28,7 +31,8 @@ public class DialogueManager : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		Dialoguer.events.onStarted += onStarted;
+
+        Dialoguer.events.onStarted += onStarted;
 		Dialoguer.events.onEnded += onEnded;
 		Dialoguer.events.onTextPhase += onTextPhase;
 
@@ -39,9 +43,14 @@ public class DialogueManager : MonoBehaviour {
 		_continueButton = _dialogueGO.transform.FindChild ("ContinueButton").gameObject;
 		_goodPortrait = _dialogueGO.transform.FindChild ("GoodPortrait").gameObject;
 		_badPortrait = _dialogueGO.transform.FindChild ("BadPortrait").gameObject;
-	}
-	
-	private void onStarted() {
+		_portraitImage = _dialogueGO.transform.FindChild ("PortraitImage").gameObject;
+
+        _continueButton.GetComponent<Button>().onClick.AddListener(() => ClickedContinueButton());
+
+        _dialogueGO.SetActive (false);
+    }
+
+    private void onStarted() {
 		_showing = true;
 	}
 	
@@ -58,6 +67,8 @@ public class DialogueManager : MonoBehaviour {
 		_theme = data.theme;
 		_portrait = data.portrait;
 
+		//Debug.Log (data.portrait);
+
 		if (_theme == "Good") {
 			isGood = true;
 		} else if (_theme == "Bad") {
@@ -67,8 +78,13 @@ public class DialogueManager : MonoBehaviour {
 		}
 	}
 
-	private void SetText() {
-		_dialogueText.GetComponent<Text>().text = _text;
+	private void SetPortrait() {
+		Sprite tempSprite = Resources.Load<Sprite> (portraitPATH + _portrait);
+		if (tempSprite != null) {
+			_portraitImage.GetComponent<Image> ().sprite = tempSprite;
+		} else {
+			Debug.Log ("Portrait does not exist");
+		}
 	}
 
 	void OnGUI() {
@@ -89,9 +105,13 @@ public class DialogueManager : MonoBehaviour {
 			_badBackground.SetActive (false);
 
 			if(_portrait != "") {
+				_badPortrait.SetActive(false);
 				_goodPortrait.SetActive(true);
+				_portraitImage.SetActive(true);
+				SetPortrait();
 			} else {
 				_goodPortrait.SetActive(false);
+				_portraitImage.SetActive(false);
 			}
 
 		} else {
@@ -99,9 +119,13 @@ public class DialogueManager : MonoBehaviour {
 			_badBackground.SetActive (true);
 
 			if(_portrait != "") {
+				_goodPortrait.SetActive(false);
 				_badPortrait.SetActive(true);
+				_portraitImage.SetActive(true);
+				SetPortrait();
 			} else {
 				_badPortrait.SetActive(false);
+				_portraitImage.SetActive(false);
 			}
 		}
 

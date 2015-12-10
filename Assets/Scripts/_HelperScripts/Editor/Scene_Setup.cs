@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
 using UnityEditor;
 using System.Collections;
+using UnityEngine.Events;
+using UnityEngine.UI;
 
 public class Scene_Setup : EditorWindow {
 
@@ -19,7 +21,6 @@ public class Scene_Setup : EditorWindow {
 		GameObject abilitydockanim = GameObject.Find ("AbilityDock");
 		// UI
 		GameObject ui = GameObject.Find("UI");
-
 
 		if (objManager == null) {
 			go = new GameObject();
@@ -55,11 +56,20 @@ public class Scene_Setup : EditorWindow {
 			ObjectManager.AddSavedObject(go.transform);
 		}
 
+        if (ui == null)
+        {
+            Object prefab = AssetDatabase.LoadAssetAtPath("Assets/Prefabs/UI/UI.prefab", typeof(GameObject));
+            go = Instantiate(prefab, Vector3.zero, Quaternion.identity) as GameObject;
+            go.name = "UI";
+            ui = go;
+        }
+
         if (hudManager == null)
         {
             go = new GameObject();
             GameHUD gameHud = go.AddComponent<GameHUD>();
             PauseMenu pauseMenu = go.AddComponent<PauseMenu>();
+			DialogueManager dialogueManager = go.AddComponent<DialogueManager>();
             gameHud.accessManager = pauseMenu;
             pauseMenu.GHud = gameHud;
             go.name = "_HUDManager";
@@ -69,12 +79,7 @@ public class Scene_Setup : EditorWindow {
             hud.pauseMenu = GameObject.Find("pauseMenu");
         }
 
-        if (ui == null){
-			Object prefab = AssetDatabase.LoadAssetAtPath("Assets/Prefabs/UI/UI.prefab", typeof (GameObject));
-			go = Instantiate(prefab, Vector3.zero, Quaternion.identity) as GameObject;
-			go.name = "UI";
-			ui = go;
-		}
+
 
         abilitydockanim = GameObject.Find("AbilityDock");
         if (abilitydockanim == null){
@@ -122,7 +127,8 @@ public class Scene_Setup : EditorWindow {
             //hud.hudAbilityIcons.Add(Instantiate(icon_shock, Vector3.zero, Quaternion.identity) as GameObject);
 			ObjectManager.AddSavedObject(go.transform);
 		}
-	}
+
+    }
 
 
 

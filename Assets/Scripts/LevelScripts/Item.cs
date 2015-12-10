@@ -26,6 +26,7 @@ public class Item : MonoBehaviour
     public item_type itemType;
 	public push_type current_push_type;
 	private Vector3 push_forward_direction = Vector3.forward;
+	public float angle_offset = 0.0f;
 	public int itemIndex;
     [EventVisible("Pushed X Times")]
     public int pushCounter;
@@ -90,9 +91,21 @@ public class Item : MonoBehaviour
 	}
 
 	void Update(){
+		checkForSnapBack();
 		if (is_targeted) {
 
 		}
+	}
+
+	void OnGUI(){
+		if (is_targeted) {
+			GUI.color = Color.red;
+			display_effects();
+		}
+	}
+
+	void OnDrawGizmos(){
+		drawPushPullDirections (current_push_type);
 	}
 
 	public void Stun(float time)
@@ -172,11 +185,11 @@ public class Item : MonoBehaviour
 		//cutCompatible = false;
 	}
 
-	public void SoundThrow(){
+	public void SoundThrow(float sound_range){
 		switch (itemType) {
 		case item_type.Crate:
 			if(soundThrowCompatible){
-				// --insert behavior here--
+				emmit_sound(sound_range);
 			}
 			else {
 				NoEffect();
@@ -185,7 +198,7 @@ public class Item : MonoBehaviour
 			
 		case item_type.Rope:
 			if(soundThrowCompatible){
-				// --insert behavior here--
+				emmit_sound(sound_range);
 			}
 			else {
 				NoEffect();
@@ -194,7 +207,7 @@ public class Item : MonoBehaviour
 			
 		case item_type.Well:
 			if(soundThrowCompatible){
-				// --insert behavior here--
+				emmit_sound(sound_range);
 			}
 			else {
 				NoEffect();
@@ -258,6 +271,7 @@ public class Item : MonoBehaviour
 		switch (itemType) {
 		case item_type.Crate:
 			if(pullCompatible){
+				checkForSnapBack();
 				crate_pushPull(player_position, push_force, current_push_type, push_range, true);
 			}
 			else {
@@ -455,6 +469,7 @@ public class Item : MonoBehaviour
 	private void crate_pushPull(Vector3 player_pos, float magnitude, push_type type, float push_range, bool pull){
 		Vector3 heading = new Vector3(0.0f, 0.0f, 0.0f);
 		float angle = 0.0f;
+		float offset = (angle_offset / 180) * Mathf.PI;
 		Vector3 pos = Vector3.zero;
 
 		// Checks for range of quinc.
@@ -468,31 +483,31 @@ public class Item : MonoBehaviour
 			break;
 		case push_type.TwoAxis:
 			heading = gameObject.transform.position - player_pos;
-			angle = Vector3.Angle(heading, Vector3.forward);
-			if(angle > 0.0f && angle <= 90.0f) heading = push_forward_direction;	
-			else if(angle > 90.0f && angle <= 180.0f) heading = -push_forward_direction;
+			angle = Vector3.Angle(heading, Vector3.Normalize(Vector3.forward + new Vector3(Mathf.Sin(offset), 0.0f, Mathf.Cos(offset))));
+			if(angle > 0.0f && angle <= 90.0f) heading = new Vector3(Mathf.Sin(offset), 0.0f, Mathf.Cos(offset));
+			else if(angle > 90.0f && angle <= 180.0f) heading = new Vector3(Mathf.Sin(offset + Mathf.PI), 0.0f, Mathf.Cos(offset + Mathf.PI));
 			else heading = Vector3.zero;
 			break;
 		case push_type.FourAxis:
 			heading = gameObject.transform.position - player_pos;
 			pos = gameObject.transform.position;
-			angle = Vector3.Angle(heading, Vector3.forward);
-			if(angle > 0.0f && angle <= 45.0f) heading = Vector3.forward;
-			else if(angle > 135.0f && angle <= 180.0f) heading = Vector3.back;
-			else if(angle > 45.0f && angle <= 135.0f && pos.x > player_pos.x) heading = Vector3.right;
-			else if(angle > 45.0f && angle <= 135.0f && pos.x < player_pos.x) heading = Vector3.left;
+			angle = Vector3.Angle(heading, Vector3.Normalize(Vector3.forward + new Vector3(Mathf.Sin(offset), 0.0f, Mathf.Cos(offset))));
+			if(angle > 0.0f && angle <= 45.0f) heading = new Vector3(Mathf.Sin(offset), 0.0f, Mathf.Cos(offset));
+			else if(angle > 135.0f && angle <= 180.0f) heading = new Vector3(Mathf.Sin(offset + Mathf.PI), 0.0f, Mathf.Cos(offset + Mathf.PI));
+			else if(angle > 45.0f && angle <= 135.0f && pos.x > player_pos.x) heading = new Vector3(Mathf.Sin(offset + Mathf.PI/2), 0.0f, Mathf.Cos(offset + Mathf.PI/2));
+			else if(angle > 45.0f && angle <= 135.0f && pos.x < player_pos.x) heading = new Vector3(Mathf.Sin(offset + (3*Mathf.PI/2)), 0.0f, Mathf.Cos(offset + (3*Mathf.PI/2)));
 			break;
 		case push_type.HeightAxis:
 			heading = gameObject.transform.position - player_pos;
 			pos = gameObject.transform.position;
-			angle = Vector3.Angle(heading, Vector3.forward);
+			angle = Vector3.Angle(heading, Vector3.Normalize(Vector3.forward + new Vector3(Mathf.Sin(offset), 0.0f, Mathf.Cos(offset))));
 			if(angle > 0.0f && angle <= 22.5f) heading = Vector3.forward;
-			else if(angle > 22.5f && angle <= 45.0f && pos.x > player_pos.x) heading = new Vector3(-Mathf.Sin(22.5f), 0.0f, -Mathf.Cos(22.5f));
-			else if(angle > 22.5f && angle <= 45.0f && pos.x < player_pos.x) heading = new Vector3(Mathf.Sin(22.5f), 0.0f, -Mathf.Cos(22.5f));
+			else if(angle > 22.5f && angle <= 45.0f && pos.x > player_pos.x) heading = new Vector3(Mathf.Sin(Mathf.PI / 4), 0.0f, Mathf.Cos(Mathf.PI / 4));
+			else if(angle > 22.5f && angle <= 45.0f && pos.x < player_pos.x) heading = new Vector3(-Mathf.Sin(Mathf.PI / 4), 0.0f, Mathf.Cos(Mathf.PI / 4));
 			else if(angle > 45.0f && angle <= 135.0f && pos.x > player_pos.x) heading = Vector3.right;
 			else if(angle > 45.0f && angle <= 135.0f && pos.x < player_pos.x) heading = Vector3.left;
-			else if(angle > 135.0f && angle <= 157.5f && pos.x > player_pos.x) heading = new Vector3(-Mathf.Sin(22.5f), 0.0f, Mathf.Cos(22.5f));
-			else if(angle > 135.0f && angle <= 157.5f && pos.x < player_pos.x) heading = new Vector3(Mathf.Sin(22.5f), 0.0f, Mathf.Cos(22.5f));
+			else if(angle > 135.0f && angle <= 157.5f && pos.x > player_pos.x) heading = new Vector3(Mathf.Sin(Mathf.PI / 4), 0.0f, -Mathf.Cos(Mathf.PI / 4));
+			else if(angle > 135.0f && angle <= 157.5f && pos.x < player_pos.x) heading = new Vector3(-Mathf.Sin(Mathf.PI / 4), 0.0f, -Mathf.Cos(Mathf.PI / 4));
 			else if(angle > 135.0f && angle <= 180.0f) heading = Vector3.back;
 			else heading = Vector3.zero;
 			break;
@@ -514,6 +529,34 @@ public class Item : MonoBehaviour
 		rb.AddForce(direction * (magnitude * 100));
 	}
 
+	private void drawPushPullDirections(push_type type){
+		Vector3 origin = gameObject.transform.position;
+		float heading = (angle_offset / 180) * Mathf.PI;
+		float line_length = 5.0f;
+		Gizmos.color = Color.red;
+		switch (type) {
+		case push_type.Free:
+			Vector3 end = new Vector3(0.0f, line_length, 0.0f);
+			Gizmos.DrawLine(origin, origin + end);
+			break;
+		case push_type.TwoAxis:
+			for(int i = 0; i < 2; i++){
+				Gizmos.DrawLine(origin, origin + new Vector3(Mathf.Sin(heading + (Mathf.PI) * i)* line_length, 0.0f, Mathf.Cos(heading + (Mathf.PI) * i) * line_length));
+			}
+			break;
+		case push_type.FourAxis:
+			for(int i = 0; i < 4; i++){
+				Gizmos.DrawLine(origin, origin + new Vector3(Mathf.Sin(heading + (Mathf.PI/2) * i)* line_length, 0.0f, Mathf.Cos(heading + (Mathf.PI/2) * i) * line_length));
+			}
+			break;
+		case push_type.HeightAxis:;
+			for(int i = 0; i < 8; i++){
+				Gizmos.DrawLine(origin, origin + new Vector3(Mathf.Sin(heading + (Mathf.PI/4) * i)* line_length, 0.0f, Mathf.Cos(heading + (Mathf.PI/4) * i) * line_length));
+			}
+			break;
+		}
+	}
+
 	private bool checkForSnapBack(){
 		Vector3 currentPosition = gameObject.transform.position;
 		if (Vector3.Distance (currentPosition, startPosition) >= pushPullRadius) {
@@ -529,8 +572,64 @@ public class Item : MonoBehaviour
 		is_targeted = !is_targeted;
 	}
 
+	private void display_effects(){
+		Camera main_camera = Camera.current;
+		if (main_camera && quincAffected) {
+			Vector3 position = main_camera.WorldToScreenPoint (gameObject.transform.position);
+			float start_y = 0.0f;
+			float margin = 5.0f;
+			float message_height = 20.0f;
+
+			if(pushCompatible){
+				GUI.Label (new Rect (position.x, position.y + start_y + margin, 100, 20), "Can be pushed.");
+				start_y += message_height;
+			}
+
+			if(pullCompatible){
+				GUI.Label (new Rect (position.x, position.y + start_y + margin, 100, 20), "Can be pulled.");
+				start_y += message_height;
+			}
+
+			if(cutCompatible){
+				GUI.Label (new Rect (position.x, position.y + start_y + margin, 100, 20), "Can be cut.");
+				start_y += message_height;
+			}
+
+			if(heatCompatible){
+				GUI.Label (new Rect (position.x, position.y + start_y + margin, 100, 20), "Can be heat-up.");
+				start_y += message_height;
+			}
+
+			if(coldCompatible){
+				GUI.Label (new Rect (position.x, position.y + start_y + margin, 100, 20), "Can be frozen.");
+				start_y += message_height;
+			}
+
+			if(stunCompatible){
+				GUI.Label (new Rect (position.x, position.y + start_y + margin, 100, 20), "Can be stunned.");
+				start_y += message_height;
+			}
+
+			if(soundThrowCompatible){
+				GUI.Label (new Rect (position.x, position.y + start_y + margin, 100, 20), "Can be used to cast sound.");
+				start_y += message_height;
+			}
+		}
+	}
+
+	private void emmit_sound(float radius){
+		Vector3 center = gameObject.transform.position;
+		Collider[] colliders = Physics.OverlapSphere(center, radius);
+		foreach (Collider c in colliders){
+			AIMainTrimmed ai = c.gameObject.GetComponent<AIMainTrimmed>();
+			if(ai != null){
+				ai.NoiseHeard(gameObject);
+			}
+		}
+	}
+
 	private void NoEffect(){
-		print("This object is not affected by this ability.");
+		print("I'm afraid I can't do that Dave.");
 	}
 }
 

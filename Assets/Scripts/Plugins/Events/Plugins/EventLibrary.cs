@@ -37,6 +37,7 @@ public static class EventLibrary {
 
 	public static Dictionary<string, System.Type> monoClasses = new Dictionary<string, System.Type> {
 		{ "AIMain", typeof(AIMain) },
+		{ "AIMainTrimmed", typeof(AIMainTrimmed) },
 		{ "QuestNPC", typeof(QuestNPC) },
 		{ "PlayerInventory", typeof(PlayerInventory) },
 		{ "QuestManager", typeof(QuestManager) },
@@ -45,13 +46,15 @@ public static class EventLibrary {
 		{ "Rope", typeof(Rope) },
 		{ "Well", typeof(Well) },
 		{ "PlayerSaveManager", typeof(PlayerSaveManager) },
+		{ "DialogueManager", typeof(DialogueManager) },
 		{ "GameHUD", typeof(GameHUD) },
 	};
 
-	public static string[] monoClassesNice = new string[] { "AIMain",  "QuestNPC",  "PlayerInventory",  "QuestManager",  "Crate",  "Enemy",  "Rope",  "Well",  "PlayerSaveManager",  "UI", };
+	public static string[] monoClassesNice = new string[] { "AIMain",  "AIMainTrimmed",  "QuestNPC",  "PlayerInventory",  "QuestManager",  "Crate",  "Enemy",  "Rope",  "Well",  "PlayerSaveManager",  "DialogueManager",  "UI", };
 
 	public static Dictionary<string, bool> instanceClasses = new Dictionary<string, bool> {
 		{ "AIMain", false},
+		{ "AIMainTrimmed", false},
 		{ "QuestNPC", false},
 		{ "PlayerInventory", false},
 		{ "QuestManager", false},
@@ -60,6 +63,7 @@ public static class EventLibrary {
 		{ "Rope", false},
 		{ "Well", false},
 		{ "PlayerSaveManager", false},
+		{ "DialogueManager", false},
 		{ "GameHUD", false},
 	};
 
@@ -67,29 +71,25 @@ public static class EventLibrary {
 		{ "QuestNPCMethods", new string[] {"ResetLocation", } },
 		{ "AudioManagerMethods", new string[] {"playMe", "changeVol", "seeVol", } },
 		{ "PlayerInventoryMethods", new string[] {"LoadInventory", "SaveInventory", } },
-		{ "QuestManagerMethods", new string[] {"LoadQuests", "SaveQuests", "UpdateQuests", "CompleteGoalInQuest", "ProgressGoalInQuest", "AddQuest", "AddQuestWithPrerequisite", "FailQuest", } },
+		{ "QuestManagerMethods", new string[] {"LoadQuests", "SaveQuests", "UpdateQuests", "CompleteGoalInQuest", "ProgressGoalInQuest", "AddQuest", } },
 		{ "CrateMethods", new string[] {"TestCrateFunction", } },
 		{ "PlayerSaveManagerMethods", new string[] {"SavePlayerLocation", "LoadPlayerLocation", } },
+		{ "DialogueManagerMethods", new string[] {"Speak", } },
 		{ "GameHUDMethods", new string[] {"UpdateObjectiveText", "SetDialogueBoxText", "HideDialogueBoxText", } },
-		{ "CrateFields", new string[] {"temp", "pushCounter", "pullCounter", "cutCounter", "soundThrowCounter", "stunCounter", "quincAffected", } },
-		{ "EnemyFields", new string[] {"pushCounter", "pullCounter", "cutCounter", "soundThrowCounter", "stunCounter", "quincAffected", } },
+		{ "CrateFields", new string[] {"temp", } },
 		{ "ItemFields", new string[] {"pushCounter", "pullCounter", "cutCounter", "soundThrowCounter", "stunCounter", "quincAffected", } },
-		{ "RopeFields", new string[] {"pushCounter", "pullCounter", "cutCounter", "soundThrowCounter", "stunCounter", "quincAffected", } },
-		{ "WellFields", new string[] {"pushCounter", "pullCounter", "cutCounter", "soundThrowCounter", "stunCounter", "quincAffected", } },
 	};
 
 	public static Dictionary<string, string[]> libraryNice = new Dictionary<string, string[]> {
 		{ "QuestNPCMethods", new string[] {"ResetLocation", } },
 		{ "AudioManagerMethods", new string[] {"playMe", "changeVol", "seeVol", } },
 		{ "PlayerInventoryMethods", new string[] {"LoadInventory", "SaveInventory", } },
-		{ "QuestManagerMethods", new string[] {"LoadQuests", "SaveQuests", "UpdateQuests", "CompleteGoalInQuest", "ProgressGoalInQuest", "AddQuest", "AddQuestWithPrerequisite", "FailQuest", } },
+		{ "QuestManagerMethods", new string[] {"LoadQuests", "SaveQuests", "UpdateQuests", "CompleteGoalInQuest", "ProgressGoalInQuest", "AddQuest", } },
 		{ "CrateMethods", new string[] {"test", } },
 		{ "PlayerSaveManagerMethods", new string[] {"SavePlayerLocation", "LoadPlayerLocation", } },
+		{ "DialogueManagerMethods", new string[] {"Speak", } },
 		{ "GameHUDMethods", new string[] {"UpdateObjectiveText", "SetDialogueBoxText", "HideDialogueBoxText", } },
-		{ "CrateFields", new string[] {"temp", "Pushed X Times", "Pulled X Times", "Cut X Times", "Sound Thrown X Times", "Stunned X Times", "Affected by QuinC", } },
-		{ "EnemyFields", new string[] {"Pushed X Times", "Pulled X Times", "Cut X Times", "Sound Thrown X Times", "Stunned X Times", "Affected by QuinC", } },
+		{ "CrateFields", new string[] {"temp", } },
 		{ "ItemFields", new string[] {"Pushed X Times", "Pulled X Times", "Cut X Times", "Sound Thrown X Times", "Stunned X Times", "Affected by QuinC", } },
-		{ "RopeFields", new string[] {"Pushed X Times", "Pulled X Times", "Cut X Times", "Sound Thrown X Times", "Stunned X Times", "Affected by QuinC", } },
-		{ "WellFields", new string[] {"Pushed X Times", "Pulled X Times", "Cut X Times", "Sound Thrown X Times", "Stunned X Times", "Affected by QuinC", } },
 	};
 }

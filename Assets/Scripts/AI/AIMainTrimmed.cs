@@ -145,7 +145,6 @@ public class AIMainTrimmed : MonoBehaviour
         startScale = transform.localScale;
 
 
-
         startPoint = this.transform.position;               //!<Sets the startPoint to its current location.
         PlayerLastPos = AssetDatabase.LoadAssetAtPath("Assets/Prefabs/shadowPlayer.prefab", typeof(GameObject)) as GameObject;
         mesh = GetComponent<NavMeshAgent>();                //!<Sets the navmesh for the AI
@@ -160,8 +159,9 @@ public class AIMainTrimmed : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
+		Debug.Log(navPoint);
         //sets the destination to
-        mesh.SetDestination(navPoint);
+
         if (CheckForTargetsRunning == false)
         {
             CheckForTargetsRunning = true;
@@ -240,7 +240,7 @@ public class AIMainTrimmed : MonoBehaviour
                     Path = Pathways[PathwayCount];
                     AIPath CheckpointScript = Path.GetComponent<AIPath>();
                     string CheckpointCountString = CheckpointCount.ToString();
-                    ChangeNavPoint(CheckpointCountString, CheckpointScript.getPoints()[CheckpointCount]);
+                    //ChangeNavPoint(CheckpointCountString, CheckpointScript.getPoints()[CheckpointCount]);
                     _moveState = AIState.Move;
                     //return to path
                 }
@@ -315,6 +315,8 @@ public class AIMainTrimmed : MonoBehaviour
     {
         navCheck = N;
         navPoint = T;
+		mesh.SetDestination(navPoint);
+
     }
 
     public IEnumerator IncrementSuspicion()
@@ -346,13 +348,16 @@ public class AIMainTrimmed : MonoBehaviour
 
     public void NoiseHeard(GameObject soundPos)
     {
-        //if the AI does not currently see the player it will be go to the object that emited the sound.  
+        //if the AI does not currently see the player it will be go to the object that emited the sound. 
         if (seesTarget == false)
-        {
-            ChangeNavPoint(soundPos.name, soundPos.transform.position);
+        {	
+			Vector3 target = soundPos.transform.position;
+			//Vector3 target = new Vector3(soundPos.transform.position.x, 0.0f, soundPos.transform.position.z);
+            ChangeNavPoint(soundPos.name, target);
             //once the AI is near the sound source it will pause for a moment looking around
-            if ((Vector3.Distance(transform.position, navPoint) < 5) && (target == null))
+            if ((Vector3.Distance(transform.position, navPoint) < 5))
             {
+				Debug.Log("What was that noise???");
                 InvestigateSound(5f);
             }
         }
