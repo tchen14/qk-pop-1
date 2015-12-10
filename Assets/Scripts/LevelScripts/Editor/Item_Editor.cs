@@ -65,7 +65,16 @@ public class Item_Editor : Editor {
 		EditorGUI.BeginChangeCheck();
 
 		EditorGUILayout.BeginVertical();
-			item_types_index = EditorGUILayout.Popup ("Item Type:", item_types_index, item_types);
+		item_types_index = EditorGUILayout.Popup ("Item Type:", item_types_index, item_types);
+
+		if (script_target.pushCompatible || script_target.pullCompatible) {
+			EditorGUILayout.BeginHorizontal();
+			GUILayout.Label("Push Pull type:", GUILayout.MaxWidth(125));
+			script_target.current_push_type = (Item.push_type)EditorGUILayout.EnumPopup(script_target.current_push_type);
+			EditorGUILayout.EndHorizontal();
+			script_target.angle_offset = EditorGUILayout.Slider("Push/Pull direction:", script_target.angle_offset, 0.0f, 360.0f);
+		}
+
 		script_target.quincAffected = EditorGUILayout.Toggle ("Quinc Affected", script_target.quincAffected);
 
 		if (!script_target.quincAffected) {
@@ -73,9 +82,6 @@ public class Item_Editor : Editor {
 		}
 
 		script_target.pushCompatible = EditorGUILayout.Toggle ("Can be pushed", script_target.pushCompatible);
-		if (script_target.pushCompatible) {
-			script_target.current_push_type = (Item.push_type)EditorGUILayout.EnumPopup(script_target.current_push_type);
-		}
 		script_target.pullCompatible = EditorGUILayout.Toggle ("Can be pulled", script_target.pullCompatible);
 		script_target.cutCompatible = EditorGUILayout.Toggle ("Can be cut", script_target.cutCompatible);
 		script_target.soundThrowCompatible = EditorGUILayout.Toggle ("Can be soundthrowed", script_target.soundThrowCompatible);
