@@ -34,7 +34,7 @@ public class QK_Character_Movement : MonoBehaviour {
 	private float slideSpeed = 8f;
 	private float gravity = 30f;
 	[ReadOnly] public float verticalVelocity = 0f;
-	private float terminalVelocity = 20f;
+	private float terminalVelocity = 30f;
 	private float turnRate = 5f;
 
 	private Vector3 moveVector = Vector3.zero;
@@ -173,7 +173,7 @@ public class QK_Character_Movement : MonoBehaviour {
 	{
         if (!charCont.isGrounded && moveVector.y > -terminalVelocity) {
 			verticalVelocity -= gravity * Time.deltaTime;
-		} else {
+		} else if(charCont.isGrounded) {
 			verticalVelocity = -1;
 		}
 	}
