@@ -41,11 +41,11 @@ public class AnimationController : MonoBehaviour {
 			ladder = true;
 		else
 			ladder = false;
+		//Checks if the character is sidling
 		if(QK_Character_Movement.Instance._moveState == QK_Character_Movement.CharacterState.Sidle)
             sidle = true;
 		else
 			sidle = false;
-		//Checks if the character is sidling
 		//Set the values of the parameters from the animation controller
 		jumping = InputManager.input.isJumping();
 		crouching = InputManager.input.isCrouched();
