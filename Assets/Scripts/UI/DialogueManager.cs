@@ -44,7 +44,8 @@ public class DialogueManager : MonoBehaviour {
 		_badPortrait = _dialogueGO.transform.FindChild ("BadPortrait").gameObject;
 		_portraitImage = _dialogueGO.transform.FindChild ("PortraitImage").gameObject;
 
-		_dialogueGO.SetActive (false);
+        _continueButton.GetComponent<Button>().onClick.AddListener(() => ClickedContinueButton());
+        _dialogueGO.SetActive (false);
 	}
 	
 	private void onStarted() {
