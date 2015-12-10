@@ -23,7 +23,7 @@ public class QuestSaveManager : SaveManager {
 			count++;
 		}
 
-		//Debug.Log(questJSONNode.ToString ());
+		Debug.Log(questJSONNode.ToString ());
 		PlayerPrefs.SetString ("PlayerQuests", questJSONNode.ToString ());
 	}
 
@@ -33,11 +33,11 @@ public class QuestSaveManager : SaveManager {
 		for(int i = 0; i < q.GetGoal().Count(); i++) {
 			if(q.GetGoal()[i].GetProgress() > -1) {
 				progress[q.GetID().ToString()][-1].AsInt = q.GetGoal()[i].GetProgress();
-				//Debug.Log("added progress, progress = " + q.GetGoal()[i].GetProgress().ToString());
+				Debug.Log("added progress, progress = " + q.GetGoal()[i].GetProgress().ToString());
 			}
 			else {
 				progress[q.GetID().ToString()][-1] = "null";
-				//Debug.Log("did not add progress");
+				Debug.Log("did not add progress");
 				
 			}
 		}
@@ -47,8 +47,8 @@ public class QuestSaveManager : SaveManager {
 	public void SaveCompletedQuest(Quest questToSave) {
 		if (PlayerPrefs.HasKey ("CompletedQuests") == true) {
 			JSONNode completedQuests = JSONClass.Parse(PlayerPrefs.GetString("CompletedQuests"));
-			for(int i = 0; i < completedQuests["CompletedQuests"].Count; i++) {
-				if(completedQuests["CompletedQuests"][i] == questToSave.GetID().ToString()) {
+			for(int i = 0; i < completedQuests["CompletedQuest"].Count; i++){
+				if(completedQuests["CompletedQuests"][i] == questToSave.GetID().ToString()){
 					completedQuests["CompletedQuests"][-1] = questToSave.GetID().ToString();
 					PlayerPrefs.SetString("CompletedQuests", completedQuests.ToString());
 					return;
@@ -65,17 +65,16 @@ public class QuestSaveManager : SaveManager {
 
 	public bool CompletedQuest(int questID) {
 		if (PlayerPrefs.HasKey ("CompletedQuests") == true) {
-			JSONNode completedQuests = JSONClass.Parse (PlayerPrefs.GetString ("CompletedQuests"));
-			for (int i = 0; i < completedQuests["CompletedQuests"].Count; i++) {
-				//Debug.Log (completedQuests ["CompletedQuests"] [i] + " = " + questID);
-				if (completedQuests ["CompletedQuests"] [i].AsInt == questID) {
+			JSONNode completedQuests = JSONClass.Parse(PlayerPrefs.GetString("CompletedQuests"));
+			for(int i = 0; i < completedQuests["CompletedQuests"].Count; i++) {
+				if(completedQuests["CompletedQuests"][i] == questID.ToString()) {
 					return true;
 				}
 			}
 		} else {
 			return false;
 		}
-		return false;
+		return true;
 	}
 
 	public List<Quest> LoadQuests() {

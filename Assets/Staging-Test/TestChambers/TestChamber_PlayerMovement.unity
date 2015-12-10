@@ -13515,6 +13515,7 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 0fdceb3c46183ad4d8715cf1029fd4a2, type: 2}
   m_IsPrefabParent: 0
+<<<<<<< HEAD
 --- !u!1 &1643587201
 GameObject:
   m_ObjectHideFlags: 0
@@ -13621,6 +13622,8 @@ CharacterController:
   m_SkinWidth: .0799999982
   m_MinMoveDistance: .00100000005
   m_Center: {x: 0, y: 1.02999997, z: 0}
+=======
+>>>>>>> 940cdeab5055f353bd4a941cc38b8764a8b633d5
 --- !u!1001 &1646775632
 Prefab:
   m_ObjectHideFlags: 0

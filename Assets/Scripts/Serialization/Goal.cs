@@ -47,7 +47,7 @@ public class Goal {
 		return goalProgress;
 	}
 
-	public int GetProgrssNeeded(){
+	public int GetProgressNeeded(){
 		return goalProgressNeeded;
 	}
 

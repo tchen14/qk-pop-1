@@ -4,6 +4,15 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
+/*
+ * AI Path
+ * 
+ * This script is used to "draw" checkpoints on a navmesh to make a path.
+ * This path is then used by the AI script on an entity. The path constitute
+ * of a list of gameobjects, which display an icon. It then returns a list of
+ * vector3 for the AI to use.
+ */
+
 public class AIPath : MonoBehaviour {
 
 	public List<GameObject> checkpoints;

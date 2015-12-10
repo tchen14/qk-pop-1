@@ -1,8 +1,16 @@
-﻿#pragma warning disable 219     //Variable assigned and not used: quinc, hud
-
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEditor;
 using System.Collections;
+using UnityEngine.Events;
+using UnityEngine.UI;
+
+/*
+ * Scene Setup
+ * 
+ * This script's goal is to setup a new scene with every objects with its dependancies
+ * necessary to start a level. It will spawn the player which should be playable. It should
+ * resolve any error messages such as null references.
+ */
 
 public class Scene_Setup : EditorWindow {
 
@@ -21,8 +29,6 @@ public class Scene_Setup : EditorWindow {
 		GameObject abilitydockanim = GameObject.Find ("AbilityDock");
 		// UI
 		GameObject ui = GameObject.Find("UI");
-
-
 
 		if (objManager == null) {
 			go = new GameObject();
@@ -58,30 +64,38 @@ public class Scene_Setup : EditorWindow {
 			ObjectManager.AddSavedObject(go.transform);
 		}
 
+        if (ui == null)
+        {
+            Object prefab = AssetDatabase.LoadAssetAtPath("Assets/Prefabs/UI/UI.prefab", typeof(GameObject));
+            go = Instantiate(prefab, Vector3.zero, Quaternion.identity) as GameObject;
+            go.name = "UI";
+            ui = go;
+        }
+
         if (hudManager == null)
         {
             go = new GameObject();
             GameHUD gameHud = go.AddComponent<GameHUD>();
             PauseMenu pauseMenu = go.AddComponent<PauseMenu>();
+			DialogueManager dialogueManager = go.AddComponent<DialogueManager>();
             gameHud.accessManager = pauseMenu;
             pauseMenu.GHud = gameHud;
             go.name = "_HUDManager";
             hudManager = GameObject.Find("_HUDManager");
             ObjectManager.AddSavedObject(go.transform);
+            GameHUD hud = go.GetComponent<GameHUD>();
+            hud.pauseMenu = GameObject.Find("pauseMenu");
         }
 
-		if(ui == null){
-			Object prefab = AssetDatabase.LoadAssetAtPath("Assets/Prefabs/UI/UI.prefab", typeof (GameObject));
-			go = Instantiate(prefab, Vector3.zero, Quaternion.identity) as GameObject;
-			go.name = "UI";
-			ui = go;
-		}
 
-		if(abilitydockanim == null){
+
+        abilitydockanim = GameObject.Find("AbilityDock");
+        if (abilitydockanim == null){
 			Object prefab = AssetDatabase.LoadAssetAtPath("Assets/Prefabs/UI/AbilityDock.prefab", typeof(GameObject));
 			go = Instantiate(prefab, Vector3.zero, Quaternion.identity) as GameObject;
 			go.name = "AbilityDock";
 			abilitydockanim = go;
+            go.transform.parent = ui.transform;
 		}
 
 		if (player == null) {
@@ -89,6 +103,7 @@ public class Scene_Setup : EditorWindow {
 			go = Instantiate(prefab, Vector3.zero, Quaternion.identity) as GameObject;
 			go.name = "_Player";
 			player = go;
+            go.layer = LayerMask.NameToLayer("Player");
 			Quinc quinc = go.GetComponent<Quinc>();
             quinc.abilitySelector = abilitydockanim.GetComponent<AbilityDockController>();
 			ObjectManager.AddSavedObject(go.transform);
@@ -102,11 +117,14 @@ public class Scene_Setup : EditorWindow {
 			go.AddComponent<PoPCamera>();
 			PoPCamera popc = go.GetComponent<PoPCamera>();
 			popc.target = player.transform;
-			go.AddComponent<GameHUD>();
 			go.name = "_Main Camera";
 			go.tag = "MainCamera";
 			camera = GameObject.Find("_Main Camera");
-			GameHUD hud = go.GetComponent<GameHUD>();
+            Transform cameraTarget = GameObject.Find("CameraTarget").transform;
+            if (cameraTarget != null)
+            {
+                popc.target = cameraTarget;
+            }
 
             //Object icon_pull = AssetDatabase.LoadAssetAtPath("Assets/Prefabs/UI/HUDIcons/abilityButtonPull.prefab", typeof(GameObject));
             //Object icon_push = AssetDatabase.LoadAssetAtPath("Assets/Prefabs/UI/HUDIcons/abilityButtonPush.prefab", typeof(GameObject));
@@ -117,7 +135,8 @@ public class Scene_Setup : EditorWindow {
             //hud.hudAbilityIcons.Add(Instantiate(icon_shock, Vector3.zero, Quaternion.identity) as GameObject);
 			ObjectManager.AddSavedObject(go.transform);
 		}
-	}
+
+    }
 
 
 

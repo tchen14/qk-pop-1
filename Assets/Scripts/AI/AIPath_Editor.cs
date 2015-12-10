@@ -3,6 +3,13 @@ using UnityEditor;
 using System.Collections;
 using System.Collections.Generic;
 
+/*
+ * AI Path Editor Script
+ * 
+ * UI Script for the AI Path class. It is used to manipulate the list of the checkpoints like removing
+ * a checkpoint or moving it up or down.
+ */
+
 [CustomEditor(typeof(AIPath), true)]
 public class AIPath_Editor : Editor {
 

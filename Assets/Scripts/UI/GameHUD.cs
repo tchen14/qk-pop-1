@@ -23,17 +23,18 @@ public class GameHUD : MonoBehaviour {
 
 #pragma warning disable 0219
 #pragma warning disable 0414
+    GameObject UIhud;
 	GameObject mainHUDCanvas;				//!<The canvas HUD is rendered on
 	GameObject worldMapCanvas;				//!<All the game map elements
 	GameObject gameMap;						//!<The map iamge on a plane
 	GameObject player;						//!<reference to player
-	GameObject pauseMenu;
+	public GameObject pauseMenu;
 
 	public PauseMenu accessManager;
+    public MainMenuManager menuManager;
 	
 	GameObject mapCam;								//!<Camera used for minimap
 	static GameObject objectiveText;						//!<Objective Text UI element
-	static GameObject dialogueBox, dialogueText, dialogueTitleText;
 
 	GameObject[] mapLabels;							//!<Array of text taht appears on minimap
 
@@ -61,12 +62,16 @@ public class GameHUD : MonoBehaviour {
 		}
 		#endregion
 
+        UIhud = GameObject.Find("_UI");
 		mainHUDCanvas = GameObject.Find("mainHUD");
 		worldMapCanvas = GameObject.Find("worldMapCanvas");
 		gameMap = GameObject.Find("mapBG");
 		player = GameObject.Find("_Player");
 		testObjective = GameObject.Find("TestObjective");
-		pauseMenu = GameObject.Find ("pauseMenu");
+        if (!pauseMenu)
+        {
+            pauseMenu = GameObject.Find("pauseMenu");
+        }
 		pauseMenu.SetActive (false);
 		
 		//!Turn on UI stuff
@@ -91,11 +96,6 @@ public class GameHUD : MonoBehaviour {
 
 		//!Set objective text reference
 		objectiveText = GameObject.Find("objectiveText");
-		dialogueBox = GameObject.Find("SpeechBubble");
-		dialogueText = GameObject.Find("speechPanelDialogueText");
-		dialogueTitleText = GameObject.Find("speechPanelNameText");
-		dialogueBox.SetActive(false);
-
 
 		phoneButtons = GameObject.Find("PhoneButtons");
 		mapElements = GameObject.Find("MapElements");
@@ -231,26 +231,6 @@ public class GameHUD : MonoBehaviour {
 
 	}
 
-	public void ShowDialogueBox() {
-		dialogueBox.SetActive(true);
-	}
-
-	public void HideDialogueBox() {
-		dialogueBox.SetActive(false);
-	}
-
-	[EventVisible]
-	public void SetDialogueBoxText(string name, string dialogue) {
-		dialogueBox.SetActive(true);
-		dialogueTitleText.GetComponent<Text>().text = name;
-		dialogueText.GetComponent<Text>().text = dialogue;
-	}
-
-	[EventVisible]
-	public void HideDialogueBoxText(string name, string dialogue) {
-		dialogueBox.SetActive(false);
-	}
-
 	public void ChangeInputToUI(bool change = true) {/*
 		if(change)
 		InputManager.instance.ChangeInputType("UIInputType");
@@ -296,4 +276,8 @@ public class GameHUD : MonoBehaviour {
 		Application.Quit ();
 	}
 
+    public void openOptions() 
+    {
+        menuManager.GoToOptions();
+    }
 }

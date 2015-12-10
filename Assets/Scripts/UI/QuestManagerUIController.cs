@@ -24,7 +24,6 @@ public class QuestManagerUIController : MonoBehaviour {
 	EventSystem theEventSystem;
 	float qcHeight;
 	int lastButtonSelected;
-	//GameObject[] buttons;
 	List<GameObject> allQuests;
 	List<Quest>[] theLists;
 	
@@ -36,7 +35,6 @@ public class QuestManagerUIController : MonoBehaviour {
 		else {
 			Debug.LogError("QuestManagerUI Script attached to 'QuestManager' object could not find a player in the scene!");
 		}
-		//questContainer = this.transform.Find ("Quests").gameObject;
 		if (!questContainer) {
 			Debug.LogError("QuestManagerUI Script attached to 'QuestManager' object could not find a child GameObject called 'Quests' the prefab connection could be broken.");
 		}
@@ -74,10 +72,6 @@ public class QuestManagerUIController : MonoBehaviour {
 		for(int i = 0; i < theLists.Length; i++){
 			qcHeight += (theLists[i].Count * (buttonHeight + spacing) - spacing);
 		}
-		
-		/*qcHeight = (qm.questCount * (buttonHeight + spacing) - spacing);
-		qcHeight += (qm.completedQuests.Count * (buttonHeight + spacing) - spacing);
-		qcHeight += (qm.failedQuests.Count * (buttonHeight + spacing) - spacing);*/
 		qm.LoadQuests ();
 	}
 
@@ -92,12 +86,10 @@ public class QuestManagerUIController : MonoBehaviour {
 		else{
 			isScrolling = false;
 		}
-		if(isScrolling){
+		if(isScrolling && (theLists[0].Count > 0 || theLists [1].Count > 0 || theLists[2].Count > 0)){
 			mainScrollbar.value = 1 - ((Mathf.Abs(theEventSystem.currentSelectedGameObject.transform.localPosition.y) - 50.5f) / (qcHeight - 101f));
-			Debug.Log("Name: " + theEventSystem.currentSelectedGameObject.name + "\nVal: " + Mathf.Abs(theEventSystem.currentSelectedGameObject.transform.localPosition.y).ToString() + "\nqcHeight: " + qcHeight);
 		}
 		if(Input.GetKeyDown (KeyCode.Escape) && !mainSelected){
-			//buttons[lastButtonSelected].GetComponent<Button>().Select();
 			allQuests[lastButtonSelected].GetComponent<Button>().Select();
 			mainSelected = true;
 		}
@@ -108,77 +100,27 @@ public class QuestManagerUIController : MonoBehaviour {
 		reorganizeQuests ();
 	}
 
-	public void addNewQuest(){
-
-	}
-
 	/* This function is called when the quest UI elements need to be reorganized.
 	 * Some times when this would be called is when attempting to add a quest or a quest is completed.
 	 * This handles the calculation of the size of the scrollable area and physical placement of the quest UI elements in the quest manager.
-	 * This function will also call the sort method on the Quests list to organize by completion. Completed items will fall to the bottom.
+	 * This function organizes quests by active, failed, then completed quests.
 	 */
 	public void reorganizeQuests(){
-		/*qm.currentQuests.Sort (delegate(Quest q1, Quest q2) {
-			return q1.GetName().CompareTo(q2.GetName ());
-		});*/
-		/*qm.currentQuests.Sort (delegate(Quest q1, Quest q2) {
-			return q1.IsCompleted().CompareTo(q2.IsCompleted ());
-		});*/
-		//qm.currentQuests.Sort ();
 		allQuests = new List<GameObject> ();
 		mainSelected = true;
 		moreQuestInfoTitle.text = "";
 		moreQuestInfoDescription.text = "";
-		//qcHeight = (qm.questCount * (buttonHeight + spacing) - spacing);
-		//Debug.Log ("Com quest count" + qm.completedQuests.Count);
-		//qcHeight += (qm.completedQuests.Count * (buttonHeight + spacing) - spacing);
-		//qcHeight += (qm.failedQuests.Count * (buttonHeight + spacing) - spacing);
+		qcHeight = 0;
 		for(int i = 0; i < theLists.Length; i++){
 			qcHeight += (theLists[i].Count * (buttonHeight + spacing) - spacing);
 		}
 		RectTransform containerTransform = questContainer.GetComponent<RectTransform> ();
 		containerTransform.sizeDelta = new Vector2 (100, qcHeight);
 		newScrollVal = ((buttonHeight + spacing) + spacing) / qcHeight;
+
 		mainScrollbar.value = 0.99f;
 		moreInfoScrollbar.value = 0.99f;
-		//buttons = new GameObject[qm.questCount];
 
-		/*int loopHelper = 0;
-		for (int i = 0; i < qm.questCount; i++) {
-			GameObject newQuestButton = Instantiate(questUI, new Vector3(0, 0 - (i * (buttonHeight + spacing) + (buttonHeight/2)), 0), Quaternion.identity) as GameObject;
-			newQuestButton.transform.SetParent(questContainer.transform, false);
-			//buttons[i] = newQuestButton;
-			allQuests.Add(newQuestButton);
-			Text newButtonText = newQuestButton.transform.FindChild ("Text").GetComponent<Text>();
-			newButtonText.text = qm.currentQuests[i].GetName();
-			Button qb = newQuestButton.GetComponent<Button>();
-			addListener(qb, i);
-			if (i == 0){
-				qb.Select();
-			}
-			loopHelper = i + 1;
-		}
-		for (int l = loopHelper, i = 0; i < qm.failedQuests.Count; i ++, l++) {
-			GameObject newQuestButton = Instantiate(questUI, new Vector3(0, 0 - (l * (buttonHeight + spacing) + (buttonHeight/2)), 0), Quaternion.identity) as GameObject;
-			newQuestButton.transform.SetParent(questContainer.transform, false);
-			//buttons[l] = newQuestButton;
-			allQuests.Add(newQuestButton);
-			Text newButtonText = newQuestButton.transform.FindChild ("Text").GetComponent<Text>();
-			newButtonText.text = qm.failedQuests[i].GetName();
-			Button qb = newQuestButton.GetComponent<Button>();
-			addListener(qb, l);
-			loopHelper = l + 1;
-		}
-		for (int l = loopHelper, i = 0; i < qm.completedQuests.Count; i++, l++) {
-			GameObject newQuestButton = Instantiate(questUI, new Vector3(0, 0 - (l * (buttonHeight + spacing) + (buttonHeight/2)), 0), Quaternion.identity) as GameObject;
-			newQuestButton.transform.SetParent(questContainer.transform, false);
-			//buttons[l] = newQuestButton;
-			allQuests.Add(newQuestButton);
-			Text newButtonText = newQuestButton.transform.FindChild ("Text").GetComponent<Text>();
-			newButtonText.text = qm.completedQuests[i].GetName();
-			Button qb = newQuestButton.GetComponent<Button>();
-			addListener(qb, l);
-		}*/
 		int iter = 0;
 		for(int i = 0; i < theLists.Length; i++){
 			for(int j = 0; j < theLists[i].Count; j++){
@@ -196,12 +138,14 @@ public class QuestManagerUIController : MonoBehaviour {
 			}
 		}
 		if (qm.questCount > 0) {
-		
-			showMoreQuestInfo(0);
+			showMoreQuestInfo (0);
+		} 
+		else {
+			moreQuestInfoTitle.text = "No Quests!";
+			moreQuestInfoDescription.text = "You have no quests! Go explore to find some!";
 		}
-		/*mainScrollbar.value = 0.99f;
-		moreInfoScrollbar.value = 0.99f;
-		*/
+		StartCoroutine(showMoreInfoScrollbar());
+
 		if (qm.questCount < 7) {
 			GameObject scrollingHandle = mainScrollbar.transform.FindChild ("Sliding Area").transform.FindChild ("Handle").gameObject;
 			scrollingHandle.SetActive (false);
@@ -210,34 +154,55 @@ public class QuestManagerUIController : MonoBehaviour {
 			GameObject scrollingHandle = mainScrollbar.transform.FindChild ("Sliding Area").transform.FindChild ("Handle").gameObject;
 			scrollingHandle.SetActive (true);
 		}
+		//StartCoroutine (showMoreInfoScrollbar ());
 	}
 
+	/* Each time a button is dynamically created, a listener is added to it which calls the clickButton() function.
+	 * The listener helps keep track of the button that was pressed so it can be highlighted again when the user presses the back button.
+	 */
 	void addListener(Button b, int i){
 		b.onClick.AddListener (() => clickButton (i));
 	}
 
+	/* The click button function is called when any of the dynamically created buttons are clicked.
+	 * It displays the information for the quest in the gold box and selects the respective scrollbar.
+	 */
 	void clickButton(int iter){
 		mainSelected = false;
 		lastButtonSelected = iter;
 		showMoreQuestInfo(iter);
 		moreInfoScrollbar.Select();
 		moreInfoScrollbar.value = 1f;
-		/*if(moreQuestInfoDescription.GetComponent<RectTransform>().rect.height < 560){
-			moreInfoScrollbar.gameObject.SetActive(false);
-		}
-		else{
-			moreInfoScrollbar.gameObject.SetActive(true);
-		}*/
+		StartCoroutine (showMoreInfoScrollbar ());
 	}
 
+	/* This coroutine is needed to fix a bug.
+	 * Without the short delay that this adds into the code, the program was getting the previous value for the height of the moreQuestInfoDescription
+	 */
+		IEnumerator showMoreInfoScrollbar(){
+			yield return new WaitForSeconds (0.00001f);
+			if(moreQuestInfoDescription.GetComponent<RectTransform>().rect.height < 560){
+				moreInfoScrollbar.gameObject.SetActive(false);
+			}
+			else{
+				moreInfoScrollbar.gameObject.SetActive(true);
+			}
+		}
+
+	/* Helper function that deletes all of the buttons that were dynamically created
+	 */
 	public void removeQuestUIobjects(){
 		foreach (Transform child in questContainer.transform) {
 			GameObject.Destroy(child.gameObject);
 		}
 	}
-	
+
+	/* This function populates the moreQuestinfo object with information on each quest.
+	 * At the beginning a value is created from the iter integer that coresponds to which quest in which list is being selected.
+	 * i is the index of the list in the list array theLists
+	 * j is the index of the quest in the list
+	 */
 	void showMoreQuestInfo(int iter){
-		Debug.Log (iter.ToString ());
 		int i;
 		int j;
 		if(iter < theLists[0].Count){
@@ -256,7 +221,7 @@ public class QuestManagerUIController : MonoBehaviour {
 		Goal[] currQuestGoals = theLists[i][j].GetGoal();
 		string goalText = "\n";
 		if(theLists[i][j].HasTimer()){
-			goalText += "Quest Duration: " + theLists[i][j].GetTimerLength () + " Seconds";
+			goalText += "\nQuest Duration: " + theLists[i][j].GetTimerLength () + " Seconds";
 		}
 		for(int x = 0; x < currQuestGoals.Length; x++){
 			goalText += "\n" + currQuestGoals[x].GetName() + ": ";
@@ -269,73 +234,10 @@ public class QuestManagerUIController : MonoBehaviour {
 				}
 			}
 			else{
-				goalText += currQuestGoals [i].GetProgress () + " / " + currQuestGoals [i].GetProgrssNeeded ();
+				 goalText += currQuestGoals [x].GetProgress () + " / " + currQuestGoals [x].GetProgressNeeded ();
 			}
 		}
-		moreQuestInfoDescription.text = theLists[i][j].GetDescription() + "\n" + theLists[i][j].GetObjective() + goalText;
-		GameObject moreQuestInfoScrollView = moreQuestInfo.transform.FindChild("ScrollView").gameObject;
-		
-		/*if (iter < qm.currentQuests.Count) {
-			moreQuestInfoTitle.text = qm.currentQuests [iter].GetName ();
-			Goal[] currQuestGoals = qm.currentQuests [iter].GetGoal ();
-			string goalText = "\n";
-			if (qm.currentQuests [iter].HasTimer ()) {
-				goalText += "Quest Duration: " + qm.currentQuests [iter].GetTimerLength () + " Seconds";
-			}
-			for (int i = 0; i < currQuestGoals.Length; i++) {
-				goalText += "\n" + currQuestGoals [i].GetName () + ": ";
-				if (currQuestGoals [i].GetProgress () == -1) {
-					if (currQuestGoals [i].IsCompleted ()) {
-						goalText += "Complete";
-					} else {
-						goalText += "Incomplete";
-					}
-				} else {
-					goalText += currQuestGoals [i].GetProgress () + " / " + currQuestGoals [i].GetProgrssNeeded ();
-				}
-			}
-			moreQuestInfoDescription.text = qm.currentQuests [iter].GetDescription () + "\n" + qm.currentQuests [iter].GetObjective () + goalText;
-		} else if (iter < qm.currentQuests.Count + qm.failedQuests.Count) {
-			moreQuestInfoTitle.text = qm.failedQuests [iter - qm.currentQuests.Count].GetName ();
-			Goal[] currQuestGoals = qm.failedQuests [iter - qm.currentQuests.Count].GetGoal ();
-			string goalText = "\n";
-			if (qm.failedQuests [iter - qm.currentQuests.Count].HasTimer ()) {
-				goalText += "Quest Duration: " + qm.failedQuests [iter - qm.currentQuests.Count].GetTimerLength () + " Seconds";
-			}
-			for (int i = 0; i < currQuestGoals.Length; i++) {
-				goalText += "\n" + currQuestGoals [i].GetName () + ": ";
-				if (currQuestGoals [i].GetProgress () == -1) {
-					if (currQuestGoals [i].IsCompleted ()) {
-						goalText += "Complete";
-					} else {
-						goalText += "Incomplete";
-					}
-				} else {
-					goalText += currQuestGoals [i].GetProgress () + " / " + currQuestGoals [i].GetProgrssNeeded ();
-				}
-			}
-			moreQuestInfoDescription.text = qm.failedQuests [iter - qm.currentQuests.Count].GetDescription () + "\n" + qm.failedQuests [iter - qm.currentQuests.Count].GetObjective () + goalText;
-		} 
-		else {
-			moreQuestInfoTitle.text = qm.completedQuests [iter - (qm.currentQuests.Count + qm.failedQuests.Count)].GetName ();
-			Goal[] currQuestGoals = qm.completedQuests [iter - (qm.currentQuests.Count + qm.failedQuests.Count)].GetGoal ();
-			string goalText = "\n";
-			if (qm.currentQuests [iter - (qm.currentQuests.Count + qm.failedQuests.Count)].HasTimer ()) {
-				goalText += "Quest Duration: " + qm.completedQuests [iter - (qm.currentQuests.Count + qm.failedQuests.Count)].GetTimerLength () + " Seconds";
-			}
-			for (int i = 0; i < currQuestGoals.Length; i++) {
-				goalText += "\n" + currQuestGoals [i].GetName () + ": ";
-				if (currQuestGoals [i].GetProgress () == -1) {
-					if (currQuestGoals [i].IsCompleted ()) {
-						goalText += "Complete";
-					} else {
-						goalText += "Incomplete";
-					}
-				} else {
-					goalText += currQuestGoals [i].GetProgress () + " / " + currQuestGoals [i].GetProgrssNeeded ();
-				}
-			}
-			moreQuestInfoDescription.text = qm.completedQuests [iter - (qm.currentQuests.Count + qm.failedQuests.Count)].GetDescription () + "\n" + qm.completedQuests [iter - (qm.currentQuests.Count + qm.failedQuests.Count)].GetObjective () + goalText;
-		}*/
+        moreQuestInfoDescription.text = theLists[i][j].GetDescription() + "\n" + theLists[i][j].GetObjective() + goalText;
+        GameObject moreQuestInfoScrollView = moreQuestInfo.transform.FindChild("ScrollView").gameObject;
 	}
 }
