@@ -11,7 +11,16 @@ public enum item_type {
 [RequireComponent (typeof (Collider))]
 [RequireComponent(typeof (Targetable))]
 [System.Serializable]
-//public abstract class Item : MonoBehaviour
+
+/*
+ *  Item Class
+ *  This is used to store behaviors and variables specific to an item. There are currently
+ *  four kinds of items defined by the enum above. Each item types has its own section for
+ *  a different action caused by Quinc. The main functions Push, Pull, etc are called by Quinc.
+ *  This script should ba added to any object that is potentially going to be targetted and used
+ *  by Quinc.
+ */
+
 public class Item : MonoBehaviour
 {
 	public enum push_type {

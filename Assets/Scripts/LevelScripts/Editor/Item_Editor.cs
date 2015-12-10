@@ -3,6 +3,14 @@ using UnityEditor;
 using System.Collections;
 using System.Collections.Generic;
 
+/*
+ * Item Editor Script
+ * 
+ * This editor script is used to set what Quinc ca do to the item. It also
+ * stores presets for each item types. It can also set the direction axis for
+ * push and pull.
+ */
+
 [CustomEditor(typeof(Item), true)]
 public class Item_Editor : Editor {
 
