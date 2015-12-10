@@ -4,6 +4,14 @@ using System.Collections;
 using UnityEngine.Events;
 using UnityEngine.UI;
 
+/*
+ * Scene Setup
+ * 
+ * This script's goal is to setup a new scene with every objects with its dependancies
+ * necessary to start a level. It will spawn the player which should be playable. It should
+ * resolve any error messages such as null references.
+ */
+
 public class Scene_Setup : EditorWindow {
 
 	[MenuItem("Custom Tools/Setup Scene")]

@@ -4,6 +4,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEditor.AnimatedValues;
 
+/*
+ * AI Editor Script
+ * 
+ * This script is used to easily swap between common AI types by loading
+ * different behavior values to the AI script. It uses the sctruct AI_Data
+ * to store each values and to load them to the AI.
+ */
+
 public struct AI_Data
 {
 	private int hp_;
