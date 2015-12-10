@@ -88,7 +88,7 @@ public sealed class Quinc : MonoBehaviour
 
 	void FixedUpdate()
 	{
-		activeAbility = (quincy_ability)abilitySelector.getSelectedAbility();
+		//activeAbility = (quincy_ability)abilitySelector.getSelectedAbility();
 		if(InputManager.input.AbilityPressed() && PoPCamera.State == PoPCamera.CameraState.TargetLock)
 		{
 				try_ability(activeAbility);

@@ -14,7 +14,6 @@ GameObject:
   - 114: {fileID: 11467898}
   - 195: {fileID: 19511284}
   - 54: {fileID: 5493758}
-  - 114: {fileID: 11407478}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Untagged
@@ -80,51 +79,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &11407478
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 167898}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 748cd4d222092df48a2b8072558dd908, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  current_preset: 0
-  hp: 100
-  sightDistance: 45
-  sightAngle: 45
-  speed: 4
-  runSpeed: 6
-  seekTag:
-  - Player
-  attackDistance: 2
-  aggressionLimit: 100
-  suspicionLimit: 150
-  panicPoints: PanicPoints
-  aggressive: 0
-  seesTarget: 0
-  target: {fileID: 0}
-  temptarget: {fileID: 0}
-  attacking: 0
-  panic: 0
-  CheckpointCount: 0
-  alert: 0
-  dazed: 0
-  noiseHeard: 0
-  checkpointsArray: []
-  navCheck: 
-  navPoint: {x: 0, y: 0, z: 0}
-  AiCheckpoints: []
-  Pathways: []
-  PathType: 
-  nofLoops: 
-  infinite: 
-  PathwayListLength: 0
-  AiCheckpointsLength: 0
-  Path: {fileID: 0}
-  PathwayCount: 0
 --- !u!114 &11467898
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -136,22 +90,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 368ffc541c30b4149a60ba9209a26584, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemName: 
-  pushCounter: 0
-  pullCounter: 0
-  cutCounter: 0
-  soundThrowCounter: 0
-  stunCounter: 0
-  quincAffected: 0
-  pushCompatible: 0
-  pullCompatible: 0
-  cutCompatible: 0
-  soundThrowCompatible: 0
-  soundThrowRadius: 25
-  stunCompatible: 0
-  heatCompatible: 0
-  coldCompatible: 0
-  blastCompatible: 0
   curStunTimer: 0
   stunState: 0
 --- !u!136 &13667898
