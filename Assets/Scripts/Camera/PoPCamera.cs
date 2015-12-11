@@ -115,6 +115,10 @@ public sealed class PoPCamera : Camera_2
 	 */
 	void Update() 
 	{
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            Reset();
+        }
         switch (_curState)
         {
             case CameraState.Normal:

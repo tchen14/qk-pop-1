@@ -4,14 +4,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEditor.AnimatedValues;
 
-/*
- * AI Editor Script
- * 
- * This script is used to easily swap between common AI types by loading
- * different behavior values to the AI script. It uses the sctruct AI_Data
- * to store each values and to load them to the AI.
- */
-
 public struct AI_Data
 {
 	private int hp_;
@@ -82,7 +74,7 @@ public class AIEditor : Editor {
 
 	AI_Data[] ai_data = new AI_Data[]{
 		new AI_Data(100, 5, 35, 5, 8, new string[]{"Player"}, 3, 10, "PanicPoints", false, 10, 70),
-		new AI_Data(200, 15, 35, 6, 12, new string[]{"Player"}, 5, 5, "PanicPoints", true, 5, 70),
+		new AI_Data(200, 15, 35, 6, 12, new string[]{"Player"}, 5, 1, "PanicPoints", true, 1, 70),
 		new AI_Data(300, 5, 35, 7, 16, new string[]{"Player"}, 7, 10, "PanicPoints", true, 10,70)};
 
 	int ai_types_index = 0;
@@ -93,12 +85,13 @@ public class AIEditor : Editor {
 	{
 		ai_target = (AIMainTrimmed)target;
 		ai_types_index = ai_target.current_preset;
-		show_data = new AnimBool(false);
+		show_data = new AnimBool(ai_target.customType);
 		show_data.valueChanged.AddListener(Repaint);
 	}
 
 	override public void OnInspectorGUI()
 	{
+		EditorGUI.BeginChangeCheck();
 		EditorGUILayout.BeginVertical();
 
 		EditorGUILayout.BeginHorizontal ();
@@ -143,6 +136,7 @@ public class AIEditor : Editor {
 		EditorGUILayout.BeginHorizontal();
 		GUILayout.Label("Show Data:", GUILayout.MaxWidth(70));
 		show_data.target = EditorGUILayout.Toggle (show_data.target);
+		ai_target.customType = show_data.target;
 		EditorGUILayout.EndHorizontal ();
 
 		if (EditorGUILayout.BeginFadeGroup (show_data.faded))
@@ -154,6 +148,7 @@ public class AIEditor : Editor {
 			ai_target.speed = EditorGUILayout.FloatField("Speed:", ai_target.speed);
 			ai_target.runSpeed = EditorGUILayout.FloatField("Running Speed:", ai_target.runSpeed);
 			ai_target.attackDistance = EditorGUILayout.FloatField("Attack Distance:", ai_target.attackDistance);
+			ai_target.suspicionLimit = EditorGUILayout.FloatField("Suspicion Limit:", ai_target.suspicionLimit);
 			ai_target.aggressionLimit = EditorGUILayout.FloatField("Aggression Limit:", ai_target.aggressionLimit);
 			ai_target.enemy = EditorGUILayout.Toggle("Aggressive:", ai_target.enemy);
 		}
@@ -169,7 +164,9 @@ public class AIEditor : Editor {
 
 	private void loadAI()
 	{
-		ai_data[ai_types_index].loadData(ai_target);
+		if (ai_target.customType == false) {
+			ai_data [ai_types_index].loadData (ai_target);
+		}
 	}
 
 	private string print_array(string[] arr){

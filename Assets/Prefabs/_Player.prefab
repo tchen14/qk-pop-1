@@ -888,6 +888,7 @@ GameObject:
   - 114: {fileID: 11458004}
   - 114: {fileID: 11462642}
   - 114: {fileID: 11417704}
+  - 136: {fileID: 13648992}
   m_Layer: 9
   m_Name: _Player
   m_TagString: Player
@@ -1493,8 +1494,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 155992}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -115.900002, y: 0, z: 152.600006}
+  m_LocalRotation: {x: 0, y: -1.49011612e-07, z: 0, w: 1}
+  m_LocalPosition: {x: 11.3609772, y: 0, z: 97.6109695}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 485210}
@@ -2739,6 +2740,19 @@ MonoBehaviour:
   coldRange: 20
   activeAbility: 0
   abilitySelector: {fileID: 0}
+--- !u!136 &13648992
+CapsuleCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 155992}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  m_Radius: .25
+  m_Height: 2
+  m_Direction: 1
+  m_Center: {x: 0, y: 1, z: 0}
 --- !u!137 &13706448
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 1

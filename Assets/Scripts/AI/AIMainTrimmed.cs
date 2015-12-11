@@ -2,13 +2,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
-    
+
 [RequireComponent(typeof(NavMeshAgent))]	                //!<Automaticly Make a navMeshAgent on this game object when this script is applied
 [RequireComponent(typeof(Rigidbody))]                       //!<Automaticaly make a rigid body on this object
 [EventVisible]
 
 public class AIMainTrimmed : MonoBehaviour
 {
+    public bool customType = false;
 
     //Vision Variables
     public bool CheckForTargetsRunning = false;             //!<Bool to only run CheckForTarges one at a time. 
@@ -104,7 +105,7 @@ public class AIMainTrimmed : MonoBehaviour
     private Quaternion startRot;
     private Vector3 startScale;
     private float startsightAngle;
-     
+
 
     void Awake()
     {
@@ -144,24 +145,32 @@ public class AIMainTrimmed : MonoBehaviour
         startRot = transform.localRotation;
         startScale = transform.localScale;
 
-
         startPoint = this.transform.position;               //!<Sets the startPoint to its current location.
         PlayerLastPos = AssetDatabase.LoadAssetAtPath("Assets/Prefabs/shadowPlayer.prefab", typeof(GameObject)) as GameObject;
         mesh = GetComponent<NavMeshAgent>();                //!<Sets the navmesh for the AI
         GetComponent<Rigidbody>().isKinematic = true;       //!<Assigns Kinematic to true to the rigidbody
-        Path = Pathways[PathwayCount];                      //!<Sets the first path to the current path.
-        AIPath CheckpointScript = Path.GetComponent<AIPath>(); //!<
+        if (PathwayCount < Pathways.Count)
+        {
+            Path = Pathways[PathwayCount];                      //!<Sets the first path to the current path.
+            AIPath CheckpointScript = Path.GetComponent<AIPath>(); //!<
+        }
+
         //endPoint = CheckpointScript.getPoints().Count;
         ChangeNavPoint(this.name, this.transform.position);
         SetSpeed(speed);
     }
 
+    void Start()
+    {
+        suspicionLimit = 1;
+        aggressionLimit = 1;
+    }
+
     // Update is called once per frame
     void FixedUpdate()
     {
-		Debug.Log(navPoint);
         //sets the destination to
-
+        mesh.SetDestination(navPoint);
         if (CheckForTargetsRunning == false)
         {
             CheckForTargetsRunning = true;
@@ -172,7 +181,8 @@ public class AIMainTrimmed : MonoBehaviour
             //if the target is in attack distance it will attack the target. If it is the shadow player destroy it. If the target is the player reset the level.
             if ((attackDistance >= Vector3.Distance(transform.position, target.transform.position) && (chasing == true)))
             {
-                Time.timeScale = 0;
+                //Time.timeScale = 0;
+                Application.LoadLevel(Application.loadedLevel);
             }
         }
         if ((Vector3.Distance(transform.position, navPoint) < 3) && (chasing == false))
@@ -205,7 +215,7 @@ public class AIMainTrimmed : MonoBehaviour
                     chasing = true;
                     sightAngle = chasingSightAngle;
                     ChangeNavPoint(target.name, target.transform.position);
-                    SetSpeed(speed);
+                    SetSpeed(runSpeed);
                     gameObject.GetComponent<Renderer>().material.color = Color.red;
                     _moveState = AIState.Chasing;
                 }
@@ -237,12 +247,21 @@ public class AIMainTrimmed : MonoBehaviour
                     gameObject.GetComponent<Renderer>().material.color = Color.grey;
                     chasing = false;
                     sightAngle = passiveSightAngle;
-                    Path = Pathways[PathwayCount];
-                    AIPath CheckpointScript = Path.GetComponent<AIPath>();
-                    string CheckpointCountString = CheckpointCount.ToString();
-                    //ChangeNavPoint(CheckpointCountString, CheckpointScript.getPoints()[CheckpointCount]);
-                    _moveState = AIState.Move;
-                    //return to path
+                    if (PathwayCount < Pathways.Count)
+                    {
+                        Path = Pathways[PathwayCount];
+                        AIPath CheckpointScript = Path.GetComponent<AIPath>();
+                        string CheckpointCountString = CheckpointCount.ToString();
+                        int points = CheckpointScript.getPoints().Count;
+                        if (CheckpointCount < points)
+                        {
+                            ChangeNavPoint(CheckpointCountString, CheckpointScript.getPoints()[CheckpointCount]);
+                        }
+                        _moveState = AIState.Move;
+                        SetSpeed(speed);
+                            //return to path
+                    }
+
                 }
             }
 
@@ -271,11 +290,10 @@ public class AIMainTrimmed : MonoBehaviour
                         //raycast to top of box and raycast to bottom
                         if (Physics.Raycast(transform.position, viableTargets[searchTargets].transform.position - transform.position, out hit))
                         {
-                            if (hit.collider.tag == viableTargets[searchTargets].tag)
+                            if (hit.collider.tag.Equals(viableTargets[searchTargets].tag))
                             {
                                 target = hit.collider.gameObject;
                                 seesTarget = true;
-
                             }
                             else
                             {
@@ -315,8 +333,6 @@ public class AIMainTrimmed : MonoBehaviour
     {
         navCheck = N;
         navPoint = T;
-		mesh.SetDestination(navPoint);
-
     }
 
     public IEnumerator IncrementSuspicion()
@@ -348,16 +364,13 @@ public class AIMainTrimmed : MonoBehaviour
 
     public void NoiseHeard(GameObject soundPos)
     {
-        //if the AI does not currently see the player it will be go to the object that emited the sound. 
+        //if the AI does not currently see the player it will be go to the object that emited the sound.  
         if (seesTarget == false)
-        {	
-			Vector3 target = soundPos.transform.position;
-			//Vector3 target = new Vector3(soundPos.transform.position.x, 0.0f, soundPos.transform.position.z);
-            ChangeNavPoint(soundPos.name, target);
+        {
+            ChangeNavPoint(soundPos.name, soundPos.transform.position);
             //once the AI is near the sound source it will pause for a moment looking around
-            if ((Vector3.Distance(transform.position, navPoint) < 5))
+            if ((Vector3.Distance(transform.position, navPoint) < 5) && (target == null))
             {
-				Debug.Log("What was that noise???");
                 InvestigateSound(5f);
             }
         }
@@ -522,7 +535,6 @@ public class AIMainTrimmed : MonoBehaviour
                     {
                         string CheckpointCountString = CheckpointCount.ToString();
                         ChangeNavPoint(CheckpointCountString, CheckpointScript.getPoints()[CheckpointCount]);
-                        Debug.Log("works");
                     }
                     break;
             }
@@ -570,5 +582,5 @@ public class AIMainTrimmed : MonoBehaviour
         transform.localRotation = startRot;
         transform.localScale = startScale;
     }
-    
+
 }
