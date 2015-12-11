@@ -15,13 +15,6 @@ public class QuestManager : MonoBehaviour {
 	QuestManagerUIController qmUI;
 
 	void Start() {
-		questManagerUI = GameObject.Find("QuestManagerUI");
-		if (questManagerUI) {
-			qmUI = questManagerUI.GetComponent<QuestManagerUIController>();
-		}
-		else {
-			Debug.LogError("QuestManager script attached to the player could not find the 'QuestManagerUI' UI object!");
-		}
 		_quest = new Quest (null, null, null, -1, null);
 		currentQuests = new List<Quest> ();
 		failedQuests = new List<Quest> ();
@@ -66,7 +59,11 @@ public class QuestManager : MonoBehaviour {
 				Debug.Log(currentQuests[count].GetName() + " quest has failed and removed fom Current Quests List and added to Failed Quests List!");
 				failedQuests.Add(currentQuests[count]);
 				currentQuests.RemoveAt(count);
-				qmUI.showQuests();
+				questManagerUI = GameObject.Find("QuestManagerUI");
+					if (questManagerUI) {
+						qmUI = questManagerUI.GetComponent<QuestManagerUIController>();
+						qmUI.showQuests();
+					}
 				continue;
 			}
 
@@ -75,10 +72,13 @@ public class QuestManager : MonoBehaviour {
 				_questSaveManager.SaveCompletedQuest(currentQuests[count]);
 				completedQuests.Add(currentQuests[count]);
 				currentQuests.RemoveAt(count);
-				qmUI.showQuests();
+				questManagerUI = GameObject.Find("QuestManagerUI");
+				if (questManagerUI) {
+					qmUI = questManagerUI.GetComponent<QuestManagerUIController>();
+					qmUI.showQuests();
+				}
 			}
 		}
-
 		return;
 	}
 

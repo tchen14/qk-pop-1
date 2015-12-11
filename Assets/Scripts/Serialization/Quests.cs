@@ -47,9 +47,6 @@ public class Quest {
 		if (quests [id.ToString()].Count == 4) {
 
 			Goal[] newGoals = new Goal[quests[id.ToString ()][3].Count];
-			//Debug.Log("There are " + quests[id.ToString ()][3].Count + " goals");
-
-
 			for(int i = 0; i < quests[id.ToString ()][3].Count; i++) {
 
 				if(quests[id.ToString ()][3][i][0] == null) {

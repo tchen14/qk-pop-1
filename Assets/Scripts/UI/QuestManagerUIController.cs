@@ -4,6 +4,29 @@ using System.Collections.Generic;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
+/*******************************************NOTICE**************************************************
+ * 
+ * I do not have a working pause menu for this to be implemented on at this point.
+ * 
+ * How to setup in scene:
+ * Drag prefab into the scene. (It has its own canvas so it should not be a child object of anything)
+ * A player game object is needed called "_Player" with a QuestManager script component.
+ * There also needs to be a game object in the scene with a QuestSaveManager script component.
+ * 
+ * If you want you can write a simple helper script to set the QuestManagerUI active, then call the showQuests() function
+ * 
+ * Functionality of the quest manager UI is as follows:
+ * When you want the manager to open, call the showQuests() public function.
+ * This will show all of the current active, failed, and completed quests (In that order).
+ * If at any point you need to refresh the quest list you can hit the F5 key.
+ * The first button should be automatically selected and you can scroll through them with the up/down arrow keys.
+ * Pressing the enter key will show the detailed information for that quest.
+ * If you want to go back to selecting quests, press the Escape key.
+ * 
+ **************************************************************************************************/
+
+
+
 public class QuestManagerUIController : MonoBehaviour {
 
 	GameObject player;
@@ -33,10 +56,13 @@ public class QuestManagerUIController : MonoBehaviour {
 			qm = player.GetComponent<QuestManager>();
 		}
 		else {
-			Debug.LogError("QuestManagerUI Script attached to 'QuestManager' object could not find a player in the scene!");
+			Debug.LogError("QuestManagerUI Script attached to 'QuestManagerUI' object could not find a player in the scene!");
+		}
+		if (!qm) {
+			Debug.LogError("QuestManagerUI Script attached to 'QuestManagerUI' object could not find a 'QuestManager' script on the player");
 		}
 		if (!questContainer) {
-			Debug.LogError("QuestManagerUI Script attached to 'QuestManager' object could not find a child GameObject called 'Quests' the prefab connection could be broken.");
+			Debug.LogError("QuestManagerUI Script attached to 'QuestManagerUI' object could not find a child GameObject called 'Quests' the prefab connection could be broken.");
 		}
 		moreQuestInfo = transform.FindChild ("MoreQuestInfo").gameObject;
 		if (!moreQuestInfo) {
@@ -64,6 +90,14 @@ public class QuestManagerUIController : MonoBehaviour {
 		}
 		questButton = questUI.GetComponent<Button> ();
 		buttonHeight = questButton.GetComponent<RectTransform> ().sizeDelta.y;
+		
+		StartCoroutine (loadQuestsDelay ());
+	}
+
+	IEnumerator loadQuestsDelay(){
+		yield return new WaitForSeconds (0.1f);
+		qm.LoadQuests ();
+		
 		theLists = new List<Quest>[3];
 		theLists[0] = qm.currentQuests;
 		theLists[1] = qm.failedQuests;
@@ -72,9 +106,8 @@ public class QuestManagerUIController : MonoBehaviour {
 		for(int i = 0; i < theLists.Length; i++){
 			qcHeight += (theLists[i].Count * (buttonHeight + spacing) - spacing);
 		}
-		qm.LoadQuests ();
 	}
-
+	
 	void Update(){
 		//For debugging, remove later.
 		if (Input.GetKeyDown (KeyCode.F5)) {
@@ -100,7 +133,7 @@ public class QuestManagerUIController : MonoBehaviour {
 		reorganizeQuests ();
 	}
 
-	/* This function is called when the quest UI elements need to be reorganized.
+	/**This function is called when the quest UI elements need to be reorganized.
 	 * Some times when this would be called is when attempting to add a quest or a quest is completed.
 	 * This handles the calculation of the size of the scrollable area and physical placement of the quest UI elements in the quest manager.
 	 * This function organizes quests by active, failed, then completed quests.
@@ -154,17 +187,16 @@ public class QuestManagerUIController : MonoBehaviour {
 			GameObject scrollingHandle = mainScrollbar.transform.FindChild ("Sliding Area").transform.FindChild ("Handle").gameObject;
 			scrollingHandle.SetActive (true);
 		}
-		//StartCoroutine (showMoreInfoScrollbar ());
 	}
 
-	/* Each time a button is dynamically created, a listener is added to it which calls the clickButton() function.
+	/**Each time a button is dynamically created, a listener is added to it which calls the clickButton() function.
 	 * The listener helps keep track of the button that was pressed so it can be highlighted again when the user presses the back button.
 	 */
 	void addListener(Button b, int i){
 		b.onClick.AddListener (() => clickButton (i));
 	}
 
-	/* The click button function is called when any of the dynamically created buttons are clicked.
+	/**The click button function is called when any of the dynamically created buttons are clicked.
 	 * It displays the information for the quest in the gold box and selects the respective scrollbar.
 	 */
 	void clickButton(int iter){
@@ -176,7 +208,7 @@ public class QuestManagerUIController : MonoBehaviour {
 		StartCoroutine (showMoreInfoScrollbar ());
 	}
 
-	/* This coroutine is needed to fix a bug.
+	/**This coroutine is needed to fix a bug.
 	 * Without the short delay that this adds into the code, the program was getting the previous value for the height of the moreQuestInfoDescription
 	 */
 		IEnumerator showMoreInfoScrollbar(){
@@ -189,7 +221,7 @@ public class QuestManagerUIController : MonoBehaviour {
 			}
 		}
 
-	/* Helper function that deletes all of the buttons that were dynamically created
+	/**Helper function that deletes all of the buttons that were dynamically created
 	 */
 	public void removeQuestUIobjects(){
 		foreach (Transform child in questContainer.transform) {
@@ -197,7 +229,7 @@ public class QuestManagerUIController : MonoBehaviour {
 		}
 	}
 
-	/* This function populates the moreQuestinfo object with information on each quest.
+	/**This function populates the moreQuestinfo object with information on each quest.
 	 * At the beginning a value is created from the iter integer that coresponds to which quest in which list is being selected.
 	 * i is the index of the list in the list array theLists
 	 * j is the index of the quest in the list
@@ -205,19 +237,23 @@ public class QuestManagerUIController : MonoBehaviour {
 	void showMoreQuestInfo(int iter){
 		int i;
 		int j;
+		string questState;
 		if(iter < theLists[0].Count){
 			i = 0;
 			j = iter;
+			questState = " - Active";
 		}
 		else if(iter < theLists[0].Count + theLists[1].Count){
 			i = 1;
 			j = iter - theLists[0].Count;
+			questState = " - Failed";
 		}
 		else{
 			i = 2;
 			j = iter - theLists[0].Count - theLists[1].Count;
+			questState = " - Completed";
 		}
-		moreQuestInfoTitle.text = theLists[i][j].GetName();
+		moreQuestInfoTitle.text = theLists[i][j].GetName() + questState;
 		Goal[] currQuestGoals = theLists[i][j].GetGoal();
 		string goalText = "\n";
 		if(theLists[i][j].HasTimer()){
