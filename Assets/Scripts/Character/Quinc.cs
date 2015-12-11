@@ -34,6 +34,11 @@ public sealed class Quinc : MonoBehaviour
 
 	}
 
+    void Awake()
+    {
+        instance = null;
+    }
+
     public void Start()
     {
         abilitySelector = GameObject.Find("AbilityDock").GetComponent<AbilityDockController>();

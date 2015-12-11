@@ -59,6 +59,11 @@ public class QK_Character_Movement : MonoBehaviour {
 	private Quaternion targetAngle = Quaternion.identity;
 	private PoPCamera cam;
 
+    void Awake()
+    {
+        _instance = null;
+    }
+
 	// Use this for initialization
 	void Start () 
 	{

@@ -23,7 +23,7 @@ public sealed class PoPCamera : Camera_2
 	public static PoPCamera instance
 	{
 		get 
-		{ 
+		{
 			_instance = _instance ?? (_instance = GameObject.FindObjectOfType<PoPCamera>()); 
 			if(_instance == null) {
 				Debug.Warning ("camera", "PoPCamera is not in scene but a script is attempting to reference it.");
@@ -72,7 +72,8 @@ public sealed class PoPCamera : Camera_2
 
 	void Awake()
 	{
-		player = target;
+        _instance = null;
+        player = target;
 	}
 
 	void Start()

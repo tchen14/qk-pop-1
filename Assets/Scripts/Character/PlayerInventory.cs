@@ -19,6 +19,11 @@ public class PlayerInventory : MonoBehaviour
       }
     }
 
+    void Awake()
+    {
+        _instance = null;
+    }
+
     public List<InventoryItem> inventory = new List<InventoryItem>();
 
     //! Helper function used to search for an already existing item in PlayerInventory
