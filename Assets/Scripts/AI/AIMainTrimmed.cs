@@ -185,6 +185,11 @@ public class AIMainTrimmed : MonoBehaviour
             gameObject.GetComponent<Renderer>().material.color = new Color(r, g, b);
             return;
         }
+        if (_moveState == AIState.Search)
+        {
+            return;
+        }
+
         //sets the destination to
         mesh.SetDestination(navPoint);
         if (CheckForTargetsRunning == false)
@@ -384,6 +389,7 @@ public class AIMainTrimmed : MonoBehaviour
 
     public void NoiseHeard(GameObject soundPos)
     {
+        gameObject.GetComponent<Renderer>().material.color = Color.magenta;
         //if the AI does not currently see the player it will be go to the object that emited the sound.  
         if (seesTarget == false)
         {
@@ -409,7 +415,6 @@ public class AIMainTrimmed : MonoBehaviour
         AIPath CheckpointScript = Path.GetComponent<AIPath>();
         string CheckpointCountString = CheckpointCount.ToString();
         ChangeNavPoint(CheckpointCountString, CheckpointScript.getPoints()[CheckpointCount - 1]);
-
     }
 
     public void Daze()
@@ -452,8 +457,11 @@ public class AIMainTrimmed : MonoBehaviour
     }
 
     public void nextCheckpoint()
-
     {
+        if (_moveState == AIState.Search)
+        {
+            return;
+        }
         #region LoopPath
         if (PathwayCount <= Pathways.Count - 1)
         {

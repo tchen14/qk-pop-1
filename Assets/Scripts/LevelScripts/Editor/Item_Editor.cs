@@ -98,6 +98,8 @@ public class Item_Editor : Editor {
 		script_target.blastCompatible = EditorGUILayout.Toggle ("Can be blasted", script_target.blastCompatible);
 		script_target.stunCompatible = EditorGUILayout.Toggle ("Can be stunned", script_target.stunCompatible);
 
+		script_target.EffectPrefab = (GameObject)EditorGUILayout.ObjectField("Effect Prefab", script_target.EffectPrefab, typeof(GameObject), true);
+
 		GUI.enabled = true;
 		EditorGUILayout.EndVertical();
 

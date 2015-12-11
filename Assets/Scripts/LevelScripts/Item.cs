@@ -76,6 +76,7 @@ public class Item : MonoBehaviour
 	public bool stunState;
 	public bool soundThrowAffected;
 
+    public GameObject EffectPrefab;
 
     //!Player gathers X number of this item, (kill all enemies in area, use other item script to auto drop item into play inventory)
     protected virtual void GatherObjective (int count)
@@ -624,14 +625,18 @@ public class Item : MonoBehaviour
 			}
 
 			if(soundThrowCompatible){
-				GUI.Label (new Rect (position.x, position.y + start_y + margin, 100, 20), "Can be used to cast sound.");
+				GUI.Label (new Rect (position.x, position.y + start_y + margin, 100, 20), "Can be sound thrown.");
 				start_y += message_height;
 			}
 		}
 	}
 
 	private void emmit_sound(float radius){
-		Vector3 center = gameObject.transform.position;
+        if (EffectPrefab != null)
+        {
+            Instantiate(EffectPrefab, gameObject.transform.position, Quaternion.identity);
+        }
+        Vector3 center = gameObject.transform.position;
 		Collider[] colliders = Physics.OverlapSphere(center, radius);
 		foreach (Collider c in colliders){
 			AIMainTrimmed ai = c.gameObject.GetComponent<AIMainTrimmed>();
