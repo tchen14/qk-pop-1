@@ -34,6 +34,11 @@ public sealed class Quinc : MonoBehaviour
 
 	}
 
+    public void Start()
+    {
+        abilitySelector = GameObject.Find("AbilityDock").GetComponent<AbilityDockController>();
+    }
+
 	public static Quinc Instance
 	{
 		get

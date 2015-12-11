@@ -55,7 +55,7 @@ public class AnimationController : MonoBehaviour {
         animator.SetBool("Crouch", crouching);
         animator.SetBool("isSprinting", sprinting);
         animator.SetBool("isRunning", running);
-		animator.SetBool("Ladder", ladder);
+		//animator.SetBool("Ladder", ladder);
 		animator.SetBool("Sidle", sidle);
 	}
 }
