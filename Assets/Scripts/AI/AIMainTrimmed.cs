@@ -106,6 +106,8 @@ public class AIMainTrimmed : MonoBehaviour
     private Vector3 startScale;
     private float startsightAngle;
 
+    private float dazeTimer = 20;
+
 
     void Awake()
     {
@@ -152,7 +154,10 @@ public class AIMainTrimmed : MonoBehaviour
         if (PathwayCount < Pathways.Count)
         {
             Path = Pathways[PathwayCount];                      //!<Sets the first path to the current path.
-            AIPath CheckpointScript = Path.GetComponent<AIPath>(); //!<
+            if (Path != null)
+            {
+                AIPath CheckpointScript = Path.GetComponent<AIPath>(); //!<
+            }
         }
 
         //endPoint = CheckpointScript.getPoints().Count;
@@ -169,6 +174,17 @@ public class AIMainTrimmed : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
+        if (_moveState == AIState.Dazed)
+        {
+            float r = gameObject.GetComponent<Renderer>().material.color.r;
+            float g = gameObject.GetComponent<Renderer>().material.color.g;
+            float b = gameObject.GetComponent<Renderer>().material.color.b;
+            r = Mathf.MoveTowards(r, 0.5f, Time.deltaTime / dazeTimer);
+            g = Mathf.MoveTowards(g, 0.5f, Time.deltaTime / dazeTimer);
+            b = Mathf.MoveTowards(b, 0.5f, Time.deltaTime / dazeTimer);
+            gameObject.GetComponent<Renderer>().material.color = new Color(r, g, b);
+            return;
+        }
         //sets the destination to
         mesh.SetDestination(navPoint);
         if (CheckForTargetsRunning == false)
@@ -250,6 +266,10 @@ public class AIMainTrimmed : MonoBehaviour
                     if (PathwayCount < Pathways.Count)
                     {
                         Path = Pathways[PathwayCount];
+                        if (Path == null)
+                        {
+                            return;
+                        }
                         AIPath CheckpointScript = Path.GetComponent<AIPath>();
                         string CheckpointCountString = CheckpointCount.ToString();
                         int points = CheckpointScript.getPoints().Count;
@@ -391,9 +411,16 @@ public class AIMainTrimmed : MonoBehaviour
         ChangeNavPoint(CheckpointCountString, CheckpointScript.getPoints()[CheckpointCount - 1]);
 
     }
+
+    public void Daze()
+    {
+        StartCoroutine(Dazed(dazeTimer));
+    }
+
     #region dazed
     public IEnumerator Dazed(float dazeTime)
     {
+        gameObject.GetComponent<Renderer>().material.color = Color.cyan;
         //AI becomes dazed, no longer performing its normal functions, not moving on its path for a set time. After that time it resumes like normal.
         //run dazed animation
         _moveState = AIState.Dazed;
@@ -402,6 +429,7 @@ public class AIMainTrimmed : MonoBehaviour
         yield return new WaitForSeconds(dazeTime);
         dazed = false;
         Resume();
+        gameObject.GetComponent<Renderer>().material.color = Color.white;
     }
 
 
@@ -430,6 +458,10 @@ public class AIMainTrimmed : MonoBehaviour
         if (PathwayCount <= Pathways.Count - 1)
         {
             Path = Pathways[PathwayCount];
+            if (Path == null)
+            {
+                return;
+            }
             AIPath CheckpointScript = Path.GetComponent<AIPath>();
 
             switch (PathType[PathwayCount])

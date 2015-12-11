@@ -438,6 +438,10 @@ public class Item : MonoBehaviour
 	}
 
 	private void start_stun(){
+        if (gameObject.GetComponent<AIMainTrimmed>())
+        {
+            gameObject.GetComponent<AIMainTrimmed>().Daze();
+        }
 		stunState = true;
 		// Play Animation and Sound for enemy being stunned
 		// Laying Enemy sideways for now
