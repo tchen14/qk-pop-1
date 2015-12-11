@@ -4,6 +4,29 @@ using System.Collections.Generic;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
+/*******************************************NOTICE**************************************************
+ * 
+ * I do not have a working pause menu for this to be implemented on at this point.
+ * 
+ * How to setup in scene:
+ * Drag prefab into the scene. (It has its own canvas so it should not be a child object of anything)
+ * A player game object is needed called "_Player" with a QuestManager script component.
+ * There also needs to be a game object in the scene with a QuestSaveManager script component.
+ * 
+ * If you want you can write a simple helper script to set the QuestManagerUI active, then call the showQuests() function
+ * 
+ * Functionality of the quest manager UI is as follows:
+ * When you want the manager to open, call the showQuests() public function.
+ * This will show all of the current active, failed, and completed quests (In that order).
+ * If at any point you need to refresh the quest list you can hit the F5 key.
+ * The first button should be automatically selected and you can scroll through them with the up/down arrow keys.
+ * Pressing the enter key will show the detailed information for that quest.
+ * If you want to go back to selecting quests, press the Escape key.
+ * 
+ **************************************************************************************************/
+
+
+
 public class QuestManagerUIController : MonoBehaviour {
 
 	GameObject player;
@@ -33,10 +56,13 @@ public class QuestManagerUIController : MonoBehaviour {
 			qm = player.GetComponent<QuestManager>();
 		}
 		else {
-			Debug.LogError("QuestManagerUI Script attached to 'QuestManager' object could not find a player in the scene!");
+			Debug.LogError("QuestManagerUI Script attached to 'QuestManagerUI' object could not find a player in the scene!");
+		}
+		if (!qm) {
+			Debug.LogError("QuestManagerUI Script attached to 'QuestManagerUI' object could not find a 'QuestManager' script on the player");
 		}
 		if (!questContainer) {
-			Debug.LogError("QuestManagerUI Script attached to 'QuestManager' object could not find a child GameObject called 'Quests' the prefab connection could be broken.");
+			Debug.LogError("QuestManagerUI Script attached to 'QuestManagerUI' object could not find a child GameObject called 'Quests' the prefab connection could be broken.");
 		}
 		moreQuestInfo = transform.FindChild ("MoreQuestInfo").gameObject;
 		if (!moreQuestInfo) {
@@ -64,6 +90,14 @@ public class QuestManagerUIController : MonoBehaviour {
 		}
 		questButton = questUI.GetComponent<Button> ();
 		buttonHeight = questButton.GetComponent<RectTransform> ().sizeDelta.y;
+		
+		StartCoroutine (loadQuestsDelay ());
+	}
+
+	IEnumerator loadQuestsDelay(){
+		yield return new WaitForSeconds (0.1f);
+		qm.LoadQuests ();
+		
 		theLists = new List<Quest>[3];
 		theLists[0] = qm.currentQuests;
 		theLists[1] = qm.failedQuests;
@@ -72,9 +106,8 @@ public class QuestManagerUIController : MonoBehaviour {
 		for(int i = 0; i < theLists.Length; i++){
 			qcHeight += (theLists[i].Count * (buttonHeight + spacing) - spacing);
 		}
-		qm.LoadQuests ();
 	}
-
+	
 	void Update(){
 		//For debugging, remove later.
 		if (Input.GetKeyDown (KeyCode.F5)) {
