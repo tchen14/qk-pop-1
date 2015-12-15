@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿//older code
+
+/*using UnityEngine;
 using System.Collections;
 
 public class AIManager : MonoBehaviour {
@@ -64,3 +66,4 @@ public class AIManager : MonoBehaviour {
 	}
 		
 }
+*/
