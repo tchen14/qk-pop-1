@@ -100,9 +100,9 @@ public class QK_Character_Movement : MonoBehaviour {
 		}
 	}
 
-	void ProcessStandardMotion()
+    void ProcessStandardMotion()
 	{
-		if (InputManager.input.MoveVerticalAxis () != 0 || InputManager.input.MoveHorizontalAxis () != 0) {
+		if (Input.GetAxisRaw("Vertical") != 0 || Input.GetAxisRaw("Horizontal") != 0) {
 			curSpeed += acceleration;
 			curSpeed *= inputDirection.magnitude;
 		} else {
@@ -134,8 +134,8 @@ public class QK_Character_Movement : MonoBehaviour {
 
 	void CalculateMovementDirection ()
 	{
-		float inputHor = InputManager.input.MoveHorizontalAxis();
-		float inputVert = InputManager.input.MoveVerticalAxis();
+		float inputHor = Input.GetAxisRaw("Horizontal");
+		float inputVert = Input.GetAxisRaw("Vertical");
 		Vector3 forward = transform.position + cam.transform.forward;
 		forward = new Vector3(forward.x, transform.position.y, forward.z);
 		forward = Vector3.Normalize(forward - transform.position);
@@ -211,7 +211,7 @@ public class QK_Character_Movement : MonoBehaviour {
 	{
 		if(!IsInActionState())
 		{
-			if (InputManager.input.isActionPressed ()) 
+			if (Input.GetKey(KeyCode.E)) 
 			{
 				iObject = GetActionObject();
 
@@ -240,14 +240,14 @@ public class QK_Character_Movement : MonoBehaviour {
 				}
 			}
 
-			if (InputManager.input.isJumping()) {
+			if (Input.GetButton("Jump")) {
 				Jump ();
 				return;
 			}
 
-			if (InputManager.input.isSprinting ()) {
+			if (false) {
 				_stateModifier = CharacterState.Sprint;
-			} else if (InputManager.input.isCrouched ()) {
+			} else if (false) {
 				_stateModifier = CharacterState.Crouch;
 			} else {
 				_stateModifier = CharacterState.Normal;
@@ -360,7 +360,7 @@ public class QK_Character_Movement : MonoBehaviour {
 			return;
 		}
 
-		if(InputManager.input.MoveVerticalAxis() > 0)
+		if(Input.GetAxisRaw("Vertical") > 0)
 		{
 			if(Vector3.Distance(transform.position, top) <= 0.5f)
 			{
@@ -373,7 +373,7 @@ public class QK_Character_Movement : MonoBehaviour {
 			// Set position to move up
 			climbDir = Vector3.Normalize(top - transform.position)/1.5f;
 		}
-		else if(InputManager.input.MoveVerticalAxis() < 0)
+		else if(Input.GetAxisRaw("Vertical") < 0)
 		{
 			if(Vector3.Distance(transform.position, bottom) <= 0.5f)
 			{
@@ -439,7 +439,8 @@ public class QK_Character_Movement : MonoBehaviour {
 		
 	void OnDrawGizmosSelected()
 	{
-		if(cam && Debug.IsKeyActive("player")) {
+#if UNITY_EDITOR
+        if (cam && Debug.IsKeyActive("player")) {
 			/*float inputHor = InputManager.input.MoveHorizontalAxis ();
 			float inputVert = InputManager.input.MoveVerticalAxis ();
 			Vector3 forward = transform.position + cam.transform.forward;
@@ -451,10 +452,11 @@ public class QK_Character_Movement : MonoBehaviour {
 
 			Vector3 testMoveVect = Vector3.Lerp(moveVector, moveDir, 0.2f);
 			testMoveVect = new Vector3(testMoveVect.x, 0f, testMoveVect.z);*/
-			if(InputManager.input.isActionPressed()) 
+			if(Input.GetKey(KeyCode.E)) 
 			{
 				Gizmos.DrawSphere(transform.position + charCont.center, 1.5f);
 			}
 		}
-	}
+#endif
+    }
 }

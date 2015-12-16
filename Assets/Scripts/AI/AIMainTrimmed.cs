@@ -1,7 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor;
 
 [RequireComponent(typeof(NavMeshAgent))]	                //!<Automaticly Make a navMeshAgent on this game object when this script is applied
 [RequireComponent(typeof(Rigidbody))]                       //!<Automaticaly make a rigid body on this object
@@ -64,7 +63,7 @@ public class AIMainTrimmed : MonoBehaviour
     public float runSpeed;                                  //!<The running speed of the AI.
     public string panicPoints = "PanicPoints";              //!<Where the AI will run when the panic state is activated. Currently unused.
     public int current_preset = 0;                          //!<Sets the AI to a type of AI such as guard, townperson, boss etc. Set the preset type in editor window. Sets Variables essential to the AI.
-    private GameObject PlayerLastPos = null;                //!Visual representation of where the AI last remembers seeing the player before they went of LoS. Not currently used.
+    public GameObject PlayerLastPos = null;                //!Visual representation of where the AI last remembers seeing the player before they went of LoS. Not currently used.
     private bool shadowcreated = false;                     //!<Bool to check and see if the shadow has already been created. Not being used currently
     public enum AIState { Idle, Move, Pivot, Sprint, Chasing, Normal, Search, Dazed, KnockoutLight, KnockoutHeavy } //!<Various states the AI can be in for animation. 
     public AIState _moveState { get; private set; }         //!<Sets the movement state of the AI for animations.
@@ -148,7 +147,6 @@ public class AIMainTrimmed : MonoBehaviour
         startScale = transform.localScale;
 
         startPoint = this.transform.position;               //!<Sets the startPoint to its current location.
-        PlayerLastPos = AssetDatabase.LoadAssetAtPath("Assets/Prefabs/shadowPlayer.prefab", typeof(GameObject)) as GameObject;
         mesh = GetComponent<NavMeshAgent>();                //!<Sets the navmesh for the AI
         GetComponent<Rigidbody>().isKinematic = true;       //!<Assigns Kinematic to true to the rigidbody
         if (PathwayCount < Pathways.Count)

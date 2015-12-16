@@ -41,8 +41,8 @@ public sealed class InputManager : MonoBehaviour
 		ChangeInputType(Inputs.Game);
 	}
 
-	//!Switch input type
-	public static void ChangeInputType(Inputs inputType) {
+    //!Switch input type
+    public static void ChangeInputType(Inputs inputType) {
 		if(InputManager.instance.inputs.ContainsKey(inputType))
 			InputManager.instance._curInput = inputType;
 	}

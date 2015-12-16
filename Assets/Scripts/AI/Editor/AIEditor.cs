@@ -87,7 +87,9 @@ public class AIEditor : Editor {
 		ai_types_index = ai_target.current_preset;
 		show_data = new AnimBool(ai_target.customType);
 		show_data.valueChanged.AddListener(Repaint);
-	}
+
+        ai_target.PlayerLastPos = AssetDatabase.LoadAssetAtPath("Assets/Prefabs/shadowPlayer.prefab", typeof(GameObject)) as GameObject;
+    }
 
 	override public void OnInspectorGUI()
 	{

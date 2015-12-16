@@ -36,7 +36,8 @@ public class DebugOnScreen : MonoBehaviour{
 				debugMessage.RemoveAt(0);
 				debugTime.RemoveAt(0);
 			}
-		}
+            GUI.Box(new Rect(0, 0, 400, debugMessage.Count * 20), "");
+        }
 		for (int i = 0; i < debugMessage.Count; i++)
 		{
 			GUI.Label(new Rect(5,i * 20,1000,200), debugMessage[i]);
