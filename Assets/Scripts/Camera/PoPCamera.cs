@@ -23,7 +23,7 @@ public sealed class PoPCamera : Camera_2
 	public static PoPCamera instance
 	{
 		get 
-		{ 
+		{
 			_instance = _instance ?? (_instance = GameObject.FindObjectOfType<PoPCamera>()); 
 			if(_instance == null) {
 				Debug.Warning ("camera", "PoPCamera is not in scene but a script is attempting to reference it.");
@@ -72,7 +72,8 @@ public sealed class PoPCamera : Camera_2
 
 	void Awake()
 	{
-		player = target;
+        _instance = null;
+        player = target;
 	}
 
 	void Start()
@@ -114,17 +115,21 @@ public sealed class PoPCamera : Camera_2
 	 */
 	void Update() 
 	{
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            Reset();
+        }
         switch (_curState)
         {
             case CameraState.Normal:
-                if (InputManager.input.isTargetPressed() && AcquireTarget().Count != 0f)
+                if (Input.GetMouseButtonDown(1) && AcquireTarget().Count != 0f)
                 {
                     _curState = CameraState.TargetLock;
                 }
                 break;
 
             case CameraState.TargetLock:
-                if (InputManager.input.isTargetPressed())
+                if (Input.GetMouseButtonDown(1))
                 {
 					targetedObjects[targetindex].GetComponent<Item>().is_targeted = false;
                     _curState = CameraState.TargetReset;
@@ -133,7 +138,7 @@ public sealed class PoPCamera : Camera_2
                 {
 					if(!GameHUD.Instance.skillsOpen && targetedObjects.Count != 0) 
 					{
-						targetindex += InputManager.input.CameraScrollTarget();
+						targetindex += Input.GetMouseButtonDown(1) ? 1 : 0;
 						targetindex = targetindex < 0 ? targetedObjects.Count - 1 :
 							Mathf.Abs(targetindex % targetedObjects.Count);
 						targetedObjects[targetindex].GetComponent<Item>().is_targeted = true;
@@ -544,7 +549,9 @@ public sealed class PoPCamera : Camera_2
 	// Draws Gizmos when Camera is selected in scene editor to assist in targetable object placing
 	void OnDrawGizmosSelected()
 	{
-		if (Debug.IsKeyActive ("camera")) {
+#if UNITY_EDITOR
+
+        if (Debug.IsKeyActive ("camera")) {
 			foreach (GameObject target in allTargetables) {
 				if (Vector3.Distance (this.target.position, target.transform.position) <= target.GetComponent<Targetable> ().range) {
 					if (target.GetComponent<Targetable> ().isTargetable) {
@@ -565,5 +572,7 @@ public sealed class PoPCamera : Camera_2
 			Gizmos.color = new Color (1, 1, 1, 0.5f);
 			Gizmos.DrawSphere (this.target.position, targetingRange);
 		}
-	}
+#endif
+
+    }
 }

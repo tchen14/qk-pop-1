@@ -1,15 +1,14 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor;
-    
+
 [RequireComponent(typeof(NavMeshAgent))]	                //!<Automaticly Make a navMeshAgent on this game object when this script is applied
 [RequireComponent(typeof(Rigidbody))]                       //!<Automaticaly make a rigid body on this object
 [EventVisible]
 
 public class AIMainTrimmed : MonoBehaviour
 {
-	public bool customType = false;
+    public bool customType = false;
 
     //Vision Variables
     public bool CheckForTargetsRunning = false;             //!<Bool to only run CheckForTarges one at a time. 
@@ -45,7 +44,6 @@ public class AIMainTrimmed : MonoBehaviour
     public int PathwayCount = 0;                            //!<Int for tracking which path the AI is on
     public int CheckpointCount = 0;                         //! Int for tracking which checkpoint the AI is on
     public bool enemy;                                      //!<Bool to determine if the AI is and enemy or not. If not an enemy it wont use functions that an enemy would
-    public bool nextCheckpointRunning;
 
     //State Variables
     private float aggressionLevel = 0;						//!<The current awareness of the NPC to the Player
@@ -65,11 +63,10 @@ public class AIMainTrimmed : MonoBehaviour
     public float runSpeed;                                  //!<The running speed of the AI.
     public string panicPoints = "PanicPoints";              //!<Where the AI will run when the panic state is activated. Currently unused.
     public int current_preset = 0;                          //!<Sets the AI to a type of AI such as guard, townperson, boss etc. Set the preset type in editor window. Sets Variables essential to the AI.
-    private GameObject PlayerLastPos = null;                //!Visual representation of where the AI last remembers seeing the player before they went of LoS. Not currently used.
+    public GameObject PlayerLastPos = null;                //!Visual representation of where the AI last remembers seeing the player before they went of LoS. Not currently used.
     private bool shadowcreated = false;                     //!<Bool to check and see if the shadow has already been created. Not being used currently
     public enum AIState { Idle, Move, Pivot, Sprint, Chasing, Normal, Search, Dazed, KnockoutLight, KnockoutHeavy } //!<Various states the AI can be in for animation. 
     public AIState _moveState { get; private set; }         //!<Sets the movement state of the AI for animations.
-    public bool alert;
 
     //start variables 
     //!<All variables listd below store their respective variable at start. Upon "Restart" such as when the player dies and is moved to the last checkpoint, the AI restores all of its original states to when it started the scene.
@@ -107,7 +104,9 @@ public class AIMainTrimmed : MonoBehaviour
     private Quaternion startRot;
     private Vector3 startScale;
     private float startsightAngle;
-     
+
+    private float dazeTimer = 20;
+
 
     void Awake()
     {
@@ -147,52 +146,70 @@ public class AIMainTrimmed : MonoBehaviour
         startRot = transform.localRotation;
         startScale = transform.localScale;
 
-
-
         startPoint = this.transform.position;               //!<Sets the startPoint to its current location.
         mesh = GetComponent<NavMeshAgent>();                //!<Sets the navmesh for the AI
         GetComponent<Rigidbody>().isKinematic = true;       //!<Assigns Kinematic to true to the rigidbody
-        Path = Pathways[PathwayCount];                      //!<Sets the first path to the current path.
-        AIPath AIPathScript = Path.GetComponent<AIPath>(); //!<Sets the reference to the AIPathScript
-        Checkpoint CheckpointScript = GetComponent<Checkpoint>(); //!<Sets the reference for the CheckpointScript
-        ChangeNavPoint(this.name, this.transform.position); //Changes Navpoint to the first point on the path.
-        SetSpeed(speed); //!<Sets speed to the default speed.
+        if (PathwayCount < Pathways.Count)
+        {
+            Path = Pathways[PathwayCount];                      //!<Sets the first path to the current path.
+            if (Path != null)
+            {
+                AIPath CheckpointScript = Path.GetComponent<AIPath>(); //!<
+            }
+        }
+
+        //endPoint = CheckpointScript.getPoints().Count;
+        ChangeNavPoint(this.name, this.transform.position);
+        SetSpeed(speed);
     }
 
-    // Update is called once per frame. A state function is needed to control the AI better.
+    void Start()
+    {
+        suspicionLimit = 1;
+        aggressionLimit = 1;
+    }
+
+    // Update is called once per frame
     void FixedUpdate()
     {
-        //sets the destination to the current navpoint.
+        if (_moveState == AIState.Dazed)
+        {
+            float r = gameObject.GetComponent<Renderer>().material.color.r;
+            float g = gameObject.GetComponent<Renderer>().material.color.g;
+            float b = gameObject.GetComponent<Renderer>().material.color.b;
+            r = Mathf.MoveTowards(r, 0.5f, Time.deltaTime / dazeTimer);
+            g = Mathf.MoveTowards(g, 0.5f, Time.deltaTime / dazeTimer);
+            b = Mathf.MoveTowards(b, 0.5f, Time.deltaTime / dazeTimer);
+            gameObject.GetComponent<Renderer>().material.color = new Color(r, g, b);
+            return;
+        }
+        if (_moveState == AIState.Search)
+        {
+            return;
+        }
+
+        //sets the destination to
         mesh.SetDestination(navPoint);
-        if (CheckForTargetsRunning == false) //!<AI checks if its current target is visible/in range
+        if (CheckForTargetsRunning == false)
         {
             CheckForTargetsRunning = true;
             GetTargets();
         }
         if (target != null)
         {
-            //if the target is in attack distance it will attack the target. If the target is the player reset the level.
+            //if the target is in attack distance it will attack the target. If it is the shadow player destroy it. If the target is the player reset the level.
             if ((attackDistance >= Vector3.Distance(transform.position, target.transform.position) && (chasing == true)))
             {
-                Time.timeScale = 0;
-                //!<This pauses the game allowing level design to see where the character was caught and by who. Application Load level will be usesd here instead to restart the scene.
+                //Time.timeScale = 0;
+                Application.LoadLevel(Application.loadedLevel);
             }
         }
-        //If the AI is not currently chasing the player, if it is near its current navpoint it will start set the next checkpoint in its path as the navpoint.
         if ((Vector3.Distance(transform.position, navPoint) < 3) && (chasing == false))
         {
             nextCheckpoint();
         }
-        //!<If Checkfortarget runs all the way through the AI can see its target and will start getting suspicious. Suspicion will go up until it hits its limit. After that it will start increasing aggression.
-        //!<If aggression is reaches the aggression limit then the AI's state becomes chasing and will change Navpoint to the player. It's speed is changed to runSpeed.
         if (seesTarget == true)
         {
-            if (alert == true)
-            {
-                suspicionLevel = suspicionLimit;
-                aggressionLevel = aggressionLimit;
-            }
-
             if (suspicionLevel < suspicionLimit)
             {
                 if (IncrementsuspicionRunning == false)
@@ -249,13 +266,25 @@ public class AIMainTrimmed : MonoBehaviour
                     gameObject.GetComponent<Renderer>().material.color = Color.grey;
                     chasing = false;
                     sightAngle = passiveSightAngle;
-                    Path = Pathways[PathwayCount];
-                    AIPath AIPathScript = Path.GetComponent<AIPath>();
-                    string CheckpointCountString = CheckpointCount.ToString();
-                    ChangeNavPoint(CheckpointCountString, AIPathScript.getPoints()[CheckpointCount]);
-                    _moveState = AIState.Move;
-                    SetSpeed(speed);
-                    //return to path
+                    if (PathwayCount < Pathways.Count)
+                    {
+                        Path = Pathways[PathwayCount];
+                        if (Path == null)
+                        {
+                            return;
+                        }
+                        AIPath CheckpointScript = Path.GetComponent<AIPath>();
+                        string CheckpointCountString = CheckpointCount.ToString();
+                        int points = CheckpointScript.getPoints().Count;
+                        if (CheckpointCount < points)
+                        {
+                            ChangeNavPoint(CheckpointCountString, CheckpointScript.getPoints()[CheckpointCount]);
+                        }
+                        _moveState = AIState.Move;
+                        SetSpeed(speed);
+                            //return to path
+                    }
+
                 }
             }
 
@@ -284,11 +313,10 @@ public class AIMainTrimmed : MonoBehaviour
                         //raycast to top of box and raycast to bottom
                         if (Physics.Raycast(transform.position, viableTargets[searchTargets].transform.position - transform.position, out hit))
                         {
-                            if (hit.collider.tag == viableTargets[searchTargets].tag)
+                            if (hit.collider.tag.Equals(viableTargets[searchTargets].tag))
                             {
                                 target = hit.collider.gameObject;
                                 seesTarget = true;
-
                             }
                             else
                             {
@@ -359,6 +387,7 @@ public class AIMainTrimmed : MonoBehaviour
 
     public void NoiseHeard(GameObject soundPos)
     {
+        gameObject.GetComponent<Renderer>().material.color = Color.magenta;
         //if the AI does not currently see the player it will be go to the object that emited the sound.  
         if (seesTarget == false)
         {
@@ -381,14 +410,20 @@ public class AIMainTrimmed : MonoBehaviour
         _moveState = AIState.Search;
         yield return new WaitForSeconds(lookTime);
         Path = Pathways[PathwayCount];
-        AIPath AIPathScript = Path.GetComponent<AIPath>();
+        AIPath CheckpointScript = Path.GetComponent<AIPath>();
         string CheckpointCountString = CheckpointCount.ToString();
-        ChangeNavPoint(CheckpointCountString, AIPathScript.getPoints()[CheckpointCount - 1]);
-
+        ChangeNavPoint(CheckpointCountString, CheckpointScript.getPoints()[CheckpointCount - 1]);
     }
+
+    public void Daze()
+    {
+        StartCoroutine(Dazed(dazeTimer));
+    }
+
     #region dazed
     public IEnumerator Dazed(float dazeTime)
     {
+        gameObject.GetComponent<Renderer>().material.color = Color.cyan;
         //AI becomes dazed, no longer performing its normal functions, not moving on its path for a set time. After that time it resumes like normal.
         //run dazed animation
         _moveState = AIState.Dazed;
@@ -397,6 +432,7 @@ public class AIMainTrimmed : MonoBehaviour
         yield return new WaitForSeconds(dazeTime);
         dazed = false;
         Resume();
+        gameObject.GetComponent<Renderer>().material.color = Color.white;
     }
 
 
@@ -419,24 +455,33 @@ public class AIMainTrimmed : MonoBehaviour
     }
 
     public void nextCheckpoint()
-    //Be cautious of AI checkpoints being too close. If the distance between each one is less than the amount specified by this line above "if ((Vector3.Distance(transform.position, navPoint) < 3)" the AI will skip points. The points should be that close to one another anyway.
     {
+        if (_moveState == AIState.Search)
+        {
+            return;
+        }
         #region LoopPath
         if (PathwayCount <= Pathways.Count - 1)
         {
             Path = Pathways[PathwayCount];
+            if (Path == null)
+            {
+                return;
+            }
             AIPath CheckpointScript = Path.GetComponent<AIPath>();
 
             switch (PathType[PathwayCount])
             {
-                //!<One way loop. AI goes along its path to each checkpoint until it reaches the last point. If no paths are after, the AI will stop if there are it will go to the next path.
+
                 case 0:
-                    if (CheckpointCount < CheckpointScript.getPoints().Count - 1)
+                    if (CheckpointCount < CheckpointScript.getPoints().Count)
                     {
                         string CheckpointCountString = CheckpointCount.ToString();
                         ChangeNavPoint(CheckpointCountString, CheckpointScript.getPoints()[CheckpointCount]);
-                        CheckpointCount++;
-
+                        if (CheckpointCount != CheckpointScript.getPoints().Count)
+                        {
+                            CheckpointCount++;
+                        }
                     }
                     else
                     {
@@ -451,20 +496,23 @@ public class AIMainTrimmed : MonoBehaviour
                         }
                     }
                     break;
-                //!< Loop Path. AI will go through each point until the end. After that it goes back to its first point. It will loop an amount specified in the AI's editor window. Can be infinite.
-                case 1:
-                    if (LoopCount < nofLoops[PathwayCount])
-                    {
 
-                        if (CheckpointCount < CheckpointScript.getPoints().Count - 1)
+                case 1:
+                    if (LoopCount <= nofLoops[PathwayCount])
+                    {
+                        if (CheckpointCount < CheckpointScript.getPoints().Count)
                         {
                             string CheckpointCountString = CheckpointCount.ToString();
                             ChangeNavPoint(CheckpointCountString, CheckpointScript.getPoints()[CheckpointCount]);
-                            CheckpointCount++;
+                            if (CheckpointCount != CheckpointScript.getPoints().Count)
+                            {
+                                CheckpointCount++;
+                            }
                         }
                         else
                         {
                             CheckpointCount = 0;
+
                             if (!infinite[PathwayCount])
                             {
                                 LoopCount++;
@@ -473,28 +521,23 @@ public class AIMainTrimmed : MonoBehaviour
                     }
                     else
                     {
-                        if (PathwayCount != Pathways.Count - 1)
-                        {
-                            PathwayCount++;
-                            CheckpointCount = 0;
-                            LoopCount = 1;
-                        }
-                        else
-                        {
-                            return;
-                        }
-
+                        PathwayCount++;
+                        CheckpointCount = 0;
+                        LoopCount = 1;
                     }
                     break;
-                //!<Back and Forth Loop. AI will go through its checkpoints until the end. After that it will go back across the points in reverse order. 
+
                 case 2:
                     if (LoopCount <= nofLoops[PathwayCount])
                     {
-                        if ((CheckpointCount < CheckpointScript.getPoints().Count - 1) && (back == false))
+                        if ((CheckpointCount < CheckpointScript.getPoints().Count) && (back == false))
                         {
                             string CheckpointCountString = CheckpointCount.ToString();
                             ChangeNavPoint(CheckpointCountString, CheckpointScript.getPoints()[CheckpointCount]);
-                            CheckpointCount++;
+                            if (CheckpointCount != CheckpointScript.getPoints().Count)
+                            {
+                                CheckpointCount++;
+                            }
                         }
                         else
                         {
@@ -519,16 +562,17 @@ public class AIMainTrimmed : MonoBehaviour
                     }
                     else
                     {
-                        if (PathwayCount != Pathways.Count - 1)
-                        {
-                            PathwayCount++;
-                            CheckpointCount = 0;
-                            LoopCount = 1;
-                        }
-                        else
-                        {
-                            return;
-                        }
+                        PathwayCount++;
+                        CheckpointCount = 0;
+                        LoopCount = 1;
+                    }
+                    break;
+
+                case 3:
+                    if (CheckpointCount < CheckpointScript.getPoints().Count)
+                    {
+                        string CheckpointCountString = CheckpointCount.ToString();
+                        ChangeNavPoint(CheckpointCountString, CheckpointScript.getPoints()[CheckpointCount]);
                     }
                     break;
             }
@@ -537,7 +581,6 @@ public class AIMainTrimmed : MonoBehaviour
         {
 
         }
-        nextCheckpointRunning = false;
     }
     #endregion
 
@@ -577,5 +620,5 @@ public class AIMainTrimmed : MonoBehaviour
         transform.localRotation = startRot;
         transform.localScale = startScale;
     }
-    
+
 }

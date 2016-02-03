@@ -10,15 +10,30 @@ public class PauseMenu : MonoBehaviour {
     public GameObject mainHUD;
     public GameObject UIhud;
 
+    void Start()
+    {
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
+    }
+
     void Update() {                                // Pause must be on Update() if put on FixedUpdate()                                            
                                                    //Debug.Log(Time.timeScale);                  // The game will get stuck and will have to reset
 
         // if (InputManager.input.isPause){}
         //  if (InputManager.input.)
 
-    
+        if (isPaused)
+        {
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
+        }
+        else
+        {
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
+        }
 
-            if (Input.GetKeyDown(KeyCode.Escape)) {      // This will need to be changed to call inputManager  
+        if (Input.GetKeyDown(KeyCode.Escape)) {      // This will need to be changed to call inputManager  
 			
 			if(!isPaused) {                         
 				pauseGame();

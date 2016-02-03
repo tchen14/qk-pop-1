@@ -23,6 +23,11 @@ public sealed class InputManager : MonoBehaviour
 
 	private Dictionary<Inputs, InputType> inputs = new Dictionary<Inputs, InputType>();
 
+    void Awake()
+    {
+        _instance = null;
+    }
+
 	void Start() {
 		inputs.Add(Inputs.UI, this.gameObject.AddComponent<UIInputType>());
 		inputs.Add(Inputs.Game, this.gameObject.AddComponent<GameInputType>());
@@ -36,8 +41,8 @@ public sealed class InputManager : MonoBehaviour
 		ChangeInputType(Inputs.Game);
 	}
 
-	//!Switch input type
-	public static void ChangeInputType(Inputs inputType) {
+    //!Switch input type
+    public static void ChangeInputType(Inputs inputType) {
 		if(InputManager.instance.inputs.ContainsKey(inputType))
 			InputManager.instance._curInput = inputType;
 	}

@@ -69,7 +69,11 @@ public class AudioManager : MonoBehaviour {
 	public int numberOfActiveAudio = 0;			//may need to be public for custom inspector window
 	public int numberOfPriorityAudio = 0;		//may need to be public for custom inspector window
 
-
+    void Awake()
+    {
+        _instance = null;
+    }
+    
 	//! Unity Start function
     void Start()
     {

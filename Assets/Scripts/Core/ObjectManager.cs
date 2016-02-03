@@ -14,6 +14,11 @@ public sealed class ObjectManager : MonoBehaviour {
 		private set { }
 	}
 
+    void Awake()
+    {
+        instance = null;
+    }
+
 	void Start() {
 		if (instance == null){
 			instance = this;

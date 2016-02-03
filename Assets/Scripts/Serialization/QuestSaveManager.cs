@@ -64,6 +64,7 @@ public class QuestSaveManager : SaveManager {
 	}
 
 	public bool CompletedQuest(int questID) {
+        return false;   // TODO The list of completed quest only contained one entry, no matter how many were added
 		if (PlayerPrefs.HasKey ("CompletedQuests") == true) {
 			JSONNode completedQuests = JSONClass.Parse(PlayerPrefs.GetString("CompletedQuests"));
 			for(int i = 0; i < completedQuests["CompletedQuests"].Count; i++) {

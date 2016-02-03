@@ -20,6 +20,7 @@ public class AbilityDockController : MonoBehaviour {
 	bool canGetInput;
 	Vector3[] targetPos = new Vector3[5];
 
+    float wheelDelay = 0;
 
 	void Start () {
 		canGetInput = true;
@@ -42,6 +43,7 @@ public class AbilityDockController : MonoBehaviour {
 	}
 	
 	void Update () {
+
 		if (Input.GetKeyDown (KeyCode.Tab)) {					//Open ability dock
 			targetPosition();
 			opening = true;
@@ -49,13 +51,13 @@ public class AbilityDockController : MonoBehaviour {
 			showIcons();
 			startLerping();
 		}
-		else if (Input.GetKey(KeyCode.Tab) && canGetInput) {	//Ability dock is open
-			if (Input.GetKeyDown (KeyCode.DownArrow)) {			//Scroll the icons down
+		else if (Input.GetKey(KeyCode.Tab)) {	//Ability dock is open
+            if (Input.GetKeyDown (KeyCode.DownArrow) || Input.GetAxis("Mouse ScrollWheel") < 0) {			//Scroll the icons down
 				newPos (false);
 				rotating = true;
 				startLerping();
 			}
-			if (Input.GetKeyDown (KeyCode.UpArrow)) {			//Scroll the icons up
+			if (Input.GetKeyDown (KeyCode.UpArrow) || Input.GetAxis("Mouse ScrollWheel") > 0) {			//Scroll the icons up
 				newPos (true);
 				rotating = true;
 				startLerping();
@@ -69,7 +71,34 @@ public class AbilityDockController : MonoBehaviour {
 			abilities[selectedAbility].transform.SetAsLastSibling();
 			startLerping();
 		}
-	}
+
+        if (wheelDelay <= 0)
+        {
+            if (Input.GetAxisRaw("Mouse ScrollWheel") < 0)
+            {
+                if (selectedAbility <= 0)
+                {
+                    selectedAbility = abilities.Length;
+                }
+                setSelectedAbility(selectedAbility - 1);
+                wheelDelay = 0.25f;
+            }
+            else if (Input.GetAxisRaw("Mouse ScrollWheel") > 0)
+            {
+                if (selectedAbility >= abilities.Length - 1)
+                {
+                    selectedAbility = -1;
+                }
+                setSelectedAbility(selectedAbility + 1);
+                wheelDelay = 0.25f;
+            }
+        }
+        else
+        {
+            wheelDelay -= Time.deltaTime;
+        }
+
+    }
 
 	void FixedUpdate(){
 		if (opening || rotating || closing) {

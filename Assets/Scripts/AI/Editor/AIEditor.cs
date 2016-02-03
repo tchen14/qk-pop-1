@@ -74,7 +74,7 @@ public class AIEditor : Editor {
 
 	AI_Data[] ai_data = new AI_Data[]{
 		new AI_Data(100, 5, 35, 5, 8, new string[]{"Player"}, 3, 10, "PanicPoints", false, 10, 70),
-		new AI_Data(200, 15, 35, 6, 12, new string[]{"Player"}, 5, 5, "PanicPoints", true, 5, 70),
+		new AI_Data(200, 15, 35, 6, 12, new string[]{"Player"}, 5, 1, "PanicPoints", true, 1, 70),
 		new AI_Data(300, 5, 35, 7, 16, new string[]{"Player"}, 7, 10, "PanicPoints", true, 10,70)};
 
 	int ai_types_index = 0;
@@ -87,7 +87,9 @@ public class AIEditor : Editor {
 		ai_types_index = ai_target.current_preset;
 		show_data = new AnimBool(ai_target.customType);
 		show_data.valueChanged.AddListener(Repaint);
-	}
+
+        ai_target.PlayerLastPos = AssetDatabase.LoadAssetAtPath("Assets/Prefabs/shadowPlayer.prefab", typeof(GameObject)) as GameObject;
+    }
 
 	override public void OnInspectorGUI()
 	{

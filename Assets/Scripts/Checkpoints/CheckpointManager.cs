@@ -36,6 +36,11 @@ public sealed class CheckpointManager : MonoBehaviour
 	public string nearestByPath;
 //END TESTING
 
+    void Awake()
+    {
+        instance = null;
+    }
+
 //START OLD CODE
 	void Start(){
 		//Singleton enforcement
