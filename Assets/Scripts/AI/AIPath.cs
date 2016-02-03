@@ -16,7 +16,6 @@ using System.Collections.Generic;
 public class AIPath : MonoBehaviour {
 
 	public List<GameObject> checkpoints;
-    public List<float> waitTimes;
 	public int[] types = {0, 1, 2, 3};
 
 	// temporary
@@ -32,12 +31,11 @@ public class AIPath : MonoBehaviour {
 	public void addCheckpoint(GameObject new_point)
 	{
 		Checkpoint c = new_point.GetComponent<Checkpoint>();
-        c.path_reference = this;
+		c.path_reference = this;
 		checkpoints.Add(new_point);
-        waitTimes.Add(c.waitTime);
-    }
+	}
 
-    public void clearList(){
+	public void clearList(){
 		foreach (GameObject g in checkpoints) {
 			DestroyImmediate(g);
 		}

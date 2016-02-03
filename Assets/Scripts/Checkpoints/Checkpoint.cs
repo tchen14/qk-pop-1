@@ -17,8 +17,6 @@ public class Checkpoint : MonoBehaviour
 
 	public AIPath path_reference;
 
-    public float waitTime;
-
 //END OLD CODE
 
 	void OnAwake()

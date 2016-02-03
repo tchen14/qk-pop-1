@@ -98,7 +98,9 @@ public class QuestSaveManager : SaveManager {
 				quests.Add (newQuest);
 			}
 			return quests;
+
 		}
+
 		return null;
 	}
 }

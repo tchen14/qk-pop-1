@@ -70,7 +70,7 @@ public class AIEditor : Editor {
 	AIMainTrimmed ai_target;
 	AnimBool show_data;
 	string[] ai_types = new string[]{"Villager", "Guard", "Commander"};
-	string[] path_types = new string[]{"one way", "loop around", "back and forth",};
+	string[] path_types = new string[]{"one way", "loop around", "back and forth", "On Guard"};
 
 	AI_Data[] ai_data = new AI_Data[]{
 		new AI_Data(100, 5, 35, 5, 8, new string[]{"Player"}, 3, 10, "PanicPoints", false, 10, 70),
@@ -153,7 +153,6 @@ public class AIEditor : Editor {
 			ai_target.suspicionLimit = EditorGUILayout.FloatField("Suspicion Limit:", ai_target.suspicionLimit);
 			ai_target.aggressionLimit = EditorGUILayout.FloatField("Aggression Limit:", ai_target.aggressionLimit);
 			ai_target.enemy = EditorGUILayout.Toggle("Aggressive:", ai_target.enemy);
-            ai_target.alert = EditorGUILayout.Toggle("Alert:", ai_target.alert);
 		}
 		EditorGUILayout.EndFadeGroup();
 
