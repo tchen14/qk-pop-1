@@ -1,0 +1,2356 @@
+fileFormatVersion: 2
+guid: 458789107a5c27643a4ac6794db415a3
+timeCreated: 1429656734
+licenseType: Free
+ModelImporter:
+  serializedVersion: 18
+  fileIDToRecycleName:
+    100000: Gavin_Grey_Clothes_GEO1
+    100002: Gavin_Grey_GEO
+    100004: GavinGrey_COG
+    100006: GavinGrey_Head
+    100008: GavinGrey_Head_Bottom_Mouth
+    100010: GavinGrey_Head_Bottom_Mouth_Tip
+    100012: GavinGrey_Head_Tip
+    100014: GavinGrey_Head_Upper_Mouth
+    100016: GavinGrey_Hips
+    100018: GavinGrey_Left_Eye
+    100020: GavinGrey_Left_Eye_Aim
+    100022: GavinGrey_Left_Eye_BottomLid
+    100024: GavinGrey_Left_Eye_BottomLid_pivot
+    100026: GavinGrey_Left_Eye_GRP
+    100028: GavinGrey_Left_Eye_TopLid
+    100030: GavinGrey_Left_Eye_TopLid_pivot
+    100032: GavinGrey_LeftArm
+    100034: GavinGrey_LeftFoot
+    100036: GavinGrey_LeftFootMiddle1
+    100038: GavinGrey_LeftForeArm
+    100040: GavinGrey_LeftForeArmRoll
+    100042: GavinGrey_LeftHand
+    100044: GavinGrey_LeftHandIndex1
+    100046: GavinGrey_LeftHandIndex2
+    100048: GavinGrey_LeftHandIndex3
+    100050: GavinGrey_LeftHandIndex4
+    100052: GavinGrey_LeftHandMiddle1
+    100054: GavinGrey_LeftHandMiddle2
+    100056: GavinGrey_LeftHandMiddle3
+    100058: GavinGrey_LeftHandMiddle4
+    100060: GavinGrey_LeftHandPinky1
+    100062: GavinGrey_LeftHandPinky2
+    100064: GavinGrey_LeftHandPinky3
+    100066: GavinGrey_LeftHandPinky4
+    100068: GavinGrey_LeftHandRing1
+    100070: GavinGrey_LeftHandRing2
+    100072: GavinGrey_LeftHandRing3
+    100074: GavinGrey_LeftHandRing4
+    100076: GavinGrey_LeftHandThumb1
+    100078: GavinGrey_LeftHandThumb2
+    100080: GavinGrey_LeftHandThumb3
+    100082: GavinGrey_LeftHandThumb4
+    100084: GavinGrey_LeftLeg
+    100086: GavinGrey_LeftShoulder
+    100088: GavinGrey_LeftToeBase
+    100090: GavinGrey_LeftUpLeg
+    100092: GavinGrey_neck
+    100094: GavinGrey_Reference
+    100096: GavinGrey_Right_Eye
+    100098: GavinGrey_Right_Eye_Aim
+    100100: GavinGrey_Right_Eye_BottomLid
+    100102: GavinGrey_Right_Eye_BottomLid_pivot
+    100104: GavinGrey_Right_Eye_GRP
+    100106: GavinGrey_Right_Eye_TopLid
+    100108: GavinGrey_Right_Eye_TopLid_pivot
+    100110: GavinGrey_RightArm
+    100112: GavinGrey_RightFoot
+    100114: GavinGrey_RightFootMiddle1
+    100116: GavinGrey_RightForeArm
+    100118: GavinGrey_RightForeArmRoll
+    100120: GavinGrey_RightHand
+    100122: GavinGrey_RightHandIndex1
+    100124: GavinGrey_RightHandIndex2
+    100126: GavinGrey_RightHandIndex3
+    100128: GavinGrey_RightHandIndex4
+    100130: GavinGrey_RightHandMiddle1
+    100132: GavinGrey_RightHandMiddle2
+    100134: GavinGrey_RightHandMiddle3
+    100136: GavinGrey_RightHandMiddle4
+    100138: GavinGrey_RightHandPinky1
+    100140: GavinGrey_RightHandPinky2
+    100142: GavinGrey_RightHandPinky3
+    100144: GavinGrey_RightHandPinky4
+    100146: GavinGrey_RightHandRing1
+    100148: GavinGrey_RightHandRing2
+    100150: GavinGrey_RightHandRing3
+    100152: GavinGrey_RightHandRing4
+    100154: GavinGrey_RightHandThumb1
+    100156: GavinGrey_RightHandThumb2
+    100158: GavinGrey_RightHandThumb3
+    100160: GavinGrey_RightHandThumb4
+    100162: GavinGrey_RightLeg
+    100164: GavinGrey_RightShoulder
+    100166: GavinGrey_RightToeBase
+    100168: GavinGrey_RightUpLeg
+    100170: GavinGrey_Spine1
+    100172: GavinGrey_Spine2
+    100174: GavinGrey_Spine3
+    100176: //RootNode
+    400000: Gavin_Grey_Clothes_GEO1
+    400002: Gavin_Grey_GEO
+    400004: GavinGrey_COG
+    400006: GavinGrey_Head
+    400008: GavinGrey_Head_Bottom_Mouth
+    400010: GavinGrey_Head_Bottom_Mouth_Tip
+    400012: GavinGrey_Head_Tip
+    400014: GavinGrey_Head_Upper_Mouth
+    400016: GavinGrey_Hips
+    400018: GavinGrey_Left_Eye
+    400020: GavinGrey_Left_Eye_Aim
+    400022: GavinGrey_Left_Eye_BottomLid
+    400024: GavinGrey_Left_Eye_BottomLid_pivot
+    400026: GavinGrey_Left_Eye_GRP
+    400028: GavinGrey_Left_Eye_TopLid
+    400030: GavinGrey_Left_Eye_TopLid_pivot
+    400032: GavinGrey_LeftArm
+    400034: GavinGrey_LeftFoot
+    400036: GavinGrey_LeftFootMiddle1
+    400038: GavinGrey_LeftForeArm
+    400040: GavinGrey_LeftForeArmRoll
+    400042: GavinGrey_LeftHand
+    400044: GavinGrey_LeftHandIndex1
+    400046: GavinGrey_LeftHandIndex2
+    400048: GavinGrey_LeftHandIndex3
+    400050: GavinGrey_LeftHandIndex4
+    400052: GavinGrey_LeftHandMiddle1
+    400054: GavinGrey_LeftHandMiddle2
+    400056: GavinGrey_LeftHandMiddle3
+    400058: GavinGrey_LeftHandMiddle4
+    400060: GavinGrey_LeftHandPinky1
+    400062: GavinGrey_LeftHandPinky2
+    400064: GavinGrey_LeftHandPinky3
+    400066: GavinGrey_LeftHandPinky4
+    400068: GavinGrey_LeftHandRing1
+    400070: GavinGrey_LeftHandRing2
+    400072: GavinGrey_LeftHandRing3
+    400074: GavinGrey_LeftHandRing4
+    400076: GavinGrey_LeftHandThumb1
+    400078: GavinGrey_LeftHandThumb2
+    400080: GavinGrey_LeftHandThumb3
+    400082: GavinGrey_LeftHandThumb4
+    400084: GavinGrey_LeftLeg
+    400086: GavinGrey_LeftShoulder
+    400088: GavinGrey_LeftToeBase
+    400090: GavinGrey_LeftUpLeg
+    400092: GavinGrey_neck
+    400094: GavinGrey_Reference
+    400096: GavinGrey_Right_Eye
+    400098: GavinGrey_Right_Eye_Aim
+    400100: GavinGrey_Right_Eye_BottomLid
+    400102: GavinGrey_Right_Eye_BottomLid_pivot
+    400104: GavinGrey_Right_Eye_GRP
+    400106: GavinGrey_Right_Eye_TopLid
+    400108: GavinGrey_Right_Eye_TopLid_pivot
+    400110: GavinGrey_RightArm
+    400112: GavinGrey_RightFoot
+    400114: GavinGrey_RightFootMiddle1
+    400116: GavinGrey_RightForeArm
+    400118: GavinGrey_RightForeArmRoll
+    400120: GavinGrey_RightHand
+    400122: GavinGrey_RightHandIndex1
+    400124: GavinGrey_RightHandIndex2
+    400126: GavinGrey_RightHandIndex3
+    400128: GavinGrey_RightHandIndex4
+    400130: GavinGrey_RightHandMiddle1
+    400132: GavinGrey_RightHandMiddle2
+    400134: GavinGrey_RightHandMiddle3
+    400136: GavinGrey_RightHandMiddle4
+    400138: GavinGrey_RightHandPinky1
+    400140: GavinGrey_RightHandPinky2
+    400142: GavinGrey_RightHandPinky3
+    400144: GavinGrey_RightHandPinky4
+    400146: GavinGrey_RightHandRing1
+    400148: GavinGrey_RightHandRing2
+    400150: GavinGrey_RightHandRing3
+    400152: GavinGrey_RightHandRing4
+    400154: GavinGrey_RightHandThumb1
+    400156: GavinGrey_RightHandThumb2
+    400158: GavinGrey_RightHandThumb3
+    400160: GavinGrey_RightHandThumb4
+    400162: GavinGrey_RightLeg
+    400164: GavinGrey_RightShoulder
+    400166: GavinGrey_RightToeBase
+    400168: GavinGrey_RightUpLeg
+    400170: GavinGrey_Spine1
+    400172: GavinGrey_Spine2
+    400174: GavinGrey_Spine3
+    400176: //RootNode
+    4300000: Gavin_Grey_GEO
+    4300002: Gavin_Grey_Clothes_GEO1
+    7400000: Gav_Idle
+    7400002: Gav_Walk
+    7400004: Gav_Run
+    7400006: Gav_Crouch
+    7400008: Gav_Stand
+    7400010: Gav_Crouch_Idle
+    7400012: Gav_Sprint
+    9500000: //RootNode
+    13700000: Gavin_Grey_Clothes_GEO1
+    13700002: Gavin_Grey_GEO
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationCompression: 3
+    animationRotationError: .5
+    animationPositionError: .5
+    animationScaleError: .5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: Gav_Idle
+      takeName: Take 001
+      firstFrame: 1
+      lastFrame: 49
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      loopTime: 1
+      loopBlend: 1
+      loopBlendOrientation: 1
+      loopBlendPositionY: 1
+      loopBlendPositionXZ: 1
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Gavin_Grey_Clothes_GEO1
+        weight: 0
+      - path: Gavin_Grey_GEO
+        weight: 0
+      - path: GavinGrey_Reference
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Hips
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Hips/GavinGrey_LeftUpLeg
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Hips/GavinGrey_LeftUpLeg/GavinGrey_LeftLeg
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Hips/GavinGrey_LeftUpLeg/GavinGrey_LeftLeg/GavinGrey_LeftFoot
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Hips/GavinGrey_LeftUpLeg/GavinGrey_LeftLeg/GavinGrey_LeftFoot/GavinGrey_LeftToeBase
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Hips/GavinGrey_LeftUpLeg/GavinGrey_LeftLeg/GavinGrey_LeftFoot/GavinGrey_LeftToeBase/GavinGrey_LeftFootMiddle1
+        weight: 0
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Hips/GavinGrey_RightUpLeg
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Hips/GavinGrey_RightUpLeg/GavinGrey_RightLeg
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Hips/GavinGrey_RightUpLeg/GavinGrey_RightLeg/GavinGrey_RightFoot
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Hips/GavinGrey_RightUpLeg/GavinGrey_RightLeg/GavinGrey_RightFoot/GavinGrey_RightToeBase
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Hips/GavinGrey_RightUpLeg/GavinGrey_RightLeg/GavinGrey_RightFoot/GavinGrey_RightToeBase/GavinGrey_RightFootMiddle1
+        weight: 0
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_LeftShoulder
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_LeftShoulder/GavinGrey_LeftArm
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_LeftShoulder/GavinGrey_LeftArm/GavinGrey_LeftForeArm
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_LeftShoulder/GavinGrey_LeftArm/GavinGrey_LeftForeArm/GavinGrey_LeftForeArmRoll
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_LeftShoulder/GavinGrey_LeftArm/GavinGrey_LeftForeArm/GavinGrey_LeftForeArmRoll/GavinGrey_LeftHand
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_LeftShoulder/GavinGrey_LeftArm/GavinGrey_LeftForeArm/GavinGrey_LeftForeArmRoll/GavinGrey_LeftHand/GavinGrey_LeftHandIndex1
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_LeftShoulder/GavinGrey_LeftArm/GavinGrey_LeftForeArm/GavinGrey_LeftForeArmRoll/GavinGrey_LeftHand/GavinGrey_LeftHandIndex1/GavinGrey_LeftHandIndex2
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_LeftShoulder/GavinGrey_LeftArm/GavinGrey_LeftForeArm/GavinGrey_LeftForeArmRoll/GavinGrey_LeftHand/GavinGrey_LeftHandIndex1/GavinGrey_LeftHandIndex2/GavinGrey_LeftHandIndex3
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_LeftShoulder/GavinGrey_LeftArm/GavinGrey_LeftForeArm/GavinGrey_LeftForeArmRoll/GavinGrey_LeftHand/GavinGrey_LeftHandIndex1/GavinGrey_LeftHandIndex2/GavinGrey_LeftHandIndex3/GavinGrey_LeftHandIndex4
+        weight: 0
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_LeftShoulder/GavinGrey_LeftArm/GavinGrey_LeftForeArm/GavinGrey_LeftForeArmRoll/GavinGrey_LeftHand/GavinGrey_LeftHandMiddle1
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_LeftShoulder/GavinGrey_LeftArm/GavinGrey_LeftForeArm/GavinGrey_LeftForeArmRoll/GavinGrey_LeftHand/GavinGrey_LeftHandMiddle1/GavinGrey_LeftHandMiddle2
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_LeftShoulder/GavinGrey_LeftArm/GavinGrey_LeftForeArm/GavinGrey_LeftForeArmRoll/GavinGrey_LeftHand/GavinGrey_LeftHandMiddle1/GavinGrey_LeftHandMiddle2/GavinGrey_LeftHandMiddle3
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_LeftShoulder/GavinGrey_LeftArm/GavinGrey_LeftForeArm/GavinGrey_LeftForeArmRoll/GavinGrey_LeftHand/GavinGrey_LeftHandMiddle1/GavinGrey_LeftHandMiddle2/GavinGrey_LeftHandMiddle3/GavinGrey_LeftHandMiddle4
+        weight: 0
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_LeftShoulder/GavinGrey_LeftArm/GavinGrey_LeftForeArm/GavinGrey_LeftForeArmRoll/GavinGrey_LeftHand/GavinGrey_LeftHandPinky1
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_LeftShoulder/GavinGrey_LeftArm/GavinGrey_LeftForeArm/GavinGrey_LeftForeArmRoll/GavinGrey_LeftHand/GavinGrey_LeftHandPinky1/GavinGrey_LeftHandPinky2
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_LeftShoulder/GavinGrey_LeftArm/GavinGrey_LeftForeArm/GavinGrey_LeftForeArmRoll/GavinGrey_LeftHand/GavinGrey_LeftHandPinky1/GavinGrey_LeftHandPinky2/GavinGrey_LeftHandPinky3
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_LeftShoulder/GavinGrey_LeftArm/GavinGrey_LeftForeArm/GavinGrey_LeftForeArmRoll/GavinGrey_LeftHand/GavinGrey_LeftHandPinky1/GavinGrey_LeftHandPinky2/GavinGrey_LeftHandPinky3/GavinGrey_LeftHandPinky4
+        weight: 0
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_LeftShoulder/GavinGrey_LeftArm/GavinGrey_LeftForeArm/GavinGrey_LeftForeArmRoll/GavinGrey_LeftHand/GavinGrey_LeftHandRing1
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_LeftShoulder/GavinGrey_LeftArm/GavinGrey_LeftForeArm/GavinGrey_LeftForeArmRoll/GavinGrey_LeftHand/GavinGrey_LeftHandRing1/GavinGrey_LeftHandRing2
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_LeftShoulder/GavinGrey_LeftArm/GavinGrey_LeftForeArm/GavinGrey_LeftForeArmRoll/GavinGrey_LeftHand/GavinGrey_LeftHandRing1/GavinGrey_LeftHandRing2/GavinGrey_LeftHandRing3
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_LeftShoulder/GavinGrey_LeftArm/GavinGrey_LeftForeArm/GavinGrey_LeftForeArmRoll/GavinGrey_LeftHand/GavinGrey_LeftHandRing1/GavinGrey_LeftHandRing2/GavinGrey_LeftHandRing3/GavinGrey_LeftHandRing4
+        weight: 0
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_LeftShoulder/GavinGrey_LeftArm/GavinGrey_LeftForeArm/GavinGrey_LeftForeArmRoll/GavinGrey_LeftHand/GavinGrey_LeftHandThumb1
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_LeftShoulder/GavinGrey_LeftArm/GavinGrey_LeftForeArm/GavinGrey_LeftForeArmRoll/GavinGrey_LeftHand/GavinGrey_LeftHandThumb1/GavinGrey_LeftHandThumb2
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_LeftShoulder/GavinGrey_LeftArm/GavinGrey_LeftForeArm/GavinGrey_LeftForeArmRoll/GavinGrey_LeftHand/GavinGrey_LeftHandThumb1/GavinGrey_LeftHandThumb2/GavinGrey_LeftHandThumb3
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_LeftShoulder/GavinGrey_LeftArm/GavinGrey_LeftForeArm/GavinGrey_LeftForeArmRoll/GavinGrey_LeftHand/GavinGrey_LeftHandThumb1/GavinGrey_LeftHandThumb2/GavinGrey_LeftHandThumb3/GavinGrey_LeftHandThumb4
+        weight: 0
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_neck
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_neck/GavinGrey_Head
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_neck/GavinGrey_Head/GavinGrey_Head_Tip
+        weight: 0
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_neck/GavinGrey_Head/GavinGrey_Head_Upper_Mouth
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_neck/GavinGrey_Head/GavinGrey_Left_Eye_GRP
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_neck/GavinGrey_Head/GavinGrey_Left_Eye_GRP/GavinGrey_Left_Eye
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_neck/GavinGrey_Head/GavinGrey_Left_Eye_GRP/GavinGrey_Left_Eye/GavinGrey_Left_Eye_Aim
+        weight: 0
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_neck/GavinGrey_Head/GavinGrey_Left_Eye_GRP/GavinGrey_Left_Eye_BottomLid_pivot
+        weight: 0
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_neck/GavinGrey_Head/GavinGrey_Left_Eye_GRP/GavinGrey_Left_Eye_BottomLid_pivot/GavinGrey_Left_Eye_BottomLid
+        weight: 0
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_neck/GavinGrey_Head/GavinGrey_Left_Eye_GRP/GavinGrey_Left_Eye_TopLid_pivot
+        weight: 0
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_neck/GavinGrey_Head/GavinGrey_Left_Eye_GRP/GavinGrey_Left_Eye_TopLid_pivot/GavinGrey_Left_Eye_TopLid
+        weight: 0
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_neck/GavinGrey_Head/GavinGrey_Right_Eye_GRP
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_neck/GavinGrey_Head/GavinGrey_Right_Eye_GRP/GavinGrey_Right_Eye
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_neck/GavinGrey_Head/GavinGrey_Right_Eye_GRP/GavinGrey_Right_Eye/GavinGrey_Right_Eye_Aim
+        weight: 0
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_neck/GavinGrey_Head/GavinGrey_Right_Eye_GRP/GavinGrey_Right_Eye_BottomLid_pivot
+        weight: 0
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_neck/GavinGrey_Head/GavinGrey_Right_Eye_GRP/GavinGrey_Right_Eye_BottomLid_pivot/GavinGrey_Right_Eye_BottomLid
+        weight: 0
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_neck/GavinGrey_Head/GavinGrey_Right_Eye_GRP/GavinGrey_Right_Eye_TopLid_pivot
+        weight: 0
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_neck/GavinGrey_Head/GavinGrey_Right_Eye_GRP/GavinGrey_Right_Eye_TopLid_pivot/GavinGrey_Right_Eye_TopLid
+        weight: 0
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_neck/GavinGrey_Head_Bottom_Mouth
+        weight: 0
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_neck/GavinGrey_Head_Bottom_Mouth/GavinGrey_Head_Bottom_Mouth_Tip
+        weight: 0
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_RightShoulder
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_RightShoulder/GavinGrey_RightArm
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_RightShoulder/GavinGrey_RightArm/GavinGrey_RightForeArm
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_RightShoulder/GavinGrey_RightArm/GavinGrey_RightForeArm/GavinGrey_RightForeArmRoll
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_RightShoulder/GavinGrey_RightArm/GavinGrey_RightForeArm/GavinGrey_RightForeArmRoll/GavinGrey_RightHand
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_RightShoulder/GavinGrey_RightArm/GavinGrey_RightForeArm/GavinGrey_RightForeArmRoll/GavinGrey_RightHand/GavinGrey_RightHandIndex1
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_RightShoulder/GavinGrey_RightArm/GavinGrey_RightForeArm/GavinGrey_RightForeArmRoll/GavinGrey_RightHand/GavinGrey_RightHandIndex1/GavinGrey_RightHandIndex2
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_RightShoulder/GavinGrey_RightArm/GavinGrey_RightForeArm/GavinGrey_RightForeArmRoll/GavinGrey_RightHand/GavinGrey_RightHandIndex1/GavinGrey_RightHandIndex2/GavinGrey_RightHandIndex3
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_RightShoulder/GavinGrey_RightArm/GavinGrey_RightForeArm/GavinGrey_RightForeArmRoll/GavinGrey_RightHand/GavinGrey_RightHandIndex1/GavinGrey_RightHandIndex2/GavinGrey_RightHandIndex3/GavinGrey_RightHandIndex4
+        weight: 0
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_RightShoulder/GavinGrey_RightArm/GavinGrey_RightForeArm/GavinGrey_RightForeArmRoll/GavinGrey_RightHand/GavinGrey_RightHandMiddle1
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_RightShoulder/GavinGrey_RightArm/GavinGrey_RightForeArm/GavinGrey_RightForeArmRoll/GavinGrey_RightHand/GavinGrey_RightHandMiddle1/GavinGrey_RightHandMiddle2
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_RightShoulder/GavinGrey_RightArm/GavinGrey_RightForeArm/GavinGrey_RightForeArmRoll/GavinGrey_RightHand/GavinGrey_RightHandMiddle1/GavinGrey_RightHandMiddle2/GavinGrey_RightHandMiddle3
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_RightShoulder/GavinGrey_RightArm/GavinGrey_RightForeArm/GavinGrey_RightForeArmRoll/GavinGrey_RightHand/GavinGrey_RightHandMiddle1/GavinGrey_RightHandMiddle2/GavinGrey_RightHandMiddle3/GavinGrey_RightHandMiddle4
+        weight: 0
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_RightShoulder/GavinGrey_RightArm/GavinGrey_RightForeArm/GavinGrey_RightForeArmRoll/GavinGrey_RightHand/GavinGrey_RightHandPinky1
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_RightShoulder/GavinGrey_RightArm/GavinGrey_RightForeArm/GavinGrey_RightForeArmRoll/GavinGrey_RightHand/GavinGrey_RightHandPinky1/GavinGrey_RightHandPinky2
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_RightShoulder/GavinGrey_RightArm/GavinGrey_RightForeArm/GavinGrey_RightForeArmRoll/GavinGrey_RightHand/GavinGrey_RightHandPinky1/GavinGrey_RightHandPinky2/GavinGrey_RightHandPinky3
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_RightShoulder/GavinGrey_RightArm/GavinGrey_RightForeArm/GavinGrey_RightForeArmRoll/GavinGrey_RightHand/GavinGrey_RightHandPinky1/GavinGrey_RightHandPinky2/GavinGrey_RightHandPinky3/GavinGrey_RightHandPinky4
+        weight: 0
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_RightShoulder/GavinGrey_RightArm/GavinGrey_RightForeArm/GavinGrey_RightForeArmRoll/GavinGrey_RightHand/GavinGrey_RightHandRing1
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_RightShoulder/GavinGrey_RightArm/GavinGrey_RightForeArm/GavinGrey_RightForeArmRoll/GavinGrey_RightHand/GavinGrey_RightHandRing1/GavinGrey_RightHandRing2
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_RightShoulder/GavinGrey_RightArm/GavinGrey_RightForeArm/GavinGrey_RightForeArmRoll/GavinGrey_RightHand/GavinGrey_RightHandRing1/GavinGrey_RightHandRing2/GavinGrey_RightHandRing3
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_RightShoulder/GavinGrey_RightArm/GavinGrey_RightForeArm/GavinGrey_RightForeArmRoll/GavinGrey_RightHand/GavinGrey_RightHandRing1/GavinGrey_RightHandRing2/GavinGrey_RightHandRing3/GavinGrey_RightHandRing4
+        weight: 0
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_RightShoulder/GavinGrey_RightArm/GavinGrey_RightForeArm/GavinGrey_RightForeArmRoll/GavinGrey_RightHand/GavinGrey_RightHandThumb1
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_RightShoulder/GavinGrey_RightArm/GavinGrey_RightForeArm/GavinGrey_RightForeArmRoll/GavinGrey_RightHand/GavinGrey_RightHandThumb1/GavinGrey_RightHandThumb2
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_RightShoulder/GavinGrey_RightArm/GavinGrey_RightForeArm/GavinGrey_RightForeArmRoll/GavinGrey_RightHand/GavinGrey_RightHandThumb1/GavinGrey_RightHandThumb2/GavinGrey_RightHandThumb3
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_RightShoulder/GavinGrey_RightArm/GavinGrey_RightForeArm/GavinGrey_RightForeArmRoll/GavinGrey_RightHand/GavinGrey_RightHandThumb1/GavinGrey_RightHandThumb2/GavinGrey_RightHandThumb3/GavinGrey_RightHandThumb4
+        weight: 0
+      maskType: 0
+      maskSource: {instanceID: 0}
+    - serializedVersion: 16
+      name: Gav_Walk
+      takeName: Take 001
+      firstFrame: 51
+      lastFrame: 74
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      loopTime: 1
+      loopBlend: 1
+      loopBlendOrientation: 1
+      loopBlendPositionY: 1
+      loopBlendPositionXZ: 1
+      keepOriginalOrientation: 1
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 1
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Gavin_Grey_Clothes_GEO1
+        weight: 0
+      - path: Gavin_Grey_GEO
+        weight: 0
+      - path: GavinGrey_Reference
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Hips
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Hips/GavinGrey_LeftUpLeg
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Hips/GavinGrey_LeftUpLeg/GavinGrey_LeftLeg
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Hips/GavinGrey_LeftUpLeg/GavinGrey_LeftLeg/GavinGrey_LeftFoot
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Hips/GavinGrey_LeftUpLeg/GavinGrey_LeftLeg/GavinGrey_LeftFoot/GavinGrey_LeftToeBase
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Hips/GavinGrey_LeftUpLeg/GavinGrey_LeftLeg/GavinGrey_LeftFoot/GavinGrey_LeftToeBase/GavinGrey_LeftFootMiddle1
+        weight: 0
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Hips/GavinGrey_RightUpLeg
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Hips/GavinGrey_RightUpLeg/GavinGrey_RightLeg
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Hips/GavinGrey_RightUpLeg/GavinGrey_RightLeg/GavinGrey_RightFoot
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Hips/GavinGrey_RightUpLeg/GavinGrey_RightLeg/GavinGrey_RightFoot/GavinGrey_RightToeBase
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Hips/GavinGrey_RightUpLeg/GavinGrey_RightLeg/GavinGrey_RightFoot/GavinGrey_RightToeBase/GavinGrey_RightFootMiddle1
+        weight: 0
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_LeftShoulder
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_LeftShoulder/GavinGrey_LeftArm
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_LeftShoulder/GavinGrey_LeftArm/GavinGrey_LeftForeArm
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_LeftShoulder/GavinGrey_LeftArm/GavinGrey_LeftForeArm/GavinGrey_LeftForeArmRoll
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_LeftShoulder/GavinGrey_LeftArm/GavinGrey_LeftForeArm/GavinGrey_LeftForeArmRoll/GavinGrey_LeftHand
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_LeftShoulder/GavinGrey_LeftArm/GavinGrey_LeftForeArm/GavinGrey_LeftForeArmRoll/GavinGrey_LeftHand/GavinGrey_LeftHandIndex1
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_LeftShoulder/GavinGrey_LeftArm/GavinGrey_LeftForeArm/GavinGrey_LeftForeArmRoll/GavinGrey_LeftHand/GavinGrey_LeftHandIndex1/GavinGrey_LeftHandIndex2
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_LeftShoulder/GavinGrey_LeftArm/GavinGrey_LeftForeArm/GavinGrey_LeftForeArmRoll/GavinGrey_LeftHand/GavinGrey_LeftHandIndex1/GavinGrey_LeftHandIndex2/GavinGrey_LeftHandIndex3
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_LeftShoulder/GavinGrey_LeftArm/GavinGrey_LeftForeArm/GavinGrey_LeftForeArmRoll/GavinGrey_LeftHand/GavinGrey_LeftHandIndex1/GavinGrey_LeftHandIndex2/GavinGrey_LeftHandIndex3/GavinGrey_LeftHandIndex4
+        weight: 0
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_LeftShoulder/GavinGrey_LeftArm/GavinGrey_LeftForeArm/GavinGrey_LeftForeArmRoll/GavinGrey_LeftHand/GavinGrey_LeftHandMiddle1
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_LeftShoulder/GavinGrey_LeftArm/GavinGrey_LeftForeArm/GavinGrey_LeftForeArmRoll/GavinGrey_LeftHand/GavinGrey_LeftHandMiddle1/GavinGrey_LeftHandMiddle2
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_LeftShoulder/GavinGrey_LeftArm/GavinGrey_LeftForeArm/GavinGrey_LeftForeArmRoll/GavinGrey_LeftHand/GavinGrey_LeftHandMiddle1/GavinGrey_LeftHandMiddle2/GavinGrey_LeftHandMiddle3
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_LeftShoulder/GavinGrey_LeftArm/GavinGrey_LeftForeArm/GavinGrey_LeftForeArmRoll/GavinGrey_LeftHand/GavinGrey_LeftHandMiddle1/GavinGrey_LeftHandMiddle2/GavinGrey_LeftHandMiddle3/GavinGrey_LeftHandMiddle4
+        weight: 0
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_LeftShoulder/GavinGrey_LeftArm/GavinGrey_LeftForeArm/GavinGrey_LeftForeArmRoll/GavinGrey_LeftHand/GavinGrey_LeftHandPinky1
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_LeftShoulder/GavinGrey_LeftArm/GavinGrey_LeftForeArm/GavinGrey_LeftForeArmRoll/GavinGrey_LeftHand/GavinGrey_LeftHandPinky1/GavinGrey_LeftHandPinky2
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_LeftShoulder/GavinGrey_LeftArm/GavinGrey_LeftForeArm/GavinGrey_LeftForeArmRoll/GavinGrey_LeftHand/GavinGrey_LeftHandPinky1/GavinGrey_LeftHandPinky2/GavinGrey_LeftHandPinky3
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_LeftShoulder/GavinGrey_LeftArm/GavinGrey_LeftForeArm/GavinGrey_LeftForeArmRoll/GavinGrey_LeftHand/GavinGrey_LeftHandPinky1/GavinGrey_LeftHandPinky2/GavinGrey_LeftHandPinky3/GavinGrey_LeftHandPinky4
+        weight: 0
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_LeftShoulder/GavinGrey_LeftArm/GavinGrey_LeftForeArm/GavinGrey_LeftForeArmRoll/GavinGrey_LeftHand/GavinGrey_LeftHandRing1
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_LeftShoulder/GavinGrey_LeftArm/GavinGrey_LeftForeArm/GavinGrey_LeftForeArmRoll/GavinGrey_LeftHand/GavinGrey_LeftHandRing1/GavinGrey_LeftHandRing2
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_LeftShoulder/GavinGrey_LeftArm/GavinGrey_LeftForeArm/GavinGrey_LeftForeArmRoll/GavinGrey_LeftHand/GavinGrey_LeftHandRing1/GavinGrey_LeftHandRing2/GavinGrey_LeftHandRing3
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_LeftShoulder/GavinGrey_LeftArm/GavinGrey_LeftForeArm/GavinGrey_LeftForeArmRoll/GavinGrey_LeftHand/GavinGrey_LeftHandRing1/GavinGrey_LeftHandRing2/GavinGrey_LeftHandRing3/GavinGrey_LeftHandRing4
+        weight: 0
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_LeftShoulder/GavinGrey_LeftArm/GavinGrey_LeftForeArm/GavinGrey_LeftForeArmRoll/GavinGrey_LeftHand/GavinGrey_LeftHandThumb1
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_LeftShoulder/GavinGrey_LeftArm/GavinGrey_LeftForeArm/GavinGrey_LeftForeArmRoll/GavinGrey_LeftHand/GavinGrey_LeftHandThumb1/GavinGrey_LeftHandThumb2
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_LeftShoulder/GavinGrey_LeftArm/GavinGrey_LeftForeArm/GavinGrey_LeftForeArmRoll/GavinGrey_LeftHand/GavinGrey_LeftHandThumb1/GavinGrey_LeftHandThumb2/GavinGrey_LeftHandThumb3
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_LeftShoulder/GavinGrey_LeftArm/GavinGrey_LeftForeArm/GavinGrey_LeftForeArmRoll/GavinGrey_LeftHand/GavinGrey_LeftHandThumb1/GavinGrey_LeftHandThumb2/GavinGrey_LeftHandThumb3/GavinGrey_LeftHandThumb4
+        weight: 0
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_neck
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_neck/GavinGrey_Head
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_neck/GavinGrey_Head/GavinGrey_Head_Tip
+        weight: 0
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_neck/GavinGrey_Head/GavinGrey_Head_Upper_Mouth
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_neck/GavinGrey_Head/GavinGrey_Left_Eye_GRP
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_neck/GavinGrey_Head/GavinGrey_Left_Eye_GRP/GavinGrey_Left_Eye
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_neck/GavinGrey_Head/GavinGrey_Left_Eye_GRP/GavinGrey_Left_Eye/GavinGrey_Left_Eye_Aim
+        weight: 0
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_neck/GavinGrey_Head/GavinGrey_Left_Eye_GRP/GavinGrey_Left_Eye_BottomLid_pivot
+        weight: 0
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_neck/GavinGrey_Head/GavinGrey_Left_Eye_GRP/GavinGrey_Left_Eye_BottomLid_pivot/GavinGrey_Left_Eye_BottomLid
+        weight: 0
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_neck/GavinGrey_Head/GavinGrey_Left_Eye_GRP/GavinGrey_Left_Eye_TopLid_pivot
+        weight: 0
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_neck/GavinGrey_Head/GavinGrey_Left_Eye_GRP/GavinGrey_Left_Eye_TopLid_pivot/GavinGrey_Left_Eye_TopLid
+        weight: 0
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_neck/GavinGrey_Head/GavinGrey_Right_Eye_GRP
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_neck/GavinGrey_Head/GavinGrey_Right_Eye_GRP/GavinGrey_Right_Eye
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_neck/GavinGrey_Head/GavinGrey_Right_Eye_GRP/GavinGrey_Right_Eye/GavinGrey_Right_Eye_Aim
+        weight: 0
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_neck/GavinGrey_Head/GavinGrey_Right_Eye_GRP/GavinGrey_Right_Eye_BottomLid_pivot
+        weight: 0
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_neck/GavinGrey_Head/GavinGrey_Right_Eye_GRP/GavinGrey_Right_Eye_BottomLid_pivot/GavinGrey_Right_Eye_BottomLid
+        weight: 0
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_neck/GavinGrey_Head/GavinGrey_Right_Eye_GRP/GavinGrey_Right_Eye_TopLid_pivot
+        weight: 0
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_neck/GavinGrey_Head/GavinGrey_Right_Eye_GRP/GavinGrey_Right_Eye_TopLid_pivot/GavinGrey_Right_Eye_TopLid
+        weight: 0
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_neck/GavinGrey_Head_Bottom_Mouth
+        weight: 0
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_neck/GavinGrey_Head_Bottom_Mouth/GavinGrey_Head_Bottom_Mouth_Tip
+        weight: 0
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_RightShoulder
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_RightShoulder/GavinGrey_RightArm
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_RightShoulder/GavinGrey_RightArm/GavinGrey_RightForeArm
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_RightShoulder/GavinGrey_RightArm/GavinGrey_RightForeArm/GavinGrey_RightForeArmRoll
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_RightShoulder/GavinGrey_RightArm/GavinGrey_RightForeArm/GavinGrey_RightForeArmRoll/GavinGrey_RightHand
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_RightShoulder/GavinGrey_RightArm/GavinGrey_RightForeArm/GavinGrey_RightForeArmRoll/GavinGrey_RightHand/GavinGrey_RightHandIndex1
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_RightShoulder/GavinGrey_RightArm/GavinGrey_RightForeArm/GavinGrey_RightForeArmRoll/GavinGrey_RightHand/GavinGrey_RightHandIndex1/GavinGrey_RightHandIndex2
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_RightShoulder/GavinGrey_RightArm/GavinGrey_RightForeArm/GavinGrey_RightForeArmRoll/GavinGrey_RightHand/GavinGrey_RightHandIndex1/GavinGrey_RightHandIndex2/GavinGrey_RightHandIndex3
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_RightShoulder/GavinGrey_RightArm/GavinGrey_RightForeArm/GavinGrey_RightForeArmRoll/GavinGrey_RightHand/GavinGrey_RightHandIndex1/GavinGrey_RightHandIndex2/GavinGrey_RightHandIndex3/GavinGrey_RightHandIndex4
+        weight: 0
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_RightShoulder/GavinGrey_RightArm/GavinGrey_RightForeArm/GavinGrey_RightForeArmRoll/GavinGrey_RightHand/GavinGrey_RightHandMiddle1
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_RightShoulder/GavinGrey_RightArm/GavinGrey_RightForeArm/GavinGrey_RightForeArmRoll/GavinGrey_RightHand/GavinGrey_RightHandMiddle1/GavinGrey_RightHandMiddle2
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_RightShoulder/GavinGrey_RightArm/GavinGrey_RightForeArm/GavinGrey_RightForeArmRoll/GavinGrey_RightHand/GavinGrey_RightHandMiddle1/GavinGrey_RightHandMiddle2/GavinGrey_RightHandMiddle3
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_RightShoulder/GavinGrey_RightArm/GavinGrey_RightForeArm/GavinGrey_RightForeArmRoll/GavinGrey_RightHand/GavinGrey_RightHandMiddle1/GavinGrey_RightHandMiddle2/GavinGrey_RightHandMiddle3/GavinGrey_RightHandMiddle4
+        weight: 0
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_RightShoulder/GavinGrey_RightArm/GavinGrey_RightForeArm/GavinGrey_RightForeArmRoll/GavinGrey_RightHand/GavinGrey_RightHandPinky1
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_RightShoulder/GavinGrey_RightArm/GavinGrey_RightForeArm/GavinGrey_RightForeArmRoll/GavinGrey_RightHand/GavinGrey_RightHandPinky1/GavinGrey_RightHandPinky2
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_RightShoulder/GavinGrey_RightArm/GavinGrey_RightForeArm/GavinGrey_RightForeArmRoll/GavinGrey_RightHand/GavinGrey_RightHandPinky1/GavinGrey_RightHandPinky2/GavinGrey_RightHandPinky3
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_RightShoulder/GavinGrey_RightArm/GavinGrey_RightForeArm/GavinGrey_RightForeArmRoll/GavinGrey_RightHand/GavinGrey_RightHandPinky1/GavinGrey_RightHandPinky2/GavinGrey_RightHandPinky3/GavinGrey_RightHandPinky4
+        weight: 0
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_RightShoulder/GavinGrey_RightArm/GavinGrey_RightForeArm/GavinGrey_RightForeArmRoll/GavinGrey_RightHand/GavinGrey_RightHandRing1
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_RightShoulder/GavinGrey_RightArm/GavinGrey_RightForeArm/GavinGrey_RightForeArmRoll/GavinGrey_RightHand/GavinGrey_RightHandRing1/GavinGrey_RightHandRing2
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_RightShoulder/GavinGrey_RightArm/GavinGrey_RightForeArm/GavinGrey_RightForeArmRoll/GavinGrey_RightHand/GavinGrey_RightHandRing1/GavinGrey_RightHandRing2/GavinGrey_RightHandRing3
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_RightShoulder/GavinGrey_RightArm/GavinGrey_RightForeArm/GavinGrey_RightForeArmRoll/GavinGrey_RightHand/GavinGrey_RightHandRing1/GavinGrey_RightHandRing2/GavinGrey_RightHandRing3/GavinGrey_RightHandRing4
+        weight: 0
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_RightShoulder/GavinGrey_RightArm/GavinGrey_RightForeArm/GavinGrey_RightForeArmRoll/GavinGrey_RightHand/GavinGrey_RightHandThumb1
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_RightShoulder/GavinGrey_RightArm/GavinGrey_RightForeArm/GavinGrey_RightForeArmRoll/GavinGrey_RightHand/GavinGrey_RightHandThumb1/GavinGrey_RightHandThumb2
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_RightShoulder/GavinGrey_RightArm/GavinGrey_RightForeArm/GavinGrey_RightForeArmRoll/GavinGrey_RightHand/GavinGrey_RightHandThumb1/GavinGrey_RightHandThumb2/GavinGrey_RightHandThumb3
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_RightShoulder/GavinGrey_RightArm/GavinGrey_RightForeArm/GavinGrey_RightForeArmRoll/GavinGrey_RightHand/GavinGrey_RightHandThumb1/GavinGrey_RightHandThumb2/GavinGrey_RightHandThumb3/GavinGrey_RightHandThumb4
+        weight: 0
+      maskType: 0
+      maskSource: {instanceID: 0}
+    - serializedVersion: 16
+      name: Gav_Run
+      takeName: Take 001
+      firstFrame: 76
+      lastFrame: 95
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      loopTime: 1
+      loopBlend: 1
+      loopBlendOrientation: 1
+      loopBlendPositionY: 1
+      loopBlendPositionXZ: 1
+      keepOriginalOrientation: 1
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 1
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Gavin_Grey_Clothes_GEO1
+        weight: 0
+      - path: Gavin_Grey_GEO
+        weight: 0
+      - path: GavinGrey_Reference
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Hips
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Hips/GavinGrey_LeftUpLeg
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Hips/GavinGrey_LeftUpLeg/GavinGrey_LeftLeg
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Hips/GavinGrey_LeftUpLeg/GavinGrey_LeftLeg/GavinGrey_LeftFoot
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Hips/GavinGrey_LeftUpLeg/GavinGrey_LeftLeg/GavinGrey_LeftFoot/GavinGrey_LeftToeBase
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Hips/GavinGrey_LeftUpLeg/GavinGrey_LeftLeg/GavinGrey_LeftFoot/GavinGrey_LeftToeBase/GavinGrey_LeftFootMiddle1
+        weight: 0
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Hips/GavinGrey_RightUpLeg
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Hips/GavinGrey_RightUpLeg/GavinGrey_RightLeg
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Hips/GavinGrey_RightUpLeg/GavinGrey_RightLeg/GavinGrey_RightFoot
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Hips/GavinGrey_RightUpLeg/GavinGrey_RightLeg/GavinGrey_RightFoot/GavinGrey_RightToeBase
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Hips/GavinGrey_RightUpLeg/GavinGrey_RightLeg/GavinGrey_RightFoot/GavinGrey_RightToeBase/GavinGrey_RightFootMiddle1
+        weight: 0
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_LeftShoulder
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_LeftShoulder/GavinGrey_LeftArm
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_LeftShoulder/GavinGrey_LeftArm/GavinGrey_LeftForeArm
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_LeftShoulder/GavinGrey_LeftArm/GavinGrey_LeftForeArm/GavinGrey_LeftForeArmRoll
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_LeftShoulder/GavinGrey_LeftArm/GavinGrey_LeftForeArm/GavinGrey_LeftForeArmRoll/GavinGrey_LeftHand
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_LeftShoulder/GavinGrey_LeftArm/GavinGrey_LeftForeArm/GavinGrey_LeftForeArmRoll/GavinGrey_LeftHand/GavinGrey_LeftHandIndex1
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_LeftShoulder/GavinGrey_LeftArm/GavinGrey_LeftForeArm/GavinGrey_LeftForeArmRoll/GavinGrey_LeftHand/GavinGrey_LeftHandIndex1/GavinGrey_LeftHandIndex2
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_LeftShoulder/GavinGrey_LeftArm/GavinGrey_LeftForeArm/GavinGrey_LeftForeArmRoll/GavinGrey_LeftHand/GavinGrey_LeftHandIndex1/GavinGrey_LeftHandIndex2/GavinGrey_LeftHandIndex3
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_LeftShoulder/GavinGrey_LeftArm/GavinGrey_LeftForeArm/GavinGrey_LeftForeArmRoll/GavinGrey_LeftHand/GavinGrey_LeftHandIndex1/GavinGrey_LeftHandIndex2/GavinGrey_LeftHandIndex3/GavinGrey_LeftHandIndex4
+        weight: 0
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_LeftShoulder/GavinGrey_LeftArm/GavinGrey_LeftForeArm/GavinGrey_LeftForeArmRoll/GavinGrey_LeftHand/GavinGrey_LeftHandMiddle1
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_LeftShoulder/GavinGrey_LeftArm/GavinGrey_LeftForeArm/GavinGrey_LeftForeArmRoll/GavinGrey_LeftHand/GavinGrey_LeftHandMiddle1/GavinGrey_LeftHandMiddle2
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_LeftShoulder/GavinGrey_LeftArm/GavinGrey_LeftForeArm/GavinGrey_LeftForeArmRoll/GavinGrey_LeftHand/GavinGrey_LeftHandMiddle1/GavinGrey_LeftHandMiddle2/GavinGrey_LeftHandMiddle3
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_LeftShoulder/GavinGrey_LeftArm/GavinGrey_LeftForeArm/GavinGrey_LeftForeArmRoll/GavinGrey_LeftHand/GavinGrey_LeftHandMiddle1/GavinGrey_LeftHandMiddle2/GavinGrey_LeftHandMiddle3/GavinGrey_LeftHandMiddle4
+        weight: 0
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_LeftShoulder/GavinGrey_LeftArm/GavinGrey_LeftForeArm/GavinGrey_LeftForeArmRoll/GavinGrey_LeftHand/GavinGrey_LeftHandPinky1
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_LeftShoulder/GavinGrey_LeftArm/GavinGrey_LeftForeArm/GavinGrey_LeftForeArmRoll/GavinGrey_LeftHand/GavinGrey_LeftHandPinky1/GavinGrey_LeftHandPinky2
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_LeftShoulder/GavinGrey_LeftArm/GavinGrey_LeftForeArm/GavinGrey_LeftForeArmRoll/GavinGrey_LeftHand/GavinGrey_LeftHandPinky1/GavinGrey_LeftHandPinky2/GavinGrey_LeftHandPinky3
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_LeftShoulder/GavinGrey_LeftArm/GavinGrey_LeftForeArm/GavinGrey_LeftForeArmRoll/GavinGrey_LeftHand/GavinGrey_LeftHandPinky1/GavinGrey_LeftHandPinky2/GavinGrey_LeftHandPinky3/GavinGrey_LeftHandPinky4
+        weight: 0
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_LeftShoulder/GavinGrey_LeftArm/GavinGrey_LeftForeArm/GavinGrey_LeftForeArmRoll/GavinGrey_LeftHand/GavinGrey_LeftHandRing1
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_LeftShoulder/GavinGrey_LeftArm/GavinGrey_LeftForeArm/GavinGrey_LeftForeArmRoll/GavinGrey_LeftHand/GavinGrey_LeftHandRing1/GavinGrey_LeftHandRing2
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_LeftShoulder/GavinGrey_LeftArm/GavinGrey_LeftForeArm/GavinGrey_LeftForeArmRoll/GavinGrey_LeftHand/GavinGrey_LeftHandRing1/GavinGrey_LeftHandRing2/GavinGrey_LeftHandRing3
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_LeftShoulder/GavinGrey_LeftArm/GavinGrey_LeftForeArm/GavinGrey_LeftForeArmRoll/GavinGrey_LeftHand/GavinGrey_LeftHandRing1/GavinGrey_LeftHandRing2/GavinGrey_LeftHandRing3/GavinGrey_LeftHandRing4
+        weight: 0
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_LeftShoulder/GavinGrey_LeftArm/GavinGrey_LeftForeArm/GavinGrey_LeftForeArmRoll/GavinGrey_LeftHand/GavinGrey_LeftHandThumb1
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_LeftShoulder/GavinGrey_LeftArm/GavinGrey_LeftForeArm/GavinGrey_LeftForeArmRoll/GavinGrey_LeftHand/GavinGrey_LeftHandThumb1/GavinGrey_LeftHandThumb2
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_LeftShoulder/GavinGrey_LeftArm/GavinGrey_LeftForeArm/GavinGrey_LeftForeArmRoll/GavinGrey_LeftHand/GavinGrey_LeftHandThumb1/GavinGrey_LeftHandThumb2/GavinGrey_LeftHandThumb3
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_LeftShoulder/GavinGrey_LeftArm/GavinGrey_LeftForeArm/GavinGrey_LeftForeArmRoll/GavinGrey_LeftHand/GavinGrey_LeftHandThumb1/GavinGrey_LeftHandThumb2/GavinGrey_LeftHandThumb3/GavinGrey_LeftHandThumb4
+        weight: 0
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_neck
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_neck/GavinGrey_Head
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_neck/GavinGrey_Head/GavinGrey_Head_Tip
+        weight: 0
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_neck/GavinGrey_Head/GavinGrey_Head_Upper_Mouth
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_neck/GavinGrey_Head/GavinGrey_Left_Eye_GRP
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_neck/GavinGrey_Head/GavinGrey_Left_Eye_GRP/GavinGrey_Left_Eye
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_neck/GavinGrey_Head/GavinGrey_Left_Eye_GRP/GavinGrey_Left_Eye/GavinGrey_Left_Eye_Aim
+        weight: 0
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_neck/GavinGrey_Head/GavinGrey_Left_Eye_GRP/GavinGrey_Left_Eye_BottomLid_pivot
+        weight: 0
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_neck/GavinGrey_Head/GavinGrey_Left_Eye_GRP/GavinGrey_Left_Eye_BottomLid_pivot/GavinGrey_Left_Eye_BottomLid
+        weight: 0
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_neck/GavinGrey_Head/GavinGrey_Left_Eye_GRP/GavinGrey_Left_Eye_TopLid_pivot
+        weight: 0
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_neck/GavinGrey_Head/GavinGrey_Left_Eye_GRP/GavinGrey_Left_Eye_TopLid_pivot/GavinGrey_Left_Eye_TopLid
+        weight: 0
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_neck/GavinGrey_Head/GavinGrey_Right_Eye_GRP
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_neck/GavinGrey_Head/GavinGrey_Right_Eye_GRP/GavinGrey_Right_Eye
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_neck/GavinGrey_Head/GavinGrey_Right_Eye_GRP/GavinGrey_Right_Eye/GavinGrey_Right_Eye_Aim
+        weight: 0
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_neck/GavinGrey_Head/GavinGrey_Right_Eye_GRP/GavinGrey_Right_Eye_BottomLid_pivot
+        weight: 0
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_neck/GavinGrey_Head/GavinGrey_Right_Eye_GRP/GavinGrey_Right_Eye_BottomLid_pivot/GavinGrey_Right_Eye_BottomLid
+        weight: 0
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_neck/GavinGrey_Head/GavinGrey_Right_Eye_GRP/GavinGrey_Right_Eye_TopLid_pivot
+        weight: 0
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_neck/GavinGrey_Head/GavinGrey_Right_Eye_GRP/GavinGrey_Right_Eye_TopLid_pivot/GavinGrey_Right_Eye_TopLid
+        weight: 0
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_neck/GavinGrey_Head_Bottom_Mouth
+        weight: 0
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_neck/GavinGrey_Head_Bottom_Mouth/GavinGrey_Head_Bottom_Mouth_Tip
+        weight: 0
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_RightShoulder
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_RightShoulder/GavinGrey_RightArm
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_RightShoulder/GavinGrey_RightArm/GavinGrey_RightForeArm
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_RightShoulder/GavinGrey_RightArm/GavinGrey_RightForeArm/GavinGrey_RightForeArmRoll
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_RightShoulder/GavinGrey_RightArm/GavinGrey_RightForeArm/GavinGrey_RightForeArmRoll/GavinGrey_RightHand
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_RightShoulder/GavinGrey_RightArm/GavinGrey_RightForeArm/GavinGrey_RightForeArmRoll/GavinGrey_RightHand/GavinGrey_RightHandIndex1
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_RightShoulder/GavinGrey_RightArm/GavinGrey_RightForeArm/GavinGrey_RightForeArmRoll/GavinGrey_RightHand/GavinGrey_RightHandIndex1/GavinGrey_RightHandIndex2
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_RightShoulder/GavinGrey_RightArm/GavinGrey_RightForeArm/GavinGrey_RightForeArmRoll/GavinGrey_RightHand/GavinGrey_RightHandIndex1/GavinGrey_RightHandIndex2/GavinGrey_RightHandIndex3
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_RightShoulder/GavinGrey_RightArm/GavinGrey_RightForeArm/GavinGrey_RightForeArmRoll/GavinGrey_RightHand/GavinGrey_RightHandIndex1/GavinGrey_RightHandIndex2/GavinGrey_RightHandIndex3/GavinGrey_RightHandIndex4
+        weight: 0
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_RightShoulder/GavinGrey_RightArm/GavinGrey_RightForeArm/GavinGrey_RightForeArmRoll/GavinGrey_RightHand/GavinGrey_RightHandMiddle1
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_RightShoulder/GavinGrey_RightArm/GavinGrey_RightForeArm/GavinGrey_RightForeArmRoll/GavinGrey_RightHand/GavinGrey_RightHandMiddle1/GavinGrey_RightHandMiddle2
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_RightShoulder/GavinGrey_RightArm/GavinGrey_RightForeArm/GavinGrey_RightForeArmRoll/GavinGrey_RightHand/GavinGrey_RightHandMiddle1/GavinGrey_RightHandMiddle2/GavinGrey_RightHandMiddle3
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_RightShoulder/GavinGrey_RightArm/GavinGrey_RightForeArm/GavinGrey_RightForeArmRoll/GavinGrey_RightHand/GavinGrey_RightHandMiddle1/GavinGrey_RightHandMiddle2/GavinGrey_RightHandMiddle3/GavinGrey_RightHandMiddle4
+        weight: 0
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_RightShoulder/GavinGrey_RightArm/GavinGrey_RightForeArm/GavinGrey_RightForeArmRoll/GavinGrey_RightHand/GavinGrey_RightHandPinky1
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_RightShoulder/GavinGrey_RightArm/GavinGrey_RightForeArm/GavinGrey_RightForeArmRoll/GavinGrey_RightHand/GavinGrey_RightHandPinky1/GavinGrey_RightHandPinky2
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_RightShoulder/GavinGrey_RightArm/GavinGrey_RightForeArm/GavinGrey_RightForeArmRoll/GavinGrey_RightHand/GavinGrey_RightHandPinky1/GavinGrey_RightHandPinky2/GavinGrey_RightHandPinky3
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_RightShoulder/GavinGrey_RightArm/GavinGrey_RightForeArm/GavinGrey_RightForeArmRoll/GavinGrey_RightHand/GavinGrey_RightHandPinky1/GavinGrey_RightHandPinky2/GavinGrey_RightHandPinky3/GavinGrey_RightHandPinky4
+        weight: 0
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_RightShoulder/GavinGrey_RightArm/GavinGrey_RightForeArm/GavinGrey_RightForeArmRoll/GavinGrey_RightHand/GavinGrey_RightHandRing1
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_RightShoulder/GavinGrey_RightArm/GavinGrey_RightForeArm/GavinGrey_RightForeArmRoll/GavinGrey_RightHand/GavinGrey_RightHandRing1/GavinGrey_RightHandRing2
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_RightShoulder/GavinGrey_RightArm/GavinGrey_RightForeArm/GavinGrey_RightForeArmRoll/GavinGrey_RightHand/GavinGrey_RightHandRing1/GavinGrey_RightHandRing2/GavinGrey_RightHandRing3
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_RightShoulder/GavinGrey_RightArm/GavinGrey_RightForeArm/GavinGrey_RightForeArmRoll/GavinGrey_RightHand/GavinGrey_RightHandRing1/GavinGrey_RightHandRing2/GavinGrey_RightHandRing3/GavinGrey_RightHandRing4
+        weight: 0
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_RightShoulder/GavinGrey_RightArm/GavinGrey_RightForeArm/GavinGrey_RightForeArmRoll/GavinGrey_RightHand/GavinGrey_RightHandThumb1
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_RightShoulder/GavinGrey_RightArm/GavinGrey_RightForeArm/GavinGrey_RightForeArmRoll/GavinGrey_RightHand/GavinGrey_RightHandThumb1/GavinGrey_RightHandThumb2
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_RightShoulder/GavinGrey_RightArm/GavinGrey_RightForeArm/GavinGrey_RightForeArmRoll/GavinGrey_RightHand/GavinGrey_RightHandThumb1/GavinGrey_RightHandThumb2/GavinGrey_RightHandThumb3
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_RightShoulder/GavinGrey_RightArm/GavinGrey_RightForeArm/GavinGrey_RightForeArmRoll/GavinGrey_RightHand/GavinGrey_RightHandThumb1/GavinGrey_RightHandThumb2/GavinGrey_RightHandThumb3/GavinGrey_RightHandThumb4
+        weight: 0
+      maskType: 0
+      maskSource: {instanceID: 0}
+    - serializedVersion: 16
+      name: Gav_Crouch
+      takeName: Take 001
+      firstFrame: 112
+      lastFrame: 128
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 1
+      loopBlendPositionY: 1
+      loopBlendPositionXZ: 1
+      keepOriginalOrientation: 1
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Gavin_Grey_Clothes_GEO1
+        weight: 0
+      - path: Gavin_Grey_GEO
+        weight: 0
+      - path: GavinGrey_Reference
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Hips
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Hips/GavinGrey_LeftUpLeg
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Hips/GavinGrey_LeftUpLeg/GavinGrey_LeftLeg
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Hips/GavinGrey_LeftUpLeg/GavinGrey_LeftLeg/GavinGrey_LeftFoot
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Hips/GavinGrey_LeftUpLeg/GavinGrey_LeftLeg/GavinGrey_LeftFoot/GavinGrey_LeftToeBase
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Hips/GavinGrey_LeftUpLeg/GavinGrey_LeftLeg/GavinGrey_LeftFoot/GavinGrey_LeftToeBase/GavinGrey_LeftFootMiddle1
+        weight: 0
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Hips/GavinGrey_RightUpLeg
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Hips/GavinGrey_RightUpLeg/GavinGrey_RightLeg
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Hips/GavinGrey_RightUpLeg/GavinGrey_RightLeg/GavinGrey_RightFoot
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Hips/GavinGrey_RightUpLeg/GavinGrey_RightLeg/GavinGrey_RightFoot/GavinGrey_RightToeBase
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Hips/GavinGrey_RightUpLeg/GavinGrey_RightLeg/GavinGrey_RightFoot/GavinGrey_RightToeBase/GavinGrey_RightFootMiddle1
+        weight: 0
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_LeftShoulder
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_LeftShoulder/GavinGrey_LeftArm
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_LeftShoulder/GavinGrey_LeftArm/GavinGrey_LeftForeArm
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_LeftShoulder/GavinGrey_LeftArm/GavinGrey_LeftForeArm/GavinGrey_LeftForeArmRoll
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_LeftShoulder/GavinGrey_LeftArm/GavinGrey_LeftForeArm/GavinGrey_LeftForeArmRoll/GavinGrey_LeftHand
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_LeftShoulder/GavinGrey_LeftArm/GavinGrey_LeftForeArm/GavinGrey_LeftForeArmRoll/GavinGrey_LeftHand/GavinGrey_LeftHandIndex1
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_LeftShoulder/GavinGrey_LeftArm/GavinGrey_LeftForeArm/GavinGrey_LeftForeArmRoll/GavinGrey_LeftHand/GavinGrey_LeftHandIndex1/GavinGrey_LeftHandIndex2
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_LeftShoulder/GavinGrey_LeftArm/GavinGrey_LeftForeArm/GavinGrey_LeftForeArmRoll/GavinGrey_LeftHand/GavinGrey_LeftHandIndex1/GavinGrey_LeftHandIndex2/GavinGrey_LeftHandIndex3
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_LeftShoulder/GavinGrey_LeftArm/GavinGrey_LeftForeArm/GavinGrey_LeftForeArmRoll/GavinGrey_LeftHand/GavinGrey_LeftHandIndex1/GavinGrey_LeftHandIndex2/GavinGrey_LeftHandIndex3/GavinGrey_LeftHandIndex4
+        weight: 0
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_LeftShoulder/GavinGrey_LeftArm/GavinGrey_LeftForeArm/GavinGrey_LeftForeArmRoll/GavinGrey_LeftHand/GavinGrey_LeftHandMiddle1
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_LeftShoulder/GavinGrey_LeftArm/GavinGrey_LeftForeArm/GavinGrey_LeftForeArmRoll/GavinGrey_LeftHand/GavinGrey_LeftHandMiddle1/GavinGrey_LeftHandMiddle2
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_LeftShoulder/GavinGrey_LeftArm/GavinGrey_LeftForeArm/GavinGrey_LeftForeArmRoll/GavinGrey_LeftHand/GavinGrey_LeftHandMiddle1/GavinGrey_LeftHandMiddle2/GavinGrey_LeftHandMiddle3
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_LeftShoulder/GavinGrey_LeftArm/GavinGrey_LeftForeArm/GavinGrey_LeftForeArmRoll/GavinGrey_LeftHand/GavinGrey_LeftHandMiddle1/GavinGrey_LeftHandMiddle2/GavinGrey_LeftHandMiddle3/GavinGrey_LeftHandMiddle4
+        weight: 0
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_LeftShoulder/GavinGrey_LeftArm/GavinGrey_LeftForeArm/GavinGrey_LeftForeArmRoll/GavinGrey_LeftHand/GavinGrey_LeftHandPinky1
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_LeftShoulder/GavinGrey_LeftArm/GavinGrey_LeftForeArm/GavinGrey_LeftForeArmRoll/GavinGrey_LeftHand/GavinGrey_LeftHandPinky1/GavinGrey_LeftHandPinky2
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_LeftShoulder/GavinGrey_LeftArm/GavinGrey_LeftForeArm/GavinGrey_LeftForeArmRoll/GavinGrey_LeftHand/GavinGrey_LeftHandPinky1/GavinGrey_LeftHandPinky2/GavinGrey_LeftHandPinky3
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_LeftShoulder/GavinGrey_LeftArm/GavinGrey_LeftForeArm/GavinGrey_LeftForeArmRoll/GavinGrey_LeftHand/GavinGrey_LeftHandPinky1/GavinGrey_LeftHandPinky2/GavinGrey_LeftHandPinky3/GavinGrey_LeftHandPinky4
+        weight: 0
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_LeftShoulder/GavinGrey_LeftArm/GavinGrey_LeftForeArm/GavinGrey_LeftForeArmRoll/GavinGrey_LeftHand/GavinGrey_LeftHandRing1
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_LeftShoulder/GavinGrey_LeftArm/GavinGrey_LeftForeArm/GavinGrey_LeftForeArmRoll/GavinGrey_LeftHand/GavinGrey_LeftHandRing1/GavinGrey_LeftHandRing2
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_LeftShoulder/GavinGrey_LeftArm/GavinGrey_LeftForeArm/GavinGrey_LeftForeArmRoll/GavinGrey_LeftHand/GavinGrey_LeftHandRing1/GavinGrey_LeftHandRing2/GavinGrey_LeftHandRing3
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_LeftShoulder/GavinGrey_LeftArm/GavinGrey_LeftForeArm/GavinGrey_LeftForeArmRoll/GavinGrey_LeftHand/GavinGrey_LeftHandRing1/GavinGrey_LeftHandRing2/GavinGrey_LeftHandRing3/GavinGrey_LeftHandRing4
+        weight: 0
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_LeftShoulder/GavinGrey_LeftArm/GavinGrey_LeftForeArm/GavinGrey_LeftForeArmRoll/GavinGrey_LeftHand/GavinGrey_LeftHandThumb1
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_LeftShoulder/GavinGrey_LeftArm/GavinGrey_LeftForeArm/GavinGrey_LeftForeArmRoll/GavinGrey_LeftHand/GavinGrey_LeftHandThumb1/GavinGrey_LeftHandThumb2
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_LeftShoulder/GavinGrey_LeftArm/GavinGrey_LeftForeArm/GavinGrey_LeftForeArmRoll/GavinGrey_LeftHand/GavinGrey_LeftHandThumb1/GavinGrey_LeftHandThumb2/GavinGrey_LeftHandThumb3
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_LeftShoulder/GavinGrey_LeftArm/GavinGrey_LeftForeArm/GavinGrey_LeftForeArmRoll/GavinGrey_LeftHand/GavinGrey_LeftHandThumb1/GavinGrey_LeftHandThumb2/GavinGrey_LeftHandThumb3/GavinGrey_LeftHandThumb4
+        weight: 0
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_neck
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_neck/GavinGrey_Head
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_neck/GavinGrey_Head/GavinGrey_Head_Tip
+        weight: 0
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_neck/GavinGrey_Head/GavinGrey_Head_Upper_Mouth
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_neck/GavinGrey_Head/GavinGrey_Left_Eye_GRP
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_neck/GavinGrey_Head/GavinGrey_Left_Eye_GRP/GavinGrey_Left_Eye
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_neck/GavinGrey_Head/GavinGrey_Left_Eye_GRP/GavinGrey_Left_Eye/GavinGrey_Left_Eye_Aim
+        weight: 0
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_neck/GavinGrey_Head/GavinGrey_Left_Eye_GRP/GavinGrey_Left_Eye_BottomLid_pivot
+        weight: 0
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_neck/GavinGrey_Head/GavinGrey_Left_Eye_GRP/GavinGrey_Left_Eye_BottomLid_pivot/GavinGrey_Left_Eye_BottomLid
+        weight: 0
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_neck/GavinGrey_Head/GavinGrey_Left_Eye_GRP/GavinGrey_Left_Eye_TopLid_pivot
+        weight: 0
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_neck/GavinGrey_Head/GavinGrey_Left_Eye_GRP/GavinGrey_Left_Eye_TopLid_pivot/GavinGrey_Left_Eye_TopLid
+        weight: 0
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_neck/GavinGrey_Head/GavinGrey_Right_Eye_GRP
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_neck/GavinGrey_Head/GavinGrey_Right_Eye_GRP/GavinGrey_Right_Eye
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_neck/GavinGrey_Head/GavinGrey_Right_Eye_GRP/GavinGrey_Right_Eye/GavinGrey_Right_Eye_Aim
+        weight: 0
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_neck/GavinGrey_Head/GavinGrey_Right_Eye_GRP/GavinGrey_Right_Eye_BottomLid_pivot
+        weight: 0
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_neck/GavinGrey_Head/GavinGrey_Right_Eye_GRP/GavinGrey_Right_Eye_BottomLid_pivot/GavinGrey_Right_Eye_BottomLid
+        weight: 0
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_neck/GavinGrey_Head/GavinGrey_Right_Eye_GRP/GavinGrey_Right_Eye_TopLid_pivot
+        weight: 0
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_neck/GavinGrey_Head/GavinGrey_Right_Eye_GRP/GavinGrey_Right_Eye_TopLid_pivot/GavinGrey_Right_Eye_TopLid
+        weight: 0
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_neck/GavinGrey_Head_Bottom_Mouth
+        weight: 0
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_neck/GavinGrey_Head_Bottom_Mouth/GavinGrey_Head_Bottom_Mouth_Tip
+        weight: 0
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_RightShoulder
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_RightShoulder/GavinGrey_RightArm
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_RightShoulder/GavinGrey_RightArm/GavinGrey_RightForeArm
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_RightShoulder/GavinGrey_RightArm/GavinGrey_RightForeArm/GavinGrey_RightForeArmRoll
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_RightShoulder/GavinGrey_RightArm/GavinGrey_RightForeArm/GavinGrey_RightForeArmRoll/GavinGrey_RightHand
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_RightShoulder/GavinGrey_RightArm/GavinGrey_RightForeArm/GavinGrey_RightForeArmRoll/GavinGrey_RightHand/GavinGrey_RightHandIndex1
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_RightShoulder/GavinGrey_RightArm/GavinGrey_RightForeArm/GavinGrey_RightForeArmRoll/GavinGrey_RightHand/GavinGrey_RightHandIndex1/GavinGrey_RightHandIndex2
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_RightShoulder/GavinGrey_RightArm/GavinGrey_RightForeArm/GavinGrey_RightForeArmRoll/GavinGrey_RightHand/GavinGrey_RightHandIndex1/GavinGrey_RightHandIndex2/GavinGrey_RightHandIndex3
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_RightShoulder/GavinGrey_RightArm/GavinGrey_RightForeArm/GavinGrey_RightForeArmRoll/GavinGrey_RightHand/GavinGrey_RightHandIndex1/GavinGrey_RightHandIndex2/GavinGrey_RightHandIndex3/GavinGrey_RightHandIndex4
+        weight: 0
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_RightShoulder/GavinGrey_RightArm/GavinGrey_RightForeArm/GavinGrey_RightForeArmRoll/GavinGrey_RightHand/GavinGrey_RightHandMiddle1
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_RightShoulder/GavinGrey_RightArm/GavinGrey_RightForeArm/GavinGrey_RightForeArmRoll/GavinGrey_RightHand/GavinGrey_RightHandMiddle1/GavinGrey_RightHandMiddle2
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_RightShoulder/GavinGrey_RightArm/GavinGrey_RightForeArm/GavinGrey_RightForeArmRoll/GavinGrey_RightHand/GavinGrey_RightHandMiddle1/GavinGrey_RightHandMiddle2/GavinGrey_RightHandMiddle3
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_RightShoulder/GavinGrey_RightArm/GavinGrey_RightForeArm/GavinGrey_RightForeArmRoll/GavinGrey_RightHand/GavinGrey_RightHandMiddle1/GavinGrey_RightHandMiddle2/GavinGrey_RightHandMiddle3/GavinGrey_RightHandMiddle4
+        weight: 0
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_RightShoulder/GavinGrey_RightArm/GavinGrey_RightForeArm/GavinGrey_RightForeArmRoll/GavinGrey_RightHand/GavinGrey_RightHandPinky1
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_RightShoulder/GavinGrey_RightArm/GavinGrey_RightForeArm/GavinGrey_RightForeArmRoll/GavinGrey_RightHand/GavinGrey_RightHandPinky1/GavinGrey_RightHandPinky2
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_RightShoulder/GavinGrey_RightArm/GavinGrey_RightForeArm/GavinGrey_RightForeArmRoll/GavinGrey_RightHand/GavinGrey_RightHandPinky1/GavinGrey_RightHandPinky2/GavinGrey_RightHandPinky3
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_RightShoulder/GavinGrey_RightArm/GavinGrey_RightForeArm/GavinGrey_RightForeArmRoll/GavinGrey_RightHand/GavinGrey_RightHandPinky1/GavinGrey_RightHandPinky2/GavinGrey_RightHandPinky3/GavinGrey_RightHandPinky4
+        weight: 0
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_RightShoulder/GavinGrey_RightArm/GavinGrey_RightForeArm/GavinGrey_RightForeArmRoll/GavinGrey_RightHand/GavinGrey_RightHandRing1
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_RightShoulder/GavinGrey_RightArm/GavinGrey_RightForeArm/GavinGrey_RightForeArmRoll/GavinGrey_RightHand/GavinGrey_RightHandRing1/GavinGrey_RightHandRing2
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_RightShoulder/GavinGrey_RightArm/GavinGrey_RightForeArm/GavinGrey_RightForeArmRoll/GavinGrey_RightHand/GavinGrey_RightHandRing1/GavinGrey_RightHandRing2/GavinGrey_RightHandRing3
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_RightShoulder/GavinGrey_RightArm/GavinGrey_RightForeArm/GavinGrey_RightForeArmRoll/GavinGrey_RightHand/GavinGrey_RightHandRing1/GavinGrey_RightHandRing2/GavinGrey_RightHandRing3/GavinGrey_RightHandRing4
+        weight: 0
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_RightShoulder/GavinGrey_RightArm/GavinGrey_RightForeArm/GavinGrey_RightForeArmRoll/GavinGrey_RightHand/GavinGrey_RightHandThumb1
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_RightShoulder/GavinGrey_RightArm/GavinGrey_RightForeArm/GavinGrey_RightForeArmRoll/GavinGrey_RightHand/GavinGrey_RightHandThumb1/GavinGrey_RightHandThumb2
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_RightShoulder/GavinGrey_RightArm/GavinGrey_RightForeArm/GavinGrey_RightForeArmRoll/GavinGrey_RightHand/GavinGrey_RightHandThumb1/GavinGrey_RightHandThumb2/GavinGrey_RightHandThumb3
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_RightShoulder/GavinGrey_RightArm/GavinGrey_RightForeArm/GavinGrey_RightForeArmRoll/GavinGrey_RightHand/GavinGrey_RightHandThumb1/GavinGrey_RightHandThumb2/GavinGrey_RightHandThumb3/GavinGrey_RightHandThumb4
+        weight: 0
+      maskType: 0
+      maskSource: {instanceID: 0}
+    - serializedVersion: 16
+      name: Gav_Stand
+      takeName: Take 001
+      firstFrame: 130
+      lastFrame: 147
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 1
+      loopBlendPositionY: 1
+      loopBlendPositionXZ: 1
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Gavin_Grey_Clothes_GEO1
+        weight: 0
+      - path: Gavin_Grey_GEO
+        weight: 0
+      - path: GavinGrey_Reference
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Hips
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Hips/GavinGrey_LeftUpLeg
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Hips/GavinGrey_LeftUpLeg/GavinGrey_LeftLeg
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Hips/GavinGrey_LeftUpLeg/GavinGrey_LeftLeg/GavinGrey_LeftFoot
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Hips/GavinGrey_LeftUpLeg/GavinGrey_LeftLeg/GavinGrey_LeftFoot/GavinGrey_LeftToeBase
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Hips/GavinGrey_LeftUpLeg/GavinGrey_LeftLeg/GavinGrey_LeftFoot/GavinGrey_LeftToeBase/GavinGrey_LeftFootMiddle1
+        weight: 0
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Hips/GavinGrey_RightUpLeg
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Hips/GavinGrey_RightUpLeg/GavinGrey_RightLeg
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Hips/GavinGrey_RightUpLeg/GavinGrey_RightLeg/GavinGrey_RightFoot
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Hips/GavinGrey_RightUpLeg/GavinGrey_RightLeg/GavinGrey_RightFoot/GavinGrey_RightToeBase
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Hips/GavinGrey_RightUpLeg/GavinGrey_RightLeg/GavinGrey_RightFoot/GavinGrey_RightToeBase/GavinGrey_RightFootMiddle1
+        weight: 0
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_LeftShoulder
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_LeftShoulder/GavinGrey_LeftArm
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_LeftShoulder/GavinGrey_LeftArm/GavinGrey_LeftForeArm
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_LeftShoulder/GavinGrey_LeftArm/GavinGrey_LeftForeArm/GavinGrey_LeftForeArmRoll
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_LeftShoulder/GavinGrey_LeftArm/GavinGrey_LeftForeArm/GavinGrey_LeftForeArmRoll/GavinGrey_LeftHand
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_LeftShoulder/GavinGrey_LeftArm/GavinGrey_LeftForeArm/GavinGrey_LeftForeArmRoll/GavinGrey_LeftHand/GavinGrey_LeftHandIndex1
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_LeftShoulder/GavinGrey_LeftArm/GavinGrey_LeftForeArm/GavinGrey_LeftForeArmRoll/GavinGrey_LeftHand/GavinGrey_LeftHandIndex1/GavinGrey_LeftHandIndex2
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_LeftShoulder/GavinGrey_LeftArm/GavinGrey_LeftForeArm/GavinGrey_LeftForeArmRoll/GavinGrey_LeftHand/GavinGrey_LeftHandIndex1/GavinGrey_LeftHandIndex2/GavinGrey_LeftHandIndex3
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_LeftShoulder/GavinGrey_LeftArm/GavinGrey_LeftForeArm/GavinGrey_LeftForeArmRoll/GavinGrey_LeftHand/GavinGrey_LeftHandIndex1/GavinGrey_LeftHandIndex2/GavinGrey_LeftHandIndex3/GavinGrey_LeftHandIndex4
+        weight: 0
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_LeftShoulder/GavinGrey_LeftArm/GavinGrey_LeftForeArm/GavinGrey_LeftForeArmRoll/GavinGrey_LeftHand/GavinGrey_LeftHandMiddle1
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_LeftShoulder/GavinGrey_LeftArm/GavinGrey_LeftForeArm/GavinGrey_LeftForeArmRoll/GavinGrey_LeftHand/GavinGrey_LeftHandMiddle1/GavinGrey_LeftHandMiddle2
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_LeftShoulder/GavinGrey_LeftArm/GavinGrey_LeftForeArm/GavinGrey_LeftForeArmRoll/GavinGrey_LeftHand/GavinGrey_LeftHandMiddle1/GavinGrey_LeftHandMiddle2/GavinGrey_LeftHandMiddle3
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_LeftShoulder/GavinGrey_LeftArm/GavinGrey_LeftForeArm/GavinGrey_LeftForeArmRoll/GavinGrey_LeftHand/GavinGrey_LeftHandMiddle1/GavinGrey_LeftHandMiddle2/GavinGrey_LeftHandMiddle3/GavinGrey_LeftHandMiddle4
+        weight: 0
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_LeftShoulder/GavinGrey_LeftArm/GavinGrey_LeftForeArm/GavinGrey_LeftForeArmRoll/GavinGrey_LeftHand/GavinGrey_LeftHandPinky1
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_LeftShoulder/GavinGrey_LeftArm/GavinGrey_LeftForeArm/GavinGrey_LeftForeArmRoll/GavinGrey_LeftHand/GavinGrey_LeftHandPinky1/GavinGrey_LeftHandPinky2
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_LeftShoulder/GavinGrey_LeftArm/GavinGrey_LeftForeArm/GavinGrey_LeftForeArmRoll/GavinGrey_LeftHand/GavinGrey_LeftHandPinky1/GavinGrey_LeftHandPinky2/GavinGrey_LeftHandPinky3
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_LeftShoulder/GavinGrey_LeftArm/GavinGrey_LeftForeArm/GavinGrey_LeftForeArmRoll/GavinGrey_LeftHand/GavinGrey_LeftHandPinky1/GavinGrey_LeftHandPinky2/GavinGrey_LeftHandPinky3/GavinGrey_LeftHandPinky4
+        weight: 0
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_LeftShoulder/GavinGrey_LeftArm/GavinGrey_LeftForeArm/GavinGrey_LeftForeArmRoll/GavinGrey_LeftHand/GavinGrey_LeftHandRing1
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_LeftShoulder/GavinGrey_LeftArm/GavinGrey_LeftForeArm/GavinGrey_LeftForeArmRoll/GavinGrey_LeftHand/GavinGrey_LeftHandRing1/GavinGrey_LeftHandRing2
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_LeftShoulder/GavinGrey_LeftArm/GavinGrey_LeftForeArm/GavinGrey_LeftForeArmRoll/GavinGrey_LeftHand/GavinGrey_LeftHandRing1/GavinGrey_LeftHandRing2/GavinGrey_LeftHandRing3
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_LeftShoulder/GavinGrey_LeftArm/GavinGrey_LeftForeArm/GavinGrey_LeftForeArmRoll/GavinGrey_LeftHand/GavinGrey_LeftHandRing1/GavinGrey_LeftHandRing2/GavinGrey_LeftHandRing3/GavinGrey_LeftHandRing4
+        weight: 0
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_LeftShoulder/GavinGrey_LeftArm/GavinGrey_LeftForeArm/GavinGrey_LeftForeArmRoll/GavinGrey_LeftHand/GavinGrey_LeftHandThumb1
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_LeftShoulder/GavinGrey_LeftArm/GavinGrey_LeftForeArm/GavinGrey_LeftForeArmRoll/GavinGrey_LeftHand/GavinGrey_LeftHandThumb1/GavinGrey_LeftHandThumb2
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_LeftShoulder/GavinGrey_LeftArm/GavinGrey_LeftForeArm/GavinGrey_LeftForeArmRoll/GavinGrey_LeftHand/GavinGrey_LeftHandThumb1/GavinGrey_LeftHandThumb2/GavinGrey_LeftHandThumb3
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_LeftShoulder/GavinGrey_LeftArm/GavinGrey_LeftForeArm/GavinGrey_LeftForeArmRoll/GavinGrey_LeftHand/GavinGrey_LeftHandThumb1/GavinGrey_LeftHandThumb2/GavinGrey_LeftHandThumb3/GavinGrey_LeftHandThumb4
+        weight: 0
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_neck
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_neck/GavinGrey_Head
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_neck/GavinGrey_Head/GavinGrey_Head_Tip
+        weight: 0
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_neck/GavinGrey_Head/GavinGrey_Head_Upper_Mouth
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_neck/GavinGrey_Head/GavinGrey_Left_Eye_GRP
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_neck/GavinGrey_Head/GavinGrey_Left_Eye_GRP/GavinGrey_Left_Eye
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_neck/GavinGrey_Head/GavinGrey_Left_Eye_GRP/GavinGrey_Left_Eye/GavinGrey_Left_Eye_Aim
+        weight: 0
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_neck/GavinGrey_Head/GavinGrey_Left_Eye_GRP/GavinGrey_Left_Eye_BottomLid_pivot
+        weight: 0
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_neck/GavinGrey_Head/GavinGrey_Left_Eye_GRP/GavinGrey_Left_Eye_BottomLid_pivot/GavinGrey_Left_Eye_BottomLid
+        weight: 0
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_neck/GavinGrey_Head/GavinGrey_Left_Eye_GRP/GavinGrey_Left_Eye_TopLid_pivot
+        weight: 0
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_neck/GavinGrey_Head/GavinGrey_Left_Eye_GRP/GavinGrey_Left_Eye_TopLid_pivot/GavinGrey_Left_Eye_TopLid
+        weight: 0
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_neck/GavinGrey_Head/GavinGrey_Right_Eye_GRP
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_neck/GavinGrey_Head/GavinGrey_Right_Eye_GRP/GavinGrey_Right_Eye
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_neck/GavinGrey_Head/GavinGrey_Right_Eye_GRP/GavinGrey_Right_Eye/GavinGrey_Right_Eye_Aim
+        weight: 0
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_neck/GavinGrey_Head/GavinGrey_Right_Eye_GRP/GavinGrey_Right_Eye_BottomLid_pivot
+        weight: 0
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_neck/GavinGrey_Head/GavinGrey_Right_Eye_GRP/GavinGrey_Right_Eye_BottomLid_pivot/GavinGrey_Right_Eye_BottomLid
+        weight: 0
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_neck/GavinGrey_Head/GavinGrey_Right_Eye_GRP/GavinGrey_Right_Eye_TopLid_pivot
+        weight: 0
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_neck/GavinGrey_Head/GavinGrey_Right_Eye_GRP/GavinGrey_Right_Eye_TopLid_pivot/GavinGrey_Right_Eye_TopLid
+        weight: 0
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_neck/GavinGrey_Head_Bottom_Mouth
+        weight: 0
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_neck/GavinGrey_Head_Bottom_Mouth/GavinGrey_Head_Bottom_Mouth_Tip
+        weight: 0
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_RightShoulder
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_RightShoulder/GavinGrey_RightArm
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_RightShoulder/GavinGrey_RightArm/GavinGrey_RightForeArm
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_RightShoulder/GavinGrey_RightArm/GavinGrey_RightForeArm/GavinGrey_RightForeArmRoll
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_RightShoulder/GavinGrey_RightArm/GavinGrey_RightForeArm/GavinGrey_RightForeArmRoll/GavinGrey_RightHand
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_RightShoulder/GavinGrey_RightArm/GavinGrey_RightForeArm/GavinGrey_RightForeArmRoll/GavinGrey_RightHand/GavinGrey_RightHandIndex1
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_RightShoulder/GavinGrey_RightArm/GavinGrey_RightForeArm/GavinGrey_RightForeArmRoll/GavinGrey_RightHand/GavinGrey_RightHandIndex1/GavinGrey_RightHandIndex2
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_RightShoulder/GavinGrey_RightArm/GavinGrey_RightForeArm/GavinGrey_RightForeArmRoll/GavinGrey_RightHand/GavinGrey_RightHandIndex1/GavinGrey_RightHandIndex2/GavinGrey_RightHandIndex3
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_RightShoulder/GavinGrey_RightArm/GavinGrey_RightForeArm/GavinGrey_RightForeArmRoll/GavinGrey_RightHand/GavinGrey_RightHandIndex1/GavinGrey_RightHandIndex2/GavinGrey_RightHandIndex3/GavinGrey_RightHandIndex4
+        weight: 0
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_RightShoulder/GavinGrey_RightArm/GavinGrey_RightForeArm/GavinGrey_RightForeArmRoll/GavinGrey_RightHand/GavinGrey_RightHandMiddle1
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_RightShoulder/GavinGrey_RightArm/GavinGrey_RightForeArm/GavinGrey_RightForeArmRoll/GavinGrey_RightHand/GavinGrey_RightHandMiddle1/GavinGrey_RightHandMiddle2
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_RightShoulder/GavinGrey_RightArm/GavinGrey_RightForeArm/GavinGrey_RightForeArmRoll/GavinGrey_RightHand/GavinGrey_RightHandMiddle1/GavinGrey_RightHandMiddle2/GavinGrey_RightHandMiddle3
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_RightShoulder/GavinGrey_RightArm/GavinGrey_RightForeArm/GavinGrey_RightForeArmRoll/GavinGrey_RightHand/GavinGrey_RightHandMiddle1/GavinGrey_RightHandMiddle2/GavinGrey_RightHandMiddle3/GavinGrey_RightHandMiddle4
+        weight: 0
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_RightShoulder/GavinGrey_RightArm/GavinGrey_RightForeArm/GavinGrey_RightForeArmRoll/GavinGrey_RightHand/GavinGrey_RightHandPinky1
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_RightShoulder/GavinGrey_RightArm/GavinGrey_RightForeArm/GavinGrey_RightForeArmRoll/GavinGrey_RightHand/GavinGrey_RightHandPinky1/GavinGrey_RightHandPinky2
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_RightShoulder/GavinGrey_RightArm/GavinGrey_RightForeArm/GavinGrey_RightForeArmRoll/GavinGrey_RightHand/GavinGrey_RightHandPinky1/GavinGrey_RightHandPinky2/GavinGrey_RightHandPinky3
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_RightShoulder/GavinGrey_RightArm/GavinGrey_RightForeArm/GavinGrey_RightForeArmRoll/GavinGrey_RightHand/GavinGrey_RightHandPinky1/GavinGrey_RightHandPinky2/GavinGrey_RightHandPinky3/GavinGrey_RightHandPinky4
+        weight: 0
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_RightShoulder/GavinGrey_RightArm/GavinGrey_RightForeArm/GavinGrey_RightForeArmRoll/GavinGrey_RightHand/GavinGrey_RightHandRing1
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_RightShoulder/GavinGrey_RightArm/GavinGrey_RightForeArm/GavinGrey_RightForeArmRoll/GavinGrey_RightHand/GavinGrey_RightHandRing1/GavinGrey_RightHandRing2
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_RightShoulder/GavinGrey_RightArm/GavinGrey_RightForeArm/GavinGrey_RightForeArmRoll/GavinGrey_RightHand/GavinGrey_RightHandRing1/GavinGrey_RightHandRing2/GavinGrey_RightHandRing3
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_RightShoulder/GavinGrey_RightArm/GavinGrey_RightForeArm/GavinGrey_RightForeArmRoll/GavinGrey_RightHand/GavinGrey_RightHandRing1/GavinGrey_RightHandRing2/GavinGrey_RightHandRing3/GavinGrey_RightHandRing4
+        weight: 0
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_RightShoulder/GavinGrey_RightArm/GavinGrey_RightForeArm/GavinGrey_RightForeArmRoll/GavinGrey_RightHand/GavinGrey_RightHandThumb1
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_RightShoulder/GavinGrey_RightArm/GavinGrey_RightForeArm/GavinGrey_RightForeArmRoll/GavinGrey_RightHand/GavinGrey_RightHandThumb1/GavinGrey_RightHandThumb2
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_RightShoulder/GavinGrey_RightArm/GavinGrey_RightForeArm/GavinGrey_RightForeArmRoll/GavinGrey_RightHand/GavinGrey_RightHandThumb1/GavinGrey_RightHandThumb2/GavinGrey_RightHandThumb3
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_RightShoulder/GavinGrey_RightArm/GavinGrey_RightForeArm/GavinGrey_RightForeArmRoll/GavinGrey_RightHand/GavinGrey_RightHandThumb1/GavinGrey_RightHandThumb2/GavinGrey_RightHandThumb3/GavinGrey_RightHandThumb4
+        weight: 0
+      maskType: 0
+      maskSource: {instanceID: 0}
+    - serializedVersion: 16
+      name: Gav_Sprint
+      takeName: Take 001
+      firstFrame: 97
+      lastFrame: 110
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      loopTime: 1
+      loopBlend: 1
+      loopBlendOrientation: 1
+      loopBlendPositionY: 1
+      loopBlendPositionXZ: 1
+      keepOriginalOrientation: 1
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 1
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Gavin_Grey_Clothes_GEO1
+        weight: 0
+      - path: Gavin_Grey_GEO
+        weight: 0
+      - path: GavinGrey_Reference
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Hips
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Hips/GavinGrey_LeftUpLeg
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Hips/GavinGrey_LeftUpLeg/GavinGrey_LeftLeg
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Hips/GavinGrey_LeftUpLeg/GavinGrey_LeftLeg/GavinGrey_LeftFoot
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Hips/GavinGrey_LeftUpLeg/GavinGrey_LeftLeg/GavinGrey_LeftFoot/GavinGrey_LeftToeBase
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Hips/GavinGrey_LeftUpLeg/GavinGrey_LeftLeg/GavinGrey_LeftFoot/GavinGrey_LeftToeBase/GavinGrey_LeftFootMiddle1
+        weight: 0
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Hips/GavinGrey_RightUpLeg
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Hips/GavinGrey_RightUpLeg/GavinGrey_RightLeg
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Hips/GavinGrey_RightUpLeg/GavinGrey_RightLeg/GavinGrey_RightFoot
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Hips/GavinGrey_RightUpLeg/GavinGrey_RightLeg/GavinGrey_RightFoot/GavinGrey_RightToeBase
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Hips/GavinGrey_RightUpLeg/GavinGrey_RightLeg/GavinGrey_RightFoot/GavinGrey_RightToeBase/GavinGrey_RightFootMiddle1
+        weight: 0
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_LeftShoulder
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_LeftShoulder/GavinGrey_LeftArm
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_LeftShoulder/GavinGrey_LeftArm/GavinGrey_LeftForeArm
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_LeftShoulder/GavinGrey_LeftArm/GavinGrey_LeftForeArm/GavinGrey_LeftForeArmRoll
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_LeftShoulder/GavinGrey_LeftArm/GavinGrey_LeftForeArm/GavinGrey_LeftForeArmRoll/GavinGrey_LeftHand
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_LeftShoulder/GavinGrey_LeftArm/GavinGrey_LeftForeArm/GavinGrey_LeftForeArmRoll/GavinGrey_LeftHand/GavinGrey_LeftHandIndex1
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_LeftShoulder/GavinGrey_LeftArm/GavinGrey_LeftForeArm/GavinGrey_LeftForeArmRoll/GavinGrey_LeftHand/GavinGrey_LeftHandIndex1/GavinGrey_LeftHandIndex2
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_LeftShoulder/GavinGrey_LeftArm/GavinGrey_LeftForeArm/GavinGrey_LeftForeArmRoll/GavinGrey_LeftHand/GavinGrey_LeftHandIndex1/GavinGrey_LeftHandIndex2/GavinGrey_LeftHandIndex3
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_LeftShoulder/GavinGrey_LeftArm/GavinGrey_LeftForeArm/GavinGrey_LeftForeArmRoll/GavinGrey_LeftHand/GavinGrey_LeftHandIndex1/GavinGrey_LeftHandIndex2/GavinGrey_LeftHandIndex3/GavinGrey_LeftHandIndex4
+        weight: 0
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_LeftShoulder/GavinGrey_LeftArm/GavinGrey_LeftForeArm/GavinGrey_LeftForeArmRoll/GavinGrey_LeftHand/GavinGrey_LeftHandMiddle1
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_LeftShoulder/GavinGrey_LeftArm/GavinGrey_LeftForeArm/GavinGrey_LeftForeArmRoll/GavinGrey_LeftHand/GavinGrey_LeftHandMiddle1/GavinGrey_LeftHandMiddle2
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_LeftShoulder/GavinGrey_LeftArm/GavinGrey_LeftForeArm/GavinGrey_LeftForeArmRoll/GavinGrey_LeftHand/GavinGrey_LeftHandMiddle1/GavinGrey_LeftHandMiddle2/GavinGrey_LeftHandMiddle3
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_LeftShoulder/GavinGrey_LeftArm/GavinGrey_LeftForeArm/GavinGrey_LeftForeArmRoll/GavinGrey_LeftHand/GavinGrey_LeftHandMiddle1/GavinGrey_LeftHandMiddle2/GavinGrey_LeftHandMiddle3/GavinGrey_LeftHandMiddle4
+        weight: 0
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_LeftShoulder/GavinGrey_LeftArm/GavinGrey_LeftForeArm/GavinGrey_LeftForeArmRoll/GavinGrey_LeftHand/GavinGrey_LeftHandPinky1
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_LeftShoulder/GavinGrey_LeftArm/GavinGrey_LeftForeArm/GavinGrey_LeftForeArmRoll/GavinGrey_LeftHand/GavinGrey_LeftHandPinky1/GavinGrey_LeftHandPinky2
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_LeftShoulder/GavinGrey_LeftArm/GavinGrey_LeftForeArm/GavinGrey_LeftForeArmRoll/GavinGrey_LeftHand/GavinGrey_LeftHandPinky1/GavinGrey_LeftHandPinky2/GavinGrey_LeftHandPinky3
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_LeftShoulder/GavinGrey_LeftArm/GavinGrey_LeftForeArm/GavinGrey_LeftForeArmRoll/GavinGrey_LeftHand/GavinGrey_LeftHandPinky1/GavinGrey_LeftHandPinky2/GavinGrey_LeftHandPinky3/GavinGrey_LeftHandPinky4
+        weight: 0
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_LeftShoulder/GavinGrey_LeftArm/GavinGrey_LeftForeArm/GavinGrey_LeftForeArmRoll/GavinGrey_LeftHand/GavinGrey_LeftHandRing1
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_LeftShoulder/GavinGrey_LeftArm/GavinGrey_LeftForeArm/GavinGrey_LeftForeArmRoll/GavinGrey_LeftHand/GavinGrey_LeftHandRing1/GavinGrey_LeftHandRing2
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_LeftShoulder/GavinGrey_LeftArm/GavinGrey_LeftForeArm/GavinGrey_LeftForeArmRoll/GavinGrey_LeftHand/GavinGrey_LeftHandRing1/GavinGrey_LeftHandRing2/GavinGrey_LeftHandRing3
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_LeftShoulder/GavinGrey_LeftArm/GavinGrey_LeftForeArm/GavinGrey_LeftForeArmRoll/GavinGrey_LeftHand/GavinGrey_LeftHandRing1/GavinGrey_LeftHandRing2/GavinGrey_LeftHandRing3/GavinGrey_LeftHandRing4
+        weight: 0
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_LeftShoulder/GavinGrey_LeftArm/GavinGrey_LeftForeArm/GavinGrey_LeftForeArmRoll/GavinGrey_LeftHand/GavinGrey_LeftHandThumb1
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_LeftShoulder/GavinGrey_LeftArm/GavinGrey_LeftForeArm/GavinGrey_LeftForeArmRoll/GavinGrey_LeftHand/GavinGrey_LeftHandThumb1/GavinGrey_LeftHandThumb2
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_LeftShoulder/GavinGrey_LeftArm/GavinGrey_LeftForeArm/GavinGrey_LeftForeArmRoll/GavinGrey_LeftHand/GavinGrey_LeftHandThumb1/GavinGrey_LeftHandThumb2/GavinGrey_LeftHandThumb3
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_LeftShoulder/GavinGrey_LeftArm/GavinGrey_LeftForeArm/GavinGrey_LeftForeArmRoll/GavinGrey_LeftHand/GavinGrey_LeftHandThumb1/GavinGrey_LeftHandThumb2/GavinGrey_LeftHandThumb3/GavinGrey_LeftHandThumb4
+        weight: 0
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_neck
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_neck/GavinGrey_Head
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_neck/GavinGrey_Head/GavinGrey_Head_Tip
+        weight: 0
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_neck/GavinGrey_Head/GavinGrey_Head_Upper_Mouth
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_neck/GavinGrey_Head/GavinGrey_Left_Eye_GRP
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_neck/GavinGrey_Head/GavinGrey_Left_Eye_GRP/GavinGrey_Left_Eye
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_neck/GavinGrey_Head/GavinGrey_Left_Eye_GRP/GavinGrey_Left_Eye/GavinGrey_Left_Eye_Aim
+        weight: 0
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_neck/GavinGrey_Head/GavinGrey_Left_Eye_GRP/GavinGrey_Left_Eye_BottomLid_pivot
+        weight: 0
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_neck/GavinGrey_Head/GavinGrey_Left_Eye_GRP/GavinGrey_Left_Eye_BottomLid_pivot/GavinGrey_Left_Eye_BottomLid
+        weight: 0
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_neck/GavinGrey_Head/GavinGrey_Left_Eye_GRP/GavinGrey_Left_Eye_TopLid_pivot
+        weight: 0
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_neck/GavinGrey_Head/GavinGrey_Left_Eye_GRP/GavinGrey_Left_Eye_TopLid_pivot/GavinGrey_Left_Eye_TopLid
+        weight: 0
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_neck/GavinGrey_Head/GavinGrey_Right_Eye_GRP
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_neck/GavinGrey_Head/GavinGrey_Right_Eye_GRP/GavinGrey_Right_Eye
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_neck/GavinGrey_Head/GavinGrey_Right_Eye_GRP/GavinGrey_Right_Eye/GavinGrey_Right_Eye_Aim
+        weight: 0
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_neck/GavinGrey_Head/GavinGrey_Right_Eye_GRP/GavinGrey_Right_Eye_BottomLid_pivot
+        weight: 0
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_neck/GavinGrey_Head/GavinGrey_Right_Eye_GRP/GavinGrey_Right_Eye_BottomLid_pivot/GavinGrey_Right_Eye_BottomLid
+        weight: 0
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_neck/GavinGrey_Head/GavinGrey_Right_Eye_GRP/GavinGrey_Right_Eye_TopLid_pivot
+        weight: 0
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_neck/GavinGrey_Head/GavinGrey_Right_Eye_GRP/GavinGrey_Right_Eye_TopLid_pivot/GavinGrey_Right_Eye_TopLid
+        weight: 0
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_neck/GavinGrey_Head_Bottom_Mouth
+        weight: 0
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_neck/GavinGrey_Head_Bottom_Mouth/GavinGrey_Head_Bottom_Mouth_Tip
+        weight: 0
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_RightShoulder
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_RightShoulder/GavinGrey_RightArm
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_RightShoulder/GavinGrey_RightArm/GavinGrey_RightForeArm
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_RightShoulder/GavinGrey_RightArm/GavinGrey_RightForeArm/GavinGrey_RightForeArmRoll
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_RightShoulder/GavinGrey_RightArm/GavinGrey_RightForeArm/GavinGrey_RightForeArmRoll/GavinGrey_RightHand
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_RightShoulder/GavinGrey_RightArm/GavinGrey_RightForeArm/GavinGrey_RightForeArmRoll/GavinGrey_RightHand/GavinGrey_RightHandIndex1
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_RightShoulder/GavinGrey_RightArm/GavinGrey_RightForeArm/GavinGrey_RightForeArmRoll/GavinGrey_RightHand/GavinGrey_RightHandIndex1/GavinGrey_RightHandIndex2
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_RightShoulder/GavinGrey_RightArm/GavinGrey_RightForeArm/GavinGrey_RightForeArmRoll/GavinGrey_RightHand/GavinGrey_RightHandIndex1/GavinGrey_RightHandIndex2/GavinGrey_RightHandIndex3
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_RightShoulder/GavinGrey_RightArm/GavinGrey_RightForeArm/GavinGrey_RightForeArmRoll/GavinGrey_RightHand/GavinGrey_RightHandIndex1/GavinGrey_RightHandIndex2/GavinGrey_RightHandIndex3/GavinGrey_RightHandIndex4
+        weight: 0
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_RightShoulder/GavinGrey_RightArm/GavinGrey_RightForeArm/GavinGrey_RightForeArmRoll/GavinGrey_RightHand/GavinGrey_RightHandMiddle1
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_RightShoulder/GavinGrey_RightArm/GavinGrey_RightForeArm/GavinGrey_RightForeArmRoll/GavinGrey_RightHand/GavinGrey_RightHandMiddle1/GavinGrey_RightHandMiddle2
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_RightShoulder/GavinGrey_RightArm/GavinGrey_RightForeArm/GavinGrey_RightForeArmRoll/GavinGrey_RightHand/GavinGrey_RightHandMiddle1/GavinGrey_RightHandMiddle2/GavinGrey_RightHandMiddle3
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_RightShoulder/GavinGrey_RightArm/GavinGrey_RightForeArm/GavinGrey_RightForeArmRoll/GavinGrey_RightHand/GavinGrey_RightHandMiddle1/GavinGrey_RightHandMiddle2/GavinGrey_RightHandMiddle3/GavinGrey_RightHandMiddle4
+        weight: 0
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_RightShoulder/GavinGrey_RightArm/GavinGrey_RightForeArm/GavinGrey_RightForeArmRoll/GavinGrey_RightHand/GavinGrey_RightHandPinky1
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_RightShoulder/GavinGrey_RightArm/GavinGrey_RightForeArm/GavinGrey_RightForeArmRoll/GavinGrey_RightHand/GavinGrey_RightHandPinky1/GavinGrey_RightHandPinky2
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_RightShoulder/GavinGrey_RightArm/GavinGrey_RightForeArm/GavinGrey_RightForeArmRoll/GavinGrey_RightHand/GavinGrey_RightHandPinky1/GavinGrey_RightHandPinky2/GavinGrey_RightHandPinky3
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_RightShoulder/GavinGrey_RightArm/GavinGrey_RightForeArm/GavinGrey_RightForeArmRoll/GavinGrey_RightHand/GavinGrey_RightHandPinky1/GavinGrey_RightHandPinky2/GavinGrey_RightHandPinky3/GavinGrey_RightHandPinky4
+        weight: 0
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_RightShoulder/GavinGrey_RightArm/GavinGrey_RightForeArm/GavinGrey_RightForeArmRoll/GavinGrey_RightHand/GavinGrey_RightHandRing1
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_RightShoulder/GavinGrey_RightArm/GavinGrey_RightForeArm/GavinGrey_RightForeArmRoll/GavinGrey_RightHand/GavinGrey_RightHandRing1/GavinGrey_RightHandRing2
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_RightShoulder/GavinGrey_RightArm/GavinGrey_RightForeArm/GavinGrey_RightForeArmRoll/GavinGrey_RightHand/GavinGrey_RightHandRing1/GavinGrey_RightHandRing2/GavinGrey_RightHandRing3
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_RightShoulder/GavinGrey_RightArm/GavinGrey_RightForeArm/GavinGrey_RightForeArmRoll/GavinGrey_RightHand/GavinGrey_RightHandRing1/GavinGrey_RightHandRing2/GavinGrey_RightHandRing3/GavinGrey_RightHandRing4
+        weight: 0
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_RightShoulder/GavinGrey_RightArm/GavinGrey_RightForeArm/GavinGrey_RightForeArmRoll/GavinGrey_RightHand/GavinGrey_RightHandThumb1
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_RightShoulder/GavinGrey_RightArm/GavinGrey_RightForeArm/GavinGrey_RightForeArmRoll/GavinGrey_RightHand/GavinGrey_RightHandThumb1/GavinGrey_RightHandThumb2
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_RightShoulder/GavinGrey_RightArm/GavinGrey_RightForeArm/GavinGrey_RightForeArmRoll/GavinGrey_RightHand/GavinGrey_RightHandThumb1/GavinGrey_RightHandThumb2/GavinGrey_RightHandThumb3
+        weight: 1
+      - path: GavinGrey_Reference/GavinGrey_COG/GavinGrey_Spine1/GavinGrey_Spine2/GavinGrey_Spine3/GavinGrey_RightShoulder/GavinGrey_RightArm/GavinGrey_RightForeArm/GavinGrey_RightForeArmRoll/GavinGrey_RightHand/GavinGrey_RightHandThumb1/GavinGrey_RightHandThumb2/GavinGrey_RightHandThumb3/GavinGrey_RightHandThumb4
+        weight: 0
+      maskType: 0
+      maskSource: {instanceID: 0}
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 15
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    splitTangentsAcrossUV: 1
+    normalImportMode: 0
+    tangentImportMode: 1
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human:
+    - boneName: GavinGrey_COG
+      humanName: Hips
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: GavinGrey_LeftUpLeg
+      humanName: LeftUpperLeg
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: GavinGrey_RightUpLeg
+      humanName: RightUpperLeg
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: GavinGrey_LeftLeg
+      humanName: LeftLowerLeg
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: GavinGrey_RightLeg
+      humanName: RightLowerLeg
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: GavinGrey_LeftFoot
+      humanName: LeftFoot
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: GavinGrey_RightFoot
+      humanName: RightFoot
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: GavinGrey_Spine1
+      humanName: Spine
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: GavinGrey_Spine2
+      humanName: Chest
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: GavinGrey_neck
+      humanName: Neck
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: GavinGrey_Head
+      humanName: Head
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: GavinGrey_LeftShoulder
+      humanName: LeftShoulder
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: GavinGrey_RightShoulder
+      humanName: RightShoulder
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: GavinGrey_LeftArm
+      humanName: LeftUpperArm
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: GavinGrey_RightArm
+      humanName: RightUpperArm
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: GavinGrey_LeftForeArm
+      humanName: LeftLowerArm
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: GavinGrey_RightForeArm
+      humanName: RightLowerArm
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: GavinGrey_LeftHand
+      humanName: LeftHand
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: GavinGrey_RightHand
+      humanName: RightHand
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: GavinGrey_LeftToeBase
+      humanName: LeftToes
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: GavinGrey_RightToeBase
+      humanName: RightToes
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: GavinGrey_Left_Eye
+      humanName: LeftEye
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: GavinGrey_Right_Eye
+      humanName: RightEye
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: GavinGrey_Head_Upper_Mouth
+      humanName: Jaw
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: GavinGrey_LeftHandThumb1
+      humanName: Left Thumb Proximal
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: GavinGrey_LeftHandThumb2
+      humanName: Left Thumb Intermediate
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: GavinGrey_LeftHandThumb3
+      humanName: Left Thumb Distal
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: GavinGrey_LeftHandIndex1
+      humanName: Left Index Proximal
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: GavinGrey_LeftHandIndex2
+      humanName: Left Index Intermediate
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: GavinGrey_LeftHandIndex3
+      humanName: Left Index Distal
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: GavinGrey_LeftHandMiddle1
+      humanName: Left Middle Proximal
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: GavinGrey_LeftHandMiddle2
+      humanName: Left Middle Intermediate
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: GavinGrey_LeftHandMiddle3
+      humanName: Left Middle Distal
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: GavinGrey_LeftHandRing1
+      humanName: Left Ring Proximal
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: GavinGrey_LeftHandRing2
+      humanName: Left Ring Intermediate
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: GavinGrey_LeftHandRing3
+      humanName: Left Ring Distal
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: GavinGrey_LeftHandPinky1
+      humanName: Left Little Proximal
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: GavinGrey_LeftHandPinky2
+      humanName: Left Little Intermediate
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: GavinGrey_LeftHandPinky3
+      humanName: Left Little Distal
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: GavinGrey_RightHandThumb1
+      humanName: Right Thumb Proximal
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: GavinGrey_RightHandThumb2
+      humanName: Right Thumb Intermediate
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: GavinGrey_RightHandThumb3
+      humanName: Right Thumb Distal
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: GavinGrey_RightHandIndex1
+      humanName: Right Index Proximal
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: GavinGrey_RightHandIndex2
+      humanName: Right Index Intermediate
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: GavinGrey_RightHandIndex3
+      humanName: Right Index Distal
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: GavinGrey_RightHandMiddle1
+      humanName: Right Middle Proximal
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: GavinGrey_RightHandMiddle2
+      humanName: Right Middle Intermediate
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: GavinGrey_RightHandMiddle3
+      humanName: Right Middle Distal
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: GavinGrey_RightHandRing1
+      humanName: Right Ring Proximal
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: GavinGrey_RightHandRing2
+      humanName: Right Ring Intermediate
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: GavinGrey_RightHandRing3
+      humanName: Right Ring Distal
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: GavinGrey_RightHandPinky1
+      humanName: Right Little Proximal
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: GavinGrey_RightHandPinky2
+      humanName: Right Little Intermediate
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: GavinGrey_RightHandPinky3
+      humanName: Right Little Distal
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    skeleton:
+    - name: QK_Gavin_Anims_v02(Clone)
+      position: {x: 0, y: 0, z: 0}
+      rotation: {x: 0, y: 0, z: 0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: Gavin_Grey_Clothes_GEO1
+      position: {x: 0, y: -.0127441585, z: .0357272625}
+      rotation: {x: 0, y: 0, z: 0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: Gavin_Grey_GEO
+      position: {x: 0, y: 0, z: 0}
+      rotation: {x: 0, y: 0, z: 0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: GavinGrey_Reference
+      position: {x: 0, y: 0, z: 0}
+      rotation: {x: 0, y: 0, z: 0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: GavinGrey_COG
+      position: {x: 1.04083413e-18, y: 1.04512978, z: -.0145117026}
+      rotation: {x: .466028839, y: -.531805515, z: -.466028839, w: .531805515}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: GavinGrey_Hips
+      position: {x: -0, y: 1.6653346e-17, z: 0}
+      rotation: {x: -1.11022302e-16, y: -0, z: 5.55111512e-17, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: GavinGrey_LeftUpLeg
+      position: {x: .0424816236, y: -.0117563084, z: .0904256105}
+      rotation: {x: -3.88443041e-05, y: -.000337494916, z: .997952223, w: .0639631078}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: GavinGrey_LeftLeg
+      position: {x: -.435546756, y: 4.12170308e-16, z: 1.16573426e-16}
+      rotation: {x: 6.11810158e-09, y: 1.23560426e-07, z: -.0494544692, w: .998776376}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: GavinGrey_LeftFoot
+      position: {x: -.464476347, y: 2.8310684e-16, z: -1.49880111e-16}
+      rotation: {x: .000221690119, y: -.000127043822, z: .618366241, w: .785890043}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: GavinGrey_LeftToeBase
+      position: {x: -.191581652, y: 1.83186757e-16, z: 8.32667202e-17}
+      rotation: {x: -7.17124713e-05, y: .000281512592, z: .154875815, w: .987933934}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: GavinGrey_LeftFootMiddle1
+      position: {x: -.0908951312, y: -4.16333733e-17, z: -1.6653346e-17}
+      rotation: {x: .999566495, y: .0294398293, z: .000374594034, w: 1.10810506e-05}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: GavinGrey_RightUpLeg
+      position: {x: .0424815491, y: -.0117568858, z: -.0904255658}
+      rotation: {x: 3.89957131e-05, y: .00033300533, z: .99795258, w: .0639573932}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: GavinGrey_RightLeg
+      position: {x: -.435546756, y: -1.12410073e-16, z: -4.99600381e-17}
+      rotation: {x: 1.23165864e-15, y: 3.74504367e-07, z: -.0494602434, w: .998776138}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: GavinGrey_RightFoot
+      position: {x: -.464476347, y: 1.6653344e-16, z: -1.6653346e-17}
+      rotation: {x: -.000180921983, y: 7.74964719e-05, z: .618366003, w: .785890281}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: GavinGrey_RightToeBase
+      position: {x: -.191581935, y: -2.49800233e-16, z: 4.99600381e-17}
+      rotation: {x: .000100176709, y: -.000344657252, z: .154875621, w: .987933934}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: GavinGrey_RightFootMiddle1
+      position: {x: -.0908904374, y: 1.6653346e-17, z: 1.16573426e-16}
+      rotation: {x: .999566436, y: .0294403695, z: -.000494822627, w: -1.46001703e-05}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: GavinGrey_Spine1
+      position: {x: -.131664485, y: 1.6653346e-17, z: -5.83041762e-17}
+      rotation: {x: -2.88389969e-17, y: -2.66281152e-17, z: -.0398276933, w: .999206543}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: GavinGrey_Spine2
+      position: {x: -.148411185, y: 7.91033879e-17, z: -5.14471202e-17}
+      rotation: {x: -8.74665147e-17, y: -1.07744669e-16, z: -.0383808613, w: .999263227}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: GavinGrey_Spine3
+      position: {x: -.141163811, y: 0, z: -4.98333603e-17}
+      rotation: {x: -1.59361229e-16, y: 7.36130923e-17, z: -.110749044, w: .993848443}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: GavinGrey_LeftShoulder
+      position: {x: -.0582030304, y: .0115689524, z: .0731065497}
+      rotation: {x: -.511233032, y: .529630482, z: .587063551, w: .336881071}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: GavinGrey_LeftArm
+      position: {x: -.113310255, y: 3.02112459e-16, z: 5.82610172e-17}
+      rotation: {x: .986974239, y: -.138780057, z: .0799191371, w: -.0153255258}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: GavinGrey_LeftForeArm
+      position: {x: -.277606547, y: 2.09618102e-16, z: 2.10268504e-16}
+      rotation: {x: 1.16076708e-05, y: -.0633158237, z: .0021034542, w: .997991323}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: GavinGrey_LeftForeArmRoll
+      position: {x: -.159336716, y: -2.66453536e-16, z: 8.32667302e-18}
+      rotation: {x: 0, y: 0, z: 0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: GavinGrey_LeftHand
+      position: {x: -.172750115, y: 8.00831231e-07, z: -3.26770007e-08}
+      rotation: {x: -.0264538191, y: 5.0808052e-05, z: .00152777671, w: .999648869}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: GavinGrey_LeftHandIndex1
+      position: {x: -.123616651, y: -.00179127452, z: -.0275193155}
+      rotation: {x: -.000235323198, y: .00965344161, z: -.0262924023, w: .999607682}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: GavinGrey_LeftHandIndex2
+      position: {x: -.058236897, y: -2.66453563e-16, z: 5.97959256e-16}
+      rotation: {x: .00022946838, y: -.00417542411, z: -.00423266087, w: .999982297}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: GavinGrey_LeftHandIndex3
+      position: {x: -.0351678468, y: -1.06581393e-15, z: -2.70616803e-17}
+      rotation: {x: -.000331996242, y: .00560694886, z: -8.12766393e-06, w: .999984264}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: GavinGrey_LeftHandIndex4
+      position: {x: -.0332712606, y: 2.66453568e-15, z: 2.30284488e-16}
+      rotation: {x: -.448839039, y: .567742288, z: .53721863, w: -.433137774}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: GavinGrey_LeftHandMiddle1
+      position: {x: -.124627188, y: -.00484486204, z: .00510199554}
+      rotation: {x: -.000228292774, y: .0120128011, z: -.0209231582, w: .999708891}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: GavinGrey_LeftHandMiddle2
+      position: {x: -.0543899573, y: -2.66453563e-16, z: 4.24660392e-16}
+      rotation: {x: .000127918931, y: -.00293507753, z: -.00362718524, w: .999989092}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: GavinGrey_LeftHandMiddle3
+      position: {x: -.0378188565, y: 7.99360609e-16, z: -2.04003438e-16}
+      rotation: {x: -5.82121712e-11, y: 6.22350308e-06, z: 9.35359913e-06, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: GavinGrey_LeftHandMiddle4
+      position: {x: -.036816448, y: -1.08180134e-13, z: 7.15760865e-14}
+      rotation: {x: -.4443039, y: .569610059, z: .540643156, w: -.431095749}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: GavinGrey_LeftHandPinky1
+      position: {x: -.104739979, y: .00337754097, z: .0669940487}
+      rotation: {x: -.00145087333, y: .0525588207, z: -.0294769797, w: .998181641}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: GavinGrey_LeftHandPinky2
+      position: {x: -.0486741588, y: -2.66453563e-16, z: 4.74620354e-16}
+      rotation: {x: -.000318978855, y: .00505363103, z: -.00591517054, w: .999969721}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: GavinGrey_LeftHandPinky3
+      position: {x: -.0340171941, y: 1.06581415e-15, z: 2.91433564e-17}
+      rotation: {x: -1.86482774e-17, y: 2.80727048e-16, z: 2.08641156e-17, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: GavinGrey_LeftHandPinky4
+      position: {x: -.033324331, y: -2.72211281e-07, z: -2.66246705e-08}
+      rotation: {x: -.477377295, y: .58344686, z: .515347123, w: -.407575756}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: GavinGrey_LeftHandRing1
+      position: {x: -.119607233, y: -.00362748886, z: .0387453139}
+      rotation: {x: -.0011128881, y: .0412872806, z: -.0288439319, w: .998730302}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: GavinGrey_LeftHandRing2
+      position: {x: -.0503426716, y: -1.06581393e-15, z: 4.55885414e-16}
+      rotation: {x: -.000160108626, y: .0026060394, z: -.00553956442, w: .999981284}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: GavinGrey_LeftHandRing3
+      position: {x: -.0374853127, y: 7.99360609e-16, z: 7.80625432e-17}
+      rotation: {x: 1.64244193e-12, y: 5.8717383e-08, z: -2.79723754e-05, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: GavinGrey_LeftHandRing4
+      position: {x: -.0383954421, y: -4.79616313e-15, z: -1.87350155e-17}
+      rotation: {x: -.46930474, y: .578760624, z: .521704853, w: -.415467471}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: GavinGrey_LeftHandThumb1
+      position: {x: -.0349727683, y: .0233545341, z: -.0358235538}
+      rotation: {x: -.042924691, y: -.424795896, z: .00750684272, w: .904239774}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: GavinGrey_LeftHandThumb2
+      position: {x: -.0465618894, y: 1.06581393e-15, z: -2.66453563e-16}
+      rotation: {x: -.0409237295, y: .0169322453, z: -.0170602426, w: .998873115}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: GavinGrey_LeftHandThumb3
+      position: {x: -.0519812256, y: -7.99360609e-16, z: 9.32587404e-16}
+      rotation: {x: .0143427905, y: -.0127090216, z: .0346175656, w: .999216914}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: GavinGrey_LeftHandThumb4
+      position: {x: -.0388336629, y: 5.32907126e-16, z: -7.99360609e-16}
+      rotation: {x: .0942009017, y: -.26093483, z: -.635609388, w: .720444262}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: GavinGrey_neck
+      position: {x: -.11397545, y: 0, z: 1.10277453e-17}
+      rotation: {x: 1.00898618e-16, y: -1.26538967e-16, z: .132327527, w: .99120605}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: GavinGrey_Head
+      position: {x: -.155442446, y: .0157367848, z: -7.47328153e-18}
+      rotation: {x: -1.31025713e-16, y: 1.88456003e-16, z: .0566659495, w: .998393238}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: GavinGrey_Head_Tip
+      position: {x: -.235078603, y: .0267928466, z: -9.60731371e-17}
+      rotation: {x: 0, y: 0, z: 0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: GavinGrey_Head_Upper_Mouth
+      position: {x: .0213896856, y: .143980607, z: 2.13558274e-16}
+      rotation: {x: 0, y: 0, z: 0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: GavinGrey_Left_Eye_GRP
+      position: {x: 0, y: 0, z: 0}
+      rotation: {x: 0, y: 0, z: 0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: GavinGrey_Left_Eye
+      position: {x: -.052987285, y: .0970260724, z: .0491845757}
+      rotation: {x: .659227073, y: -.751943946, z: -1.07401725e-07, w: 1.22507217e-07}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: GavinGrey_Left_Eye_Aim
+      position: {x: -.0283615366, y: 0, z: 6.29752453e-18}
+      rotation: {x: -0, y: -.707106829, z: 0, w: .707106829}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: GavinGrey_Left_Eye_BottomLid_pivot
+      position: {x: -.052987285, y: .0970260799, z: .0491845757}
+      rotation: {x: -2.03925855e-16, y: 3.51208686e-16, z: -.864790857, w: .502132297}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: GavinGrey_Left_Eye_BottomLid
+      position: {x: -.0295595974, y: 2.37310177e-16, z: -6.07911741e-18}
+      rotation: {x: .981375039, y: .192101821, z: -1.17628441e-17, w: -6.00918922e-17}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: GavinGrey_Left_Eye_TopLid_pivot
+      position: {x: -.052987285, y: .0970260799, z: .0491845757}
+      rotation: {x: -.65890801, y: .752223611, z: -8.64068897e-17, w: -5.71393413e-18}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: GavinGrey_Left_Eye_TopLid
+      position: {x: -.0268957503, y: .00846261997, z: 5.97205625e-18}
+      rotation: {x: 0, y: 0, z: 0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: GavinGrey_Right_Eye_GRP
+      position: {x: 0, y: 0, z: 0}
+      rotation: {x: 0, y: 0, z: 0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: GavinGrey_Right_Eye
+      position: {x: -.052987285, y: .0970260724, z: -.0491845757}
+      rotation: {x: .659227073, y: -.751943946, z: -1.07401725e-07, w: 1.22507217e-07}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: GavinGrey_Right_Eye_Aim
+      position: {x: -.0283615366, y: 0, z: 6.29752453e-18}
+      rotation: {x: -0, y: -.707106829, z: 0, w: .707106829}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: GavinGrey_Right_Eye_BottomLid_pivot
+      position: {x: -.052987285, y: .0970260799, z: -.0491845757}
+      rotation: {x: -2.03925855e-16, y: 3.51208686e-16, z: -.864790857, w: .502132297}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: GavinGrey_Right_Eye_BottomLid
+      position: {x: -.0295595974, y: 2.37310177e-16, z: -6.07911741e-18}
+      rotation: {x: .981375039, y: .192101821, z: -1.17628441e-17, w: -6.00918922e-17}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: GavinGrey_Right_Eye_TopLid_pivot
+      position: {x: -.052987285, y: .0970260799, z: -.0491845757}
+      rotation: {x: -.65890801, y: .752223611, z: -8.64068897e-17, w: -5.71393413e-18}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: GavinGrey_Right_Eye_TopLid
+      position: {x: -.0268957503, y: .00846261997, z: 5.97205625e-18}
+      rotation: {x: 0, y: 0, z: 0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: GavinGrey_Head_Bottom_Mouth
+      position: {x: -.155442446, y: .0157367848, z: -7.47328153e-18}
+      rotation: {x: 0, y: -0, z: -.0897270739, w: .995966434}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: GavinGrey_Head_Bottom_Mouth_Tip
+      position: {x: .0638005808, y: .139600486, z: 1.17501549e-16}
+      rotation: {x: 0, y: 0, z: 0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: GavinGrey_RightShoulder
+      position: {x: -.0582030304, y: .0115689533, z: -.0731065497}
+      rotation: {x: .529630482, y: .511232972, z: -.336881071, w: .587063491}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: GavinGrey_RightArm
+      position: {x: .113310255, y: 0, z: -1.22818414e-16}
+      rotation: {x: .986403525, y: -.138561696, z: .0822894201, w: -.0322053134}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: GavinGrey_RightForeArm
+      position: {x: .277606547, y: 4.6309625e-13, z: 8.75276956e-13}
+      rotation: {x: 1.16076708e-05, y: -.0633158237, z: .0021034542, w: .997991323}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: GavinGrey_RightForeArmRoll
+      position: {x: .159336716, y: -6.20206151e-07, z: -6.33604547e-09}
+      rotation: {x: 0, y: 0, z: 0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: GavinGrey_RightHand
+      position: {x: .172750115, y: 5.67659356e-07, z: 3.42169386e-08}
+      rotation: {x: -.0434712768, y: 8.34395905e-05, z: .00251061004, w: .999051511}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: GavinGrey_RightHandIndex1
+      position: {x: .123616643, y: .00179012096, z: .0275192689}
+      rotation: {x: -.000235323198, y: .00965344161, z: -.0262924023, w: .999607682}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: GavinGrey_RightHandIndex2
+      position: {x: .0582368448, y: 5.38983272e-07, z: 1.02319802e-07}
+      rotation: {x: .00022946838, y: -.00417542411, z: -.00423266087, w: .999982297}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: GavinGrey_RightHandIndex3
+      position: {x: .035167858, y: -5.83197902e-07, z: -4.32901928e-08}
+      rotation: {x: -.000331996242, y: .00560694886, z: -8.12766393e-06, w: .999984264}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: GavinGrey_RightHandIndex4
+      position: {x: .0332711823, y: 3.64852042e-07, z: 5.12583753e-08}
+      rotation: {x: -.448839039, y: .567742288, z: .53721863, w: -.433137774}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: GavinGrey_RightHandMiddle1
+      position: {x: .124627247, y: .00484368112, z: -.00510199368}
+      rotation: {x: -.000228292774, y: .0120128011, z: -.0209231582, w: .999708891}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: GavinGrey_RightHandMiddle2
+      position: {x: .0543899126, y: 6.05571472e-07, z: 1.12678888e-09}
+      rotation: {x: .000127918931, y: -.00293507753, z: -.00362718524, w: .999989092}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: GavinGrey_RightHandMiddle3
+      position: {x: .0378187969, y: 2.21692517e-07, z: 1.41406453e-09}
+      rotation: {x: -5.82121573e-11, y: 6.22350308e-06, z: 9.35359913e-06, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: GavinGrey_RightHandMiddle4
+      position: {x: .0368163884, y: 2.555268e-07, z: -3.93355659e-09}
+      rotation: {x: -.4443039, y: .569610059, z: .540643156, w: -.431095749}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: GavinGrey_RightHandPinky1
+      position: {x: .104739979, y: -.00337856286, z: -.0669941083}
+      rotation: {x: -.00145087333, y: .0525588207, z: -.0294769797, w: .998181641}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: GavinGrey_RightHandPinky2
+      position: {x: .0486740582, y: 7.44086719e-07, z: 2.08185891e-09}
+      rotation: {x: -.000318978855, y: .00505363103, z: -.00591517054, w: .999969721}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: GavinGrey_RightHandPinky3
+      position: {x: .0340171754, y: -8.62041588e-07, z: 6.5988651e-08}
+      rotation: {x: -1.95156391e-18, y: 6.8846838e-18, z: 3.61093534e-16, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: GavinGrey_RightHandPinky4
+      position: {x: .0333242081, y: 8.99824556e-07, z: 4.79037041e-08}
+      rotation: {x: -.477377295, y: .58344686, z: .515347123, w: -.407575756}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: GavinGrey_RightHandRing1
+      position: {x: .1196073, y: .00362634007, z: -.0387453735}
+      rotation: {x: -.0011128881, y: .0412872806, z: -.0288439319, w: .998730302}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: GavinGrey_RightHandRing2
+      position: {x: .0503425747, y: 7.04714694e-07, z: -6.07490236e-09}
+      rotation: {x: -.000160108626, y: .0026060394, z: -.00553956442, w: .999981284}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: GavinGrey_RightHandRing3
+      position: {x: .0374853127, y: -6.03261014e-07, z: -4.50701432e-09}
+      rotation: {x: 1.64246221e-12, y: 5.87173865e-08, z: -2.79723754e-05, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: GavinGrey_RightHandRing4
+      position: {x: .0383953489, y: 8.78729281e-07, z: -6.45415899e-09}
+      rotation: {x: -.46930474, y: .578760624, z: .521704853, w: -.415467471}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: GavinGrey_RightHandThumb1
+      position: {x: .0349725448, y: -.0233548507, z: .0358236134}
+      rotation: {x: -.0429226197, y: -.424799144, z: .0075101424, w: .904238403}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: GavinGrey_RightHandThumb2
+      position: {x: .0465617403, y: -4.93528546e-07, z: -3.54408598e-07}
+      rotation: {x: -.0409229919, y: .0169365462, z: -.0170720108, w: .998872876}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: GavinGrey_RightHandThumb3
+      position: {x: .0519809574, y: 5.88149931e-07, z: 1.40774546e-07}
+      rotation: {x: .0143427067, y: -.012711552, z: .0346330665, w: .999216378}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    - name: GavinGrey_RightHandThumb4
+      position: {x: .0388335325, y: -6.91955279e-07, z: -1.99332604e-07}
+      rotation: {x: .0942009017, y: -.26093483, z: -.635609388, w: .720444262}
+      scale: {x: 1, y: 1, z: 1}
+      transformModified: 1
+    armTwist: .5
+    foreArmTwist: .5
+    upperLegTwist: .5
+    legTwist: .5
+    armStretch: .0500000007
+    legStretch: .0500000007
+    feetSpacing: 0
+    rootMotionBoneName: 
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 3
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

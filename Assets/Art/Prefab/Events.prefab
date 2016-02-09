@@ -1,0 +1,6096 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &104316
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 491900}
+  m_Layer: 0
+  m_Name: Events
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!1 &105920
+GameObject:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 465474}
+  - 33: {fileID: 3355228}
+  - 135: {fileID: 13566990}
+  - 23: {fileID: 2379592}
+  - 64: {fileID: 6463054}
+  - 64: {fileID: 6491922}
+  m_Layer: 0
+  m_Name: Sphere
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!1 &106350
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 417954}
+  - 33: {fileID: 3305626}
+  - 23: {fileID: 2300054}
+  - 64: {fileID: 6426886}
+  - 114: {fileID: 11417686}
+  m_Layer: 0
+  m_Name: Event11-Sneaking_past_guards1
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!1 &112738
+GameObject:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 420880}
+  - 33: {fileID: 3351392}
+  - 136: {fileID: 13626292}
+  - 23: {fileID: 2311672}
+  - 64: {fileID: 6446820}
+  - 64: {fileID: 6461036}
+  - 64: {fileID: 6424452}
+  m_Layer: 0
+  m_Name: Cylinder
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!1 &113680
+GameObject:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 488852}
+  - 33: {fileID: 3337752}
+  - 23: {fileID: 2302132}
+  - 64: {fileID: 6412640}
+  - 64: {fileID: 6454348}
+  m_Layer: 0
+  m_Name: Cylinder 1
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!1 &113714
+GameObject:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 495812}
+  m_Layer: 0
+  m_Name: GameObject
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!1 &114248
+GameObject:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 457360}
+  - 33: {fileID: 3364340}
+  - 23: {fileID: 2346274}
+  - 64: {fileID: 6449244}
+  - 64: {fileID: 6422948}
+  m_Layer: 0
+  m_Name: Cube 1
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!1 &118950
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 491978}
+  - 33: {fileID: 3307792}
+  - 23: {fileID: 2331962}
+  - 64: {fileID: 6435634}
+  - 114: {fileID: 11482392}
+  m_Layer: 0
+  m_Name: Event19-Block_puzzle
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!1 &121900
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 499060}
+  - 33: {fileID: 3307404}
+  - 23: {fileID: 2322388}
+  - 114: {fileID: 11487008}
+  m_Layer: 0
+  m_Name: Event16-Distract_with_sound_grenade_thrown_into_well
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!1 &122938
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 477706}
+  - 33: {fileID: 3325230}
+  - 23: {fileID: 2300482}
+  - 64: {fileID: 6472734}
+  - 114: {fileID: 11460858}
+  m_Layer: 0
+  m_Name: Event4-Go_left_to_Event5
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!1 &127414
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 473382}
+  - 33: {fileID: 3353710}
+  - 23: {fileID: 2324926}
+  - 64: {fileID: 6436708}
+  - 114: {fileID: 11463108}
+  - 114: {fileID: 11464008}
+  m_Layer: 0
+  m_Name: Enemy_Chase_event
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!1 &128960
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 400704}
+  - 33: {fileID: 3317048}
+  - 23: {fileID: 2340068}
+  - 64: {fileID: 6434786}
+  - 114: {fileID: 11431884}
+  m_Layer: 0
+  m_Name: Event17-Turn_right
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!1 &129396
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 455380}
+  - 33: {fileID: 3352232}
+  - 23: {fileID: 2302840}
+  - 64: {fileID: 6445068}
+  - 114: {fileID: 11443616}
+  m_Layer: 0
+  m_Name: Event18-Turn_right
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!1 &134702
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 466532}
+  - 33: {fileID: 3311998}
+  - 23: {fileID: 2325948}
+  - 64: {fileID: 6490548}
+  - 114: {fileID: 11458066}
+  m_Layer: 0
+  m_Name: Event12-Sneaking_past_guards2
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!1 &139344
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 456760}
+  - 33: {fileID: 3325784}
+  - 23: {fileID: 2388100}
+  - 64: {fileID: 6497352}
+  - 114: {fileID: 11474434}
+  m_Layer: 0
+  m_Name: Event13-Sneaking_past_guards3
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!1 &139616
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 440110}
+  - 33: {fileID: 3311700}
+  - 23: {fileID: 2338528}
+  - 64: {fileID: 6484982}
+  - 114: {fileID: 11431544}
+  m_Layer: 0
+  m_Name: Event20-Eavesdropping_through_window
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!1 &140308
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 495838}
+  - 33: {fileID: 3332292}
+  - 23: {fileID: 2332880}
+  - 64: {fileID: 6462310}
+  - 114: {fileID: 11497064}
+  m_Layer: 0
+  m_Name: Event14-Too_many_guards-Go_another_route
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!1 &140676
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 453492}
+  - 33: {fileID: 3354892}
+  - 23: {fileID: 2339324}
+  - 64: {fileID: 6458828}
+  - 114: {fileID: 11451196}
+  m_Layer: 0
+  m_Name: Event7-Run_past_guard
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!1 &145606
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 478410}
+  - 33: {fileID: 3323404}
+  - 23: {fileID: 2353024}
+  - 64: {fileID: 6481806}
+  - 114: {fileID: 11494344}
+  m_Layer: 0
+  m_Name: Event8-QuinC_tells_you_to_eavesdrop
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!1 &161248
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 406628}
+  - 114: {fileID: 11478862}
+  - 114: {fileID: 11414332}
+  m_Layer: 0
+  m_Name: Event9-Follow_and_eavesdropping
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!1 &162366
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 423090}
+  - 33: {fileID: 3316202}
+  - 23: {fileID: 2384398}
+  - 64: {fileID: 6484722}
+  - 114: {fileID: 11480486}
+  m_Layer: 0
+  m_Name: Event1-Walk
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!1 &167512
+GameObject:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 422172}
+  - 33: {fileID: 3357196}
+  - 23: {fileID: 2391412}
+  - 64: {fileID: 6467212}
+  - 64: {fileID: 6419248}
+  m_Layer: 0
+  m_Name: Cube
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!1 &183650
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 463724}
+  - 33: {fileID: 3326194}
+  - 23: {fileID: 2375294}
+  - 114: {fileID: 11466312}
+  m_Layer: 0
+  m_Name: Event15-Climb_up_ladder
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!1 &183808
+GameObject:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 433462}
+  - 33: {fileID: 3389904}
+  - 23: {fileID: 2306788}
+  - 64: {fileID: 6499102}
+  - 64: {fileID: 6439578}
+  m_Layer: 0
+  m_Name: Cylinder
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!1 &188560
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 482080}
+  - 33: {fileID: 3346244}
+  - 23: {fileID: 2312250}
+  - 64: {fileID: 6443320}
+  - 114: {fileID: 11444284}
+  m_Layer: 0
+  m_Name: Event6-Jump_down_to_cart
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!1 &189790
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 492210}
+  - 33: {fileID: 3356048}
+  - 23: {fileID: 2340934}
+  - 114: {fileID: 11467562}
+  m_Layer: 0
+  m_Name: Event3-Hiding_from_Guard
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!1 &194104
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 437408}
+  - 33: {fileID: 3306440}
+  - 23: {fileID: 2323144}
+  - 64: {fileID: 6478880}
+  - 114: {fileID: 11456064}
+  m_Layer: 0
+  m_Name: Event10-Hide_behind_cart_and_drop_potted_plant_onto_guard
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!1 &199708
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 468884}
+  - 33: {fileID: 3347632}
+  - 23: {fileID: 2399314}
+  - 114: {fileID: 11480778}
+  m_Layer: 0
+  m_Name: Event5-Go_up_small_building_with_ladder
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &400704
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 128960}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -72.2900009, y: 6.84000015, z: -31.1900005}
+  m_LocalScale: {x: .744888008, y: .576089025, z: .747305572}
+  m_Children: []
+  m_Father: {fileID: 491900}
+  m_RootOrder: 14
+--- !u!4 &406628
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 161248}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -80.9000015, y: 9.39999962, z: .430000007}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 420880}
+  - {fileID: 433462}
+  - {fileID: 422172}
+  - {fileID: 457360}
+  - {fileID: 488852}
+  - {fileID: 465474}
+  m_Father: {fileID: 491900}
+  m_RootOrder: 1
+--- !u!4 &417954
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 106350}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -101.190002, y: 7.19999981, z: -65.4400024}
+  m_LocalScale: {x: .744888008, y: .576089025, z: .747305572}
+  m_Children: []
+  m_Father: {fileID: 491900}
+  m_RootOrder: 8
+--- !u!4 &420880
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 112738}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -4.33359528, y: -1.12830782, z: 4.815979}
+  m_LocalScale: {x: .896813512, y: 1.57836711, z: .896813512}
+  m_Children: []
+  m_Father: {fileID: 406628}
+  m_RootOrder: 0
+--- !u!4 &422172
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 167512}
+  m_LocalRotation: {x: 0, y: .518072009, z: 0, w: -.855337024}
+  m_LocalPosition: {x: -.0892105103, y: -.573700428, z: 1.61383057}
+  m_LocalScale: {x: 3.67484093, y: 4.30331039, z: 7.77567959}
+  m_Children: []
+  m_Father: {fileID: 406628}
+  m_RootOrder: 2
+--- !u!4 &423090
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 162366}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 2.68999863, y: 7.32999992, z: 45.9299927}
+  m_LocalScale: {x: .744888008, y: .576089025, z: .832804918}
+  m_Children: []
+  m_Father: {fileID: 491900}
+  m_RootOrder: 5
+--- !u!4 &433462
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 183808}
+  m_LocalRotation: {x: -.366333067, y: -.366333067, z: .604814112, w: .604814112}
+  m_LocalPosition: {x: 2.29327393, y: -2.41376543, z: .226745605}
+  m_LocalScale: {x: 2.48763347, y: 2.19744873, z: 2.41834092}
+  m_Children: []
+  m_Father: {fileID: 406628}
+  m_RootOrder: 1
+--- !u!4 &437408
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 194104}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -138.100006, y: 7.19999981, z: -67.9000015}
+  m_LocalScale: {x: .744888008, y: .576089025, z: .747305572}
+  m_Children: []
+  m_Father: {fileID: 491900}
+  m_RootOrder: 7
+--- !u!4 &440110
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 139616}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -35.8199997, y: 6.84000015, z: -81.0400009}
+  m_LocalScale: {x: .744888008, y: .576089025, z: .747305572}
+  m_Children: []
+  m_Father: {fileID: 491900}
+  m_RootOrder: 17
+--- !u!4 &453492
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 140676}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -44.0900002, y: 7.23999977, z: 3.74000001}
+  m_LocalScale: {x: .744888008, y: .576089025, z: .747305572}
+  m_Children: []
+  m_Father: {fileID: 491900}
+  m_RootOrder: 19
+--- !u!4 &455380
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 129396}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -48.7900009, y: 6.84000015, z: -30.8400002}
+  m_LocalScale: {x: .744888008, y: .576089025, z: .747305572}
+  m_Children: []
+  m_Father: {fileID: 491900}
+  m_RootOrder: 15
+--- !u!4 &456760
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 139344}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -78.8600006, y: 7.19999981, z: -64.7200012}
+  m_LocalScale: {x: .744888008, y: .576089025, z: .747305572}
+  m_Children: []
+  m_Father: {fileID: 491900}
+  m_RootOrder: 10
+--- !u!4 &457360
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 114248}
+  m_LocalRotation: {x: 0, y: .518072009, z: 0, w: -.855337024}
+  m_LocalPosition: {x: -4.59809875, y: -2.04508638, z: 3.85473633}
+  m_LocalScale: {x: 3.67484093, y: 1.35701728, z: 2.27191448}
+  m_Children: []
+  m_Father: {fileID: 406628}
+  m_RootOrder: 3
+--- !u!4 &463724
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 183650}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -72.2900009, y: 7.19999981, z: -43.4399986}
+  m_LocalScale: {x: .744888008, y: .576089025, z: .747305572}
+  m_Children: []
+  m_Father: {fileID: 491900}
+  m_RootOrder: 12
+--- !u!4 &465474
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 105920}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -4.3435936, y: .481692791, z: 4.78601074}
+  m_LocalScale: {x: 1.84979069, y: 1.84979093, z: 1.84979069}
+  m_Children:
+  - {fileID: 495812}
+  m_Father: {fileID: 406628}
+  m_RootOrder: 5
+--- !u!4 &466532
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 134702}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -86.7600021, y: 7.19999981, z: -61.3800011}
+  m_LocalScale: {x: .744888008, y: .576089025, z: .747305572}
+  m_Children: []
+  m_Father: {fileID: 491900}
+  m_RootOrder: 9
+--- !u!4 &468884
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 199708}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -37.0400009, y: 6.80999994, z: 21.1200008}
+  m_LocalScale: {x: .744888008, y: .576089025, z: .747305572}
+  m_Children: []
+  m_Father: {fileID: 491900}
+  m_RootOrder: 18
+--- !u!4 &473382
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 127414}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 4.28999996, y: 7.32999992, z: 23.8199997}
+  m_LocalScale: {x: .744888008, y: .576089025, z: .832804918}
+  m_Children: []
+  m_Father: {fileID: 491900}
+  m_RootOrder: 0
+--- !u!4 &477706
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 122938}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -31.5, y: 6.67000008, z: 23.1100006}
+  m_LocalScale: {x: .744888008, y: .576089025, z: .747305572}
+  m_Children: []
+  m_Father: {fileID: 491900}
+  m_RootOrder: 4
+--- !u!4 &478410
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 145606}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -64.9499969, y: 7.19999981, z: 1.73000002}
+  m_LocalScale: {x: .744888008, y: .576089025, z: .747305572}
+  m_Children: []
+  m_Father: {fileID: 491900}
+  m_RootOrder: 2
+--- !u!4 &482080
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 188560}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -35.8899994, y: 11.6099997, z: 9.72999954}
+  m_LocalScale: {x: .744888008, y: .576089025, z: .747305572}
+  m_Children: []
+  m_Father: {fileID: 491900}
+  m_RootOrder: 6
+--- !u!4 &488852
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 113680}
+  m_LocalRotation: {x: -.366333067, y: -.366333067, z: .604814112, w: .604814112}
+  m_LocalPosition: {x: -2.1657753, y: -2.4143796, z: 2.55737305}
+  m_LocalScale: {x: 2.48763347, y: 2.19744921, z: 2.41834116}
+  m_Children: []
+  m_Father: {fileID: 406628}
+  m_RootOrder: 4
+--- !u!4 &491900
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 104316}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 57.5168076, y: -7.45116615, z: 592.142517}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 473382}
+  - {fileID: 406628}
+  - {fileID: 478410}
+  - {fileID: 492210}
+  - {fileID: 477706}
+  - {fileID: 423090}
+  - {fileID: 482080}
+  - {fileID: 437408}
+  - {fileID: 417954}
+  - {fileID: 466532}
+  - {fileID: 456760}
+  - {fileID: 495838}
+  - {fileID: 463724}
+  - {fileID: 499060}
+  - {fileID: 400704}
+  - {fileID: 455380}
+  - {fileID: 491978}
+  - {fileID: 440110}
+  - {fileID: 468884}
+  - {fileID: 453492}
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+--- !u!4 &491978
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 118950}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -46.1199989, y: 6.84000015, z: -50.1500015}
+  m_LocalScale: {x: .744888008, y: .576089025, z: .747305572}
+  m_Children: []
+  m_Father: {fileID: 491900}
+  m_RootOrder: 16
+--- !u!4 &492210
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 189790}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -8.25680923, y: 7.33116627, z: 24.1875}
+  m_LocalScale: {x: .744888008, y: .576089025, z: .832804918}
+  m_Children: []
+  m_Father: {fileID: 491900}
+  m_RootOrder: 3
+--- !u!4 &495812
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 113714}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 465474}
+  m_RootOrder: 0
+--- !u!4 &495838
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 140308}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -68.6100006, y: 7.19999981, z: -63.9599991}
+  m_LocalScale: {x: .744888008, y: .576089025, z: .747305572}
+  m_Children: []
+  m_Father: {fileID: 491900}
+  m_RootOrder: 11
+--- !u!4 &499060
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 121900}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -72.2900009, y: 11.191, z: -37.9770012}
+  m_LocalScale: {x: .744888008, y: .576089025, z: .747305572}
+  m_Children: []
+  m_Father: {fileID: 491900}
+  m_RootOrder: 13
+--- !u!23 &2300054
+MeshRenderer:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 106350}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_Materials:
+  - {fileID: 0}
+  m_SubsetIndices: 
+  m_StaticBatchRoot: {fileID: 0}
+  m_UseLightProbes: 0
+  m_ReflectionProbeUsage: 1
+  m_ProbeAnchor: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_PreserveUVs: 0
+  m_ImportantGI: 0
+  m_AutoUVMaxDistance: .5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingOrder: 0
+--- !u!23 &2300482
+MeshRenderer:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 122938}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_Materials:
+  - {fileID: 0}
+  m_SubsetIndices: 
+  m_StaticBatchRoot: {fileID: 0}
+  m_UseLightProbes: 0
+  m_ReflectionProbeUsage: 1
+  m_ProbeAnchor: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_PreserveUVs: 0
+  m_ImportantGI: 0
+  m_AutoUVMaxDistance: .5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingOrder: 0
+--- !u!23 &2302132
+MeshRenderer:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 113680}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_Materials:
+  - {fileID: 10302, guid: 0000000000000000f000000000000000, type: 0}
+  m_SubsetIndices: 
+  m_StaticBatchRoot: {fileID: 0}
+  m_UseLightProbes: 0
+  m_ReflectionProbeUsage: 1
+  m_ProbeAnchor: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_PreserveUVs: 0
+  m_ImportantGI: 0
+  m_AutoUVMaxDistance: .5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingOrder: 0
+--- !u!23 &2302840
+MeshRenderer:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 129396}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_Materials:
+  - {fileID: 0}
+  m_SubsetIndices: 
+  m_StaticBatchRoot: {fileID: 0}
+  m_UseLightProbes: 0
+  m_ReflectionProbeUsage: 1
+  m_ProbeAnchor: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_PreserveUVs: 0
+  m_ImportantGI: 0
+  m_AutoUVMaxDistance: .5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingOrder: 0
+--- !u!23 &2306788
+MeshRenderer:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 183808}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_Materials:
+  - {fileID: 10302, guid: 0000000000000000f000000000000000, type: 0}
+  m_SubsetIndices: 
+  m_StaticBatchRoot: {fileID: 0}
+  m_UseLightProbes: 0
+  m_ReflectionProbeUsage: 1
+  m_ProbeAnchor: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_PreserveUVs: 0
+  m_ImportantGI: 0
+  m_AutoUVMaxDistance: .5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingOrder: 0
+--- !u!23 &2311672
+MeshRenderer:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 112738}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_Materials:
+  - {fileID: 0}
+  m_SubsetIndices: 
+  m_StaticBatchRoot: {fileID: 0}
+  m_UseLightProbes: 0
+  m_ReflectionProbeUsage: 1
+  m_ProbeAnchor: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_PreserveUVs: 0
+  m_ImportantGI: 0
+  m_AutoUVMaxDistance: .5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingOrder: 0
+--- !u!23 &2312250
+MeshRenderer:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 188560}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_Materials:
+  - {fileID: 0}
+  m_SubsetIndices: 
+  m_StaticBatchRoot: {fileID: 0}
+  m_UseLightProbes: 0
+  m_ReflectionProbeUsage: 1
+  m_ProbeAnchor: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_PreserveUVs: 0
+  m_ImportantGI: 0
+  m_AutoUVMaxDistance: .5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingOrder: 0
+--- !u!23 &2322388
+MeshRenderer:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 121900}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_Materials:
+  - {fileID: 0}
+  m_SubsetIndices: 
+  m_StaticBatchRoot: {fileID: 0}
+  m_UseLightProbes: 0
+  m_ReflectionProbeUsage: 1
+  m_ProbeAnchor: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_PreserveUVs: 0
+  m_ImportantGI: 0
+  m_AutoUVMaxDistance: .5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingOrder: 0
+--- !u!23 &2323144
+MeshRenderer:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 194104}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_Materials:
+  - {fileID: 0}
+  m_SubsetIndices: 
+  m_StaticBatchRoot: {fileID: 0}
+  m_UseLightProbes: 0
+  m_ReflectionProbeUsage: 1
+  m_ProbeAnchor: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_PreserveUVs: 0
+  m_ImportantGI: 0
+  m_AutoUVMaxDistance: .5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingOrder: 0
+--- !u!23 &2324926
+MeshRenderer:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 127414}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_Materials:
+  - {fileID: 0}
+  m_SubsetIndices: 
+  m_StaticBatchRoot: {fileID: 0}
+  m_UseLightProbes: 0
+  m_ReflectionProbeUsage: 1
+  m_ProbeAnchor: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_PreserveUVs: 0
+  m_ImportantGI: 0
+  m_AutoUVMaxDistance: .5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingOrder: 0
+--- !u!23 &2325948
+MeshRenderer:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 134702}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_Materials:
+  - {fileID: 0}
+  m_SubsetIndices: 
+  m_StaticBatchRoot: {fileID: 0}
+  m_UseLightProbes: 0
+  m_ReflectionProbeUsage: 1
+  m_ProbeAnchor: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_PreserveUVs: 0
+  m_ImportantGI: 0
+  m_AutoUVMaxDistance: .5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingOrder: 0
+--- !u!23 &2331962
+MeshRenderer:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 118950}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_Materials:
+  - {fileID: 0}
+  m_SubsetIndices: 
+  m_StaticBatchRoot: {fileID: 0}
+  m_UseLightProbes: 0
+  m_ReflectionProbeUsage: 1
+  m_ProbeAnchor: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_PreserveUVs: 0
+  m_ImportantGI: 0
+  m_AutoUVMaxDistance: .5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingOrder: 0
+--- !u!23 &2332880
+MeshRenderer:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 140308}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_Materials:
+  - {fileID: 0}
+  m_SubsetIndices: 
+  m_StaticBatchRoot: {fileID: 0}
+  m_UseLightProbes: 0
+  m_ReflectionProbeUsage: 1
+  m_ProbeAnchor: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_PreserveUVs: 0
+  m_ImportantGI: 0
+  m_AutoUVMaxDistance: .5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingOrder: 0
+--- !u!23 &2338528
+MeshRenderer:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 139616}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_Materials:
+  - {fileID: 0}
+  m_SubsetIndices: 
+  m_StaticBatchRoot: {fileID: 0}
+  m_UseLightProbes: 0
+  m_ReflectionProbeUsage: 1
+  m_ProbeAnchor: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_PreserveUVs: 0
+  m_ImportantGI: 0
+  m_AutoUVMaxDistance: .5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingOrder: 0
+--- !u!23 &2339324
+MeshRenderer:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 140676}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_Materials:
+  - {fileID: 0}
+  m_SubsetIndices: 
+  m_StaticBatchRoot: {fileID: 0}
+  m_UseLightProbes: 0
+  m_ReflectionProbeUsage: 1
+  m_ProbeAnchor: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_PreserveUVs: 0
+  m_ImportantGI: 0
+  m_AutoUVMaxDistance: .5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingOrder: 0
+--- !u!23 &2340068
+MeshRenderer:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 128960}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_Materials:
+  - {fileID: 0}
+  m_SubsetIndices: 
+  m_StaticBatchRoot: {fileID: 0}
+  m_UseLightProbes: 0
+  m_ReflectionProbeUsage: 1
+  m_ProbeAnchor: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_PreserveUVs: 0
+  m_ImportantGI: 0
+  m_AutoUVMaxDistance: .5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingOrder: 0
+--- !u!23 &2340934
+MeshRenderer:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 189790}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_Materials:
+  - {fileID: 0}
+  m_SubsetIndices: 
+  m_StaticBatchRoot: {fileID: 0}
+  m_UseLightProbes: 0
+  m_ReflectionProbeUsage: 1
+  m_ProbeAnchor: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_PreserveUVs: 0
+  m_ImportantGI: 0
+  m_AutoUVMaxDistance: .5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingOrder: 0
+--- !u!23 &2346274
+MeshRenderer:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 114248}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_Materials:
+  - {fileID: 10302, guid: 0000000000000000f000000000000000, type: 0}
+  m_SubsetIndices: 
+  m_StaticBatchRoot: {fileID: 0}
+  m_UseLightProbes: 0
+  m_ReflectionProbeUsage: 1
+  m_ProbeAnchor: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_PreserveUVs: 0
+  m_ImportantGI: 0
+  m_AutoUVMaxDistance: .5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingOrder: 0
+--- !u!23 &2353024
+MeshRenderer:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 145606}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_Materials:
+  - {fileID: 0}
+  m_SubsetIndices: 
+  m_StaticBatchRoot: {fileID: 0}
+  m_UseLightProbes: 0
+  m_ReflectionProbeUsage: 1
+  m_ProbeAnchor: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_PreserveUVs: 0
+  m_ImportantGI: 0
+  m_AutoUVMaxDistance: .5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingOrder: 0
+--- !u!23 &2375294
+MeshRenderer:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 183650}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_Materials:
+  - {fileID: 0}
+  m_SubsetIndices: 
+  m_StaticBatchRoot: {fileID: 0}
+  m_UseLightProbes: 0
+  m_ReflectionProbeUsage: 1
+  m_ProbeAnchor: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_PreserveUVs: 0
+  m_ImportantGI: 0
+  m_AutoUVMaxDistance: .5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingOrder: 0
+--- !u!23 &2379592
+MeshRenderer:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 105920}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_Materials:
+  - {fileID: 0}
+  m_SubsetIndices: 
+  m_StaticBatchRoot: {fileID: 0}
+  m_UseLightProbes: 0
+  m_ReflectionProbeUsage: 1
+  m_ProbeAnchor: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_PreserveUVs: 0
+  m_ImportantGI: 0
+  m_AutoUVMaxDistance: .5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingOrder: 0
+--- !u!23 &2384398
+MeshRenderer:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 162366}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_Materials:
+  - {fileID: 0}
+  m_SubsetIndices: 
+  m_StaticBatchRoot: {fileID: 0}
+  m_UseLightProbes: 0
+  m_ReflectionProbeUsage: 1
+  m_ProbeAnchor: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_PreserveUVs: 0
+  m_ImportantGI: 0
+  m_AutoUVMaxDistance: .5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingOrder: 0
+--- !u!23 &2388100
+MeshRenderer:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 139344}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_Materials:
+  - {fileID: 0}
+  m_SubsetIndices: 
+  m_StaticBatchRoot: {fileID: 0}
+  m_UseLightProbes: 0
+  m_ReflectionProbeUsage: 1
+  m_ProbeAnchor: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_PreserveUVs: 0
+  m_ImportantGI: 0
+  m_AutoUVMaxDistance: .5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingOrder: 0
+--- !u!23 &2391412
+MeshRenderer:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 167512}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_Materials:
+  - {fileID: 10302, guid: 0000000000000000f000000000000000, type: 0}
+  m_SubsetIndices: 
+  m_StaticBatchRoot: {fileID: 0}
+  m_UseLightProbes: 0
+  m_ReflectionProbeUsage: 1
+  m_ProbeAnchor: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_PreserveUVs: 0
+  m_ImportantGI: 0
+  m_AutoUVMaxDistance: .5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingOrder: 0
+--- !u!23 &2399314
+MeshRenderer:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 199708}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_Materials:
+  - {fileID: 0}
+  m_SubsetIndices: 
+  m_StaticBatchRoot: {fileID: 0}
+  m_UseLightProbes: 0
+  m_ReflectionProbeUsage: 1
+  m_ProbeAnchor: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_PreserveUVs: 0
+  m_ImportantGI: 0
+  m_AutoUVMaxDistance: .5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingOrder: 0
+--- !u!33 &3305626
+MeshFilter:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 106350}
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!33 &3306440
+MeshFilter:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 194104}
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!33 &3307404
+MeshFilter:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 121900}
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!33 &3307792
+MeshFilter:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 118950}
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!33 &3311700
+MeshFilter:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 139616}
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!33 &3311998
+MeshFilter:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 134702}
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!33 &3316202
+MeshFilter:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 162366}
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!33 &3317048
+MeshFilter:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 128960}
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!33 &3323404
+MeshFilter:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 145606}
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!33 &3325230
+MeshFilter:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 122938}
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!33 &3325784
+MeshFilter:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 139344}
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!33 &3326194
+MeshFilter:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 183650}
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!33 &3332292
+MeshFilter:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 140308}
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!33 &3337752
+MeshFilter:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 113680}
+  m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!33 &3346244
+MeshFilter:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 188560}
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!33 &3347632
+MeshFilter:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 199708}
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!33 &3351392
+MeshFilter:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 112738}
+  m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!33 &3352232
+MeshFilter:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 129396}
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!33 &3353710
+MeshFilter:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 127414}
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!33 &3354892
+MeshFilter:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 140676}
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!33 &3355228
+MeshFilter:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 105920}
+  m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!33 &3356048
+MeshFilter:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 189790}
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!33 &3357196
+MeshFilter:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 167512}
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!33 &3364340
+MeshFilter:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 114248}
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!33 &3389904
+MeshFilter:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 183808}
+  m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!64 &6412640
+MeshCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 113680}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Convex: 0
+  m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!64 &6419248
+MeshCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 167512}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Convex: 0
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!64 &6422948
+MeshCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 114248}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Convex: 0
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!64 &6424452
+MeshCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 112738}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Convex: 0
+  m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!64 &6426886
+MeshCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 106350}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Convex: 0
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!64 &6434786
+MeshCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 128960}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Convex: 0
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!64 &6435634
+MeshCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 118950}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Convex: 0
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!64 &6436708
+MeshCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 127414}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Convex: 0
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!64 &6439578
+MeshCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 183808}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Convex: 0
+  m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!64 &6443320
+MeshCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 188560}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Convex: 0
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!64 &6445068
+MeshCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 129396}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Convex: 0
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!64 &6446820
+MeshCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 112738}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Convex: 0
+  m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!64 &6449244
+MeshCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 114248}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Convex: 0
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!64 &6454348
+MeshCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 113680}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Convex: 0
+  m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!64 &6458828
+MeshCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 140676}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Convex: 0
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!64 &6461036
+MeshCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 112738}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Convex: 0
+  m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!64 &6462310
+MeshCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 140308}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Convex: 0
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!64 &6463054
+MeshCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 105920}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Convex: 0
+  m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!64 &6467212
+MeshCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 167512}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Convex: 0
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!64 &6472734
+MeshCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 122938}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Convex: 0
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!64 &6478880
+MeshCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 194104}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Convex: 0
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!64 &6481806
+MeshCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 145606}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Convex: 0
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!64 &6484722
+MeshCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 162366}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Convex: 0
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!64 &6484982
+MeshCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 139616}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Convex: 0
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!64 &6490548
+MeshCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 134702}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Convex: 0
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!64 &6491922
+MeshCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 105920}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Convex: 0
+  m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!64 &6497352
+MeshCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 139344}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Convex: 0
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!64 &6499102
+MeshCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 183808}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Convex: 0
+  m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &11414332
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 161248}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3bce9737e13a17340acb5aabb86ba137, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  conditions:
+  - e_categoryString: Player
+    e_categoryIndex: 1
+    e_classString: Player Enters Area
+    e_classIndex: 1
+    e_fieldString: Choose An Action
+    e_fieldIndex: 0
+    e_MonoBehaviour: {fileID: 0}
+    e_GameObject: {fileID: 0}
+    p_int: 0000000000000000000000000000000000000000
+    p_bool: 0000000000
+    p_float:
+    - 0
+    - 0
+    - 0
+    - 0
+    - 0
+    p_string:
+    - 
+    - 
+    - 
+    - 
+    - 
+    p_Vector3:
+    - {x: 0, y: 0, z: 0}
+    - {x: 0, y: 0, z: 0}
+    - {x: 0, y: 0, z: 0}
+    - {x: 0, y: 0, z: 0}
+    - {x: 0, y: 0, z: 0}
+    p_Transform:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    p_GameObject:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    p_MonoBehaviour:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    numberCompareString:
+    - Equal To
+    - Greater Than
+    - Less Than
+    vectorCompareString:
+    - Nearer Than
+    - Further Than
+    boolCompareString:
+    - Is False
+    - If True
+    stringCompareString:
+    - Equal To
+    - Different Than
+    compareString: 
+    compareIndex: 0
+    color: {r: 0, g: .579999983, b: .689999998, a: .449999988}
+    editorHeight: 42
+  actions:
+  - e_categoryString: Object
+    e_categoryIndex: 3
+    e_classString: Move This Object
+    e_classIndex: 4
+    e_fieldString: Choose An Action
+    e_fieldIndex: 0
+    e_MonoBehaviour: {fileID: 0}
+    e_GameObject: {fileID: 0}
+    p_int: 0000000000000000000000000000000000000000
+    p_bool: 0000000000
+    p_float:
+    - 0
+    - 0
+    - 0
+    - 0
+    - 0
+    p_string:
+    - 
+    - 
+    - 
+    - 
+    - 
+    p_Vector3:
+    - {x: -83.4000015, y: 1.89999998, z: 516.400024}
+    - {x: 0, y: 0, z: 0}
+    - {x: 0, y: 0, z: 0}
+    - {x: 0, y: 0, z: 0}
+    - {x: 0, y: 0, z: 0}
+    p_Transform:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    p_GameObject:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    p_MonoBehaviour:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    numberCompareString:
+    - Equal To
+    - Greater Than
+    - Less Than
+    vectorCompareString:
+    - Nearer Than
+    - Further Than
+    boolCompareString:
+    - Is False
+    - If True
+    stringCompareString:
+    - Equal To
+    - Different Than
+    compareString: 
+    compareIndex: 0
+    color: {r: 1, g: .460000008, b: 0, a: .550000012}
+    editorHeight: 100
+  - e_categoryString: System
+    e_categoryIndex: 0
+    e_classString: Debug Message
+    e_classIndex: 1
+    e_fieldString: Choose An Action
+    e_fieldIndex: 0
+    e_MonoBehaviour: {fileID: 0}
+    e_GameObject: {fileID: 0}
+    p_int: 0000000000000000000000000000000000000000
+    p_bool: 0000000000
+    p_float:
+    - 0
+    - 0
+    - 0
+    - 0
+    - 0
+    p_string:
+    - F da police!
+    - 
+    - 
+    - 
+    - 
+    p_Vector3:
+    - {x: 0, y: 0, z: 0}
+    - {x: 0, y: 0, z: 0}
+    - {x: 0, y: 0, z: 0}
+    - {x: 0, y: 0, z: 0}
+    - {x: 0, y: 0, z: 0}
+    p_Transform:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    p_GameObject:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    p_MonoBehaviour:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    numberCompareString:
+    - Equal To
+    - Greater Than
+    - Less Than
+    vectorCompareString:
+    - Nearer Than
+    - Further Than
+    boolCompareString:
+    - Is False
+    - If True
+    stringCompareString:
+    - Equal To
+    - Different Than
+    compareString: 
+    compareIndex: 0
+    color: {r: 1, g: .460000008, b: 0, a: .550000012}
+    editorHeight: 42
+  - e_categoryString: Object
+    e_categoryIndex: 3
+    e_classString: Create Prefab At Position
+    e_classIndex: 1
+    e_fieldString: Choose An Action
+    e_fieldIndex: 0
+    e_MonoBehaviour: {fileID: 0}
+    e_GameObject: {fileID: 0}
+    p_int: 0000000000000000000000000000000000000000
+    p_bool: 0000000000
+    p_float:
+    - 0
+    - 0
+    - 0
+    - 0
+    - 0
+    p_string:
+    - 
+    - 
+    - 
+    - 
+    - 
+    p_Vector3:
+    - {x: -77.3700027, y: -.149999604, z: 511.799988}
+    - {x: 0, y: 0, z: 0}
+    - {x: 0, y: 0, z: 0}
+    - {x: 0, y: 0, z: 0}
+    - {x: 0, y: 0, z: 0}
+    p_Transform:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    p_GameObject:
+    - {fileID: 166982, guid: ba74b29ea64543048a3ac52e54c3f1e3, type: 2}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    p_MonoBehaviour:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    numberCompareString:
+    - Equal To
+    - Greater Than
+    - Less Than
+    vectorCompareString:
+    - Nearer Than
+    - Further Than
+    boolCompareString:
+    - Is False
+    - If True
+    stringCompareString:
+    - Equal To
+    - Different Than
+    compareString: 
+    compareIndex: 0
+    color: {r: 1, g: .460000008, b: 0, a: .550000012}
+    editorHeight: 110
+  andOrCompare:
+  - Every Condition
+  - One or More
+  - Exactly One
+  andOrCompareString: Every Condition
+  andOrCompareIndex: 0
+  uniqueId: 
+  isActive: 0
+  isRegional: 1
+  executeOnce: 1
+  hasExecuted: 0
+  totalTimeActive: 0
+  delay: 1
+  regionRadius: 1
+  drawRegionTwo: 1
+  conditionRegionCenter: {x: 0, y: 0, z: 0}
+  conditionRegionRadius: 7
+--- !u!114 &11417686
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 106350}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3bce9737e13a17340acb5aabb86ba137, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  conditions:
+  - e_categoryString: Player
+    e_categoryIndex: 1
+    e_classString: Player Enters Area
+    e_classIndex: 1
+    e_fieldString: Choose An Action
+    e_fieldIndex: 0
+    e_MonoBehaviour: {fileID: 0}
+    e_GameObject: {fileID: 0}
+    p_int: 0000000000000000000000000000000000000000
+    p_bool: 0000000000
+    p_float:
+    - 0
+    - 0
+    - 0
+    - 0
+    - 0
+    p_string:
+    - 
+    - 
+    - 
+    - 
+    - 
+    p_Vector3:
+    - {x: 0, y: 0, z: 0}
+    - {x: 0, y: 0, z: 0}
+    - {x: 0, y: 0, z: 0}
+    - {x: 0, y: 0, z: 0}
+    - {x: 0, y: 0, z: 0}
+    p_Transform:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    p_GameObject:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    p_MonoBehaviour:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    numberCompareString:
+    - Equal To
+    - Greater Than
+    - Less Than
+    vectorCompareString:
+    - Nearer Than
+    - Further Than
+    boolCompareString:
+    - Is False
+    - If True
+    stringCompareString:
+    - Equal To
+    - Different Than
+    compareString: 
+    compareIndex: 0
+    color: {r: 0, g: .579999983, b: .689999998, a: .449999988}
+    editorHeight: 42
+  actions:
+  - e_categoryString: System
+    e_categoryIndex: 0
+    e_classString: Debug Message
+    e_classIndex: 1
+    e_fieldString: Choose An Action
+    e_fieldIndex: 0
+    e_MonoBehaviour: {fileID: 0}
+    e_GameObject: {fileID: 0}
+    p_int: 0000000000000000000000000000000000000000
+    p_bool: 0000000000
+    p_float:
+    - 0
+    - 0
+    - 0
+    - 0
+    - 0
+    p_string:
+    - Hurry to that next one!
+    - 
+    - 
+    - 
+    - 
+    p_Vector3:
+    - {x: 0, y: 0, z: 0}
+    - {x: 0, y: 0, z: 0}
+    - {x: 0, y: 0, z: 0}
+    - {x: 0, y: 0, z: 0}
+    - {x: 0, y: 0, z: 0}
+    p_Transform:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    p_GameObject:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    p_MonoBehaviour:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    numberCompareString:
+    - Equal To
+    - Greater Than
+    - Less Than
+    vectorCompareString:
+    - Nearer Than
+    - Further Than
+    boolCompareString:
+    - Is False
+    - If True
+    stringCompareString:
+    - Equal To
+    - Different Than
+    compareString: 
+    compareIndex: 0
+    color: {r: 1, g: .460000008, b: 0, a: .550000012}
+    editorHeight: 42
+  andOrCompare:
+  - Every Condition
+  - One or More
+  - Exactly One
+  andOrCompareString: Every Condition
+  andOrCompareIndex: 0
+  uniqueId: 
+  isActive: 1
+  isRegional: 1
+  executeOnce: 1
+  hasExecuted: 0
+  totalTimeActive: 0
+  delay: 1
+  regionRadius: 1
+  drawRegionTwo: 1
+  conditionRegionCenter: {x: 0, y: 0, z: 0}
+  conditionRegionRadius: 5
+--- !u!114 &11431544
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 139616}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3bce9737e13a17340acb5aabb86ba137, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  conditions:
+  - e_categoryString: Player
+    e_categoryIndex: 1
+    e_classString: Player Enters Area
+    e_classIndex: 1
+    e_fieldString: Choose An Action
+    e_fieldIndex: 0
+    e_MonoBehaviour: {fileID: 0}
+    e_GameObject: {fileID: 0}
+    p_int: 0000000000000000000000000000000000000000
+    p_bool: 0000000000
+    p_float:
+    - 0
+    - 0
+    - 0
+    - 0
+    - 0
+    p_string:
+    - 
+    - 
+    - 
+    - 
+    - 
+    p_Vector3:
+    - {x: 0, y: 0, z: 0}
+    - {x: 0, y: 0, z: 0}
+    - {x: 0, y: 0, z: 0}
+    - {x: 0, y: 0, z: 0}
+    - {x: 0, y: 0, z: 0}
+    p_Transform:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    p_GameObject:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    p_MonoBehaviour:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    numberCompareString:
+    - Equal To
+    - Greater Than
+    - Less Than
+    vectorCompareString:
+    - Nearer Than
+    - Further Than
+    boolCompareString:
+    - Is False
+    - If True
+    stringCompareString:
+    - Equal To
+    - Different Than
+    compareString: 
+    compareIndex: 0
+    color: {r: 0, g: .579999983, b: .689999998, a: .449999988}
+    editorHeight: 42
+  actions:
+  - e_categoryString: System
+    e_categoryIndex: 0
+    e_classString: Debug Message
+    e_classIndex: 1
+    e_fieldString: Choose An Action
+    e_fieldIndex: 0
+    e_MonoBehaviour: {fileID: 0}
+    e_GameObject: {fileID: 0}
+    p_int: 0000000000000000000000000000000000000000
+    p_bool: 0000000000
+    p_float:
+    - 0
+    - 0
+    - 0
+    - 0
+    - 0
+    p_string:
+    - Eavesdrop. They DEFINITELY can't see you through the window.
+    - 
+    - 
+    - 
+    - 
+    p_Vector3:
+    - {x: 0, y: 0, z: 0}
+    - {x: 0, y: 0, z: 0}
+    - {x: 0, y: 0, z: 0}
+    - {x: 0, y: 0, z: 0}
+    - {x: 0, y: 0, z: 0}
+    p_Transform:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    p_GameObject:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    p_MonoBehaviour:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    numberCompareString:
+    - Equal To
+    - Greater Than
+    - Less Than
+    vectorCompareString:
+    - Nearer Than
+    - Further Than
+    boolCompareString:
+    - Is False
+    - If True
+    stringCompareString:
+    - Equal To
+    - Different Than
+    compareString: 
+    compareIndex: 0
+    color: {r: 1, g: .460000008, b: 0, a: .550000012}
+    editorHeight: 42
+  andOrCompare:
+  - Every Condition
+  - One or More
+  - Exactly One
+  andOrCompareString: Every Condition
+  andOrCompareIndex: 0
+  uniqueId: 
+  isActive: 1
+  isRegional: 1
+  executeOnce: 1
+  hasExecuted: 0
+  totalTimeActive: 0
+  delay: 1
+  regionRadius: 1
+  drawRegionTwo: 1
+  conditionRegionCenter: {x: 0, y: 0, z: 0}
+  conditionRegionRadius: 4
+--- !u!114 &11431884
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 128960}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3bce9737e13a17340acb5aabb86ba137, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  conditions:
+  - e_categoryString: Player
+    e_categoryIndex: 1
+    e_classString: Player Enters Area
+    e_classIndex: 1
+    e_fieldString: Choose An Action
+    e_fieldIndex: 0
+    e_MonoBehaviour: {fileID: 0}
+    e_GameObject: {fileID: 0}
+    p_int: 0000000000000000000000000000000000000000
+    p_bool: 0000000000
+    p_float:
+    - 0
+    - 0
+    - 0
+    - 0
+    - 0
+    p_string:
+    - 
+    - 
+    - 
+    - 
+    - 
+    p_Vector3:
+    - {x: 0, y: 0, z: 0}
+    - {x: 0, y: 0, z: 0}
+    - {x: 0, y: 0, z: 0}
+    - {x: 0, y: 0, z: 0}
+    - {x: 0, y: 0, z: 0}
+    p_Transform:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    p_GameObject:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    p_MonoBehaviour:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    numberCompareString:
+    - Equal To
+    - Greater Than
+    - Less Than
+    vectorCompareString:
+    - Nearer Than
+    - Further Than
+    boolCompareString:
+    - Is False
+    - If True
+    stringCompareString:
+    - Equal To
+    - Different Than
+    compareString: 
+    compareIndex: 0
+    color: {r: 0, g: .579999983, b: .689999998, a: .449999988}
+    editorHeight: 42
+  actions:
+  - e_categoryString: System
+    e_categoryIndex: 0
+    e_classString: Debug Message
+    e_classIndex: 1
+    e_fieldString: Choose An Action
+    e_fieldIndex: 0
+    e_MonoBehaviour: {fileID: 0}
+    e_GameObject: {fileID: 0}
+    p_int: 0000000000000000000000000000000000000000
+    p_bool: 0000000000
+    p_float:
+    - 0
+    - 0
+    - 0
+    - 0
+    - 0
+    p_string:
+    - Turn right at the red light! (There's no red light)
+    - 
+    - 
+    - 
+    - 
+    p_Vector3:
+    - {x: 0, y: 0, z: 0}
+    - {x: 0, y: 0, z: 0}
+    - {x: 0, y: 0, z: 0}
+    - {x: 0, y: 0, z: 0}
+    - {x: 0, y: 0, z: 0}
+    p_Transform:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    p_GameObject:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    p_MonoBehaviour:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    numberCompareString:
+    - Equal To
+    - Greater Than
+    - Less Than
+    vectorCompareString:
+    - Nearer Than
+    - Further Than
+    boolCompareString:
+    - Is False
+    - If True
+    stringCompareString:
+    - Equal To
+    - Different Than
+    compareString: 
+    compareIndex: 0
+    color: {r: 1, g: .460000008, b: 0, a: .550000012}
+    editorHeight: 42
+  andOrCompare:
+  - Every Condition
+  - One or More
+  - Exactly One
+  andOrCompareString: Every Condition
+  andOrCompareIndex: 0
+  uniqueId: 
+  isActive: 1
+  isRegional: 1
+  executeOnce: 1
+  hasExecuted: 0
+  totalTimeActive: 0
+  delay: 1
+  regionRadius: 1
+  drawRegionTwo: 1
+  conditionRegionCenter: {x: 0, y: 0, z: 0}
+  conditionRegionRadius: 5
+--- !u!114 &11443616
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 129396}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3bce9737e13a17340acb5aabb86ba137, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  conditions:
+  - e_categoryString: Player
+    e_categoryIndex: 1
+    e_classString: Player Enters Area
+    e_classIndex: 1
+    e_fieldString: Choose An Action
+    e_fieldIndex: 0
+    e_MonoBehaviour: {fileID: 0}
+    e_GameObject: {fileID: 0}
+    p_int: 0000000000000000000000000000000000000000
+    p_bool: 0000000000
+    p_float:
+    - 0
+    - 0
+    - 0
+    - 0
+    - 0
+    p_string:
+    - 
+    - 
+    - 
+    - 
+    - 
+    p_Vector3:
+    - {x: 0, y: 0, z: 0}
+    - {x: 0, y: 0, z: 0}
+    - {x: 0, y: 0, z: 0}
+    - {x: 0, y: 0, z: 0}
+    - {x: 0, y: 0, z: 0}
+    p_Transform:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    p_GameObject:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    p_MonoBehaviour:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    numberCompareString:
+    - Equal To
+    - Greater Than
+    - Less Than
+    vectorCompareString:
+    - Nearer Than
+    - Further Than
+    boolCompareString:
+    - Is False
+    - If True
+    stringCompareString:
+    - Equal To
+    - Different Than
+    compareString: 
+    compareIndex: 0
+    color: {r: 0, g: .579999983, b: .689999998, a: .449999988}
+    editorHeight: 42
+  actions:
+  - e_categoryString: System
+    e_categoryIndex: 0
+    e_classString: Debug Message
+    e_classIndex: 1
+    e_fieldString: Choose An Action
+    e_fieldIndex: 0
+    e_MonoBehaviour: {fileID: 0}
+    e_GameObject: {fileID: 0}
+    p_int: 0000000000000000000000000000000000000000
+    p_bool: 0000000000
+    p_float:
+    - 0
+    - 0
+    - 0
+    - 0
+    - 0
+    p_string:
+    - Right again, my friend!
+    - 
+    - 
+    - 
+    - 
+    p_Vector3:
+    - {x: 0, y: 0, z: 0}
+    - {x: 0, y: 0, z: 0}
+    - {x: 0, y: 0, z: 0}
+    - {x: 0, y: 0, z: 0}
+    - {x: 0, y: 0, z: 0}
+    p_Transform:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    p_GameObject:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    p_MonoBehaviour:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    numberCompareString:
+    - Equal To
+    - Greater Than
+    - Less Than
+    vectorCompareString:
+    - Nearer Than
+    - Further Than
+    boolCompareString:
+    - Is False
+    - If True
+    stringCompareString:
+    - Equal To
+    - Different Than
+    compareString: 
+    compareIndex: 0
+    color: {r: 1, g: .460000008, b: 0, a: .550000012}
+    editorHeight: 42
+  andOrCompare:
+  - Every Condition
+  - One or More
+  - Exactly One
+  andOrCompareString: Every Condition
+  andOrCompareIndex: 0
+  uniqueId: 
+  isActive: 1
+  isRegional: 1
+  executeOnce: 1
+  hasExecuted: 0
+  totalTimeActive: 0
+  delay: 1
+  regionRadius: 1
+  drawRegionTwo: 1
+  conditionRegionCenter: {x: 0, y: 0, z: 0}
+  conditionRegionRadius: 3.5
+--- !u!114 &11444284
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 188560}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3bce9737e13a17340acb5aabb86ba137, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  conditions:
+  - e_categoryString: Player
+    e_categoryIndex: 1
+    e_classString: Player Enters Area
+    e_classIndex: 1
+    e_fieldString: Choose An Action
+    e_fieldIndex: 0
+    e_MonoBehaviour: {fileID: 0}
+    e_GameObject: {fileID: 0}
+    p_int: 0000000000000000000000000000000000000000
+    p_bool: 0000000000
+    p_float:
+    - 0
+    - 0
+    - 0
+    - 0
+    - 0
+    p_string:
+    - 
+    - 
+    - 
+    - 
+    - 
+    p_Vector3:
+    - {x: 0, y: 0, z: 0}
+    - {x: 0, y: 0, z: 0}
+    - {x: 0, y: 0, z: 0}
+    - {x: 0, y: 0, z: 0}
+    - {x: 0, y: 0, z: 0}
+    p_Transform:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    p_GameObject:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    p_MonoBehaviour:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    numberCompareString:
+    - Equal To
+    - Greater Than
+    - Less Than
+    vectorCompareString:
+    - Nearer Than
+    - Further Than
+    boolCompareString:
+    - Is False
+    - If True
+    stringCompareString:
+    - Equal To
+    - Different Than
+    compareString: 
+    compareIndex: 0
+    color: {r: 0, g: .579999983, b: .689999998, a: .449999988}
+    editorHeight: 42
+  actions:
+  - e_categoryString: System
+    e_categoryIndex: 0
+    e_classString: Debug Message
+    e_classIndex: 1
+    e_fieldString: Choose An Action
+    e_fieldIndex: 0
+    e_MonoBehaviour: {fileID: 0}
+    e_GameObject: {fileID: 0}
+    p_int: 0000000000000000000000000000000000000000
+    p_bool: 0000000000
+    p_float:
+    - 0
+    - 0
+    - 0
+    - 0
+    - 0
+    p_string:
+    - Jump down on the cart
+    - 
+    - 
+    - 
+    - 
+    p_Vector3:
+    - {x: 0, y: 0, z: 0}
+    - {x: 0, y: 0, z: 0}
+    - {x: 0, y: 0, z: 0}
+    - {x: 0, y: 0, z: 0}
+    - {x: 0, y: 0, z: 0}
+    p_Transform:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    p_GameObject:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    p_MonoBehaviour:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    numberCompareString:
+    - Equal To
+    - Greater Than
+    - Less Than
+    vectorCompareString:
+    - Nearer Than
+    - Further Than
+    boolCompareString:
+    - Is False
+    - If True
+    stringCompareString:
+    - Equal To
+    - Different Than
+    compareString: 
+    compareIndex: 0
+    color: {r: 1, g: .460000008, b: 0, a: .550000012}
+    editorHeight: 42
+  andOrCompare:
+  - Every Condition
+  - One or More
+  - Exactly One
+  andOrCompareString: Every Condition
+  andOrCompareIndex: 0
+  uniqueId: 
+  isActive: 1
+  isRegional: 1
+  executeOnce: 1
+  hasExecuted: 0
+  totalTimeActive: 0
+  delay: 1
+  regionRadius: 1
+  drawRegionTwo: 1
+  conditionRegionCenter: {x: 0, y: 0, z: 0}
+  conditionRegionRadius: 3
+--- !u!114 &11451196
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 140676}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3bce9737e13a17340acb5aabb86ba137, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  conditions:
+  - e_categoryString: Player
+    e_categoryIndex: 1
+    e_classString: Player Enters Area
+    e_classIndex: 1
+    e_fieldString: Choose An Action
+    e_fieldIndex: 0
+    e_MonoBehaviour: {fileID: 0}
+    e_GameObject: {fileID: 0}
+    p_int: 0000000000000000000000000000000000000000
+    p_bool: 0000000000
+    p_float:
+    - 0
+    - 0
+    - 0
+    - 0
+    - 0
+    p_string:
+    - 
+    - 
+    - 
+    - 
+    - 
+    p_Vector3:
+    - {x: 0, y: 0, z: 0}
+    - {x: 0, y: 0, z: 0}
+    - {x: 0, y: 0, z: 0}
+    - {x: 0, y: 0, z: 0}
+    - {x: 0, y: 0, z: 0}
+    p_Transform:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    p_GameObject:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    p_MonoBehaviour:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    numberCompareString:
+    - Equal To
+    - Greater Than
+    - Less Than
+    vectorCompareString:
+    - Nearer Than
+    - Further Than
+    boolCompareString:
+    - Is False
+    - If True
+    stringCompareString:
+    - Equal To
+    - Different Than
+    compareString: 
+    compareIndex: 0
+    color: {r: 0, g: .579999983, b: .689999998, a: .449999988}
+    editorHeight: 42
+  actions:
+  - e_categoryString: System
+    e_categoryIndex: 0
+    e_classString: Debug Message
+    e_classIndex: 1
+    e_fieldString: Choose An Action
+    e_fieldIndex: 0
+    e_MonoBehaviour: {fileID: 0}
+    e_GameObject: {fileID: 0}
+    p_int: 0000000000000000000000000000000000000000
+    p_bool: 0000000000
+    p_float:
+    - 0
+    - 0
+    - 0
+    - 0
+    - 0
+    p_string:
+    - Sprint past the guard
+    - 
+    - 
+    - 
+    - 
+    p_Vector3:
+    - {x: 0, y: 0, z: 0}
+    - {x: 0, y: 0, z: 0}
+    - {x: 0, y: 0, z: 0}
+    - {x: 0, y: 0, z: 0}
+    - {x: 0, y: 0, z: 0}
+    p_Transform:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    p_GameObject:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    p_MonoBehaviour:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    numberCompareString:
+    - Equal To
+    - Greater Than
+    - Less Than
+    vectorCompareString:
+    - Nearer Than
+    - Further Than
+    boolCompareString:
+    - Is False
+    - If True
+    stringCompareString:
+    - Equal To
+    - Different Than
+    compareString: 
+    compareIndex: 0
+    color: {r: 1, g: .460000008, b: 0, a: .550000012}
+    editorHeight: 42
+  - e_categoryString: Object
+    e_categoryIndex: 3
+    e_classString: Create Prefab At Position
+    e_classIndex: 1
+    e_fieldString: Choose An Action
+    e_fieldIndex: 0
+    e_MonoBehaviour: {fileID: 0}
+    e_GameObject: {fileID: 0}
+    p_int: 0000000000000000000000000000000000000000
+    p_bool: 0000000000
+    p_float:
+    - 0
+    - 0
+    - 0
+    - 0
+    - 0
+    p_string:
+    - 
+    - 
+    - 
+    - 
+    - 
+    p_Vector3:
+    - {x: 2.7468071, y: 0, z: 600.8125}
+    - {x: 0, y: 0, z: 0}
+    - {x: 0, y: 0, z: 0}
+    - {x: 0, y: 0, z: 0}
+    - {x: 0, y: 0, z: 0}
+    p_Transform:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    p_GameObject:
+    - {fileID: 166982, guid: ba74b29ea64543048a3ac52e54c3f1e3, type: 2}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    p_MonoBehaviour:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    numberCompareString:
+    - Equal To
+    - Greater Than
+    - Less Than
+    vectorCompareString:
+    - Nearer Than
+    - Further Than
+    boolCompareString:
+    - Is False
+    - If True
+    stringCompareString:
+    - Equal To
+    - Different Than
+    compareString: 
+    compareIndex: 0
+    color: {r: 1, g: .460000008, b: 0, a: .550000012}
+    editorHeight: 110
+  andOrCompare:
+  - Every Condition
+  - One or More
+  - Exactly One
+  andOrCompareString: Every Condition
+  andOrCompareIndex: 0
+  uniqueId: 
+  isActive: 1
+  isRegional: 1
+  executeOnce: 1
+  hasExecuted: 0
+  totalTimeActive: 0
+  delay: 1
+  regionRadius: 1
+  drawRegionTwo: 1
+  conditionRegionCenter: {x: 0, y: 0, z: 0}
+  conditionRegionRadius: 6
+--- !u!114 &11456064
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 194104}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3bce9737e13a17340acb5aabb86ba137, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  conditions:
+  - e_categoryString: Player
+    e_categoryIndex: 1
+    e_classString: Player Enters Area
+    e_classIndex: 1
+    e_fieldString: Choose An Action
+    e_fieldIndex: 0
+    e_MonoBehaviour: {fileID: 0}
+    e_GameObject: {fileID: 0}
+    p_int: 0000000000000000000000000000000000000000
+    p_bool: 0000000000
+    p_float:
+    - 0
+    - 0
+    - 0
+    - 0
+    - 0
+    p_string:
+    - 
+    - 
+    - 
+    - 
+    - 
+    p_Vector3:
+    - {x: 0, y: 0, z: 0}
+    - {x: 0, y: 0, z: 0}
+    - {x: 0, y: 0, z: 0}
+    - {x: 0, y: 0, z: 0}
+    - {x: 0, y: 0, z: 0}
+    p_Transform:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    p_GameObject:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    p_MonoBehaviour:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    numberCompareString:
+    - Equal To
+    - Greater Than
+    - Less Than
+    vectorCompareString:
+    - Nearer Than
+    - Further Than
+    boolCompareString:
+    - Is False
+    - If True
+    stringCompareString:
+    - Equal To
+    - Different Than
+    compareString: 
+    compareIndex: 0
+    color: {r: 0, g: .579999983, b: .689999998, a: .449999988}
+    editorHeight: 42
+  actions:
+  - e_categoryString: System
+    e_categoryIndex: 0
+    e_classString: Debug Message
+    e_classIndex: 1
+    e_fieldString: Choose An Action
+    e_fieldIndex: 0
+    e_MonoBehaviour: {fileID: 0}
+    e_GameObject: {fileID: 0}
+    p_int: 0000000000000000000000000000000000000000
+    p_bool: 0000000000
+    p_float:
+    - 0
+    - 0
+    - 0
+    - 0
+    - 0
+    p_string:
+    - Knock dat vase down, and leave the crime scene
+    - 
+    - 
+    - 
+    - 
+    p_Vector3:
+    - {x: 0, y: 0, z: 0}
+    - {x: 0, y: 0, z: 0}
+    - {x: 0, y: 0, z: 0}
+    - {x: 0, y: 0, z: 0}
+    - {x: 0, y: 0, z: 0}
+    p_Transform:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    p_GameObject:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    p_MonoBehaviour:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    numberCompareString:
+    - Equal To
+    - Greater Than
+    - Less Than
+    vectorCompareString:
+    - Nearer Than
+    - Further Than
+    boolCompareString:
+    - Is False
+    - If True
+    stringCompareString:
+    - Equal To
+    - Different Than
+    compareString: 
+    compareIndex: 0
+    color: {r: 1, g: .460000008, b: 0, a: .550000012}
+    editorHeight: 42
+  andOrCompare:
+  - Every Condition
+  - One or More
+  - Exactly One
+  andOrCompareString: Every Condition
+  andOrCompareIndex: 0
+  uniqueId: 
+  isActive: 1
+  isRegional: 1
+  executeOnce: 1
+  hasExecuted: 0
+  totalTimeActive: 0
+  delay: 1
+  regionRadius: 1
+  drawRegionTwo: 1
+  conditionRegionCenter: {x: 0, y: 0, z: 0}
+  conditionRegionRadius: 8
+--- !u!114 &11458066
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 134702}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3bce9737e13a17340acb5aabb86ba137, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  conditions:
+  - e_categoryString: Player
+    e_categoryIndex: 1
+    e_classString: Player Enters Area
+    e_classIndex: 1
+    e_fieldString: Choose An Action
+    e_fieldIndex: 0
+    e_MonoBehaviour: {fileID: 0}
+    e_GameObject: {fileID: 0}
+    p_int: 0000000000000000000000000000000000000000
+    p_bool: 0000000000
+    p_float:
+    - 0
+    - 0
+    - 0
+    - 0
+    - 0
+    p_string:
+    - 
+    - 
+    - 
+    - 
+    - 
+    p_Vector3:
+    - {x: 0, y: 0, z: 0}
+    - {x: 0, y: 0, z: 0}
+    - {x: 0, y: 0, z: 0}
+    - {x: 0, y: 0, z: 0}
+    - {x: 0, y: 0, z: 0}
+    p_Transform:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    p_GameObject:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    p_MonoBehaviour:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    numberCompareString:
+    - Equal To
+    - Greater Than
+    - Less Than
+    vectorCompareString:
+    - Nearer Than
+    - Further Than
+    boolCompareString:
+    - Is False
+    - If True
+    stringCompareString:
+    - Equal To
+    - Different Than
+    compareString: 
+    compareIndex: 0
+    color: {r: 0, g: .579999983, b: .689999998, a: .449999988}
+    editorHeight: 42
+  actions:
+  - e_categoryString: System
+    e_categoryIndex: 0
+    e_classString: Debug Message
+    e_classIndex: 1
+    e_fieldString: Choose An Action
+    e_fieldIndex: 0
+    e_MonoBehaviour: {fileID: 0}
+    e_GameObject: {fileID: 0}
+    p_int: 0000000000000000000000000000000000000000
+    p_bool: 0000000000
+    p_float:
+    - 0
+    - 0
+    - 0
+    - 0
+    - 0
+    p_string:
+    - Keep going!
+    - 
+    - 
+    - 
+    - 
+    p_Vector3:
+    - {x: 0, y: 0, z: 0}
+    - {x: 0, y: 0, z: 0}
+    - {x: 0, y: 0, z: 0}
+    - {x: 0, y: 0, z: 0}
+    - {x: 0, y: 0, z: 0}
+    p_Transform:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    p_GameObject:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    p_MonoBehaviour:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    numberCompareString:
+    - Equal To
+    - Greater Than
+    - Less Than
+    vectorCompareString:
+    - Nearer Than
+    - Further Than
+    boolCompareString:
+    - Is False
+    - If True
+    stringCompareString:
+    - Equal To
+    - Different Than
+    compareString: 
+    compareIndex: 0
+    color: {r: 1, g: .460000008, b: 0, a: .550000012}
+    editorHeight: 42
+  andOrCompare:
+  - Every Condition
+  - One or More
+  - Exactly One
+  andOrCompareString: Every Condition
+  andOrCompareIndex: 0
+  uniqueId: 
+  isActive: 1
+  isRegional: 1
+  executeOnce: 1
+  hasExecuted: 0
+  totalTimeActive: 0
+  delay: 1
+  regionRadius: 1
+  drawRegionTwo: 1
+  conditionRegionCenter: {x: 0, y: 0, z: 0}
+  conditionRegionRadius: 5
+--- !u!114 &11460858
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 122938}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3bce9737e13a17340acb5aabb86ba137, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  conditions:
+  - e_categoryString: Player
+    e_categoryIndex: 1
+    e_classString: Player Enters Area
+    e_classIndex: 1
+    e_fieldString: Choose An Action
+    e_fieldIndex: 0
+    e_MonoBehaviour: {fileID: 0}
+    e_GameObject: {fileID: 0}
+    p_int: 0000000000000000000000000000000000000000
+    p_bool: 0000000000
+    p_float:
+    - 0
+    - 0
+    - 0
+    - 0
+    - 0
+    p_string:
+    - 
+    - 
+    - 
+    - 
+    - 
+    p_Vector3:
+    - {x: 0, y: 0, z: 0}
+    - {x: 0, y: 0, z: 0}
+    - {x: 0, y: 0, z: 0}
+    - {x: 0, y: 0, z: 0}
+    - {x: 0, y: 0, z: 0}
+    p_Transform:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    p_GameObject:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    p_MonoBehaviour:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    numberCompareString:
+    - Equal To
+    - Greater Than
+    - Less Than
+    vectorCompareString:
+    - Nearer Than
+    - Further Than
+    boolCompareString:
+    - Is False
+    - If True
+    stringCompareString:
+    - Equal To
+    - Different Than
+    compareString: 
+    compareIndex: 0
+    color: {r: 0, g: .579999983, b: .689999998, a: .449999988}
+    editorHeight: 42
+  actions:
+  - e_categoryString: System
+    e_categoryIndex: 0
+    e_classString: Debug Message
+    e_classIndex: 1
+    e_fieldString: Choose An Action
+    e_fieldIndex: 0
+    e_MonoBehaviour: {fileID: 0}
+    e_GameObject: {fileID: 0}
+    p_int: 0000000000000000000000000000000000000000
+    p_bool: 0000000000
+    p_float:
+    - 0
+    - 0
+    - 0
+    - 0
+    - 0
+    p_string:
+    - Turn left, dummy
+    - 
+    - 
+    - 
+    - 
+    p_Vector3:
+    - {x: 0, y: 0, z: 0}
+    - {x: 0, y: 0, z: 0}
+    - {x: 0, y: 0, z: 0}
+    - {x: 0, y: 0, z: 0}
+    - {x: 0, y: 0, z: 0}
+    p_Transform:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    p_GameObject:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    p_MonoBehaviour:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    numberCompareString:
+    - Equal To
+    - Greater Than
+    - Less Than
+    vectorCompareString:
+    - Nearer Than
+    - Further Than
+    boolCompareString:
+    - Is False
+    - If True
+    stringCompareString:
+    - Equal To
+    - Different Than
+    compareString: 
+    compareIndex: 0
+    color: {r: 1, g: .460000008, b: 0, a: .550000012}
+    editorHeight: 42
+  andOrCompare:
+  - Every Condition
+  - One or More
+  - Exactly One
+  andOrCompareString: Every Condition
+  andOrCompareIndex: 0
+  uniqueId: 
+  isActive: 1
+  isRegional: 1
+  executeOnce: 1
+  hasExecuted: 0
+  totalTimeActive: 0
+  delay: 1
+  regionRadius: 1
+  drawRegionTwo: 1
+  conditionRegionCenter: {x: 0, y: 0, z: 0}
+  conditionRegionRadius: 3.5
+--- !u!114 &11463108
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 127414}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3bce9737e13a17340acb5aabb86ba137, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  conditions:
+  - e_categoryString: Player
+    e_categoryIndex: 1
+    e_classString: Player Enters Area
+    e_classIndex: 1
+    e_fieldString: field
+    e_fieldIndex: 0
+    e_MonoBehaviour: {fileID: 0}
+    e_GameObject: {fileID: 0}
+    p_int: 0000000000000000000000000000000000000000
+    p_bool: 0000000000
+    p_float:
+    - 0
+    - 0
+    - 0
+    - 0
+    - 0
+    p_string:
+    - 
+    - 
+    - 
+    - 
+    - 
+    p_Vector3:
+    - {x: 0, y: 0, z: 0}
+    - {x: 0, y: 0, z: 0}
+    - {x: 0, y: 0, z: 0}
+    - {x: 0, y: 0, z: 0}
+    - {x: 0, y: 0, z: 0}
+    p_Transform:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    p_GameObject:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    p_MonoBehaviour:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    numberCompareString:
+    - Equal To
+    - Greater Than
+    - Less Than
+    vectorCompareString:
+    - Nearer Than
+    - Further Than
+    boolCompareString:
+    - Is False
+    - If True
+    stringCompareString:
+    - Equal To
+    - Different Than
+    compareString: Equal To
+    compareIndex: 0
+    color: {r: 0, g: .579999983, b: .689999998, a: .449999988}
+    editorHeight: 42
+  actions:
+  - e_categoryString: Object
+    e_categoryIndex: 3
+    e_classString: Create Prefab At Position
+    e_classIndex: 1
+    e_fieldString: Choose An Action
+    e_fieldIndex: 0
+    e_MonoBehaviour: {fileID: 0}
+    e_GameObject: {fileID: 0}
+    p_int: 0000000000000000000000000000000000000000
+    p_bool: 0000000000
+    p_float:
+    - 0
+    - 0
+    - 0
+    - 0
+    - 0
+    p_string:
+    - 
+    - 
+    - 
+    - 
+    - 
+    p_Vector3:
+    - {x: 48.1968117, y: .100000001, z: 615.112488}
+    - {x: 0, y: 0, z: 0}
+    - {x: 0, y: 0, z: 0}
+    - {x: 0, y: 0, z: 0}
+    - {x: 0, y: 0, z: 0}
+    p_Transform:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    p_GameObject:
+    - {fileID: 123232, guid: 26922a4de1227d34180775cd6647f262, type: 2}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    p_MonoBehaviour:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    numberCompareString:
+    - Equal To
+    - Greater Than
+    - Less Than
+    vectorCompareString:
+    - Nearer Than
+    - Further Than
+    boolCompareString:
+    - Is False
+    - If True
+    stringCompareString:
+    - Equal To
+    - Different Than
+    compareString: 
+    compareIndex: 0
+    color: {r: 1, g: .460000008, b: 0, a: .550000012}
+    editorHeight: 110
+  - e_categoryString: System
+    e_categoryIndex: 0
+    e_classString: Debug Message
+    e_classIndex: 1
+    e_fieldString: Choose An Action
+    e_fieldIndex: 0
+    e_MonoBehaviour: {fileID: 0}
+    e_GameObject: {fileID: 0}
+    p_int: 0000000000000000000000000000000000000000
+    p_bool: 0000000000
+    p_float:
+    - 0
+    - 0
+    - 0
+    - 0
+    - 0
+    p_string:
+    - Turn right to avoid the guard
+    - 
+    - 
+    - 
+    - 
+    p_Vector3:
+    - {x: 0, y: 0, z: 0}
+    - {x: 0, y: 0, z: 0}
+    - {x: 0, y: 0, z: 0}
+    - {x: 0, y: 0, z: 0}
+    - {x: 0, y: 0, z: 0}
+    p_Transform:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    p_GameObject:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    p_MonoBehaviour:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    numberCompareString:
+    - Equal To
+    - Greater Than
+    - Less Than
+    vectorCompareString:
+    - Nearer Than
+    - Further Than
+    boolCompareString:
+    - Is False
+    - If True
+    stringCompareString:
+    - Equal To
+    - Different Than
+    compareString: 
+    compareIndex: 0
+    color: {r: 1, g: .460000008, b: 0, a: .550000012}
+    editorHeight: 42
+  - e_categoryString: Object
+    e_categoryIndex: 3
+    e_classString: Create Prefab At Position
+    e_classIndex: 1
+    e_fieldString: Choose An Action
+    e_fieldIndex: 0
+    e_MonoBehaviour: {fileID: 0}
+    e_GameObject: {fileID: 0}
+    p_int: 0000000000000000000000000000000000000000
+    p_bool: 0000000000
+    p_float:
+    - 0
+    - 0
+    - 0
+    - 0
+    - 0
+    p_string:
+    - 
+    - 
+    - 
+    - 
+    - 
+    p_Vector3:
+    - {x: 61.3400002, y: -.119999997, z: 614.679993}
+    - {x: 0, y: 0, z: 0}
+    - {x: 0, y: 0, z: 0}
+    - {x: 0, y: 0, z: 0}
+    - {x: 0, y: 0, z: 0}
+    p_Transform:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    p_GameObject:
+    - {fileID: 161442, guid: bd64542917ec7384f9c36259242e94d6, type: 2}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    p_MonoBehaviour:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    numberCompareString:
+    - Equal To
+    - Greater Than
+    - Less Than
+    vectorCompareString:
+    - Nearer Than
+    - Further Than
+    boolCompareString:
+    - Is False
+    - If True
+    stringCompareString:
+    - Equal To
+    - Different Than
+    compareString: 
+    compareIndex: 0
+    color: {r: 1, g: .460000008, b: 0, a: .550000012}
+    editorHeight: 110
+  - e_categoryString: Object Script
+    e_categoryIndex: 6
+    e_classString: AIMain
+    e_classIndex: 0
+    e_fieldString: SetAgression
+    e_fieldIndex: 0
+    e_MonoBehaviour: {fileID: 11406712, guid: bd64542917ec7384f9c36259242e94d6, type: 2}
+    e_GameObject: {fileID: 161442, guid: bd64542917ec7384f9c36259242e94d6, type: 2}
+    p_int: 0000000000000000000000000000000000000000
+    p_bool: 0100000000
+    p_float:
+    - 0
+    - 0
+    - 0
+    - 0
+    - 0
+    p_string:
+    - 
+    - 
+    - 
+    - 
+    - 
+    p_Vector3:
+    - {x: 0, y: 0, z: 0}
+    - {x: 0, y: 0, z: 0}
+    - {x: 0, y: 0, z: 0}
+    - {x: 0, y: 0, z: 0}
+    - {x: 0, y: 0, z: 0}
+    p_Transform:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    p_GameObject:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    p_MonoBehaviour:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    numberCompareString:
+    - Equal To
+    - Greater Than
+    - Less Than
+    vectorCompareString:
+    - Nearer Than
+    - Further Than
+    boolCompareString:
+    - Is False
+    - If True
+    stringCompareString:
+    - Equal To
+    - Different Than
+    compareString: 
+    compareIndex: 0
+    color: {r: 1, g: .460000008, b: 0, a: .550000012}
+    editorHeight: 126
+  andOrCompare:
+  - Every Condition
+  - One or More
+  - Exactly One
+  andOrCompareString: Every Condition
+  andOrCompareIndex: 0
+  uniqueId: Event 2
+  isActive: 1
+  isRegional: 1
+  executeOnce: 1
+  hasExecuted: 0
+  totalTimeActive: 0
+  delay: 1
+  regionRadius: 1
+  drawRegionTwo: 1
+  conditionRegionCenter: {x: 0, y: 0, z: 0}
+  conditionRegionRadius: 8.5
+--- !u!114 &11464008
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 127414}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3bce9737e13a17340acb5aabb86ba137, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  conditions:
+  - e_categoryString: Player
+    e_categoryIndex: 1
+    e_classString: Player Leaves Area
+    e_classIndex: 2
+    e_fieldString: Choose An Action
+    e_fieldIndex: 0
+    e_MonoBehaviour: {fileID: 0}
+    e_GameObject: {fileID: 0}
+    p_int: 0000000000000000000000000000000000000000
+    p_bool: 0000000000
+    p_float:
+    - 0
+    - 0
+    - 0
+    - 0
+    - 0
+    p_string:
+    - 
+    - 
+    - 
+    - 
+    - 
+    p_Vector3:
+    - {x: 0, y: 0, z: 0}
+    - {x: 0, y: 0, z: 0}
+    - {x: 0, y: 0, z: 0}
+    - {x: 0, y: 0, z: 0}
+    - {x: 0, y: 0, z: 0}
+    p_Transform:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    p_GameObject:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    p_MonoBehaviour:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    numberCompareString:
+    - Equal To
+    - Greater Than
+    - Less Than
+    vectorCompareString:
+    - Nearer Than
+    - Further Than
+    boolCompareString:
+    - Is False
+    - If True
+    stringCompareString:
+    - Equal To
+    - Different Than
+    compareString: 
+    compareIndex: 0
+    color: {r: 0, g: .579999983, b: .689999998, a: .449999988}
+    editorHeight: 42
+  actions:
+  - e_categoryString: Object Script
+    e_categoryIndex: 6
+    e_classString: AIMain
+    e_classIndex: 0
+    e_fieldString: SetAgression
+    e_fieldIndex: 0
+    e_MonoBehaviour: {fileID: 11406712, guid: bd64542917ec7384f9c36259242e94d6, type: 2}
+    e_GameObject: {fileID: 161442, guid: bd64542917ec7384f9c36259242e94d6, type: 2}
+    p_int: 0000000000000000000000000000000000000000
+    p_bool: 0000000000
+    p_float:
+    - 0
+    - 0
+    - 0
+    - 0
+    - 0
+    p_string:
+    - 
+    - 
+    - 
+    - 
+    - 
+    p_Vector3:
+    - {x: 0, y: 0, z: 0}
+    - {x: 0, y: 0, z: 0}
+    - {x: 0, y: 0, z: 0}
+    - {x: 0, y: 0, z: 0}
+    - {x: 0, y: 0, z: 0}
+    p_Transform:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    p_GameObject:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    p_MonoBehaviour:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    numberCompareString:
+    - Equal To
+    - Greater Than
+    - Less Than
+    vectorCompareString:
+    - Nearer Than
+    - Further Than
+    boolCompareString:
+    - Is False
+    - If True
+    stringCompareString:
+    - Equal To
+    - Different Than
+    compareString: 
+    compareIndex: 0
+    color: {r: 1, g: .460000008, b: 0, a: .550000012}
+    editorHeight: 126
+  andOrCompare:
+  - Every Condition
+  - One or More
+  - Exactly One
+  andOrCompareString: Every Condition
+  andOrCompareIndex: 0
+  uniqueId: 
+  isActive: 0
+  isRegional: 1
+  executeOnce: 1
+  hasExecuted: 0
+  totalTimeActive: 0
+  delay: 1
+  regionRadius: 1
+  drawRegionTwo: 1
+  conditionRegionCenter: {x: 0, y: 0, z: 0}
+  conditionRegionRadius: 10
+--- !u!114 &11466312
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 183650}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3bce9737e13a17340acb5aabb86ba137, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  conditions:
+  - e_categoryString: Player
+    e_categoryIndex: 1
+    e_classString: Player Enters Area
+    e_classIndex: 1
+    e_fieldString: Choose An Action
+    e_fieldIndex: 0
+    e_MonoBehaviour: {fileID: 0}
+    e_GameObject: {fileID: 0}
+    p_int: 0000000000000000000000000000000000000000
+    p_bool: 0000000000
+    p_float:
+    - 0
+    - 0
+    - 0
+    - 0
+    - 0
+    p_string:
+    - 
+    - 
+    - 
+    - 
+    - 
+    p_Vector3:
+    - {x: 0, y: 0, z: 0}
+    - {x: 0, y: 0, z: 0}
+    - {x: 0, y: 0, z: 0}
+    - {x: 0, y: 0, z: 0}
+    - {x: 0, y: 0, z: 0}
+    p_Transform:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    p_GameObject:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    p_MonoBehaviour:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    numberCompareString:
+    - Equal To
+    - Greater Than
+    - Less Than
+    vectorCompareString:
+    - Nearer Than
+    - Further Than
+    boolCompareString:
+    - Is False
+    - If True
+    stringCompareString:
+    - Equal To
+    - Different Than
+    compareString: 
+    compareIndex: 0
+    color: {r: 0, g: .579999983, b: .689999998, a: .449999988}
+    editorHeight: 42
+  actions:
+  - e_categoryString: System
+    e_categoryIndex: 0
+    e_classString: Debug Message
+    e_classIndex: 1
+    e_fieldString: Choose An Action
+    e_fieldIndex: 0
+    e_MonoBehaviour: {fileID: 0}
+    e_GameObject: {fileID: 0}
+    p_int: 0000000000000000000000000000000000000000
+    p_bool: 0000000000
+    p_float:
+    - 0
+    - 0
+    - 0
+    - 0
+    - 0
+    p_string:
+    - Gp up da ladder
+    - 
+    - 
+    - 
+    - 
+    p_Vector3:
+    - {x: 0, y: 0, z: 0}
+    - {x: 0, y: 0, z: 0}
+    - {x: 0, y: 0, z: 0}
+    - {x: 0, y: 0, z: 0}
+    - {x: 0, y: 0, z: 0}
+    p_Transform:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    p_GameObject:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    p_MonoBehaviour:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    numberCompareString:
+    - Equal To
+    - Greater Than
+    - Less Than
+    vectorCompareString:
+    - Nearer Than
+    - Further Than
+    boolCompareString:
+    - Is False
+    - If True
+    stringCompareString:
+    - Equal To
+    - Different Than
+    compareString: 
+    compareIndex: 0
+    color: {r: 1, g: .460000008, b: 0, a: .550000012}
+    editorHeight: 42
+  andOrCompare:
+  - Every Condition
+  - One or More
+  - Exactly One
+  andOrCompareString: Every Condition
+  andOrCompareIndex: 0
+  uniqueId: 
+  isActive: 1
+  isRegional: 1
+  executeOnce: 1
+  hasExecuted: 0
+  totalTimeActive: 0
+  delay: 1
+  regionRadius: 1
+  drawRegionTwo: 1
+  conditionRegionCenter: {x: 0, y: 0, z: 0}
+  conditionRegionRadius: 3
+--- !u!114 &11467562
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 189790}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3bce9737e13a17340acb5aabb86ba137, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  conditions:
+  - e_categoryString: Player
+    e_categoryIndex: 1
+    e_classString: Player Enters Area
+    e_classIndex: 1
+    e_fieldString: Choose An Action
+    e_fieldIndex: 0
+    e_MonoBehaviour: {fileID: 0}
+    e_GameObject: {fileID: 0}
+    p_int: 0000000000000000000000000000000000000000
+    p_bool: 0000000000
+    p_float:
+    - 0
+    - 0
+    - 0
+    - 0
+    - 0
+    p_string:
+    - 
+    - 
+    - 
+    - 
+    - 
+    p_Vector3:
+    - {x: 0, y: 0, z: 0}
+    - {x: 0, y: 0, z: 0}
+    - {x: 0, y: 0, z: 0}
+    - {x: 0, y: 0, z: 0}
+    - {x: 0, y: 0, z: 0}
+    p_Transform:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    p_GameObject:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    p_MonoBehaviour:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    numberCompareString:
+    - Equal To
+    - Greater Than
+    - Less Than
+    vectorCompareString:
+    - Nearer Than
+    - Further Than
+    boolCompareString:
+    - Is False
+    - If True
+    stringCompareString:
+    - Equal To
+    - Different Than
+    compareString: 
+    compareIndex: 0
+    color: {r: 0, g: .579999983, b: .689999998, a: .449999988}
+    editorHeight: 42
+  actions:
+  - e_categoryString: System
+    e_categoryIndex: 0
+    e_classString: Debug Message
+    e_classIndex: 1
+    e_fieldString: Choose An Action
+    e_fieldIndex: 0
+    e_MonoBehaviour: {fileID: 0}
+    e_GameObject: {fileID: 0}
+    p_int: 0000000000000000000000000000000000000000
+    p_bool: 0000000000
+    p_float:
+    - 0
+    - 0
+    - 0
+    - 0
+    - 0
+    p_string:
+    - Hey look, a hiding spot. Hide, ya dummy
+    - 
+    - 
+    - 
+    - 
+    p_Vector3:
+    - {x: 0, y: 0, z: 0}
+    - {x: 0, y: 0, z: 0}
+    - {x: 0, y: 0, z: 0}
+    - {x: 0, y: 0, z: 0}
+    - {x: 0, y: 0, z: 0}
+    p_Transform:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    p_GameObject:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    p_MonoBehaviour:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    numberCompareString:
+    - Equal To
+    - Greater Than
+    - Less Than
+    vectorCompareString:
+    - Nearer Than
+    - Further Than
+    boolCompareString:
+    - Is False
+    - If True
+    stringCompareString:
+    - Equal To
+    - Different Than
+    compareString: 
+    compareIndex: 0
+    color: {r: 1, g: .460000008, b: 0, a: .550000012}
+    editorHeight: 42
+  andOrCompare:
+  - Every Condition
+  - One or More
+  - Exactly One
+  andOrCompareString: Every Condition
+  andOrCompareIndex: 0
+  uniqueId: 
+  isActive: 1
+  isRegional: 0
+  executeOnce: 1
+  hasExecuted: 0
+  totalTimeActive: 0
+  delay: 1
+  regionRadius: 1
+  drawRegionTwo: 1
+  conditionRegionCenter: {x: 0, y: 0, z: 0}
+  conditionRegionRadius: 3
+--- !u!114 &11474434
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 139344}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3bce9737e13a17340acb5aabb86ba137, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  conditions:
+  - e_categoryString: Player
+    e_categoryIndex: 1
+    e_classString: Player Enters Area
+    e_classIndex: 1
+    e_fieldString: Choose An Action
+    e_fieldIndex: 0
+    e_MonoBehaviour: {fileID: 0}
+    e_GameObject: {fileID: 0}
+    p_int: 0000000000000000000000000000000000000000
+    p_bool: 0000000000
+    p_float:
+    - 0
+    - 0
+    - 0
+    - 0
+    - 0
+    p_string:
+    - 
+    - 
+    - 
+    - 
+    - 
+    p_Vector3:
+    - {x: 0, y: 0, z: 0}
+    - {x: 0, y: 0, z: 0}
+    - {x: 0, y: 0, z: 0}
+    - {x: 0, y: 0, z: 0}
+    - {x: 0, y: 0, z: 0}
+    p_Transform:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    p_GameObject:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    p_MonoBehaviour:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    numberCompareString:
+    - Equal To
+    - Greater Than
+    - Less Than
+    vectorCompareString:
+    - Nearer Than
+    - Further Than
+    boolCompareString:
+    - Is False
+    - If True
+    stringCompareString:
+    - Equal To
+    - Different Than
+    compareString: 
+    compareIndex: 0
+    color: {r: 0, g: .579999983, b: .689999998, a: .449999988}
+    editorHeight: 42
+  actions:
+  - e_categoryString: System
+    e_categoryIndex: 0
+    e_classString: Debug Message
+    e_classIndex: 1
+    e_fieldString: Choose An Action
+    e_fieldIndex: 0
+    e_MonoBehaviour: {fileID: 0}
+    e_GameObject: {fileID: 0}
+    p_int: 0000000000000000000000000000000000000000
+    p_bool: 0000000000
+    p_float:
+    - 0
+    - 0
+    - 0
+    - 0
+    - 0
+    p_string:
+    - Keep going again!
+    - 
+    - 
+    - 
+    - 
+    p_Vector3:
+    - {x: 0, y: 0, z: 0}
+    - {x: 0, y: 0, z: 0}
+    - {x: 0, y: 0, z: 0}
+    - {x: 0, y: 0, z: 0}
+    - {x: 0, y: 0, z: 0}
+    p_Transform:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    p_GameObject:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    p_MonoBehaviour:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    numberCompareString:
+    - Equal To
+    - Greater Than
+    - Less Than
+    vectorCompareString:
+    - Nearer Than
+    - Further Than
+    boolCompareString:
+    - Is False
+    - If True
+    stringCompareString:
+    - Equal To
+    - Different Than
+    compareString: 
+    compareIndex: 0
+    color: {r: 1, g: .460000008, b: 0, a: .550000012}
+    editorHeight: 42
+  andOrCompare:
+  - Every Condition
+  - One or More
+  - Exactly One
+  andOrCompareString: Every Condition
+  andOrCompareIndex: 0
+  uniqueId: 
+  isActive: 1
+  isRegional: 1
+  executeOnce: 1
+  hasExecuted: 0
+  totalTimeActive: 0
+  delay: 1
+  regionRadius: 1
+  drawRegionTwo: 1
+  conditionRegionCenter: {x: 0, y: 0, z: 0}
+  conditionRegionRadius: 4.5
+--- !u!114 &11478862
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 161248}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3bce9737e13a17340acb5aabb86ba137, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  conditions:
+  - e_categoryString: Player
+    e_categoryIndex: 1
+    e_classString: Player Enters Area
+    e_classIndex: 1
+    e_fieldString: Choose An Action
+    e_fieldIndex: 0
+    e_MonoBehaviour: {fileID: 0}
+    e_GameObject: {fileID: 0}
+    p_int: 0000000000000000000000000000000000000000
+    p_bool: 0000000000
+    p_float:
+    - 0
+    - 0
+    - 0
+    - 0
+    - 0
+    p_string:
+    - 
+    - 
+    - 
+    - 
+    - 
+    p_Vector3:
+    - {x: 0, y: 0, z: 0}
+    - {x: 0, y: 0, z: 0}
+    - {x: 0, y: 0, z: 0}
+    - {x: 0, y: 0, z: 0}
+    - {x: 0, y: 0, z: 0}
+    p_Transform:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    p_GameObject:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    p_MonoBehaviour:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    numberCompareString:
+    - Equal To
+    - Greater Than
+    - Less Than
+    vectorCompareString:
+    - Nearer Than
+    - Further Than
+    boolCompareString:
+    - Is False
+    - If True
+    stringCompareString:
+    - Equal To
+    - Different Than
+    compareString: 
+    compareIndex: 0
+    color: {r: 0, g: .579999983, b: .689999998, a: .449999988}
+    editorHeight: 42
+  actions:
+  - e_categoryString: System
+    e_categoryIndex: 0
+    e_classString: Activate Next Event
+    e_classIndex: 2
+    e_fieldString: Choose An Action
+    e_fieldIndex: 0
+    e_MonoBehaviour: {fileID: 0}
+    e_GameObject: {fileID: 0}
+    p_int: 0000000000000000000000000000000000000000
+    p_bool: 0000000000
+    p_float:
+    - 0
+    - 0
+    - 0
+    - 0
+    - 0
+    p_string:
+    - 
+    - 
+    - 
+    - 
+    - 
+    p_Vector3:
+    - {x: 0, y: 0, z: 0}
+    - {x: 0, y: 0, z: 0}
+    - {x: 0, y: 0, z: 0}
+    - {x: 0, y: 0, z: 0}
+    - {x: 0, y: 0, z: 0}
+    p_Transform:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    p_GameObject:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    p_MonoBehaviour:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    numberCompareString:
+    - Equal To
+    - Greater Than
+    - Less Than
+    vectorCompareString:
+    - Nearer Than
+    - Further Than
+    boolCompareString:
+    - Is False
+    - If True
+    stringCompareString:
+    - Equal To
+    - Different Than
+    compareString: 
+    compareIndex: 0
+    color: {r: 1, g: .460000008, b: 0, a: .550000012}
+    editorHeight: 20
+  - e_categoryString: Object
+    e_categoryIndex: 3
+    e_classString: Move This Object
+    e_classIndex: 4
+    e_fieldString: Choose An Action
+    e_fieldIndex: 0
+    e_MonoBehaviour: {fileID: 0}
+    e_GameObject: {fileID: 0}
+    p_int: 0000000000000000000000000000000000000000
+    p_bool: 0000000000
+    p_float:
+    - 0
+    - 0
+    - 0
+    - 0
+    - 0
+    p_string:
+    - 
+    - 
+    - 
+    - 
+    - 
+    p_Vector3:
+    - {x: -64.7832031, y: 1.94883299, z: 584.54248}
+    - {x: 0, y: 0, z: 0}
+    - {x: 0, y: 0, z: 0}
+    - {x: 0, y: 0, z: 0}
+    - {x: 0, y: 0, z: 0}
+    p_Transform:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    p_GameObject:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    p_MonoBehaviour:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    numberCompareString:
+    - Equal To
+    - Greater Than
+    - Less Than
+    vectorCompareString:
+    - Nearer Than
+    - Further Than
+    boolCompareString:
+    - Is False
+    - If True
+    stringCompareString:
+    - Equal To
+    - Different Than
+    compareString: 
+    compareIndex: 0
+    color: {r: 1, g: .460000008, b: 0, a: .550000012}
+    editorHeight: 100
+  - e_categoryString: System
+    e_categoryIndex: 0
+    e_classString: Activate Next Event
+    e_classIndex: 2
+    e_fieldString: Choose An Action
+    e_fieldIndex: 0
+    e_MonoBehaviour: {fileID: 0}
+    e_GameObject: {fileID: 0}
+    p_int: 0000000000000000000000000000000000000000
+    p_bool: 0000000000
+    p_float:
+    - 0
+    - 0
+    - 0
+    - 0
+    - 0
+    p_string:
+    - 
+    - 
+    - 
+    - 
+    - 
+    p_Vector3:
+    - {x: 0, y: 0, z: 0}
+    - {x: 0, y: 0, z: 0}
+    - {x: 0, y: 0, z: 0}
+    - {x: 0, y: 0, z: 0}
+    - {x: 0, y: 0, z: 0}
+    p_Transform:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    p_GameObject:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    p_MonoBehaviour:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    numberCompareString:
+    - Equal To
+    - Greater Than
+    - Less Than
+    vectorCompareString:
+    - Nearer Than
+    - Further Than
+    boolCompareString:
+    - Is False
+    - If True
+    stringCompareString:
+    - Equal To
+    - Different Than
+    compareString: 
+    compareIndex: 0
+    color: {r: 1, g: .460000008, b: 0, a: .550000012}
+    editorHeight: 20
+  - e_categoryString: System
+    e_categoryIndex: 0
+    e_classString: Debug Message
+    e_classIndex: 1
+    e_fieldString: Choose An Action
+    e_fieldIndex: 0
+    e_MonoBehaviour: {fileID: 0}
+    e_GameObject: {fileID: 0}
+    p_int: 0000000000000000000000000000000000000000
+    p_bool: 0000000000
+    p_float:
+    - 0
+    - 0
+    - 0
+    - 0
+    - 0
+    p_string:
+    - Follow dat thing!
+    - 
+    - 
+    - 
+    - 
+    p_Vector3:
+    - {x: 0, y: 0, z: 0}
+    - {x: 0, y: 0, z: 0}
+    - {x: 0, y: 0, z: 0}
+    - {x: 0, y: 0, z: 0}
+    - {x: 0, y: 0, z: 0}
+    p_Transform:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    p_GameObject:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    p_MonoBehaviour:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    numberCompareString:
+    - Equal To
+    - Greater Than
+    - Less Than
+    vectorCompareString:
+    - Nearer Than
+    - Further Than
+    boolCompareString:
+    - Is False
+    - If True
+    stringCompareString:
+    - Equal To
+    - Different Than
+    compareString: 
+    compareIndex: 0
+    color: {r: 1, g: .460000008, b: 0, a: .550000012}
+    editorHeight: 42
+  andOrCompare:
+  - Every Condition
+  - One or More
+  - Exactly One
+  andOrCompareString: Every Condition
+  andOrCompareIndex: 0
+  uniqueId: 
+  isActive: 1
+  isRegional: 1
+  executeOnce: 1
+  hasExecuted: 0
+  totalTimeActive: 0
+  delay: 1
+  regionRadius: 1
+  drawRegionTwo: 1
+  conditionRegionCenter: {x: 0, y: 0, z: 0}
+  conditionRegionRadius: 7
+--- !u!114 &11480486
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 162366}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3bce9737e13a17340acb5aabb86ba137, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  conditions:
+  - e_categoryString: Player
+    e_categoryIndex: 1
+    e_classString: Player Enters Area
+    e_classIndex: 1
+    e_fieldString: Choose An Action
+    e_fieldIndex: 0
+    e_MonoBehaviour: {fileID: 0}
+    e_GameObject: {fileID: 0}
+    p_int: 0000000000000000000000000000000000000000
+    p_bool: 0000000000
+    p_float:
+    - 0
+    - 0
+    - 0
+    - 0
+    - 0
+    p_string:
+    - 
+    - 
+    - 
+    - 
+    - 
+    p_Vector3:
+    - {x: 0, y: 0, z: 0}
+    - {x: 0, y: 0, z: 0}
+    - {x: 0, y: 0, z: 0}
+    - {x: 0, y: 0, z: 0}
+    - {x: 0, y: 0, z: 0}
+    p_Transform:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    p_GameObject:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    p_MonoBehaviour:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    numberCompareString:
+    - Equal To
+    - Greater Than
+    - Less Than
+    vectorCompareString:
+    - Nearer Than
+    - Further Than
+    boolCompareString:
+    - Is False
+    - If True
+    stringCompareString:
+    - Equal To
+    - Different Than
+    compareString: 
+    compareIndex: 0
+    color: {r: 0, g: .579999983, b: .689999998, a: .449999988}
+    editorHeight: 42
+  actions:
+  - e_categoryString: System
+    e_categoryIndex: 0
+    e_classString: Choose An Action
+    e_classIndex: 0
+    e_fieldString: Choose An Action
+    e_fieldIndex: 0
+    e_MonoBehaviour: {fileID: 0}
+    e_GameObject: {fileID: 0}
+    p_int: 0000000000000000000000000000000000000000
+    p_bool: 0000000000
+    p_float:
+    - 0
+    - 0
+    - 0
+    - 0
+    - 0
+    p_string:
+    - Walk, you animal
+    - 
+    - 
+    - 
+    - 
+    p_Vector3:
+    - {x: 0, y: 0, z: 0}
+    - {x: 0, y: 0, z: 0}
+    - {x: 0, y: 0, z: 0}
+    - {x: 0, y: 0, z: 0}
+    - {x: 0, y: 0, z: 0}
+    p_Transform:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    p_GameObject:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    p_MonoBehaviour:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    numberCompareString:
+    - Equal To
+    - Greater Than
+    - Less Than
+    vectorCompareString:
+    - Nearer Than
+    - Further Than
+    boolCompareString:
+    - Is False
+    - If True
+    stringCompareString:
+    - Equal To
+    - Different Than
+    compareString: 
+    compareIndex: 0
+    color: {r: 1, g: .460000008, b: 0, a: .349999994}
+    editorHeight: 20
+  andOrCompare:
+  - Every Condition
+  - One or More
+  - Exactly One
+  andOrCompareString: Every Condition
+  andOrCompareIndex: 0
+  uniqueId: 'Event '
+  isActive: 1
+  isRegional: 0
+  executeOnce: 1
+  hasExecuted: 0
+  totalTimeActive: 0
+  delay: 1
+  regionRadius: 1
+  drawRegionTwo: 1
+  conditionRegionCenter: {x: 0, y: 0, z: 0}
+  conditionRegionRadius: 12
+--- !u!114 &11480778
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 199708}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3bce9737e13a17340acb5aabb86ba137, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  conditions:
+  - e_categoryString: Player
+    e_categoryIndex: 1
+    e_classString: Player Enters Area
+    e_classIndex: 1
+    e_fieldString: Choose An Action
+    e_fieldIndex: 0
+    e_MonoBehaviour: {fileID: 0}
+    e_GameObject: {fileID: 0}
+    p_int: 0000000000000000000000000000000000000000
+    p_bool: 0000000000
+    p_float:
+    - 0
+    - 0
+    - 0
+    - 0
+    - 0
+    p_string:
+    - 
+    - 
+    - 
+    - 
+    - 
+    p_Vector3:
+    - {x: 0, y: 0, z: 0}
+    - {x: 0, y: 0, z: 0}
+    - {x: 0, y: 0, z: 0}
+    - {x: 0, y: 0, z: 0}
+    - {x: 0, y: 0, z: 0}
+    p_Transform:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    p_GameObject:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    p_MonoBehaviour:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    numberCompareString:
+    - Equal To
+    - Greater Than
+    - Less Than
+    vectorCompareString:
+    - Nearer Than
+    - Further Than
+    boolCompareString:
+    - Is False
+    - If True
+    stringCompareString:
+    - Equal To
+    - Different Than
+    compareString: 
+    compareIndex: 0
+    color: {r: 0, g: .579999983, b: .689999998, a: .449999988}
+    editorHeight: 42
+  actions:
+  - e_categoryString: System
+    e_categoryIndex: 0
+    e_classString: Debug Message
+    e_classIndex: 1
+    e_fieldString: Choose An Action
+    e_fieldIndex: 0
+    e_MonoBehaviour: {fileID: 0}
+    e_GameObject: {fileID: 0}
+    p_int: 0000000000000000000000000000000000000000
+    p_bool: 0000000000
+    p_float:
+    - 0
+    - 0
+    - 0
+    - 0
+    - 0
+    p_string:
+    - Climb the ladder, press "F" to mount and dismount
+    - 
+    - 
+    - 
+    - 
+    p_Vector3:
+    - {x: 0, y: 0, z: 0}
+    - {x: 0, y: 0, z: 0}
+    - {x: 0, y: 0, z: 0}
+    - {x: 0, y: 0, z: 0}
+    - {x: 0, y: 0, z: 0}
+    p_Transform:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    p_GameObject:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    p_MonoBehaviour:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    numberCompareString:
+    - Equal To
+    - Greater Than
+    - Less Than
+    vectorCompareString:
+    - Nearer Than
+    - Further Than
+    boolCompareString:
+    - Is False
+    - If True
+    stringCompareString:
+    - Equal To
+    - Different Than
+    compareString: 
+    compareIndex: 0
+    color: {r: 1, g: .460000008, b: 0, a: .550000012}
+    editorHeight: 42
+  andOrCompare:
+  - Every Condition
+  - One or More
+  - Exactly One
+  andOrCompareString: Every Condition
+  andOrCompareIndex: 0
+  uniqueId: 
+  isActive: 1
+  isRegional: 1
+  executeOnce: 1
+  hasExecuted: 0
+  totalTimeActive: 0
+  delay: 1
+  regionRadius: 1
+  drawRegionTwo: 1
+  conditionRegionCenter: {x: 0, y: 0, z: 0}
+  conditionRegionRadius: 2
+--- !u!114 &11482392
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 118950}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3bce9737e13a17340acb5aabb86ba137, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  conditions:
+  - e_categoryString: Player
+    e_categoryIndex: 1
+    e_classString: Player Enters Area
+    e_classIndex: 1
+    e_fieldString: Choose An Action
+    e_fieldIndex: 0
+    e_MonoBehaviour: {fileID: 0}
+    e_GameObject: {fileID: 0}
+    p_int: 0000000000000000000000000000000000000000
+    p_bool: 0000000000
+    p_float:
+    - 0
+    - 0
+    - 0
+    - 0
+    - 0
+    p_string:
+    - 
+    - 
+    - 
+    - 
+    - 
+    p_Vector3:
+    - {x: 0, y: 0, z: 0}
+    - {x: 0, y: 0, z: 0}
+    - {x: 0, y: 0, z: 0}
+    - {x: 0, y: 0, z: 0}
+    - {x: 0, y: 0, z: 0}
+    p_Transform:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    p_GameObject:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    p_MonoBehaviour:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    numberCompareString:
+    - Equal To
+    - Greater Than
+    - Less Than
+    vectorCompareString:
+    - Nearer Than
+    - Further Than
+    boolCompareString:
+    - Is False
+    - If True
+    stringCompareString:
+    - Equal To
+    - Different Than
+    compareString: 
+    compareIndex: 0
+    color: {r: 0, g: .579999983, b: .689999998, a: .449999988}
+    editorHeight: 42
+  actions:
+  - e_categoryString: System
+    e_categoryIndex: 0
+    e_classString: Debug Message
+    e_classIndex: 1
+    e_fieldString: Choose An Action
+    e_fieldIndex: 0
+    e_MonoBehaviour: {fileID: 0}
+    e_GameObject: {fileID: 0}
+    p_int: 0000000000000000000000000000000000000000
+    p_bool: 0000000000
+    p_float:
+    - 0
+    - 0
+    - 0
+    - 0
+    - 0
+    p_string:
+    - Is this a block puzzle? If we don't get a lock pick minigame, then yes, it is!
+    - 
+    - 
+    - 
+    - 
+    p_Vector3:
+    - {x: 0, y: 0, z: 0}
+    - {x: 0, y: 0, z: 0}
+    - {x: 0, y: 0, z: 0}
+    - {x: 0, y: 0, z: 0}
+    - {x: 0, y: 0, z: 0}
+    p_Transform:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    p_GameObject:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    p_MonoBehaviour:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    numberCompareString:
+    - Equal To
+    - Greater Than
+    - Less Than
+    vectorCompareString:
+    - Nearer Than
+    - Further Than
+    boolCompareString:
+    - Is False
+    - If True
+    stringCompareString:
+    - Equal To
+    - Different Than
+    compareString: 
+    compareIndex: 0
+    color: {r: 1, g: .460000008, b: 0, a: .550000012}
+    editorHeight: 42
+  andOrCompare:
+  - Every Condition
+  - One or More
+  - Exactly One
+  andOrCompareString: Every Condition
+  andOrCompareIndex: 0
+  uniqueId: 
+  isActive: 1
+  isRegional: 1
+  executeOnce: 1
+  hasExecuted: 0
+  totalTimeActive: 0
+  delay: 1
+  regionRadius: 1
+  drawRegionTwo: 1
+  conditionRegionCenter: {x: 0, y: 0, z: 0}
+  conditionRegionRadius: 5
+--- !u!114 &11487008
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 121900}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3bce9737e13a17340acb5aabb86ba137, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  conditions:
+  - e_categoryString: Player
+    e_categoryIndex: 1
+    e_classString: Player Enters Area
+    e_classIndex: 1
+    e_fieldString: Choose An Action
+    e_fieldIndex: 0
+    e_MonoBehaviour: {fileID: 0}
+    e_GameObject: {fileID: 0}
+    p_int: 0000000000000000000000000000000000000000
+    p_bool: 0000000000
+    p_float:
+    - 0
+    - 0
+    - 0
+    - 0
+    - 0
+    p_string:
+    - 
+    - 
+    - 
+    - 
+    - 
+    p_Vector3:
+    - {x: 0, y: 0, z: 0}
+    - {x: 0, y: 0, z: 0}
+    - {x: 0, y: 0, z: 0}
+    - {x: 0, y: 0, z: 0}
+    - {x: 0, y: 0, z: 0}
+    p_Transform:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    p_GameObject:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    p_MonoBehaviour:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    numberCompareString:
+    - Equal To
+    - Greater Than
+    - Less Than
+    vectorCompareString:
+    - Nearer Than
+    - Further Than
+    boolCompareString:
+    - Is False
+    - If True
+    stringCompareString:
+    - Equal To
+    - Different Than
+    compareString: 
+    compareIndex: 0
+    color: {r: 0, g: .579999983, b: .689999998, a: .449999988}
+    editorHeight: 42
+  actions:
+  - e_categoryString: System
+    e_categoryIndex: 0
+    e_classString: Debug Message
+    e_classIndex: 1
+    e_fieldString: Choose An Action
+    e_fieldIndex: 0
+    e_MonoBehaviour: {fileID: 0}
+    e_GameObject: {fileID: 0}
+    p_int: 0000000000000000000000000000000000000000
+    p_bool: 0000000000
+    p_float:
+    - 0
+    - 0
+    - 0
+    - 0
+    - 0
+    p_string:
+    - Face left and use sound grenade in well!
+    - 
+    - 
+    - 
+    - 
+    p_Vector3:
+    - {x: 0, y: 0, z: 0}
+    - {x: 0, y: 0, z: 0}
+    - {x: 0, y: 0, z: 0}
+    - {x: 0, y: 0, z: 0}
+    - {x: 0, y: 0, z: 0}
+    p_Transform:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    p_GameObject:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    p_MonoBehaviour:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    numberCompareString:
+    - Equal To
+    - Greater Than
+    - Less Than
+    vectorCompareString:
+    - Nearer Than
+    - Further Than
+    boolCompareString:
+    - Is False
+    - If True
+    stringCompareString:
+    - Equal To
+    - Different Than
+    compareString: 
+    compareIndex: 0
+    color: {r: 1, g: .460000008, b: 0, a: .550000012}
+    editorHeight: 42
+  andOrCompare:
+  - Every Condition
+  - One or More
+  - Exactly One
+  andOrCompareString: Every Condition
+  andOrCompareIndex: 0
+  uniqueId: 
+  isActive: 1
+  isRegional: 1
+  executeOnce: 1
+  hasExecuted: 0
+  totalTimeActive: 0
+  delay: 1
+  regionRadius: 1
+  drawRegionTwo: 1
+  conditionRegionCenter: {x: 0, y: 0, z: 0}
+  conditionRegionRadius: 2.5
+--- !u!114 &11494344
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 145606}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3bce9737e13a17340acb5aabb86ba137, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  conditions:
+  - e_categoryString: Player
+    e_categoryIndex: 1
+    e_classString: Player Enters Area
+    e_classIndex: 1
+    e_fieldString: Choose An Action
+    e_fieldIndex: 0
+    e_MonoBehaviour: {fileID: 0}
+    e_GameObject: {fileID: 0}
+    p_int: 0000000000000000000000000000000000000000
+    p_bool: 0000000000
+    p_float:
+    - 0
+    - 0
+    - 0
+    - 0
+    - 0
+    p_string:
+    - 
+    - 
+    - 
+    - 
+    - 
+    p_Vector3:
+    - {x: 0, y: 0, z: 0}
+    - {x: 0, y: 0, z: 0}
+    - {x: 0, y: 0, z: 0}
+    - {x: 0, y: 0, z: 0}
+    - {x: 0, y: 0, z: 0}
+    p_Transform:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    p_GameObject:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    p_MonoBehaviour:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    numberCompareString:
+    - Equal To
+    - Greater Than
+    - Less Than
+    vectorCompareString:
+    - Nearer Than
+    - Further Than
+    boolCompareString:
+    - Is False
+    - If True
+    stringCompareString:
+    - Equal To
+    - Different Than
+    compareString: 
+    compareIndex: 0
+    color: {r: 0, g: .579999983, b: .689999998, a: .449999988}
+    editorHeight: 42
+  actions:
+  - e_categoryString: Object
+    e_categoryIndex: 3
+    e_classString: Create Prefab At Position
+    e_classIndex: 1
+    e_fieldString: Choose An Action
+    e_fieldIndex: 0
+    e_MonoBehaviour: {fileID: 0}
+    e_GameObject: {fileID: 0}
+    p_int: 0000000000000000000000000000000000000000
+    p_bool: 0000000000
+    p_float:
+    - 0
+    - 0
+    - 0
+    - 0
+    - 0
+    p_string:
+    - 
+    - 
+    - 
+    - 
+    - 
+    p_Vector3:
+    - {x: -24.7099991, y: 0, z: 588.820007}
+    - {x: 0, y: 0, z: 0}
+    - {x: 0, y: 0, z: 0}
+    - {x: 0, y: 0, z: 0}
+    - {x: 0, y: 0, z: 0}
+    p_Transform:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    p_GameObject:
+    - {fileID: 167898, guid: c85491f82bb6f4f4bade94400dcedf81, type: 2}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    p_MonoBehaviour:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    numberCompareString:
+    - Equal To
+    - Greater Than
+    - Less Than
+    vectorCompareString:
+    - Nearer Than
+    - Further Than
+    boolCompareString:
+    - Is False
+    - If True
+    stringCompareString:
+    - Equal To
+    - Different Than
+    compareString: 
+    compareIndex: 0
+    color: {r: 1, g: .460000008, b: 0, a: .550000012}
+    editorHeight: 110
+  - e_categoryString: System
+    e_categoryIndex: 0
+    e_classString: Debug Message
+    e_classIndex: 1
+    e_fieldString: Choose An Action
+    e_fieldIndex: 0
+    e_MonoBehaviour: {fileID: 0}
+    e_GameObject: {fileID: 0}
+    p_int: 0000000000000000000000000000000000000000
+    p_bool: 0000000000
+    p_float:
+    - 0
+    - 0
+    - 0
+    - 0
+    - 0
+    p_string:
+    - Listen to that guy that just spawned...
+    - 
+    - 
+    - 
+    - 
+    p_Vector3:
+    - {x: 0, y: 0, z: 0}
+    - {x: 0, y: 0, z: 0}
+    - {x: 0, y: 0, z: 0}
+    - {x: 0, y: 0, z: 0}
+    - {x: 0, y: 0, z: 0}
+    p_Transform:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    p_GameObject:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    p_MonoBehaviour:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    numberCompareString:
+    - Equal To
+    - Greater Than
+    - Less Than
+    vectorCompareString:
+    - Nearer Than
+    - Further Than
+    boolCompareString:
+    - Is False
+    - If True
+    stringCompareString:
+    - Equal To
+    - Different Than
+    compareString: 
+    compareIndex: 0
+    color: {r: 1, g: .460000008, b: 0, a: .550000012}
+    editorHeight: 42
+  andOrCompare:
+  - Every Condition
+  - One or More
+  - Exactly One
+  andOrCompareString: Every Condition
+  andOrCompareIndex: 0
+  uniqueId: 
+  isActive: 1
+  isRegional: 1
+  executeOnce: 1
+  hasExecuted: 0
+  totalTimeActive: 0
+  delay: 1
+  regionRadius: 1
+  drawRegionTwo: 1
+  conditionRegionCenter: {x: 0, y: 0, z: 0}
+  conditionRegionRadius: 6
+--- !u!114 &11497064
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 140308}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3bce9737e13a17340acb5aabb86ba137, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  conditions:
+  - e_categoryString: Player
+    e_categoryIndex: 1
+    e_classString: Player Enters Area
+    e_classIndex: 1
+    e_fieldString: Choose An Action
+    e_fieldIndex: 0
+    e_MonoBehaviour: {fileID: 0}
+    e_GameObject: {fileID: 0}
+    p_int: 0000000000000000000000000000000000000000
+    p_bool: 0000000000
+    p_float:
+    - 0
+    - 0
+    - 0
+    - 0
+    - 0
+    p_string:
+    - 
+    - 
+    - 
+    - 
+    - 
+    p_Vector3:
+    - {x: 0, y: 0, z: 0}
+    - {x: 0, y: 0, z: 0}
+    - {x: 0, y: 0, z: 0}
+    - {x: 0, y: 0, z: 0}
+    - {x: 0, y: 0, z: 0}
+    p_Transform:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    p_GameObject:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    p_MonoBehaviour:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    numberCompareString:
+    - Equal To
+    - Greater Than
+    - Less Than
+    vectorCompareString:
+    - Nearer Than
+    - Further Than
+    boolCompareString:
+    - Is False
+    - If True
+    stringCompareString:
+    - Equal To
+    - Different Than
+    compareString: 
+    compareIndex: 0
+    color: {r: 0, g: .579999983, b: .689999998, a: .449999988}
+    editorHeight: 42
+  actions:
+  - e_categoryString: System
+    e_categoryIndex: 0
+    e_classString: Debug Message
+    e_classIndex: 1
+    e_fieldString: Choose An Action
+    e_fieldIndex: 0
+    e_MonoBehaviour: {fileID: 0}
+    e_GameObject: {fileID: 0}
+    p_int: 0000000000000000000000000000000000000000
+    p_bool: 0000000000
+    p_float:
+    - 0
+    - 0
+    - 0
+    - 0
+    - 0
+    p_string:
+    - O wait! Don't keep going. Go up dat ladder.
+    - 
+    - 
+    - 
+    - 
+    p_Vector3:
+    - {x: 0, y: 0, z: 0}
+    - {x: 0, y: 0, z: 0}
+    - {x: 0, y: 0, z: 0}
+    - {x: 0, y: 0, z: 0}
+    - {x: 0, y: 0, z: 0}
+    p_Transform:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    p_GameObject:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    p_MonoBehaviour:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    numberCompareString:
+    - Equal To
+    - Greater Than
+    - Less Than
+    vectorCompareString:
+    - Nearer Than
+    - Further Than
+    boolCompareString:
+    - Is False
+    - If True
+    stringCompareString:
+    - Equal To
+    - Different Than
+    compareString: 
+    compareIndex: 0
+    color: {r: 1, g: .460000008, b: 0, a: .550000012}
+    editorHeight: 42
+  andOrCompare:
+  - Every Condition
+  - One or More
+  - Exactly One
+  andOrCompareString: Every Condition
+  andOrCompareIndex: 0
+  uniqueId: 
+  isActive: 1
+  isRegional: 1
+  executeOnce: 1
+  hasExecuted: 0
+  totalTimeActive: 0
+  delay: 1
+  regionRadius: 1
+  drawRegionTwo: 1
+  conditionRegionCenter: {x: 0, y: 0, z: 0}
+  conditionRegionRadius: 5
+--- !u!135 &13566990
+SphereCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 105920}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: .5
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!136 &13626292
+CapsuleCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 112738}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: .5
+  m_Height: 2
+  m_Direction: 1
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!1001 &100100000
+Prefab:
+  m_ObjectHideFlags: 1
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications: []
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 0}
+  m_RootGameObject: {fileID: 104316}
+  m_IsPrefabParent: 1

@@ -1,0 +1,17 @@
+# This file uses centimeters as units for non-parametric coordinates.
+
+mtllib derp.mtl
+g default
+v 1.999761 -0.000000 -0.000241
+v 0.000083 -0.000000 -0.000258
+v 1.000407 -0.011478 -1.003339
+vt -1.699545 -0.505472
+vt 3.169617 -0.512375
+vt 0.737338 1.933574
+vn 0.000000 0.999999 -0.001425
+vn 0.000000 0.999999 -0.001425
+vn 0.000000 0.999999 -0.001425
+s off
+g pPlane2
+usemtl initialShadingGroup
+f 1/1/1 2/2/2 3/3/3
