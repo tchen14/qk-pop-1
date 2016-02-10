@@ -52,6 +52,7 @@ public class GameHUD : MonoBehaviour {
 	GameObject testObjective;
 
 	void Awake() {
+
 		#region singletonEnforcement
 		if(instance == null) {
 			instance = this;
@@ -62,25 +63,33 @@ public class GameHUD : MonoBehaviour {
 		}
 		#endregion
 
+
+
         UIhud = GameObject.Find("_UI");
 		mainHUDCanvas = GameObject.Find("mainHUD");
 		worldMapCanvas = GameObject.Find("worldMapCanvas");
 		gameMap = GameObject.Find("mapBG");
 		player = GameObject.Find("_Player");
 		testObjective = GameObject.Find("TestObjective");
-        if (!pauseMenu)
-        {
+		if (testObjective) {
+			DebugOnScreen.Log ("Found: " + testObjective.name);
+		}
+		if (!pauseMenu){
             pauseMenu = GameObject.Find("pauseMenu");
         }
 		pauseMenu.SetActive (false);
-		
+
 		//!Turn on UI stuff
 		worldMapCanvas.SetActive(true);
 
 		//!Fill mapLabels array
-		mapLabels = GameObject.FindGameObjectsWithTag("worldMapLabel");
+		mapLabels = GameObject.FindGameObjectsWithTag("worldMapLabel"); //This is giving issues in a build. GameHUD script will not continue with this line right now.
+
 		closeMapButton = GameObject.Find("CloseMapButton");
-		closeMapButton.SetActive(false);
+
+		if (closeMapButton) {
+			closeMapButton.SetActive (false);
+		}
 
 		//!Set mapcam reference
 		mapCam = GameObject.Find("mapCam");
@@ -133,7 +142,8 @@ public class GameHUD : MonoBehaviour {
 	}
 
 	public void setCompassValue(float newValue) {
-        if (testObjective == null)
+		print ("in setCompassValue");
+		if (testObjective == null)
         {
             return;
         }
@@ -179,6 +189,7 @@ public class GameHUD : MonoBehaviour {
 	}
 
 	public float calculateObjectiveAngle(GameObject objective) {
+		print ("in calculateObjectiveAngle");
         if (objective == null)
         {
             return 0;
