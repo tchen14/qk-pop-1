@@ -6787,6 +6787,7 @@ MonoBehaviour:
   curStunTimer: 0
   stunState: 0
   soundThrowAffected: 0
+  EffectPrefab: {fileID: 0}
 --- !u!114 &138583902
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9938,6 +9939,7 @@ MonoBehaviour:
   curStunTimer: 0
   stunState: 0
   soundThrowAffected: 0
+  EffectPrefab: {fileID: 0}
 --- !u!114 &206187116
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -32037,6 +32039,7 @@ MonoBehaviour:
   curStunTimer: 0
   stunState: 0
   soundThrowAffected: 0
+  EffectPrefab: {fileID: 0}
 --- !u!114 &702453903
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -32256,6 +32259,7 @@ MonoBehaviour:
   curStunTimer: 0
   stunState: 0
   soundThrowAffected: 0
+  EffectPrefab: {fileID: 0}
 --- !u!114 &704476305
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -34243,7 +34247,6 @@ Camera:
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
-  m_TargetEye: 3
   m_HDR: 0
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
@@ -34751,6 +34754,7 @@ MonoBehaviour:
   curStunTimer: 0
   stunState: 0
   soundThrowAffected: 0
+  EffectPrefab: {fileID: 0}
 --- !u!114 &768025335
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -45875,6 +45879,7 @@ MonoBehaviour:
   curStunTimer: 0
   stunState: 0
   soundThrowAffected: 0
+  EffectPrefab: {fileID: 0}
 --- !u!114 &1027152895
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -66102,6 +66107,7 @@ MonoBehaviour:
   curStunTimer: 0
   stunState: 0
   soundThrowAffected: 0
+  EffectPrefab: {fileID: 0}
 --- !u!114 &1493122110
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -75307,6 +75313,7 @@ MonoBehaviour:
   curStunTimer: 0
   stunState: 0
   soundThrowAffected: 0
+  EffectPrefab: {fileID: 0}
 --- !u!114 &1691629253
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -90544,6 +90551,7 @@ MonoBehaviour:
   curStunTimer: 0
   stunState: 0
   soundThrowAffected: 0
+  EffectPrefab: {fileID: 0}
 --- !u!114 &2015248551
 MonoBehaviour:
   m_ObjectHideFlags: 0
