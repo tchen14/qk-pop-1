@@ -5,6 +5,7 @@ public class ChaseState : IEnemyState
 {
     private readonly StatePatternEnemy enemy;
     private int sightAngle = 50;
+    private float chaseTimer;
 
     public ChaseState(StatePatternEnemy statePatternEnemy)
     {
@@ -50,6 +51,7 @@ public class ChaseState : IEnemyState
     public void ToSuspiciousState()
     {
         enemy.currentState = enemy.suspiciousState;
+        chaseTimer = 0f;
     }
 
     public void ToKOState()
@@ -65,7 +67,8 @@ public class ChaseState : IEnemyState
     private void Look()
     {
         RaycastHit hit;
-        Vector3 enemyToTarget = (enemy.chaseTarget.position + enemy.offset) - enemy.eyes.transform.position;
+        //Vector3 enemyToTarget = (enemy.chaseTarget.position + enemy.offset) - enemy.eyes.transform.position;
+        Vector3 enemyToTarget = enemy.chaseTarget.position;
         if (Vector3.Angle(enemy.chaseTarget.position - enemy.transform.position, enemy.transform.forward) < sightAngle)
         {
             if (Physics.Raycast(enemy.transform.position, enemyToTarget, out hit, enemy.sightRange) && hit.collider.CompareTag("Player"))
@@ -80,6 +83,7 @@ public class ChaseState : IEnemyState
 
     private void Chase()
     {
+        chaseTimer += Time.deltaTime;
         enemy.meshRendererFlag.material.color = Color.red;
         enemy.navMeshAgent.destination = enemy.chaseTarget.position;
         enemy.navMeshAgent.Resume ();
