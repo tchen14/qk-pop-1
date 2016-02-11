@@ -36,7 +36,7 @@ public class GameHUD : MonoBehaviour {
 	GameObject mapCam;								//!<Camera used for minimap
 	static GameObject objectiveText;						//!<Objective Text UI element
 
-	GameObject[] mapLabels;							//!<Array of text taht appears on minimap
+	//GameObject[] mapLabels;							//!<Array of text taht appears on minimap
 
 	public bool skillsOpen = false;
 	bool canSpin = false;
@@ -70,20 +70,22 @@ public class GameHUD : MonoBehaviour {
 		worldMapCanvas = GameObject.Find("worldMapCanvas");
 		gameMap = GameObject.Find("mapBG");
 		player = GameObject.Find("_Player");
-		testObjective = GameObject.Find("TestObjective");
-		if (testObjective) {
+
+		//testObjective = GameObject.Find("TestObjective");
+		/*if (testObjective) {
 			DebugOnScreen.Log ("Found: " + testObjective.name);
 		}
+		*/
 		if (!pauseMenu){
             pauseMenu = GameObject.Find("pauseMenu");
         }
 		pauseMenu.SetActive (false);
-
+		//DebugOnScreen.Log ("HERE");
 		//!Turn on UI stuff
-		worldMapCanvas.SetActive(true);
+		//worldMapCanvas.SetActive(true);
 
 		//!Fill mapLabels array
-		mapLabels = GameObject.FindGameObjectsWithTag("worldMapLabel"); //This is giving issues in a build. GameHUD script will not continue with this line right now.
+		//mapLabels = GameObject.FindGameObjectsWithTag("worldMapLabel"); //This is giving issues in a build. GameHUD script will not continue with this line right now.
 
 		closeMapButton = GameObject.Find("CloseMapButton");
 
@@ -94,6 +96,9 @@ public class GameHUD : MonoBehaviour {
 		//!Set mapcam reference
 		mapCam = GameObject.Find("mapCam");
 		//!Set compassCameraPoint reference
+
+
+
 		compassCameraPoint = GameObject.Find("compassCameraPoint");
 		compass = GameObject.Find("compassSlider");
 		slider = compass.transform.FindChild ("Handle Slide Area").gameObject;
@@ -119,7 +124,7 @@ public class GameHUD : MonoBehaviour {
 
 	void FixedUpdate() {
 		//!This is for testing, call update map from player movements
-		rotateMapObjects();
+		//rotateMapObjects();
 
 		//!Set the compass indicator
 		setCompassValue(calculateObjectiveAngle(testObjective));
@@ -133,16 +138,17 @@ public class GameHUD : MonoBehaviour {
 
 	//!Rotates map labels so that the text is always right side up, call this from anything that rotates the camera
 	//!Right now its based on Player rotation, needs to be based on camera
-	public void rotateMapObjects() {
+	/*public void rotateMapObjects() {
 		Quaternion newRotation;
 		foreach(GameObject curLabel in mapLabels) {
+			print (curLabel.name);
 			newRotation = Quaternion.Euler(new Vector3(90, 0, -player.transform.rotation.eulerAngles.y));
 			curLabel.GetComponent<RectTransform>().rotation = newRotation;
 		}
-	}
+	}*/
 
 	public void setCompassValue(float newValue) {
-		print ("in setCompassValue");
+
 		if (testObjective == null)
         {
             return;
@@ -189,7 +195,7 @@ public class GameHUD : MonoBehaviour {
 	}
 
 	public float calculateObjectiveAngle(GameObject objective) {
-		print ("in calculateObjectiveAngle");
+
         if (objective == null)
         {
             return 0;
