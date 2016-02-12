@@ -1,9 +1,9 @@
-﻿#pragma warning disable 414     //Variable assigned and not used: slideSpeed, groundNormal, slideTheshold, MaxControllableSlideMagnitude, slideDirection, targetAngle
+#pragma warning disable 414     //Variable assigned and not used: slideSpeed, groundNormal, slideTheshold, MaxControllableSlideMagnitude, slideDirection, targetAngle
 
 using UnityEngine;
 using System.Collections;
 using Debug = FFP.Debug;
-
+//using CharacterState = CharacterStates;
 public class QK_Character_Movement : MonoBehaviour {
 
 	private static QK_Character_Movement _instance;
@@ -19,6 +19,7 @@ public class QK_Character_Movement : MonoBehaviour {
 		}
 	}
 
+	//moved to seperate enum script
 	public enum CharacterState {Idle, Move, Pivot, Sprint, Crouch, Hang, Ladder, Sidle, Wait, Normal}
 	public CharacterState _moveState { get; private set; }
 	public CharacterState _stateModifier { get; private set; }
@@ -51,6 +52,9 @@ public class QK_Character_Movement : MonoBehaviour {
 	private bool dismountBottom = false;
     private Vector3 climbToPosition = Vector3.zero;
 	private Vector3 ladderDismountPos = Vector3.zero;
+
+	// Ledge Variables
+
 
 	// This is for Slide if implemented
 	private float slideTheshold = 0.6f;
@@ -240,6 +244,11 @@ public class QK_Character_Movement : MonoBehaviour {
 				}
 			}
 
+			if (Input.GetKeyDown(KeyCode.W) && Input.GetKeyDown(KeyCode.Space)) 
+			{
+				iObject = GetLedge();//todo
+				Debug.Log("player", "test");
+			}
 			if (Input.GetButton("Jump")) {
 				Jump ();
 				return;
@@ -253,6 +262,32 @@ public class QK_Character_Movement : MonoBehaviour {
 				_stateModifier = CharacterState.Normal;
 			}
 		}
+	}
+
+	//todo capsulecast up
+	Interactable GetLedge()
+	{
+		GameObject ledge = null;
+		RaycastHit[] hit = Physics.CapsuleCastAll(transform.position, transform.position + charCont.center, 1f, Vector3.up, 1.5f);//change fifth param for different grabbable heights
+		if(hit.Length > 0)
+		{
+			foreach(RaycastHit obj in hit)
+			{
+				if(GetComponentInHeirarchy<Interactable>(obj.collider.gameObject))
+				{
+					if(GetComponentInHeirarchy<Interactable>(obj.collider.gameObject).Type == Interactable.ObjectType.Ledge)
+					{
+						//set ledge game object to this hit
+						Debug.Log("player" ,"OP success");
+					}
+				}
+			}
+		}
+		if(ledge != null) {
+			triggeredObj = ledge;
+			return GetComponentInHeirarchy<Interactable>(ledge);
+		} else
+			return null;
 	}
 
 	Interactable GetActionObject()
@@ -298,7 +333,6 @@ public class QK_Character_Movement : MonoBehaviour {
 		} else
 			return null;
 	}
-
 	void Jump() 
 	{
 		if (charCont.isGrounded)
