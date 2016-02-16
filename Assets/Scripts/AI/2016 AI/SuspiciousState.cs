@@ -14,6 +14,8 @@ public class SuspiciousState : IEnemyState
     public void UpdateState()
     {
         Look();
+
+        //once AI loses sight of AI
         Search();
     }
 
@@ -69,7 +71,6 @@ public class SuspiciousState : IEnemyState
         RaycastHit hit;
         if (Physics.Raycast(enemy.eyes.transform.position, enemy.eyes.transform.forward, out hit, enemy.sightRange) && hit.collider.CompareTag("Player"))
             {
-            Debug.Log("works");
             enemy.chaseTarget = hit.transform;
             ToChaseState();
             }
@@ -77,6 +78,7 @@ public class SuspiciousState : IEnemyState
 
     private void Search()
     {
+        //when the AI can no longer find the player, they will spin around checking surroundings for the player
         enemy.meshRendererFlag.material.color = Color.yellow;
         enemy.navMeshAgent.Stop();
         enemy.transform.Rotate(0, enemy.searchingTurnSpeed * Time.deltaTime, 0);

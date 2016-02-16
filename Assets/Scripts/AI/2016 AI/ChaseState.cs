@@ -83,6 +83,8 @@ public class ChaseState : IEnemyState
 
     private void Chase()
     {
+        //ai slows down the longer they chase until they reach 0 
+        //speed -= chasetimer
         chaseTimer += Time.deltaTime;
         enemy.meshRendererFlag.material.color = Color.red;
         enemy.navMeshAgent.destination = enemy.chaseTarget.position;
