@@ -40,7 +40,9 @@ public class ChaseState : IEnemyState
 
     public void ToDazedState()
     {
-
+        enemy.currentState = enemy.dazedState;
+        chaseTimer = 0f;
+        enemy.moveSpeed = 0f;
     }
 
     public void ToDistractedState()
@@ -48,10 +50,16 @@ public class ChaseState : IEnemyState
 
     }
 
+    public void ToSearchingState()
+    {
+        enemy.currentState = enemy.searchingState;
+        chaseTimer = 0f;
+        enemy.moveSpeed = 5f;
+    }
+
     public void ToSuspiciousState()
     {
-        enemy.currentState = enemy.suspiciousState;
-        chaseTimer = 0f;
+
     }
 
     public void ToKOState()
@@ -77,15 +85,23 @@ public class ChaseState : IEnemyState
         else
         {
             Debug.Log(enemy.navMeshAgent.pathStatus);
-            ToSuspiciousState();
+            ToSearchingState();
         }
     }
 
     private void Chase()
     {
-        //ai slows down the longer they chase until they reach 0 
-        //speed -= chasetimer
+
         chaseTimer += Time.deltaTime;
+        if (enemy.moveSpeed <= 0)
+        {
+            enemy.moveSpeed = 0; //ensures that if the subtraction puts it into a negative value its set to 0
+            ToDazedState();
+        }
+        else
+        {
+            enemy.moveSpeed = enemy.moveSpeed - (chaseTimer / 100);
+        }
         enemy.meshRendererFlag.material.color = Color.red;
         enemy.navMeshAgent.destination = enemy.chaseTarget.position;
         enemy.navMeshAgent.Resume ();

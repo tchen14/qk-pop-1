@@ -46,6 +46,11 @@ public class KOState : IEnemyState
 
     }
 
+    public void ToSearchingState()
+    {
+
+    }
+    
     public void ToSuspiciousState()
     {
 

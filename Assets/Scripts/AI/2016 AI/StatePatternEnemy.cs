@@ -51,6 +51,7 @@ public class StatePatternEnemy : MonoBehaviour
     [HideInInspector] public GuardState guardState;
     [HideInInspector] public DazedState dazedState;
     [HideInInspector] public DistractedState distractedState;
+    [HideInInspector] public SearchingState searchingState;
     [HideInInspector] public SuspiciousState suspiciousState;
     [HideInInspector] public KOState koState;
     [HideInInspector] public WalkState walkState;
@@ -63,6 +64,7 @@ public class StatePatternEnemy : MonoBehaviour
         guardState = new GuardState(this);
         dazedState = new DazedState(this);
         distractedState = new DistractedState(this);
+        searchingState = new SearchingState(this);
         suspiciousState = new SuspiciousState(this);
         koState = new KOState(this);
         walkState = new WalkState(this);
@@ -90,6 +92,7 @@ public class StatePatternEnemy : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
     {
+        navMeshAgent.speed = moveSpeed;
         currentState.UpdateState(); //calls the update of the current state
 	}
 

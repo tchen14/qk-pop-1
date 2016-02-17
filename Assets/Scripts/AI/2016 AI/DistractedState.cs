@@ -45,6 +45,11 @@ public class DistractedState : IEnemyState
 
     }
 
+    public void ToSearchingState()
+    {
+
+    }
+
     public void ToSuspiciousState()
     {
 

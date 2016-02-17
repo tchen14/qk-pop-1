@@ -20,6 +20,8 @@ public interface IEnemyState
 
     void ToSuspiciousState();
 
+    void ToSearchingState();
+
     void ToKOState();
 
     void ToWalkState();

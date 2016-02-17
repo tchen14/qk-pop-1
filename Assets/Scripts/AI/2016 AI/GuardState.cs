@@ -44,7 +44,10 @@ public class GuardState : IEnemyState
     {
 
     }
+    public void ToSearchingState()
+    {
 
+    }
     public void ToSuspiciousState()
     {
 

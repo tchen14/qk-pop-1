@@ -22,7 +22,7 @@ public class PatrolState : IEnemyState
     public void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.CompareTag("Player"))
-            ToSuspiciousState();
+            ToSearchingState();
     }
 
     public void ToPatrolState()
@@ -33,6 +33,7 @@ public class PatrolState : IEnemyState
     public void ToChaseState()
     {
         enemy.currentState = enemy.chaseState;
+        enemy.moveSpeed = 10f;
     }
 
     public void ToGuardState()
@@ -50,9 +51,15 @@ public class PatrolState : IEnemyState
 
     }
 
+    public void ToSearchingState()
+    {
+        enemy.currentState = enemy.searchingState;
+        enemy.moveSpeed = 5f;
+    }
+
     public void ToSuspiciousState()
     {
-        enemy.currentState = enemy.suspiciousState;
+
     }
 
     public void ToKOState()
@@ -88,8 +95,6 @@ public class PatrolState : IEnemyState
             nextWayPoint = (nextWayPoint + 1) % enemy.wayPoints.Length;
         }
         */
-
-        
         
 
         if (enemy.navMeshAgent.remainingDistance <= enemy.navMeshAgent.stoppingDistance && !enemy.navMeshAgent.pathPending)
@@ -203,6 +208,9 @@ public class PatrolState : IEnemyState
                         {
                             string CheckpointCountString = enemy.CheckpointCount.ToString();
                             enemy.navPoint = CheckpointScript.getPoints()[enemy.CheckpointCount];
+                            if (enemy.navMeshAgent.remainingDistance <= enemy.navMeshAgent.stoppingDistance && !enemy.navMeshAgent.pathPending)
+                                enemy.transform.rotation = Quaternion.RotateTowards(enemy.transform.rotation, CheckpointScript.getRotations()[enemy.CheckpointCount], enemy.searchingTurnSpeed * 2 * Time.deltaTime);
+
                         }
                         break;
                 }

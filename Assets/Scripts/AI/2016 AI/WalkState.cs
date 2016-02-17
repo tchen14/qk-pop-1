@@ -45,6 +45,10 @@ public class WalkState : IEnemyState
 
     }
 
+    public void ToSearchingState()
+    {
+
+    }
     public void ToSuspiciousState()
     {
 

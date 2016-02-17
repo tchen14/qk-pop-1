@@ -4,18 +4,14 @@ using System.Collections;
 public class SuspiciousState : IEnemyState
 {
     private readonly StatePatternEnemy enemy;
-    private float searchTimer;
 
-    public SuspiciousState (StatePatternEnemy statePatternEnemy)
+    public SuspiciousState(StatePatternEnemy statePatternEnemy)
     {
         enemy = statePatternEnemy;
     }
 
     public void UpdateState()
     {
-        Look();
-
-        //once AI loses sight of AI
         Search();
     }
 
@@ -26,14 +22,12 @@ public class SuspiciousState : IEnemyState
 
     public void ToPatrolState()
     {
-        enemy.currentState = enemy.patrolState;
-        searchTimer = 0f;
+
     }
 
     public void ToChaseState()
     {
-        enemy.currentState = enemy.chaseState;
-        searchTimer = 0f;
+
     }
 
     public void ToGuardState()
@@ -51,6 +45,10 @@ public class SuspiciousState : IEnemyState
 
     }
 
+    public void ToSearchingState()
+    {
+
+    }
     public void ToSuspiciousState()
     {
         Debug.Log("Cant transition into itself");
@@ -66,29 +64,11 @@ public class SuspiciousState : IEnemyState
 
     }
 
-    private void Look()
-    {
-        RaycastHit hit;
-        if (Physics.Raycast(enemy.eyes.transform.position, enemy.eyes.transform.forward, out hit, enemy.sightRange) && hit.collider.CompareTag("Player"))
-            {
-            enemy.chaseTarget = hit.transform;
-            ToChaseState();
-            }
-    }
-
     private void Search()
     {
-        //when the AI can no longer find the player, they will spin around checking surroundings for the player
-        enemy.meshRendererFlag.material.color = Color.yellow;
-        enemy.navMeshAgent.Stop();
-        enemy.transform.Rotate(0, enemy.searchingTurnSpeed * Time.deltaTime, 0);
-        searchTimer += Time.deltaTime;
-        if (searchTimer >= enemy.searchingDuration)
-        {
-            //ToDefaultState();
-            ToPatrolState();
-        }
-
+    /*
+        sus greater than 0
+            
+    */
     }
-
 }
