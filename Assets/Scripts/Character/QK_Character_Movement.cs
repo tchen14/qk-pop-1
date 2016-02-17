@@ -54,7 +54,7 @@ public class QK_Character_Movement : MonoBehaviour {
 	private Vector3 ladderDismountPos = Vector3.zero;
 
 	// Ledge Variables
-
+	private bool onLedge = false;
 
 	// This is for Slide if implemented
 	private float slideTheshold = 0.6f;
@@ -96,7 +96,10 @@ public class QK_Character_Movement : MonoBehaviour {
 			case CharacterState.Ladder:
 				ClimbLadder();
 				break;
-
+			case CharacterState.Hang:
+				ClimbLedge();
+				Debug.Log("player","asdf");
+				break;
 			default:
 				ProcessStandardMotion();
 				break;
@@ -244,11 +247,12 @@ public class QK_Character_Movement : MonoBehaviour {
 				}
 			}
 
-			if (Input.GetKeyDown(KeyCode.W) && Input.GetKeyDown(KeyCode.Space)) 
+			if (Input.GetKeyDown(KeyCode.Space)) 
 			{
 				iObject = GetLedge();//todo
 				Debug.Log("player", "test");
 			}
+
 			if (Input.GetButton("Jump")) {
 				Jump ();
 				return;
@@ -278,16 +282,27 @@ public class QK_Character_Movement : MonoBehaviour {
 					if(GetComponentInHeirarchy<Interactable>(obj.collider.gameObject).Type == Interactable.ObjectType.Ledge)
 					{
 						//set ledge game object to this hit
-						Debug.Log("player" ,"OP success");
+						_stateModifier = CharacterState.Hang;
+						ledge = obj.collider.gameObject;
+
+						//set location in relation to ledge object
+						RaycastHit ledgeTest;
+						if(Physics.Raycast(this.gameObject.transform.position, ledge.gameObject.transform.position, out ledgeTest, 50f)){
+							this.gameObject.transform.position = ledgeTest.collider.ClosestPointOnBounds(this.transform.position);
+						}
+
 					}
 				}
 			}
 		}
-		if(ledge != null) {
+
+		if (ledge != null) {
 			triggeredObj = ledge;
-			return GetComponentInHeirarchy<Interactable>(ledge);
-		} else
+			return GetComponentInHeirarchy<Interactable> (ledge);
+		} else {
 			return null;
+		}
+
 	}
 
 	Interactable GetActionObject()
@@ -338,6 +353,30 @@ public class QK_Character_Movement : MonoBehaviour {
 		if (charCont.isGrounded)
 			verticalVelocity = jumpSpeed;
 	}
+
+
+	void ClimbLedge()
+	{
+		if (iObject == null || iObject.Type != Interactable.ObjectType.Ledge) {
+			// For some reason we're trying to climb something thats not a ledge
+			_stateModifier = CharacterState.Normal;
+			return;
+		}
+		if (!onLedge) {
+			//this.gameObject.transform.position = iObject.gameObject.transform.position;
+			//find the position on the ledge that the player is supposed to be at
+			//move left and right as needed
+			if (Input.GetKeyDown(KeyCode.S)) 
+			{
+
+				if(_stateModifier == CharacterState.Hang){
+					_stateModifier = CharacterState.Normal;
+					onLedge = false;
+				}
+			}
+		}
+	}
+
 
 	void ClimbLadder()
 	{
