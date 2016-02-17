@@ -48,6 +48,8 @@ public class GameHUD : MonoBehaviour {
 	GameObject slider;
 	GameObject leftArrow;
 	GameObject rightArrow;
+	GameObject journal;
+	GameObject questManagerUI;
 
 	GameObject testObjective;
 
@@ -114,6 +116,20 @@ public class GameHUD : MonoBehaviour {
 		phoneButtons = GameObject.Find("PhoneButtons");
 		mapElements = GameObject.Find("MapElements");
 		mapElements.SetActive(false);
+
+		journal = GameObject.Find ("Journal");
+		if (!journal) {
+			Debug.Error ("Could not find the 'Journal' GameObject in the current Scene: " + Application.loadedLevelName);
+		} else {
+			journal.SetActive (false);
+		}
+
+		questManagerUI = GameObject.Find ("QuestManagerUI");
+		if (!questManagerUI) {
+			Debug.Error ("Could not find the 'QuestManagerUI' GameObject in the current Scene: " + Application.loadedLevelName);
+		//} else {
+			//questManagerUI.SetActive (false);
+		}
 
 	}
 
@@ -297,4 +313,8 @@ public class GameHUD : MonoBehaviour {
     {
         menuManager.GoToOptions();
     }
+
+	public void ShowJournal(){
+
+	}
 }

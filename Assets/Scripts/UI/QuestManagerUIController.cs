@@ -72,12 +72,13 @@ public class QuestManagerUIController : MonoBehaviour {
 		for(int i = 0; i < theLists.Length; i++){
 			qcHeight += (theLists[i].Count * (buttonHeight + spacing) - spacing);
 		}
-		qm.LoadQuests ();
+		//qm.LoadQuests ();
 	}
 
 	void Update(){
 		//For debugging, remove later.
 		if (Input.GetKeyDown (KeyCode.F5)) {
+			qm.LoadQuests();
 			showQuests();
 		}
 		if((Input.GetKey(KeyCode.DownArrow) || Input.GetKey(KeyCode.UpArrow)) && mainSelected){
