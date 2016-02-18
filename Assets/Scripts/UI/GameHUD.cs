@@ -315,6 +315,24 @@ public class GameHUD : MonoBehaviour {
     }
 
 	public void ShowJournal(){
+		journal.SetActive (true);
+		journal.transform.FindChild ("MainScrollView").FindChild ("JournalItems").FindChild ("QuestsItem").GetComponent<Button>().Select();
+		pauseMenu.SetActive (false);
+	}
 
+	public void CloseJournal(){
+		journal.SetActive (false);
+		pauseMenu.SetActive (true);
+	}
+
+	public void ShowQMUI(){
+		questManagerUI.SetActive (true);
+		questManagerUI.GetComponent<QuestManagerUIController> ().showQuests ();
+		journal.SetActive (false);
+	}
+
+	public void HideQMUI(){
+		questManagerUI.SetActive (false);
+		journal.SetActive (true);
 	}
 }

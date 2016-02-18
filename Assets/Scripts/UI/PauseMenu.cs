@@ -104,4 +104,8 @@ public class PauseMenu : MonoBehaviour {
 		mainHUD.SetActive(true);     
 		Options.GoToOptions();
 	}
+
+	public void OpenJournal(){
+
+	}
 }
