@@ -22,9 +22,11 @@ public class QK_Character_Movement : MonoBehaviour {
 	//moved to seperate enum script
 	public enum CharacterState {Idle, Move, Pivot, Sprint, Crouch, Hang, Ladder, Sidle, Wait, Normal}
 	public CharacterState _moveState { get; private set; }
-	public CharacterState _stateModifier { get; private set; }
+	public CharacterState _stateModifier { get; set; }
 
 	public static CharacterController charCont;
+
+	public GameObject LedgeDetect;
 
 	[ReadOnly] public float curSpeed = 0f;
 	private float acceleration = 0.3f;
@@ -55,6 +57,8 @@ public class QK_Character_Movement : MonoBehaviour {
 
 	// Ledge Variables
 	private bool onLedge = false;
+	RaycastHit ledgeTest;
+	public GameObject ledge = null;
 
 	// This is for Slide if implemented
 	private float slideTheshold = 0.6f;
@@ -98,7 +102,6 @@ public class QK_Character_Movement : MonoBehaviour {
 				break;
 			case CharacterState.Hang:
 				ClimbLedge();
-				Debug.Log("player","asdf");
 				break;
 			default:
 				ProcessStandardMotion();
@@ -271,7 +274,18 @@ public class QK_Character_Movement : MonoBehaviour {
 	//todo capsulecast up
 	Interactable GetLedge()
 	{
-		GameObject ledge = null;
+
+		//instantiate game object to "cast"
+		//on collision inside helper script the game determines if player should jump to it
+		Vector3 tempLoc = this.gameObject.transform.position;
+		tempLoc.y += 2.5f;
+		GameObject detector = Instantiate(LedgeDetect, tempLoc, this.transform.rotation) as GameObject;
+		Physics.IgnoreCollision(this.transform.GetComponent<Collider>(), detector.transform.GetComponent<Collider>(), true);
+		Destroy (detector.gameObject);
+
+
+
+		/*
 		RaycastHit[] hit = Physics.CapsuleCastAll(transform.position, transform.position + charCont.center, 1f, Vector3.up, 1.5f);//change fifth param for different grabbable heights
 		if(hit.Length > 0)
 		{
@@ -286,19 +300,24 @@ public class QK_Character_Movement : MonoBehaviour {
 						ledge = obj.collider.gameObject;
 
 						//set location in relation to ledge object
-						RaycastHit ledgeTest;
+
 						if(Physics.Raycast(this.gameObject.transform.position, ledge.gameObject.transform.position, out ledgeTest, 50f)){
 							this.gameObject.transform.position = ledgeTest.collider.ClosestPointOnBounds(this.transform.position);
 						}
 
+						Vector3 tempLoc = this.gameObject.transform.position;
+						tempLoc.y += 2f;
+						GameObject detector = Instantiate(LedgeDetect, tempLoc, this.transform.rotation) as GameObject;
+						this.gameObject.transform.position = detector.GetComponent<QK_Character_LedgeCast>().HangCoord();
+						detector.GetComponent<QK_Character_LedgeCast>().Erase();
 					}
 				}
 			}
-		}
+		}*/
 
 		if (ledge != null) {
 			triggeredObj = ledge;
-			return GetComponentInHeirarchy<Interactable> (ledge);
+			return ledge.GetComponent<Interactable>();
 		} else {
 			return null;
 		}
@@ -509,7 +528,7 @@ public class QK_Character_Movement : MonoBehaviour {
 			return GetComponentInHeirarchy<T>(obj.transform.parent.gameObject);
 		}
 	}
-		
+
 	void OnDrawGizmosSelected()
 	{
 #if UNITY_EDITOR
