@@ -23,6 +23,9 @@ public class GameHUD : MonoBehaviour {
 
 #pragma warning disable 0219
 #pragma warning disable 0414
+   
+	public GameObject currentObjective;		//Temp GameObject to be used with compass. Set this GameObject in the inspector.
+    
     GameObject UIhud;
 	GameObject mainHUDCanvas;				//!<The canvas HUD is rendered on
 	GameObject worldMapCanvas;				//!<All the game map elements
@@ -101,6 +104,8 @@ public class GameHUD : MonoBehaviour {
 		mapElements = GameObject.Find("MapElements");
 		mapElements.SetActive(false);
 
+		
+
 	}
 
 	void Start() {
@@ -109,11 +114,18 @@ public class GameHUD : MonoBehaviour {
 	}
 
 	void FixedUpdate() {
+	
+	
+		
 		//!This is for testing, call update map from player movements
 		rotateMapObjects();
 
+
+		print (currentObjective.name);
+		
+		
 		//!Set the compass indicator
-		setCompassValue(calculateObjectiveAngle(testObjective));
+		setCompassValue(calculateObjectiveAngle(currentObjective));
 	}
 
 	//!Call this to update objective tet at top of the screen
@@ -133,14 +145,14 @@ public class GameHUD : MonoBehaviour {
 	}
 
 	public void setCompassValue(float newValue) {
-        if (testObjective == null)
+        if (currentObjective == null)
         {
             return;
         }
 
 		//!Calculates distances between "the player and the objective" and "the camera and the objective"
-		float distanceBetweenCamAndObj = Vector3.Distance (compassCameraPoint.transform.position, testObjective.transform.position);
-		float distanceBetweenPlayerAndObj = Vector3.Distance (player.transform.position, testObjective.transform.position);
+		float distanceBetweenCamAndObj = Vector3.Distance (compassCameraPoint.transform.position, currentObjective.transform.position);
+		float distanceBetweenPlayerAndObj = Vector3.Distance (player.transform.position, currentObjective.transform.position);
 
 
 
