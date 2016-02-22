@@ -183,7 +183,10 @@ public class QK_Character_Movement : MonoBehaviour {
 			_moveState = CharacterState.Idle;
 		}
 	}
+	void onCollisionEnter(Collision col){
+		//if col is a ledge end, then no movey move past that direction
 
+	}
 	void ApplyGravity () 
 	{
         if (!charCont.isGrounded && moveVector.y > -terminalVelocity) {
@@ -283,40 +286,9 @@ public class QK_Character_Movement : MonoBehaviour {
 		Physics.IgnoreCollision(this.transform.GetComponent<Collider>(), detector.transform.GetComponent<Collider>(), true);
 		Destroy (detector.gameObject);
 
-
-
-		/*
-		RaycastHit[] hit = Physics.CapsuleCastAll(transform.position, transform.position + charCont.center, 1f, Vector3.up, 1.5f);//change fifth param for different grabbable heights
-		if(hit.Length > 0)
-		{
-			foreach(RaycastHit obj in hit)
-			{
-				if(GetComponentInHeirarchy<Interactable>(obj.collider.gameObject))
-				{
-					if(GetComponentInHeirarchy<Interactable>(obj.collider.gameObject).Type == Interactable.ObjectType.Ledge)
-					{
-						//set ledge game object to this hit
-						_stateModifier = CharacterState.Hang;
-						ledge = obj.collider.gameObject;
-
-						//set location in relation to ledge object
-
-						if(Physics.Raycast(this.gameObject.transform.position, ledge.gameObject.transform.position, out ledgeTest, 50f)){
-							this.gameObject.transform.position = ledgeTest.collider.ClosestPointOnBounds(this.transform.position);
-						}
-
-						Vector3 tempLoc = this.gameObject.transform.position;
-						tempLoc.y += 2f;
-						GameObject detector = Instantiate(LedgeDetect, tempLoc, this.transform.rotation) as GameObject;
-						this.gameObject.transform.position = detector.GetComponent<QK_Character_LedgeCast>().HangCoord();
-						detector.GetComponent<QK_Character_LedgeCast>().Erase();
-					}
-				}
-			}
-		}*/
-
 		if (ledge != null) {
 			triggeredObj = ledge;
+			onLedge = true;
 			return ledge.GetComponent<Interactable>();
 		} else {
 			return null;
@@ -381,7 +353,7 @@ public class QK_Character_Movement : MonoBehaviour {
 			_stateModifier = CharacterState.Normal;
 			return;
 		}
-		if (!onLedge) {
+		if (onLedge) {
 			//this.gameObject.transform.position = iObject.gameObject.transform.position;
 			//find the position on the ledge that the player is supposed to be at
 			//move left and right as needed
@@ -392,6 +364,13 @@ public class QK_Character_Movement : MonoBehaviour {
 					_stateModifier = CharacterState.Normal;
 					onLedge = false;
 				}
+			}
+			if (Input.GetKeyDown(KeyCode.A)){
+				//move left
+
+			}
+			if (Input.GetKeyDown (KeyCode.D)){
+				//move right
 			}
 		}
 	}
