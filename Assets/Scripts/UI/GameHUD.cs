@@ -138,6 +138,12 @@ public class GameHUD : MonoBehaviour {
 		//SpawnHudAbilityIcons ();
 	}
 
+	void Update(){
+		if (Input.GetKeyDown (KeyCode.Escape) && journal.activeSelf) {
+			CloseJournal();
+		}
+	}
+
 	void FixedUpdate() {
 		//!This is for testing, call update map from player movements
 		//rotateMapObjects();
@@ -316,13 +322,16 @@ public class GameHUD : MonoBehaviour {
 
 	public void ShowJournal(){
 		journal.SetActive (true);
+		accessManager.isOnPauseMenu = false;
 		journal.transform.FindChild ("MainScrollView").FindChild ("JournalItems").FindChild ("QuestsItem").GetComponent<Button>().Select();
 		pauseMenu.SetActive (false);
 	}
 
 	public void CloseJournal(){
+		print ("Closing Journal");
 		journal.SetActive (false);
 		pauseMenu.SetActive (true);
+		accessManager.isOnPauseMenu = true;
 	}
 
 	public void ShowQMUI(){
@@ -334,5 +343,7 @@ public class GameHUD : MonoBehaviour {
 	public void HideQMUI(){
 		questManagerUI.SetActive (false);
 		journal.SetActive (true);
+		journal.transform.FindChild ("MainScrollView").FindChild ("JournalItems").FindChild ("QuestsItem").GetComponent<Button>().Select();
+		print ("Hiding QMUI");
 	}
 }

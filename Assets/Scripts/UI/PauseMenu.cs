@@ -3,6 +3,8 @@ using System.Collections;
 
 public class PauseMenu : MonoBehaviour {
 	private bool isPaused = false;
+
+	public bool isOnPauseMenu = false;
 	public GameHUD GHud;
     public MainMenuManager Options;
     public float speed = 2.0f;
@@ -23,9 +25,10 @@ public class PauseMenu : MonoBehaviour {
         //  if (InputManager.input.)
         if (Input.GetKeyDown(KeyCode.Escape)) {      // This will need to be changed to call inputManager  
 			
-			if(!isPaused) {                         
+			if(!isPaused && !isOnPauseMenu) {                         
 				pauseGame();
-			} else if(isPaused) {
+			} else if(isPaused && isOnPauseMenu) {
+				print ("in update of PM");
 				unPauseGame();	
 			}
 		}
@@ -55,7 +58,8 @@ public class PauseMenu : MonoBehaviour {
 	// Pauses the game and brings up the Pause Menu
 	public void pauseGame()
     {                       
-        isPaused = true;
+		isOnPauseMenu = true;
+		isPaused = true;
 		showCursor ();
         Time.timeScale = 0f;
         GHud.showPauseMenu();
@@ -66,7 +70,9 @@ public class PauseMenu : MonoBehaviour {
 	}
 
 	// Unpauses the game and hides menu
-	public void unPauseGame() {                     
+	public void unPauseGame() {
+		Debug.Log ("Unpausing Game");
+		isOnPauseMenu = false;
 		isPaused = false;
 		hideCursor ();
 		Time.timeScale = 1f;

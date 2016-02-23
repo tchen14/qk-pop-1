@@ -6,27 +6,30 @@ using UnityEngine.EventSystems;
 
 public class QuestManagerUIController : MonoBehaviour {
 
-	GameObject player;
 	public GameObject questContainer;
-	QuestManager qm;
 	public GameObject questUI;
+	public float spacing;
+
+	GameObject player;
+	GameObject moreQuestInfo;
+	QuestManager qm;
 	Button questButton;
 	float buttonHeight;
-	public float spacing;
-	GameObject moreQuestInfo;
+	float newScrollVal;
+	float qcHeight;
 	Text moreQuestInfoTitle;
 	Text moreQuestInfoDescription;
 	Scrollbar mainScrollbar;
 	Scrollbar moreInfoScrollbar;
 	bool mainSelected;
 	bool isScrolling;
-	float newScrollVal;
 	EventSystem theEventSystem;
-	float qcHeight;
 	int lastButtonSelected;
 	List<GameObject> allQuests;
 	List<Quest>[] theLists;
-	
+	GameHUD gameHUD;
+
+
 	void Start(){
 		player = GameObject.Find ("_Player");
 		if (player) {
@@ -62,6 +65,10 @@ public class QuestManagerUIController : MonoBehaviour {
 		if(!theEventSystem){
 			Debug.LogError("QuestManagerUI script could not find the EventSystem in the scene. Make sure the scene has an EventSystem");
 		}
+		gameHUD = GameObject.Find ("_HUDManager").GetComponent<GameHUD> ();
+		if (!gameHUD) {
+			Debug.LogError("Could not find the 'GameHUD' script on the '_HUDManager' GameObject in the scene: " + Application.loadedLevelName);
+		}
 		questButton = questUI.GetComponent<Button> ();
 		buttonHeight = questButton.GetComponent<RectTransform> ().sizeDelta.y;
 		theLists = new List<Quest>[3];
@@ -76,7 +83,7 @@ public class QuestManagerUIController : MonoBehaviour {
 	}
 
 	void Update(){
-		//For debugging, remove later.
+		//For debugging, change to use input manager later.
 		if (Input.GetKeyDown (KeyCode.F5)) {
 			qm.LoadQuests();
 			showQuests();
@@ -93,6 +100,10 @@ public class QuestManagerUIController : MonoBehaviour {
 		if(Input.GetKeyDown (KeyCode.Escape) && !mainSelected){
 			allQuests[lastButtonSelected].GetComponent<Button>().Select();
 			mainSelected = true;
+		}
+		if (Input.GetKeyDown (KeyCode.Escape) && mainSelected) {
+			//go back to Journal
+			gameHUD.HideQMUI();
 		}
 	}
 
@@ -196,29 +207,19 @@ public class QuestManagerUIController : MonoBehaviour {
 	*/
 
 	IEnumerator showMoreInfoScrollbar(){
-		Debug.Log ("Here 1");
 		while (true) {
-			Debug.Log ("Here 2");
 			float delayTime = Time.realtimeSinceStartup + 0.00001f;
 			while(Time.realtimeSinceStartup < delayTime){
-				Debug.Log ("Here 3");
 				yield return null;
-				Debug.Log ("Here 4");
 			}
-			Debug.Log ("Here 5");
 			break;
-			Debug.Log ("Here 6");
 		}
-		Debug.Log ("Here 7");
 		if(moreQuestInfoDescription.GetComponent<RectTransform>().rect.height < 560){
 			moreInfoScrollbar.gameObject.SetActive(false);
-			Debug.Log ("more info scroll bar is less than 560!");
 		}
 		else{
 			moreInfoScrollbar.gameObject.SetActive(true);
-			Debug.Log ("more info scroll bar is greater than 560!");
 		}
-		Debug.Log ("Here 8");
 	}
 	
 	/* Helper function that deletes all of the buttons that were dynamically created
