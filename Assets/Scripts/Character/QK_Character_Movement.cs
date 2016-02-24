@@ -46,6 +46,7 @@ public class QK_Character_Movement : MonoBehaviour {
 	private Vector3 groundNormal = Vector3.zero;
 
 	private Interactable iObject;
+	private GameObject tempObj;
 	private GameObject triggeredObj;
 
     // Ladder Variables
@@ -91,7 +92,9 @@ public class QK_Character_Movement : MonoBehaviour {
 
 		CalculateMovementDirection ();
 
+
 		ApplyGravity ();
+
 
 		DetermineCharacterState ();
 
@@ -183,10 +186,7 @@ public class QK_Character_Movement : MonoBehaviour {
 			_moveState = CharacterState.Idle;
 		}
 	}
-	void onCollisionEnter(Collision col){
-		//if col is a ledge end, then no movey move past that direction
 
-	}
 	void ApplyGravity () 
 	{
         if (!charCont.isGrounded && moveVector.y > -terminalVelocity) {
@@ -255,8 +255,7 @@ public class QK_Character_Movement : MonoBehaviour {
 
 			if (Input.GetKeyDown(KeyCode.Space)) 
 			{
-				iObject = GetLedge();//todo
-				Debug.Log("player", "test");
+				tempObj = GetLedge();//todo
 			}
 
 			if (Input.GetButton("Jump")) {
@@ -275,13 +274,13 @@ public class QK_Character_Movement : MonoBehaviour {
 	}
 
 	//todo capsulecast up
-	Interactable GetLedge()
+	GameObject GetLedge()
 	{
 
 		//instantiate game object to "cast"
 		//on collision inside helper script the game determines if player should jump to it
 		Vector3 tempLoc = this.gameObject.transform.position;
-		tempLoc.y += 2.5f;
+		tempLoc.y += 3f;
 		GameObject detector = Instantiate(LedgeDetect, tempLoc, this.transform.rotation) as GameObject;
 		Physics.IgnoreCollision(this.transform.GetComponent<Collider>(), detector.transform.GetComponent<Collider>(), true);
 		Destroy (detector.gameObject);
@@ -289,7 +288,8 @@ public class QK_Character_Movement : MonoBehaviour {
 		if (ledge != null) {
 			triggeredObj = ledge;
 			onLedge = true;
-			return ledge.GetComponent<Interactable>();
+			//return ledge.GetComponent<Interactable>();
+			return ledge;
 		} else {
 			return null;
 		}
@@ -348,7 +348,7 @@ public class QK_Character_Movement : MonoBehaviour {
 
 	void ClimbLedge()
 	{
-		if (iObject == null || iObject.Type != Interactable.ObjectType.Ledge) {
+		if (tempObj == null) {
 			// For some reason we're trying to climb something thats not a ledge
 			_stateModifier = CharacterState.Normal;
 			return;
@@ -362,15 +362,38 @@ public class QK_Character_Movement : MonoBehaviour {
 
 				if(_stateModifier == CharacterState.Hang){
 					_stateModifier = CharacterState.Normal;
+					ledge = null;
 					onLedge = false;
 				}
 			}
-			if (Input.GetKeyDown(KeyCode.A)){
+			if (Input.GetKeyDown(KeyCode.Space)) 
+			{
+				
+				if(_stateModifier == CharacterState.Hang){
+					_stateModifier = CharacterState.Normal;
+					ledge = null;
+					onLedge = false;
+				}
+			}
+			if (Input.GetKey(KeyCode.A)){
 				//move left
+				transform.position = Vector3.MoveTowards(transform.position, ledge.GetComponent<QK_Ledge>().getLeftPoint().transform.position, 0.04f);
 
 			}
-			if (Input.GetKeyDown (KeyCode.D)){
+			if (Input.GetKey (KeyCode.D)){
 				//move right
+				transform.position = Vector3.MoveTowards(transform.position, ledge.GetComponent<QK_Ledge>().getRightPoint().transform.position, 0.04f);
+			}
+			if (Input.GetKeyDown (KeyCode.W)){
+				//climb ledge
+				Vector3 tempPos = transform.position;
+				tempPos.y += 3f;
+				transform.position = tempPos;
+				if(_stateModifier == CharacterState.Hang){
+					_stateModifier = CharacterState.Normal;
+					ledge = null;
+					onLedge = false;
+				}
 			}
 		}
 	}
