@@ -13,3 +13,5 @@ EditorBuildSettings:
     path: Assets/Staging-Test/Phily_Mission_VSlice_Part2.unity
   - enabled: 0
     path: Assets/Scenes/test_abilityDock.unity
+  - enabled: 0
+    path: Assets/Scenes/test_questManagerUI.unity

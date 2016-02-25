@@ -31,6 +31,10 @@ public class GameHUD : MonoBehaviour {
 	public GameObject pauseMenu;
 	public PauseMenu accessManager;
     public MainMenuManager menuManager;
+	public RenderTexture MiniMapRenderTexture;
+	public Material MiniMapMaterial;
+	public float minimapXOffset;
+	public float minimapYOffset;
 	
 	GameObject mapCam;								//!<Camera used for minimap
 	static GameObject objectiveText;						//!<Objective Text UI element
@@ -53,7 +57,10 @@ public class GameHUD : MonoBehaviour {
 	GameObject worldMap;
 	GameObject mainCamera;
 	GameObject minimapCamera;
+	GameObject minimapCompass;
 	GameObject testObjective;
+
+	float offset = 10f;
 
 	void Awake() {
 
@@ -98,7 +105,7 @@ public class GameHUD : MonoBehaviour {
 		}
 
 		//!Set mapcam reference
-		mapCam = GameObject.Find("mapCam");
+		//mapCam = GameObject.Find("mapCam");
 		//!Set compassCameraPoint reference
 
 
@@ -116,39 +123,43 @@ public class GameHUD : MonoBehaviour {
 		objectiveText = GameObject.Find("objectiveText");
 
 		phoneButtons = GameObject.Find("PhoneButtons");
+
 		mapElements = GameObject.Find("MapElements");
 		mapElements.SetActive(false);
-
 		journal = GameObject.Find ("Journal");
 		if (!journal) {
-			Debug.Error ("Could not find the 'Journal' GameObject in the current Scene: " + Application.loadedLevelName);
+			print ("Could not find the 'Journal' GameObject in the current Scene: " + Application.loadedLevelName);
 		} else {
 			journal.SetActive (false);
 		}
 
 		questManagerUI = GameObject.Find ("QuestManagerUI");
 		if (!questManagerUI) {
-			Debug.Error ("Could not find the 'QuestManagerUI' GameObject in the current Scene: " + Application.loadedLevelName);
+			print ("Could not find the 'QuestManagerUI' GameObject in the current Scene: " + Application.loadedLevelName);
 		//} else {
 			//questManagerUI.SetActive (false);
 		}
+
 		minimapRedArrow = GameObject.Find ("MinimapRedArrow");
 		if(!minimapRedArrow){
-			Debug.Error ("Could not find the 'MinimapRedArrow' GameObject in the current Scene: " + Application.loadedLevelName);
+			print ("Could not find the 'MinimapRedArrow' GameObject in the current Scene: " + Application.loadedLevelName);
 		}
 		worldMap = GameObject.Find("WorldMap");
 		if(!worldMap){
-			Debug.Error("Could not find the 'WorldMap' GameObject in the current Scene: " + Application.loadedLevelName);
+			print("Could not find the 'WorldMap' GameObject in the current Scene: " + Application.loadedLevelName);
 		}
-		mainCamera = GameObject.Find ("_MainCamera");
+		mainCamera = GameObject.Find ("_Main Camera");
 		if(!mainCamera){
-			Debug.Error("Could not find the '_MainCamera' GameObject in the current Scene: " + Application.loadedLevelName);
+			print("Could not find the '_Main Camera' GameObject in the current Scene: " + Application.loadedLevelName);
 		}
 		minimapCamera = GameObject.Find ("MinimapCamera");
 		if(!minimapCamera){
-			Debug.Error("Could not find the 'MinimapCamera' GameObject in the current Scene: " + Application.loadedLevelName);
+			print("Could not find the 'MinimapCamera' GameObject in the current Scene: " + Application.loadedLevelName);
 		}
-		print ("Fin Awake");
+		minimapCompass = GameObject.Find ("MinimapCompass");
+		if (!minimapCompass) {
+			print("Could not find the 'MinimapCompass' GameObject in the current Scene: " + Application.loadedLevelName);
+		}
 	}
 
 	void Start() {
@@ -157,6 +168,8 @@ public class GameHUD : MonoBehaviour {
 	}
 
 	void Update(){
+		if (journal.activeSelf) {
+		}
 		if (Input.GetKeyDown (KeyCode.Escape) && journal.activeSelf) {
 			CloseJournal();
 		}
@@ -170,6 +183,10 @@ public class GameHUD : MonoBehaviour {
 		setCompassValue(calculateObjectiveAngle(testObjective));
 	}
 
+	void OnGUI(){
+		Graphics.DrawTexture (new Rect (minimapXOffset, Screen.height - 256 - minimapYOffset, 256, 256), MiniMapRenderTexture, MiniMapMaterial);
+	}
+
 	//!Call this to update objective tet at top of the screen
 	[EventVisible]
 	public void UpdateObjectiveText(string newObjective) {
@@ -181,13 +198,14 @@ public class GameHUD : MonoBehaviour {
 	public void rotateMapObjects() {
 		Quaternion newRotation;
 		foreach(GameObject curLabel in mapLabels) {
-			rotateMapObjectsAboutGameObject(curLabel, player);
+			rotateMapObjectsAboutGameObject(curLabel, mainCamera);
 		}
 		rotateMapObjectsAboutGameObject(minimapRedArrow, player);
 		moveMapObjectsFromOtherObject(minimapRedArrow, player, new Vector3(0, -15, 0));
 		rotateMapObjectsAboutGameObject (minimapCamera, mainCamera);
 		moveMapObjectsFromOtherObject(minimapCamera, player, new Vector3(0, -10, 0));
-		
+		moveMapObjectsFromOtherObject (minimapCompass, player, new Vector3(0, -16, 0));
+		print ("ending map objects");
 	}
 
 	void rotateMapObjectsAboutGameObject(GameObject mainObject, GameObject secondaryObject){
