@@ -5,9 +5,9 @@ public class QK_Character_LedgeCast : MonoBehaviour {
 	public Vector3 col_point;
 	private bool ledge_found = false;
 	private GameObject player;
-	void OnCollisionEnter(Collision col){
+	void OnTriggerEnter(Collider col){
 		if (col.gameObject.GetComponent<QK_Ledge> ()) {
-				col_point = col.collider.ClosestPointOnBounds (this.transform.position);
+				col_point = col.ClosestPointOnBounds (this.transform.position);
 				player = GameObject.FindGameObjectWithTag ("Player");
 				//apply hanging calculation to col_point
 				col_point.y -= 1.8f;

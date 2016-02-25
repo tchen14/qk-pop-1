@@ -386,14 +386,17 @@ public class QK_Character_Movement : MonoBehaviour {
 			}
 			if (Input.GetKeyDown (KeyCode.W)){
 				//climb ledge
-				Vector3 tempPos = transform.position;
-				tempPos.y += 3f;
-				transform.position = tempPos;
-				if(_stateModifier == CharacterState.Hang){
-					_stateModifier = CharacterState.Normal;
-					ledge = null;
-					onLedge = false;
+				if (Input.GetKeyDown (KeyCode.W)){
+						Vector3 tempPos = transform.position;
+						tempPos.y += 3f;
+						transform.position = tempPos;
+						if(_stateModifier == CharacterState.Hang){
+							_stateModifier = CharacterState.Normal;
+							ledge = null;
+							onLedge = false;
+						}
 				}
+				
 			}
 		}
 	}
