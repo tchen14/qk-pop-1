@@ -29,14 +29,13 @@ public class GameHUD : MonoBehaviour {
 	GameObject gameMap;						//!<The map iamge on a plane
 	GameObject player;						//!<reference to player
 	public GameObject pauseMenu;
-
 	public PauseMenu accessManager;
     public MainMenuManager menuManager;
 	
 	GameObject mapCam;								//!<Camera used for minimap
 	static GameObject objectiveText;						//!<Objective Text UI element
 
-	//GameObject[] mapLabels;							//!<Array of text taht appears on minimap
+	GameObject[] mapLabels;							//!<Array of text taht appears on minimap
 
 	public bool skillsOpen = false;
 	bool canSpin = false;
@@ -50,7 +49,10 @@ public class GameHUD : MonoBehaviour {
 	GameObject rightArrow;
 	GameObject journal;
 	GameObject questManagerUI;
-
+	GameObject minimapRedArrow; 					//!<Arrow for the player representation on the minimap
+	GameObject worldMap;
+	GameObject mainCamera;
+	GameObject minimapCamera;
 	GameObject testObjective;
 
 	void Awake() {
@@ -84,10 +86,10 @@ public class GameHUD : MonoBehaviour {
 		pauseMenu.SetActive (false);
 		//DebugOnScreen.Log ("HERE");
 		//!Turn on UI stuff
-		//worldMapCanvas.SetActive(true);
+		worldMapCanvas.SetActive(true);
 
 		//!Fill mapLabels array
-		//mapLabels = GameObject.FindGameObjectsWithTag("worldMapLabel"); //This is giving issues in a build. GameHUD script will not continue with this line right now.
+		mapLabels = GameObject.FindGameObjectsWithTag("worldMapLabel"); //This is giving issues in a build. GameHUD script will not continue with this line right now.
 
 		closeMapButton = GameObject.Find("CloseMapButton");
 
@@ -130,7 +132,23 @@ public class GameHUD : MonoBehaviour {
 		//} else {
 			//questManagerUI.SetActive (false);
 		}
-
+		minimapRedArrow = GameObject.Find ("MinimapRedArrow");
+		if(!minimapRedArrow){
+			Debug.Error ("Could not find the 'MinimapRedArrow' GameObject in the current Scene: " + Application.loadedLevelName);
+		}
+		worldMap = GameObject.Find("WorldMap");
+		if(!worldMap){
+			Debug.Error("Could not find the 'WorldMap' GameObject in the current Scene: " + Application.loadedLevelName);
+		}
+		mainCamera = GameObject.Find ("_MainCamera");
+		if(!mainCamera){
+			Debug.Error("Could not find the '_MainCamera' GameObject in the current Scene: " + Application.loadedLevelName);
+		}
+		minimapCamera = GameObject.Find ("MinimapCamera");
+		if(!minimapCamera){
+			Debug.Error("Could not find the 'MinimapCamera' GameObject in the current Scene: " + Application.loadedLevelName);
+		}
+		print ("Fin Awake");
 	}
 
 	void Start() {
@@ -146,7 +164,7 @@ public class GameHUD : MonoBehaviour {
 
 	void FixedUpdate() {
 		//!This is for testing, call update map from player movements
-		//rotateMapObjects();
+		rotateMapObjects();
 
 		//!Set the compass indicator
 		setCompassValue(calculateObjectiveAngle(testObjective));
@@ -160,14 +178,33 @@ public class GameHUD : MonoBehaviour {
 
 	//!Rotates map labels so that the text is always right side up, call this from anything that rotates the camera
 	//!Right now its based on Player rotation, needs to be based on camera
-	/*public void rotateMapObjects() {
+	public void rotateMapObjects() {
 		Quaternion newRotation;
 		foreach(GameObject curLabel in mapLabels) {
-			print (curLabel.name);
-			newRotation = Quaternion.Euler(new Vector3(90, 0, -player.transform.rotation.eulerAngles.y));
-			curLabel.GetComponent<RectTransform>().rotation = newRotation;
+			rotateMapObjectsAboutGameObject(curLabel, player);
 		}
-	}*/
+		rotateMapObjectsAboutGameObject(minimapRedArrow, player);
+		moveMapObjectsFromOtherObject(minimapRedArrow, player, new Vector3(0, -15, 0));
+		rotateMapObjectsAboutGameObject (minimapCamera, mainCamera);
+		moveMapObjectsFromOtherObject(minimapCamera, player, new Vector3(0, -10, 0));
+		
+	}
+
+	void rotateMapObjectsAboutGameObject(GameObject mainObject, GameObject secondaryObject){
+		Quaternion newRotation;
+		newRotation = Quaternion.Euler(new Vector3(90, 0, -secondaryObject.transform.rotation.eulerAngles.y));
+		if(mainObject.GetComponent<RectTransform>()){
+			mainObject.GetComponent<RectTransform>().rotation = newRotation;
+		}
+		else{
+			mainObject.GetComponent<Transform>().rotation = newRotation;
+		}
+	}
+	
+
+	void moveMapObjectsFromOtherObject(GameObject mainObject, GameObject secondaryObject, Vector3 positionOffest){
+		mainObject.transform.position = secondaryObject.transform.position + positionOffest;
+	}
 
 	public void setCompassValue(float newValue) {
 
