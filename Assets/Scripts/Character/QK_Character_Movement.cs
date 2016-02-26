@@ -283,7 +283,7 @@ public class QK_Character_Movement : MonoBehaviour {
 		tempLoc.y += 3f;
 		GameObject detector = Instantiate(LedgeDetect, tempLoc, this.transform.rotation) as GameObject;
 		Physics.IgnoreCollision(this.transform.GetComponent<Collider>(), detector.transform.GetComponent<Collider>(), true);
-		Destroy (detector.gameObject);
+		//Destroy (detector.gameObject);
 
 		if (ledge != null) {
 			triggeredObj = ledge;
@@ -368,12 +368,15 @@ public class QK_Character_Movement : MonoBehaviour {
 			}
 			if (Input.GetKeyDown(KeyCode.Space)) 
 			{
-				
-				if(_stateModifier == CharacterState.Hang){
-					_stateModifier = CharacterState.Normal;
-					ledge = null;
-					onLedge = false;
+				if (Input.GetKeyUp(KeyCode.Space)) 
+				{
+					if(_stateModifier == CharacterState.Hang){
+						_stateModifier = CharacterState.Normal;
+						ledge = null;
+						onLedge = false;
+					}
 				}
+
 			}
 			if (Input.GetKey(KeyCode.A)){
 				//move left
