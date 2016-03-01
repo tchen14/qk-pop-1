@@ -184,6 +184,7 @@ public class GameHUD : MonoBehaviour {
 	}
 
 	void OnGUI(){
+		//!Calls the DrawTexture function to display the minimap on the screen
 		Graphics.DrawTexture (new Rect (minimapXOffset, Screen.height - 256 - minimapYOffset, 256, 256), MiniMapRenderTexture, MiniMapMaterial);
 	}
 
@@ -205,7 +206,6 @@ public class GameHUD : MonoBehaviour {
 		rotateMapObjectsAboutGameObject (minimapCamera, mainCamera);
 		moveMapObjectsFromOtherObject(minimapCamera, player, new Vector3(0, -10, 0));
 		moveMapObjectsFromOtherObject (minimapCompass, player, new Vector3(0, -16, 0));
-		print ("ending map objects");
 	}
 
 	void rotateMapObjectsAboutGameObject(GameObject mainObject, GameObject secondaryObject){
