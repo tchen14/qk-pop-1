@@ -3,7 +3,7 @@
 using UnityEngine;
 using System.Collections;
 using Debug = FFP.Debug;
-//using CharacterState = CharacterStates;
+using CharacterState = CharacterStates;
 public class QK_Character_Movement : MonoBehaviour {
 
 	private static QK_Character_Movement _instance;
@@ -20,7 +20,7 @@ public class QK_Character_Movement : MonoBehaviour {
 	}
 
 	//moved to seperate enum script
-	public enum CharacterState {Idle, Move, Pivot, Sprint, Crouch, Hang, Ladder, Sidle, Wait, Normal}
+	//public enum CharacterState {Idle, Move, Pivot, Sprint, Crouch, Hang, Ladder, Sidle, Wait, Normal}
 	public CharacterState _moveState { get; private set; }
 	public CharacterState _stateModifier { get; set; }
 
@@ -60,6 +60,9 @@ public class QK_Character_Movement : MonoBehaviour {
 	private bool onLedge = false;
 	RaycastHit ledgeTest;
 	public GameObject ledge = null;
+	public Vector3 endPos;
+	private Vector3 startPos;
+	public float currentLerpTime;
 
 	// This is for Slide if implemented
 	private float slideTheshold = 0.6f;
@@ -105,6 +108,12 @@ public class QK_Character_Movement : MonoBehaviour {
 				break;
 			case CharacterState.Hang:
 				ClimbLedge();
+				break;
+			case CharacterState.LedgeJump:
+				LedgeJumpLerp();
+				break;
+			case CharacterState.LedgeClimb:
+				LedgeClimbLerp();
 				break;
 			default:
 				ProcessStandardMotion();
@@ -345,6 +354,39 @@ public class QK_Character_Movement : MonoBehaviour {
 			verticalVelocity = jumpSpeed;
 	}
 
+	void LedgeJumpLerp(){
+		float lerpTime = 100f;//modify to anim time
+
+		startPos = this.transform.position;
+		//increment timer once per frame
+		currentLerpTime += Time.deltaTime;
+		if (currentLerpTime > lerpTime) {
+			currentLerpTime = lerpTime;
+		}
+		//lerp!
+		float perc = currentLerpTime / lerpTime;
+		transform.position = Vector3.Lerp(startPos, endPos, perc);
+		if (startPos.y > endPos.y - 1f) {//modify second half to change condition on when you are done lerping
+			_stateModifier = CharacterStates.Hang;
+		}
+	}
+
+	void LedgeClimbLerp(){
+		float lerpTime = 100f;//modify to anim time
+
+		startPos = this.transform.position;
+		//increment timer once per frame
+		currentLerpTime += Time.deltaTime;
+		if (currentLerpTime > lerpTime) {
+			currentLerpTime = lerpTime;
+		}
+		//lerp!
+		float perc = currentLerpTime / lerpTime;
+		transform.position = Vector3.Lerp(startPos, endPos, perc);
+		if (startPos.y > endPos.y - 1f) {//modify second half to change condition on when you are done lerping
+			_stateModifier = CharacterStates.Normal;
+		}
+	}
 
 	void ClimbLedge()
 	{
@@ -361,7 +403,8 @@ public class QK_Character_Movement : MonoBehaviour {
 			{
 
 				if(_stateModifier == CharacterState.Hang){
-					_stateModifier = CharacterState.Normal;
+					currentLerpTime = 0f;
+					_stateModifier = CharacterState.LedgeClimb;
 					ledge = null;
 					onLedge = false;
 				}
@@ -390,9 +433,22 @@ public class QK_Character_Movement : MonoBehaviour {
 			if (Input.GetKeyDown (KeyCode.W)){
 				//climb ledge
 				if (Input.GetKeyDown (KeyCode.W)){
-						Vector3 tempPos = transform.position;
-						tempPos.y += 3f;
-						transform.position = tempPos;
+					if(_stateModifier == CharacterState.Hang){
+						currentLerpTime = 0f;
+						_stateModifier = CharacterState.LedgeClimb;
+						ledge = null;
+						onLedge = false;
+					}	
+
+
+
+
+
+
+
+					Vector3 tempPos = transform.position;
+					tempPos.y += 3f;
+					endPos = tempPos;
 						if(_stateModifier == CharacterState.Hang){
 							_stateModifier = CharacterState.Normal;
 							ledge = null;

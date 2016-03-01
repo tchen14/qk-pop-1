@@ -9,5 +9,7 @@
 	Ladder,
 	Sidle,
 	Wait, 
-	Normal
+	Normal,
+	LedgeJump,
+	LedgeClimb
 }

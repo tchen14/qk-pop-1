@@ -8,13 +8,18 @@ public class QK_Character_LedgeCast : MonoBehaviour {
 	private int ticker = 0;
 	void OnTriggerEnter(Collider col){
 		if (col.gameObject.GetComponent<QK_Ledge> ()) {
-				col_point = col.ClosestPointOnBounds (this.transform.position);
-				player = GameObject.FindGameObjectWithTag ("Player");
-				//apply hanging calculation to col_point
-				col_point.y -= 1.8f;
-				player.GetComponent<QK_Character_Movement>()._stateModifier = QK_Character_Movement.CharacterState.Hang;
-				player.GetComponent<QK_Character_Movement>().ledge = col.gameObject;
-				player.transform.position = col_point;
+			col_point = col.ClosestPointOnBounds (this.transform.position);
+			player = GameObject.FindGameObjectWithTag ("Player");
+			//apply hanging calculation to col_point
+			col_point.y -= 1.8f;
+			//player.GetComponent<QK_Character_Movement>()._stateModifier = CharacterStates.Hang;
+			player.GetComponent<QK_Character_Movement>().ledge = col.gameObject;
+			player.GetComponent<QK_Character_Movement>().endPos = col_point;
+			player.transform.position = col_point;
+			//call player ledgejumplerp
+			player.GetComponent<QK_Character_Movement>().currentLerpTime = 0f;
+			//change state to ledge jumping
+			player.GetComponent<QK_Character_Movement>()._stateModifier = CharacterStates.LedgeJump;
 				Erase ();
 		}
 	}
