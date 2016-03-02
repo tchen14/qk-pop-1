@@ -355,7 +355,7 @@ public class QK_Character_Movement : MonoBehaviour {
 	}
 
 	void LedgeJumpLerp(){
-		float lerpTime = 100f;//modify to anim time
+		float lerpTime = 50f;//modify to anim time
 
 		startPos = this.transform.position;
 		//increment timer once per frame
@@ -366,13 +366,13 @@ public class QK_Character_Movement : MonoBehaviour {
 		//lerp!
 		float perc = currentLerpTime / lerpTime;
 		transform.position = Vector3.Lerp(startPos, endPos, perc);
-		if (startPos.y > endPos.y - 1f) {//modify second half to change condition on when you are done lerping
+		if (startPos.y > endPos.y - 0.1f) {//modify second half to change condition on when you are done lerping
 			_stateModifier = CharacterStates.Hang;
 		}
 	}
 
 	void LedgeClimbLerp(){
-		float lerpTime = 100f;//modify to anim time
+		float lerpTime = 50f;//modify to anim time
 
 		startPos = this.transform.position;
 		//increment timer once per frame
@@ -409,6 +409,7 @@ public class QK_Character_Movement : MonoBehaviour {
 					onLedge = false;
 				}
 			}
+			/*
 			if (Input.GetKeyDown(KeyCode.Space)) 
 			{
 				if (Input.GetKeyUp(KeyCode.Space)) 
@@ -421,6 +422,7 @@ public class QK_Character_Movement : MonoBehaviour {
 				}
 
 			}
+			*/
 			if (Input.GetKey(KeyCode.A)){
 				//move left
 				transform.position = Vector3.MoveTowards(transform.position, ledge.GetComponent<QK_Ledge>().getLeftPoint().transform.position, 0.04f);
@@ -439,12 +441,6 @@ public class QK_Character_Movement : MonoBehaviour {
 						ledge = null;
 						onLedge = false;
 					}	
-
-
-
-
-
-
 
 					Vector3 tempPos = transform.position;
 					tempPos.y += 3f;

@@ -20,12 +20,11 @@ public class QK_Character_LedgeCast : MonoBehaviour {
 			player.GetComponent<QK_Character_Movement>().currentLerpTime = 0f;
 			//change state to ledge jumping
 			player.GetComponent<QK_Character_Movement>()._stateModifier = CharacterStates.LedgeJump;
-				Erase ();
 		}
 	}
 	public void FixedUpdate(){
 		ticker++;
-		if (ticker > 100) {
+		if (ticker > 2) {//ToDo need to modify, might need to modify to keep the player from popping off the first time
 			Erase();
 		}
 	}
