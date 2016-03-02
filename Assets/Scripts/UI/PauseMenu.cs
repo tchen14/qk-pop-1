@@ -28,7 +28,6 @@ public class PauseMenu : MonoBehaviour {
 			if(!isPaused && !isOnPauseMenu) {                         
 				pauseGame();
 			} else if(isPaused && isOnPauseMenu) {
-				print ("in update of PM");
 				unPauseGame();	
 			}
 		}
@@ -71,7 +70,6 @@ public class PauseMenu : MonoBehaviour {
 
 	// Unpauses the game and hides menu
 	public void unPauseGame() {
-		Debug.Log ("Unpausing Game");
 		isOnPauseMenu = false;
 		isPaused = false;
 		hideCursor ();

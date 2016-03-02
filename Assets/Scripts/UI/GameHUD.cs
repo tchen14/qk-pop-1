@@ -26,7 +26,6 @@ public class GameHUD : MonoBehaviour {
     GameObject UIhud;
 	GameObject mainHUDCanvas;				//!<The canvas HUD is rendered on
 	GameObject worldMapCanvas;				//!<All the game map elements
-	GameObject gameMap;						//!<The map iamge on a plane
 	GameObject player;						//!<reference to player
 	public GameObject pauseMenu;
 	public PauseMenu accessManager;
@@ -54,7 +53,6 @@ public class GameHUD : MonoBehaviour {
 	GameObject journal;
 	GameObject questManagerUI;
 	GameObject minimapRedArrow; 					//!<Arrow for the player representation on the minimap
-	GameObject worldMap;
 	GameObject mainCamera;
 	GameObject minimapCamera;
 	GameObject minimapCompass;
@@ -74,41 +72,27 @@ public class GameHUD : MonoBehaviour {
 		}
 		#endregion
 
-
-
         UIhud = GameObject.Find("_UI");
 		mainHUDCanvas = GameObject.Find("mainHUD");
 		worldMapCanvas = GameObject.Find("worldMapCanvas");
-		gameMap = GameObject.Find("mapBG");
+		//gameMap = GameObject.Find("mapBG");
 		player = GameObject.Find("_Player");
 
-		//testObjective = GameObject.Find("TestObjective");
-		/*if (testObjective) {
-			DebugOnScreen.Log ("Found: " + testObjective.name);
-		}
-		*/
 		if (!pauseMenu){
             pauseMenu = GameObject.Find("pauseMenu");
         }
 		pauseMenu.SetActive (false);
-		//DebugOnScreen.Log ("HERE");
 		//!Turn on UI stuff
 		worldMapCanvas.SetActive(true);
 
 		//!Fill mapLabels array
-		mapLabels = GameObject.FindGameObjectsWithTag("worldMapLabel"); //This is giving issues in a build. GameHUD script will not continue with this line right now.
-
+		mapLabels = GameObject.FindGameObjectsWithTag("worldMapLabel");
 		closeMapButton = GameObject.Find("CloseMapButton");
 
 		if (closeMapButton) {
 			closeMapButton.SetActive (false);
 		}
-
-		//!Set mapcam reference
-		//mapCam = GameObject.Find("mapCam");
 		//!Set compassCameraPoint reference
-
-
 
 		compassCameraPoint = GameObject.Find("compassCameraPoint");
 		compass = GameObject.Find("compassSlider");
@@ -136,18 +120,15 @@ public class GameHUD : MonoBehaviour {
 		questManagerUI = GameObject.Find ("QuestManagerUI");
 		if (!questManagerUI) {
 			print ("Could not find the 'QuestManagerUI' GameObject in the current Scene: " + Application.loadedLevelName);
-		//} else {
-			//questManagerUI.SetActive (false);
 		}
-
 		minimapRedArrow = GameObject.Find ("MinimapRedArrow");
 		if(!minimapRedArrow){
 			print ("Could not find the 'MinimapRedArrow' GameObject in the current Scene: " + Application.loadedLevelName);
 		}
-		worldMap = GameObject.Find("WorldMap");
+		/*worldMap = GameObject.Find("WorldMap");
 		if(!worldMap){
 			print("Could not find the 'WorldMap' GameObject in the current Scene: " + Application.loadedLevelName);
-		}
+		}*/
 		mainCamera = GameObject.Find ("_Main Camera");
 		if(!mainCamera){
 			print("Could not find the '_Main Camera' GameObject in the current Scene: " + Application.loadedLevelName);
@@ -168,8 +149,6 @@ public class GameHUD : MonoBehaviour {
 	}
 
 	void Update(){
-		if (journal.activeSelf) {
-		}
 		if (Input.GetKeyDown (KeyCode.Escape) && journal.activeSelf) {
 			CloseJournal();
 		}
@@ -177,7 +156,7 @@ public class GameHUD : MonoBehaviour {
 
 	void FixedUpdate() {
 		//!This is for testing, call update map from player movements
-		rotateMapObjects();
+		UpdateMapObjects();
 
 		//!Set the compass indicator
 		setCompassValue(calculateObjectiveAngle(testObjective));
@@ -194,21 +173,26 @@ public class GameHUD : MonoBehaviour {
 		objectiveText.GetComponent<Text>().text = newObjective;
 	}
 
-	//!Rotates map labels so that the text is always right side up, call this from anything that rotates the camera
-	//!Right now its based on Player rotation, needs to be based on camera
-	public void rotateMapObjects() {
+	//!Rotates and moves all of the relevant objects on the minimap
+	public void UpdateMapObjects() {
 		Quaternion newRotation;
 		foreach(GameObject curLabel in mapLabels) {
-			rotateMapObjectsAboutGameObject(curLabel, mainCamera);
+			RotateMapObjectsAboutGameObject(curLabel, mainCamera);
 		}
-		rotateMapObjectsAboutGameObject(minimapRedArrow, player);
+		RotateMapObjectsAboutGameObject(minimapRedArrow, player);
 		moveMapObjectsFromOtherObject(minimapRedArrow, player, new Vector3(0, -15, 0));
-		rotateMapObjectsAboutGameObject (minimapCamera, mainCamera);
+		RotateMapObjectsAboutGameObject (minimapCamera, mainCamera);
 		moveMapObjectsFromOtherObject(minimapCamera, player, new Vector3(0, -10, 0));
 		moveMapObjectsFromOtherObject (minimapCompass, player, new Vector3(0, -16, 0));
 	}
 
-	void rotateMapObjectsAboutGameObject(GameObject mainObject, GameObject secondaryObject){
+	/*!Rotates items on the minimap always face in the correct direction
+	 * The mainObject is the object that is to be rotated
+	 * The secondaryObject is the object that the mainObject is to be rotated in reference to
+	 * For example if you wanted to rotate a text object on the screen as the main camera turns,
+	 * the text object would be the mainObject and the main camera would be the secondaryObject
+	 */
+	void RotateMapObjectsAboutGameObject(GameObject mainObject, GameObject secondaryObject){
 		Quaternion newRotation;
 		newRotation = Quaternion.Euler(new Vector3(90, 0, -secondaryObject.transform.rotation.eulerAngles.y));
 		if(mainObject.GetComponent<RectTransform>()){
@@ -219,7 +203,10 @@ public class GameHUD : MonoBehaviour {
 		}
 	}
 	
-
+	/*!Moves items on the minimap so they follow another object that is in the world
+	 * The mainObject is the object to be moved, the secondaryObject is the object that the mainObject is following,
+	 * and the positionOffest is an offset to have control over the depth of the minimap related objects.
+	 */
 	void moveMapObjectsFromOtherObject(GameObject mainObject, GameObject secondaryObject, Vector3 positionOffest){
 		mainObject.transform.position = secondaryObject.transform.position + positionOffest;
 	}
@@ -234,8 +221,6 @@ public class GameHUD : MonoBehaviour {
 		//!Calculates distances between "the player and the objective" and "the camera and the objective"
 		float distanceBetweenCamAndObj = Vector3.Distance (compassCameraPoint.transform.position, testObjective.transform.position);
 		float distanceBetweenPlayerAndObj = Vector3.Distance (player.transform.position, testObjective.transform.position);
-
-
 
 		//!If the camera is closer to the objective, this means the objective is behind the player.
 		//!In these first two cases, the compass will be forced to one side or the other as to not confuse the player
@@ -366,15 +351,19 @@ public class GameHUD : MonoBehaviour {
 		Application.LoadLevel(s);
 	}
 
+	//!When this function is called the game closes. Only works in a build of the game
 	public void quitGame () {
 		Application.Quit ();
 	}
-
+	
     public void openOptions() 
     {
         menuManager.GoToOptions();
     }
 
+	/*!This function activates the journal and deactivates the pause menu
+	 * The function also highlights the quests button (the first item in the journal)
+	 */
 	public void ShowJournal(){
 		journal.SetActive (true);
 		accessManager.isOnPauseMenu = false;
@@ -382,23 +371,26 @@ public class GameHUD : MonoBehaviour {
 		pauseMenu.SetActive (false);
 	}
 
+	/*!This function deactivates the journal and activates the pause menu
+	 */
 	public void CloseJournal(){
-		print ("Closing Journal");
 		journal.SetActive (false);
 		pauseMenu.SetActive (true);
 		accessManager.isOnPauseMenu = true;
 	}
 
+	/*!This function activates the QuestManagerUI and deactivates the Journal
+	 */
 	public void ShowQMUI(){
 		questManagerUI.SetActive (true);
 		questManagerUI.GetComponent<QuestManagerUIController> ().showQuests ();
 		journal.SetActive (false);
 	}
-
+	/*!This function deactivates the QuestManagerUI and activates the Journal
+	 */
 	public void HideQMUI(){
 		questManagerUI.SetActive (false);
 		journal.SetActive (true);
 		journal.transform.FindChild ("MainScrollView").FindChild ("JournalItems").FindChild ("QuestsItem").GetComponent<Button>().Select();
-		print ("Hiding QMUI");
 	}
 }

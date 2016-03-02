@@ -32,12 +32,7 @@ public class QuestManager : MonoBehaviour {
 			Debug.LogError("QuestManager script attached to the player could not find the 'QuestManagerUI' UI GameObject in the scene: " + Application.loadedLevelName);
 		}
 		_quest = new Quest (null, null, null, -1, null);
-		/*currentQuests = new List<Quest> ();
-		failedQuests = new List<Quest> ();
-		completedQuests = new List<Quest> ();
-		*/
-		//_questSaveManager = (QuestSaveManager)FindObjectOfType (typeof(QuestSaveManager));
-		_questSaveManager = GameObject.Find ("qmSaveManager").GetComponent<QuestSaveManager> ();
+		_questSaveManager = Object.FindObjectOfType<QuestSaveManager> ();
 		if (!_questSaveManager) {
 			Debug.LogError("Could not find the '_questSaveManagerComponent' in the scene: " + Application.loadedLevelName);
 		}
@@ -45,9 +40,6 @@ public class QuestManager : MonoBehaviour {
 
 	[EventVisibleAttribute]
 	public void LoadQuests() {
-		int x = _questSaveManager.DebugFunctionDeleteLater ();
-		print (x);
-
 		List<Quest> newQuestList = _questSaveManager.LoadQuests();
 		if (newQuestList != null) {
 			currentQuests = newQuestList;

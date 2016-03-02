@@ -30,7 +30,7 @@ public class QuestManagerUIController : MonoBehaviour {
 	GameHUD gameHUD;
 
 
-	void Start(){
+	void Awake(){
 		player = GameObject.Find ("_Player");
 		if (player) {
 			qm = player.GetComponent<QuestManager>();
@@ -69,17 +69,22 @@ public class QuestManagerUIController : MonoBehaviour {
 		if (!gameHUD) {
 			Debug.LogError("Could not find the 'GameHUD' script on the '_HUDManager' GameObject in the scene: " + Application.loadedLevelName);
 		}
+		//qm.LoadQuests ();
 		questButton = questUI.GetComponent<Button> ();
 		buttonHeight = questButton.GetComponent<RectTransform> ().sizeDelta.y;
+
+		//qm.LoadQuests ();
+		//showQuests ();
+	}
+
+	void Start(){
 		theLists = new List<Quest>[3];
 		theLists[0] = qm.currentQuests;
 		theLists[1] = qm.failedQuests;
 		theLists[2] = qm.completedQuests;
-		
 		for(int i = 0; i < theLists.Length; i++){
 			qcHeight += (theLists[i].Count * (buttonHeight + spacing) - spacing);
 		}
-		//qm.LoadQuests ();
 	}
 
 	void Update(){
@@ -109,6 +114,7 @@ public class QuestManagerUIController : MonoBehaviour {
 
 	public void showQuests(){
 		removeQuestUIobjects ();
+		qm.LoadQuests ();
 		reorganizeQuests ();
 	}
 
@@ -118,6 +124,7 @@ public class QuestManagerUIController : MonoBehaviour {
 	 * This function organizes quests by active, failed, then completed quests.
 	 */
 	public void reorganizeQuests(){
+		Debug.Log ("Reorganizing quests");
 		allQuests = new List<GameObject> ();
 		mainSelected = true;
 		moreQuestInfoTitle.text = "";
@@ -156,7 +163,6 @@ public class QuestManagerUIController : MonoBehaviour {
 			moreQuestInfoTitle.text = "No Quests!";
 			moreQuestInfoDescription.text = "You have no quests! Go explore to find some!";
 		}
-		//StartCoroutine(showMoreInfoScrollbar());
 
 		if (qm.questCount < 7) {
 			GameObject scrollingHandle = mainScrollbar.transform.FindChild ("Sliding Area").transform.FindChild ("Handle").gameObject;
@@ -191,21 +197,6 @@ public class QuestManagerUIController : MonoBehaviour {
 	/* This coroutine is needed to fix a bug.
 	 * Without the short delay that this adds into the code, the program was getting the previous value for the height of the moreQuestInfoDescription
 	 */
-	/*	IEnumerator showMoreInfoScrollbar(){
-			Debug.Log ("Showing more info scrollbar. " + moreQuestInfoDescription.GetComponent<RectTransform>().rect.height.ToString());
-			yield return new WaitForSeconds (0.00001f);
-			Debug.Log ("yield returned new!");
-			if(moreQuestInfoDescription.GetComponent<RectTransform>().rect.height < 560){
-				moreInfoScrollbar.gameObject.SetActive(false);
-				Debug.Log ("more info scroll bar is less than 560!");
-			}
-			else{
-				moreInfoScrollbar.gameObject.SetActive(true);
-				Debug.Log ("more info scroll bar is greater than 560!");
-			}
-		}
-	*/
-
 	IEnumerator showMoreInfoScrollbar(){
 		while (true) {
 			float delayTime = Time.realtimeSinceStartup + 0.00001f;
