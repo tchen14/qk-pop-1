@@ -125,10 +125,6 @@ public class GameHUD : MonoBehaviour {
 		if(!minimapRedArrow){
 			print ("Could not find the 'MinimapRedArrow' GameObject in the current Scene: " + Application.loadedLevelName);
 		}
-		/*worldMap = GameObject.Find("WorldMap");
-		if(!worldMap){
-			print("Could not find the 'WorldMap' GameObject in the current Scene: " + Application.loadedLevelName);
-		}*/
 		mainCamera = GameObject.Find ("_Main Camera");
 		if(!mainCamera){
 			print("Could not find the '_Main Camera' GameObject in the current Scene: " + Application.loadedLevelName);
