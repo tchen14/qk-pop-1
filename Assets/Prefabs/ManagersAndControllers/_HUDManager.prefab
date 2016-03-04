@@ -60,6 +60,8 @@ MonoBehaviour:
   MiniMapMaterial: {fileID: 2100000, guid: bb00ee20b2c01d94387eba03e9368330, type: 2}
   minimapXOffset: 10
   minimapYOffset: 10
+  targetableIcon: {fileID: 21300000, guid: ae4d9917486364446b0c8ad4a76e023e, type: 3}
+  enemyIcon: {fileID: 21300000, guid: 6d3cb80085421de4facd782d5aa260a1, type: 3}
   skillsOpen: 0
 --- !u!114 &11493698
 MonoBehaviour:

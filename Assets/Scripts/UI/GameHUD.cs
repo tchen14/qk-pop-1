@@ -34,7 +34,10 @@ public class GameHUD : MonoBehaviour {
 	public Material MiniMapMaterial;
 	public float minimapXOffset;
 	public float minimapYOffset;
-	
+	public Sprite targetableIcon;
+	public Sprite enemyIcon;
+	//public GameObject closestTargetIconPrefab;
+
 	GameObject mapCam;								//!<Camera used for minimap
 	static GameObject objectiveText;						//!<Objective Text UI element
 
@@ -57,6 +60,9 @@ public class GameHUD : MonoBehaviour {
 	GameObject minimapCamera;
 	GameObject minimapCompass;
 	GameObject testObjective;
+
+	List<GameObject> targetsInRange;
+	GameObject closestTargetIcon;
 
 	float offset = 10f;
 
@@ -137,6 +143,10 @@ public class GameHUD : MonoBehaviour {
 		if (!minimapCompass) {
 			print("Could not find the 'MinimapCompass' GameObject in the current Scene: " + Application.loadedLevelName);
 		}
+		closestTargetIcon = GameObject.Find ("ClosestTargetIcon");
+		if (!closestTargetIcon) {
+			Debug.Error ("HUD", "Could not find the 'ClosestTargetIcon' GameObject in the current Scene: " + Application.loadedLevelName);
+		}
 	}
 
 	void Start() {
@@ -147,6 +157,20 @@ public class GameHUD : MonoBehaviour {
 	void Update(){
 		if (Input.GetKeyDown (KeyCode.Escape) && journal.activeSelf) {
 			CloseJournal();
+		}
+		targetsInRange = PoPCamera.AcquireTarget ();
+		if (targetsInRange.Count != 0) {
+			if(targetsInRange[0].gameObject.GetComponent<Enemy>()){
+				closestTargetIcon.GetComponent<Image>().sprite = enemyIcon;
+			}
+			else{
+				closestTargetIcon.GetComponent<Image>().sprite = targetableIcon;
+			}
+			closestTargetIcon.transform.position = targetsInRange [0].transform.position + new Vector3(0, 3, 0);
+			closestTargetIcon.transform.rotation = mainCamera.transform.rotation;
+		}
+		else {
+			closestTargetIcon.transform.position = new Vector3(1000,1000,1000);
 		}
 	}
 
