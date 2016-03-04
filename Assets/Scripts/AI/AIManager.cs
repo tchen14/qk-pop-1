@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using Debug = FFP.Debug;
 /*
 stealth mini game triggered when one enemy is in the suspicious state
 one list of enemies
@@ -10,22 +11,25 @@ public class AIManager : MonoBehaviour {
     public GameObject[] AiChildren;
     public bool playerHidden;
     public int numberChasing;
-    public static AIManager instace = null;
 
-    private static AIManager instance;
+    private static AIManager _instance;
+    public static AIManager instance
+    {
+        get
+        {
+            _instance = _instance ?? (_instance = GameObject.FindObjectOfType<AIManager>());
+            if (_instance == null)
+            {
+                Debug.Warning("ai", "AI Manager is not in scene but a script is attempting to reference it.");
+            }
+            return _instance;
+        }
+    }
 
     private AIManager() { }
 
     void Awake()
     {
-        if (instance == null)
-        {
-            instance = this;
-        }
-        else if (instance != this)
-        {
-            Destroy(gameObject);
-        }
         DontDestroyOnLoad(gameObject);
     }
 
