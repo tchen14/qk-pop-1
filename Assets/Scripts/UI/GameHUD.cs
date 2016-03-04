@@ -159,15 +159,11 @@ public class GameHUD : MonoBehaviour {
 			CloseJournal();
 		}
 		targetsInRange = PoPCamera.AcquireTarget ();
-		if (targetsInRange.Count != 0) {
-			if(targetsInRange[0].gameObject.GetComponent<Enemy>()){
-				closestTargetIcon.GetComponent<Image>().sprite = enemyIcon;
-			}
-			else{
-				closestTargetIcon.GetComponent<Image>().sprite = targetableIcon;
-			}
-			closestTargetIcon.transform.position = targetsInRange [0].transform.position + new Vector3(0, 3, 0);
-			closestTargetIcon.transform.rotation = mainCamera.transform.rotation;
+		if (PoPCamera.instance.CurrentTarget ()) {
+			DisplayIconAboveTarget (PoPCamera.instance.CurrentTarget ());
+		}
+		else if (targetsInRange.Count != 0) {
+			DisplayIconAboveTarget (targetsInRange[0]);
 		}
 		else {
 			closestTargetIcon.transform.position = new Vector3(1000,1000,1000);
@@ -412,5 +408,16 @@ public class GameHUD : MonoBehaviour {
 		questManagerUI.SetActive (false);
 		journal.SetActive (true);
 		journal.transform.FindChild ("MainScrollView").FindChild ("JournalItems").FindChild ("QuestsItem").GetComponent<Button>().Select();
+	}
+
+	void DisplayIconAboveTarget(GameObject targetObject){
+		if(targetObject.GetComponent<Enemy>()){
+			closestTargetIcon.GetComponent<Image>().sprite = enemyIcon;
+		}
+		else{
+			closestTargetIcon.GetComponent<Image>().sprite = targetableIcon;
+		}
+		closestTargetIcon.transform.position = targetObject.transform.position + new Vector3(0, 3, 0);
+		closestTargetIcon.transform.rotation = mainCamera.transform.rotation;
 	}
 }
