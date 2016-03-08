@@ -34,7 +34,7 @@ public class GameHUD : MonoBehaviour {
 	public Material MiniMapMaterial;
 	public float minimapXOffset;
 	public float minimapYOffset;
-	public Sprite targetableIcon;
+	public Sprite[] targetableIcons;
 	public Sprite enemyIcon;
 	//public GameObject closestTargetIconPrefab;
 
@@ -414,8 +414,23 @@ public class GameHUD : MonoBehaviour {
 		if(targetObject.GetComponent<Enemy>()){
 			closestTargetIcon.GetComponent<Image>().sprite = enemyIcon;
 		}
+		else if(AbilityDockController.instance.getSelectedAbility() == 0 && targetObject.GetComponent<Item>().pullCompatible){
+			closestTargetIcon.GetComponent<Image>().sprite = targetableIcons[0];
+		}
+		else if(AbilityDockController.instance.getSelectedAbility() == 1 && targetObject.GetComponent<Item>().pushCompatible){
+			closestTargetIcon.GetComponent<Image>().sprite = targetableIcons[1];
+		}
+		else if(AbilityDockController.instance.getSelectedAbility() == 2 && targetObject.GetComponent<Item>().stunCompatible){
+			closestTargetIcon.GetComponent<Image>().sprite = targetableIcons[2];
+		}
+		else if(AbilityDockController.instance.getSelectedAbility() == 3 && targetObject.GetComponent<Item>().soundThrowCompatible){
+			closestTargetIcon.GetComponent<Image>().sprite = targetableIcons[3];
+		}
+		else if(AbilityDockController.instance.getSelectedAbility() == 4 && targetObject.GetComponent<Item>().cutCompatible){
+			closestTargetIcon.GetComponent<Image>().sprite = targetableIcons[4];
+		}
 		else{
-			closestTargetIcon.GetComponent<Image>().sprite = targetableIcon;
+			closestTargetIcon.GetComponent<Image>().sprite = targetableIcons[5];
 		}
 		closestTargetIcon.transform.position = targetObject.transform.position + new Vector3(0, 3, 0);
 		closestTargetIcon.transform.rotation = mainCamera.transform.rotation;
