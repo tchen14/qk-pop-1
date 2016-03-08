@@ -20540,10 +20540,6 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 11472272, guid: 860658df8834a0a47b466726065f7978, type: 2}
-      propertyPath: targetableIcons.Array.size
-      value: 6
-      objectReference: {fileID: 0}
     - target: {fileID: 444644, guid: 860658df8834a0a47b466726065f7978, type: 2}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -20574,42 +20570,12 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 444644, guid: 860658df8834a0a47b466726065f7978, type: 2}
       propertyPath: m_RootOrder
-      value: 6
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 11472272, guid: 860658df8834a0a47b466726065f7978, type: 2}
       propertyPath: pauseMenu
       value: 
       objectReference: {fileID: 735201060}
-    - target: {fileID: 11472272, guid: 860658df8834a0a47b466726065f7978, type: 2}
-      propertyPath: targetableIcons.Array.data[5]
-      value: 
-      objectReference: {fileID: 21300000, guid: d57e98e31ecfebc439555dc23c0ec37e,
-        type: 3}
-    - target: {fileID: 11472272, guid: 860658df8834a0a47b466726065f7978, type: 2}
-      propertyPath: targetableIcons.Array.data[0]
-      value: 
-      objectReference: {fileID: 21300000, guid: 5f2cf64a66e0d2749a775c1d50cd876e,
-        type: 3}
-    - target: {fileID: 11472272, guid: 860658df8834a0a47b466726065f7978, type: 2}
-      propertyPath: targetableIcons.Array.data[1]
-      value: 
-      objectReference: {fileID: 21300000, guid: d1c6d26a722129e43a5785c658bd253b,
-        type: 3}
-    - target: {fileID: 11472272, guid: 860658df8834a0a47b466726065f7978, type: 2}
-      propertyPath: targetableIcons.Array.data[2]
-      value: 
-      objectReference: {fileID: 21300000, guid: ddf75007b29bcb6498a05fe0001a864b,
-        type: 3}
-    - target: {fileID: 11472272, guid: 860658df8834a0a47b466726065f7978, type: 2}
-      propertyPath: targetableIcons.Array.data[3]
-      value: 
-      objectReference: {fileID: 21300000, guid: c0778f64d504ff8428e102a528d831d8,
-        type: 3}
-    - target: {fileID: 11472272, guid: 860658df8834a0a47b466726065f7978, type: 2}
-      propertyPath: targetableIcons.Array.data[4]
-      value: 
-      objectReference: {fileID: 21300000, guid: 9af91e56d71baf740bff57e186f1a191,
-        type: 3}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 860658df8834a0a47b466726065f7978, type: 2}
   m_IsPrefabParent: 0
@@ -71021,35 +70987,35 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 22475326, guid: d745afb507c7c234c9cc527aa3b3b2c7, type: 2}
       propertyPath: m_AnchorMin.y
-      value: 0
+      value: .155623913
       objectReference: {fileID: 0}
     - target: {fileID: 22475326, guid: d745afb507c7c234c9cc527aa3b3b2c7, type: 2}
       propertyPath: m_AnchorMax.x
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 22475326, guid: d745afb507c7c234c9cc527aa3b3b2c7, type: 2}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 22441092, guid: d745afb507c7c234c9cc527aa3b3b2c7, type: 2}
       propertyPath: m_AnchorMin.x
-      value: 0
+      value: .166666672
       objectReference: {fileID: 0}
     - target: {fileID: 22441092, guid: d745afb507c7c234c9cc527aa3b3b2c7, type: 2}
       propertyPath: m_AnchorMax.x
-      value: 0
+      value: .166666672
       objectReference: {fileID: 0}
     - target: {fileID: 22441092, guid: d745afb507c7c234c9cc527aa3b3b2c7, type: 2}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 22476720, guid: d745afb507c7c234c9cc527aa3b3b2c7, type: 2}
       propertyPath: m_AnchorMax.x
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 22476720, guid: d745afb507c7c234c9cc527aa3b3b2c7, type: 2}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 22489602, guid: d745afb507c7c234c9cc527aa3b3b2c7, type: 2}
       propertyPath: m_SizeDelta.y
