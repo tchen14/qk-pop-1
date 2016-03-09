@@ -4,6 +4,8 @@ using UnityEngine.UI;
 
 public class AbilityDockController : MonoBehaviour {
 	
+	public static AbilityDockController instance;
+	
 	public Image[] abilities;
 	public float timeTakenDuringLerp = 0.35f;
 	public Image selectionBeam;
@@ -21,6 +23,10 @@ public class AbilityDockController : MonoBehaviour {
 	Vector3[] targetPos = new Vector3[5];
 
     float wheelDelay = 0;
+
+	void Awake(){
+		instance = this;
+	}
 
 	void Start () {
 		canGetInput = true;
@@ -52,15 +58,17 @@ public class AbilityDockController : MonoBehaviour {
 			startLerping();
 		}
 		else if (Input.GetKey(KeyCode.Tab)) {	//Ability dock is open
-            if (Input.GetKeyDown (KeyCode.DownArrow) || Input.GetAxis("Mouse ScrollWheel") < 0) {			//Scroll the icons down
+			if (Input.GetKeyDown (KeyCode.DownArrow) || (Input.GetAxis("Mouse ScrollWheel") < 0 && wheelDelay <= 0)) {			//Scroll the icons down
 				newPos (false);
 				rotating = true;
 				startLerping();
+				wheelDelay = 0.25f;
 			}
-			if (Input.GetKeyDown (KeyCode.UpArrow) || Input.GetAxis("Mouse ScrollWheel") > 0) {			//Scroll the icons up
+			if (Input.GetKeyDown (KeyCode.UpArrow) || (Input.GetAxis("Mouse ScrollWheel") > 0 && wheelDelay <= 0)) {			//Scroll the icons up
 				newPos (true);
 				rotating = true;
 				startLerping();
+				wheelDelay = 0.25f;
 			}
 		}
 		else if (Input.GetKeyUp (KeyCode.Tab)) {				//Close ability dock
@@ -71,33 +79,9 @@ public class AbilityDockController : MonoBehaviour {
 			abilities[selectedAbility].transform.SetAsLastSibling();
 			startLerping();
 		}
-
-        /*if (wheelDelay <= 0)
-        {
-            if (Input.GetAxisRaw("Mouse ScrollWheel") < 0)
-            {
-                if (selectedAbility <= 0)
-                {
-                    selectedAbility = abilities.Length;
-                }
-                setSelectedAbility(selectedAbility - 1);
-                wheelDelay = 0.25f;
-            }
-            else if (Input.GetAxisRaw("Mouse ScrollWheel") > 0)
-            {
-                if (selectedAbility >= abilities.Length - 1)
-                {
-                    selectedAbility = -1;
-                }
-                setSelectedAbility(selectedAbility + 1);
-                wheelDelay = 0.25f;
-            }
-        }
-        else
-        {
-            wheelDelay -= Time.deltaTime;
-        }*/
-
+		if(wheelDelay >= 0){
+			wheelDelay -= Time.deltaTime;
+		}
     }
 
 	void FixedUpdate(){

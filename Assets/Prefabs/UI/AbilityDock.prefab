@@ -25,7 +25,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 224: {fileID: 22411132}
-  - 114: {fileID: 11456124}
+  - 114: {fileID: 11446098}
   m_Layer: 5
   m_Name: AbilityDock
   m_TagString: Untagged
@@ -255,7 +255,7 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
---- !u!114 &11456124
+--- !u!114 &11446098
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -263,7 +263,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 144438}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6dc0e39ba18fa0844be87a8e309e744d, type: 3}
+  m_Script: {fileID: 11500000, guid: 8fd13c323d4c00846bfa6b812e57ac81, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   abilities:
@@ -526,7 +526,15 @@ Prefab:
   serializedVersion: 2
   m_Modification:
     m_TransformParent: {fileID: 0}
-    m_Modifications: []
+    m_Modifications:
+    - target: {fileID: 0}
+      propertyPath: selectionBeam
+      value: 
+      objectReference: {fileID: 11419488}
+    - target: {fileID: 0}
+      propertyPath: highligtedIcon
+      value: 
+      objectReference: {fileID: 11426410}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 144438}

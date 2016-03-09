@@ -34,7 +34,7 @@ public class GameHUD : MonoBehaviour {
 	public Material MiniMapMaterial;
 	public float minimapXOffset;
 	public float minimapYOffset;
-	public Sprite targetableIcon;
+	public Sprite[] targetableIcons;
 	public Sprite enemyIcon;
 	//public GameObject closestTargetIconPrefab;
 
@@ -98,8 +98,8 @@ public class GameHUD : MonoBehaviour {
 		if (closeMapButton) {
 			closeMapButton.SetActive (false);
 		}
-		//!Set compassCameraPoint reference
 
+		//!Set compassCameraPoint reference
 		compassCameraPoint = GameObject.Find("compassCameraPoint");
 		compass = GameObject.Find("compassSlider");
 		slider = compass.transform.FindChild ("Handle Slide Area").gameObject;
@@ -154,6 +154,9 @@ public class GameHUD : MonoBehaviour {
 		//SpawnHudAbilityIcons ();
 	}
 
+	/*!Update function that is called once every frame
+	 * Handles the opening and closing of the journal and when to display an icon above the selected or closest target
+	 */
 	void Update(){
 		if (Input.GetKeyDown (KeyCode.Escape) && journal.activeSelf) {
 			CloseJournal();
@@ -352,17 +355,22 @@ public class GameHUD : MonoBehaviour {
         }
         
      }
-
+	/*!Shows the pause menu
+	 */
 	public void showPauseMenu () {
 		pauseMenu.SetActive (true);
 		
 	}
 
+	/*!Hides the pause menu
+	 */
 	public void hidePauseMenu () {
 		pauseMenu.SetActive (false);
 		accessManager.unPauseGameBtt();
 	}
 
+	/*!Loads the scene with the name that is passed into the function
+	 */
 	public void loadScene(string s) {
 		Application.LoadLevel(s);
 	}
@@ -410,12 +418,34 @@ public class GameHUD : MonoBehaviour {
 		journal.transform.FindChild ("MainScrollView").FindChild ("JournalItems").FindChild ("QuestsItem").GetComponent<Button>().Select();
 	}
 
+	/*! This function displays an icon above the object that will be targeted by the player should they press the target button
+	 *  The function takes in a GameObject that the icon will be displayed above
+	 *  If an object is currently being targeted, the icon will stay above it
+	 *  If the object is an enemy, the enemy icon will be displayed above it
+	 *  If the object can be affected by the player's selected ability, an icon with a corresponding color to the ability will be displayed above the object
+	 *  Otherwise a blue icon is shown above the object
+	 */
 	void DisplayIconAboveTarget(GameObject targetObject){
 		if(targetObject.GetComponent<Enemy>()){
 			closestTargetIcon.GetComponent<Image>().sprite = enemyIcon;
 		}
+		else if(AbilityDockController.instance.getSelectedAbility() == 0 && targetObject.GetComponent<Item>().pullCompatible){
+			closestTargetIcon.GetComponent<Image>().sprite = targetableIcons[0];
+		}
+		else if(AbilityDockController.instance.getSelectedAbility() == 1 && targetObject.GetComponent<Item>().pushCompatible){
+			closestTargetIcon.GetComponent<Image>().sprite = targetableIcons[1];
+		}
+		else if(AbilityDockController.instance.getSelectedAbility() == 2 && targetObject.GetComponent<Item>().stunCompatible){
+			closestTargetIcon.GetComponent<Image>().sprite = targetableIcons[2];
+		}
+		else if(AbilityDockController.instance.getSelectedAbility() == 3 && targetObject.GetComponent<Item>().soundThrowCompatible){
+			closestTargetIcon.GetComponent<Image>().sprite = targetableIcons[3];
+		}
+		else if(AbilityDockController.instance.getSelectedAbility() == 4 && targetObject.GetComponent<Item>().cutCompatible){
+			closestTargetIcon.GetComponent<Image>().sprite = targetableIcons[4];
+		}
 		else{
-			closestTargetIcon.GetComponent<Image>().sprite = targetableIcon;
+			closestTargetIcon.GetComponent<Image>().sprite = targetableIcons[5];
 		}
 		closestTargetIcon.transform.position = targetObject.transform.position + new Vector3(0, 3, 0);
 		closestTargetIcon.transform.rotation = mainCamera.transform.rotation;
