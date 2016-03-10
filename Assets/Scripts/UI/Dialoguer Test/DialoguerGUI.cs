@@ -20,6 +20,9 @@ public class DialoguerGUI : MonoBehaviour {
 
 	//Dialoguer run and options script
 	void OnGUI() {
+		/* Old implementation of the dialoguer using unity GUI
+		 * Look at DialogueManager.cs for Unity 4.6 UI implementation
+		 * 
 		if (!showingDialoguer)
 			return;
 
@@ -41,6 +44,7 @@ public class DialoguerGUI : MonoBehaviour {
 				}
 			}
 		}
+		*/
 	}
 
 	private void onStarted() {

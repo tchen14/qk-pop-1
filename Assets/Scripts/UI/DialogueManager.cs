@@ -6,6 +6,8 @@ using UnityEngine.UI;
 [EventVisibleAttribute]
 public class DialogueManager : MonoBehaviour {
 
+	public GameObject[] _choiceButtons;
+
 	private static string portraitPATH = "DialoguePortraits/";
 
 	private bool _showing = false;
@@ -27,6 +29,7 @@ public class DialogueManager : MonoBehaviour {
 	// Use this for initialization
 	void Awake () {
 		Dialoguer.Initialize ();
+		_choiceButtons = new GameObject[5];
 	}
 
 	// Use this for initialization
@@ -43,7 +46,11 @@ public class DialogueManager : MonoBehaviour {
 		_goodPortrait = _dialogueGO.transform.FindChild ("GoodPortrait").gameObject;
 		_badPortrait = _dialogueGO.transform.FindChild ("BadPortrait").gameObject;
 		_portraitImage = _dialogueGO.transform.FindChild ("PortraitImage").gameObject;
-
+		for(int index = 0; index < _choiceButtons.Length; index++){
+			_choiceButtons[index] = _dialogueGO.transform.FindChild ("ChoiceButton" + (index + 1).ToString()).gameObject;
+			_choiceButtons[index].SetActive (false);
+			addListener (_choiceButtons[index].GetComponent<Button>(), index);	
+		}
         _continueButton.GetComponent<Button>().onClick.AddListener(() => ClickedContinueButton());
         _dialogueGO.SetActive (false);
 	}
@@ -64,8 +71,6 @@ public class DialogueManager : MonoBehaviour {
 		_choices = data.choices;
 		_theme = data.theme;
 		_portrait = data.portrait;
-
-		//Debug.Log (data.portrait);
 
 		if (_theme == "Good") {
 			isGood = true;
@@ -101,9 +106,9 @@ public class DialogueManager : MonoBehaviour {
 		if (isGood) {
 			_goodBackground.SetActive (true);
 			_badBackground.SetActive (false);
-
+			_badPortrait.SetActive(false);
+			
 			if(_portrait != "") {
-				_badPortrait.SetActive(false);
 				_goodPortrait.SetActive(true);
 				_portraitImage.SetActive(true);
 				SetPortrait();
@@ -115,9 +120,9 @@ public class DialogueManager : MonoBehaviour {
 		} else {
 			_goodBackground.SetActive (false);
 			_badBackground.SetActive (true);
-
+			_goodPortrait.SetActive(false);
+			
 			if(_portrait != "") {
-				_goodPortrait.SetActive(false);
 				_badPortrait.SetActive(true);
 				_portraitImage.SetActive(true);
 				SetPortrait();
@@ -127,13 +132,18 @@ public class DialogueManager : MonoBehaviour {
 			}
 		}
 
-
 		if (_choices == null || _choices.Length < 1) {
+			for(int i = 0; i < _choiceButtons.Length; i++) {
+				_choiceButtons[i].SetActive (false);
+			}
 			ShowContinueButton();
 		} else {
 			for(int i = 0; i < _choices.Length; i++) {
-				//DrawChoices
+			Debug.Log (_choices[i]);
+				_choiceButtons[i].SetActive (true);
+				_choiceButtons[i].transform.FindChild ("Text").GetComponent<Text>().text = _choices[i];
 			}
+			HideContinueButton();
 		}
 	}
 
@@ -145,6 +155,14 @@ public class DialogueManager : MonoBehaviour {
 
 	public void ClickedContinueButton() {
 		Dialoguer.ContinueDialogue ();
+	}
+
+	public void ClickedChoiceButton(int index){
+		Dialoguer.ContinueDialogue (index);
+	}
+
+	void addListener(Button b, int i){
+		b.onClick.AddListener (() => ClickedChoiceButton (i));
 	}
 
 	private void HideContinueButton() {
