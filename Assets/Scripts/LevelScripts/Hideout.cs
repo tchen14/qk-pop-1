@@ -5,7 +5,7 @@ using Debug = FFP.Debug;
 class Hideout : MonoBehaviour
 {
     Collider OuterCollider;
-    CapsuleCollider HidingTrigger;
+    Collider HidingTrigger;
     Rigidbody RBody;
 
     void Start()
@@ -16,7 +16,7 @@ class Hideout : MonoBehaviour
             Debug.Warning("level", "Hiding Place " + gameObject.name + " has no outer collider.");
         }
 
-        HidingTrigger = GetComponent<CapsuleCollider>();
+        HidingTrigger = GetComponent<Collider>();
         if (HidingTrigger == null)
         {
             Debug.Warning("level", "Hiding Place " + gameObject.name + " has no inner trigger.");
