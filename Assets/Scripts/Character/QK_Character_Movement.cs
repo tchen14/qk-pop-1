@@ -109,9 +109,6 @@ public class QK_Character_Movement : MonoBehaviour {
 			case CharacterState.Hang:
 				ClimbLedge();
 				break;
-			case CharacterState.LedgeJump:
-				LedgeJumpLerp();
-				break;
 			case CharacterState.LedgeClimb:
 				LedgeClimbLerp();
 				break;
@@ -352,23 +349,6 @@ public class QK_Character_Movement : MonoBehaviour {
 	{
 		if (charCont.isGrounded)
 			verticalVelocity = jumpSpeed;
-	}
-
-	void LedgeJumpLerp(){
-		float lerpTime = 50f;//modify to anim time
-
-		startPos = this.transform.position;
-		//increment timer once per frame
-		currentLerpTime += Time.deltaTime;
-		if (currentLerpTime > lerpTime) {
-			currentLerpTime = lerpTime;
-		}
-		//lerp!
-		float perc = currentLerpTime / lerpTime;
-		transform.position = Vector3.Lerp(startPos, endPos, perc);
-		if (startPos.y > endPos.y - 0.1f) {//modify second half to change condition on when you are done lerping
-			_stateModifier = CharacterStates.Hang;
-		}
 	}
 
 	void LedgeClimbLerp(){

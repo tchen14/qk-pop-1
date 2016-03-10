@@ -16,10 +16,8 @@ public class QK_Character_LedgeCast : MonoBehaviour {
 			player.GetComponent<QK_Character_Movement>().ledge = col.gameObject;
 			player.GetComponent<QK_Character_Movement>().endPos = col_point;
 			player.transform.position = col_point;
-			//call player ledgejumplerp
-			player.GetComponent<QK_Character_Movement>().currentLerpTime = 0f;
-			//change state to ledge jumping
-			player.GetComponent<QK_Character_Movement>()._stateModifier = CharacterStates.LedgeJump;
+			player.GetComponent<QK_Character_Movement>()._stateModifier = CharacterStates.Hang;
+
 		}
 	}
 	public void FixedUpdate(){
