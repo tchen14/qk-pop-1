@@ -11,9 +11,10 @@ public class DialogueManager : MonoBehaviour {
 	private static string portraitPATH = "DialoguePortraits/";
 
 	private bool _showing = false;
+	private bool _needToChange = false;
 	private string _text;
 	private string[] _choices;
-	private bool isGood;
+	private bool isGood = true;
 	private string _theme;
 	private string _portrait;
 
@@ -25,6 +26,8 @@ public class DialogueManager : MonoBehaviour {
 	GameObject _goodPortrait;
 	GameObject _badPortrait;
 	GameObject _portraitImage;
+	GameObject _goodBackgroundAndPortrait;
+	GameObject _badBackgroundAndPortrait;
 
 	// Use this for initialization
 	void Awake () {
@@ -39,13 +42,16 @@ public class DialogueManager : MonoBehaviour {
 		Dialoguer.events.onTextPhase += onTextPhase;
 
 		_dialogueGO = GameObject.Find ("Dialogue");
-		_goodBackground = _dialogueGO.transform.FindChild ("GoodBackground").gameObject;
-		_badBackground = _dialogueGO.transform.FindChild ("BadBackground").gameObject;
+		//_goodBackground = _dialogueGO.transform.FindChild ("GoodBackground").gameObject;
+		//_badBackground = _dialogueGO.transform.FindChild ("BadBackground").gameObject;
 		_dialogueText = _dialogueGO.transform.FindChild ("DialogueText").gameObject;
 		_continueButton = _dialogueGO.transform.FindChild ("ContinueButton").gameObject;
-		_goodPortrait = _dialogueGO.transform.FindChild ("GoodPortrait").gameObject;
-		_badPortrait = _dialogueGO.transform.FindChild ("BadPortrait").gameObject;
+		//_goodPortrait = _dialogueGO.transform.FindChild ("GoodPortrait").gameObject;
+		//_badPortrait = _dialogueGO.transform.FindChild ("BadPortrait").gameObject;
 		_portraitImage = _dialogueGO.transform.FindChild ("PortraitImage").gameObject;
+		_goodBackgroundAndPortrait = _dialogueGO.transform.FindChild ("GoodBackgroundAndPortrait").gameObject;
+		_badBackgroundAndPortrait = _dialogueGO.transform.FindChild ("BadBackgroundAndPortrait").gameObject;
+
 		for(int index = 0; index < _choiceButtons.Length; index++){
 			_choiceButtons[index] = _dialogueGO.transform.FindChild ("ChoiceButton" + (index + 1).ToString()).gameObject;
 			_choiceButtons[index].SetActive (false);
@@ -57,12 +63,20 @@ public class DialogueManager : MonoBehaviour {
 	
 	private void onStarted() {
 		_showing = true;
+		GameHUD.Instance.showMinimap = false;
+		Cursor.lockState = CursorLockMode.None;
+		Cursor.visible = true;
+		PoPCamera.State = Camera_2.CameraState.Pause;
 	}
 	
 	private void onEnded() {
 		_showing = false;
-		_goodBackground.SetActive (false);
-		_badBackground.SetActive (false);
+		GameHUD.Instance.showMinimap = true;
+		Cursor.lockState = CursorLockMode.Locked;
+		Cursor.visible = false;
+		PoPCamera.State = Camera_2.CameraState.Normal;
+//		_goodBackground.SetActive (false);
+//		_badBackground.SetActive (false);
 	}
 
 	private void onTextPhase(DialoguerTextData data) {
@@ -92,43 +106,49 @@ public class DialogueManager : MonoBehaviour {
 
 	void OnGUI() {
 		if (!_showing) {
+			//GameHUD.Instance.showMinimap = true;
 			if(_dialogueGO.activeInHierarchy == true) {
 				_dialogueGO.SetActive(false);
 			}
 			return;
 		}
 
+		//GameHUD.Instance.showMinimap = false;
 
 		if (_dialogueGO.activeInHierarchy == false) {
 			_dialogueGO.SetActive(true);
 		}
 
 		if (isGood) {
-			_goodBackground.SetActive (true);
+			/*_goodBackground.SetActive (true);
 			_badBackground.SetActive (false);
 			_badPortrait.SetActive(false);
-			
+			*/
+			_goodBackgroundAndPortrait.SetActive (true);
+			_badBackgroundAndPortrait.SetActive (false);
 			if(_portrait != "") {
-				_goodPortrait.SetActive(true);
-				_portraitImage.SetActive(true);
+//				_goodPortrait.SetActive(true);
+//				_portraitImage.SetActive(true);
 				SetPortrait();
-			} else {
-				_goodPortrait.SetActive(false);
-				_portraitImage.SetActive(false);
+//			} else {
+//				_goodPortrait.SetActive(false);
+//				_portraitImage.SetActive(false);
 			}
 
 		} else {
-			_goodBackground.SetActive (false);
+			/*_goodBackground.SetActive (false);
 			_badBackground.SetActive (true);
 			_goodPortrait.SetActive(false);
-			
+			*/
+			_goodBackgroundAndPortrait.SetActive (false);
+			_badBackgroundAndPortrait.SetActive (true);
 			if(_portrait != "") {
-				_badPortrait.SetActive(true);
-				_portraitImage.SetActive(true);
+//				_badPortrait.SetActive(true);
+//				_portraitImage.SetActive(true);
 				SetPortrait();
-			} else {
-				_badPortrait.SetActive(false);
-				_portraitImage.SetActive(false);
+//			} else {
+//				_badPortrait.SetActive(false);
+//				_portraitImage.SetActive(false);
 			}
 		}
 
