@@ -76,7 +76,6 @@ public class QuestManager : MonoBehaviour {
 				//DebugOnScreen.Log(currentQuests[count].GetName() + " quest has failed and removed fom Current Quests List and added to Failed Quests List!");
 				failedQuests.Add(currentQuests[count]);
 				currentQuests.RemoveAt(count);
-				qmUI.showQuests();
 				continue;
 			}
 
@@ -85,7 +84,6 @@ public class QuestManager : MonoBehaviour {
 				_questSaveManager.SaveCompletedQuest(currentQuests[count]);
 				completedQuests.Add(currentQuests[count]);
 				currentQuests.RemoveAt(count);
-				qmUI.showQuests();
 			}
 		}
 
@@ -129,19 +127,19 @@ public class QuestManager : MonoBehaviour {
 	public void AddQuest(int questID) {
 
 		if (_questSaveManager.CompletedQuest (questID) == true) {
-			//DebugOnScreen.Log("Quest has already been completed. Delete in PlayerPrefs probably");
+			DebugOnScreen.Log("Quest has already been completed. Delete in PlayerPrefs probably");
 			return;
 		}
 
 		Quest newQuest = _quest.AddQuest (questID);
 
 		if (newQuest == null) {
-			//DebugOnScreen.Log("New Quest is null. Not adding to List!");
+			DebugOnScreen.Log("New Quest is null. Not adding to List!");
 			return;
 		}
 
 		currentQuests.Add (newQuest);
-		//DebugOnScreen.Log ("Added quest!");
+		DebugOnScreen.Log ("Added quest!");
 
 		if (newQuest.HasTimer () == true) {
 

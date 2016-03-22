@@ -23,9 +23,6 @@ public class PauseMenu : MonoBehaviour {
 
     void Update() {                                // Pause must be on Update() if put on FixedUpdate()                                            
                                                    //Debug.Log(Time.timeScale);                  // The game will get stuck and will have to reset
-		if (isPaused) {
-			print ("its paused");
-		}
 
         // if (InputManager.input.isPause){}
         //  if (InputManager.input.)
@@ -63,6 +60,7 @@ public class PauseMenu : MonoBehaviour {
 	// Pauses the game and brings up the Pause Menu
 	public void pauseGame()
     {                       
+		GHud.showMinimap = false;
 		isOnPauseMenu = true;
 		isPaused = true;
 		showCursor ();
@@ -76,6 +74,7 @@ public class PauseMenu : MonoBehaviour {
 
 	// Unpauses the game and hides menu
 	public void unPauseGame() {
+		GHud.showMinimap = true;
 		isOnPauseMenu = false;
 		isPaused = false;
 		hideCursor ();
@@ -84,7 +83,7 @@ public class PauseMenu : MonoBehaviour {
 	}
 
 	// When button is used to unpause this function is called
-	public void unPauseGameBtt() {                  
+	public void unPauseGameBtt() {
 		isPaused = false;
 		Time.timeScale = 1f;
 		

@@ -70,12 +70,8 @@ public class QuestManagerUIController : MonoBehaviour {
 		if (!gameHUD) {
 			Debug.Error("ui","Could not find the 'GameHUD' script on the '_HUDManager' GameObject in the scene: " + Application.loadedLevelName);
 		}
-		//qm.LoadQuests ();
 		questButton = questUI.GetComponent<Button> ();
 		buttonHeight = questButton.GetComponent<RectTransform> ().sizeDelta.y;
-
-		//qm.LoadQuests ();
-		//showQuests ();
 	}
 
 	void Start(){

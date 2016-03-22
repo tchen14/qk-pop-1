@@ -393,7 +393,6 @@ public class GameHUD : MonoBehaviour {
 	 * The function also highlights the quests button (the first item in the journal)
 	 */
 	public void ShowJournal(){
-		showMinimap = false;
 		journal.SetActive (true);
 		accessManager.isOnPauseMenu = false;
 		journal.transform.FindChild ("MainScrollView").FindChild ("JournalItems").FindChild ("QuestsItem").GetComponent<Button>().Select();
@@ -403,7 +402,6 @@ public class GameHUD : MonoBehaviour {
 	/*!This function deactivates the journal and activates the pause menu
 	 */
 	public void CloseJournal(){
-		showMinimap = true;
 		journal.SetActive (false);
 		pauseMenu.SetActive (true);
 		accessManager.isOnPauseMenu = true;
