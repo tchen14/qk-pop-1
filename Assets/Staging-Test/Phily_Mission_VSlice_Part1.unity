@@ -61385,11 +61385,11 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 22437060, guid: d745afb507c7c234c9cc527aa3b3b2c7, type: 2}
       propertyPath: m_SizeDelta.y
-      value: 647.377502
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 22439510, guid: d745afb507c7c234c9cc527aa3b3b2c7, type: 2}
       propertyPath: m_SizeDelta.y
-      value: 448.184418
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 158500, guid: d745afb507c7c234c9cc527aa3b3b2c7, type: 2}
       propertyPath: m_IsActive
