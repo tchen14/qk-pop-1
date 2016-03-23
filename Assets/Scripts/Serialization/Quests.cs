@@ -6,7 +6,7 @@ using System;
 
 public class Quest {
 
-	const string questListFilePath = "/Resources/questList.json";
+	const string questListFilePath = StringManager.QUESTLIST;
 
 	int iden;
 	string name;

@@ -15,4 +15,6 @@ public static class StringManager {
 
 	public const string DEBUGKEYS = "/Scripts/_HelperScripts/debugKeys.json";
 	public const string INPUTKEYS = "/Resources/inputManager.json";
+
+	public const string QUESTLIST =	"/Resources/questList.json";
 }

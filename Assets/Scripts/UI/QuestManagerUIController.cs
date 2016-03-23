@@ -72,16 +72,25 @@ public class QuestManagerUIController : MonoBehaviour {
 		}
 		questButton = questUI.GetComponent<Button> ();
 		buttonHeight = questButton.GetComponent<RectTransform> ().sizeDelta.y;
-	}
 
-	void Start(){
 		theLists = new List<Quest>[3];
 		theLists[0] = qm.currentQuests;
 		theLists[1] = qm.failedQuests;
 		theLists[2] = qm.completedQuests;
+
+	}
+
+	void Start(){
+		/*
+		theLists = new List<Quest>[3];
+		theLists[0] = qm.currentQuests;
+		theLists[1] = qm.failedQuests;
+		theLists[2] = qm.completedQuests;
+		*/
 		for(int i = 0; i < theLists.Length; i++){
 			qcHeight += (theLists[i].Count * (buttonHeight + spacing) - spacing);
 		}
+		
 	}
 
 	void Update(){
