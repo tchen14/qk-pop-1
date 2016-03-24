@@ -141,7 +141,9 @@ public class QuestManagerUIController : MonoBehaviour {
 		moreQuestInfoDescription.text = "";
 		qcHeight = 0;
 		for(int i = 0; i < theLists.Length; i++){
-			qcHeight += (theLists[i].Count * (buttonHeight + spacing) - spacing);
+			if(theLists[i] != null){
+				qcHeight += (theLists[i].Count * (buttonHeight + spacing) - spacing);
+			}
 		}
 		RectTransform containerTransform = questContainer.GetComponent<RectTransform> ();
 		containerTransform.sizeDelta = new Vector2 (100, qcHeight);

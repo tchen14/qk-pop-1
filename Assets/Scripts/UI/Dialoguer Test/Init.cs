@@ -43,26 +43,23 @@ public class Init : MonoBehaviour {
 		if (player.GetComponentInChildren<DialogueCollider> ().NPCDialogue == true) {
 			//Asks player if they want to interact
 			dialogueCol = true;
+			interactDialoguer.SetActive(true);
 			if (Input.GetKeyDown (KeyCode.F)) {
-				triggerDialoguer = true;
+				//triggerDialoguer = true;
+				Dialoguer.StartDialogue (player.GetComponentInChildren<DialogueCollider> ().NPCDialogueNumber, dialoguerCallback);
+				this.enabled = false;
+				triggerDialoguer = false;
+				inDialogue = true;
+				interactDialoguer.SetActive (false);
 			}
 		}
 		else {
 			dialogueCol = false;
+			interactDialoguer.SetActive (false);
 		}
 		if (!dialogueGUI.GetComponent<DialoguerGUI> ().showingDialoguer) {
 			inDialogue = false;
 		}
-		if (dialogueCol) {
-			interactDialoguer.SetActive (true);
-		}
-		if (triggerDialoguer) {
-			Dialoguer.StartDialogue (player.GetComponentInChildren<DialogueCollider> ().NPCDialogueNumber, dialoguerCallback);
-			this.enabled = false;
-			triggerDialoguer = false;
-			inDialogue = true;
-		}
-
 	}
 
 	//Checks if player is interacting and runs dialoguer
