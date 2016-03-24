@@ -88,9 +88,10 @@ public class QuestManagerUIController : MonoBehaviour {
 		theLists[2] = qm.completedQuests;
 		*/
 		for(int i = 0; i < theLists.Length; i++){
-			qcHeight += (theLists[i].Count * (buttonHeight + spacing) - spacing);
+			if(theLists[i] != null){
+				qcHeight += (theLists[i].Count * (buttonHeight + spacing) - spacing);
+			}
 		}
-		
 	}
 
 	void Update(){

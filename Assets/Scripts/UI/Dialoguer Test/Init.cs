@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using Debug = FFP.Debug;
 
 public class Init : MonoBehaviour {
 
@@ -16,8 +17,16 @@ public class Init : MonoBehaviour {
 	private bool dialogueCol;
 	private GameObject dialogueGUI;
 
+	GameObject interactDialoguer;
+
 	void Awake () {
 		Dialoguer.Initialize ();
+		interactDialoguer = GameObject.Find ("InteractDialoguer");
+		if (!interactDialoguer) {
+			Debug.Log ("ui", "Could not find the 'InteractDialoguer' GameObject in the scene: " + Application.loadedLevelName);
+		} else {
+			interactDialoguer.SetActive (false);
+		}
 	}
 
 	// Use this for initialization
@@ -44,9 +53,20 @@ public class Init : MonoBehaviour {
 		if (!dialogueGUI.GetComponent<DialoguerGUI> ().showingDialoguer) {
 			inDialogue = false;
 		}
+		if (dialogueCol) {
+			interactDialoguer.SetActive (true);
+		}
+		if (triggerDialoguer) {
+			Dialoguer.StartDialogue (player.GetComponentInChildren<DialogueCollider> ().NPCDialogueNumber, dialoguerCallback);
+			this.enabled = false;
+			triggerDialoguer = false;
+			inDialogue = true;
+		}
+
 	}
 
 	//Checks if player is interacting and runs dialoguer
+	/*
 	void OnGUI() {
 		if (dialogueCol) {
 			GUI.Box (new Rect ((Screen.width / 2) - (textBoxWidth / 2) + textBoxHorzOffset, (Screen.height / 2) - (textBoxHeight / 2) + textBoxVertOffset, textBoxWidth, textBoxHeight), textBoxText);
@@ -58,6 +78,7 @@ public class Init : MonoBehaviour {
 			}
 		}
 	}
+	*/
 
 	private void dialoguerCallback(){
 		this.enabled = true;

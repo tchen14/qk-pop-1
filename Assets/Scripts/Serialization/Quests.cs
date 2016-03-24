@@ -5,7 +5,17 @@ using SimpleJSON;
 using System;
 
 public class Quest {
-
+	/*
+	void Awake(){
+		if (!loadListFromFile (StringManager.QUESTLIST)) {
+			Debug.Log ("input", "JSON file did not load");
+			//return false;
+		} else {
+			Debug.Log ("input", "JSON file loaded");
+			//return true;
+		}
+	}
+	*/
 	const string questListFilePath = StringManager.QUESTLIST;
 
 	int iden;
@@ -35,7 +45,18 @@ public class Quest {
 		goal = newGoals;
 		timer = true;
 	}
-
+/*
+	private bool loadListFromFile(string filePath){
+		if(!System.IO.File.Exists(Application.dataPath + filePath)) {
+			Debug.Log("input", "File does not exist: " + Application.dataPath + filePath);
+			return false;
+		}
+		string json = System.IO.File.ReadAllText(Application.dataPath + filePath);
+		string platform = Application.platform.ToString();
+		//return loadListFromJson(json, platform);
+		return true;
+	}
+*/
 	public Quest AddQuest(int id) {
 		JSONNode quests = RetrieveQuestsFromJSON ();
 		char[] deliminerChars = {'"'};
