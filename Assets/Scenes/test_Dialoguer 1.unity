@@ -1002,6 +1002,7 @@ GameObject:
   - 23: {fileID: 751315363}
   - 114: {fileID: 751315362}
   - 54: {fileID: 751315361}
+  - 114: {fileID: 751315367}
   m_Layer: 0
   m_Name: NPCapsule2
   m_TagString: NPC
@@ -1094,6 +1095,21 @@ Transform:
   - {fileID: 1500958641}
   m_Father: {fileID: 0}
   m_RootOrder: 0
+--- !u!114 &751315367
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 751315360}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 54f6bca0367ade140bbdafbb87958df1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ableToProgress: 1
+  questID: 1
+  goalIndex: 0
+  progressType: 1
 --- !u!1 &759093551
 GameObject:
   m_ObjectHideFlags: 0
@@ -1438,43 +1454,63 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 22496198, guid: d745afb507c7c234c9cc527aa3b3b2c7, type: 2}
       propertyPath: m_AnchorMin.y
-      value: 0
+      value: .155623913
       objectReference: {fileID: 0}
     - target: {fileID: 22496198, guid: d745afb507c7c234c9cc527aa3b3b2c7, type: 2}
       propertyPath: m_AnchorMax.x
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 22496198, guid: d745afb507c7c234c9cc527aa3b3b2c7, type: 2}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 22427382, guid: d745afb507c7c234c9cc527aa3b3b2c7, type: 2}
       propertyPath: m_SizeDelta.y
-      value: 663.829773
+      value: 662.26416
       objectReference: {fileID: 0}
     - target: {fileID: 22413750, guid: d745afb507c7c234c9cc527aa3b3b2c7, type: 2}
       propertyPath: m_AnchorMax.x
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 22413750, guid: d745afb507c7c234c9cc527aa3b3b2c7, type: 2}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 22478048, guid: d745afb507c7c234c9cc527aa3b3b2c7, type: 2}
       propertyPath: m_AnchorMin.x
-      value: 0
+      value: .166666672
       objectReference: {fileID: 0}
     - target: {fileID: 22478048, guid: d745afb507c7c234c9cc527aa3b3b2c7, type: 2}
       propertyPath: m_AnchorMax.x
-      value: 0
+      value: .166666672
       objectReference: {fileID: 0}
     - target: {fileID: 22478048, guid: d745afb507c7c234c9cc527aa3b3b2c7, type: 2}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 22439510, guid: d745afb507c7c234c9cc527aa3b3b2c7, type: 2}
       propertyPath: m_SizeDelta.y
-      value: 459.574463
+      value: 458.49057
+      objectReference: {fileID: 0}
+    - target: {fileID: 196682, guid: d745afb507c7c234c9cc527aa3b3b2c7, type: 2}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 158500, guid: d745afb507c7c234c9cc527aa3b3b2c7, type: 2}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 145630, guid: d745afb507c7c234c9cc527aa3b3b2c7, type: 2}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 22433236, guid: d745afb507c7c234c9cc527aa3b3b2c7, type: 2}
+      propertyPath: m_AnchorMax.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 22433236, guid: d745afb507c7c234c9cc527aa3b3b2c7, type: 2}
+      propertyPath: m_AnchorMax.y
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: d745afb507c7c234c9cc527aa3b3b2c7, type: 2}
@@ -4090,6 +4126,7 @@ MonoBehaviour:
   NPCDialogueNumber: 0
   NPCDialogue: 0
   NPCFocus: {fileID: 0}
+  NPCProgressQuest: 0
 --- !u!1 &1967815532
 GameObject:
   m_ObjectHideFlags: 0
@@ -4261,6 +4298,236 @@ Transform:
   - {fileID: 807706038}
   m_Father: {fileID: 335932139}
   m_RootOrder: 1
+--- !u!1 &2085471586
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 2085471591}
+  - 33: {fileID: 2085471590}
+  - 135: {fileID: 2085471589}
+  - 23: {fileID: 2085471588}
+  - 114: {fileID: 2085471587}
+  m_Layer: 0
+  m_Name: Sphere
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &2085471587
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2085471586}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3bce9737e13a17340acb5aabb86ba137, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  conditions:
+  - e_categoryString: System
+    e_categoryIndex: 0
+    e_classString: Player Enters Area
+    e_classIndex: 2
+    e_fieldString: Choose An Action
+    e_fieldIndex: 0
+    e_MonoBehaviour: {fileID: 0}
+    e_GameObject: {fileID: 0}
+    p_int: 0000000000000000000000000000000000000000
+    p_bool: 0000000000
+    p_float:
+    - 0
+    - 0
+    - 0
+    - 0
+    - 0
+    p_string:
+    - 
+    - 
+    - 
+    - 
+    - 
+    p_Vector3:
+    - {x: 0, y: 0, z: 0}
+    - {x: 0, y: 0, z: 0}
+    - {x: 0, y: 0, z: 0}
+    - {x: 0, y: 0, z: 0}
+    - {x: 0, y: 0, z: 0}
+    p_Transform:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    p_GameObject:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    p_MonoBehaviour:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    numberCompareString:
+    - Equal To
+    - Greater Than
+    - Less Than
+    vectorCompareString:
+    - Nearer Than
+    - Further Than
+    boolCompareString:
+    - Is True
+    - Is False
+    stringCompareString:
+    - Equal To
+    - Different Than
+    compareString: 
+    compareIndex: 0
+    color: {r: 0, g: .579999983, b: .689999998, a: .449999988}
+    editorHeight: 42
+  actions:
+  - e_categoryString: QuestManager
+    e_categoryIndex: 5
+    e_classString: QuestManager
+    e_classIndex: 4
+    e_fieldString: AddQuest
+    e_fieldIndex: 5
+    e_MonoBehaviour: {fileID: 1857139365}
+    e_GameObject: {fileID: 1857139362}
+    p_int: 0100000000000000000000000000000000000000
+    p_bool: 0000000000
+    p_float:
+    - 0
+    - 0
+    - 0
+    - 0
+    - 0
+    p_string:
+    - 
+    - 
+    - 
+    - 
+    - 
+    p_Vector3:
+    - {x: 0, y: 0, z: 0}
+    - {x: 0, y: 0, z: 0}
+    - {x: 0, y: 0, z: 0}
+    - {x: 0, y: 0, z: 0}
+    - {x: 0, y: 0, z: 0}
+    p_Transform:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    p_GameObject:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    p_MonoBehaviour:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    numberCompareString:
+    - Equal To
+    - Greater Than
+    - Less Than
+    vectorCompareString:
+    - Nearer Than
+    - Further Than
+    boolCompareString:
+    - Is True
+    - Is False
+    stringCompareString:
+    - Equal To
+    - Different Than
+    compareString: 
+    compareIndex: 0
+    color: {r: 1, g: .460000008, b: 0, a: .550000012}
+    editorHeight: 126
+  andOrCompare:
+  - Every Condition
+  - One or More
+  - Exactly One
+  andOrCompareString: Every Condition
+  andOrCompareIndex: 0
+  uniqueId: 
+  isActive: 1
+  isRegional: 1
+  executeOnce: 1
+  hasExecuted: 0
+  totalTimeActive: 0
+  delay: 1
+  regionRadius: 1
+  drawRegionTwo: 1
+  conditionRegionCenter: {x: 0, y: 0, z: 0}
+  conditionRegionRadius: 2
+--- !u!23 &2085471588
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2085471586}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_Materials:
+  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  m_SubsetIndices: 
+  m_StaticBatchRoot: {fileID: 0}
+  m_UseLightProbes: 1
+  m_ReflectionProbeUsage: 1
+  m_ProbeAnchor: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_PreserveUVs: 1
+  m_ImportantGI: 0
+  m_AutoUVMaxDistance: .5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingOrder: 0
+--- !u!135 &2085471589
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2085471586}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: .5
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!33 &2085471590
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2085471586}
+  m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!4 &2085471591
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2085471586}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: .143821716, y: .41740942, z: 4.42999983}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 15
 --- !u!1 &2123366315
 GameObject:
   m_ObjectHideFlags: 0

@@ -6,6 +6,8 @@ using Debug = FFP.Debug;
 [EventVisibleAttribute]
 public class QuestManager : MonoBehaviour {
 
+	public static QuestManager instance;
+
 	public List <Quest> currentQuests;
 	public List <Quest> failedQuests;
 	public List <Quest> completedQuests;
@@ -21,6 +23,7 @@ public class QuestManager : MonoBehaviour {
 		currentQuests = new List<Quest> ();
 		failedQuests = new List<Quest> ();
 		completedQuests = new List<Quest> ();
+		instance = this;
     }
 
     void Start() {

@@ -16,6 +16,7 @@ public class Init : MonoBehaviour {
 	private GameObject player;
 	private bool dialogueCol;
 	private GameObject dialogueGUI;
+	private DialogueCollider playerDC;
 
 	GameObject interactDialoguer;
 
@@ -34,19 +35,20 @@ public class Init : MonoBehaviour {
 		triggerDialoguer = false;
 		dialogueCol = false;
 		player = GameObject.FindGameObjectWithTag ("Player");
+		playerDC = player.GetComponentInChildren<DialogueCollider> ();
 		dialogueGUI = GameObject.Find ("GUI");
 	}
 	
 	// Update is called once per frame
 	void Update () {
 		//Check if NPC has dialogue
-		if (player.GetComponentInChildren<DialogueCollider> ().NPCDialogue == true) {
+		if (playerDC.NPCDialogue == true) {
 			//Asks player if they want to interact
 			dialogueCol = true;
 			interactDialoguer.SetActive(true);
 			if (Input.GetKeyDown (KeyCode.F)) {
 				//triggerDialoguer = true;
-				Dialoguer.StartDialogue (player.GetComponentInChildren<DialogueCollider> ().NPCDialogueNumber, dialoguerCallback);
+				Dialoguer.StartDialogue (playerDC.NPCDialogueNumber, dialoguerCallback);
 				this.enabled = false;
 				triggerDialoguer = false;
 				inDialogue = true;
@@ -62,6 +64,7 @@ public class Init : MonoBehaviour {
 		}
 	}
 
+	//***********OLD IMPLEMENTATION***************
 	//Checks if player is interacting and runs dialoguer
 	/*
 	void OnGUI() {
@@ -76,8 +79,17 @@ public class Init : MonoBehaviour {
 		}
 	}
 	*/
+	//********************************************
 
+	/*!This function is called at the end of a dialogue sequnce.
+	 * This calls the progress quest function on the player, which
+	 * calls a function on the NPC the player was interacting with
+	 * to progress a certain quest.
+	 * 
+	 * See ProgressQuestAfterDialogue.cs for more info
+	 */
 	private void dialoguerCallback(){
+		playerDC.ProgressQuest ();
 		this.enabled = true;
 	}
 }

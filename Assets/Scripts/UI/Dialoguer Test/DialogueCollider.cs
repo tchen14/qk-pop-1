@@ -6,6 +6,7 @@ public class DialogueCollider : MonoBehaviour {
 	public int NPCDialogueNumber;
 	public bool NPCDialogue;
 	public GameObject NPCFocus;
+	public bool NPCProgressQuest;
 
 	void Start ()
 	{
@@ -27,5 +28,12 @@ public class DialogueCollider : MonoBehaviour {
 	void OnTriggerExit (Collider col) {
 		NPCFocus = null;
 		NPCDialogue = false;
+	}
+
+	
+	public void ProgressQuest(){
+		if (NPCFocus.GetComponent<ProgressQuestAfterDialogue> ()) {
+			NPCFocus.GetComponent<ProgressQuestAfterDialogue> ().ProgressQuest ();
+		}
 	}
 }
