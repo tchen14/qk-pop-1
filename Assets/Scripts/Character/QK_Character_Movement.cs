@@ -39,6 +39,7 @@ public class QK_Character_Movement : MonoBehaviour {
 	[ReadOnly] public float verticalVelocity = 0f;
 	private float terminalVelocity = 30f;
 	private float turnRate = 5f;
+    public bool isHidden = false;
 
 	private Vector3 moveVector = Vector3.zero;
 	private Vector3 desiredMoveVector = Vector3.zero;
@@ -115,7 +116,7 @@ public class QK_Character_Movement : MonoBehaviour {
 
     void ProcessStandardMotion()
 	{
-		if (Input.GetAxisRaw("Vertical") != 0 || Input.GetAxisRaw("Horizontal") != 0) {
+		if(InputManager.input.MoveVerticalAxis() != 0 || InputManager.input.MoveHorizontalAxis() != 0) {
 			curSpeed += acceleration;
 			curSpeed *= inputDirection.magnitude;
 		} else {
@@ -147,8 +148,8 @@ public class QK_Character_Movement : MonoBehaviour {
 
 	void CalculateMovementDirection ()
 	{
-		float inputHor = Input.GetAxisRaw("Horizontal");
-		float inputVert = Input.GetAxisRaw("Vertical");
+		float inputHor = InputManager.input.MoveHorizontalAxis();
+		float inputVert = InputManager.input.MoveVerticalAxis();
 		Vector3 forward = transform.position + cam.transform.forward;
 		forward = new Vector3(forward.x, transform.position.y, forward.z);
 		forward = Vector3.Normalize(forward - transform.position);
