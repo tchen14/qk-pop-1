@@ -12141,6 +12141,82 @@ MeshCollider:
   serializedVersion: 2
   m_Convex: 0
   m_Mesh: {fileID: 0}
+--- !u!1 &267847917
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 149534, guid: f5d92ab14f9b5004da6be8e84bbf34dd, type: 2}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 267847918}
+  - 33: {fileID: 267847921}
+  - 65: {fileID: 267847920}
+  - 23: {fileID: 267847919}
+  m_Layer: 0
+  m_Name: Grave (14)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &267847918
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 402638, guid: f5d92ab14f9b5004da6be8e84bbf34dd, type: 2}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 267847917}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -124.260002, y: 1.02999997, z: 158.169998}
+  m_LocalScale: {x: 4.16671181, y: 3, z: 3.78491235}
+  m_Children: []
+  m_Father: {fileID: 1535369733}
+  m_RootOrder: 34
+--- !u!23 &267847919
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 2343372, guid: f5d92ab14f9b5004da6be8e84bbf34dd,
+    type: 2}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 267847917}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_Materials:
+  - {fileID: 2100000, guid: be854a31cb68f7946b35cc5a4f05a2a2, type: 2}
+  m_SubsetIndices: 
+  m_StaticBatchRoot: {fileID: 0}
+  m_UseLightProbes: 1
+  m_ReflectionProbeUsage: 1
+  m_ProbeAnchor: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_PreserveUVs: 1
+  m_ImportantGI: 0
+  m_AutoUVMaxDistance: .5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingOrder: 0
+--- !u!65 &267847920
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 6522382, guid: f5d92ab14f9b5004da6be8e84bbf34dd,
+    type: 2}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 267847917}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!33 &267847921
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 3386896, guid: f5d92ab14f9b5004da6be8e84bbf34dd,
+    type: 2}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 267847917}
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!1 &268800611
 GameObject:
   m_ObjectHideFlags: 0
@@ -20566,17 +20642,19 @@ Prefab:
       propertyPath: m_RootOrder
       value: 6
       objectReference: {fileID: 0}
-    - target: {fileID: 11472272, guid: 860658df8834a0a47b466726065f7978, type: 2}
-      propertyPath: pauseMenu
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 11472272, guid: 860658df8834a0a47b466726065f7978, type: 2}
-      propertyPath: testObjective
-      value: 
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 860658df8834a0a47b466726065f7978, type: 2}
   m_IsPrefabParent: 0
+--- !u!1 &478797339 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 190398, guid: 860658df8834a0a47b466726065f7978, type: 2}
+  m_PrefabInternal: {fileID: 478797338}
+--- !u!114 &478797340 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 11472272, guid: 860658df8834a0a47b466726065f7978,
+    type: 2}
+  m_PrefabInternal: {fileID: 478797338}
+  m_Script: {fileID: 11500000, guid: b8dac6f781fe85a429b84b0438a3cc19, type: 3}
 --- !u!1 &482545733
 GameObject:
   m_ObjectHideFlags: 0
@@ -37286,7 +37364,6 @@ GameObject:
   - 33: {fileID: 877835630}
   - 65: {fileID: 877835629}
   - 23: {fileID: 877835628}
-  - 114: {fileID: 877835631}
   m_Layer: 0
   m_Name: Grave (2)
   m_TagString: Untagged
@@ -37352,162 +37429,6 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 877835626}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!114 &877835631
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 877835626}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3bce9737e13a17340acb5aabb86ba137, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  conditions:
-  - e_categoryString: System
-    e_categoryIndex: 0
-    e_classString: Player Enters Area
-    e_classIndex: 2
-    e_fieldString: Choose An Action
-    e_fieldIndex: 0
-    e_MonoBehaviour: {fileID: 0}
-    e_GameObject: {fileID: 0}
-    p_int: 0000000000000000000000000000000000000000
-    p_bool: 0000000000
-    p_float:
-    - 0
-    - 0
-    - 0
-    - 0
-    - 0
-    p_string:
-    - 
-    - 
-    - 
-    - 
-    - 
-    p_Vector3:
-    - {x: 0, y: 0, z: 0}
-    - {x: 0, y: 0, z: 0}
-    - {x: 0, y: 0, z: 0}
-    - {x: 0, y: 0, z: 0}
-    - {x: 0, y: 0, z: 0}
-    p_Transform:
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-    p_GameObject:
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-    p_MonoBehaviour:
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-    numberCompareString:
-    - Equal To
-    - Greater Than
-    - Less Than
-    vectorCompareString:
-    - Nearer Than
-    - Further Than
-    boolCompareString:
-    - Is True
-    - Is False
-    stringCompareString:
-    - Equal To
-    - Different Than
-    compareString: 
-    compareIndex: 0
-    color: {r: 0, g: .579999983, b: .689999998, a: .449999988}
-    editorHeight: 42
-  actions:
-  - e_categoryString: QuestManager
-    e_categoryIndex: 5
-    e_classString: QuestManager
-    e_classIndex: 4
-    e_fieldString: LoadQuests
-    e_fieldIndex: 0
-    e_MonoBehaviour: {fileID: 1673457994}
-    e_GameObject: {fileID: 1673457988}
-    p_int: 0000000000000000000000000000000000000000
-    p_bool: 0000000000
-    p_float:
-    - 0
-    - 0
-    - 0
-    - 0
-    - 0
-    p_string:
-    - 
-    - 
-    - 
-    - 
-    - 
-    p_Vector3:
-    - {x: 0, y: 0, z: 0}
-    - {x: 0, y: 0, z: 0}
-    - {x: 0, y: 0, z: 0}
-    - {x: 0, y: 0, z: 0}
-    - {x: 0, y: 0, z: 0}
-    p_Transform:
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-    p_GameObject:
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-    p_MonoBehaviour:
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
-    numberCompareString:
-    - Equal To
-    - Greater Than
-    - Less Than
-    vectorCompareString:
-    - Nearer Than
-    - Further Than
-    boolCompareString:
-    - Is True
-    - Is False
-    stringCompareString:
-    - Equal To
-    - Different Than
-    compareString: 
-    compareIndex: 0
-    color: {r: 1, g: .460000008, b: 0, a: .550000012}
-    editorHeight: 92
-  andOrCompare:
-  - Every Condition
-  - One or More
-  - Exactly One
-  andOrCompareString: Every Condition
-  andOrCompareIndex: 0
-  uniqueId: 
-  isActive: 1
-  isRegional: 1
-  executeOnce: 1
-  hasExecuted: 0
-  totalTimeActive: 0
-  delay: 1
-  regionRadius: 1
-  drawRegionTwo: 1
-  conditionRegionCenter: {x: 0, y: 0, z: 0}
-  conditionRegionRadius: 1
 --- !u!1 &879961626
 GameObject:
   m_ObjectHideFlags: 0
@@ -43575,9 +43496,9 @@ MonoBehaviour:
     editorHeight: 42
   actions:
   - e_categoryString: QuestManager
-    e_categoryIndex: 5
+    e_categoryIndex: 6
     e_classString: QuestManager
-    e_classIndex: 4
+    e_classIndex: 5
     e_fieldString: AddQuest
     e_fieldIndex: 5
     e_MonoBehaviour: {fileID: 1673457994}
@@ -43636,7 +43557,70 @@ MonoBehaviour:
     compareString: 
     compareIndex: 0
     color: {r: 1, g: .460000008, b: 0, a: .550000012}
-    editorHeight: 194
+    editorHeight: 126
+  - e_categoryString: GameHUD
+    e_categoryIndex: 13
+    e_classString: GameHUD
+    e_classIndex: 12
+    e_fieldString: MoveCompassTargetPoint
+    e_fieldIndex: 1
+    e_MonoBehaviour: {fileID: 478797340}
+    e_GameObject: {fileID: 478797339}
+    p_int: 0000000000000000000000000000000000000000
+    p_bool: 0000000000
+    p_float:
+    - 0
+    - 0
+    - 0
+    - 0
+    - 0
+    p_string:
+    - 
+    - 
+    - 
+    - 
+    - 
+    p_Vector3:
+    - {x: 0, y: 0, z: 0}
+    - {x: 0, y: 0, z: 0}
+    - {x: 0, y: 0, z: 0}
+    - {x: 0, y: 0, z: 0}
+    - {x: 0, y: 0, z: 0}
+    p_Transform:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    p_GameObject:
+    - {fileID: 1048877957}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    p_MonoBehaviour:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    numberCompareString:
+    - Equal To
+    - Greater Than
+    - Less Than
+    vectorCompareString:
+    - Nearer Than
+    - Further Than
+    boolCompareString:
+    - Is True
+    - Is False
+    stringCompareString:
+    - Equal To
+    - Different Than
+    compareString: 
+    compareIndex: 0
+    color: {r: 1, g: .460000008, b: 0, a: .550000012}
+    editorHeight: 126
   andOrCompare:
   - Every Condition
   - One or More
@@ -45399,6 +45383,7 @@ GameObject:
   - 23: {fileID: 1048877960}
   - 114: {fileID: 1048877959}
   - 114: {fileID: 1048877958}
+  - 114: {fileID: 1048877964}
   m_Layer: 0
   m_Name: Cube (4)
   m_TagString: Untagged
@@ -45516,6 +45501,288 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
+--- !u!114 &1048877964
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1048877957}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3bce9737e13a17340acb5aabb86ba137, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  conditions:
+  - e_categoryString: System
+    e_categoryIndex: 0
+    e_classString: Player Enters Area
+    e_classIndex: 2
+    e_fieldString: Choose An Action
+    e_fieldIndex: 0
+    e_MonoBehaviour: {fileID: 0}
+    e_GameObject: {fileID: 0}
+    p_int: 0000000000000000000000000000000000000000
+    p_bool: 0000000000
+    p_float:
+    - 0
+    - 0
+    - 0
+    - 0
+    - 0
+    p_string:
+    - 
+    - 
+    - 
+    - 
+    - 
+    p_Vector3:
+    - {x: 0, y: 0, z: 0}
+    - {x: 0, y: 0, z: 0}
+    - {x: 0, y: 0, z: 0}
+    - {x: 0, y: 0, z: 0}
+    - {x: 0, y: 0, z: 0}
+    p_Transform:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    p_GameObject:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    p_MonoBehaviour:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    numberCompareString:
+    - Equal To
+    - Greater Than
+    - Less Than
+    vectorCompareString:
+    - Nearer Than
+    - Further Than
+    boolCompareString:
+    - Is True
+    - Is False
+    stringCompareString:
+    - Equal To
+    - Different Than
+    compareString: 
+    compareIndex: 0
+    color: {r: 0, g: .579999983, b: .689999998, a: .449999988}
+    editorHeight: 42
+  actions:
+  - e_categoryString: QuestManager
+    e_categoryIndex: 6
+    e_classString: QuestManager
+    e_classIndex: 5
+    e_fieldString: CompleteGoalInQuest
+    e_fieldIndex: 3
+    e_MonoBehaviour: {fileID: 1673457994}
+    e_GameObject: {fileID: 1673457988}
+    p_int: 0300000000000000000000000000000000000000
+    p_bool: 0000000000
+    p_float:
+    - 0
+    - 0
+    - 0
+    - 0
+    - 0
+    p_string:
+    - 
+    - 
+    - 
+    - 
+    - 
+    p_Vector3:
+    - {x: 0, y: 0, z: 0}
+    - {x: 0, y: 0, z: 0}
+    - {x: 0, y: 0, z: 0}
+    - {x: 0, y: 0, z: 0}
+    - {x: 0, y: 0, z: 0}
+    p_Transform:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    p_GameObject:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    p_MonoBehaviour:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    numberCompareString:
+    - Equal To
+    - Greater Than
+    - Less Than
+    vectorCompareString:
+    - Nearer Than
+    - Further Than
+    boolCompareString:
+    - Is True
+    - Is False
+    stringCompareString:
+    - Equal To
+    - Different Than
+    compareString: 
+    compareIndex: 0
+    color: {r: 1, g: .460000008, b: 0, a: .550000012}
+    editorHeight: 160
+  - e_categoryString: QuestManager
+    e_categoryIndex: 6
+    e_classString: QuestManager
+    e_classIndex: 5
+    e_fieldString: LoadQuests
+    e_fieldIndex: 0
+    e_MonoBehaviour: {fileID: 1673457994}
+    e_GameObject: {fileID: 1673457988}
+    p_int: 0000000000000000000000000000000000000000
+    p_bool: 0000000000
+    p_float:
+    - 0
+    - 0
+    - 0
+    - 0
+    - 0
+    p_string:
+    - 
+    - 
+    - 
+    - 
+    - 
+    p_Vector3:
+    - {x: 0, y: 0, z: 0}
+    - {x: 0, y: 0, z: 0}
+    - {x: 0, y: 0, z: 0}
+    - {x: 0, y: 0, z: 0}
+    - {x: 0, y: 0, z: 0}
+    p_Transform:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    p_GameObject:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    p_MonoBehaviour:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    numberCompareString:
+    - Equal To
+    - Greater Than
+    - Less Than
+    vectorCompareString:
+    - Nearer Than
+    - Further Than
+    boolCompareString:
+    - Is True
+    - Is False
+    stringCompareString:
+    - Equal To
+    - Different Than
+    compareString: 
+    compareIndex: 0
+    color: {r: 1, g: .460000008, b: 0, a: .550000012}
+    editorHeight: 92
+  - e_categoryString: QuestManager
+    e_categoryIndex: 6
+    e_classString: QuestManager
+    e_classIndex: 5
+    e_fieldString: UpdateQuests
+    e_fieldIndex: 2
+    e_MonoBehaviour: {fileID: 1673457994}
+    e_GameObject: {fileID: 1673457988}
+    p_int: 0000000000000000000000000000000000000000
+    p_bool: 0000000000
+    p_float:
+    - 0
+    - 0
+    - 0
+    - 0
+    - 0
+    p_string:
+    - 
+    - 
+    - 
+    - 
+    - 
+    p_Vector3:
+    - {x: 0, y: 0, z: 0}
+    - {x: 0, y: 0, z: 0}
+    - {x: 0, y: 0, z: 0}
+    - {x: 0, y: 0, z: 0}
+    - {x: 0, y: 0, z: 0}
+    p_Transform:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    p_GameObject:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    p_MonoBehaviour:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    numberCompareString:
+    - Equal To
+    - Greater Than
+    - Less Than
+    vectorCompareString:
+    - Nearer Than
+    - Further Than
+    boolCompareString:
+    - Is True
+    - Is False
+    stringCompareString:
+    - Equal To
+    - Different Than
+    compareString: 
+    compareIndex: 0
+    color: {r: 1, g: .460000008, b: 0, a: .550000012}
+    editorHeight: 92
+  andOrCompare:
+  - Every Condition
+  - One or More
+  - Exactly One
+  andOrCompareString: Every Condition
+  andOrCompareIndex: 0
+  uniqueId: 
+  isActive: 1
+  isRegional: 1
+  executeOnce: 1
+  hasExecuted: 0
+  totalTimeActive: 0
+  delay: 1
+  regionRadius: 1
+  drawRegionTwo: 1
+  conditionRegionCenter: {x: 0, y: 0, z: 0}
+  conditionRegionRadius: 2
 --- !u!1 &1049925833 stripped
 GameObject:
   m_PrefabParentObject: {fileID: 126656, guid: f47915fc5f8c51947aef58cc032ea22f, type: 2}
@@ -61664,38 +61931,6 @@ Prefab:
       propertyPath: m_RootOrder
       value: 15
       objectReference: {fileID: 0}
-    - target: {fileID: 22478048, guid: d745afb507c7c234c9cc527aa3b3b2c7, type: 2}
-      propertyPath: m_AnchorMin.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 22478048, guid: d745afb507c7c234c9cc527aa3b3b2c7, type: 2}
-      propertyPath: m_AnchorMax.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 22478048, guid: d745afb507c7c234c9cc527aa3b3b2c7, type: 2}
-      propertyPath: m_AnchorMax.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 158500, guid: d745afb507c7c234c9cc527aa3b3b2c7, type: 2}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 145630, guid: d745afb507c7c234c9cc527aa3b3b2c7, type: 2}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 196682, guid: d745afb507c7c234c9cc527aa3b3b2c7, type: 2}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 22413750, guid: d745afb507c7c234c9cc527aa3b3b2c7, type: 2}
-      propertyPath: m_AnchorMax.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 22413750, guid: d745afb507c7c234c9cc527aa3b3b2c7, type: 2}
-      propertyPath: m_AnchorMax.y
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 22496198, guid: d745afb507c7c234c9cc527aa3b3b2c7, type: 2}
       propertyPath: m_AnchorMin.y
       value: 0
@@ -61708,37 +61943,33 @@ Prefab:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 22439510, guid: d745afb507c7c234c9cc527aa3b3b2c7, type: 2}
-      propertyPath: m_SizeDelta.y
-      value: 448.184418
-      objectReference: {fileID: 0}
     - target: {fileID: 22427382, guid: d745afb507c7c234c9cc527aa3b3b2c7, type: 2}
       propertyPath: m_SizeDelta.y
-      value: 647.377502
+      value: 663.829773
       objectReference: {fileID: 0}
-    - target: {fileID: 22433236, guid: d745afb507c7c234c9cc527aa3b3b2c7, type: 2}
+    - target: {fileID: 22478048, guid: d745afb507c7c234c9cc527aa3b3b2c7, type: 2}
+      propertyPath: m_AnchorMin.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 22478048, guid: d745afb507c7c234c9cc527aa3b3b2c7, type: 2}
       propertyPath: m_AnchorMax.x
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 22433236, guid: d745afb507c7c234c9cc527aa3b3b2c7, type: 2}
+    - target: {fileID: 22478048, guid: d745afb507c7c234c9cc527aa3b3b2c7, type: 2}
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 22407242, guid: d745afb507c7c234c9cc527aa3b3b2c7, type: 2}
+    - target: {fileID: 22413750, guid: d745afb507c7c234c9cc527aa3b3b2c7, type: 2}
       propertyPath: m_AnchorMax.x
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 22407242, guid: d745afb507c7c234c9cc527aa3b3b2c7, type: 2}
+    - target: {fileID: 22413750, guid: d745afb507c7c234c9cc527aa3b3b2c7, type: 2}
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 22433236, guid: d745afb507c7c234c9cc527aa3b3b2c7, type: 2}
-      propertyPath: m_AnchoredPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 22407242, guid: d745afb507c7c234c9cc527aa3b3b2c7, type: 2}
-      propertyPath: m_AnchoredPosition.y
-      value: 0
+    - target: {fileID: 22439510, guid: d745afb507c7c234c9cc527aa3b3b2c7, type: 2}
+      propertyPath: m_SizeDelta.y
+      value: 459.574463
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: d745afb507c7c234c9cc527aa3b3b2c7, type: 2}
@@ -62637,9 +62868,9 @@ MonoBehaviour:
     editorHeight: 42
   actions:
   - e_categoryString: QuestManager
-    e_categoryIndex: 5
+    e_categoryIndex: 6
     e_classString: QuestManager
-    e_classIndex: 4
+    e_classIndex: 5
     e_fieldString: ProgressGoalInQuest
     e_fieldIndex: 4
     e_MonoBehaviour: {fileID: 1673457994}
@@ -62698,7 +62929,7 @@ MonoBehaviour:
     compareString: 
     compareIndex: 0
     color: {r: 1, g: .460000008, b: 0, a: .550000012}
-    editorHeight: 228
+    editorHeight: 160
   - e_categoryString: System
     e_categoryIndex: 0
     e_classString: Create Prefab At Position
@@ -62762,6 +62993,69 @@ MonoBehaviour:
     compareIndex: 0
     color: {r: 1, g: .460000008, b: 0, a: .550000012}
     editorHeight: 110
+  - e_categoryString: GameHUD
+    e_categoryIndex: 13
+    e_classString: GameHUD
+    e_classIndex: 12
+    e_fieldString: MoveCompassTargetPoint
+    e_fieldIndex: 1
+    e_MonoBehaviour: {fileID: 478797340}
+    e_GameObject: {fileID: 478797339}
+    p_int: 0000000000000000000000000000000000000000
+    p_bool: 0000000000
+    p_float:
+    - 0
+    - 0
+    - 0
+    - 0
+    - 0
+    p_string:
+    - 
+    - 
+    - 
+    - 
+    - 
+    p_Vector3:
+    - {x: 0, y: 0, z: 0}
+    - {x: 0, y: 0, z: 0}
+    - {x: 0, y: 0, z: 0}
+    - {x: 0, y: 0, z: 0}
+    - {x: 0, y: 0, z: 0}
+    p_Transform:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    p_GameObject:
+    - {fileID: 1817531151}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    p_MonoBehaviour:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    numberCompareString:
+    - Equal To
+    - Greater Than
+    - Less Than
+    vectorCompareString:
+    - Nearer Than
+    - Further Than
+    boolCompareString:
+    - Is True
+    - Is False
+    stringCompareString:
+    - Equal To
+    - Different Than
+    compareString: 
+    compareIndex: 0
+    color: {r: 1, g: .460000008, b: 0, a: .550000012}
+    editorHeight: 126
   andOrCompare:
   - Every Condition
   - One or More
@@ -62829,7 +63123,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1472357805}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -289, y: 1.08915234, z: 321}
+  m_LocalPosition: {x: -141.899994, y: 1.08915234, z: 181.600006}
   m_LocalScale: {x: .979970217, y: .979970813, z: .979970813}
   m_Children: []
   m_Father: {fileID: 553218666}
@@ -65247,6 +65541,7 @@ Transform:
   - {fileID: 1561993198}
   - {fileID: 2000322913}
   - {fileID: 1564434841}
+  - {fileID: 267847918}
   m_Father: {fileID: 553218666}
   m_RootOrder: 156
 --- !u!4 &1535838662 stripped
@@ -72946,7 +73241,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1702918717}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -117.730003, y: .699999988, z: 151.909012}
+  m_LocalPosition: {x: -117.730003, y: .699999988, z: 136.940002}
   m_LocalScale: {x: 1.70909119, y: 1.70909154, z: 1.70909154}
   m_Children: []
   m_Father: {fileID: 0}
@@ -75514,9 +75809,9 @@ MonoBehaviour:
     editorHeight: 42
   actions:
   - e_categoryString: QuestManager
-    e_categoryIndex: 5
+    e_categoryIndex: 6
     e_classString: QuestManager
-    e_classIndex: 4
+    e_classIndex: 5
     e_fieldString: CompleteGoalInQuest
     e_fieldIndex: 3
     e_MonoBehaviour: {fileID: 1673457994}
@@ -75575,11 +75870,11 @@ MonoBehaviour:
     compareString: 
     compareIndex: 0
     color: {r: 1, g: .460000008, b: 0, a: .550000012}
-    editorHeight: 228
+    editorHeight: 160
   - e_categoryString: QuestManager
-    e_categoryIndex: 5
+    e_categoryIndex: 6
     e_classString: QuestManager
-    e_classIndex: 4
+    e_classIndex: 5
     e_fieldString: LoadQuests
     e_fieldIndex: 0
     e_MonoBehaviour: {fileID: 1673457994}
@@ -75640,9 +75935,9 @@ MonoBehaviour:
     color: {r: 1, g: .460000008, b: 0, a: .550000012}
     editorHeight: 92
   - e_categoryString: QuestManager
-    e_categoryIndex: 5
+    e_categoryIndex: 6
     e_classString: QuestManager
-    e_classIndex: 4
+    e_classIndex: 5
     e_fieldString: UpdateQuests
     e_fieldIndex: 2
     e_MonoBehaviour: {fileID: 1673457994}
@@ -75703,9 +75998,9 @@ MonoBehaviour:
     color: {r: 1, g: .460000008, b: 0, a: .550000012}
     editorHeight: 92
   - e_categoryString: QuestManager
-    e_categoryIndex: 5
+    e_categoryIndex: 6
     e_classString: QuestManager
-    e_classIndex: 4
+    e_classIndex: 5
     e_fieldString: AddQuest
     e_fieldIndex: 5
     e_MonoBehaviour: {fileID: 1673457994}
@@ -75764,7 +76059,70 @@ MonoBehaviour:
     compareString: 
     compareIndex: 0
     color: {r: 1, g: .460000008, b: 0, a: .550000012}
-    editorHeight: 194
+    editorHeight: 126
+  - e_categoryString: GameHUD
+    e_categoryIndex: 13
+    e_classString: GameHUD
+    e_classIndex: 12
+    e_fieldString: MoveCompassTargetPoint
+    e_fieldIndex: 1
+    e_MonoBehaviour: {fileID: 478797340}
+    e_GameObject: {fileID: 478797339}
+    p_int: 0000000000000000000000000000000000000000
+    p_bool: 0000000000
+    p_float:
+    - 0
+    - 0
+    - 0
+    - 0
+    - 0
+    p_string:
+    - 
+    - 
+    - 
+    - 
+    - 
+    p_Vector3:
+    - {x: 0, y: 0, z: 0}
+    - {x: 0, y: 0, z: 0}
+    - {x: 0, y: 0, z: 0}
+    - {x: 0, y: 0, z: 0}
+    - {x: 0, y: 0, z: 0}
+    p_Transform:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    p_GameObject:
+    - {fileID: 1472357805}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    p_MonoBehaviour:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    numberCompareString:
+    - Equal To
+    - Greater Than
+    - Less Than
+    vectorCompareString:
+    - Nearer Than
+    - Further Than
+    boolCompareString:
+    - Is True
+    - Is False
+    stringCompareString:
+    - Equal To
+    - Different Than
+    compareString: 
+    compareIndex: 0
+    color: {r: 1, g: .460000008, b: 0, a: .550000012}
+    editorHeight: 126
   andOrCompare:
   - Every Condition
   - One or More
@@ -78731,9 +79089,9 @@ MonoBehaviour:
     editorHeight: 42
   actions:
   - e_categoryString: QuestManager
-    e_categoryIndex: 5
+    e_categoryIndex: 6
     e_classString: QuestManager
-    e_classIndex: 4
+    e_classIndex: 5
     e_fieldString: CompleteGoalInQuest
     e_fieldIndex: 3
     e_MonoBehaviour: {fileID: 1673457994}
@@ -78792,11 +79150,11 @@ MonoBehaviour:
     compareString: 
     compareIndex: 0
     color: {r: 1, g: .460000008, b: 0, a: .550000012}
-    editorHeight: 228
+    editorHeight: 160
   - e_categoryString: QuestManager
-    e_categoryIndex: 5
+    e_categoryIndex: 6
     e_classString: QuestManager
-    e_classIndex: 4
+    e_classIndex: 5
     e_fieldString: UpdateQuests
     e_fieldIndex: 2
     e_MonoBehaviour: {fileID: 1673457994}
@@ -78857,9 +79215,9 @@ MonoBehaviour:
     color: {r: 1, g: .460000008, b: 0, a: .550000012}
     editorHeight: 92
   - e_categoryString: QuestManager
-    e_categoryIndex: 5
+    e_categoryIndex: 6
     e_classString: QuestManager
-    e_classIndex: 4
+    e_classIndex: 5
     e_fieldString: LoadQuests
     e_fieldIndex: 0
     e_MonoBehaviour: {fileID: 1673457994}
@@ -78986,7 +79344,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1817531151}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -302, y: .989152253, z: 350}
+  m_LocalPosition: {x: -143, y: .989152253, z: 212.600006}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 553218666}
@@ -91258,9 +91616,9 @@ MonoBehaviour:
     editorHeight: 42
   actions:
   - e_categoryString: QuestManager
-    e_categoryIndex: 5
+    e_categoryIndex: 6
     e_classString: QuestManager
-    e_classIndex: 4
+    e_classIndex: 5
     e_fieldString: AddQuest
     e_fieldIndex: 5
     e_MonoBehaviour: {fileID: 1673457994}
@@ -91319,7 +91677,70 @@ MonoBehaviour:
     compareString: 
     compareIndex: 0
     color: {r: 1, g: .460000008, b: 0, a: .550000012}
-    editorHeight: 194
+    editorHeight: 126
+  - e_categoryString: GameHUD
+    e_categoryIndex: 13
+    e_classString: GameHUD
+    e_classIndex: 12
+    e_fieldString: MoveCompassTargetPoint
+    e_fieldIndex: 1
+    e_MonoBehaviour: {fileID: 478797340}
+    e_GameObject: {fileID: 478797339}
+    p_int: 0000000000000000000000000000000000000000
+    p_bool: 0000000000
+    p_float:
+    - 0
+    - 0
+    - 0
+    - 0
+    - 0
+    p_string:
+    - 
+    - 
+    - 
+    - 
+    - 
+    p_Vector3:
+    - {x: 0, y: 0, z: 0}
+    - {x: 0, y: 0, z: 0}
+    - {x: 0, y: 0, z: 0}
+    - {x: 0, y: 0, z: 0}
+    - {x: 0, y: 0, z: 0}
+    p_Transform:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    p_GameObject:
+    - {fileID: 1756521140}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    p_MonoBehaviour:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    numberCompareString:
+    - Equal To
+    - Greater Than
+    - Less Than
+    vectorCompareString:
+    - Nearer Than
+    - Further Than
+    boolCompareString:
+    - Is True
+    - Is False
+    stringCompareString:
+    - Equal To
+    - Different Than
+    compareString: 
+    compareIndex: 0
+    color: {r: 1, g: .460000008, b: 0, a: .550000012}
+    editorHeight: 126
   andOrCompare:
   - Every Condition
   - One or More

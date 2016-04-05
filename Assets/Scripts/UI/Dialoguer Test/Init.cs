@@ -15,7 +15,7 @@ public class Init : MonoBehaviour {
 	private bool triggerDialoguer;
 	private GameObject player;
 	private bool dialogueCol;
-	private GameObject dialogueGUI;
+	//private GameObject dialogueGUI;
 	private DialogueCollider playerDC;
 
 	GameObject interactDialoguer;
@@ -36,7 +36,7 @@ public class Init : MonoBehaviour {
 		dialogueCol = false;
 		player = GameObject.FindGameObjectWithTag ("Player");
 		playerDC = player.GetComponentInChildren<DialogueCollider> ();
-		dialogueGUI = GameObject.Find ("GUI");
+		//dialogueGUI = GameObject.Find ("GUI");
 	}
 	
 	// Update is called once per frame
@@ -59,9 +59,9 @@ public class Init : MonoBehaviour {
 			dialogueCol = false;
 			interactDialoguer.SetActive (false);
 		}
-		if (!dialogueGUI.GetComponent<DialoguerGUI> ().showingDialoguer) {
+		/*if (!dialogueGUI.GetComponent<DialoguerGUI> ().showingDialoguer) {
 			inDialogue = false;
-		}
+		}*/
 	}
 
 	//***********OLD IMPLEMENTATION***************

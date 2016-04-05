@@ -1514,11 +1514,11 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 22407242, guid: d745afb507c7c234c9cc527aa3b3b2c7, type: 2}
       propertyPath: m_AnchorMax.x
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 22407242, guid: d745afb507c7c234c9cc527aa3b3b2c7, type: 2}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: d745afb507c7c234c9cc527aa3b3b2c7, type: 2}
@@ -3896,7 +3896,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5fec4b7c492b31c43a875bff9aed037f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  compassTargetPrefab: {fileID: 0}
+  compassTargetPrefab: {fileID: 180234, guid: 7510c511ac84d2245a5106545f5e04b7, type: 2}
   questCount: 0
 --- !u!114 &1857139366
 MonoBehaviour:
@@ -4464,7 +4464,7 @@ MonoBehaviour:
     compareString: 
     compareIndex: 0
     color: {r: 1, g: .460000008, b: 0, a: .550000012}
-    editorHeight: 126
+    editorHeight: 194
   andOrCompare:
   - Every Condition
   - One or More

@@ -199,7 +199,7 @@ public class GameHUD : MonoBehaviour {
 	}
 
 	//!Call this to update objective tet at top of the screen
-	[EventVisible]
+	[EventVisibleAttribute]
 	public void UpdateObjectiveText(string newObjective) {
 		objectiveText.GetComponent<Text>().text = newObjective;
 	}
@@ -314,6 +314,13 @@ public class GameHUD : MonoBehaviour {
 		return Vector3.Angle(pointStraightFromCam, pointToObjective);
 
 
+	}
+
+	[EventVisibleAttribute]
+	public void MoveCompassTargetPoint(GameObject NextQuestLocation){
+		testObjective.transform.position = NextQuestLocation.transform.position;
+		calcCompass = true;
+		return;
 	}
 
 	//This is for testing

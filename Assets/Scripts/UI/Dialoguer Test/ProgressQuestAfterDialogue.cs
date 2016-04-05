@@ -9,6 +9,8 @@ public class ProgressQuestAfterDialogue : MonoBehaviour {
 	public int questID;
 	public int goalIndex;
 	public ProgressType progressType;
+	//public bool newCompassTarget;
+	//public GameObject newCompassTargetObject;
 
 	/*!This function progresses the quest specified in the editor.
 	 * This script should be attache to an NPC.
@@ -20,11 +22,11 @@ public class ProgressQuestAfterDialogue : MonoBehaviour {
 	public void ProgressQuest(){
 		if (!ableToProgress) {return;}
 		if (progressType == ProgressType.CompleteGoal) {
-			QuestManager.instance.CompleteGoalInQuest (questID, goalIndex, false, null);
+			QuestManager.instance.CompleteGoalInQuest (questID, goalIndex);
 			QuestManager.instance.UpdateQuests();
 			QuestManager.instance.LoadQuests();
 		} else {
-			QuestManager.instance.ProgressGoalInQuest (questID, goalIndex, false, null);
+			QuestManager.instance.ProgressGoalInQuest(questID, goalIndex);
 		}
 	}
 }
