@@ -1232,6 +1232,22 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &160524
+GameObject:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 445150}
+  - 114: {fileID: 11420320}
+  m_Layer: 0
+  m_Name: Init
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &160614
 GameObject:
   m_ObjectHideFlags: 1
@@ -2082,7 +2098,6 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 224: {fileID: 22401146}
-  - 114: {fileID: 11467292}
   m_Layer: 5
   m_Name: Dialogue
   m_TagString: Untagged
@@ -2216,6 +2231,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 402240}
   m_RootOrder: 4
+--- !u!4 &445150
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 160524}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -960, y: -540, z: 0}
+  m_LocalScale: {x: 2.55319142, y: 2.55319142, z: 2.55319142}
+  m_Children: []
+  m_Father: {fileID: 22493854}
+  m_RootOrder: 8
 --- !u!4 &475328
 Transform:
   m_ObjectHideFlags: 1
@@ -3284,6 +3311,23 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
+--- !u!114 &11420320
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 160524}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fdc04fbfed02dd0409ce3f0c5b6410fb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  textBoxText: Press 'F' to Interact
+  textBoxWidth: 150
+  textBoxHeight: 30
+  textBoxVertOffset: 0
+  textBoxHorzOffset: 0
+  inDialogue: 0
 --- !u!114 &11420324
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -5541,23 +5585,6 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: Choice
---- !u!114 &11467292
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 196682}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fdc04fbfed02dd0409ce3f0c5b6410fb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  textBoxText: 
-  textBoxWidth: 0
-  textBoxHeight: 0
-  textBoxVertOffset: 0
-  textBoxHorzOffset: 0
-  inDialogue: 0
 --- !u!114 &11467458
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -9289,6 +9316,7 @@ RectTransform:
   - {fileID: 22487124}
   - {fileID: 22406578}
   - {fileID: 22406374}
+  - {fileID: 445150}
   m_Father: {fileID: 402240}
   m_RootOrder: 0
   m_AnchorMin: {x: 0, y: 0}
