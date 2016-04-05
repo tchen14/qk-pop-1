@@ -181,7 +181,7 @@ public class QuestManagerUIController : MonoBehaviour {
 			GameObject scrollingHandle = mainScrollbar.transform.FindChild ("Sliding Area").transform.FindChild ("Handle").gameObject;
 			scrollingHandle.SetActive (true);
 		}
-		StartCoroutine (showMoreInfoScrollbar ());
+		//StartCoroutine (showMoreInfoScrollbar ());
 	}
 
 	/* Each time a button is dynamically created, a listener is added to it which calls the clickButton() function.

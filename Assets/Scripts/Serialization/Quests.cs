@@ -6,18 +6,8 @@ using System;
 //using Debug = FFP.Debug;
 
 public class Quest {
-	
-	void Awake(){
-		if (!loadListFromFile (StringManager.QUESTLIST)) {
-			Debug.Log ( "JSON file did not load");
-			//return false;
-		} else {
-			Debug.Log ( "JSON file loaded");
-			//return true;
-		}
-	}
-	
-	const string questListFilePath = StringManager.QUESTLIST;
+
+	const string questListFilePath = "questList";
 
 	int iden;
 	string name;
@@ -143,17 +133,26 @@ public class Quest {
 		return null;
 	}
 
-	private JSONNode RetrieveQuestsFromJSON() {
 
-		if(!System.IO.File.Exists(Application.dataPath + questListFilePath))
+	private JSONNode RetrieveQuestsFromJSON()
+    {
+		/*if(!System.IO.File.Exists(Application.dataPath + "/Resources/questList.json"))
 		{
 			Debug.LogError ("Could not find Quest List JSON file... File path: " + Application.dataPath + questListFilePath);
 			DebugOnScreen.Log(Application.dataPath + questListFilePath);
 			
 			return null;
-		}
+		}*/
 
-		string jsonRead = System.IO.File.ReadAllText(Application.dataPath + questListFilePath);
+        TextAsset json = Resources.Load<TextAsset>(questListFilePath);
+
+        if(json == null)
+        {
+            Debug.LogError("QuestList not loaded from JSON");
+        }
+
+
+		string jsonRead = json.text;
 		JSONNode jsonParsed = JSON.Parse (jsonRead);
 
 		return jsonParsed;

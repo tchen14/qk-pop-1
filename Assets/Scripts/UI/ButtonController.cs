@@ -14,9 +14,9 @@ public class ButtonController : MonoBehaviour {
 	MasterSceneManager masterSceneManager;
 
 	void Awake(){
-		gHUD = GameObject.FindObjectOfType<GameHUD> ().GetComponent<GameHUD> ();
-		pMenu = GameObject.FindObjectOfType<PauseMenu> ().GetComponent<PauseMenu> ();
-		masterSceneManager = GameObject.FindObjectOfType<MasterSceneManager> ().GetComponent<MasterSceneManager> ();
+        gHUD = GameHUD.Instance;
+		pMenu = PauseMenu.Instance;
+		masterSceneManager = MasterSceneManager.Instance;
 	}
 
 	public void ClickJournalButton_PauseMenu(){
