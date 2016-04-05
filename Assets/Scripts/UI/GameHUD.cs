@@ -37,7 +37,8 @@ public class GameHUD : MonoBehaviour {
 	public float minimapYOffset;
 	public Sprite[] targetableIcons;
 	public Sprite enemyIcon;
-
+	public bool calcCompass = false;
+	
 	//public GameObject closestTargetIconPrefab;
 
 	GameObject mapCam;								//!<Camera used for minimap
@@ -61,7 +62,7 @@ public class GameHUD : MonoBehaviour {
 	GameObject mainCamera;
 	GameObject minimapCamera;
 	GameObject minimapCompass;
-	GameObject testObjective;
+	public GameObject testObjective;
 
 	List<GameObject> targetsInRange;
 	GameObject closestTargetIcon;
@@ -180,7 +181,14 @@ public class GameHUD : MonoBehaviour {
 		UpdateMapObjects();
 
 		//!Set the compass indicator
-		setCompassValue(calculateObjectiveAngle(testObjective));
+		if(!testObjective || !calcCompass){
+			leftArrow.SetActive (false);
+			slider.SetActive (false);
+			rightArrow.SetActive (false);
+		}
+		else{
+			setCompassValue(calculateObjectiveAngle(testObjective));
+		}
 	}
 
 	void OnGUI(){

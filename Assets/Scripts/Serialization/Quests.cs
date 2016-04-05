@@ -183,7 +183,9 @@ public class Quest {
 				break;
 			}
 		}
-
+		if(allCompleted){
+			GameHUD.Instance.calcCompass = false;
+		}
 		return allCompleted;
 	}
 

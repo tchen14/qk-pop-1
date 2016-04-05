@@ -20,11 +20,11 @@ public class ProgressQuestAfterDialogue : MonoBehaviour {
 	public void ProgressQuest(){
 		if (!ableToProgress) {return;}
 		if (progressType == ProgressType.CompleteGoal) {
-			QuestManager.instance.CompleteGoalInQuest (questID, goalIndex);
+			QuestManager.instance.CompleteGoalInQuest (questID, goalIndex, false, null);
 			QuestManager.instance.UpdateQuests();
 			QuestManager.instance.LoadQuests();
 		} else {
-			QuestManager.instance.ProgressGoalInQuest (questID, goalIndex);
+			QuestManager.instance.ProgressGoalInQuest (questID, goalIndex, false, null);
 		}
 	}
 }

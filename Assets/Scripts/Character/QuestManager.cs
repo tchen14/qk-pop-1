@@ -11,12 +11,15 @@ public class QuestManager : MonoBehaviour {
 	public List <Quest> currentQuests;
 	public List <Quest> failedQuests;
 	public List <Quest> completedQuests;
+	public GameObject compassTargetPrefab;
+	
 	Quest _quest;
 	QuestSaveManager _questSaveManager;
 	public int questCount;
 	GameObject questManagerUI;
 	QuestManagerUIController qmUI;
-
+	GameObject compassTarget;
+	
     void Awake()
     {
         gameObject.AddComponent<DebugOnScreen>();
@@ -24,6 +27,7 @@ public class QuestManager : MonoBehaviour {
 		failedQuests = new List<Quest> ();
 		completedQuests = new List<Quest> ();
 		instance = this;
+		compassTarget = Instantiate (compassTargetPrefab);
     }
 
     void Start() {
@@ -94,11 +98,18 @@ public class QuestManager : MonoBehaviour {
 	}
 
 	[EventVisibleAttribute]
-	public void CompleteGoalInQuest(int questID, int goalIndex) {
+	public void CompleteGoalInQuest(int questID, int goalIndex, bool addTargetOnCompass, GameObject target) {
 		//DebugOnScreen.Log("IN COMPLETE GOAL IN QUEST!");
 		if (currentQuests.Count < 1) {
 			//DebugOnScreen.Log("No quests in List!");
 			return;
+		}
+
+		if(!GameHUD.Instance.testObjective){
+			GameHUD.Instance.testObjective = compassTarget;
+		}
+		if(addTargetOnCompass){
+			MoveCompassTargetPoint(target);
 		}
 
 		foreach (Quest q in currentQuests) {
@@ -109,10 +120,17 @@ public class QuestManager : MonoBehaviour {
 	}
 
 	[EventVisibleAttribute]
-	public void ProgressGoalInQuest(int questID, int goalIndex) {
+	public void ProgressGoalInQuest(int questID, int goalIndex, bool addTargetOnCompass, GameObject target) {
 		if (currentQuests.Count < 1) {
 			//DebugOnScreen.Log("No quests in List!");
 			return;
+		}
+
+		if(!GameHUD.Instance.testObjective){
+			GameHUD.Instance.testObjective = compassTarget;
+		}
+		if(addTargetOnCompass){
+			MoveCompassTargetPoint(target);
 		}
 
 		foreach (Quest q in currentQuests) {
@@ -126,8 +144,14 @@ public class QuestManager : MonoBehaviour {
 		questCount = currentQuests.Count;
 	}
 
+	void MoveCompassTargetPoint(GameObject NextQuestLocation){
+		compassTarget.transform.position = NextQuestLocation.transform.position;
+		GameHUD.Instance.calcCompass = true;
+		return;
+	}
+
 	[EventVisibleAttribute]
-	public void AddQuest(int questID) {
+	public void AddQuest(int questID, bool addTargetOnCompass, GameObject target) {
 
 		if (_questSaveManager.CompletedQuest (questID) == true) {
 			DebugOnScreen.Log("Quest has already been completed. Delete in PlayerPrefs probably");
@@ -142,6 +166,14 @@ public class QuestManager : MonoBehaviour {
 		}
 
 		currentQuests.Add (newQuest);
+		
+		if(!GameHUD.Instance.testObjective){
+			GameHUD.Instance.testObjective = compassTarget;
+		}
+		if(addTargetOnCompass){
+			MoveCompassTargetPoint(target);
+		}
+		
 		DebugOnScreen.Log ("Added quest!");
 
 		if (newQuest.HasTimer () == true) {
@@ -151,6 +183,8 @@ public class QuestManager : MonoBehaviour {
 
 		return;
 	}
+
+	
 
 	IEnumerator StartTimer(Quest q) {
 		//DebugOnScreen.Log ("Starting timer for " + q.GetTimerLength() + " seconds.");
