@@ -6628,7 +6628,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 10
+  m_RootOrder: 11
 --- !u!1 &143852720
 GameObject:
   m_ObjectHideFlags: 0
@@ -12264,7 +12264,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 11
+  m_RootOrder: 12
 --- !u!1 &270267806
 GameObject:
   m_ObjectHideFlags: 0
@@ -15216,6 +15216,190 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 343413105}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &349519451
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 349519453}
+  - 114: {fileID: 349519452}
+  m_Layer: 0
+  m_Name: GameObject (1)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &349519452
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 349519451}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3bce9737e13a17340acb5aabb86ba137, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  conditions:
+  - e_categoryString: System
+    e_categoryIndex: 0
+    e_classString: Player Enters Area
+    e_classIndex: 2
+    e_fieldString: Choose An Action
+    e_fieldIndex: 0
+    e_MonoBehaviour: {fileID: 0}
+    e_GameObject: {fileID: 0}
+    p_int: 0000000000000000000000000000000000000000
+    p_bool: 0000000000
+    p_float:
+    - 0
+    - 0
+    - 0
+    - 0
+    - 0
+    p_string:
+    - 
+    - 
+    - 
+    - 
+    - 
+    p_Vector3:
+    - {x: 0, y: 0, z: 0}
+    - {x: 0, y: 0, z: 0}
+    - {x: 0, y: 0, z: 0}
+    - {x: 0, y: 0, z: 0}
+    - {x: 0, y: 0, z: 0}
+    p_Transform:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    p_GameObject:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    p_MonoBehaviour:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    numberCompareString:
+    - Equal To
+    - Greater Than
+    - Less Than
+    vectorCompareString:
+    - Nearer Than
+    - Further Than
+    boolCompareString:
+    - Is True
+    - Is False
+    stringCompareString:
+    - Equal To
+    - Different Than
+    compareString: 
+    compareIndex: 0
+    color: {r: 0, g: .579999983, b: .689999998, a: .449999988}
+    editorHeight: 42
+  actions:
+  - e_categoryString: GameHUD
+    e_categoryIndex: 13
+    e_classString: GameHUD
+    e_classIndex: 12
+    e_fieldString: TriggerDialoguer
+    e_fieldIndex: 2
+    e_MonoBehaviour: {fileID: 478797340}
+    e_GameObject: {fileID: 478797339}
+    p_int: 1800000000000000000000000000000000000000
+    p_bool: 0000000000
+    p_float:
+    - 0
+    - 0
+    - 0
+    - 0
+    - 0
+    p_string:
+    - 
+    - 
+    - 
+    - 
+    - 
+    p_Vector3:
+    - {x: 0, y: 0, z: 0}
+    - {x: 0, y: 0, z: 0}
+    - {x: 0, y: 0, z: 0}
+    - {x: 0, y: 0, z: 0}
+    - {x: 0, y: 0, z: 0}
+    p_Transform:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    p_GameObject:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    p_MonoBehaviour:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    numberCompareString:
+    - Equal To
+    - Greater Than
+    - Less Than
+    vectorCompareString:
+    - Nearer Than
+    - Further Than
+    boolCompareString:
+    - Is True
+    - Is False
+    stringCompareString:
+    - Equal To
+    - Different Than
+    compareString: 
+    compareIndex: 0
+    color: {r: 1, g: .460000008, b: 0, a: .550000012}
+    editorHeight: 126
+  andOrCompare:
+  - Every Condition
+  - One or More
+  - Exactly One
+  andOrCompareString: Every Condition
+  andOrCompareIndex: 0
+  uniqueId: 
+  isActive: 1
+  isRegional: 1
+  executeOnce: 1
+  hasExecuted: 0
+  totalTimeActive: 0
+  delay: 1
+  regionRadius: 1
+  drawRegionTwo: 1
+  conditionRegionCenter: {x: 0, y: 0, z: 0}
+  conditionRegionRadius: 2.90483093
+--- !u!4 &349519453
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 349519451}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -130.990005, y: 1.04999995, z: 152.470001}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
 --- !u!1 &349731130
 GameObject:
   m_ObjectHideFlags: 0
@@ -28668,7 +28852,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 8
 --- !u!1 &642727426 stripped
 GameObject:
   m_PrefabParentObject: {fileID: 158130, guid: 4058135ba2af39542a389fff7f48aff6, type: 2}
@@ -32633,7 +32817,7 @@ Transform:
   m_Children:
   - {fileID: 1846358100}
   m_Father: {fileID: 0}
-  m_RootOrder: 12
+  m_RootOrder: 13
 --- !u!1 &756542709
 GameObject:
   m_ObjectHideFlags: 0
@@ -39119,43 +39303,43 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 22496198, guid: d745afb507c7c234c9cc527aa3b3b2c7, type: 2}
       propertyPath: m_AnchorMin.y
-      value: 0
+      value: .157615364
       objectReference: {fileID: 0}
     - target: {fileID: 22496198, guid: d745afb507c7c234c9cc527aa3b3b2c7, type: 2}
       propertyPath: m_AnchorMax.x
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 22496198, guid: d745afb507c7c234c9cc527aa3b3b2c7, type: 2}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 22427382, guid: d745afb507c7c234c9cc527aa3b3b2c7, type: 2}
       propertyPath: m_SizeDelta.y
-      value: 647.377502
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 22478048, guid: d745afb507c7c234c9cc527aa3b3b2c7, type: 2}
       propertyPath: m_AnchorMin.x
-      value: 0
+      value: .166666672
       objectReference: {fileID: 0}
     - target: {fileID: 22478048, guid: d745afb507c7c234c9cc527aa3b3b2c7, type: 2}
       propertyPath: m_AnchorMax.x
-      value: 0
+      value: .166666672
       objectReference: {fileID: 0}
     - target: {fileID: 22478048, guid: d745afb507c7c234c9cc527aa3b3b2c7, type: 2}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 22413750, guid: d745afb507c7c234c9cc527aa3b3b2c7, type: 2}
       propertyPath: m_AnchorMax.x
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 22413750, guid: d745afb507c7c234c9cc527aa3b3b2c7, type: 2}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 22439510, guid: d745afb507c7c234c9cc527aa3b3b2c7, type: 2}
       propertyPath: m_SizeDelta.y
-      value: 448.184418
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: d745afb507c7c234c9cc527aa3b3b2c7, type: 2}
@@ -43485,7 +43669,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 14
+  m_RootOrder: 16
 --- !u!54 &1015049387
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -44957,7 +45141,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 4
 --- !u!1 &1040282712
 GameObject:
   m_ObjectHideFlags: 0
@@ -45582,7 +45766,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 1
 --- !u!114 &1048877964
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -67734,7 +67918,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 10
 --- !u!1 &1572247657
 GameObject:
   m_ObjectHideFlags: 0
@@ -73245,7 +73429,7 @@ Transform:
   m_LocalScale: {x: 1.70909119, y: 1.70909154, z: 1.70909154}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 13
+  m_RootOrder: 14
 --- !u!1 &1703032975
 GameObject:
   m_ObjectHideFlags: 0
@@ -79585,7 +79769,7 @@ Transform:
   - {fileID: 553218666}
   - {fileID: 145437026}
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 5
 --- !u!1 &1823028894 stripped
 GameObject:
   m_PrefabParentObject: {fileID: 138840, guid: d4740b60cce8aec40a6df24ec0595d86, type: 2}
@@ -82636,7 +82820,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 2
 --- !u!54 &1895527020
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -90966,6 +91150,190 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2092894319}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &2096643894
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 2096643896}
+  - 114: {fileID: 2096643895}
+  m_Layer: 0
+  m_Name: GameObject
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &2096643895
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2096643894}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3bce9737e13a17340acb5aabb86ba137, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  conditions:
+  - e_categoryString: System
+    e_categoryIndex: 0
+    e_classString: Player Enters Area
+    e_classIndex: 2
+    e_fieldString: Choose An Action
+    e_fieldIndex: 0
+    e_MonoBehaviour: {fileID: 0}
+    e_GameObject: {fileID: 0}
+    p_int: 0000000000000000000000000000000000000000
+    p_bool: 0000000000
+    p_float:
+    - 0
+    - 0
+    - 0
+    - 0
+    - 0
+    p_string:
+    - 
+    - 
+    - 
+    - 
+    - 
+    p_Vector3:
+    - {x: 0, y: 0, z: 0}
+    - {x: 0, y: 0, z: 0}
+    - {x: 0, y: 0, z: 0}
+    - {x: 0, y: 0, z: 0}
+    - {x: 0, y: 0, z: 0}
+    p_Transform:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    p_GameObject:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    p_MonoBehaviour:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    numberCompareString:
+    - Equal To
+    - Greater Than
+    - Less Than
+    vectorCompareString:
+    - Nearer Than
+    - Further Than
+    boolCompareString:
+    - Is True
+    - Is False
+    stringCompareString:
+    - Equal To
+    - Different Than
+    compareString: 
+    compareIndex: 0
+    color: {r: 0, g: .579999983, b: .689999998, a: .449999988}
+    editorHeight: 42
+  actions:
+  - e_categoryString: GameHUD
+    e_categoryIndex: 13
+    e_classString: GameHUD
+    e_classIndex: 12
+    e_fieldString: TriggerDialoguer
+    e_fieldIndex: 2
+    e_MonoBehaviour: {fileID: 478797340}
+    e_GameObject: {fileID: 478797339}
+    p_int: 1700000000000000000000000000000000000000
+    p_bool: 0000000000
+    p_float:
+    - 0
+    - 0
+    - 0
+    - 0
+    - 0
+    p_string:
+    - 
+    - 
+    - 
+    - 
+    - 
+    p_Vector3:
+    - {x: 0, y: 0, z: 0}
+    - {x: 0, y: 0, z: 0}
+    - {x: 0, y: 0, z: 0}
+    - {x: 0, y: 0, z: 0}
+    - {x: 0, y: 0, z: 0}
+    p_Transform:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    p_GameObject:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    p_MonoBehaviour:
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    - {fileID: 0}
+    numberCompareString:
+    - Equal To
+    - Greater Than
+    - Less Than
+    vectorCompareString:
+    - Nearer Than
+    - Further Than
+    boolCompareString:
+    - Is True
+    - Is False
+    stringCompareString:
+    - Equal To
+    - Different Than
+    compareString: 
+    compareIndex: 0
+    color: {r: 1, g: .460000008, b: 0, a: .550000012}
+    editorHeight: 126
+  andOrCompare:
+  - Every Condition
+  - One or More
+  - Exactly One
+  andOrCompareString: Every Condition
+  andOrCompareIndex: 0
+  uniqueId: 
+  isActive: 1
+  isRegional: 1
+  executeOnce: 1
+  hasExecuted: 0
+  totalTimeActive: 0
+  delay: 1
+  regionRadius: 1
+  drawRegionTwo: 1
+  conditionRegionCenter: {x: 0, y: 0, z: 0}
+  conditionRegionRadius: 2
+--- !u!4 &2096643896
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2096643894}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -115.07, y: 1.04999995, z: 151.889999}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 17
 --- !u!1 &2097766393
 GameObject:
   m_ObjectHideFlags: 0

@@ -2341,7 +2341,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 444644, guid: 860658df8834a0a47b466726065f7978, type: 2}
       propertyPath: m_RootOrder
-      value: 13
+      value: 12
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 860658df8834a0a47b466726065f7978, type: 2}
@@ -4330,9 +4330,9 @@ MonoBehaviour:
     editorHeight: 42
   actions:
   - e_categoryString: QuestManager
-    e_categoryIndex: 5
+    e_categoryIndex: 6
     e_classString: QuestManager
-    e_classIndex: 4
+    e_classIndex: 5
     e_fieldString: AddQuest
     e_fieldIndex: 5
     e_MonoBehaviour: {fileID: 1857139365}
@@ -4391,7 +4391,7 @@ MonoBehaviour:
     compareString: 
     compareIndex: 0
     color: {r: 1, g: .460000008, b: 0, a: .550000012}
-    editorHeight: 194
+    editorHeight: 126
   andOrCompare:
   - Every Condition
   - One or More

@@ -11,11 +11,9 @@ public class Init : MonoBehaviour {
 	public int textBoxVertOffset;
 	public int textBoxHorzOffset;
 	public bool inDialogue;
-
-	private bool triggerDialoguer;
+	
 	private GameObject player;
 	private bool dialogueCol;
-	//private GameObject dialogueGUI;
 	private DialogueCollider playerDC;
 
 	GameObject interactDialoguer;
@@ -32,11 +30,9 @@ public class Init : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		triggerDialoguer = false;
 		dialogueCol = false;
 		player = GameObject.FindGameObjectWithTag ("Player");
 		playerDC = player.GetComponentInChildren<DialogueCollider> ();
-		//dialogueGUI = GameObject.Find ("GUI");
 	}
 	
 	// Update is called once per frame
@@ -47,10 +43,9 @@ public class Init : MonoBehaviour {
 			dialogueCol = true;
 			interactDialoguer.SetActive(true);
 			if (Input.GetKeyDown (KeyCode.F)) {
-				//triggerDialoguer = true;
+				//QK_Character_Movement.Instance._stateModifier = QK_Character_Movement.CharacterState.Wait;
 				Dialoguer.StartDialogue (playerDC.NPCDialogueNumber, dialoguerCallback);
 				this.enabled = false;
-				triggerDialoguer = false;
 				inDialogue = true;
 				interactDialoguer.SetActive (false);
 			}
@@ -89,6 +84,7 @@ public class Init : MonoBehaviour {
 	 * See ProgressQuestAfterDialogue.cs for more info
 	 */
 	private void dialoguerCallback(){
+		//QK_Character_Movement.Instance._stateModifier = QK_Character_Movement.CharacterState.Normal;
 		playerDC.ProgressQuest ();
 		this.enabled = true;
 	}

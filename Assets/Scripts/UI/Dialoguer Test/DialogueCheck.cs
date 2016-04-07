@@ -16,7 +16,13 @@ public class DialogueCheck : MonoBehaviour {
 
 	void Start() {
 		initiation = GameObject.Find("Init");
+		if (!initiation) {
+			Debug.LogError ("Could not find the 'Init' GameObject in the scene: " + Application.loadedLevelName + ". Should be in the UI prefab");
+		}
 		player = GameObject.FindGameObjectWithTag ("Player");
+		if (!player) {
+			Debug.LogError("Could not find the 'Player' GameObject in the scene: " + Application.loadedLevelName);
+		}
 		originalPos = transform.rotation;
 		NPC = gameObject;
 	}

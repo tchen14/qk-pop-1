@@ -21,7 +21,7 @@ public class QK_Character_Movement : MonoBehaviour {
 
 	public enum CharacterState {Idle, Move, Pivot, Sprint, Crouch, Hang, Ladder, Sidle, Wait, Normal}
 	public CharacterState _moveState { get; private set; }
-	public CharacterState _stateModifier { get; private set; }
+	public CharacterState _stateModifier { get; set; }
 
 	public static CharacterController charCont;
 
@@ -94,6 +94,9 @@ public class QK_Character_Movement : MonoBehaviour {
 				ClimbLadder();
 				break;
 
+			case CharacterState.Wait:
+				break;
+				
 			default:
 				ProcessStandardMotion();
 				break;

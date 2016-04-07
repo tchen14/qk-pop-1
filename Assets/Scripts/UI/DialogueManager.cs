@@ -96,7 +96,9 @@ public class DialogueManager : MonoBehaviour {
 	}
 
 	private void SetPortrait() {
-		Sprite tempSprite = Resources.Load<Sprite> (portraitPATH + _portrait);
+		Sprite tempSprite = Resources.Load<Sprite> (portraitPATH + _portrait/* "QK_quinc_Logo_sprite"*/);
+		//Object theSpr = Resources.Load (portraitPATH + _portrait);
+		//Debug.Log (portraitPATH + _portrait);
 		if (tempSprite != null) {
 			_portraitImage.GetComponent<Image> ().sprite = tempSprite;
 		} else {

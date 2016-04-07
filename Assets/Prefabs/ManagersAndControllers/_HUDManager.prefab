@@ -25,7 +25,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 190398}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 14.8000002, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -59,16 +59,16 @@ MonoBehaviour:
   showMinimap: 1
   MiniMapRenderTexture: {fileID: 8400000, guid: 955a84106ffe7cf4c90b3a172b090370,
     type: 2}
-  MiniMapMaterial: {fileID: 2100000, guid: 45a94539aa742e848aaf0ecd3a31c566, type: 2}
+  MiniMapMaterial: {fileID: 2100000, guid: f927ce1739b9fc243998413e84cd6249, type: 2}
   minimapXOffset: 10
   minimapYOffset: 10
   targetableIcons:
-  - {fileID: 21300000, guid: 5f2cf64a66e0d2749a775c1d50cd876e, type: 3}
-  - {fileID: 21300000, guid: d1c6d26a722129e43a5785c658bd253b, type: 3}
-  - {fileID: 21300000, guid: ddf75007b29bcb6498a05fe0001a864b, type: 3}
-  - {fileID: 21300000, guid: c0778f64d504ff8428e102a528d831d8, type: 3}
-  - {fileID: 21300000, guid: 9af91e56d71baf740bff57e186f1a191, type: 3}
-  - {fileID: 21300000, guid: d57e98e31ecfebc439555dc23c0ec37e, type: 3}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   enemyIcon: {fileID: 21300000, guid: 6d3cb80085421de4facd782d5aa260a1, type: 3}
   calcCompass: 0
   skillsOpen: 0

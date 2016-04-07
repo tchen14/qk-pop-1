@@ -7887,7 +7887,7 @@ the Dialoguer system!</text>
       <name>Test22</name>
       <startPage>0</startPage>
       <scrollPosition>
-        <x>284</x>
+        <x>0</x>
         <y>0</y>
       </scrollPosition>
       <phases>
@@ -8269,6 +8269,532 @@ the Dialoguer system!</text>
         <selection>0</selection>
       </booleans>
     </DialogueEditorDialogueObject>
+    <DialogueEditorDialogueObject>
+      <id>23</id>
+      <name>Tutorial</name>
+      <startPage>0</startPage>
+      <scrollPosition>
+        <x>0</x>
+        <y>0</y>
+      </scrollPosition>
+      <phases>
+        <DialogueEditorPhaseObject>
+          <id>0</id>
+          <type>TextPhase</type>
+          <theme />
+          <position>
+            <x>203</x>
+            <y>14</y>
+          </position>
+          <outs>
+            <int>1</int>
+          </outs>
+          <advanced>true</advanced>
+          <metadata />
+          <text>Hi I'm QuinC. Welcome to Philadelphia.</text>
+          <name>QuinC</name>
+          <portrait>QK_quinc_Logo_sprite</portrait>
+          <audio />
+          <audioDelay>0</audioDelay>
+          <rect>
+            <x>0</x>
+            <y>0</y>
+            <position>
+              <x>0</x>
+              <y>0</y>
+            </position>
+            <center>
+              <x>0</x>
+              <y>0</y>
+            </center>
+            <min>
+              <x>0</x>
+              <y>0</y>
+            </min>
+            <max>
+              <x>0</x>
+              <y>0</y>
+            </max>
+            <width>0</width>
+            <height>0</height>
+            <size>
+              <x>0</x>
+              <y>0</y>
+            </size>
+            <xMin>0</xMin>
+            <yMin>0</yMin>
+            <xMax>0</xMax>
+            <yMax>0</yMax>
+          </rect>
+          <newWindow>false</newWindow>
+          <choices />
+          <waitType>Seconds</waitType>
+          <waitDuration>0</waitDuration>
+          <variableScope>Global</variableScope>
+          <variableType>Boolean</variableType>
+          <variableId>0</variableId>
+          <variableScrollPosition>
+            <x>0</x>
+            <y>0</y>
+          </variableScrollPosition>
+          <variableSetEquation>Equals</variableSetEquation>
+          <variableGetEquation>Equals</variableGetEquation>
+        </DialogueEditorPhaseObject>
+        <DialogueEditorPhaseObject>
+          <id>1</id>
+          <type>TextPhase</type>
+          <theme />
+          <position>
+            <x>518</x>
+            <y>10</y>
+          </position>
+          <outs>
+            <int>2</int>
+          </outs>
+          <advanced>true</advanced>
+          <metadata />
+          <text>Use WASD to move and SPACEBAR to jump.</text>
+          <name />
+          <portrait>QK_quinc_Logo_sprite</portrait>
+          <audio />
+          <audioDelay>0</audioDelay>
+          <rect>
+            <x>0</x>
+            <y>0</y>
+            <position>
+              <x>0</x>
+              <y>0</y>
+            </position>
+            <center>
+              <x>0</x>
+              <y>0</y>
+            </center>
+            <min>
+              <x>0</x>
+              <y>0</y>
+            </min>
+            <max>
+              <x>0</x>
+              <y>0</y>
+            </max>
+            <width>0</width>
+            <height>0</height>
+            <size>
+              <x>0</x>
+              <y>0</y>
+            </size>
+            <xMin>0</xMin>
+            <yMin>0</yMin>
+            <xMax>0</xMax>
+            <yMax>0</yMax>
+          </rect>
+          <newWindow>false</newWindow>
+          <choices />
+          <waitType>Seconds</waitType>
+          <waitDuration>0</waitDuration>
+          <variableScope>Global</variableScope>
+          <variableType>Boolean</variableType>
+          <variableId>0</variableId>
+          <variableScrollPosition>
+            <x>0</x>
+            <y>0</y>
+          </variableScrollPosition>
+          <variableSetEquation>Equals</variableSetEquation>
+          <variableGetEquation>Equals</variableGetEquation>
+        </DialogueEditorPhaseObject>
+        <DialogueEditorPhaseObject>
+          <id>2</id>
+          <type>TextPhase</type>
+          <theme />
+          <position>
+            <x>847</x>
+            <y>13</y>
+          </position>
+          <outs>
+            <int>3</int>
+          </outs>
+          <advanced>true</advanced>
+          <metadata />
+          <text>Use RIGHT CLICK to lock on and LEFT CLICK to activate your ability. SCROLL WHEEL changes your ability.</text>
+          <name />
+          <portrait />
+          <audio />
+          <audioDelay>0</audioDelay>
+          <rect>
+            <x>0</x>
+            <y>0</y>
+            <position>
+              <x>0</x>
+              <y>0</y>
+            </position>
+            <center>
+              <x>0</x>
+              <y>0</y>
+            </center>
+            <min>
+              <x>0</x>
+              <y>0</y>
+            </min>
+            <max>
+              <x>0</x>
+              <y>0</y>
+            </max>
+            <width>0</width>
+            <height>0</height>
+            <size>
+              <x>0</x>
+              <y>0</y>
+            </size>
+            <xMin>0</xMin>
+            <yMin>0</yMin>
+            <xMax>0</xMax>
+            <yMax>0</yMax>
+          </rect>
+          <newWindow>false</newWindow>
+          <choices />
+          <waitType>Seconds</waitType>
+          <waitDuration>0</waitDuration>
+          <variableScope>Global</variableScope>
+          <variableType>Boolean</variableType>
+          <variableId>0</variableId>
+          <variableScrollPosition>
+            <x>0</x>
+            <y>0</y>
+          </variableScrollPosition>
+          <variableSetEquation>Equals</variableSetEquation>
+          <variableGetEquation>Equals</variableGetEquation>
+        </DialogueEditorPhaseObject>
+        <DialogueEditorPhaseObject>
+          <id>3</id>
+          <type>TextPhase</type>
+          <theme />
+          <position>
+            <x>1165</x>
+            <y>14</y>
+          </position>
+          <outs>
+            <int>4</int>
+          </outs>
+          <advanced>true</advanced>
+          <metadata />
+          <text>Use the PUSH ability to escape the graveyard.</text>
+          <name />
+          <portrait />
+          <audio />
+          <audioDelay>0</audioDelay>
+          <rect>
+            <x>0</x>
+            <y>0</y>
+            <position>
+              <x>0</x>
+              <y>0</y>
+            </position>
+            <center>
+              <x>0</x>
+              <y>0</y>
+            </center>
+            <min>
+              <x>0</x>
+              <y>0</y>
+            </min>
+            <max>
+              <x>0</x>
+              <y>0</y>
+            </max>
+            <width>0</width>
+            <height>0</height>
+            <size>
+              <x>0</x>
+              <y>0</y>
+            </size>
+            <xMin>0</xMin>
+            <yMin>0</yMin>
+            <xMax>0</xMax>
+            <yMax>0</yMax>
+          </rect>
+          <newWindow>false</newWindow>
+          <choices />
+          <waitType>Seconds</waitType>
+          <waitDuration>0</waitDuration>
+          <variableScope>Global</variableScope>
+          <variableType>Boolean</variableType>
+          <variableId>0</variableId>
+          <variableScrollPosition>
+            <x>0</x>
+            <y>0</y>
+          </variableScrollPosition>
+          <variableSetEquation>Equals</variableSetEquation>
+          <variableGetEquation>Equals</variableGetEquation>
+        </DialogueEditorPhaseObject>
+        <DialogueEditorPhaseObject>
+          <id>4</id>
+          <type>EndPhase</type>
+          <position>
+            <x>1500</x>
+            <y>18</y>
+          </position>
+          <outs />
+          <advanced>false</advanced>
+          <text />
+          <audioDelay>0</audioDelay>
+          <rect>
+            <x>0</x>
+            <y>0</y>
+            <position>
+              <x>0</x>
+              <y>0</y>
+            </position>
+            <center>
+              <x>0</x>
+              <y>0</y>
+            </center>
+            <min>
+              <x>0</x>
+              <y>0</y>
+            </min>
+            <max>
+              <x>0</x>
+              <y>0</y>
+            </max>
+            <width>0</width>
+            <height>0</height>
+            <size>
+              <x>0</x>
+              <y>0</y>
+            </size>
+            <xMin>0</xMin>
+            <yMin>0</yMin>
+            <xMax>0</xMax>
+            <yMax>0</yMax>
+          </rect>
+          <newWindow>false</newWindow>
+          <choices />
+          <waitType>Seconds</waitType>
+          <waitDuration>0</waitDuration>
+          <variableScope>Global</variableScope>
+          <variableType>Boolean</variableType>
+          <variableId>0</variableId>
+          <variableScrollPosition>
+            <x>0</x>
+            <y>0</y>
+          </variableScrollPosition>
+          <variableSetEquation>Equals</variableSetEquation>
+          <variableGetEquation>Equals</variableGetEquation>
+        </DialogueEditorPhaseObject>
+      </phases>
+      <floats>
+        <variables />
+        <selection>0</selection>
+      </floats>
+      <strings>
+        <variables />
+        <selection>0</selection>
+      </strings>
+      <booleans>
+        <variables />
+        <selection>0</selection>
+      </booleans>
+    </DialogueEditorDialogueObject>
+    <DialogueEditorDialogueObject>
+      <id>24</id>
+      <name>Escaped Graveyard</name>
+      <startPage>0</startPage>
+      <scrollPosition>
+        <x>0</x>
+        <y>0</y>
+      </scrollPosition>
+      <phases>
+        <DialogueEditorPhaseObject>
+          <id>0</id>
+          <type>TextPhase</type>
+          <position>
+            <x>204</x>
+            <y>10</y>
+          </position>
+          <outs>
+            <int>1</int>
+          </outs>
+          <advanced>false</advanced>
+          <metadata />
+          <text>Good job, you can also use TAB to view your current objectives.</text>
+          <name />
+          <portrait />
+          <audio />
+          <audioDelay>0</audioDelay>
+          <rect>
+            <x>0</x>
+            <y>0</y>
+            <position>
+              <x>0</x>
+              <y>0</y>
+            </position>
+            <center>
+              <x>0</x>
+              <y>0</y>
+            </center>
+            <min>
+              <x>0</x>
+              <y>0</y>
+            </min>
+            <max>
+              <x>0</x>
+              <y>0</y>
+            </max>
+            <width>0</width>
+            <height>0</height>
+            <size>
+              <x>0</x>
+              <y>0</y>
+            </size>
+            <xMin>0</xMin>
+            <yMin>0</yMin>
+            <xMax>0</xMax>
+            <yMax>0</yMax>
+          </rect>
+          <newWindow>false</newWindow>
+          <choices />
+          <waitType>Seconds</waitType>
+          <waitDuration>0</waitDuration>
+          <variableScope>Global</variableScope>
+          <variableType>Boolean</variableType>
+          <variableId>0</variableId>
+          <variableScrollPosition>
+            <x>0</x>
+            <y>0</y>
+          </variableScrollPosition>
+          <variableSetEquation>Equals</variableSetEquation>
+          <variableGetEquation>Equals</variableGetEquation>
+        </DialogueEditorPhaseObject>
+        <DialogueEditorPhaseObject>
+          <id>1</id>
+          <type>TextPhase</type>
+          <position>
+            <x>530</x>
+            <y>11</y>
+          </position>
+          <outs>
+            <int>2</int>
+          </outs>
+          <advanced>false</advanced>
+          <metadata />
+          <text>Let's go to the market.</text>
+          <name />
+          <portrait />
+          <audio />
+          <audioDelay>0</audioDelay>
+          <rect>
+            <x>0</x>
+            <y>0</y>
+            <position>
+              <x>0</x>
+              <y>0</y>
+            </position>
+            <center>
+              <x>0</x>
+              <y>0</y>
+            </center>
+            <min>
+              <x>0</x>
+              <y>0</y>
+            </min>
+            <max>
+              <x>0</x>
+              <y>0</y>
+            </max>
+            <width>0</width>
+            <height>0</height>
+            <size>
+              <x>0</x>
+              <y>0</y>
+            </size>
+            <xMin>0</xMin>
+            <yMin>0</yMin>
+            <xMax>0</xMax>
+            <yMax>0</yMax>
+          </rect>
+          <newWindow>false</newWindow>
+          <choices />
+          <waitType>Seconds</waitType>
+          <waitDuration>0</waitDuration>
+          <variableScope>Global</variableScope>
+          <variableType>Boolean</variableType>
+          <variableId>0</variableId>
+          <variableScrollPosition>
+            <x>0</x>
+            <y>0</y>
+          </variableScrollPosition>
+          <variableSetEquation>Equals</variableSetEquation>
+          <variableGetEquation>Equals</variableGetEquation>
+        </DialogueEditorPhaseObject>
+        <DialogueEditorPhaseObject>
+          <id>2</id>
+          <type>EndPhase</type>
+          <position>
+            <x>860</x>
+            <y>18</y>
+          </position>
+          <outs />
+          <advanced>false</advanced>
+          <text />
+          <audioDelay>0</audioDelay>
+          <rect>
+            <x>0</x>
+            <y>0</y>
+            <position>
+              <x>0</x>
+              <y>0</y>
+            </position>
+            <center>
+              <x>0</x>
+              <y>0</y>
+            </center>
+            <min>
+              <x>0</x>
+              <y>0</y>
+            </min>
+            <max>
+              <x>0</x>
+              <y>0</y>
+            </max>
+            <width>0</width>
+            <height>0</height>
+            <size>
+              <x>0</x>
+              <y>0</y>
+            </size>
+            <xMin>0</xMin>
+            <yMin>0</yMin>
+            <xMax>0</xMax>
+            <yMax>0</yMax>
+          </rect>
+          <newWindow>false</newWindow>
+          <choices />
+          <waitType>Seconds</waitType>
+          <waitDuration>0</waitDuration>
+          <variableScope>Global</variableScope>
+          <variableType>Boolean</variableType>
+          <variableId>0</variableId>
+          <variableScrollPosition>
+            <x>0</x>
+            <y>0</y>
+          </variableScrollPosition>
+          <variableSetEquation>Equals</variableSetEquation>
+          <variableGetEquation>Equals</variableGetEquation>
+        </DialogueEditorPhaseObject>
+      </phases>
+      <floats>
+        <variables />
+        <selection>0</selection>
+      </floats>
+      <strings>
+        <variables />
+        <selection>0</selection>
+      </strings>
+      <booleans>
+        <variables />
+        <selection>0</selection>
+      </booleans>
+    </DialogueEditorDialogueObject>
   </dialogues>
   <globals>
     <booleans>
@@ -8325,5 +8851,5 @@ the Dialoguer system!</text>
     <x>0</x>
     <y>0</y>
   </selectorScrollPosition>
-  <currentDialogueId>22</currentDialogueId>
+  <currentDialogueId>23</currentDialogueId>
 </DialogueEditorMasterObject>

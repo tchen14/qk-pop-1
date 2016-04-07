@@ -339,6 +339,12 @@ public class GameHUD : MonoBehaviour {
 		return;
 	}
 
+	[EventVisibleAttribute]
+	public void TriggerDialoguer(int dialogueIndex){
+		//QK_Character_Movement.Instance._stateModifier = QK_Character_Movement.CharacterState.Wait;
+		Dialoguer.StartDialogue (dialogueIndex);
+	}
+
 	//This is for testing
 	void OnTriggerEnter(Collider col) {
 		if(col.gameObject.tag == "Finish") {
