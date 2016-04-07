@@ -207,11 +207,10 @@ public class CompileEventLibrary : EditorWindow {
             compilationString += "using System.Collections.Generic;\npublic static class EventLibrary {\n\tpublic static Dictionary<string, string[]> library = new Dictionary<string, string[]>();\n}";
         }
 
-
         #if UNITY_EDITOR_OSX
-                    string fileName = Application.dataPath + "/Scripts/Events/Plugins/EventLibrary.cs";
-        #else
-                string fileName = Application.dataPath + "\\Scripts\\Events\\Plugins\\EventLibrary.cs";
+		string fileName = Application.dataPath + "\\Scripts\\Plugins\\Events\\EventLibrary.cs";
+        #else    
+		string fileName = Application.dataPath + "/Scripts/Plugins/Events/Plugins/EventLibrary.cs";
         #endif
 
         StreamWriter streamWriter;
@@ -229,7 +228,7 @@ public class CompileEventLibrary : EditorWindow {
 
         //fileInfo.IsReadOnly = true;
 
-        AssetDatabase.ImportAsset("Assets/Scripts/Events/Plugins/EventLibrary.cs");
+        AssetDatabase.ImportAsset("Assets/Scripts/Plugins/Events/Plugins/EventLibrary.cs");
     }
 }
 #endif

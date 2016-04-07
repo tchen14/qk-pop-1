@@ -67,6 +67,7 @@ public class PauseMenu : MonoBehaviour
 	// Pauses the game and brings up the Pause Menu
 	public void pauseGame()
     {                       
+		GHud.showMinimap = false;
 		isOnPauseMenu = true;
 		isPaused = true;
 		showCursor ();
@@ -80,6 +81,7 @@ public class PauseMenu : MonoBehaviour
 
 	// Unpauses the game and hides menu
 	public void unPauseGame() {
+		GHud.showMinimap = true;
 		isOnPauseMenu = false;
 		isPaused = false;
 		hideCursor ();
@@ -88,7 +90,7 @@ public class PauseMenu : MonoBehaviour
 	}
 
 	// When button is used to unpause this function is called
-	public void unPauseGameBtt() {                  
+	public void unPauseGameBtt() {
 		isPaused = false;
 		Time.timeScale = 1f;
 		
