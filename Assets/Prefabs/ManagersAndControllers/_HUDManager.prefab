@@ -25,7 +25,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 190398}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 14.8000002, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -41,6 +41,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f4ba262d8638e44db792e063d345423, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _choiceButtons: []
 --- !u!114 &11472272
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -55,9 +56,10 @@ MonoBehaviour:
   pauseMenu: {fileID: 0}
   accessManager: {fileID: 11493698}
   menuManager: {fileID: 0}
-  MiniMapRenderTexture: {fileID: 8400000, guid: e5fd1eddc82a1834eacd930c5e5e3f0f,
+  showMinimap: 1
+  MiniMapRenderTexture: {fileID: 8400000, guid: 955a84106ffe7cf4c90b3a172b090370,
     type: 2}
-  MiniMapMaterial: {fileID: 2100000, guid: bb00ee20b2c01d94387eba03e9368330, type: 2}
+  MiniMapMaterial: {fileID: 2100000, guid: 45a94539aa742e848aaf0ecd3a31c566, type: 2}
   minimapXOffset: 10
   minimapYOffset: 10
   targetableIcons:
@@ -68,7 +70,9 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 9af91e56d71baf740bff57e186f1a191, type: 3}
   - {fileID: 21300000, guid: d57e98e31ecfebc439555dc23c0ec37e, type: 3}
   enemyIcon: {fileID: 21300000, guid: 6d3cb80085421de4facd782d5aa260a1, type: 3}
+  calcCompass: 0
   skillsOpen: 0
+  testObjective: {fileID: 180234, guid: 7510c511ac84d2245a5106545f5e04b7, type: 2}
 --- !u!114 &11493698
 MonoBehaviour:
   m_ObjectHideFlags: 1

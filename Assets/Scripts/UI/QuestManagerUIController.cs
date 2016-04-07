@@ -70,21 +70,22 @@ public class QuestManagerUIController : MonoBehaviour {
 		if (!gameHUD) {
 			Debug.Error("ui","Could not find the 'GameHUD' script on the '_HUDManager' GameObject in the scene: " + Application.loadedLevelName);
 		}
-		//qm.LoadQuests ();
 		questButton = questUI.GetComponent<Button> ();
 		buttonHeight = questButton.GetComponent<RectTransform> ().sizeDelta.y;
 
-		//qm.LoadQuests ();
-		//showQuests ();
+		theLists = new List<Quest>[3];		
 	}
 
 	void Start(){
-		theLists = new List<Quest>[3];
+		
 		theLists[0] = qm.currentQuests;
 		theLists[1] = qm.failedQuests;
 		theLists[2] = qm.completedQuests;
+
 		for(int i = 0; i < theLists.Length; i++){
-			qcHeight += (theLists[i].Count * (buttonHeight + spacing) - spacing);
+			if(theLists[i] != null){
+				qcHeight += (theLists[i].Count * (buttonHeight + spacing) - spacing);
+			}
 		}
 	}
 
@@ -135,7 +136,9 @@ public class QuestManagerUIController : MonoBehaviour {
 		moreQuestInfoDescription.text = "";
 		qcHeight = 0;
 		for(int i = 0; i < theLists.Length; i++){
-			qcHeight += (theLists[i].Count * (buttonHeight + spacing) - spacing);
+			if(theLists[i] != null){
+				qcHeight += (theLists[i].Count * (buttonHeight + spacing) - spacing);
+			}
 		}
 		RectTransform containerTransform = questContainer.GetComponent<RectTransform> ();
 		containerTransform.sizeDelta = new Vector2 (100, qcHeight);
@@ -146,6 +149,7 @@ public class QuestManagerUIController : MonoBehaviour {
 
 		int iter = 0;
 		for(int i = 0; i < theLists.Length; i++){
+			if(theLists[i] != null){
 			for(int j = 0; j < theLists[i].Count; j++){
 				GameObject newQuestButton = Instantiate(questUI, new Vector3(0, 0 - (iter * (buttonHeight + spacing) + (buttonHeight/2)), 0), Quaternion.identity) as GameObject;
 				newQuestButton.transform.SetParent(questContainer.transform, false);
@@ -158,6 +162,7 @@ public class QuestManagerUIController : MonoBehaviour {
 					qb.Select();
 				}
 				iter++;
+			}
 			}
 		}
 		if (qm.questCount > 0) {
@@ -234,17 +239,20 @@ public class QuestManagerUIController : MonoBehaviour {
 
 		int i;
 		int j;
-		if(iter < theLists[0].Count){
+		if(theLists[0] != null && iter < theLists[0].Count){
 			i = 0;
 			j = iter;
 		}
-		else if(iter < theLists[0].Count + theLists[1].Count){
+		else if(theLists[1] != null && iter < theLists[0].Count + theLists[1].Count){
 			i = 1;
 			j = iter - theLists[0].Count;
 		}
-		else{
+		else if(theLists[2] != null){
 			i = 2;
 			j = iter - theLists[0].Count - theLists[1].Count;
+		}
+		else{
+			return;
 		}
 		moreQuestInfoTitle.text = theLists[i][j].GetName();
 		Goal[] currQuestGoals = theLists[i][j].GetGoal();

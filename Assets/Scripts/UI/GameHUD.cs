@@ -35,18 +35,18 @@ public class GameHUD : MonoBehaviour {
     public GameObject pauseMenu;
     public PauseMenu accessManager;
     public MainMenuManager menuManager;
-    public bool showMinimap = true;
-    public RenderTexture MiniMapRenderTexture;
-    public Material MiniMapMaterial;
-    public float minimapXOffset;
-    public float minimapYOffset;
-    public Sprite[] targetableIcons;
-    public Sprite enemyIcon;
+	public bool showMinimap = true;
+	public RenderTexture MiniMapRenderTexture;
+	public Material MiniMapMaterial;
+	public float minimapXOffset;
+	public float minimapYOffset;
+	public Sprite[] targetableIcons;
+	public Sprite enemyIcon;
+	public bool calcCompass = false;
+	
+	//public GameObject closestTargetIconPrefab;
 
-    //public GameObject closestTargetIconPrefab;
-
-    GameObject mapCam;								//!<Camera used for minimap
-    
+	GameObject mapCam;								//!<Camera used for minimap
 
 	static GameObject objectiveText;						//!<Objective Text UI element
     static Text QuestNotText;
@@ -98,7 +98,7 @@ public class GameHUD : MonoBehaviour {
         if (closeMapButton) {
             closeMapButton.SetActive(false);
         }
-
+		
         //!Set compassCameraPoint reference
         compassCameraPoint = GameObject.Find("compassCameraPoint");
         compass = GameObject.Find("compassSlider");
@@ -113,7 +113,7 @@ public class GameHUD : MonoBehaviour {
         objectiveText = GameObject.Find("ObjectiveNotice");
         QuestNotText = GameObject.Find("objectiveText").GetComponent<Text>();
         Debug.Log("ui", QuestNotText.text);
-        objectiveText.SetActive(false);
+        //objectiveText.SetActive(false);
 
         phoneButtons = GameObject.Find("PhoneButtons");
 
@@ -181,7 +181,14 @@ public class GameHUD : MonoBehaviour {
 		UpdateMapObjects();
 
 		//!Set the compass indicator
-		setCompassValue(calculateObjectiveAngle(testObjective));
+		if(!testObjective || !calcCompass){
+			leftArrow.SetActive (false);
+			slider.SetActive (false);
+			rightArrow.SetActive (false);
+		}
+		else{
+			setCompassValue(calculateObjectiveAngle(testObjective));
+		}
 	}
 
 	void OnGUI(){
@@ -323,6 +330,13 @@ public class GameHUD : MonoBehaviour {
 		return Vector3.Angle(pointStraightFromCam, pointToObjective);
 
 
+	}
+
+	[EventVisibleAttribute]
+	public void MoveCompassTargetPoint(GameObject NextQuestLocation){
+		testObjective.transform.position = NextQuestLocation.transform.position;
+		calcCompass = true;
+		return;
 	}
 
 	//This is for testing

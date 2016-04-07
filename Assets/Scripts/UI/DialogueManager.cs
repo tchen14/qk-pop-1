@@ -31,7 +31,7 @@ public class DialogueManager : MonoBehaviour {
 
 	// Use this for initialization
 	void Awake () {
-		//Dialoguer.Initialize ();
+		Dialoguer.Initialize ();
 		_choiceButtons = new GameObject[5];
 	}
 
