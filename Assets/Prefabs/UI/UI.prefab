@@ -2283,7 +2283,7 @@ Camera:
     serializedVersion: 2
     m_Bits: 4294967295
   m_RenderingPath: -1
-  m_TargetTexture: {fileID: 8400000, guid: e5fd1eddc82a1834eacd930c5e5e3f0f, type: 2}
+  m_TargetTexture: {fileID: 8400000, guid: 955a84106ffe7cf4c90b3a172b090370, type: 2}
   m_TargetDisplay: 0
   m_HDR: 0
   m_OcclusionCulling: 1
@@ -2352,8 +2352,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 11477418}
   m_HandleRect: {fileID: 22496198}
   m_Direction: 2
-  m_Value: 1
-  m_Size: .842384636
+  m_Value: .999999285
+  m_Size: .863792717
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -2745,7 +2745,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 11426822}
   m_HandleRect: {fileID: 22413750}
   m_Direction: 2
-  m_Value: 1
+  m_Value: 0
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -4037,7 +4037,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 182778}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f560bd097b142b840b143ea35fa475af, type: 3}
+  m_Script: {fileID: 11500000, guid: 966d9691bf91bf84d8d478fe8667646b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &11430712
@@ -4796,7 +4796,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 11409990}
   m_HandleRect: {fileID: 22407242}
   m_Direction: 2
-  m_Value: 1
+  m_Value: 0
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -5131,7 +5131,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 11463126}
   m_HandleRect: {fileID: 22433236}
   m_Direction: 2
-  m_Value: 1
+  m_Value: 0
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:

@@ -57,9 +57,9 @@ MonoBehaviour:
   accessManager: {fileID: 11493698}
   menuManager: {fileID: 0}
   showMinimap: 1
-  MiniMapRenderTexture: {fileID: 8400000, guid: e5fd1eddc82a1834eacd930c5e5e3f0f,
+  MiniMapRenderTexture: {fileID: 8400000, guid: 955a84106ffe7cf4c90b3a172b090370,
     type: 2}
-  MiniMapMaterial: {fileID: 2100000, guid: bb00ee20b2c01d94387eba03e9368330, type: 2}
+  MiniMapMaterial: {fileID: 2100000, guid: 45a94539aa742e848aaf0ecd3a31c566, type: 2}
   minimapXOffset: 10
   minimapYOffset: 10
   targetableIcons:

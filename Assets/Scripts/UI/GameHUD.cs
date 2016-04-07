@@ -113,7 +113,7 @@ public class GameHUD : MonoBehaviour {
         objectiveText = GameObject.Find("ObjectiveNotice");
         QuestNotText = GameObject.Find("objectiveText").GetComponent<Text>();
         Debug.Log("ui", QuestNotText.text);
-        objectiveText.SetActive(false);
+        //objectiveText.SetActive(false);
 
         phoneButtons = GameObject.Find("PhoneButtons");
 

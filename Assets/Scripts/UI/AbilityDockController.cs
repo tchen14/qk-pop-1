@@ -20,7 +20,6 @@ public class AbilityDockController : MonoBehaviour {
 	bool opening;
 	bool closing;
     bool closed;
-	bool canGetInput;
 	Vector3[] targetPos = new Vector3[5];
 
     float wheelDelay = 0;
@@ -31,7 +30,6 @@ public class AbilityDockController : MonoBehaviour {
 	}
 
 	void Start () {
-		canGetInput = true;
 		opening = false;
 		rotating = false;
 		closing = false;
@@ -112,17 +110,9 @@ public class AbilityDockController : MonoBehaviour {
         else if (selectSkillTimer > 0f)
         {
             selectSkillTimer -= Time.deltaTime;
-        }
-        else
-        {
-            highligtedIcon.gameObject.SetActive(false);
-            closedPosition();
-            closing = true;
-            opening = false;
-            closed = true;
-            selectedAbility = position[2];
-            abilities[selectedAbility].transform.SetAsLastSibling();
-            startLerping();
+            if(selectSkillTimer <= 0f){
+            	CloseAbilityDock();
+            }
         }
          
         if(wheelDelay > 0f)
@@ -130,6 +120,17 @@ public class AbilityDockController : MonoBehaviour {
             wheelDelay -= Time.deltaTime;
         }
     }
+
+	void CloseAbilityDock(){
+		highligtedIcon.gameObject.SetActive(false);
+		closedPosition();
+		opening = false;
+		closing = true;
+		closed = true;
+		selectedAbility = position[2];
+		abilities[selectedAbility].transform.SetAsLastSibling();
+		startLerping();
+	}
 
 	void FixedUpdate(){
 		if (opening || rotating || closing) {
@@ -157,7 +158,7 @@ public class AbilityDockController : MonoBehaviour {
 				if(closing){
 					hideIcons();
 				}
-				canGetInput = true;
+				//canGetInput = true;
 			}
 			if(percentageComplete >= 1f)
             {
@@ -171,7 +172,6 @@ public class AbilityDockController : MonoBehaviour {
 	/* This function sets a few basic values to help with lerping the icons
 	 */
 	void startLerping(){
-		canGetInput = false;
 		timeStartedLerping = Time.time;
 	}
 
