@@ -24,7 +24,8 @@ public class QK_Character_Movement : MonoBehaviour {
 	public CharacterState _stateModifier { get; set; }
 
 	public static CharacterController charCont;
-
+	public bool inADialogue = false;
+	
 	[ReadOnly] public float curSpeed = 0f;
 	private float acceleration = 0.3f;
 	[ReadOnly] public float runSpeed = 8f;
@@ -59,6 +60,8 @@ public class QK_Character_Movement : MonoBehaviour {
 	private Vector3 slideDirection;
 	private Quaternion targetAngle = Quaternion.identity;
 	private PoPCamera cam;
+
+
 
     void Awake()
     {
@@ -253,6 +256,8 @@ public class QK_Character_Movement : MonoBehaviour {
 				_stateModifier = CharacterState.Sprint;
 			} else if (false) {
 				_stateModifier = CharacterState.Crouch;
+			} else if (inADialogue){
+				_stateModifier = CharacterState.Wait;
 			} else {
 				_stateModifier = CharacterState.Normal;
 			}

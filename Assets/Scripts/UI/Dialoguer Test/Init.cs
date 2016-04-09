@@ -43,7 +43,7 @@ public class Init : MonoBehaviour {
 			dialogueCol = true;
 			interactDialoguer.SetActive(true);
 			if (Input.GetKeyDown (KeyCode.F)) {
-				//QK_Character_Movement.Instance._stateModifier = QK_Character_Movement.CharacterState.Wait;
+				QK_Character_Movement.Instance.inADialogue = true;
 				Dialoguer.StartDialogue (playerDC.NPCDialogueNumber, dialoguerCallback);
 				this.enabled = false;
 				inDialogue = true;
@@ -84,7 +84,7 @@ public class Init : MonoBehaviour {
 	 * See ProgressQuestAfterDialogue.cs for more info
 	 */
 	private void dialoguerCallback(){
-		//QK_Character_Movement.Instance._stateModifier = QK_Character_Movement.CharacterState.Normal;
+		QK_Character_Movement.Instance.inADialogue = false;
 		playerDC.ProgressQuest ();
 		this.enabled = true;
 	}

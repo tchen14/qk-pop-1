@@ -19,7 +19,7 @@ public class PauseMenu : MonoBehaviour
     }
     #endregion
 
-    private bool isPaused = false;
+    public bool isPaused = false;
 
 	public bool isOnPauseMenu = false;
 	public GameHUD GHud;
@@ -41,12 +41,22 @@ public class PauseMenu : MonoBehaviour
         // if (InputManager.input.isPause){}
         //  if (InputManager.input.)
         if (Input.GetKeyDown(KeyCode.Escape)) {      // This will need to be changed to call inputManager  
-			
+			OpenOrClosePauseMenu ();
+			/*
 			if(!isPaused && !isOnPauseMenu) {                         
 				pauseGame();
 			} else if(isPaused && isOnPauseMenu) {
 				unPauseGame();	
 			}
+			*/
+		}
+	}
+
+	public void OpenOrClosePauseMenu(){
+		if(!isPaused && !isOnPauseMenu) {                         
+			pauseGame();
+		} else if(isPaused && isOnPauseMenu) {
+			unPauseGame();	
 		}
 	}
 
@@ -81,7 +91,9 @@ public class PauseMenu : MonoBehaviour
 
 	// Unpauses the game and hides menu
 	public void unPauseGame() {
-		GHud.showMinimap = true;
+		if(!DialogueManager.Instance._showing){
+			GHud.showMinimap = true;
+		}
 		isOnPauseMenu = false;
 		isPaused = false;
 		hideCursor ();

@@ -164,7 +164,19 @@ public class GameHUD : MonoBehaviour {
 		if (Input.GetKeyDown (KeyCode.Escape) && journal.activeSelf) {
 			CloseJournal();
 		}
-		targetsInRange = PoPCamera.AcquireTarget ();
+		if (Input.GetKeyDown (KeyCode.Tab) && (!journal.activeSelf && !questManagerUI.activeSelf && !PauseMenu.Instance.isOnPauseMenu)){
+			//Time.timeScale = 0f;
+			//ShowJournal();
+			PauseMenu.Instance.OpenOrClosePauseMenu ();
+			ButtonController.instane.ClickJournalButton_PauseMenu();
+			}
+		else if(Input.GetKeyDown (KeyCode.Tab) && journal.activeSelf){
+			CloseJournal();
+			PauseMenu.Instance.OpenOrClosePauseMenu ();
+		}
+		/* Function calls for displaying icon above a target object.
+		   This is no longer used.
+		   targetsInRange = PoPCamera.AcquireTarget ();
 		if (PoPCamera.instance.CurrentTarget ()) {
 			DisplayIconAboveTarget (PoPCamera.instance.CurrentTarget ());
 		}
@@ -174,6 +186,7 @@ public class GameHUD : MonoBehaviour {
 		else {
 			closestTargetIcon.transform.position = new Vector3(1000,1000,1000);
 		}
+		*/
 	}
 
 	void FixedUpdate() {
@@ -341,8 +354,12 @@ public class GameHUD : MonoBehaviour {
 
 	[EventVisibleAttribute]
 	public void TriggerDialoguer(int dialogueIndex){
-		//QK_Character_Movement.Instance._stateModifier = QK_Character_Movement.CharacterState.Wait;
-		Dialoguer.StartDialogue (dialogueIndex);
+		QK_Character_Movement.Instance.inADialogue = true;
+		Dialoguer.StartDialogue (dialogueIndex, dialoguerCallback);
+	}
+
+	void dialoguerCallback(){
+		QK_Character_Movement.Instance.inADialogue = false;
 	}
 
 	//This is for testing
@@ -437,10 +454,12 @@ public class GameHUD : MonoBehaviour {
 		pauseMenu.SetActive (false);
 	}
 
+	
+
 	/*!This function deactivates the journal and activates the pause menu
 	 */
 	public void CloseJournal(){
-		showMinimap = true;
+		//showMinimap = true;
 		journal.SetActive (false);
 		pauseMenu.SetActive (true);
 		accessManager.isOnPauseMenu = true;

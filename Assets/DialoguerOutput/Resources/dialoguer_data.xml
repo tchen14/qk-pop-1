@@ -8274,14 +8274,14 @@ the Dialoguer system!</text>
       <name>Tutorial</name>
       <startPage>0</startPage>
       <scrollPosition>
-        <x>0</x>
-        <y>0</y>
+        <x>706.2576</x>
+        <y>115</y>
       </scrollPosition>
       <phases>
         <DialogueEditorPhaseObject>
           <id>0</id>
           <type>TextPhase</type>
-          <theme />
+          <theme>Good</theme>
           <position>
             <x>203</x>
             <y>14</y>
@@ -8343,7 +8343,7 @@ the Dialoguer system!</text>
         <DialogueEditorPhaseObject>
           <id>1</id>
           <type>TextPhase</type>
-          <theme />
+          <theme>Good</theme>
           <position>
             <x>518</x>
             <y>10</y>
@@ -8405,7 +8405,7 @@ the Dialoguer system!</text>
         <DialogueEditorPhaseObject>
           <id>2</id>
           <type>TextPhase</type>
-          <theme />
+          <theme>Good</theme>
           <position>
             <x>847</x>
             <y>13</y>
@@ -8417,7 +8417,7 @@ the Dialoguer system!</text>
           <metadata />
           <text>Use RIGHT CLICK to lock on and LEFT CLICK to activate your ability. SCROLL WHEEL changes your ability.</text>
           <name />
-          <portrait />
+          <portrait>QK_quinc_Logo_sprite</portrait>
           <audio />
           <audioDelay>0</audioDelay>
           <rect>
@@ -8467,7 +8467,7 @@ the Dialoguer system!</text>
         <DialogueEditorPhaseObject>
           <id>3</id>
           <type>TextPhase</type>
-          <theme />
+          <theme>Good</theme>
           <position>
             <x>1165</x>
             <y>14</y>
@@ -8479,7 +8479,7 @@ the Dialoguer system!</text>
           <metadata />
           <text>Use the PUSH ability to escape the graveyard.</text>
           <name />
-          <portrait />
+          <portrait>QK_quinc_Logo_sprite</portrait>
           <audio />
           <audioDelay>0</audioDelay>
           <rect>
@@ -8600,13 +8600,14 @@ the Dialoguer system!</text>
       <name>Escaped Graveyard</name>
       <startPage>0</startPage>
       <scrollPosition>
-        <x>0</x>
+        <x>483.747955</x>
         <y>0</y>
       </scrollPosition>
       <phases>
         <DialogueEditorPhaseObject>
           <id>0</id>
           <type>TextPhase</type>
+          <theme>Good</theme>
           <position>
             <x>204</x>
             <y>10</y>
@@ -8614,11 +8615,11 @@ the Dialoguer system!</text>
           <outs>
             <int>1</int>
           </outs>
-          <advanced>false</advanced>
+          <advanced>true</advanced>
           <metadata />
           <text>Good job, you can also use TAB to view your current objectives.</text>
           <name />
-          <portrait />
+          <portrait>QK_quinc_Logo_sprite</portrait>
           <audio />
           <audioDelay>0</audioDelay>
           <rect>
@@ -8668,6 +8669,7 @@ the Dialoguer system!</text>
         <DialogueEditorPhaseObject>
           <id>1</id>
           <type>TextPhase</type>
+          <theme>Good</theme>
           <position>
             <x>530</x>
             <y>11</y>
@@ -8675,11 +8677,11 @@ the Dialoguer system!</text>
           <outs>
             <int>2</int>
           </outs>
-          <advanced>false</advanced>
+          <advanced>true</advanced>
           <metadata />
           <text>Let's go to the market.</text>
           <name />
-          <portrait />
+          <portrait>QK_quinc_Logo_sprite</portrait>
           <audio />
           <audioDelay>0</audioDelay>
           <rect>
@@ -8849,7 +8851,7 @@ the Dialoguer system!</text>
   </themes>
   <selectorScrollPosition>
     <x>0</x>
-    <y>0</y>
+    <y>57</y>
   </selectorScrollPosition>
-  <currentDialogueId>23</currentDialogueId>
+  <currentDialogueId>24</currentDialogueId>
 </DialogueEditorMasterObject>
