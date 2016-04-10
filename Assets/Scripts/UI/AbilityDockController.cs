@@ -83,38 +83,38 @@ public class AbilityDockController : MonoBehaviour {
 		if(wheelDelay >= 0){
 			wheelDelay -= Time.deltaTime;
 		}*/
-
-        if (InputManager.input.ScrollTarget() != 0)
-        {
-            if (closed)
-            {
-                targetPosition();
-                opening = true;
-                closing = false;
-                showIcons();
-                startLerping();
-                closed = false;
-                highligtedIcon.gameObject.SetActive(true);
-                selectSkillTimer = 2f;
-            }
-            else if(wheelDelay <= 0)
-            {
-                if(InputManager.input.ScrollTarget() < 0) { newPos(false); }
-                else if(InputManager.input.ScrollTarget() > 0) { newPos(true); }
-                rotating = true;
-                startLerping();
-                wheelDelay = 0.25f;
-                selectSkillTimer = 2f;
-            }
-        }
-        else if (selectSkillTimer > 0f)
-        {
-            selectSkillTimer -= Time.deltaTime;
-            if(selectSkillTimer <= 0f){
-            	CloseAbilityDock();
-            }
-        }
-         
+		if(!PauseMenu.Instance.isPaused){
+    	    if (InputManager.input.ScrollTarget() != 0)
+	        {
+            	if (closed)
+        	    {
+    	            targetPosition();
+	                opening = true;
+                	closing = false;
+            	    showIcons();
+        	        startLerping();
+    	            closed = false;
+	                highligtedIcon.gameObject.SetActive(true);
+                	selectSkillTimer = 2f;
+            	}
+            	else if(wheelDelay <= 0)
+            	{
+                	if(InputManager.input.ScrollTarget() < 0) { newPos(false); }
+                	else if(InputManager.input.ScrollTarget() > 0) { newPos(true); }
+            	    rotating = true;
+        	        startLerping();
+    	            wheelDelay = 0.25f;
+	                selectSkillTimer = 2f;
+        	    }
+       		}
+        	else if (selectSkillTimer > 0f)
+    	    {
+	            selectSkillTimer -= Time.deltaTime;
+            	if(selectSkillTimer <= 0f){
+        	    	CloseAbilityDock();
+    	        }
+	        }
+        } 
         if(wheelDelay > 0f)
         {
             wheelDelay -= Time.deltaTime;

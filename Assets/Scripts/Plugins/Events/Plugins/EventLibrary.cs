@@ -77,7 +77,7 @@ public static class EventLibrary {
 		{ "CrateMethods", new string[] {"TestCrateFunction", } },
 		{ "PlayerSaveManagerMethods", new string[] {"SavePlayerLocation", "LoadPlayerLocation", } },
 		{ "DialogueManagerMethods", new string[] {"Speak", } },
-		{ "GameHUDMethods", new string[] {"UpdateObjectiveText", "MoveCompassTargetPoint", } },
+		{ "GameHUDMethods", new string[] {"UpdateObjectiveText", "MoveCompassTargetPoint", "TriggerDialoguer", } },
 		{ "CrateFields", new string[] {"temp", } },
 		{ "ItemFields", new string[] {"pushCounter", "pullCounter", "cutCounter", "soundThrowCounter", "stunCounter", "quincAffected", } },
 	};
@@ -90,7 +90,7 @@ public static class EventLibrary {
 		{ "CrateMethods", new string[] {"test", } },
 		{ "PlayerSaveManagerMethods", new string[] {"SavePlayerLocation", "LoadPlayerLocation", } },
 		{ "DialogueManagerMethods", new string[] {"Speak", } },
-		{ "GameHUDMethods", new string[] {"UpdateObjectiveText", "MoveCompassTargetPoint", } },
+		{ "GameHUDMethods", new string[] {"UpdateObjectiveText", "MoveCompassTargetPoint", "TriggerDialoguer", } },
 		{ "CrateFields", new string[] {"temp", } },
 		{ "ItemFields", new string[] {"Pushed X Times", "Pulled X Times", "Cut X Times", "Sound Thrown X Times", "Stunned X Times", "Affected by QuinC", } },
 	};
