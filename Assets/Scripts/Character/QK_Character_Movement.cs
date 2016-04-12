@@ -57,6 +57,9 @@ public class QK_Character_Movement : MonoBehaviour {
     private Vector3 climbToPosition = Vector3.zero;
 	private Vector3 ladderDismountPos = Vector3.zero;
 
+	//jump cooldown
+	private float jumpTimer = 0;
+
 	// Ledge Variables
 	private bool onLedge = false;
 	RaycastHit ledgeTest;
@@ -96,6 +99,7 @@ public class QK_Character_Movement : MonoBehaviour {
 
 		ApplyGravity ();
 
+		jumpTimer++;
 
 		DetermineCharacterState ();
 
@@ -340,10 +344,12 @@ public class QK_Character_Movement : MonoBehaviour {
 		} else
 			return null;
 	}
-	void Jump() 
+	void Jump()
 	{
-		if (charCont.isGrounded)
-			verticalVelocity = jumpSpeed;
+		if (jumpTimer % 30 == 0) { 
+			if (charCont.isGrounded)
+				verticalVelocity = jumpSpeed;
+		}
 	}
 
 
