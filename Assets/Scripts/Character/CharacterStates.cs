@@ -9,5 +9,6 @@
 	Ladder,
 	Sidle,
 	Wait, 
-	Normal
+	Normal,
+	Ability
 }

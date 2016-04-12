@@ -3,7 +3,7 @@
 using UnityEngine;
 using System.Collections;
 using Debug = FFP.Debug;
-//using CharacterState = CharacterStates;
+using CharacterState = CharacterStates;
 public class QK_Character_Movement : MonoBehaviour {
 
 	private static QK_Character_Movement _instance;
@@ -20,8 +20,8 @@ public class QK_Character_Movement : MonoBehaviour {
 	}
 
 	//moved to seperate enum script
-	public enum CharacterState {Idle, Move, Pivot, Sprint, Crouch, Hang, Ladder, Sidle, Wait, Normal}
-	public CharacterState _moveState { get; private set; }
+	//public enum CharacterState {Idle, Move, Pivot, Sprint, Crouch, Hang, Ladder, Sidle, Wait, Normal}
+	public CharacterState _moveState { get; set; }
 	public CharacterState _stateModifier { get; set; }
 
 	public static CharacterController charCont;
@@ -57,9 +57,9 @@ public class QK_Character_Movement : MonoBehaviour {
     private Vector3 climbToPosition = Vector3.zero;
 	private Vector3 ladderDismountPos = Vector3.zero;
 
-	//jump cooldown
+	//cooldowns
 	private float jumpTimer = 0;
-
+	private float quincPause = 0;
 	// Ledge Variables
 	private bool onLedge = false;
 	RaycastHit ledgeTest;
@@ -94,9 +94,18 @@ public class QK_Character_Movement : MonoBehaviour {
 		if (cam == null)
 			return;
 
-		CalculateMovementDirection ();
-
-
+		if (_moveState != CharacterStates.Ability) {
+			CalculateMovementDirection();
+		}
+		if(_moveState == CharacterStates.Ability)
+		{
+			quincPause++;
+		}
+		if(quincPause == 80)
+		{
+			_moveState = CharacterStates.Idle;
+			quincPause = 0;
+		}
 		ApplyGravity ();
 
 		jumpTimer++;

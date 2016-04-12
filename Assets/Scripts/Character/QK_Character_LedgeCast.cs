@@ -11,7 +11,7 @@ public class QK_Character_LedgeCast : MonoBehaviour {
 				player = GameObject.FindGameObjectWithTag ("Player");
 				//apply hanging calculation to col_point
 				col_point.y -= 1.8f;
-				player.GetComponent<QK_Character_Movement>()._stateModifier = QK_Character_Movement.CharacterState.Hang;
+				player.GetComponent<QK_Character_Movement>()._stateModifier = CharacterStates.Hang;
 				player.GetComponent<QK_Character_Movement>().ledge = col.gameObject;
 				player.transform.position = col_point;
 		}
