@@ -102,6 +102,7 @@ public class AbilityDockController : MonoBehaviour {
                 	if(InputManager.input.ScrollTarget() < 0) { newPos(false); }
                 	else if(InputManager.input.ScrollTarget() > 0) { newPos(true); }
             	    rotating = true;
+					selectedAbility = position[2];
         	        startLerping();
     	            wheelDelay = 0.25f;
 	                selectSkillTimer = 2f;
@@ -127,7 +128,6 @@ public class AbilityDockController : MonoBehaviour {
 		opening = false;
 		closing = true;
 		closed = true;
-		selectedAbility = position[2];
 		abilities[selectedAbility].transform.SetAsLastSibling();
 		startLerping();
 	}
