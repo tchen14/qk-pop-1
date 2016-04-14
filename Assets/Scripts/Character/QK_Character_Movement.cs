@@ -60,6 +60,7 @@ public class QK_Character_Movement : MonoBehaviour {
 	//cooldowns
 	private float jumpTimer = 0;
 	private float quincPause = 0;
+	public bool usingAbility = false;
 	// Ledge Variables
 	private bool onLedge = false;
 	RaycastHit ledgeTest;
@@ -94,15 +95,16 @@ public class QK_Character_Movement : MonoBehaviour {
 		if (cam == null)
 			return;
 
-		if (_moveState != CharacterStates.Ability) {
+		if (!usingAbility) {
 			CalculateMovementDirection();
 		}
-		if(_moveState == CharacterStates.Ability)
+		if(usingAbility)
 		{
 			quincPause++;
 		}
 		if(quincPause == 80)
 		{
+			usingAbility = false;
 			_moveState = CharacterStates.Idle;
 			quincPause = 0;
 		}
@@ -129,21 +131,26 @@ public class QK_Character_Movement : MonoBehaviour {
 
     void ProcessStandardMotion()
 	{
-		if(InputManager.input.MoveVerticalAxis() != 0 || InputManager.input.MoveHorizontalAxis() != 0) {
-			curSpeed += acceleration;
-			curSpeed *= inputDirection.magnitude;
-		} else {
-			curSpeed -= acceleration;
-		}
-		
-		if (_stateModifier == CharacterState.Sprint) {
-			curSpeed = Mathf.Clamp (curSpeed, 0f, sprintSpeed);
-		} else if (_stateModifier == CharacterState.Crouch) {
-			curSpeed = Mathf.Clamp (curSpeed, 0f, crouchSpeed);
-		} else {
-			curSpeed = Mathf.Clamp (curSpeed, 0f, runSpeed);
-		}
+			if (InputManager.input.MoveVerticalAxis() != 0 || InputManager.input.MoveHorizontalAxis() != 0)
+			{
+				curSpeed += acceleration;
+				curSpeed *= inputDirection.magnitude;
+			}
+			else {
+				curSpeed -= acceleration;
+			}
 
+			if (_stateModifier == CharacterState.Sprint)
+			{
+				curSpeed = Mathf.Clamp(curSpeed, 0f, sprintSpeed);
+			}
+			else if (_stateModifier == CharacterState.Crouch)
+			{
+				curSpeed = Mathf.Clamp(curSpeed, 0f, crouchSpeed);
+			}
+			else {
+				curSpeed = Mathf.Clamp(curSpeed, 0f, runSpeed);
+			}
         //curSpeed *= desiredMoveVector.magnitude;
 		
 		// Apply Slide
@@ -276,13 +283,35 @@ public class QK_Character_Movement : MonoBehaviour {
 				Jump ();
 				return;
 			}
-
-			if (false) {
-				_stateModifier = CharacterState.Sprint;
-			} else if (false) {
-				_stateModifier = CharacterState.Crouch;
-			} else {
-				_stateModifier = CharacterState.Normal;
+			/*
+			if (Input.GetKeyDown(KeyCode.LeftControl))
+			{
+				if(_stateModifier == CharacterStates.Crouch)
+				{
+					_stateModifier = CharacterStates.Idle;
+				}
+				else
+				{
+					_stateModifier = CharacterState.Crouch;
+				}
+			
+			}
+			*/
+			if (InputManager.input.isCrouched())
+			{
+				_stateModifier = CharacterStates.Crouch;
+			}
+			if (Input.GetKeyUp(KeyCode.LeftControl))
+			{
+				_stateModifier = CharacterStates.Idle;
+			}
+			if (InputManager.input.isSprinting())
+			{
+				_stateModifier = CharacterStates.Sprint;
+			}
+			if (Input.GetKeyUp(KeyCode.LeftShift))
+			{
+				_stateModifier = CharacterStates.Idle;
 			}
 		}
 	}

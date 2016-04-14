@@ -184,13 +184,8 @@ public sealed class PoPCamera : Camera_2
             case CameraState.Normal:
                 targetLookAt = player.position;
 				
-				#if UNITY_EDITOR
-				if(!Input.GetKey(KeyCode.LeftShift))
-                	HandleMouseInput();
-				#else
 				HandleMouseInput();
-				#endif
-
+			
                 var count = 0;
 
                 do
