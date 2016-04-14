@@ -64,13 +64,15 @@ public class GameHUD : MonoBehaviour {
 	GameObject leftArrow;
 	GameObject rightArrow;
 	GameObject journal;
+	GameObject journalMoreInfoScrollbar;
+	GameObject journalItemDescription;
 	GameObject questManagerUI;
 	GameObject minimapRedArrow; 					//!<Arrow for the player representation on the minimap
 	GameObject mainCamera;
 	GameObject minimapCamera;
 	GameObject minimapCompass;
 	public GameObject testObjective;
-
+	Text controlsText;
 	List<GameObject> targetsInRange;
 	GameObject closestTargetIcon;
 
@@ -123,6 +125,10 @@ public class GameHUD : MonoBehaviour {
 		if (!journal) {
 			Debug.Log ("ui", "Could not find the 'Journal' GameObject in the current Scene: " + Application.loadedLevelName);
 		} else {
+			controlsText = journal.transform.FindChild ("MoreJournalInfo").FindChild("ScrollView").FindChild ("Controls").gameObject.GetComponent<Text>();
+			journalItemDescription = journal.transform.FindChild ("MoreJournalInfo").FindChild("ScrollView").FindChild ("JournalItemDescription").gameObject;
+			journalMoreInfoScrollbar = journal.transform.FindChild ("MoreJournalInfo").FindChild("MoreJournalInfoScrollbar").gameObject;
+			journalMoreInfoScrollbar.SetActive (false);
 			journal.SetActive (false);
 		}
 
@@ -153,20 +159,34 @@ public class GameHUD : MonoBehaviour {
 	}
 
 	void Start() {
-		//Place the ability buttons in the Phone Menu
-		//SpawnHudAbilityIcons ();
+		Dictionary<string, string> keyboardButtons = InputManager.input.keyButtons;
+		Dictionary<string, string> controllerButtons = InputManager.input.controllerButtons;
+		
+		controlsText.text = "";
+		
+		foreach(KeyValuePair<string, string> button in keyboardButtons){
+			controlsText.text += button.Key + " - " + button.Value + "\n"; 
+		}
+		controlsText.text += "\n";
+		foreach(KeyValuePair<string, string> button in controllerButtons){
+			controlsText.text += button.Key + " - " + button.Value + "\n";
+		}
+		controlsText.gameObject.SetActive (false);
 	}
 
 	/*!Update function that is called once every frame
 	 * Handles the opening and closing of the journal and when to display an icon above the selected or closest target
 	 */
 	void Update(){
-		if (Input.GetKeyDown (KeyCode.Escape) && journal.activeSelf) {
+		
+		if(Input.GetKeyDown (KeyCode.Escape) && controlsText.gameObject.activeSelf){
+			HideControls();
+		}
+		else if (Input.GetKeyDown (KeyCode.Escape) && journal.activeSelf) {
 			CloseJournal();
 		}
+		
 		if (Input.GetKeyDown (KeyCode.Tab) && (!journal.activeSelf && !questManagerUI.activeSelf && !PauseMenu.Instance.isOnPauseMenu)){
-			//Time.timeScale = 0f;
-			//ShowJournal();
 			PauseMenu.Instance.OpenOrClosePauseMenu ();
 			ButtonController.instane.ClickJournalButton_PauseMenu();
 			}
@@ -174,6 +194,7 @@ public class GameHUD : MonoBehaviour {
 			CloseJournal();
 			PauseMenu.Instance.OpenOrClosePauseMenu ();
 		}
+		
 		/* Function calls for displaying icon above a target object.
 		   This is no longer used.
 		   targetsInRange = PoPCamera.AcquireTarget ();
@@ -190,7 +211,6 @@ public class GameHUD : MonoBehaviour {
 	}
 
 	void FixedUpdate() {
-		//!This is for testing, call update map from player movements
 		UpdateMapObjects();
 
 		//!Set the compass indicator
@@ -478,6 +498,22 @@ public class GameHUD : MonoBehaviour {
 		questManagerUI.SetActive (false);
 		journal.SetActive (true);
 		journal.transform.FindChild ("MainScrollView").FindChild ("JournalItems").FindChild ("QuestsItem").GetComponent<Button>().Select();
+	}
+
+	public void ShowControls(){
+		
+		journalItemDescription.SetActive (false);
+		journalMoreInfoScrollbar.SetActive (true);
+		controlsText.gameObject.SetActive (true);
+		journalMoreInfoScrollbar.GetComponent<Scrollbar>().Select();
+	}
+	
+	public void HideControls(){
+		controlsText.gameObject.SetActive (false);
+		journalItemDescription.SetActive (true);
+		journalMoreInfoScrollbar.GetComponent<Scrollbar>().value = 1f;
+		journalMoreInfoScrollbar.SetActive (false);
+		journal.transform.FindChild ("MainScrollView").FindChild ("JournalItems").FindChild ("ControlsItem").GetComponent<Button>().Select();
 	}
 
 	/*! This function displays an icon above the object that will be targeted by the player should they press the target button

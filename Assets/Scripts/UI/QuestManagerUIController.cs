@@ -275,6 +275,6 @@ public class QuestManagerUIController : MonoBehaviour {
 			}
 		}
         moreQuestInfoDescription.text = theLists[i][j].GetDescription() + "\n" + theLists[i][j].GetObjective() + goalText;
-        GameObject moreQuestInfoScrollView = moreQuestInfo.transform.FindChild("ScrollView").gameObject;
+        //GameObject moreQuestInfoScrollView = moreQuestInfo.transform.FindChild("ScrollView").gameObject;
 	}
 }

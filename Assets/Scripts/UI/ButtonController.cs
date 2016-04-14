@@ -44,8 +44,8 @@ public class ButtonController : MonoBehaviour {
 		gHUD.ShowQMUI ();
 	}
 
-	public void ClickSettings_Journal(){
-		//Open settings menu when we have one
+	public void ClickControls_Journal(){
+		gHUD.ShowControls();
 		return;
 	}
 }
