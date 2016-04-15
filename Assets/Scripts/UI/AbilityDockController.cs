@@ -137,14 +137,14 @@ public class AbilityDockController : MonoBehaviour {
 			float timeSinceStarted = Time.time - timeStartedLerping;
 			float percentageComplete = timeSinceStarted / timeTakenDuringLerp;
 			if(opening){
-				highligtedIcon.transform.position = Vector3.Lerp(highligtedIcon.transform.position, new Vector3(highligtedIcon.transform.position.x, 350, 0), percentageComplete);
+				highligtedIcon.transform.position = Vector3.Lerp(highligtedIcon.transform.position, new Vector3(highligtedIcon.transform.position.x, getPos (2), 0), percentageComplete);
 				selectionBeam.rectTransform.sizeDelta = Vector2.Lerp(selectionBeam.rectTransform.sizeDelta, new Vector2(150, 650), percentageComplete);
-				selectionBeam.transform.position = Vector3.Lerp (selectionBeam.transform.position, new Vector3(selectionBeam.transform.position.x, 350, 0), percentageComplete);
+				selectionBeam.transform.position = Vector3.Lerp (selectionBeam.transform.position, new Vector3(selectionBeam.transform.position.x, getPos (2), 0), percentageComplete);
 			}
 			if(closing){
-				highligtedIcon.transform.position = Vector3.Lerp(highligtedIcon.transform.position, new Vector3(highligtedIcon.transform.position.x, 100, 0), percentageComplete);
+				highligtedIcon.transform.position = Vector3.Lerp(highligtedIcon.transform.position, new Vector3(highligtedIcon.transform.position.x, getPos (4), 0), percentageComplete);
 				selectionBeam.rectTransform.sizeDelta = Vector2.Lerp(selectionBeam.rectTransform.sizeDelta, new Vector2(0, 0), percentageComplete);			
-				selectionBeam.transform.position = Vector3.Lerp (selectionBeam.transform.position, new Vector3(selectionBeam.transform.position.x, 100, 0), percentageComplete);
+				selectionBeam.transform.position = Vector3.Lerp (selectionBeam.transform.position, new Vector3(selectionBeam.transform.position.x, getPos (4), 0), percentageComplete);
 			}
 			for (int i = 0; i < numAbilities; i++) {
 				abilities [i].transform.position = Vector3.Lerp(abilities[i].transform.position, targetPos[i], percentageComplete);
@@ -251,17 +251,17 @@ public class AbilityDockController : MonoBehaviour {
 	float getPos(int i){
 		switch(i){
 		case 0:
-			return 600;
+			return 860f;
 		case 1:
-			return 475;
+			return 672.5f;
 		case 2:
-			return 350;
+			return 485f;
 		case 3:
-			return 225;
+			return 297.5f;
 		case 4:
-			return 100;
+			return 110f;
 		default:
-			return 0;
+			return 0f;
 		}
 	}
 

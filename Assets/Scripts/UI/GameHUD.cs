@@ -113,9 +113,9 @@ public class GameHUD : MonoBehaviour {
 
         //!Set objective text reference
         objectiveText = GameObject.Find("ObjectiveNotice");
-        QuestNotText = GameObject.Find("objectiveText").GetComponent<Text>();
+        QuestNotText = GameObject.Find("ObjectiveText").GetComponent<Text>();
         Debug.Log("ui", QuestNotText.text);
-        //objectiveText.SetActive(false);
+        objectiveText.SetActive(false);
 
         phoneButtons = GameObject.Find("PhoneButtons");
 
@@ -171,6 +171,7 @@ public class GameHUD : MonoBehaviour {
 		foreach(KeyValuePair<string, string> button in controllerButtons){
 			controlsText.text += button.Key + " - " + button.Value + "\n";
 		}
+		print (controlsText.text);
 		controlsText.gameObject.SetActive (false);
 	}
 
@@ -501,7 +502,7 @@ public class GameHUD : MonoBehaviour {
 	}
 
 	public void ShowControls(){
-		
+		print ("here");
 		journalItemDescription.SetActive (false);
 		journalMoreInfoScrollbar.SetActive (true);
 		controlsText.gameObject.SetActive (true);
