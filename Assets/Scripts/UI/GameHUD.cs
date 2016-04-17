@@ -43,7 +43,8 @@ public class GameHUD : MonoBehaviour {
 	public Sprite[] targetableIcons;
 	public Sprite enemyIcon;
 	public bool calcCompass = false;
-	
+	public List<GameObject> mapLabels;
+
 	//public GameObject closestTargetIconPrefab;
 
 	GameObject mapCam;								//!<Camera used for minimap
@@ -51,7 +52,7 @@ public class GameHUD : MonoBehaviour {
 	static GameObject objectiveText;						//!<Objective Text UI element
     static Text QuestNotText;
 
-	GameObject[] mapLabels;							//!<Array of text taht appears on minimap
+	
 
 	public bool skillsOpen = false;
 	bool canSpin = false;
@@ -59,20 +60,24 @@ public class GameHUD : MonoBehaviour {
 	GameObject phoneButtons;
 	//GameObject mapElements;
 	GameObject compassCameraPoint;					//!<Point at camera location used to calculate objective positions
-	GameObject compass;
+	public GameObject compass;
 	GameObject slider;
 	GameObject leftArrow;
 	GameObject rightArrow;
-	GameObject journal;
-	GameObject journalMoreInfoScrollbar;
-	GameObject journalItemDescription;
+	//GameObject journal;
+	//GameObject journalMoreInfoScrollbar;
+	//GameObject journalItemDescription;
+	GameObject controls;
+	GameObject pcControls;
+	GameObject xboxControls;
+	GameObject psControls;
 	GameObject questManagerUI;
 	GameObject minimapRedArrow; 					//!<Arrow for the player representation on the minimap
 	GameObject mainCamera;
 	GameObject minimapCamera;
 	GameObject minimapCompass;
 	public GameObject testObjective;
-	Text controlsText;
+	//Text controlsText;
 	List<GameObject> targetsInRange;
 	GameObject closestTargetIcon;
 
@@ -94,7 +99,10 @@ public class GameHUD : MonoBehaviour {
         worldMapCanvas.SetActive(true);
 
         //!Fill mapLabels array
-        mapLabels = GameObject.FindGameObjectsWithTag("worldMapLabel");
+        GameObject[] tempMapLables = GameObject.FindGameObjectsWithTag("worldMapLabel");
+        foreach (GameObject label in tempMapLables){
+        	mapLabels.Add(label);
+        }
         closeMapButton = GameObject.Find("CloseMapButton");
 
         if (closeMapButton) {
@@ -121,6 +129,8 @@ public class GameHUD : MonoBehaviour {
 
 		//mapElements = GameObject.Find("MapElements");
 		//mapElements.SetActive(false);
+		
+		/*
 		journal = GameObject.Find ("Journal");
 		if (!journal) {
 			Debug.Log ("ui", "Could not find the 'Journal' GameObject in the current Scene: " + Application.loadedLevelName);
@@ -131,7 +141,20 @@ public class GameHUD : MonoBehaviour {
 			journalMoreInfoScrollbar.SetActive (false);
 			journal.SetActive (false);
 		}
-
+		*/
+		
+		controls = GameObject.Find ("Controls");
+		if(!controls){
+			Debug.Log ("ui", "Could not find the 'Controls' GameObject in the current Scene: " + Application.loadedLevelName);
+		}
+		else{
+			controls.SetActive (false);
+			pcControls = controls.transform.FindChild ("MoreJournalInfo").FindChild("ScrollView").FindChild("KeyboardControls").gameObject;
+			xboxControls = controls.transform.FindChild ("MoreJournalInfo").FindChild("ScrollView").FindChild("XBOXControls").gameObject;
+			psControls = controls.transform.FindChild ("MoreJournalInfo").FindChild("ScrollView").FindChild("PlayStationControls").gameObject;
+			xboxControls.SetActive (false);
+			psControls.SetActive(false);
+		}
 		questManagerUI = GameObject.Find ("QuestManagerUI");
 		if (!questManagerUI) {
 			print ("Could not find the 'QuestManagerUI' GameObject in the current Scene: " + Application.loadedLevelName);
@@ -161,7 +184,7 @@ public class GameHUD : MonoBehaviour {
 	void Start() {
 		Dictionary<string, string> keyboardButtons = InputManager.input.keyButtons;
 		Dictionary<string, string> controllerButtons = InputManager.input.controllerButtons;
-		
+		/*
 		controlsText.text = "";
 		
 		foreach(KeyValuePair<string, string> button in keyboardButtons){
@@ -173,6 +196,7 @@ public class GameHUD : MonoBehaviour {
 		}
 		print (controlsText.text);
 		controlsText.gameObject.SetActive (false);
+		*/
 	}
 
 	/*!Update function that is called once every frame
@@ -180,21 +204,19 @@ public class GameHUD : MonoBehaviour {
 	 */
 	void Update(){
 		
-		if(Input.GetKeyDown (KeyCode.Escape) && controlsText.gameObject.activeSelf){
+		if (Input.GetKeyDown (KeyCode.Escape) && controls.activeSelf) {
 			HideControls();
 		}
-		else if (Input.GetKeyDown (KeyCode.Escape) && journal.activeSelf) {
-			CloseJournal();
+		
+		if (Input.GetKeyDown (KeyCode.Tab) && (!controls.activeSelf && !questManagerUI.activeSelf && !PauseMenu.Instance.isOnPauseMenu)){
+			PauseMenu.Instance.OpenOrClosePauseMenu ();
+			ShowQMUI();
+			}
+		else if(Input.GetKeyDown (KeyCode.Tab) && questManagerUI.activeSelf){
+			HideQMUI();
+			PauseMenu.Instance.OpenOrClosePauseMenu ();
 		}
 		
-		if (Input.GetKeyDown (KeyCode.Tab) && (!journal.activeSelf && !questManagerUI.activeSelf && !PauseMenu.Instance.isOnPauseMenu)){
-			PauseMenu.Instance.OpenOrClosePauseMenu ();
-			ButtonController.instane.ClickJournalButton_PauseMenu();
-			}
-		else if(Input.GetKeyDown (KeyCode.Tab) && journal.activeSelf){
-			CloseJournal();
-			PauseMenu.Instance.OpenOrClosePauseMenu ();
-		}
 		
 		/* Function calls for displaying icon above a target object.
 		   This is no longer used.
@@ -467,6 +489,7 @@ public class GameHUD : MonoBehaviour {
 	/*!This function activates the journal and deactivates the pause menu
 	 * The function also highlights the quests button (the first item in the journal)
 	 */
+	/*
 	public void ShowJournal(){
 		showMinimap = false;
 		journal.SetActive (true);
@@ -474,47 +497,79 @@ public class GameHUD : MonoBehaviour {
 		journal.transform.FindChild ("MainScrollView").FindChild ("JournalItems").FindChild ("QuestsItem").GetComponent<Button>().Select();
 		pauseMenu.SetActive (false);
 	}
-
-	
+	*/
 
 	/*!This function deactivates the journal and activates the pause menu
 	 */
+	/*
 	public void CloseJournal(){
 		//showMinimap = true;
 		journal.SetActive (false);
 		pauseMenu.SetActive (true);
 		accessManager.isOnPauseMenu = true;
 	}
-
+	*/
+	
 	/*!This function activates the QuestManagerUI and deactivates the Journal
 	 */
 	public void ShowQMUI(){
 		questManagerUI.SetActive (true);
+		accessManager.isOnPauseMenu = false;
 		questManagerUI.GetComponent<QuestManagerUIController> ().showQuests ();
-		journal.SetActive (false);
+		pauseMenu.SetActive (false);
 	}
 	/*!This function deactivates the QuestManagerUI and activates the Journal
 	 */
 	public void HideQMUI(){
 		questManagerUI.SetActive (false);
-		journal.SetActive (true);
-		journal.transform.FindChild ("MainScrollView").FindChild ("JournalItems").FindChild ("QuestsItem").GetComponent<Button>().Select();
+		pauseMenu.SetActive (true);
+		accessManager.isOnPauseMenu = true;
+		//journal.SetActive (true);
+		//journal.transform.FindChild ("MainScrollView").FindChild ("JournalItems").FindChild ("QuestsItem").GetComponent<Button>().Select();
 	}
 
 	public void ShowControls(){
-		print ("here");
-		journalItemDescription.SetActive (false);
+		showMinimap = false;
+		controls.SetActive (true);
+		accessManager.isOnPauseMenu = false;
+		pauseMenu.SetActive (false);
+		controls.transform.FindChild ("MainScrollView").FindChild ("ControlItems").FindChild ("KeyboardControlsButton").GetComponent<Button>().Select();
+		/*journalItemDescription.SetActive (false);
 		journalMoreInfoScrollbar.SetActive (true);
 		controlsText.gameObject.SetActive (true);
 		journalMoreInfoScrollbar.GetComponent<Scrollbar>().Select();
+		*/
 	}
 	
 	public void HideControls(){
+		controls.SetActive (false);
+		pauseMenu.SetActive (true);
+		accessManager.isOnPauseMenu = true;
+		/*
 		controlsText.gameObject.SetActive (false);
 		journalItemDescription.SetActive (true);
 		journalMoreInfoScrollbar.GetComponent<Scrollbar>().value = 1f;
 		journalMoreInfoScrollbar.SetActive (false);
 		journal.transform.FindChild ("MainScrollView").FindChild ("JournalItems").FindChild ("ControlsItem").GetComponent<Button>().Select();
+		*/
+	}
+
+	public void ShowPCControls(){
+		pcControls.SetActive(true);
+		xboxControls.SetActive (false);
+		psControls.SetActive(false);
+	}
+	
+	public void ShowXBOXControls(){
+		pcControls.SetActive(false);
+		xboxControls.SetActive (true);
+		psControls.SetActive(false);
+	}
+	
+	public void showPlayStationControls(){
+		pcControls.SetActive(false);
+		xboxControls.SetActive (false);
+		psControls.SetActive(true);
 	}
 
 	/*! This function displays an icon above the object that will be targeted by the player should they press the target button

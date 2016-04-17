@@ -11,13 +11,19 @@ public class PopEvent : MonoBehaviour {
     public string andOrCompareString;
     public int andOrCompareIndex;
 
+	public string[] iconType = new string[] {"Blue '!'", "Blue '?'", "Blue Star"};
+	public string iconTypeString;
+	public int iconTypeIndex;
+
     public string uniqueId; //!<    Used to identify an event from anywhere in the scene
 
     public bool isActive = true;
     public bool isRegional = true;
     public bool executeOnce = true;
     public bool hasExecuted = false;
-
+	
+	public bool addMapIcon;
+	
     private PopEvent nextEvent;
 
     public float totalTimeActive = 0;
@@ -28,7 +34,12 @@ public class PopEvent : MonoBehaviour {
     public bool drawRegionTwo = false;
     public Vector3 conditionRegionCenter = new Vector3(0, 0, 0);
     public float conditionRegionRadius = 1;
+    
+    bool activeOnce = false;		//! Used to execute commands exactly one time when the pop event becomes active
 
+	GameObject minimapCanvas;
+	GameObject mapIcon;
+	
     public PopEvent() {
         conditions = new List<EventHalf>();
         conditions.Add(new EventHalf());
@@ -37,6 +48,10 @@ public class PopEvent : MonoBehaviour {
     }
 
     void Awake() {
+    	minimapCanvas = GameObject.Find ("worldMapCanvas");
+    	if(!minimapCanvas){
+    		Debug.LogError("Could not find the 'worldMapCanvas' GameObject");
+    	}
         EventListener.AddPopEvent(this);
         PopEvent[] popEvents = gameObject.GetComponents<PopEvent>();
         for (int i = 0; i < popEvents.Length - 1; i++) { //  Don't check the last element
@@ -58,7 +73,37 @@ public class PopEvent : MonoBehaviour {
     }
 
     void Update() {
-        if (isActive == false) { return; }
+        if (isActive == false) {
+        	if(!mapIcon){
+        		return;
+        	}
+        	else{
+     		   	GameHUD.Instance.mapLabels.Remove(mapIcon);
+        		Destroy (mapIcon);
+        	}
+        }
+        if(isActive && !activeOnce){
+        	activeOnce = true;
+        	if(addMapIcon){
+        		switch(iconTypeString){
+					case "Blue '!'":
+						mapIcon = GameObject.Instantiate (Resources.Load("MapIconExclamationMark"), new Vector3(transform.position.x, transform.position.z, -15), Quaternion.identity) as GameObject;	
+						break;
+					case "Blue '?'":
+						mapIcon = GameObject.Instantiate (Resources.Load("MapIconQuestionMark"), new Vector3(transform.position.x, transform.position.z, -15), Quaternion.identity) as GameObject;	
+						break;
+					case "Blue Star":
+						mapIcon = GameObject.Instantiate (Resources.Load("MapIconStar"), new Vector3(transform.position.x, transform.position.z, -15), Quaternion.identity) as GameObject;	
+						break;
+					default:
+						Debug.LogError ("Could not determine which icon to display in the POP Event of: " + gameObject.name);
+						return;
+				}
+				mapIcon.transform.SetParent(minimapCanvas.transform, false);
+				mapIcon.transform.SetSiblingIndex (1);
+				GameHUD.Instance.mapLabels.Add(mapIcon);
+        	}
+        }
         if (executeOnce == true && hasExecuted == true) { return; }
 
         totalTimeActive += Time.deltaTime;
@@ -111,5 +156,12 @@ public class PopEvent : MonoBehaviour {
     public void MakeActive(bool active, bool force = false) {
         if (active == true && executeOnce == true && hasExecuted == true && force == false) { return; }
         isActive = active;
+    }
+    
+    void OnDestroy(){
+    	if(mapIcon){
+    		GameHUD.Instance.mapLabels.Remove (mapIcon);
+    		Destroy(mapIcon);
+    	}
     }
 }

@@ -86,6 +86,16 @@ public class PopEventEditor : Editor {
 		popTarget.andOrCompareString = popTarget.andOrCompare[popTarget.andOrCompareIndex];
 		EditorGUILayout.EndHorizontal();
 
+		EditorGUILayout.BeginHorizontal();
+		EditorGUILayout.LabelField("Show on Map", GUILayout.MaxWidth(halfWidth));
+		popTarget.addMapIcon = EditorGUILayout.Toggle(popTarget.addMapIcon, GUILayout.MaxWidth(sixthWidth));
+		GUILayout.Label("", GUILayout.MaxWidth(columnWidth / 10));
+		
+		EditorGUILayout.LabelField("Icon Type", GUILayout.MaxWidth(halfWidth + quarterWidth));
+		popTarget.iconTypeIndex = EditorGUILayout.Popup(popTarget.iconTypeIndex, popTarget.iconType, GUILayout.MaxWidth(halfWidth + sixthWidth));
+		popTarget.iconTypeString = popTarget.iconType[popTarget.iconTypeIndex];
+		EditorGUILayout.EndHorizontal ();
+
 		//     Conditions and Actions
 		EditorGUILayout.Space();
 		EditorGUILayout.Space();

@@ -78,6 +78,8 @@ public class PauseMenu : MonoBehaviour
 	public void pauseGame()
     {                       
 		GHud.showMinimap = false;
+		GHud.compass.SetActive(false);
+		AbilityDockController.instance.gameObject.SetActive (false);
 		isOnPauseMenu = true;
 		isPaused = true;
 		showCursor ();
@@ -94,6 +96,8 @@ public class PauseMenu : MonoBehaviour
 		if(!DialogueManager.Instance._showing){
 			GHud.showMinimap = true;
 		}
+		GHud.compass.SetActive(true);
+		AbilityDockController.instance.gameObject.SetActive (true);
 		isOnPauseMenu = false;
 		isPaused = false;
 		hideCursor ();
