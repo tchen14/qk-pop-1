@@ -28,6 +28,7 @@ public sealed class Quinc : MonoBehaviour
 //	/*
 //START singleton code
 	private static Quinc instance;
+	private GameObject player;
 
 	static Quinc()
 	{
@@ -42,6 +43,11 @@ public sealed class Quinc : MonoBehaviour
     public void Start()
     {
         abilitySelector = GameObject.Find("AbilityDock").GetComponent<AbilityDockController>();
+		player = GameObject.FindGameObjectWithTag("Player");
+		if(player == null)
+		{
+			Debug.Log("Quinc", "player not found");
+		}
     }
 
 	public static Quinc Instance
@@ -115,7 +121,7 @@ public sealed class Quinc : MonoBehaviour
 			GameObject target = PoPCamera.instance.CurrentTarget();
 			if(target && target.GetComponent<Item>()){
 				Item script = target.GetComponent<Item>();
-
+				player.GetComponent<QK_Character_Movement>().usingAbility = true;
 				switch(ability){
 				case quincy_ability.Cut:
 					script.Cut();

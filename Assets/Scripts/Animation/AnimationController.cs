@@ -31,18 +31,18 @@ public class AnimationController : MonoBehaviour {
 			movement = 0;
 		}
 		//I am using the speed value from QK_Character_Movement script
-		if((QK_Character_Movement.Instance.curSpeed >= QK_Character_Movement.Instance.runSpeed)&& (QK_Character_Movement.Instance._moveState!= QK_Character_Movement.CharacterState.Sprint)) {
+		if((QK_Character_Movement.Instance.curSpeed >= QK_Character_Movement.Instance.runSpeed)&& (QK_Character_Movement.Instance._moveState!= CharacterStates.Sprint)) {
 			running = true;
 		} else {
 			running = false;
 		}
 		//Checks if the character is climbing a ladder or not
-		if(QK_Character_Movement.Instance._moveState == QK_Character_Movement.CharacterState.Ladder)
+		if(QK_Character_Movement.Instance._moveState == CharacterStates.Ladder)
 			ladder = true;
 		else
 			ladder = false;
 		//Checks if the character is sidling
-		if(QK_Character_Movement.Instance._moveState == QK_Character_Movement.CharacterState.Sidle)
+		if(QK_Character_Movement.Instance._moveState == CharacterStates.Sidle)
             sidle = true;
 		else
 			sidle = false;
