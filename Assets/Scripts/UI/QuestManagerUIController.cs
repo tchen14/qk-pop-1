@@ -13,6 +13,7 @@ public class QuestManagerUIController : MonoBehaviour {
 
 	GameObject player;
 	GameObject moreQuestInfo;
+	GameObject scrollingHandle;
 	QuestManager qm;
 	Button questButton;
 	float buttonHeight;
@@ -62,6 +63,10 @@ public class QuestManagerUIController : MonoBehaviour {
 		if(!moreInfoScrollbar){
 			Debug.Error ("ui","QuestManagerUI script could not find the child object called 'MoreQuestInfoScrollbar' the prefab may be broken");
 		}
+		scrollingHandle  = mainScrollbar.transform.FindChild ("Sliding Area").transform.FindChild ("Handle").gameObject;
+		if (!scrollingHandle) {
+			Debug.Error ("ui","QuestManagerUI script could not find the child object called 'Handle' which is a child of 'Sliding Area' the prefab may be broken");
+		}
 		theEventSystem = GameObject.Find ("EventSystem").GetComponent<EventSystem>();
 		if(!theEventSystem){
 			Debug.Error("ui","QuestManagerUI script could not find the EventSystem in the scene. Make sure the scene has an EventSystem");
@@ -77,7 +82,6 @@ public class QuestManagerUIController : MonoBehaviour {
 	}
 
 	void Start(){
-		
 		theLists[0] = qm.currentQuests;
 		theLists[1] = qm.failedQuests;
 		theLists[2] = qm.completedQuests;
@@ -172,16 +176,13 @@ public class QuestManagerUIController : MonoBehaviour {
 			moreQuestInfoTitle.text = "No Active Quests!";
 			moreQuestInfoDescription.text = "You currently have no active quests! Go explore to find some!";
 		}
-
+		StartCoroutine (showMoreInfoScrollbar ());
 		if (qm.questCount < 7) {
-			GameObject scrollingHandle = mainScrollbar.transform.FindChild ("Sliding Area").transform.FindChild ("Handle").gameObject;
 			scrollingHandle.SetActive (false);
 		}
 		else {
-			GameObject scrollingHandle = mainScrollbar.transform.FindChild ("Sliding Area").transform.FindChild ("Handle").gameObject;
 			scrollingHandle.SetActive (true);
 		}
-		//StartCoroutine (showMoreInfoScrollbar ());
 	}
 
 	/* Each time a button is dynamically created, a listener is added to it which calls the clickButton() function.
@@ -200,7 +201,7 @@ public class QuestManagerUIController : MonoBehaviour {
 		showMoreQuestInfo(iter);
 		moreInfoScrollbar.Select();
 		moreInfoScrollbar.value = 1f;
-		StartCoroutine (showMoreInfoScrollbar ());
+		//StartCoroutine (showMoreInfoScrollbar ());
 	}
 
 	/* This coroutine is needed to fix a bug.
@@ -275,6 +276,5 @@ public class QuestManagerUIController : MonoBehaviour {
 			}
 		}
         moreQuestInfoDescription.text = theLists[i][j].GetDescription() + "\n" + theLists[i][j].GetObjective() + goalText;
-        //GameObject moreQuestInfoScrollView = moreQuestInfo.transform.FindChild("ScrollView").gameObject;
 	}
 }
