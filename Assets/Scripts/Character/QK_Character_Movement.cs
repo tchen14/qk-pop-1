@@ -58,7 +58,7 @@ public class QK_Character_Movement : MonoBehaviour {
 	private Vector3 ladderDismountPos = Vector3.zero;
 
 	//cooldowns
-	private float jumpTimer = 0;
+	private float jumpTimer = 17;
 	private float quincPause = 0;
 	public bool usingAbility = false;
 	private bool tryjump = false;
@@ -281,7 +281,7 @@ public class QK_Character_Movement : MonoBehaviour {
 				}
 			}
 
-			if (Input.GetKeyDown(KeyCode.Space)) 
+			if (InputManager.input.isJumping()) 
 			{
 				tempObj = GetLedge();//todo
 			}
@@ -392,11 +392,14 @@ public class QK_Character_Movement : MonoBehaviour {
 	void Jump()
 	{
 		tryjump = true;
-		if (jumpTimer > 17) {
+		if (jumpTimer >= 17) {
 			tryjump = false;
 			jumpTimer = 0;
-			if (charCont.isGrounded)
+			if(charCont.isGrounded) {
 				verticalVelocity = jumpSpeed;
+				
+			}
+				
 		}
 	}
 
