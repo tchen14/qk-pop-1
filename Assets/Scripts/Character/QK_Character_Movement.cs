@@ -147,11 +147,14 @@ public class QK_Character_Movement : MonoBehaviour {
 			else if (_stateModifier == CharacterState.Crouch)
 			{
 				curSpeed = Mathf.Clamp(curSpeed, 0f, crouchSpeed);
-				this.gameObject.GetComponent<CapsuleCollider>().height = 1;
+				this.gameObject.GetComponent<CharacterController>().center = new Vector3(0f, 0.5f, 0f);
+				this.gameObject.GetComponent<CharacterController>().height = 1;
 			}
 			else {
 				curSpeed = Mathf.Clamp(curSpeed, 0f, runSpeed);
-			}
+				this.gameObject.GetComponent<CharacterController>().center = new Vector3(0f, 1.03f, 0f);
+				this.gameObject.GetComponent<CharacterController>().height = 2;
+		}
         //curSpeed *= desiredMoveVector.magnitude;
 		
 		// Apply Slide
