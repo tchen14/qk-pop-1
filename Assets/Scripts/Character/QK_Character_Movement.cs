@@ -61,6 +61,7 @@ public class QK_Character_Movement : MonoBehaviour {
 	private float jumpTimer = 0;
 	private float quincPause = 0;
 	public bool usingAbility = false;
+	private bool tryjump = false;
 	// Ledge Variables
 	private bool onLedge = false;
 	RaycastHit ledgeTest;
@@ -109,12 +110,14 @@ public class QK_Character_Movement : MonoBehaviour {
 			quincPause = 0;
 		}
 		ApplyGravity ();
-
-		jumpTimer++;
+		if(tryjump) {
+			jumpTimer++;
+		}
+			
 
 		DetermineCharacterState ();
 
-		switch (_stateModifier) 
+		switch (_moveState) 
 		{
 			case CharacterState.Ladder:
 				ClimbLadder();
@@ -388,7 +391,10 @@ public class QK_Character_Movement : MonoBehaviour {
 	}
 	void Jump()
 	{
-		if (jumpTimer % 30 == 0) { 
+		tryjump = true;
+		if (jumpTimer > 17) {
+			tryjump = false;
+			jumpTimer = 0;
 			if (charCont.isGrounded)
 				verticalVelocity = jumpSpeed;
 		}
