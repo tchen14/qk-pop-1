@@ -110,11 +110,12 @@ public class QK_Character_Movement : MonoBehaviour {
 			quincPause = 0;
 		}
 		ApplyGravity ();
-		if(tryjump) {
-			jumpTimer++;
-		}
-			
+		jumpTimer+=Time.deltaTime;
 
+		if (_stateModifier == CharacterStates.Jump && charCont.isGrounded)
+		{
+			_stateModifier = CharacterStates.Idle;
+		}
 		DetermineCharacterState ();
 
 		switch (_moveState) 
@@ -389,19 +390,21 @@ public class QK_Character_Movement : MonoBehaviour {
 		} else
 			return null;
 	}
+	
 	void Jump()
 	{
-		tryjump = true;
-		if (jumpTimer >= 17) {
-			tryjump = false;
+		
+		if (jumpTimer >= 1) {
 			jumpTimer = 0;
 			if(charCont.isGrounded) {
 				verticalVelocity = jumpSpeed;
+				_stateModifier = CharacterStates.Jump;
 				
 			}
 				
 		}
 	}
+	
 
 
 	void ClimbLedge()
