@@ -154,19 +154,19 @@ public class QuestManagerUIController : MonoBehaviour {
 		int iter = 0;
 		for(int i = 0; i < theLists.Length; i++){
 			if(theLists[i] != null){
-			for(int j = 0; j < theLists[i].Count; j++){
-				GameObject newQuestButton = Instantiate(questUI, new Vector3(0, 0 - (iter * (buttonHeight + spacing) + (buttonHeight/2)), 0), Quaternion.identity) as GameObject;
-				newQuestButton.transform.SetParent(questContainer.transform, false);
-				allQuests.Add(newQuestButton);
-				Text newButtonText = newQuestButton.transform.FindChild("Text").GetComponent<Text>();
-				newButtonText.text = theLists[i][j].GetName();
-				Button qb = newQuestButton.GetComponent<Button>();
-				addListener(qb, iter);
-				if (i == 0 && j == 0){
-					qb.Select();
+				for(int j = 0; j < theLists[i].Count; j++){
+					GameObject newQuestButton = Instantiate(questUI, new Vector3(0, 0 - (iter * (buttonHeight + spacing) + (buttonHeight/2)), 0), Quaternion.identity) as GameObject;
+					newQuestButton.transform.SetParent(questContainer.transform, false);
+					allQuests.Add(newQuestButton);
+					Text newButtonText = newQuestButton.transform.FindChild("Text").GetComponent<Text>();
+					newButtonText.text = theLists[i][j].GetName();
+					Button qb = newQuestButton.GetComponent<Button>();
+					addListener(qb, iter);
+					if (i == 0 && j == 0){
+						qb.Select();
+					}
+					iter++;
 				}
-				iter++;
-			}
 			}
 		}
 		if (qm.questCount > 0) {

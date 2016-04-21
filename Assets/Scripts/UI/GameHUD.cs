@@ -233,9 +233,17 @@ public class GameHUD : MonoBehaviour {
 		}
 	}
 
-    IEnumerator DisplayObjectiveNotification(string message)
+    IEnumerator DisplayObjectiveNotification(string message, bool isGold)
     {
         objectiveText.SetActive(true);
+		if (isGold) {
+			objectiveText.transform.FindChild ("BlueBackground").gameObject.SetActive (false);
+			objectiveText.transform.FindChild ("ExclamationMark").gameObject.SetActive (false);
+		}
+		else {
+			objectiveText.transform.FindChild ("GoldBackground").gameObject.SetActive (false);
+		}
+
         QuestNotText.text = message;
 		while (true) {
 			float delayTime = Time.realtimeSinceStartup + 3f;
@@ -251,15 +259,18 @@ public class GameHUD : MonoBehaviour {
             canvas.alpha -= 0.05f;
             yield return new WaitForEndOfFrame();
         }
+		objectiveText.transform.FindChild ("BlueBackground").gameObject.SetActive (true);
+		objectiveText.transform.FindChild ("ExclamationMark").gameObject.SetActive (true);
+		objectiveText.transform.FindChild ("GoldBackground").gameObject.SetActive (true);
         canvas.alpha = 1f;
         objectiveText.SetActive(false);
     }
 
 	//!Call this to update objective tet at top of the screen
 	[EventVisible]
-	public void UpdateObjectiveText(string newObjective)
+	public void UpdateObjectiveText(string newObjective, bool isGold)
     {
-        StartCoroutine(DisplayObjectiveNotification(newObjective));
+        StartCoroutine(DisplayObjectiveNotification(newObjective, isGold));
 	}
 
 	//!Rotates and moves all of the relevant objects on the minimap
@@ -389,7 +400,7 @@ public class GameHUD : MonoBehaviour {
 	//This is for testing
 	void OnTriggerEnter(Collider col) {
 		if(col.gameObject.tag == "Finish") {
-			UpdateObjectiveText("Objective Complete!");
+			UpdateObjectiveText("Objective Complete!", false);
 		}
 	}
 
