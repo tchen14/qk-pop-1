@@ -44,6 +44,7 @@ public class GameHUD : MonoBehaviour {
 	public Sprite enemyIcon;
 	public bool calcCompass = false;
 	public List<GameObject> mapLabels;
+	public GameObject testObjective;
 
 	//public GameObject closestTargetIconPrefab;
 
@@ -64,9 +65,6 @@ public class GameHUD : MonoBehaviour {
 	GameObject slider;
 	GameObject leftArrow;
 	GameObject rightArrow;
-	//GameObject journal;
-	//GameObject journalMoreInfoScrollbar;
-	//GameObject journalItemDescription;
 	GameObject controls;
 	GameObject pcControls;
 	GameObject xboxControls;
@@ -76,11 +74,9 @@ public class GameHUD : MonoBehaviour {
 	GameObject mainCamera;
 	GameObject minimapCamera;
 	GameObject minimapCompass;
-	public GameObject testObjective;
-	//Text controlsText;
 	List<GameObject> targetsInRange;
 	GameObject closestTargetIcon;
-
+	Button pauseMenuResumeButton;
 	float offset = 10f;
 
     void Awake()
@@ -113,11 +109,8 @@ public class GameHUD : MonoBehaviour {
         compassCameraPoint = GameObject.Find("compassCameraPoint");
         compass = GameObject.Find("compassSlider");
         slider = compass.transform.FindChild("Handle Slide Area").gameObject;
-        //slider.SetActive (false);
         leftArrow = compass.transform.FindChild("leftArrow").gameObject;
-        //leftArrow.SetActive (false);
         rightArrow = compass.transform.FindChild("rightArrow").gameObject;
-        //rightArrow.SetActive (false);
 
         //!Set objective text reference
         objectiveText = GameObject.Find("ObjectiveNotice");
@@ -127,22 +120,6 @@ public class GameHUD : MonoBehaviour {
 
         phoneButtons = GameObject.Find("PhoneButtons");
 
-		//mapElements = GameObject.Find("MapElements");
-		//mapElements.SetActive(false);
-		
-		/*
-		journal = GameObject.Find ("Journal");
-		if (!journal) {
-			Debug.Log ("ui", "Could not find the 'Journal' GameObject in the current Scene: " + Application.loadedLevelName);
-		} else {
-			controlsText = journal.transform.FindChild ("MoreJournalInfo").FindChild("ScrollView").FindChild ("Controls").gameObject.GetComponent<Text>();
-			journalItemDescription = journal.transform.FindChild ("MoreJournalInfo").FindChild("ScrollView").FindChild ("JournalItemDescription").gameObject;
-			journalMoreInfoScrollbar = journal.transform.FindChild ("MoreJournalInfo").FindChild("MoreJournalInfoScrollbar").gameObject;
-			journalMoreInfoScrollbar.SetActive (false);
-			journal.SetActive (false);
-		}
-		*/
-		
 		controls = GameObject.Find ("Controls");
 		if(!controls){
 			Debug.Log ("ui", "Could not find the 'Controls' GameObject in the current Scene: " + Application.loadedLevelName);
@@ -179,12 +156,14 @@ public class GameHUD : MonoBehaviour {
 		if (!closestTargetIcon) {
 			Debug.Error ("HUD", "Could not find the 'ClosestTargetIcon' GameObject in the current Scene: " + Application.loadedLevelName);
 		}
+		pauseMenuResumeButton = pauseMenu.transform.FindChild ("resumeButton").gameObject.GetComponent<Button> ();
 	}
 
 	void Start() {
+		/*
 		Dictionary<string, string> keyboardButtons = InputManager.input.keyButtons;
 		Dictionary<string, string> controllerButtons = InputManager.input.controllerButtons;
-		/*
+
 		controlsText.text = "";
 		
 		foreach(KeyValuePair<string, string> button in keyboardButtons){
@@ -254,26 +233,44 @@ public class GameHUD : MonoBehaviour {
 		}
 	}
 
-    IEnumerator DisplayObjectiveNotification(string message)
+    IEnumerator DisplayObjectiveNotification(string message, bool isGold)
     {
         objectiveText.SetActive(true);
+		if (isGold) {
+			objectiveText.transform.FindChild ("BlueBackground").gameObject.SetActive (false);
+			objectiveText.transform.FindChild ("ExclamationMark").gameObject.SetActive (false);
+		}
+		else {
+			objectiveText.transform.FindChild ("GoldBackground").gameObject.SetActive (false);
+		}
+
         QuestNotText.text = message;
-        yield return new WaitForSeconds(3);
+		while (true) {
+			float delayTime = Time.realtimeSinceStartup + 3f;
+			while(Time.realtimeSinceStartup < delayTime){
+				yield return null;
+			}
+			break;
+		}
+        //yield return new WaitForSeconds(3);
         CanvasGroup canvas = objectiveText.GetComponent<CanvasGroup>();
         while (canvas.alpha > 0)
         {
             canvas.alpha -= 0.05f;
             yield return new WaitForEndOfFrame();
         }
+		objectiveText.transform.FindChild ("BlueBackground").gameObject.SetActive (true);
+		objectiveText.transform.FindChild ("ExclamationMark").gameObject.SetActive (true);
+		objectiveText.transform.FindChild ("GoldBackground").gameObject.SetActive (true);
         canvas.alpha = 1f;
         objectiveText.SetActive(false);
     }
 
 	//!Call this to update objective tet at top of the screen
 	[EventVisible]
-	public void UpdateObjectiveText(string newObjective)
+	public void UpdateObjectiveText(string newObjective, bool isGold)
     {
-        StartCoroutine(DisplayObjectiveNotification(newObjective));
+        StartCoroutine(DisplayObjectiveNotification(newObjective, isGold));
 	}
 
 	//!Rotates and moves all of the relevant objects on the minimap
@@ -341,21 +338,8 @@ public class GameHUD : MonoBehaviour {
 			newValue = 75;
 		}
 
-		if (newValue == 105) {
-			slider.SetActive (false);
-			rightArrow.SetActive (true);
-			leftArrow.SetActive(false);
-		} 
-		else if (newValue == 75) {
-			slider.SetActive (false);
-			leftArrow.SetActive (true);
-			rightArrow.SetActive(false);
-		} 
-		else {
-			leftArrow.SetActive(false);
-			rightArrow.SetActive(false);
-			slider.SetActive(true);
-		}
+		slider.SetActive (true);
+
 		compass.GetComponent<Slider>().value = newValue;
 	}
 
@@ -388,6 +372,9 @@ public class GameHUD : MonoBehaviour {
 
 	}
 
+	/*!When this function is called from a POP Event, it will move the target position of the
+	 * compass. This points the compass to the next objective.
+	 */
 	[EventVisibleAttribute]
 	public void MoveCompassTargetPoint(GameObject NextQuestLocation){
 		testObjective.transform.position = NextQuestLocation.transform.position;
@@ -395,12 +382,17 @@ public class GameHUD : MonoBehaviour {
 		return;
 	}
 
+	/*!When this function is called from a POP Event, it will begin a dialogue. The function
+	 * takes in an integer that is the index of the dialogue (created via dialoguer)
+	 */
 	[EventVisibleAttribute]
 	public void TriggerDialoguer(int dialogueIndex){
 		QK_Character_Movement.Instance.inADialogue = true;
 		Dialoguer.StartDialogue (dialogueIndex, dialoguerCallback);
 	}
 
+	/*!This function is called when the dialogue sequence ends
+	 */
 	void dialoguerCallback(){
 		QK_Character_Movement.Instance.inADialogue = false;
 	}
@@ -408,7 +400,7 @@ public class GameHUD : MonoBehaviour {
 	//This is for testing
 	void OnTriggerEnter(Collider col) {
 		if(col.gameObject.tag == "Finish") {
-			UpdateObjectiveText("Objective Complete!");
+			UpdateObjectiveText("Objective Complete!", false);
 		}
 	}
 
@@ -460,14 +452,14 @@ public class GameHUD : MonoBehaviour {
 	 */
 	public void showPauseMenu () {
 		pauseMenu.SetActive (true);
-		
+		accessManager.isOnPauseMenu = true;
+		pauseMenuResumeButton.Select ();
 	}
 
 	/*!Hides the pause menu
 	 */
 	public void hidePauseMenu () {
 		pauseMenu.SetActive (false);
-		accessManager.unPauseGameBtt();
 	}
 
 	/*!Loads the scene with the name that is passed into the function
@@ -485,32 +477,8 @@ public class GameHUD : MonoBehaviour {
     {
         menuManager.GoToOptions();
     }
-
-	/*!This function activates the journal and deactivates the pause menu
-	 * The function also highlights the quests button (the first item in the journal)
-	 */
-	/*
-	public void ShowJournal(){
-		showMinimap = false;
-		journal.SetActive (true);
-		accessManager.isOnPauseMenu = false;
-		journal.transform.FindChild ("MainScrollView").FindChild ("JournalItems").FindChild ("QuestsItem").GetComponent<Button>().Select();
-		pauseMenu.SetActive (false);
-	}
-	*/
-
-	/*!This function deactivates the journal and activates the pause menu
-	 */
-	/*
-	public void CloseJournal(){
-		//showMinimap = true;
-		journal.SetActive (false);
-		pauseMenu.SetActive (true);
-		accessManager.isOnPauseMenu = true;
-	}
-	*/
 	
-	/*!This function activates the QuestManagerUI and deactivates the Journal
+	/*!This function activates the QuestManagerUI and deactivates the Pause Menu
 	 */
 	public void ShowQMUI(){
 		questManagerUI.SetActive (true);
@@ -518,14 +486,14 @@ public class GameHUD : MonoBehaviour {
 		questManagerUI.GetComponent<QuestManagerUIController> ().showQuests ();
 		pauseMenu.SetActive (false);
 	}
-	/*!This function deactivates the QuestManagerUI and activates the Journal
+
+	/*!This function deactivates the QuestManagerUI and activates the Pause Menu
 	 */
 	public void HideQMUI(){
 		questManagerUI.SetActive (false);
-		pauseMenu.SetActive (true);
-		accessManager.isOnPauseMenu = true;
-		//journal.SetActive (true);
-		//journal.transform.FindChild ("MainScrollView").FindChild ("JournalItems").FindChild ("QuestsItem").GetComponent<Button>().Select();
+		showPauseMenu ();
+		//pauseMenu.SetActive (true);
+		//accessManager.isOnPauseMenu = true;
 	}
 
 	public void ShowControls(){
@@ -534,24 +502,12 @@ public class GameHUD : MonoBehaviour {
 		accessManager.isOnPauseMenu = false;
 		pauseMenu.SetActive (false);
 		controls.transform.FindChild ("MainScrollView").FindChild ("ControlItems").FindChild ("KeyboardControlsButton").GetComponent<Button>().Select();
-		/*journalItemDescription.SetActive (false);
-		journalMoreInfoScrollbar.SetActive (true);
-		controlsText.gameObject.SetActive (true);
-		journalMoreInfoScrollbar.GetComponent<Scrollbar>().Select();
-		*/
 	}
 	
 	public void HideControls(){
 		controls.SetActive (false);
 		pauseMenu.SetActive (true);
-		accessManager.isOnPauseMenu = true;
-		/*
-		controlsText.gameObject.SetActive (false);
-		journalItemDescription.SetActive (true);
-		journalMoreInfoScrollbar.GetComponent<Scrollbar>().value = 1f;
-		journalMoreInfoScrollbar.SetActive (false);
-		journal.transform.FindChild ("MainScrollView").FindChild ("JournalItems").FindChild ("ControlsItem").GetComponent<Button>().Select();
-		*/
+		showPauseMenu ();
 	}
 
 	public void ShowPCControls(){
