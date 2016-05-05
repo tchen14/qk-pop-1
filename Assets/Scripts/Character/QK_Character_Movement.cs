@@ -96,19 +96,25 @@ public class QK_Character_Movement : MonoBehaviour {
 	{
 		if (cam == null)
 			return;
+		switch (_moveState)
+		{
+			case CharacterState.Ladder:
+				ClimbLadder();
+				break;
 
+			case CharacterState.Wait:
+				break;
+
+			case CharacterState.Hang:
+				ClimbLedge();
+				break;
+
+			default:
+				ProcessStandardMotion();
+				break;
+		}
 		if (!usingAbility) {
 			CalculateMovementDirection();
-		}
-		if(usingAbility)
-		{
-			quincPause++;
-		}
-		if(quincPause == 80)
-		{
-			usingAbility = false;
-			_moveState = CharacterStates.Idle;
-			quincPause = 0;
 		}
 		ApplyGravity ();
 		jumpTimer+=Time.deltaTime;
@@ -119,23 +125,7 @@ public class QK_Character_Movement : MonoBehaviour {
 		}
 		DetermineCharacterState ();
 
-		switch (_moveState) 
-		{
-			case CharacterState.Ladder:
-				ClimbLadder();
-				break;
-
-			case CharacterState.Wait:
-				break;
-				
-			case CharacterState.Hang:
-				ClimbLedge();
-				break;
-
-			default:
-				ProcessStandardMotion();
-				break;
-		}
+		
 	}
 
     void ProcessStandardMotion()
@@ -568,7 +558,16 @@ public class QK_Character_Movement : MonoBehaviour {
 		Quaternion newRotation = Quaternion.LookRotation (toRotate, Vector3.up);
 		transform.rotation = Quaternion.Slerp (transform.rotation, newRotation, turnRate * Time.deltaTime);
 	}
-
+	public void StartQuincAblility()
+	{
+		_moveState = CharacterStates.Ability;
+		usingAbility  = true;
+	}
+	public void EndQuincAblility()
+	{
+		_moveState = CharacterStates.Idle;
+		usingAbility = false;
+	}
 	void Reset()
 	{
 		_moveState = CharacterState.Idle;
